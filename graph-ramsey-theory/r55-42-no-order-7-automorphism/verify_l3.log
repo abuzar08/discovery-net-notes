@@ -1,0 +1,4 @@
+formula: 241764 orbit clauses + 704 symmetry clauses, 123 variables, matches basesym.cnf (sha256 c55dda1485a3d8435b95faaf5bf28936588c718bf84e9cb97182c27b4776a17e)
+cubes: 19741 distinct canonical (5,5)-good Z_7-graphs on 3 cycles (0 failures)
+certificates: 19741 VERIFIED
+RESULT: all checks passed

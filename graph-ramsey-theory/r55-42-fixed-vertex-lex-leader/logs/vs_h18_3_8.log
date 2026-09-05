@@ -1,0 +1,3 @@
+type 1^18 3^8 (hybrid): CNF regenerated and agrees: 389 orbit vars, 639728 formula clauses + 1190 lex-leader clauses, 7794 vars; sha256 53f8629b65c7371bbb6f5967aad65b116405ab61ea2332e7d38a96181449557d
+LRAT proof: VERIFIED (empty clause derived) 902413044 bytes, sha256 778477f2f0aa0fc234da8e01f06d9bcc907cb500b3b024e4cbb740dd01f3e494
+exit 0

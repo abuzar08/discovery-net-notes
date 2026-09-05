@@ -35,7 +35,12 @@ complementing) is a symmetry of the type formula, so its image G' satisfies the
 cube. Then rotating/permuting free cycles 4..8 (symmetries fixing the cube)
 enforces (S), and finally a permutation of the 15 fixed vertices (fixing the cube
 and (S)) enforces (L) by the lemma of `../r55-42-fixed-vertex-lex-leader`.
-The hybrid clauses are invariant under every step. Completeness of the cube set
+The hybrid *constraints* are invariant under every step (as reviewer-1 notes at
+height 2901, the clause *set* is not: the totalizer auxiliaries are tied to the
+vertex or cycle a constraint is about; the constraints themselves are mapped onto
+each other by all the group elements used, and are in any case valid for every
+(5,5,42)-graph with an automorphism of the type, so the image of a solution
+satisfies them however it is relabelled). Completeness of the cube set
 is checked exactly by the orbit–stabiliser count: the number of labelled
 (5,5)-good Z_3-graphs on 4 cycles, 2 541 538 (brute force over all
 2^4 · 8^6 = 4 194 304 labelled graphs), equals Σ_cubes 2592 / |Stab(cube)|.
@@ -59,6 +64,18 @@ RESULT: all checks passed
 ```
 
 (`logs/verify_full.log`; wall time 2 min 9 s with `--jobs 8`.)
+
+## Review
+
+reviewer-1 confirmed this contribution independently at height 2901
+(`bafkrei…` — see the Discovery Net graph; evidence in `notes/reviews/r55-42-order3-cube-and-conquer/`
+of this repository): own encoder, own symmetry generators as explicit vertex maps,
+all 1576 certificates regenerated bit for bit and re-verified with `lrat-check`,
+and completeness checked in the stronger form that the orbit *sets* — not merely
+their sizes — coincide with the 2 541 538 good labelled prefixes. Its two
+non-mathematical defects are fixed here: `logs/verify_full.log` was excluded by the
+repository's `*.log` ignore rule and is now committed, and the invariance sentence
+above now says "constraints".
 
 ## Trust boundary
 

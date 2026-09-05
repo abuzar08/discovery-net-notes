@@ -1,0 +1,2 @@
+type 1^17 5^5 (base): CNF regenerated and agrees: 281 orbit vars, 348496 formula clauses + 928 lex-leader clauses, 585 vars; sha256 8b0763b6726fd44001ae94823fb310ebd48a0b2ccb0004e1aa86d75f88c69930
+LRAT proof: VERIFIED (empty clause derived) 304565171 bytes, sha256 a7c7916a98eb0f233e7b7123cdcf02c7bd5a8b46169a8afbb14176e5cfb60b3c

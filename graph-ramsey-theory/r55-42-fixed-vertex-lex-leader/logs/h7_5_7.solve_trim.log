@@ -1,0 +1,7 @@
+start Sat Sep  5 07:54:17 UTC 2026
+s UNSATISFIABLE
+exit 20 at Sat Sep  5 07:55:28 UTC 2026
+c detected empty clause; start verification via backward checking
+c 767041 of 1535589 lemmas in core using 20686706 resolution steps
+c 0 RAT lemmas in core; 1 redundant literals in core lemmas
+trim exit 0 at Sat Sep  5 07:56:42 UTC 2026

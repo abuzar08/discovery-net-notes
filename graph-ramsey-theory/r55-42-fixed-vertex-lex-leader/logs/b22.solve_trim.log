@@ -1,0 +1,7 @@
+start Sat Sep  5 07:05:29 UTC 2026 base+symF 1^22 5^4 DRAT
+s UNSATISFIABLE
+exit 20 at Sat Sep  5 07:06:06 UTC 2026
+c detected empty clause; start verification via backward checking
+c 688008 of 1946504 lemmas in core using 19789343 resolution steps
+c 0 RAT lemmas in core; 0 redundant literals in core lemmas
+trim exit 0 at Sat Sep  5 07:06:48 UTC 2026

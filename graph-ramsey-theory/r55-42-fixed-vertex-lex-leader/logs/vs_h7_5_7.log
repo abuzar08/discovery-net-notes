@@ -1,0 +1,2 @@
+type 1^7 5^7 (hybrid): CNF regenerated and agrees: 189 orbit vars, 369152 formula clauses + 204 lex-leader clauses, 3517 vars; sha256 ac9eaccdda97cb5f8f463c050d72399a5d28d8160d39519aef06de0ed2642d47
+LRAT proof: VERIFIED (empty clause derived) 212192313 bytes, sha256 617ebdb7bfee72352bfbf7b5cf38e240f30d967038d64d99fa7f8408525d6ef4
