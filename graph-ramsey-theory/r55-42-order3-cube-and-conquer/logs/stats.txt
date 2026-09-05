@@ -1,0 +1,4 @@
+1576/1576 cubes UNSAT-VERIFIED; solve time total 2511 s, median 0.5 s, max 29.4 s (cube 1205); LRAT raw total 10.69 GB, max 80.3 MB; xz total 831 MB
+c63a052cc1484581dac41c3c48e7f1089bef0ed9dab3ed953fa132be619c562a  scratch/sym/zp/c15_3_9_L4.icnf
+83f81c8ba200b6a38ee18dee06f421cc6808ff128c05bb1a184c1b0e526e9e22  scratch/sym/zp/level4_p3.json
+22b31916853a0488ff6af7efc9d0ff9ce8cfe334f683502ed22d82144258fc01  scratch/sym/zp/c15_3_9_L4.cnf
