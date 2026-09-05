@@ -1013,3 +1013,84 @@ script resumes. Claim n = 11 only on **24/24** and summed reads exactly
    complete BORS's Remark 17.2 program for `V8`-free graphs — a well-defined,
    finite target, and the natural continuation.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 11
+
+### Lane
+
+Principal's pass-7 report (14:07) accepted the mod-24 deviation and 2887's
+withdrawal of the target it had set, and asked for two things: finish n=11, and
+give a **measured** feasibility estimate for BORS Remark 17.2's program before
+committing to it — measurement on one or two seeds, not extrapolation.
+
+### The estimate (height 2905)
+
+**The space, exactly.** A seed with `d` degree-3 vertices admits at most `20^d`
+expansions. Over the 36 seeds that is **10 856 024 016 404 ≈ 1.09 × 10¹³**, of
+which **94% comes from the single cubic 10-vertex seed** (`20¹⁰`). Maximum
+expanded order comes out at exactly **60**, matching the bound BORS state — an
+independent check that my reading of Theorem 17.1(3) is right.
+
+**Measured throughput** (400 sampled expansions per seed class, built with a
+substitute patch set of the right orders, run through the same `crit2`
+decision as the census):
+
+| `d` | over the 62-edge limit | graphs/core-hour | core-hours |
+|---|---|---|---|
+| ≤4 | 0% | 3.5–5.1 × 10⁶ | < 1 |
+| 6 | 6% | 1.7 × 10⁸ | 2 |
+| 7 | 22% | 2.1 × 10⁸ | 6 |
+| 8 | 48% | 1.7 × 10⁸ | 606 |
+| 9 | 72% | 3.3 × 10⁷ | 15 348 |
+| 10 | **87%** | 2.9 × 10⁷ | **354 200** |
+
+Throughput *rises* with size in the mid range — denser expansions are rejected
+on the first criticality test — then falls at `d ≥ 9` where the survivors are
+the sparse, expensive ones. **Seeds with `d ≤ 7`, 30 of the 36, are 1.62 × 10⁹
+expansions and about 9 core-hours.** The cubic seed alone is ~40 core-years.
+
+**But compute is not the binding constraint.** Searching the full text of
+arXiv:1312.3712, the word "patch" occurs **only inside Theorem 17.1(3)
+itself**. The patches are the *(T,U)-configurations*, and the paper gives them
+as **"Figure 15.1"** — a figure with no textual enumeration. Without that list
+the expansion cannot be carried out at all, at any scale. A second, fixable
+wall: `crit2` stores its edge set in a 64-bit mask and refuses ≥ 63 edges,
+which 87% of cubic-seed expansions cross.
+
+**Recommendation recorded**: if the patch list is recovered — from Figure 15.1,
+or from Urrutia's MMath essay (BORS [36]) or Austin's MMath thesis (BORS [3]),
+which BORS say "found many of these" — run `d ≤ 7` (9 core-hours) and publish
+that as a partial completion of Remark 17.2; decide `d = 8` (614 core-hours)
+separately; do not attempt the cubic seed by exhaustive expansion.
+
+Caveats stated in the contribution: the `d ≥ 8` rates are measured only on the
+expansions `crit2` can represent (the sparser ones), so they are optimistic and
+contingent on a rewrite; and `20^d` is BORS's upper bound, so the true patch
+count and isomorph rejection would both cut the space by an unmeasured factor.
+
+### Published
+
+- GitHub **69eff19fe6b5ed65e0d8d69b4af26d096fd365a7** (`feasibility.py`).
+- Discovery Net, finding, height **2905**:
+  `bafkreigzbxhzsn6ush52x4ukzxkucg3exg2d7lsmut6omiy7yrwwsn6dfu`
+  — `about` → problem; `refines` → 2887.
+
+### Background computation
+
+`scratch/run_n11_mod24.sh`: **6/24** residues done, 75 346 731 graphs read, 12
+2-crossing-critical, **0 with `cr ≥ 3`**. Driver alive, 4 shards running,
+resumable. Rate ≈ 1 residue per 12 min wall; expect 24/24 around 18:00–19:00.
+
+Claim n = 11 only on **24/24** with the summed reads exactly **312 416 755**.
+
+### Next step (concrete)
+
+1. Keep resuming the mod-24 run; on 24/24 verify the total and publish the
+   census extension. Per the principal, the **headline is the narrowing** — a
+   second counterexample to Bloom–Kennedy–Quintas must be 2-connected on at
+   least 11 vertices — not the row count, and it goes out with the Prop. 14.1
+   cross-validation.
+2. The Remark 17.2 program is parked pending the patch list; that is a human
+   read of one figure, and worth flagging to the orchestrator alongside the
+   Schaefer note.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
