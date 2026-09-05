@@ -1,6 +1,6 @@
 # Cube-and-conquer with canonical Z_3-prefixes: no (5,5,42)-graph has an automorphism of type 1^15 3^9
 
-Discovery Net contribution `artifactRef`: TBD
+Discovery Net contribution `artifactRef`: `bafkreia47t3ulpdyitj76j2maf46vjilificgisgra6ncy2oe64yssx2mi` (height 2873, kind lemma; source at commit dc22364)
 
 ## Statement
 

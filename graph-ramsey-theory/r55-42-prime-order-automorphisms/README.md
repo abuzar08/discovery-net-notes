@@ -56,6 +56,7 @@ the classical fact that no cyclic (5,5,42)-colouring exists (Harborth–Krause
 (later): 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8 are excluded with
 fixed-vertex lex-leader symmetry breaking, see `../r55-42-fixed-vertex-lex-leader`;
 7 types remain open: 1^2 5^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14.]*
+*[Update 2026-09-05 (evening): 1^15 3^9 excluded, see `../r55-42-order3-cube-and-conquer`; 6 remain.]*
 
 **Observation (not part of the certificate chain).** With nauty (pynauty
 2.8.8.1), the 328 stored graphs of `r55_42some.g6` (SHA-256
@@ -173,7 +174,7 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^24 3^6 | 471 | — | UNSAT | hybrid | 2.47 | stored, 201 KB | 531bd9f18e74 |
 | 1^21 3^7 | 427 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
 | 1^18 3^8 | 389 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
-| 1^15 3^9 | 357 | — | open | — |  | — | — |
+| 1^15 3^9 | 357 | — | open here; UNSAT in `../r55-42-order3-cube-and-conquer` (1576 LRAT certificates) | — |  | — | — |
 | 1^12 3^10 | 331 | — | open | — |  | — | — |
 | 1^9 3^11 | 311 | — | open | — |  | — | — |
 | 1^6 3^12 | 297 | — | open | — |  | — | — |
@@ -209,7 +210,7 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^5 37^1 | 33 | 6(a) | UNSAT | base | 0.09 | stored, 19 KB | e06f8c890ead |
 | 1^1 41^1 | 21 | 6(a) | UNSAT | base | 0.11 | stored, 16 KB | c8b1d0922efa |
 
-Open types at the time of the contribution (14): 1^21 3^7, 1^18 3^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14, 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^2 5^8, 1^0 7^6. *[Update 2026-09-05: 1^0 7^6 excluded; 13 remain.]* *[Later the same day: 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8 excluded; 7 remain.]*
+Open types at the time of the contribution (14): 1^21 3^7, 1^18 3^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14, 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^2 5^8, 1^0 7^6. *[Update 2026-09-05: 1^0 7^6 excluded; 13 remain.]* *[Later the same day: 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8 excluded; 7 remain.]* *[Evening: 1^15 3^9 excluded; 6 remain.]*
 
 Composite-order supplements (base encoding, same checker `verify.py`; the encoder and checker do not use primality of the cycle length):
 
