@@ -1,23 +1,30 @@
-Albertson: the r=27 frontier, and the surviving configuration at order 2r-1
+Albertson: the r = 27 frontier, and the configuration at order 2r-1
 Exact arithmetic; published inputs only.
 
-SOUNDNESS CONTROLS (verify_range): PASS
+SOUNDNESS CONTROLS (barrier machinery): PASS
+SOUNDNESS CONTROLS (recursive table): L(n,C(n,2)) <= Z(n) PASS ; monotone in q PASS
+
+Cross-check of the recursive table against ledger height 2617 (n = 50):
+   q      632   633   634   635   636   637
+   here  4727  4752  4778  4804  4830  4856
+   there  4727  4752  4778  4804  4830  4856
+   L(24,132) = 164   (height 2617 reports 164; the r=27 chain claims 165)
 
 ==========================================================================
-A. Order n = 2r-1, after the non-domination lemma
+A. Order n = 2r-1: open rows and the surviving configuration
 ==========================================================================
-   r   n     KY   LemE   this-work-floor   ceiling   open rows   surviving b
-  27  53    701    713              711       715    713..715   [4]
-  28  55    755    768              766       771    768..771   [4]
-  29  57    811    824              822       830    824..830   [4]
-  30  59    869    883              881       891    883..891   [4]
+   r   n    KY   LemE   ceiling   open m       gaps to Z(r)      config
+  27  53   701    713       713   713..713  [13]               b=[4], (n-6,1,1)
+  28  55   755    768       769   768..769  [38, 6]            b=[4], (n-6,1,1)
+  29  57   811    824       828   824..828  [150, 117, 83, 49, 15] b=[4], (n-6,1,1)
+  30  59   869    883       888   883..888  [200, 164, 127, 91, 54, 18] b=[4], (n-6,1,1)
 
-  In every case the only surviving barrier size is b = 4 and the only
-  surviving component multiset of H-B is (n-6, 1, 1): H - B has exactly
-  two singleton components w1, w2 and one component of order n-6.
-  By the non-domination lemma both wi are adjacent to s, N_T(wi) is
-  non-empty, s is adjacent to no vertex of N_T(w1) u N_T(w2), and
-  2 <= d_H(wi) = 1 + |N_T(wi)| <= 4.
+  For every open row the triangle-free case is impossible, barrier size
+  b = 3 is impossible by the non-domination lemma, and the only surviving
+  configuration is b = 4 with component multiset (n-6, 1, 1): H - B has
+  exactly two singleton components w1, w2 and one component of order n-6,
+  both wi adjacent to s, N_T(wi) non-empty, s adjacent to no vertex of
+  N_T(w1) u N_T(w2), and 2 <= d_H(wi) = 1 + |N_T(wi)| <= 4.
 
 ==========================================================================
 B. The r = 27 frontier
@@ -25,19 +32,11 @@ B. The r = 27 frontier
   Sadhu arXiv:2609.01682 Thm 1.3: a 27-critical G with cr(G) < cr(K_27)
   has |G| in {53, 54} and connected complement.
 
-  n=53: floor max(Kostochka-Yancey 701, Cranston Lemma E 713) = 713;
-        sampling ceiling 715   ->   m in [713, 715]   (3 rows)
-  n=54: floor max(Kostochka-Yancey 715, Cranston Lemma E 726) = 726;
-        sampling ceiling 726   ->   m in [726, 726]   (1 row)
+  n=53: floor 713, ceiling 713   ->   m in [713, 713]
+  n=54: Cranston Lemma E floor 726 EXCEEDS the ceiling 724   ->   ORDER 54 IS IMPOSSIBLE
 
-  RESULT: the r = 27 case of Albertson's conjecture reduces to 4 rows:
-          [(53, 713), (53, 714), (53, 715), (54, 726)]
-  and at n = 53 each surviving complement carries the unique local
-  configuration of part A.
-
-  Distance to closure, exactly:
-     (53,713): sampled bound  6009,  Z(27) = 6084,  gap  75
-     (53,714): sampled bound  6037,  Z(27) = 6084,  gap  47
-     (53,715): sampled bound  6064,  Z(27) = 6084,  gap  20
-     (54,726): sampled bound  6076,  Z(27) = 6084,  gap   8
+  RESULT: a 27-critical counterexample to Albertson's conjecture has
+          |G| = 53 and e(G) = 713 exactly -- a single row.
+          Remaining gap: cr_lower(53,713) = 6071 against Z(27) = 6084, i.e. 13.
+          Its complement carries the unique configuration of part A.
 

@@ -1,0 +1,23 @@
+Independent recursive integer-aware sampling, base = Euler + PRTT + BK/Sadhu
+
+soundness controls (every bound must stay below a known upper bound):
+   L(n, C(n,2)) <= Z(n): ALL OK
+   bipartite <= Z(a,b): ALL OK
+   vanishes for q <= 3n-7: ALL OK
+   K_11: L=77 true=100 OK
+   K_12: L=116 true=150 OK
+   K_13: L=168 true=225 OK
+   K_14: L=236 true=315 OK
+
+the four r=27 frontier rows:
+   (53,713): recursive  6071   Z(27)=6084   open, gap 13
+   (53,714): recursive  6100   Z(27)=6084   CLOSED
+   (53,715): recursive  6130   Z(27)=6084   CLOSED
+   (54,726): recursive  6134   Z(27)=6084   CLOSED
+
+ceilings (largest q with L(n,q) < Z(r)):
+   r=27 n=53: ceiling 713
+   r=27 n=54: ceiling 724
+   r=28 n=55: ceiling 769
+   r=29 n=57: ceiling 828
+   r=30 n=59: ceiling 888

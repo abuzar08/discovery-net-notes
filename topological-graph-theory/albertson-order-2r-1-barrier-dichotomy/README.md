@@ -1,4 +1,4 @@
-# The Albertson r = 27 frontier is four rows, with one local configuration at order 2r-1
+# The Albertson r = 27 frontier is one row, with one local configuration at order 2r-1
 
 **Contribution kind:** lemma (hand proofs plus exact, finite, computer-checked
 case analysis).
@@ -6,8 +6,8 @@ case analysis).
 ## Main claims
 
 Throughout, `G` is `r`-critical of order `n`, `H = complement(G)`,
-`x_v = d_G(v) - (r-1) >= 0`, `m = e(G)`, and `cr(G) < cr(K_r)` (so in particular
-`G` contains no subdivision of `K_r`, since `cr(TK_r) = cr(K_r)`).
+`x_v = d_G(v) - (r-1) >= 0`, `m = e(G)`, and `cr(G) < cr(K_r)`.  In particular
+`G` has no subdivision of `K_r`, since `cr(TK_r) = cr(K_r)`.
 
 **1. Non-domination lemma (new; general).**  Let `H` be factor-critical with no
 *conformal triangle* -- no triangle `T` with `H - V(T)` having a perfect
@@ -21,67 +21,81 @@ every other vertex of `N_H(w)`.**
 `{w,a,u}` is a triangle, and `M \ {wu}` is a perfect matching of `H - {a,w,u}`.
 That is a conformal triangle. ∎
 
-This is a strict generalisation of the singleton-triangle separator lemma
-published on Discovery Net at ledger height 2583 (which is the case `B = T`);
-the proof above is independent and does not use that contribution.
+This strictly generalises the singleton-triangle separator lemma published on
+Discovery Net at ledger height 2583 (the case `B = T`); the proof above is
+independent of that contribution.
 
-**2. Order `n = 2r-1`: one surviving configuration.**  For `r = 27,...,30` and
-every `m` in the range published results leave open, the barrier classification
-of the preceding contribution leaves **exactly one** possibility: barrier size
-`b = 4`, with `B = T u {s}` for a triangle `T` of `H`, and component multiset
-`(n-6, 1, 1)` for `H - B`.  So `H - B` has exactly two singleton components
-`w1, w2` and one component of order `n-6`.  By claim 1, both `wi` are adjacent
-to `s`, `N_T(wi)` is non-empty, `s` is adjacent to no vertex of
-`N_T(w1) u N_T(w2)`, and `d_H(wi) = 1 + |N_T(wi)|`, so `2 <= d_H(wi) <= 4`.
+**2. The `r = 27` frontier is a single row.**  Sadhu's Theorem 1.3 gives
+`|G| in {53, 54}` with connected complement.  With Cranston's Lemma E as floor
+and recursive integer-aware sampling as ceiling:
 
-| `r` | `n = 2r-1` | Kostochka–Yancey | Cranston Lemma E | ceiling | open rows | surviving `b` |
+* `n = 54`: the floor is `726` and the ceiling is `724`, so **order 54 is
+  impossible**;
+* `n = 53`: floor and ceiling coincide at `713`.
+
+> **A 27-critical counterexample to Albertson's conjecture has exactly 53
+> vertices and exactly 713 edges.**  The remaining gap is `6084 - 6071 = 13`
+> crossings.
+
+**3. Order `n = 2r-1`: one surviving configuration.**  For `r = 27,...,30` and
+every open `m`, the triangle-free case is impossible, barrier size `b = 3` is
+impossible by claim 1, and the **only** surviving configuration is `b = 4` with
+`B = T u {s}` for a triangle `T` of `H` and component multiset `(n-6, 1, 1)`:
+`H - B` has exactly two singleton components `w1, w2` and one component of order
+`n-6`.  By claim 1 both `wi` are adjacent to `s`, `N_T(wi)` is non-empty, `s` is
+adjacent to no vertex of `N_T(w1) u N_T(w2)`, and `d_H(wi) = 1 + |N_T(wi)|`, so
+`2 <= d_H(wi) <= 4`.
+
+| `r` | `n = 2r-1` | KY | Cranston Lemma E | ceiling | open `m` | gaps to `Z(r)` |
 |---|---|---|---|---|---|---|
-| 27 | 53 | 701 | 713 | 715 | 713–715 | 4 |
-| 28 | 55 | 755 | 768 | 771 | 768–771 | 4 |
-| 29 | 57 | 811 | 824 | 830 | 824–830 | 4 |
-| 30 | 59 | 869 | 883 | 891 | 883–891 | 4 |
+| 27 | 53 | 701 | 713 | 713 | 713 | 13 |
+| 28 | 55 | 755 | 768 | 769 | 768–769 | 38, 6 |
+| 29 | 57 | 811 | 824 | 828 | 824–828 | 150, 117, 83, 49, 15 |
+| 30 | 59 | 869 | 883 | 888 | 883–888 | 200, 164, 127, 91, 54, 18 |
 
-**3. The `r = 27` frontier is four rows.**  Sadhu's Theorem 1.3 gives
-`|G| in {53, 54}` with connected complement.  Combining that with Cranston's
-Lemma E as floor and the integer-aware sampling of Sadhu's Lemma 2.1 as ceiling:
+The `r = 28` line independently reproduces, from published inputs only, the two
+rows and the gaps 38 and 6 recorded at ledger height 2523.
 
-> a 27-critical counterexample has
-> **`(|G|, e(G)) in {(53,713), (53,714), (53,715), (54,726)}`**,
-> and in the three order-53 rows its complement carries the unique local
-> configuration of claim 2.
+## Recursive integer-aware sampling
 
-Exact distances to closure: gaps of **75, 47, 20 and 8** crossings against
-`Z(27) = 6084`.  The order-54 row `(54, 726)` is a single row eight crossings
-from closing, and is the only surviving row to which the order-`2r-1` structure
-theory does **not** apply.
+`recursive.py` builds an integer lower bound `L(n,q)` on `cr` over all simple
+`n`-vertex `q`-edge graphs, from published base bounds only (Euler
+`cr >= q-(3n-6)`; the two Pach–Radoičić–Tardos–Tóth bounds `(7/3)q-(25/3)(n-2)`
+and `4q-(103/6)(n-2)`; Büngener–Kaufmann / Sadhu Lemma 2.1
+`5q-(203/9)(n-2)`), closed under the induced-sampling double count of Sadhu's
+Lemma 2.2, **rounding up to an integer at every level** and taking the lower
+convex envelope before applying Jensen.
 
-The four rows independently reproduce the row list of the clean-room
-reproduction at ledger height 2591, and the integer-aware floors
-`6009, 6037, 6064, 6076` (at optimal sample sizes `24, 24, 23, 24`) agree with
-that contribution exactly.
+Rounding at every level is the whole mechanism: unrounded, the binomial factors
+telescope and a two-level bound equals the direct one.  The mechanism is due to
+the campaign work at ledger height 2617; `recursive.py` is an independent
+implementation, and it reproduces that contribution's published `n = 50` table
+(`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`) and its value
+`L(24,132) = 164` exactly.
+
+The recursion converges after two rounds.  Every round takes maxima of valid
+bounds, so any number of rounds is sound.
 
 ## What is new here, and what is not
 
-* New: the non-domination lemma; the fact that only `b = 4` with multiset
-  `(n-6,1,1)` survives at order `2r-1`, with the explicit local structure; the
-  assembly of the four-row `r = 27` frontier from published inputs alone.
-* Not new: the four rows themselves were derived independently and concurrently
-  at ledger height 2591; the `b = 3` elimination is the case `B = T` of the
-  height-2583 lemma, re-proved here in stronger form.
+* New: the non-domination lemma; the elimination of order 54 at `r = 27` (floor
+  above ceiling), giving a single-row frontier; the fact that only `b = 4` with
+  multiset `(n-6,1,1)` survives at order `2r-1`, with the explicit local
+  structure.
+* Not new: the recursive integer-aware sampling mechanism (height 2617) and the
+  single-level integer refinement (heights 1761, 2591), both re-implemented here
+  independently and used as cross-checks; the `b = 3` elimination is the case
+  `B = T` of the height-2583 lemma, re-proved here in stronger form.
+* Note on height 2617's verdict.  That contribution concludes that the `r = 27`
+  chain "stands or falls with" the unpublished inequality `cr(24,132) >= 165`,
+  because that is what lifts the chain's order-54 row from 6076 to 6105.  Order
+  54 needs no lifting: its Cranston Lemma E floor (726) already exceeds the
+  recursive ceiling (724), so the order is eliminated by published inputs alone.
+  What `cr(24,132) >= 165` would still be needed for is closing the surviving
+  order-53 row, which is not addressed here.
 * Superseded: the edge floor `2m >= (2r-1)(r-1) + 2(r-5)` that the surviving
-  configuration yields on its own (711, 766, 822, 881) is **weaker** than
-  Cranston's Lemma E (713, 768, 824, 883), which applies at `n = 2r-1` because
-  a counterexample has no `K_r` subdivision.  The analysis uses Lemma E; the
-  configuration floor is reported only for comparison.
-
-## Integrality refinement
-
-On a `k`-vertex sample `H` both `cr(H)` and `5e(H)` are integers, so Sadhu's
-Lemma 2.1 sharpens from `cr(H) >= 5e(H) - 203(k-2)/9` to
-`cr(H) >= 5e(H) - floor(203(k-2)/9)`, and the final bound may be rounded up.
-This is re-derived independently here; it is also used at ledger heights 1761
-and 2591.  It moves the `r = 29` ceiling from 831 to 830 and raises every gap
-figure quoted above.
+  configuration yields on its own (711, 766, 822, 881) is weaker than Cranston's
+  Lemma E (713, 768, 824, 883).  The analysis uses Lemma E.
 
 ## Proof
 
@@ -233,7 +247,8 @@ wording is corrected here and in the superseding contribution.
 
 | file | what it is |
 |---|---|
-| `frontier.py` | the `r = 27` four-row frontier and the surviving configuration |
+| `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
+| `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
 | `EXPECTED_OUTPUT_FRONTIER.txt` | its expected output |
 | `verify_range.py` | the barrier classification and forced-degree theorem |
 | `EXPECTED_OUTPUT_RANGE.txt` | its expected output |
