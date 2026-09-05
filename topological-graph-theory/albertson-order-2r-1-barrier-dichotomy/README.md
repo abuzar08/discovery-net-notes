@@ -115,21 +115,40 @@ remaining structural dependence inside Step 5 itself.
 
 Published, used as given, **not** re-proved here:
 
-1. Sadhu, [arXiv:2609.01682](https://arxiv.org/abs/2609.01682) Thm 1.3 (orders
-   53/54, connected complement) and Lemma 2.1 (`cr >= 5m - (203/9)(n-2)`);
-   **preprint, 1 Sep 2026**.
-2. The edge floor `|E| >= n(r-1)/2 + (r-3)` for an `r`-critical graph with
-   `r >= 4` and no `TK_r`, with **no restriction on `n`**.  Quoted here from
-   Cranston, [arXiv:2512.08020](https://arxiv.org/abs/2512.08020) Lemma E
-   (preprint, 8 Dec 2025).  Cranston attributes it to Barát–Tóth Corollary 7
-   (*Towards the Albertson Conjecture*, EJC **17** (2010) #R73), and it is the
-   same statement as Sadhu's Lemma 2.5 — so the floor traces to a peer-reviewed
-   source, and citing Cranston and Sadhu for it is **one** result reached two
-   ways, not independent support.  I have not checked Corollary 7's wording
-   against Barát–Tóth directly; a referee should.  Note also that Cranston's
+1. Sadhu, [arXiv:2609.01682](https://arxiv.org/abs/2609.01682) Lemma 2.1
+   (`cr >= 5m - (203/9)(n-2)`, attributed there to Büngener–Kaufmann);
+   **preprint, 1 Sep 2026**.  This is the one recent input that cannot be
+   dropped.  Sadhu Thm 1.3 (orders 53/54, connected complement) was also used in
+   the chain above but is **no longer needed** — see "Dependency reduction".
+2. **Barát–Tóth, *Towards the Albertson Conjecture*, Electronic Journal of
+   Combinatorics **17** (2010) #R73 — a journal publication, not a preprint.**
+   Its Corollary 7, read verbatim from the EJC PDF, is
+
+   > *Corollary 7.  Let `r` be a positive integer, `r >= 4`, and let `G` be an
+   > `r`-critical graph.  If `G` does not contain a topological `K_r`, then
+   > `2m >= (r-1)n + (2r-6)`.*
+
+   with **no restriction on `n`**; the paper calls it "the Kostochka, Stiebitz
+   bound".  This is exactly the inequality Cranston quotes as his Lemma E and
+   Sadhu as Lemma 2.5, so all three citations are **one** result, and the edge
+   floor used throughout this directory rests on a refereed source.  (Cranston's
    Lemma D as circulated would be false for `K_r`; Lemma E, with the `TK_r`
-   hypothesis, is the form used, and `n = 53 = 2r-1` is exactly the order Lemma D
-   excludes.
+   hypothesis, is the form used, and `n = 2r-1` is exactly the order Lemma D
+   excludes.)
+
+   The same paper's Corollary 5, again verbatim, is much stronger when `n - r` is
+   small:
+
+   > *Corollary 5.  Let `r, p` be integers, `r >= 4` and `2 <= p <= r-1`.  If `G`
+   > is an `r`-critical graph with `n` vertices and `m` edges, where `n = r+p`,
+   > and `G` does not contain a topological `K_r`, then
+   > `2m >= (r-1)n + p(r-p) - 1`.*
+
+   `r28.py` now uses it, and it alone closes orders 33, 34, 50, 51, 52 and 53 at
+   `r = 28`, so the Gallai join/edge-budget argument of Part A is needed only at
+   `n = 54`.  The same bound independently closes orders 32, 33, 48–51 at
+   `r = 27`, orders 34, 35, 52–55 at `r = 29`, and orders 35, 36, 54–57 at
+   `r = 30`.
 3. Stehlík, *Critical graphs with connected complements*, JCTB **89** (2003)
    189–194.
 4. Gallai, *Kritische Graphen II* (1963); modern statement: Kostochka–Rabern–
@@ -157,6 +176,38 @@ Mine, and the parts most in need of review:
     reproduces that contribution's published `n = 50` table
     (`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`) and its value
     `L(24,132) = 164` exactly.
+
+## Dependency reduction: Sadhu Theorem 1.3 is not needed
+
+`deps.py` shows that the `r = 27` chain can drop Sadhu Theorem 1.3, which was the
+one input that was both essential and preprint-only (it supplied
+`|G| in {53,54}` together with the connected complement Stehlík needs).
+
+* `n <= r+4 = 31`: Barát–Tóth Corollary 11 gives a topological `K_27`.
+* `32 <= n <= 54`: the floor `max(Kostochka–Yancey, BT Cor 7, BT Cor 5)` against
+  the recursive ceiling leaves only `n = 52` (2 rows) and `n = 53` (1 row).
+* `55 <= n <= 171`: the single-level sampled bound already exceeds `Z(27)` at the
+  floor, so every such order is excluded.
+* `n >= 77`: Cranston's band, which covers everything beyond 171 as well.  It is
+  now used only far from where it is tight.
+
+Then `n = 52 = 2r-2` has a disconnected complement (Gallai), and no Gallai join
+decomposition fits its edge budget, so the order is impossible.  At
+`n = 53 = 2r-1` the same join argument kills the disconnected case, so the
+complement **must** be connected — exactly Stehlík's hypothesis — and the chain
+above closes the single row `(53, 713)`.  **The connected-complement hypothesis
+is now derived rather than assumed.**
+
+In the join step the Kostochka–Yancey floor is used for every part and the
+stronger no-topological-clique floor for **one** part only: if every part
+contained a topological `K_{r_i}` those subdivisions would join into a
+topological `K_r`, so at least one part contains none.
+
+What remains from the preprints is Cranston's coarse large-order band and the
+crossing inequality `cr >= 5m - (203/9)(n-2)` (Sadhu Lemma 2.1, attributed there
+to Büngener–Kaufmann).  Dropping the latter is not possible: with only Euler and
+the two Pach–Radoičić–Tardos–Tóth bounds as the base, twelve orders survive at
+`r = 27` instead of two.
 
 ## Step 2, made hand-auditable
 
@@ -352,6 +403,7 @@ and order 58 is untouched.  Nothing here bears on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `deps.py` | the dependency reduction and the Corollary 5 simplification |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
 | `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
 | `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
@@ -365,6 +417,7 @@ and order 58 is untouched.  Nothing here bears on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 deps.py         | diff -u EXPECTED_OUTPUT_DEPS.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai_split.py | diff -u EXPECTED_OUTPUT_GALLAI_SPLIT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -

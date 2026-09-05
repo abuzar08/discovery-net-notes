@@ -23,7 +23,10 @@ PART A -- the order is 55.
   excluded by Cranston (his bands 1.228r <= n <= 1.768r and n >= 2.82r, tested
   here as the exact integer inequalities 250n >= 307r, 125n <= 221r, 50n >= 141r);
   every remaining order whose edge floor exceeds its recursive-sampling ceiling is
-  excluded here.  That leaves 33, 34, 50..55.
+  excluded here.  The floor is the largest of Kostochka-Yancey, Barat-Toth
+  Corollary 7 (= Cranston Lemma E) and Barat-Toth Corollary 5 (the Gallai bound,
+  much the strongest when n - r is small).  Corollary 5 alone closes orders
+  33, 34, 50, 51, 52 and 53, leaving only 54 and 55.
   For n <= 2r-2 = 54 the complement is disconnected (Gallai; Sadhu Lemma 2.8),
   so V(G) splits into the components V_1..V_t of the complement, distinct parts
   complete to each other, G[V_i] r_i-critical, sum r_i = 28, |V_i| >= 2 r_i - 1
@@ -37,7 +40,8 @@ PART A -- the order is 55.
       path vertices stay inside their part).  So some G_j has none, and Cranston
       Lemma E applies to it.  Parts with r_j <= 3 always have a TK_{r_j} (K_1;
       a 3-critical graph is an odd cycle, which is a TK_3), so r_j >= 4.
-  No decomposition of any n <= 54 survives, so n = 55 = 2r-1 and m in {768,769}.
+  Only n = 54 now needs this step, and no decomposition of it survives.  Hence
+  n = 55 = 2r-1 and m in {768,769}.
 
 PART B -- both rows at n = 55 are impossible.
   At n = 2r-1 the complement H is factor-critical (Stehlik 2003) with
@@ -86,11 +90,30 @@ def ky(r, n):
 
 
 def lemE(r, n):
+    """Barat-Toth Corollary 7 (the Kostochka-Stiebitz bound), quoted verbatim from
+    Electronic Journal of Combinatorics 17 (2010) #R73:
+      "Let r be a positive integer, r >= 4, and let G be an r-critical graph.
+       If G does not contain a topological K_r, then 2m >= (r-1)n + (2r-6)."
+    No restriction on n.  This is the inequality Cranston arXiv:2512.08020 quotes
+    as his Lemma E."""
     return -(-(n * (r - 1) + 2 * (r - 3)) // 2)
 
 
+def cor5(r, n):
+    """Barat-Toth Corollary 5 (they call it the Gallai bound), verbatim:
+      "Let r, p be integers, r >= 4 and 2 <= p <= r-1.  If G is an r-critical
+       graph with n vertices and m edges, where n = r+p, and G does not contain a
+       topological K_r, then 2m >= (r-1)n + p(r-p) - 1."
+    Applies for r+2 <= n <= 2r-1, and is much stronger than Corollary 7 when p is
+    small.  Returns 0 outside its range."""
+    p = n - r
+    if not (2 <= p <= r - 1):
+        return 0
+    return -(-((r - 1) * n + p * (r - p) - 1) // 2)
+
+
 def floor_of(r, n):
-    return max(ky(r, n), lemE(r, n))
+    return max(ky(r, n), lemE(r, n), cor5(r, n))
 
 
 def ceiling_of(n):

@@ -1,0 +1,31 @@
+Dependency reduction for the Albertson r = 27 and r = 28 chains
+Exact arithmetic; no floating-point value enters any comparison.
+
+PART 1   r = 27 orders, WITHOUT Sadhu Thm 1.3 and without Cranston's bands
+   n <= 31: Barat-Toth Corollary 11 (a topological K_27)
+   32 <= n <= 80, recursive ceiling: surviving orders [52, 53]
+        n=52: m in [701, 702]  (2 rows)
+        n=53: m in [713, 713]  (1 row)
+   55 <= n <= 171, single-level sampled bound at the floor: every order excluded
+   n >= 77: Cranston's band, which covers everything beyond 171 too.
+
+PART 2   the two surviving r = 27 orders
+   n=52 (= 2r-2, so Gallai forces a disconnected complement):
+      join decompositions fitting the edge budget m <= 702: 0 -> the disconnected case is impossible
+   n=53 (= 2r-1, so the complement may be connected):
+      join decompositions fitting the edge budget m <= 713: 0 -> the disconnected case is impossible
+   n=52 is therefore impossible outright; at n=53 the complement must be
+   connected, which is exactly the hypothesis Stehlik needs, and r27.py
+   closes the single remaining row (53, 713).
+
+PART 3   Corollary 5 at r = 28
+   n=33  KY  448  Cor7  471  Cor5  503  ceiling  494   rows 24 -> 0   <- closed by Corollary 5
+   n=34  KY  462  Cor7  484  Cor5  525  ceiling  509   rows 26 -> 0   <- closed by Corollary 5
+   n=50  KY  686  Cor7  700  Cor5  741  ceiling  712   rows 13 -> 0   <- closed by Corollary 5
+   n=51  KY  700  Cor7  714  Cor5  746  ceiling  724   rows 11 -> 0   <- closed by Corollary 5
+   n=52  KY  714  Cor7  727  Cor5  750  ceiling  735   rows  9 -> 0   <- closed by Corollary 5
+   n=53  KY  728  Cor7  741  Cor5  753  ceiling  746   rows  6 -> 0   <- closed by Corollary 5
+   n=54  KY  742  Cor7  754  Cor5  755  ceiling  757   rows  4 -> 3
+   n=55  KY  755  Cor7  768  Cor5  756  ceiling  769   rows  2 -> 2
+   so only n = 54 and n = 55 survive, and the join argument is needed
+   only at n = 54.
