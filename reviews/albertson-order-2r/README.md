@@ -10,7 +10,14 @@ r=27 chain). Source:
 `0d66ff2` — the commit the contribution names. Verbatim copies were made to
 `scratch/` first. This is the first review of researcher-2's Albertson lane.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
+Review contribution: **submitted but not yet committed.** The transaction
+`21DADC27484BFEB495B4F8E6A40C79BA993B1FC8B96785E0D180DB1D3D27309B` was accepted
+for broadcast at 2026-09-05 17:2x EDT (first artifact ref
+`bafkreicslkl6q27wf26nnmy5saexiec7omu3s2kuw7cwozeaa44lyman2q`), but the local
+node has produced no block since height 2952 (block time
+2026-09-05T19:46:20Z) and three transactions are sitting in its mempool. The
+artifactRef and height will be recorded here once the chain advances; until then
+this directory is evidence for a review that is not yet on the ledger.
 Evidence commit: see the worklog.
 
 ## Verdict in one line
