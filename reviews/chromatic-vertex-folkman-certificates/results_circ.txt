@@ -1,0 +1,64 @@
+# indep_circ.py 5 8 8 22  (K5-free circulants with chi >= 8; n = 22 still running at publication, see README)
+n= 8: K5-free circulants=    14  with chi>=8:    0  [0s]
+n= 9: K5-free circulants=    14  with chi>=8:    0  [0s]
+n=10: K5-free circulants=    23  with chi>=8:    0  [0s]
+n=11: K5-free circulants=    25  with chi>=8:    0  [0s]
+n=12: K5-free circulants=    50  with chi>=8:    0  [0s]
+n=13: K5-free circulants=    50  with chi>=8:    0  [0s]
+n=14: K5-free circulants=    96  with chi>=8:    0  [0s]
+n=15: K5-free circulants=    77  with chi>=8:    0  [0s]
+n=16: K5-free circulants=   194  with chi>=8:    0  [0s]
+n=17: K5-free circulants=   178  with chi>=8:    0  [0s]
+n=18: K5-free circulants=   339  with chi>=8:    0  [0s]
+n=19: K5-free circulants=   339  with chi>=8:    0  [0s]
+n=20: K5-free circulants=   613  with chi>=8:    0  [0s]
+n=21: K5-free circulants=   598  with chi>=8:    0  [0s]
+
+# indep_circ.py 4 7 7 30  (K4-free circulants with chi >= 7)
+n= 7: K4-free circulants=     6  with chi>=7:    0  [0s]
+n= 8: K4-free circulants=     9  with chi>=7:    0  [0s]
+n= 9: K4-free circulants=    11  with chi>=7:    0  [0s]
+n=10: K4-free circulants=    17  with chi>=7:    0  [0s]
+n=11: K4-free circulants=    20  with chi>=7:    0  [0s]
+n=12: K4-free circulants=    33  with chi>=7:    0  [0s]
+n=13: K4-free circulants=    35  with chi>=7:    0  [0s]
+n=14: K4-free circulants=    63  with chi>=7:    0  [0s]
+n=15: K4-free circulants=    63  with chi>=7:    0  [0s]
+n=16: K4-free circulants=    92  with chi>=7:    0  [0s]
+n=17: K4-free circulants=   110  with chi>=7:    0  [0s]
+n=18: K4-free circulants=   192  with chi>=7:    0  [0s]
+n=19: K4-free circulants=   192  with chi>=7:    0  [0s]
+n=20: K4-free circulants=   237  with chi>=7:    0  [0s]
+n=21: K4-free circulants=   379  with chi>=7:    0  [0s]
+n=22: K4-free circulants=   518  with chi>=7:    0  [0s]
+n=23: K4-free circulants=   561  with chi>=7:    0  [0s]
+n=24: K4-free circulants=   884  with chi>=7:    0  [0s]
+n=25: K4-free circulants=   834  with chi>=7:    0  [0s]
+n=26: K4-free circulants=  1420  with chi>=7:    0  [0s]
+n=27: K4-free circulants=  1740  with chi>=7:    0  [1s]
+n=28: K4-free circulants=  2248  with chi>=7:    0  [1s]
+n=29: K4-free circulants=  2618  with chi>=7:    7  smallest S=(1, 2, 4, 5, 10, 12) (|E|=174)  [158s]
+n=30: K4-free circulants=  4117  with chi>=7:    0  [2s]
+
+# c29all.py: n = 29 rescanned with own DSATUR only (no SAT), multiplier classes
+n=29 K4-free circulants with chi>=7 (own DSATUR only): 7 [2s]
+  (1, 2, 4, 5, 10, 12) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+  (1, 2, 5, 6, 12, 14) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+  (1, 3, 6, 7, 12, 14) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+  (2, 4, 5, 8, 9, 10) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+  (3, 6, 7, 11, 13, 14) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+  (3, 7, 8, 9, 11, 13) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+  (4, 8, 9, 10, 11, 13) multiplier-canonical: (1, 2, 4, 5, 10, 12)
+multiplier classes: 1
+
+# c29.py: C_29(1,2,4,5,10,12) checked three ways + target's verify.py upper 7 4
+edges 174
+K4-free: True
+own DSATUR 6-colourable: False [0s]
+SAT 6-colourable: False [27s]
+7-colourable: True proper: True
+target verify.py: VERIFIED  n(7,4) <= 29: the given graph on 29 vertices (174 edges) is K_4-free and has chromatic number >= 7
+
+# c29crit.py
+G - v 6-colourable (own): True  (sat): True
+alpha(G) = 5  degree = 12

@@ -1,0 +1,14 @@
+witness_n10_k6_q5.txt      n=10 m= 35 (k,q)=(6,5): K5-free=True [0.0s]  (5)-colourable own=False [0.0s] sat=False [0.0s]  6-colourable=True  =>  chi>=6: True
+witness_n11_k4_q3.txt      n=11 m= 20 (k,q)=(4,3): K3-free=True [0.0s]  (3)-colourable own=False [0.0s] sat=False [0.0s]  4-colourable=True  =>  chi>=4: True
+witness_n11_k5_q4.txt      n=11 m= 30 (k,q)=(5,4): K4-free=True [0.0s]  (4)-colourable own=False [0.0s] sat=False [0.0s]  5-colourable=True  =>  chi>=5: True
+witness_n11_k7_q6.txt      n=11 m= 45 (k,q)=(7,6): K6-free=True [0.0s]  (6)-colourable own=False [0.0s] sat=False [0.0s]  7-colourable=True  =>  chi>=7: True
+witness_n13_k7_q5.txt      n=13 m= 52 (k,q)=(7,5): K5-free=True [0.0s]  (6)-colourable own=False [0.0s] sat=False [0.0s]  7-colourable=True  =>  chi>=7: True
+witness_n14_k8_q6.txt      n=14 m= 65 (k,q)=(8,6): K6-free=True [0.0s]  (7)-colourable own=False [0.0s] sat=False [0.3s]  8-colourable=True  =>  chi>=8: True
+witness_n6_k4_q4.txt       n= 6 m= 10 (k,q)=(4,4): K4-free=True [0.0s]  (3)-colourable own=False [0.0s] sat=False [0.0s]  4-colourable=True  =>  chi>=4: True
+witness_n7_k5_q5.txt       n= 7 m= 16 (k,q)=(5,5): K5-free=True [0.0s]  (4)-colourable own=False [0.0s] sat=False [0.0s]  5-colourable=True  =>  chi>=5: True
+witness_n8_k6_q6.txt       n= 8 m= 23 (k,q)=(6,6): K6-free=True [0.0s]  (5)-colourable own=False [0.0s] sat=False [0.0s]  6-colourable=True  =>  chi>=6: True
+ub_n21a_k8_q5.txt          n=21 m=118 (k,q)=(8,5): K5-free=True [0.0s]  (7)-colourable own=False [0.0s] sat=False [27.1s]  8-colourable=True  =>  chi>=8: True
+ub_n21b_k8_q5.txt          n=21 m=119 (k,q)=(8,5): K5-free=True [0.0s]  (7)-colourable own=False [0.0s] sat=False [22.2s]  8-colourable=True  =>  chi>=8: True
+ub_n22circ_k8_q5.txt       n=22 m=121 (k,q)=(8,5): K5-free=True [0.0s]  (7)-colourable own=False [0.2s] sat=False [367.9s]  8-colourable=True  =>  chi>=8: True
+ub_n33_k7_q4.txt           n=33 m=196 (k,q)=(7,4): K4-free=True [0.0s]  (6)-colourable own=False [0.3s] sat=False [14.2s]  7-colourable=True  =>  chi>=7: True
+ALL WITNESSES CONFIRMED

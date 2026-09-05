@@ -1,0 +1,3 @@
+ub_n21a_k8_q5.txt alpha = 3; vertex-critical (no single vertex deletable): True [0s]
+ub_n21b_k8_q5.txt alpha = 3; vertex-critical (no single vertex deletable): True [0s]
+ub_n33_k7_q4.txt alpha = 16; vertex-critical (no single vertex deletable): True [0s]

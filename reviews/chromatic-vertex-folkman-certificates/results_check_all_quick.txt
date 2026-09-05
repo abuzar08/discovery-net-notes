@@ -1,0 +1,86 @@
+== upper bounds (witness graphs) ==
+  OK   VERIFIED  n(8,5) <= 21: the given graph on 21 vertices (118 edges) is K_5-free and has chromatic number >= 8
+  OK   VERIFIED  n(8,5) <= 21: the given graph on 21 vertices (119 edges) is K_5-free and has chromatic number >= 8
+  OK   VERIFIED  n(8,5) <= 22: the given graph on 22 vertices (121 edges) is K_5-free and has chromatic number >= 8
+  OK   VERIFIED  n(7,4) <= 33: the given graph on 33 vertices (196 edges) is K_4-free and has chromatic number >= 7
+  OK   VERIFIED  n(6,5) <= 10: the given graph on 10 vertices (35 edges) is K_5-free and has chromatic number >= 6
+  OK   VERIFIED  n(4,3) <= 11: the given graph on 11 vertices (20 edges) is K_3-free and has chromatic number >= 4
+  OK   VERIFIED  n(5,4) <= 11: the given graph on 11 vertices (30 edges) is K_4-free and has chromatic number >= 5
+  OK   VERIFIED  n(7,6) <= 11: the given graph on 11 vertices (45 edges) is K_6-free and has chromatic number >= 7
+  OK   VERIFIED  n(7,5) <= 13: the given graph on 13 vertices (52 edges) is K_5-free and has chromatic number >= 7
+  OK   VERIFIED  n(8,6) <= 14: the given graph on 14 vertices (65 edges) is K_6-free and has chromatic number >= 8
+  OK   VERIFIED  n(4,4) <= 6: the given graph on 6 vertices (10 edges) is K_4-free and has chromatic number >= 4
+  OK   VERIFIED  n(5,5) <= 7: the given graph on 7 vertices (16 edges) is K_5-free and has chromatic number >= 5
+  OK   VERIFIED  n(6,6) <= 8: the given graph on 8 vertices (23 edges) is K_6-free and has chromatic number >= 6
+== lower bounds (LRAT refutations) ==
+  OK   n4_k4_q3  partitions=0
+  OK   n5_k4_q3  partitions=0
+  OK   n6_k4_q3  partitions=1
+  OK   n7_k4_q3  partitions=2
+  OK   n8_k4_q3  partitions=8
+  OK   n9_k4_q3  partitions=16
+  OK   n10_k4_q3  partitions=55
+  OK   n4_k4_q4  partitions=0
+  OK   n5_k4_q4  partitions=1
+  OK   n5_k5_q4  partitions=0
+  OK   n6_k5_q4  partitions=1
+  OK   n7_k5_q4  partitions=8
+  OK   n8_k5_q4  partitions=31
+  OK   n9_k5_q4  partitions=119
+  OK   n10_k5_q4  partitions=846
+  OK   n5_k5_q5  partitions=0
+  OK   n6_k5_q5  partitions=2
+  OK   n6_k6_q4  partitions=0
+  OK   n7_k6_q4  partitions=0
+  OK   n8_k6_q4  partitions=4
+  OK   n9_k6_q4  partitions=24
+  OK   n10_k6_q4  partitions=114
+  OK   n11_k6_q4  partitions=421
+  OK   n12_k6_q4  partitions=2299
+  SKIP n13_k6_q4 (proof not stored; sha256 e9ea4ee7e91440f0, regenerate to check)
+  OK   n6_k6_q5  partitions=0
+  OK   n7_k6_q5  partitions=1
+  OK   n8_k6_q5  partitions=20
+  OK   n9_k6_q5  partitions=94
+  OK   n6_k6_q6  partitions=0
+  OK   n7_k6_q6  partitions=2
+  OK   n7_k7_q4  partitions=0
+  OK   n8_k7_q4  partitions=0
+  OK   n9_k7_q4  partitions=1
+  OK   n10_k7_q4  partitions=9
+  OK   n11_k7_q4  partitions=76
+  OK   n12_k7_q4  partitions=286
+  OK   n13_k7_q4  partitions=1413
+  SKIP n14_k7_q4 (proof not stored; sha256 e7969df9e73a6033, regenerate to check)
+  OK   n7_k7_q5  partitions=0
+  OK   n8_k7_q5  partitions=1
+  OK   n9_k7_q5  partitions=17
+  OK   n10_k7_q5  partitions=118
+  OK   n11_k7_q5  partitions=650
+  OK   n12_k7_q5  partitions=2971
+  OK   n7_k7_q6  partitions=0
+  OK   n8_k7_q6  partitions=2
+  OK   n9_k7_q6  partitions=29
+  OK   n10_k7_q6  partitions=224
+  OK   n8_k8_q5  partitions=0
+  OK   n9_k8_q5  partitions=0
+  OK   n10_k8_q5  partitions=8
+  OK   n11_k8_q5  partitions=159
+  OK   n12_k8_q5  partitions=869
+  OK   n13_k8_q5  partitions=3506
+  SKIP n14_k8_q5 (proof not stored; sha256 a695072184e0f478, regenerate to check)
+  OK   n8_k8_q6  partitions=0
+  OK   n9_k8_q6  partitions=1
+  OK   n10_k8_q6  partitions=19
+  OK   n11_k8_q6  partitions=336
+  OK   n12_k8_q6  partitions=2191
+  OK   n13_k8_q6  partitions=11424
+  OK   n9_k9_q6  partitions=0
+  OK   n10_k9_q6  partitions=1
+  OK   n11_k9_q6  partitions=29
+  OK   n12_k9_q6  partitions=453
+  OK   n13_k9_q6  partitions=3436
+  OK   n14_k9_q6  partitions=15897
+
+78 artifacts verified, 3 skipped (proof too large to store), 0 failed
+python3 check_all.py --quick  9.88s user 0.78s system 98% cpu 10.805 total

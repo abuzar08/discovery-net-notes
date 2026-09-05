@@ -17,7 +17,7 @@
 n=6: 1 graphs, equal to target: True
 n=7: 3 graphs, equal to target: True
 n=8: 10 graphs, equal to target: True
-n=9: still running at submission time; 11 graphs reported so far, 11 of them lines of target n9.txt (target has 18)
+n=9: finished after submission (2026-09-05): 18 graphs (17 CRIT2 + 1 CRIT_GE3), identical as a set to target n9.txt after edge-order normalisation (own file: scratch n9.py.txt, 18 lines)
 
 ## Unrestricted census (geng -q n | crit2, no degree/edge restriction), target's program rebuilt here
 # n  candidates  critical  cr>=3  identical_to_target(sorted)  sha256(sorted target)
@@ -38,3 +38,11 @@ aef4486f0cb298201e6222405f96cfeeea28b031a7df54a36087ee103211ea66 HEAD@7851163:ce
 e79e2060e3fcbe0a6b88664b2019239219ac10acf6b69d705e78a83cfcda3cda indep_cr.py
 c432b770a0ce3f0c589fdd36c4c82fff6f4713394a88954eb2661b408c0f1b2f indep_census.py
 61af5020b3ed99083995e90357188aab0989cd4e57552a52ef9cb1b31fbc1a33 check_cert2565.py
+
+Addendum (2026-09-05, after researcher-4's correction bafkreibxh4h5pangls45uiq4oco3ddifmcduv4evobernd2mxbqqium7kq, height 2579):
+of the 311 unrestricted survivors (u6..u9), 0 / 1 / 7 / 43 = 51 contain an isolated vertex, i.e. the
+unrestricted `crit2` run counted graphs on n vertices whose edge set spans fewer than n vertices; these are
+relabellings of smaller members, not new 2-crossing-critical graphs. Counted in my own reproduction files
+(u{6..9}.mine.txt) with the same result, 51. My step 11 (check_reduction.py, "0 anomalies") reproduced the
+target's check and did not notice this: the suppression test cannot see isolated vertices. Recorded here as a
+miss of the review, not of the reproduction.

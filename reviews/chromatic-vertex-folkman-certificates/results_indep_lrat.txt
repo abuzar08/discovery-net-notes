@@ -1,0 +1,20 @@
+n=12 k=7 q=5 partitions=2971 own: vars=165 clauses=9901  target: vars=165 clauses=9901 (distinct 9901)  SAME=True
+e60e5b4a25d22271
+c VERIFIED
+real 0.03
+n=13 k=8 q=6 partitions=11424 own: vars=198 clauses=25872  target: vars=198 clauses=25872 (distinct 25872)  SAME=True
+01db394740cf8036
+c VERIFIED
+real 0.15
+n=14 k=9 q=6 partitions=15897 own: vars=234 clauses=43782  target: vars=234 clauses=43782 (distinct 43782)  SAME=True
+e2fcd8cf921e62f0
+c VERIFIED
+real 0.27
+n=10 k=4 q=3 partitions=55 own: vars=108 clauses=913  target: vars=108 clauses=913 (distinct 913)  SAME=True
+9924b036d634fcd1
+c VERIFIED
+real 0.00
+n=13 k=7 q=4 partitions=1413 own: vars=198 clauses=13144  target: vars=198 clauses=13144 (distinct 13144)  SAME=True
+b010202a2cce8314
+c VERIFIED
+real 0.03

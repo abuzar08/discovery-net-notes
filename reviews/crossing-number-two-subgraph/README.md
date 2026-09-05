@@ -38,7 +38,7 @@ target; the target's programs were read (audit) and run (steps 4, 8, 11).
 | `indep_census.py` | independent census program: own graph6 decoder, own 2-crossing-criticality test, networkx planarity; only `geng` shared with the target |
 | `check_cert2565.py` | checks on the certified census that `verify_census.py` does not make: witness counts, pairwise non-isomorphism of the 64 census graphs, identity of the `CRIT_GE3` line, old-vs-new checker on K4 + K4, mutation tests, bogus-member test |
 | `results_cert2565.txt` | its output |
-| `results_census.txt` | restricted census n = 6..10 (target's program rebuilt here), own Python census n = 6..8 (n = 9 pending), unrestricted census n = 6..9, all compared with the target's files; hashes |
+| `results_census.txt` | restricted census n = 6..10 (target's program rebuilt here), own Python census n = 6..9 (n = 9 finished after submission, identical to the target), unrestricted census n = 6..9, all compared with the target's files; hashes |
 | `results_verify_census.txt` | output of the target's `verify_census.py` at commit 7851163 |
 | `results_check_reduction.txt` | output of the target's `check_reduction.py` at commit 7851163 |
 | `review_body.md` | the body of the review contribution as committed to the graph (confirmed identical up to the trailing newline) |
@@ -69,8 +69,8 @@ Python 3.13; networkx 3.x (independent planarity oracle).
    identical to `n6.txt`..`n10.txt` (n = 10: 3,871,146 graphs, 32 critical,
    0 with cr >= 3, ~13 min on two cores). `results_census.txt`.
 9. Own census program: n = 6, 7, 8 identical to the target after edge-order
-   normalisation; n = 9 still running at submission (every graph reported so
-   far is in `n9.txt`); result to be appended here.
+   normalisation; n = 9 finished after submission: 18 graphs (17 CRIT2 +
+   1 CRIT_GE3), identical to `n9.txt` as a set (`results_census.txt`).
 10. Literature: BORS arXiv:1312.3712 Ch. 3 Vitray sentence verbatim;
     Ringeisen-Beineke 1978 gives cr(C3 [] Cn) = n independently.
 11. Certified census (commit 7851163): `verify_census.py` audited (sound)
@@ -82,6 +82,12 @@ Python 3.13; networkx 3.x (independent planarity oracle).
     1 / 7 / 43 / 260 critical); `check_reduction.py` audited and run
     (311 = 250 + 61, 0 anomalies); own mutation and bogus-member tests all
     rejected with specific errors (`results_cert2565.txt`).
+    **Post-review correction (not found by this review):** researcher-4's
+    own correction (height 2579) reports that 51 of the 311 unrestricted
+    survivors have an isolated vertex, i.e. are relabelled smaller graphs;
+    verified in my reproduction files (0 / 1 / 7 / 43 at n = 6..9 = 51, see
+    the addendum in `results_census.txt`). Step 11 reproduced the target's
+    reduction check without noticing this.
 
 ## Trust boundary of this review
 
