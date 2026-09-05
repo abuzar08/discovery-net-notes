@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Albertson's conjecture for r = 28.
+Albertson r = 29: two of the five order-57 rows are eliminated.
 
 Exact integer / Fraction arithmetic only; no floating-point value enters any
 comparison.  Imports recursive.py and verify_range.py.  This argument does NOT
@@ -18,7 +18,9 @@ has no subdivision of K_28, since cr(TK_28) = cr(K_28).  Cranston's order bounds
 are stated for a MINIMUM counterexample, so fix G of minimum order among the
 28-critical counterexamples; ruling out every order rules out all of them.
 
-PART A -- the order is 55.
+PART A -- the orders left open.  (At r = 29 the join/edge-budget argument does
+not close everything: orders 57 = 2r-1 and 58 = 2r survive, matching the eight-row
+frontier published at ledger height 2761.)
   Orders <= r+4 = 32 carry a TK_r (Cranston Lemma C); orders 35..49 and >= 79 are
   excluded by Cranston (his bands 1.228r <= n <= 1.768r and n >= 2.82r, tested
   here as the exact integer inequalities 250n >= 307r, 125n <= 221r, 50n >= 141r);
@@ -39,7 +41,10 @@ PART A -- the order is 55.
       a 3-critical graph is an odd cycle, which is a TK_3), so r_j >= 4.
   No decomposition of any n <= 54 survives, so n = 55 = 2r-1 and m in {768,769}.
 
-PART B -- both rows at n = 55 are impossible.
+PART B -- the rows at n = 2r-1 = 57.  Rows 824 and 825 are eliminated outright;
+826, 827 and 828 are reduced to the listed high-vertex counts.  Order 58 = 2r is
+NOT covered: there Stehlik gives one colour class of size three rather than a
+perfect matching, so H need not be factor-critical and none of this applies.
   At n = 2r-1 the complement H is factor-critical (Stehlik 2003) with
   theta(H) = 28, hence no conformal triangle.  The barrier classification leaves
   one configuration: B = T u {s} with T a triangle of H, and
@@ -64,8 +69,9 @@ PART B -- both rows at n = 55 are impossible.
 import recursive as R
 import verify_range as V
 
-RCHI = 28
-N = 2 * RCHI - 1                 # 55
+RCHI = 29
+N = 2 * RCHI - 1                 # 57
+ROWS = (824, 825, 826, 827, 828)   # the order-57 rows of the height-2761 frontier
 DEG = RCHI - 1                   # low-vertex degree 27
 Z = V.Z(RCHI)
 _L = R.build(79, rounds=3)
@@ -237,74 +243,44 @@ def eGR_min(Rsz, tight=None):
 
 
 def main():
-    print("Albertson's conjecture for r = 28   (independent of the r = 27 result)")
-    print("Exact arithmetic; Z(28) = %d >= cr(K_28)" % Z)
+    print("Albertson r = %d at order n = 2r-1 = %d" % (RCHI, N))
+    print("Exact arithmetic; no floating-point value enters any comparison.")
+    print("Z(%d) = %d" % (RCHI, Z))
     print()
     print("SOUNDNESS CONTROLS: barrier machinery %s ; recursive table %s"
           % ("PASS" if V.controls() else "FAIL",
              "PASS" if not [n for n in range(5, 60)
                             if _L[n][n * (n - 1) // 2] > V.Z(n)] else "FAIL"))
     print()
-
-    print("PART A   the order of a minimum counterexample")
-    oo = open_orders()
-    print("   orders left by Cranston's exclusions and the sampling ceiling:")
-    for n, lo, hi in oo:
-        print("      n=%2d   m in [%d, %d]" % (n, lo, hi))
-    for n, lo, hi in oo:
-        if n > 2 * RCHI - 2:
-            continue
-        live = join_survivors(n, hi)
-        print("      n=%2d   Gallai join decompositions within the edge budget: %d %s"
-              % (n, len(live), "-> ORDER IMPOSSIBLE" if not live else live))
-        assert not live
-    rows = [(n, lo, hi) for n, lo, hi in oo if n > 2 * RCHI - 2]
-    assert len(rows) == 1 and rows[0][0] == N
-    print("   => n = %d and m in [%d, %d]" % (N, rows[0][1], rows[0][2]))
+    print("e(G[R]) floor by |R|: %s"
+          % {k: eGR_min(k) for k in range(2, 12)})
     print()
-
-    print("PART B   the rows at n = %d" % N)
-    print("   m    |R|  |V(L)|  e(L) >=   Gallai cap   split bound   verdict")
-    for m in range(rows[0][1], rows[0][2] + 1):
+    print("The order-%d rows of the height-2761 frontier:" % N)
+    print("   m   |R|  |V(L)|  e(L) >=   Gallai cap   split bound   verdict")
+    closed, open_ = [], []
+    for m in ROWS:
         X = 2 * m - N * DEG
         Rmax = 2 + (X - (2 * DEG - 5))
+        alive = []
         for Rsz in range(2, Rmax + 1):
             VL = N - Rsz
             eL = m - (DEG * Rsz + X) + eGR_min(Rsz)
             cap = gallai_cap(VL, DEG - 1)
             sp = min_split(VL, eL)
             ok = eL > cap or (sp is not None and sp > Z)
-            print("  %3d   %2d    %3d     %4d       %5d        %6s      %s"
+            if not ok:
+                alive.append(Rsz)
+            print("  %3d   %2d    %3d     %4d       %5d       %6s       %s"
                   % (m, Rsz, VL, eL, cap, sp, "impossible" if ok else "SURVIVES"))
-            assert ok, "case m=%d |R|=%d survives" % (m, Rsz)
+        (closed if not alive else open_).append((m, alive))
     print()
-    print("PART C   dependency reduction: cr(K_13) and cr(K_14) are not needed")
-    rowsB = [(768, 2), (768, 3), (768, 4), (769, 2), (769, 3),
-             (769, 4), (769, 5), (769, 6)]
-    for label, base in (("cr(K_14)=315 (CCCG 2021)", V.BASE_CCCG2021),
-                        ("cr(K_12)=150 only      ", V.BASE_CONSERVATIVE)):
-        V._CRK.clear()
-        V._CRK.update({q: 0 for q in range(5)})
-        V._CRK.update(base)
-        vals, worst = [], None
-        for m, Rsz in rowsB:
-            X = 2 * m - N * DEG
-            VL = N - Rsz
-            eL = m - (DEG * Rsz + X) + eGR_min(Rsz)
-            sp = min_split(VL, eL)
-            vals.append(sp)
-            if worst is None or sp - Z < worst:
-                worst = sp - Z
-        print("     %s: split minima %s" % (label, vals))
-        print("     %s  tightest margin over Z(28) = %d" % (" " * len(label), worst))
-        assert all(v > Z for v in vals)
-    V._CRK.clear()
-    V._CRK.update({q: 0 for q in range(5)})
-    V._CRK.update(V.BASE_CCCG2021)
+    print("RESULT at order %d:" % N)
+    for m, _ in closed:
+        print("   row (%d, %d) is ELIMINATED" % (N, m))
+    for m, alive in open_:
+        print("   row (%d, %d) reduces to |R| in %s" % (N, m, alive))
     print()
-    print("CONCLUSION")
-    print("   No 28-critical G has cr(G) < cr(K_28):  Albertson's conjecture")
-    print("   holds for r = 28, conditional on the published inputs in README.md.")
+    print("   Order %d = 2r is not covered by this argument." % (2 * RCHI))
 
 
 if __name__ == "__main__":

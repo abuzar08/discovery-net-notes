@@ -282,13 +282,68 @@ the number of high vertices in `T`, this gives
 `e(G[R]) >= 1 + 2(|Z| - sigma - tau) + tau + sigma*tau >= 6`, hence
 `e(L) >= 560` and a split bound of 7354.
 
-Both parts use only the published inputs listed below; **`r = 28` does not
-depend on the `r = 27` result**, and the two are independent.
+Both parts use only the inputs listed below; **`r = 28` does not depend on the
+`r = 27` result**, and the two are independent.
+
+*Independent review (ledger height 2725).*  Accepted as a conditional proof.
+The reviewer replayed the source at commit `d0f0230`, reproduced all 21 manifest
+hashes, re-derived Part A with a marked-part dynamic program (margins
+`10,17,38,32,25,18,9` over the ceiling at orders `33,34,50..54`), re-derived
+Part B with a forward block-state graph allowing all clique orders, and got the
+same eight split minima `10270, 9448, 8721, 10270, 9448, 8721, 7856, 7354`.
+Two corrections were raised and are now applied:
+
+* the order-band test used decimal literals while the file claimed no
+  floating-point value enters a comparison.  The bands are now the exact integer
+  inequalities `50n >= 141r`, `250n >= 307r`, `125n <= 221r`, giving the identical
+  order set;
+* "published" is now qualified: Cranston and Sadhu are recent preprints, and the
+  conclusion is conditional on them.
+
+Part C of `r28.py` also records that `r = 28`, like `r = 27`, does **not** need
+`cr(K_13)` or `cr(K_14)`: with the recursion seeded only by `cr(K_12) = 150` the
+split minima become `9920, 9126, 8424, 9920, 9126, 8424, 7589, 7104`, the
+tightest still clearing `Z(28) = 7098` by 6.  These are exactly the values the
+reviewer computed.
+
+### A general edge floor inside R
+
+The count of `e(G[R])` that the tightest `r = 28` case needed holds in every
+case, not only the tight one.  With `Z` the high vertices other than `w1, w2`,
+`sigma = 1` if `s` is high, and `tau_A`, `tau_O` the high vertices inside and
+outside `A_1 u A_2` within `T`,
+
+    e(G[R]) >= 1 + 2(|Z| - sigma - tau_A - tau_O) + tau_A + 2 tau_O + sigma tau_A,
+
+because a high vertex of `C` is `G`-adjacent to both `w_i`, one in `A_i` to
+exactly one of them, one in `T \ (A_1 u A_2)` to both, `s` to neither, and `s` is
+`G`-adjacent to every vertex of `A_1 u A_2`.  Minimising gives
+`1, 1, 3, 4, 6, 8, 10, 12, 14, 16` for `|R| = 2..11`.  `r28.py` now uses this
+form throughout; every `r = 28` case still closes.
+
+## r = 29 (partial)
+
+`r29.py` applies the same order-`2r-1` machinery to the five order-57 rows of the
+eight-row `r = 29` frontier published at ledger height 2761.  Two of the five
+close outright; the other three reduce to explicit high-vertex counts:
+
+| row | outcome |
+|---|---|
+| (57, 824) | eliminated |
+| (57, 825) | eliminated |
+| (57, 826) | reduces to `\|R\| = 7` |
+| (57, 827) | reduces to `\|R\| in {7,8,9}` |
+| (57, 828) | reduces to `\|R\| in {7,...,11}` |
+
+Order 58 = 2r is **not** covered: there Stehlík gives one colour class of size
+three rather than a perfect matching, so `H` need not be factor-critical and none
+of the structure theory applies.  This does not prove Albertson's conjecture for
+`r = 29`.
 
 ## What this does not do
 
-It says nothing about `r >= 29`.  The companion order-`2r-1` results for
-`r = 29, 30` are unchanged and still leave open rows there.
+For `r = 29` see the partial section above: two of the five order-57 rows close,
+and order 58 is untouched.  Nothing here bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -296,6 +351,7 @@ It says nothing about `r >= 29`.  The companion order-`2r-1` results for
 |---|---|
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
+| `r29.py` | the partial r = 29 result at order 57 |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
 | `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
 | `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
@@ -308,6 +364,7 @@ It says nothing about `r >= 29`.  The companion order-`2r-1` results for
 ```
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai_split.py | diff -u EXPECTED_OUTPUT_GALLAI_SPLIT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -

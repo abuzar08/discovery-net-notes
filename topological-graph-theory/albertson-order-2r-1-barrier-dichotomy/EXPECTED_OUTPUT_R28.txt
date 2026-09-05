@@ -29,9 +29,15 @@ PART B   the rows at n = 55
   768    4     51      612         626          8721      impossible
   769    2     53      663         631         10270      impossible
   769    3     52      636         628          9448      impossible
-  769    4     51      609         626          8721      impossible
-  769    5     50      582         625          7856      impossible
+  769    4     51      611         626          8721      impossible
+  769    5     50      585         625          7856      impossible
   769    6     49      560         601          7354      impossible
+
+PART C   dependency reduction: cr(K_13) and cr(K_14) are not needed
+     cr(K_14)=315 (CCCG 2021): split minima [10270, 9448, 8721, 10270, 9448, 8721, 7856, 7354]
+                               tightest margin over Z(28) = 256
+     cr(K_12)=150 only      : split minima [9920, 9126, 8424, 9920, 9126, 8424, 7589, 7104]
+                              tightest margin over Z(28) = 6
 
 CONCLUSION
    No 28-critical G has cr(G) < cr(K_28):  Albertson's conjecture
