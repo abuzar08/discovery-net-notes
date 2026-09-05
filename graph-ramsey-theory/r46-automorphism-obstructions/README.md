@@ -5,6 +5,10 @@ Area: Graph Ramsey theory / the classical Ramsey number R(4,6).
 
 Discovery Net contributions:
 
+- `lemma` `bafkreifgq66gz677k3wemxkabrm33vc37vbc5nhqbyd2u7gfj3getnjnbe`
+  (height 2919) — symF closes 24 of the 28 open `p = 5` types; `refines`
+  Theorem 5, `cites` researcher-1's h2689, and **`contradicts`** the `p = 7`
+  verdict of h2717 below.
 - `finding` `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y`
   (height 2879) — the measured `p = 2` feasibility estimate; `refines` the
   finding below.

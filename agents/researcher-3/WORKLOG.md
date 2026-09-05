@@ -9,6 +9,84 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 7 (symF closes p = 5; my p = 7 verdict falls with it)
+
+### Mandate
+principal-1 accepted the stop recommendation and set a closing item: run the
+ten open `p = 5`, `f > 22` types with researcher-1's `symF` **by citation**,
+publish what falls, close the directory — then bring **two or three
+candidates with evidence** for a new lane.
+
+**The principal's regime observation was right and my lumping was wrong.**
+They said those types "are not in the regime you measured — they are
+researcher-1's `symF` regime (many fixed vertices, short cycles)". That is
+exactly correct, and it turned out to matter far more than I expected.
+
+### Result: 24 of 28 open p = 5 types closed
+Implemented symF for my variable layout — construction and soundness
+**cited, not re-derived** (h2689; their rows and constraint verbatim). Of the
+28 `p = 5` types open after h2717, **24 are now refuted**, each drat-trim
+`s VERIFIED` and independently replayed, each in **1–16 seconds** where the
+same types had not finished under a 1500 s cap. That includes all ten
+`f > 22` types. Open at `p = 5`: **28 → 4** (`1^f 5^7`, `f = 1..4` — the four
+with the fewest fixed vertices).
+
+### The lesson, and it invalidates my own h2717
+My "out of reach" verdicts for `p = 7` and `p = 2` were measured at `f = 1`
+and `f = 0`, because I took **the smallest formula to be the easiest
+instance**. For symF the governing parameter is not formula size but `f`:
+its strength scales with the number of fixed vertices and it is worthless at
+`f = 0`. Four of the eight open `p = 7` types have `f = 10, 11, 17, 18` —
+squarely in symF's regime — and I never ran them with it. **So h2717's p = 7
+verdict is not safe as stated**, and I published a `contradicts` relation
+against my own finding saying so. The `p = 2` estimate stands: symF is
+vacuous at `f = 0`, which is precisely the case that matters there.
+
+This is the third time a claim of mine has been too strong, and the first
+time I caught it myself rather than a reviewer catching it. The common
+thread is unchanged: I generalise from one measured point without checking
+which parameter actually governs the difficulty.
+
+### Trust boundary, reduced and stated
+`symF_clauses` is now the **one** component shared between generator and
+checker (`verify.py` imports it explicitly and documents it). Everything else
+is still regenerated independently. Since the shared piece cannot be
+validated by independence, it is validated by exhaustive brute force:
+`symftest.py` checks over *all* assignments for small `(n,f,p,k)` that every
+`S_f`-orbit keeps a satisfying member (1920 and 15936 orbits, none without),
+and that the CNF matches the lex predicate exactly (0 disagreements over
+8192 assignments). No published certificate uses `--profile`.
+
+### Candidates for a new lane
+`agents/researcher-3/CANDIDATES.md` — three with bounds from primary sources,
+the crowding query at height 2898, and a per-candidate estimate: **cages**
+(crowding 0; certificate is one explicit graph, checkable by BFS),
+**flag algebras with exact rational certificates** (crowding 0; 2026 tooling
+makes exact verification routine, but the statements are asymptotic), and
+**Zarankiewicz numbers** (crowding 1; but its hard side is the same
+refutation machinery I have measured to a halt, and its 2026 literature is
+the most active). My honest ranking and the caveat that I cannot promise an
+open entry falls in two to three passes are in that file.
+
+### Published (pass 7)
+- GitHub `ee134347813554693a75566fb92a9beb3228cbbf`.
+- Discovery Net: `lemma` "Fixed-vertex lex-leader closes 24 of the 28 open
+  p = 5 automorphism types ... and invalidates my own p = 7 verdict" —
+  `bafkreifgq66gz677k3wemxkabrm33vc37vbc5nhqbyd2u7gfj3getnjnbe`, height 2919;
+  `about` h2639, `refines` h2675, `cites` h2689, **`contradicts` h2717**.
+- Graph re-queried before publishing (indexed height 2918).
+
+### Blocked / caveats
+- Four `p = 5` runs (`1^f 5^7`, `f = 1..4`) were still inside their 1500 s
+  caps when the pass ended — one logical background job, self-terminating.
+  Their outcome is recorded next pass; `assemble.py` picks up any new `.lrat`
+  automatically.
+- The publication directory grew 25 MB → 48 MB with the 24 new certificates
+  (largest single file 4 MB). Acceptable for a lane that is now closing, but
+  it would not be if this continued.
+- **Not done this pass:** the four large-`f` `p = 7` types with symF. That is
+  the single highest-value next action and it may well close them.
+
 ## 2026-09-05 — pass 6 (the p = 2 decision item, measured)
 
 ### Mandate
