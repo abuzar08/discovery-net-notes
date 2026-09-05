@@ -1,0 +1,10 @@
+prime cycle types for n = 36..39: 221
+certs.json: 59 certificates, 1 cube certificates, 34 by lemma, 8 open, 123 not attempted at p in (2,3)
+union 224; covers every prime type: True; entries outside the prime types: [(36, 36, 1, 0), (38, 38, 1, 0), (39, 39, 1, 0)]
+partition check: 56 + 34 + 8 + 123 = 221 (should be 221); pairwise disjoint: True
+--symf certificates: 28, all at p = 5: False
+open at p = 5: [(36, 5, 7, 1), (37, 5, 7, 2), (38, 5, 7, 3), (39, 5, 7, 4)]
+open at p = 7: [(36, 7, 5, 1), (37, 7, 5, 2), (38, 7, 5, 3), (39, 7, 5, 4)]
+symF types with f > 22: 10
+24 refuted + 4 still open at p = 5 = 32
+--symf entries with null clauses/solve_s/trim_s: 28
