@@ -1,0 +1,15 @@
+r = 29, n = 2r = 58, Z(29) = 8281 (>= cr(K_29), Hill), e(G[R]) >= 1
+crK lower bounds: cr(K_15) >= 415, cr(K_20) >= 1478, cr(K_29) >= 7250
+
+   m    |R|  |V(L)|  e(L)>=   cap(<=1 max blk)  cap(unrestricted)   split    verdict
+  838    2     56      731          686               708           -    impossible / impossible
+  839    2     56      730          686               708           -    impossible / impossible
+  839    3     55      702          682               705       10714    impossible / impossible
+  839    4     54      674          679               703        9920    impossible / impossible
+  840    2     56      729          686               708           -    impossible / impossible
+  840    3     55      701          682               705       10714    impossible / impossible
+  840    4     54      673          679               703        9920    impossible / impossible
+  840    5     53      645          677               702        9126    impossible / impossible
+  840    6     52      617          676               676        8424    impossible / impossible
+
+every row closed even with the unrestricted Gallai cap: YES

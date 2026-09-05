@@ -1,0 +1,9 @@
+r = 29: Z(29) = 8281 = (14*14*13*13)//4 for r=29
+orders n <= r+4 = 33 are settled by Barat-Toth Corollary 11
+surviving orders (my floors vs the recursive ceiling, no Cranston band used):
+   n=56  m in [811, 816]  (6 rows)   binding floor: BT5
+   n=57  m in [824, 828]  (5 rows)   binding floor: BT7
+   n=58  m in [838, 840]  (3 rows)   binding floor: BT7
+total 3 orders, 14 rows
+
+order 2r-2 = 56: Gallai join decompositions within the edge budget must be checked separately (the target finds none)
