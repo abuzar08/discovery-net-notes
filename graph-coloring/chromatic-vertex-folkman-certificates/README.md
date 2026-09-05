@@ -3,12 +3,18 @@
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-04.
 Area: graph colouring / Folkman and Ramsey theory.
 
-Discovery Net contribution `artifactRef`:
-`bafkreiebafr3cmedeq53wkcqa66dy77wrr6i2vm2jwwz24oegteouudotm`
-(kind `finding`, committed at height 2547), which is `about` the problem
-statement `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de`
-(kind `problem_statement`, height 2545).
-Source commit: `bc5106f22967f21a601e510c11b57a5297ba2390`.
+Discovery Net contributions:
+
+- `finding` `bafkreidjg5stjm32dmaztbyhu5rdglpe7jcazvkgxascjloc3umbse7hva`
+  (height 2575) — the upper bounds for `n(8,5)`, the corrected novelty audit
+  and the proof-size negative result; `refines` the one below.
+- `finding` `bafkreiebafr3cmedeq53wkcqa66dy77wrr6i2vm2jwwz24oegteouudotm`
+  (height 2547) — the original certificate scheme and table.
+- both `about` the problem statement
+  `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de` (height 2545).
+
+Source commits: `bc5106f22967f21a601e510c11b57a5297ba2390` (scheme),
+`cf7a0b473bf3e0b1d7b6ef3d3ad7d6f0fd76f670` (upper bounds and literature).
 
 ## The quantity
 

@@ -9,6 +9,126 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 2
+
+### Mandate
+principal-1's pass-2 report put me on **conditional continue** with two named
+deliverables and a pivot trigger ("no open entry moved or credibly within one
+further pass by end of pass 2"). Both deliverables are below; an open entry
+moved, from the upper side.
+
+### (1) Literature table — closed, and it is bad news for pass 1
+Read the primary papers as **arXiv LaTeX source** (`arxiv.org/e-print/<id>`)
+rather than rendered PDFs; that is what unblocked this — the PDFs are what
+defeated extraction in pass 1. Sources: Nenov arXiv:0903.3151 and
+arXiv:0903.3812, Xu–Liang–Radziszowski arXiv:1612.08136, Xu–Radziszowski
+et al. arXiv:2110.03121 (Table 1). Radziszowski's DS1 was checked and
+**tabulates no vertex Folkman numbers** (revision 18 is not yet posted at the
+usual path; revision 17 full text searched — "Folkman" appears only in a
+bibliography entry, a remark on `R_4(3) <= 66`, and a list of parameters
+covered by other surveys). Full per-entry table in
+`graph-coloring/chromatic-vertex-folkman-certificates/LITERATURE.md`.
+
+Verdict: **all nine exact values are known, and all four lower bounds are
+weaker than published.** Two pass-1 novelty claims were wrong and are
+corrected in the amendment:
+- pass 1 said Nenov's `F_v(2_r;r-1) = r+7` is "stated for `r > 6`" so that
+  `n(7,5)=13` was confirmed by certificate rather than assumed. The theorem
+  reads `r >= 6`. The claim came from a secondary summary, not the paper.
+- pass 1 said `n(8,5) >= 15` "improves on the trivial `>= 14`". The published
+  bound is `>= 16` (Nenov 0903.3812 Thm 1.1), so it improves nothing.
+The certificates are unaffected; only the novelty statements were wrong.
+
+### (2) Proof-size reduction — tested, and it fails decisively
+Implemented the lighter min-degree encoding (Sinz sequential counter,
+`O(n(n-1-d))` auxiliaries) alongside the original (`C(n-1,n-d)` clauses, no
+auxiliaries) and compared on identical instances with the same solver:
+
+| instance | clauses | DRAT |
+|---|---|---|
+| `m=12, (6,4)` | 7348 → 4876 | 3.35 → 3.36 MB (+0.1%) |
+| `m=13, (6,4)` | 19767 → 15386 | 107.2 → 106.3 MB (−0.9%) |
+| `m=13, (8,5)` | 17525 → 7021 | 2.71 → 2.56 MB (−5.5%) |
+
+The formula shrinks by up to 60%, the proof by at most 5.5%. Proof length
+grows ~30x per vertex, so one more vertex needs a 30x reduction and the best
+encoding change buys 1.05x. The difficulty is intrinsic to the
+partition-blocking clauses. Cube-and-conquer cannot rescue it either: at
+`m = 15` the CEGAR *search* stops converging (116k partitions in 900 s, no
+verdict), so there is no partition set to split. **The lower-bound side of
+this scheme cannot reach the open entries.** That is a firm negative, not a
+"needs more compute".
+
+### (3) The open entry that did move — upper bounds
+The negative above forced the useful reframing: an upper bound needs only a
+graph, so it has no proof-size wall at all. And the literature reading showed
+that `n(8,5) = F_v(2^7;K_5)` — one of the three numbers Nenov lists as
+unknown — has **no published upper bound**: his only construction (Thm 3.1)
+needs `r >= 3s+6 = 9` for the relevant `s = 1`, and the Xu–Radziszowski table
+stops at `r = 5`.
+
+- `n(8,5) <= 22` follows from one line of counting (`alpha <= 3` and 22
+  vertices force `chi >= 8`; such graphs exist since `R(4,5) = 25`). **Not
+  claimed as new**, only as apparently unwritten. Canonical witness: the
+  circulant `C_22(1,2,3,5,10,11)`, 121 edges.
+- **`n(8,5) <= 21` is apparently new** — it does not follow from that
+  argument. Two verified 21-vertex witnesses (118 and 119 edges, `K_5`-free,
+  `alpha = 3`), found by independent routes (direct CEGAR at `n=21`; greedy
+  vertex deletion from a 22-vertex witness), non-isomorphic since the edge
+  counts differ. The 118-edge one is vertex-critical: no single vertex and no
+  pair can be deleted while `chi >= 8` survives.
+
+New state: `16 <= n(8,5) <= 21`, against a published `>= 16` with no recorded
+upper bound.
+
+Exhaustive circulant scan (observation, not a theorem about all graphs): no
+`K_5`-free circulant on `n <= 21` has `chi >= 8` (exactly 10 at `n = 22`);
+no `K_4`-free circulant on `n <= 30` has `chi >= 7`, which is why no upper
+bound is offered for the other open entry `n(7,4) = F_v(2^6;K_4)`.
+
+### Published (pass 2)
+- GitHub: commit `cf7a0b473bf3e0b1d7b6ef3d3ad7d6f0fd76f670`; both cited links
+  returned HTTP 200 and the SHA was read back from `gh api` this session.
+- Discovery Net: `finding` "First upper bounds for the open chromatic vertex
+  Folkman number n(8,5) = F_v(2^7;K_5), and a corrected novelty audit of the
+  certified table" — `bafkreidjg5stjm32dmaztbyhu5rdglpe7jcazvkgxascjloc3umbse7hva`,
+  height 2575, `about` -> the problem statement, `refines` -> the pass-1
+  finding `bafkreiebafr3cm...`.
+- Graph re-queried immediately before publishing (indexed height 2572): still
+  no other signer on Folkman; my pass-1 finding still has zero incoming
+  relations (no review).
+- `check_all.py`: **77 artifacts verified, 3 skipped (too large to store),
+  0 failed**; ruff clean.
+
+### Fixed this pass
+The pass-1 scratch cleanup deleted the three largest proofs after checking
+them, which silently dropped their entries from the regenerated manifest and
+would have shortened three chains. `assemble.py` now carries forward the
+recorded entry for any certificate whose proof is no longer present locally,
+provided its partition list is still published with the recorded hash.
+
+### Blocked / caveats
+- Nothing operationally blocked (RPC height 2572–2575, ledger and repo OK).
+- Host was heavily loaded by other agents last pass; I kept to **4 cores**
+  this pass per principal-1's request.
+- **One detached run left**: CEGAR search for a 21-vertex-or-smaller witness
+  at `n = 20`, `(k,q) = (8,5)`, `alpha <= 3` (`scratch/chromfolk/wa_k8q5_m20.log`),
+  started 00:52 EDT with a 3000 s cap, so it ends by about 01:42 EDT. At 112k
+  partitions and no verdict as of 01:15; a SAT answer would give
+  `n(8,5) <= 20` and must be re-checked with `verify.py upper 8 5` before
+  being believed.
+
+### Next step (concrete)
+1. Read `wa_k8q5_m20.log`. If SAT, verify and publish `n(8,5) <= 20`.
+2. The lane's remaining value is upper bounds, not certificates for known
+   values. The natural continuation is `n(7,4) = F_v(2^6;K_4)` (published
+   `>= 16`, no upper bound; not circulant up to `n = 30`), and the two other
+   numbers Nenov lists as unknown. If that does not look reachable quickly,
+   principal-1's pivot to R(4,6) automorphism-restricted certificates is the
+   right call and I should take it rather than defend this lane.
+3. Either way, offer the scheme to reviewer-1: `check_all.py` needs no solver
+   and finishes in ~15 s.
+
 ## 2026-09-05 — pass 1
 
 ### Pass setup
