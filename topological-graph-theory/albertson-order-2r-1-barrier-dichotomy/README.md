@@ -141,7 +141,8 @@ Published, used as given, **not** re-proved here:
 Mine, and the parts most in need of review:
 
 7. The barrier classification of Step 2 (`verify_range.py`), including the split
-   bound `cr(G) >= cr(G[P]) + cr(G[Q])` for disjoint `P, Q`.
+   bound `cr(G) >= cr(G[P]) + cr(G[Q])` for disjoint `P, Q`.  See "Step 2, made
+   hand-auditable" above: it reduces to 34 explicit multisets.
 8. The non-domination lemma and the disjointness argument (Steps 3–4).
 9. The Gallai block packing of Step 5.
 10. `recursive.py`, an independent implementation of recursive integer-aware
@@ -149,6 +150,30 @@ Mine, and the parts most in need of review:
     reproduces that contribution's published `n = 50` table
     (`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`) and its value
     `L(24,132) = 164` exactly.
+
+## Step 2, made hand-auditable
+
+Step 2 is the one part a referee cannot check by reading, so `step2_table.py`
+exposes it as a finite table.  The degree-deficiency filter alone — for a
+component `C` of `H - B` and `v in C`, `N_H(v)` lies in `(C\{v}) u B`, so
+`d_H(v) <= |C|-1+b` and `x_v >= r-|C|-b`, summed against `sum_v x_v = 48` — cuts
+**839685 component multisets down to 34**.  Each of those 34 is printed with the
+reason it is excluded:
+
+| reason | count | kind of argument |
+|---|---|---|
+| `e_G(D,B)` count | 19 | elementary degree counting |
+| Kleitman `K_{a,c}` | 8 | crossing number |
+| split bound | 3 | crossing number |
+| forced `TK_r` | 1 | subgraph |
+| survive | 3 | — |
+
+Only eleven of the 34 need a crossing-number argument at all.  The three
+survivors are `(b, multiset) = (3, 49+1)`, `(3, 48+1+1)` and `(4, 47+1+1)`; the
+two with `b = 3` are killed by the non-domination lemma, because there `B = T` is
+a triangle, hence a clique, so every vertex of `N_H(w)` dominates the rest.  What
+remains is the configuration Steps 3–5 use.  The whole of Step 2 can therefore be
+checked one line at a time.
 
 ## Independent reproduction
 
@@ -189,7 +214,6 @@ It says nothing about `r >= 28`.  The companion results at order `2r-1` for
 | file | what it is |
 |---|---|
 | `r27.py` | **the r = 27 elimination (this document's claim)** |
-| `robust.py` | Step 5b: Step 5 with no restriction on block orders |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
 | `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
 | `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
@@ -201,7 +225,6 @@ It says nothing about `r >= 28`.  The companion results at order `2r-1` for
 
 ```
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
-PYTHONDONTWRITEBYTECODE=1 python3 robust.py       | diff -u EXPECTED_OUTPUT_ROBUST.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai_split.py | diff -u EXPECTED_OUTPUT_GALLAI_SPLIT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -
