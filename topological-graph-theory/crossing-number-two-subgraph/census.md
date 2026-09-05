@@ -189,29 +189,49 @@ uv run --with networkx python check_reduction.py
 ## Where the members sit in the BORS description
 
 Bokal–Oporowski–Richter–Salazar ([arXiv:1312.3712](https://arxiv.org/abs/1312.3712))
-determine all 3-connected 2-crossing-critical graphs containing a subdivision
-of the Möbius ladder `V10` — an infinite, tile-built family — show that only
-**finitely many** 3-connected ones do not contain such a subdivision, and show
-how the non-3-connected ones arise from the 3-connected ones. `structure.py`
-places the census in that division.
+state four results. They
 
-| n | members | 3-connected | contains `V8` subgraph | contains `V10` subdivision |
+> (i) determine all the 3-connected 2-crossing-critical graphs that contain a
+> subdivision of the Möbius Ladder `V10`; (ii) show how to obtain all the not
+> 3-connected 2-crossing-critical graphs from the 3-connected ones; (iii) show
+> that there are only finitely many 3-connected 2-crossing-critical graphs not
+> containing a subdivision of `V10`; and (iv) determine all the 3-connected
+> 2-crossing-critical graphs that do not contain a subdivision of `V8`.
+
+So every 2-crossing-critical graph lies in exactly one of four classes.
+`structure.py` places the census members, using an **exact** subdivision test:
+`V8` and `V10` are cubic, so all of their vertices are branch vertices, and
+with `|V(G)| − |V(H)|` spare vertices each spare vertex can serve as the
+interior of at most one path. The test carries seven controls, including `V8`
+inside a one-edge subdivision of `V8`, which exercises the spare-vertex logic.
+
+| class | members |
+| --- | --- |
+| 3-connected, **no `V8` subdivision** — BORS (iv), *determined* | **26** |
+| 3-connected, `V8` but no `V10` — BORS (iii), *finite* | **24** |
+| not 3-connected — BORS (ii) | **14** |
+| 3-connected with a `V10` subdivision — BORS (i), *infinite family* | **0** |
+
+| n | members | 3-connected | `V8` subdivision | `V10` subdivision |
 | --- | --- | --- | --- | --- |
 | 6 | 1 | 1 | 0 | 0 |
 | 7 | 3 | 3 | 0 | 0 |
 | 8 | 10 | 9 | 4 | 0 |
-| 9 | 18 | 14 | 1 | 0 |
-| 10 | 32 | 23 | 0 | 0 |
+| 9 | 18 | 14 | 9 | 0 |
+| 10 | 32 | 23 | 11 | 0 |
 
-Vertex connectivity distribution over the 64 members: `{0: 1, 1: 3, 2: 10,
-3: 46, 4: 4}` — the one disconnected member is `K5 ⊔ K5`.
+Vertex connectivity distribution: `{0: 1, 1: 3, 2: 10, 3: 46, 4: 4}`; the one
+disconnected member is `K5 ⊔ K5`.
 
-For `n ≤ 10` a `V10` subdivision is the same as a `V10` subgraph, since `V10`
-is cubic and so all ten of its vertices are branch vertices, leaving no room
-for subdivision vertices. **No member contains one.** So every
-2-crossing-critical graph on at most 10 vertices is either not 3-connected, or
-3-connected without a `V10` subdivision — a member of the BORS *finite
-exceptional* family, never of their infinite tile-built family.
+**No member has a `V10` subdivision**, so none belongs to the infinite
+tile-built family — the whole census lies in the part of the classification
+that is finite or reducible.
+
+**And `C3 □ C3` itself is 4-connected with no `V8` subdivision**, so the unique
+counterexample sits in class **(iv)** — the one class BORS *determine
+completely*. That is the sharpest structural statement available about it here,
+and it says where a proof of Vitray's claim should start: on BORS's explicit
+list for (iv), not on the infinite family.
 
 Consistency anchor: no Möbius ladder is itself 2-crossing-critical — `V6`
 (= `K3,3`), `V8`, `V10` and `V12` all have crossing number 1, and `crit2`

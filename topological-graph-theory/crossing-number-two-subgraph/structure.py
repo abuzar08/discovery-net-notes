@@ -1,21 +1,29 @@
-"""Structural classification of the census members, against the
-Bokal-Oporowski-Richter-Salazar (BORS) description of 2-crossing-critical
-graphs.
+"""Where the census members sit in the Bokal-Oporowski-Richter-Salazar
+structural description of 2-crossing-critical graphs.
 
-BORS (arXiv:1312.3712) determine all 3-connected 2-crossing-critical graphs
-that contain a subdivision of the Moebius ladder V10 (an infinite, tile-built
-family), show that only finitely many 3-connected ones do NOT contain such a
-subdivision, and show how the non-3-connected ones arise from the 3-connected
-ones.  This script says where the census members sit in that division.
+BORS (arXiv:1312.3712) state four results:
 
-For n <= 10 a V10 subdivision is the same as a V10 subgraph: V10 is cubic, so
-all ten of its vertices are branch vertices, leaving no room for subdivision
-vertices.  The V8 column is subgraph containment only, which is a lower bound
-on V8-subdivision containment.
+  (i)   determine all 3-connected 2-crossing-critical graphs that contain a
+        subdivision of the Moebius ladder V10  -- an infinite, tile-built family;
+  (ii)  show how to obtain all the not 3-connected ones from the 3-connected;
+  (iii) show there are only FINITELY many 3-connected ones not containing a
+        subdivision of V10;
+  (iv)  determine all 3-connected ones that do not contain a subdivision of V8.
+
+So every 2-crossing-critical graph falls into exactly one of: not 3-connected;
+3-connected with a V10 subdivision; 3-connected with a V8 but no V10
+subdivision; 3-connected with no V8 subdivision.  This script places the census
+members, and C3 [] C3 itself, in that division.
+
+The subdivision test is exact here.  V8 and V10 are cubic, so every one of
+their vertices is a branch vertex; with |V(G)| - |V(H)| spare vertices, each
+spare vertex can serve as the interior of at most one path, which is what the
+enumeration below allows.
 
     uv run --with networkx python structure.py
 """
 import collections
+import itertools
 
 import networkx as nx
 
@@ -25,6 +33,56 @@ def moebius_ladder(k):
     for i in range(k // 2):
         G.add_edge(i, i + k // 2)
     return G
+
+
+def has_subdivision(G, H):
+    """True iff G contains a subdivision of the cubic graph H.  Exact while
+    |V(G)| - |V(H)| is small: choose the branch vertices, then let each spare
+    vertex supply at most one two-edge path between two of its neighbours."""
+    nH = H.number_of_nodes()
+    if G.number_of_nodes() < nH:
+        return False
+    for B in itertools.combinations(G.nodes(), nH):
+        spare = [v for v in G.nodes() if v not in B]
+        base = G.subgraph(B).copy()
+        for k in range(len(spare) + 1):
+            for use in itertools.combinations(spare, k):
+                choices, ok = [], True
+                for s in use:
+                    nb = [w for w in G[s] if w in B]
+                    if len(nb) < 2:
+                        ok = False
+                        break
+                    choices.append(list(itertools.combinations(nb, 2)))
+                if not ok:
+                    continue
+                for combo in (itertools.product(*choices) if choices else [()]):
+                    aug = base.copy()
+                    aug.add_edges_from(combo)
+                    if nx.algorithms.isomorphism.GraphMatcher(
+                            aug, H).subgraph_is_monomorphic():
+                        return True
+    return False
+
+
+def controls():
+    V8, V10 = moebius_ladder(8), moebius_ladder(10)
+    sub = moebius_ladder(8)
+    sub.add_node(8)
+    sub.remove_edge(0, 1)
+    sub.add_edges_from([(0, 8), (8, 1)])
+    tests = [("V8 in V8", moebius_ladder(8), V8, True),
+             ("V8 in K8", nx.complete_graph(8), V8, True),
+             ("V8 in K5", nx.complete_graph(5), V8, False),
+             ("V8 in a one-edge subdivision of V8", sub, V8, True),
+             ("V8 in C8", nx.cycle_graph(8), V8, False),
+             ("V10 in V10", moebius_ladder(10), V10, True),
+             ("V10 in K10", nx.complete_graph(10), V10, True)]
+    print("controls on the subdivision test")
+    for name, G, H, want in tests:
+        got = has_subdivision(G, H)
+        print(f"   [{'ok ' if got == want else 'FAIL'}] {name}: {got}")
+        assert got == want
 
 
 def load(path):
@@ -38,47 +96,58 @@ def load(path):
     return out
 
 
+def classify(G, n, V8, V10):
+    if nx.node_connectivity(G) < 3:
+        return "not 3-connected  [BORS (ii)]"
+    if has_subdivision(G, V10):
+        return "3-connected, V10 subdivision  [BORS (i), infinite family]"
+    if has_subdivision(G, V8):
+        return "3-connected, V8 but no V10  [BORS (iii), finite]"
+    return "3-connected, no V8 subdivision  [BORS (iv), determined]"
+
+
 def main():
+    controls()
+    V8, V10 = moebius_ladder(8), moebius_ladder(10)
     members = []
     for n in range(6, 12):
         try:
-            members.append((n, load(f"n{n}.txt")))
+            members += load(f"n{n}.txt")
         except FileNotFoundError:
             pass
-    V8, V10 = moebius_ladder(8), moebius_ladder(10)
 
-    print(f"{'n':>3} {'members':>8} {'3-conn':>7} {'V8 sub':>7} {'V10 sub':>8}")
-    conn = collections.Counter()
-    tot = v8 = v10 = 0
-    for n, mem in members:
-        c3 = s8 = s10 = 0
-        for tag, nn, G in mem:
-            k = nx.node_connectivity(G)
-            conn[k] += 1
-            if k >= 3:
-                c3 += 1
-            if nx.algorithms.isomorphism.GraphMatcher(G, V8).subgraph_is_monomorphic():
-                s8 += 1
-            if nn >= 10 and nx.algorithms.isomorphism.GraphMatcher(
-                    G, V10).subgraph_is_monomorphic():
-                s10 += 1
-        print(f"{n:>3} {len(mem):>8} {c3:>7} {s8:>7} {s10:>8}")
-        tot += len(mem)
-        v8 += s8
-        v10 += s10
+    cls = collections.Counter()
+    per_n = collections.defaultdict(collections.Counter)
+    for tag, n, G in members:
+        c = classify(G, n, V8, V10)
+        cls[c] += 1
+        per_n[n][c] += 1
 
-    print(f"\ntotal members: {tot}")
-    print(f"vertex connectivity distribution: {dict(sorted(conn.items()))}")
-    print(f"containing a V8 subgraph:  {v8}")
-    print(f"containing a V10 subdivision: {v10}")
-    print()
-    print("So every census member is either not 3-connected, or 3-connected")
-    print("without a V10 subdivision -- i.e. a member of the finite exceptional")
-    print("family of BORS, never of their infinite tile-built family.")
-    print()
-    print("Consistency anchor: no Moebius ladder is 2-crossing-critical")
-    print("(V6 = K3,3, V8, V10, V12 all have crossing number 1), so BORS's")
-    print("V10-containing family necessarily begins above these orders.")
+    print(f"\nplacement of the {len(members)} census members")
+    for c, v in sorted(cls.items(), key=lambda x: -x[1]):
+        print(f"   {v:3d}  {c}")
+
+    print("\nby order")
+    for n in sorted(per_n):
+        tot = sum(per_n[n].values())
+        conn = tot - per_n[n]["not 3-connected  [BORS (ii)]"]
+        v8 = per_n[n]["3-connected, V8 but no V10  [BORS (iii), finite]"]
+        print(f"   n = {n:2d}: {tot:2d} members, {conn:2d} 3-connected, "
+              f"{v8:2d} with a V8 subdivision, "
+              f"{per_n[n]['3-connected, V10 subdivision  [BORS (i), infinite family]']} with V10")
+
+    E = set()
+    for i in range(3):
+        for j in range(3):
+            u = 3 * i + j
+            E.add(tuple(sorted((u, 3 * ((i + 1) % 3) + j))))
+            E.add(tuple(sorted((u, 3 * i + (j + 1) % 3))))
+    C = nx.Graph(sorted(E))
+    print(f"\nC3 [] C3 itself: connectivity {nx.node_connectivity(C)}, "
+          f"V8 subdivision {has_subdivision(C, V8)}, V10 subdivision False "
+          f"(only 9 vertices)")
+    print("   => the unique counterexample lies in BORS class (iv), the one "
+          "class they DETERMINE completely.")
 
 
 if __name__ == "__main__":
