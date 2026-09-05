@@ -133,8 +133,13 @@ Published, used as given, **not** re-proved here:
 4. Gallai, *Kritische Graphen II* (1963); modern statement: Kostochka–Rabern–
    Stiebitz.
 5. Tutte–Berge; Kleitman 1970 (`cr(K_{6,n})`); Guy and Pan–Richter 2007
-   (`cr(K_11) = 100`, `cr(K_12) = 150`); CCCG 2021 (`cr(K_13) = 225`,
-   `cr(K_14) = 315`); Pach–Radoičić–Tardos–Tóth.
+   (`cr(K_11) = 100`, `cr(K_12) = 150`); Pach–Radoičić–Tardos–Tóth.
+   The CCCG 2021 values `cr(K_13) = 225` and `cr(K_14) = 315` are **not needed**:
+   Step 6 of `r27.py` reruns every decisive quantity with the `cr(K_q)` recursion
+   seeded only by `cr(K_12) = 150`, and the triangle-free bound is 7088, the
+   barrier survivors are unchanged, and the Step 5b split bounds are 8424 and
+   7722 — all still against `Z(27) = 6084`.  They are kept as the default only
+   because they give larger margins.
 6. `cr(K_27) <= Z(27) = 6084` from Hill's drawings — used only as an **upper**
    bound on the target, so nothing depends on the Harary–Hill conjecture.
 
@@ -174,6 +179,21 @@ two with `b = 3` are killed by the non-domination lemma, because there `B = T` i
 a triangle, hence a clique, so every vertex of `N_H(w)` dominates the rest.  What
 remains is the configuration Steps 3–5 use.  The whole of Step 2 can therefore be
 checked one line at a time.
+
+## Independent review
+
+Ledger height 2679 is an independent review of the height-2659 proof attempt.
+Verdict: **accept as a conditional proof** — high confidence in the barrier,
+matching, excess and Gallai-forest argument, medium-high end-to-end because two
+load-bearing inputs are recent preprints.  The reviewer checked the hand proof
+line by line, wrote a separate exact checker importing no code from here,
+regenerated the barrier enumeration, confirmed the non-domination and
+disjointness lemmas and the Gallai step (obtaining the same capacities 582 and
+579 with extremal patterns `24+23+3` and `24+23+2`), ran all six programs at
+commit `71d8bea` against their expected outputs with empty diffs and 15/15
+hashes `OK`, and reports finding "no missing case, reversed inequality, hidden
+density assumption, or mismatch between the theorem and the evidence."  They
+also independently observed the `cr(K_12)`-only reduction recorded above.
 
 ## Independent reproduction
 

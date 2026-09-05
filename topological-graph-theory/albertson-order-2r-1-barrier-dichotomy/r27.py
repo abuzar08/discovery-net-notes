@@ -239,6 +239,30 @@ def main():
     print("   So Step 5 needs neither 'clique blocks have order <= 25' nor")
     print("   'at most one block of order 25'.")
     print()
+    print("STEP 6  dependency reduction: the chain does not need cr(K_13) or cr(K_14)")
+    print("   Re-running the decisive quantities with the cr(K_q) recursion seeded")
+    print("   only by cr(K_12) = 150 (Guy; Pan-Richter 2007), i.e. dropping the")
+    print("   CCCG 2021 values cr(K_13) = 225 and cr(K_14) = 315:")
+    for label, base in (("cr(K_14)=315 (CCCG 2021)", V.BASE_CCCG2021),
+                        ("cr(K_12)=150 only      ", V.BASE_CONSERVATIVE)):
+        V._CRK.clear()
+        V._CRK.update({q: 0 for q in range(5)})
+        V._CRK.update(base)
+        tf = [x for x in V.tri_free_survivors(RCHI, M)]
+        s2 = sorted((b, tuple(c)) for b in range(3, N + 1)
+                    if N - b >= b - 1
+                    for c in V.configs(N - b, b - 1, RCHI - b, X) if _cfg_survives(c, b))
+        a, b2 = min_split(51, 614), min_split(50, 588)
+        print("     %s: triangle-free survivors %s; barrier survivors %s;"
+              % (label, tf, [(x[0], x[1][0]) for x in s2]))
+        print("     %s  Step 5b split bounds %d and %d, both > Z(27) = %d"
+              % (" " * len(label), a, b2, V.Z(RCHI)))
+        assert not tf and a > V.Z(RCHI) and b2 > V.Z(RCHI)
+        assert [x[0] for x in s2] == [3, 3, 4]
+    V._CRK.clear()
+    V._CRK.update({q: 0 for q in range(5)})
+    V._CRK.update(V.BASE_CCCG2021)
+    print()
     print("CONCLUSION")
     print("   Every case is contradictory, so no 27-critical graph G with")
     print("   cr(G) < cr(K_27) exists:  Albertson's conjecture holds for r = 27,")

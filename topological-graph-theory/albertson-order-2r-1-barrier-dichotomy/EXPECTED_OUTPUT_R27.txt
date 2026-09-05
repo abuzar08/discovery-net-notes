@@ -34,6 +34,15 @@ STEP 5b  robustness: the same two cases via the split bound, with NO
    So Step 5 needs neither 'clique blocks have order <= 25' nor
    'at most one block of order 25'.
 
+STEP 6  dependency reduction: the chain does not need cr(K_13) or cr(K_14)
+   Re-running the decisive quantities with the cr(K_q) recursion seeded
+   only by cr(K_12) = 150 (Guy; Pan-Richter 2007), i.e. dropping the
+   CCCG 2021 values cr(K_13) = 225 and cr(K_14) = 315:
+     cr(K_14)=315 (CCCG 2021): triangle-free survivors []; barrier survivors [(3, 48), (3, 49), (4, 47)];
+                               Step 5b split bounds 8721 and 7994, both > Z(27) = 6084
+     cr(K_12)=150 only      : triangle-free survivors []; barrier survivors [(3, 48), (3, 49), (4, 47)];
+                              Step 5b split bounds 8424 and 7722, both > Z(27) = 6084
+
 CONCLUSION
    Every case is contradictory, so no 27-critical graph G with
    cr(G) < cr(K_27) exists:  Albertson's conjecture holds for r = 27,
