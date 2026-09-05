@@ -833,3 +833,89 @@ be discarded — its mod-12 classes do not tile residues 4/6 and 5/6 (height
    Bokal–Chimani et al. give `cr = 2` for large 3-connected members, so
    Vitray's claim plausibly reduces to a finite check.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 9
+
+### The n=11 rerun was killed again, during a ~7.5 h idle gap
+
+No invocation between ~05:23 and 12:56. In that window the `n11c` shards
+(residues 4/6 and 5/6, started 04:46) died: **empty logs, no `progress.txt` at
+all, empty `driver.log`** — the whole process group went, not just the
+pipelines, so even the `echo … >> progress.txt` never ran. Last output written
+05:11. Partial output (1 and 2 lines) is unusable. That is the **second** kill
+of this computation.
+
+**Response: made the run resumable rather than trying harder to survive.**
+`scratch/run_n11_mod24.sh` covers residues 0..23 at **mod 24** — a single mod
+throughout, since geng's classes are not refinements across mods (height 2697)
+— four at a time under the core cap, and each residue writes `done/<r>.done`
+only after `crit2` printed its summary line. A rerun skips finished residues,
+so a kill now costs at most the ~4 residues in flight (about 35 min each)
+instead of the whole run. Started 12:57; 4 residues in flight.
+
+This restarts n=11 from scratch rather than reusing the 205 M graphs already
+covered by residues 0–3 of mod 6. That is deliberate: a single-mod cover is
+self-verifying (the 24 residue counts must sum to exactly 312 416 755), whereas
+mixing the old mod-6 work with new mod-24 work would reintroduce exactly the
+hazard of height 2697.
+
+### Established this pass — BORS Proposition 14.1 cross-validated
+
+BORS Chapter 14 argues crossing number is additive over components and blocks,
+so a 2-crossing-critical graph that is **not 2-connected** has at most two
+components, each a subdivision of `K5` or `K3,3`, the connected ones arising by
+identifying a vertex of one with a vertex of the other — "the identified vertex
+may be a new vertex that subdivides some edge". Proposition 14.1: thirteen
+graphs are precisely those that are not 2-connected.
+
+My census finds all such graphs on ≤ 10 vertices independently. All four match,
+identified explicitly:
+
+| n | m | κ | BORS construction |
+|---|---|---|---|
+| 9 | 20 | 1 | `K5 · K5` |
+| 10 | 19 | 1 | `K5 · K3,3` |
+| 10 | 20 | 0 | `K5 ⊔ K5` |
+| 10 | 21 | 1 | `K5 · K5`, identified vertex subdividing an edge |
+
+An exhaustive search meeting a published classification exactly, **including
+the subdivided-identification variant** — which is the case one would most
+easily miss.
+
+**Consequence (narrowing the target).** Every not-2-connected
+2-crossing-critical graph has 1-critical blocks, hence crossing number 2. So a
+**second** counterexample to Bloom–Kennedy–Quintas must be **2-connected**, and
+by the census its suppression has at least 11 vertices. Combined with the
+height-2709 placement, a second counterexample is 2-connected, has no `V10`
+subdivision below order 11, and — if it resembles `C3 □ C3` in lying in BORS
+class (iv) — sits inside a class BORS determine completely.
+
+### Published
+
+- GitHub **6c8dca263810cc7ebf3d25a5c865c1d3adc783ca**:
+  `bors_prop_14_1_check.py` plus the `census.md` section. Not submitted to
+  Discovery Net this pass — it belongs with the n = 11 extension, and filing it
+  separately would fragment the record.
+
+### Background computation
+
+`scratch/run_n11_mod24.sh`, started 12:57: residues 0..23 at mod 24, four at a
+time, **resumable**. Progress is `ls scratch/census/n11m24/done | wc -l` out of
+24. Rerunning the same script resumes.
+
+**Claim n = 11 only when** `summary.txt` reports `residues complete: 24/24`
+**and** the summed reads equal exactly **312 416 755**. Discard
+`census/n11`, `census/n11b`, `census/n11c` — all are partial or mixed-mod.
+
+### Next step (concrete)
+
+1. Resume/finish the mod-24 run (rerun the script; it skips finished residues),
+   verify the total, then publish the n = 11 extension together with the
+   BORS Prop. 14.1 cross-validation and the placement recomputed over the new
+   members.
+2. Then the principal's reassessment: whether the line stops at n = 11 or
+   extends to n = 12 / `cr ≥ 3` structure. My reading: n = 12 is out of reach
+   by this method, but the `cr ≥ 3` structure question is now sharp — a second
+   counterexample must be 2-connected with ≥ 11 vertices, which is a much
+   smaller target than when this line started.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
