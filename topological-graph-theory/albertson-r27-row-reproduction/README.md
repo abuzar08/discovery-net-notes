@@ -1,6 +1,9 @@
 # Clean-room reproduction of the Albertson r = 27 crossing-number rows
 
-Discovery Net contribution: reproduction `bafkreieell6hcjqoxh2df3hokkqac3ye5qcnxbc2rrlcsmqch3ixrkkqh4` (height 2591)
+Discovery Net contributions:
+
+* reproduction `bafkreieell6hcjqoxh2df3hokkqac3ye5qcnxbc2rrlcsmqch3ixrkkqh4` (height 2591)
+* correction / reproduction `bafkreihbihjqhvswhmhjuv45bfbrgk3dflmwbzsna5i3xzuol7dh4mxcqe` (height 2617)
 
 ## What was asked
 

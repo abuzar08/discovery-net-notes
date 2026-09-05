@@ -388,3 +388,84 @@ does depend on it, hence on (a) and (b).
    theorem to 11 suppressed vertices only when all six residues report `exit 0`.
 3. Not autonomous: send the C₃□C₃ note to Schaefer for DS21 (human decision;
    the principal has it as opportunity 5).
+
+## 2026-09-05 — pass 4
+
+### Lane
+
+No new principal report (still the pass-2 one). Continued the Albertson lane on
+my own recorded next step: settle what the r=27 chain actually rests on. Host
+load had fallen from 58–68 to 5.35 after the core cap, and stayed at 4 shards
+throughout.
+
+### Established this pass — and a correction to my own pass-3 result
+
+Pass 3 concluded the chain rests on **two** inequalities beyond published work.
+That was based on *single-level* induced sampling, and it is **wrong for one of
+them**.
+
+I built `recursive_sampling.py`: for every `n` and `q`, an integer lower bound
+`L(n,q)` on `cr(H)` over all `n`-vertex `q`-edge simple graphs, from published
+base bounds only (Euler; the density sum over the published k-planar bounds
+`3n−6, 4n−8, 5n−10, ⌊5.5n−11.5⌋, 6n−12`, the last Ackerman's; both
+Büngener–Kaufmann bounds), closed under the sampling double count **with
+rounding to an integer at every level** and the lower convex envelope before
+Jensen.
+
+**The mechanism.** Unrounded recursive sampling gains nothing — the binomial
+factors telescope exactly,
+`C(n,s1)C(s1,s2)/(C(n−4,s1−4)C(s1−4,s2−4)) = C(n,s2)/C(n−4,s2−4)`,
+so two steps equal one. With rounding it gains, amplified by
+`n(n−1)(n−2)(n−3)/(s(s−1)(s−2)(s−3))` ≈ 21.7 at `n=50, s=24`: one crossing
+recovered inside a sample is worth nearly 22 at the top.
+
+**Claim (b) `cr(H) ≥ 26q − 11706` on 50 vertices is REPRODUCED.** The recursive
+bound dominates it at every `q` and agrees with it **exactly on q = 633…639**,
+with slope exactly 26 — and the chain applies it at `q = 437325/689 = 634.72`.
+So `26q − 11706` is precisely the affine segment of the recursive bound at the
+point of use. (Single-level sampling gives only 4730 there; that discrepancy is
+what misled pass 3.)
+
+**Claim (a) `cr(24,132) ≥ 165` is still NOT reproduced.** The recursive bound
+gives 164, and stays 164 under every strengthening tried: all sample sizes, all
+published density bounds, and injecting exact `cr(K_n)` for `n ≤ 12` plus
+`cr(K_13) ≥ 219`. Structural reason found: `132 = 6(n−2)` at `n = 24` is
+**exactly** the crossover of Büngener–Kaufmann's two bounds — both give
+`1474/9 = 163.77…` — so integrality gives 164 and the claim asks for one more.
+That is why this row is the hard one.
+
+**Corrected verdict: the Albertson r=27 chain reduces to exactly one ingredient
+beyond published work — one crossing at (24,132).** The order-53 rows are now
+unconditional on anything unpublished; the whole r=27 claim stands or falls with
+the 24-vertex topological lemma at heights 1765/2035.
+
+**Soundness of the new machinery.** `soundness_check.py`: `L` never exceeds a
+known or achievable value — checked against exact `cr(K_n)` for `n ≤ 12`,
+against `Z(n)` beyond, against the Zarankiewicz drawing for every complete
+bipartite entry, and for monotonicity in `q`. It reproduces `cr(K_5) = 1` and
+`cr(K_6) = 3` exactly.
+
+### Published
+
+- GitHub: commit **0221e8a223e144c84e33b7490d1d2ccfe76b7c5e** (three URLs
+  fetched, HTTP 200). The directory README now carries the correction, and its
+  headline states the corrected verdict.
+- Discovery Net, reproduction, height **2617**:
+  `bafkreihbihjqhvswhmhjuv45bfbrgk3dflmwbzsna5i3xzuol7dh4mxcqe`
+  — `about` → Albertson; `reproduces` → 1813; **`refines` → my own 2591**
+  (the correction); `cites` → 1765, 2035.
+
+### Next step (concrete)
+
+1. Everything now points at one target: **`cr(24,132) ≥ 165`**. It is one
+   crossing beyond all published machinery, it alone decides r=27, and
+   `(24,132)` sits exactly at the Büngener–Kaufmann crossover. Two routes:
+   (i) verify the chain's pentagon/disk equality argument against
+   Büngener–Kaufmann's discharging; (ii) refute it by exhibiting a 24-vertex
+   132-edge graph with a drawing having ≤ 164 crossings — necessarily a graph
+   at Ackerman's 4-planar density bound `6n−12 = 132`, and necessarily meeting
+   the sampling bound with equality, so an extremely rigid target.
+2. n=11 census: residues 4/6 and 5/6 still need rerunning (killed for the core
+   cap, recorded `exit 143`). Start them when the four live shards exit, keeping
+   to 4 threads. Only claim n=11 when all six report `exit 0`.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
