@@ -557,3 +557,46 @@ Nothing operational.
    `verify_cnc_p.py … --refine`; publish 1^12 3^10 as a second section of the
    order-3 artifact and submit the lemma.
 3. Same for 1^2 5^8 with `--nvars 5`; that type closes order 5 entirely.
+
+## 2026-09-05 pass 10 (21:03Z–~21:30Z)
+
+### Established
+- **Refinement measured, and it is decisive.** A 1^2 5^8 cube that no CaDiCaL
+  preset refutes in 240 s (default, `--unsat`, `--sat` all time out) splits by
+  `refine_p.py --nvars 5` into 32 children of which the sampled ones take
+  0.1 s, 0.1 s, 0.1 s and 85 s. Hard cubes should therefore be refined early
+  rather than given more time: the giant proofs (up to 2.1 GB LRAT for one
+  1^12 3^10 cube, 3688 s for one 1^2 5^8 cube) are what makes the runs slow,
+  because drat-trim cost scales with them. Both drivers were restarted with
+  short caps (200 s for 1^12 3^10, 300 s for 1^2 5^8) so that the tail is
+  identified quickly and refined in one batch.
+- **110 more certificates independently replayed and deleted** (66 of 1^12 3^10,
+  44 of 1^2 5^8); scratch 14 GB → 3.2 GB. Status: 1^12 3^10 386/1576 attempted,
+  3 timeouts; 1^2 5^8 105/256 attempted, 9 timeouts.
+- Certificate bookkeeping across sweeps: `sweep_verify.py` now records the cube's
+  literals with each replay, and `verify_cnc_p.py --verified a.jsonl,b.jsonl`
+  accepts a cube whose certificate has been deleted **only** if a sweep log records
+  a VERIFIED replay for exactly those literals, reporting such cubes separately
+  from the ones replayed in the final run. Existing sweep logs were backfilled with
+  literals (385 + 99 records). Cross-check: pointing the 1^15 3^9 verification at
+  the 1^12 3^10 sweep log matches nothing (1576 missing), as it must.
+
+### Published
+Commits 71ca026 (`--verified`), and the sweep/refine tooling from pass 9 is in
+`graph-ramsey-theory/r55-42-order3-cube-and-conquer/`. No new graph contribution
+(no new theorem this pass).
+
+### Background left (2)
+- `cnc12310` (1^12 3^10, pid 11635, restarted 21:22Z, 3 workers, 200 s cap).
+- `cnc258` (1^2 5^8, pid 11636, restarted 21:22Z, 3 workers, 300 s cap).
+Both resume from `results.jsonl`; sweep each pass.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Sweep both runs; when each finishes its 256/1576 cubes, run
+   `refine_p.py <icnf> <dir>/results.jsonl <icnf>r <map> f p k L [--nvars 5]`,
+   run the driver on the refined `.icnf` in a fresh directory, sweep again, then
+   the full `verify_cnc_p.py … --refine map.json --verified <sweep logs>`.
+2. Publish 1^12 3^10 first (fewer timeouts), then 1^2 5^8 (closes order 5).
