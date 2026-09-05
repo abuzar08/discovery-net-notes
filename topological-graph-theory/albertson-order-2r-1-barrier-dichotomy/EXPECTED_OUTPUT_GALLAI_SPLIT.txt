@@ -1,0 +1,9 @@
+split bound over Gallai blocks at (53,713), Z(27) = 6084
+ |R|  |V(L)|   c    U    e(L)>=   min split bound over admissible packings
+   5     48    1   47     536     6714
+   5     48    2   46     536     6714
+   6     47    1   46     510     5667
+   6     47    2   45     510     5887
+
+|R|=5: min split bound 6714 vs Z(27)=6084 -> IMPOSSIBLE
+|R|=6: min split bound 5667 vs Z(27)=6084 -> survives

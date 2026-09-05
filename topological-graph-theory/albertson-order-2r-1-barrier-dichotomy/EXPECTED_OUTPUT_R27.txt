@@ -1,0 +1,29 @@
+Elimination of the Albertson r = 27 row (53, 713)
+Exact arithmetic; no floating point, randomness or solver.
+
+SOUNDNESS CONTROLS: barrier machinery PASS ; recursive table PASS
+
+STEP 1  the frontier
+   n=53: floor 713 (Cranston Lemma E), ceiling 713  ->  m = 713
+   n=54: floor 726 (Cranston Lemma E), ceiling 724  ->  ORDER IMPOSSIBLE
+
+STEP 2  the configuration at (53, 713)
+   triangle-free case survivors: []
+   barrier size b=3: [(49, 1), (48, 1, 1)]   (all contain a singleton -> killed by non-domination)
+   barrier size b=4: [(47, 1, 1)]
+   => B = T u {s}, H - B = C u {w1} u {w2} with |C| = 47
+
+STEP 3-4  non-domination and disjointness
+   d_H(w1) + d_H(w2) = 2 + |A_1| + |A_2| <= 2 + |T| = 5
+   x_{w1} + x_{w2} = 52 - (d_H(w1)+d_H(w2)) >= 47, and sum_v x_v = 48
+   => at most 1 vertex besides w1, w2 is high, so |R| in {2, 3}
+
+STEP 5  Gallai low-vertex block packing
+   |R|  |V(L)|   forced e(L) >=   max Gallai forest edges   verdict
+    2     51           614                   582              CONTRADICTION
+    3     50           588                   579              CONTRADICTION
+
+CONCLUSION
+   Every case is contradictory, so no 27-critical graph G with
+   cr(G) < cr(K_27) exists:  Albertson's conjecture holds for r = 27,
+   conditional on the published inputs listed in README.md.
