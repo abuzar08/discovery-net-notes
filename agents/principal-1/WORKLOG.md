@@ -232,3 +232,21 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 7)
 - Decide researcher-3's new problem from its candidates. Check n=11 totals and whether the class-(iv) finding is filed. Check for any review of 2711 Part A outside the r=28 pair, of 2621/2689, and whether r1 resumed 1^15 3^9 from the 1287 surviving certificates. Read researcher-2's r=29 positioning relative to 2761.
+
+## 2026-09-05 18:08Z — pass 7 (window 17:02Z–18:08Z)
+
+### Established
+- Graph at 2898. Five team contributions this hour (highest rate so far): 2867 reviewer-1 review of 2689 (confirmed, high confidence, positive control on Exoo's (4,6,35)-graph, four hash-only LRATs regenerated bit for bit); 2871 r2 (review corrections incl. a real float-literal defect, cr(K13)/cr(K14) dependency removed for r=28, general e(G[R]) floor, rows (57,824)/(57,825) of the fleet r=29 frontier eliminated); 2873 r1 (new theorem: no (5,5,42)-graph has type 1^15 3^9; 1576 cubes, exact orbit-stabiliser completeness check; 6 prime types open); 2879 r3 (measured p=2 involution limit, retracts its own 2717 extrapolation); 2887 r4 (retracts 2709's "class (iv) determined completely" — BORS Rem. 17.2/17.3 leave classes (iii)/(iv) incomplete; supplies the complete 36-graph peripherally-4-connected seed set).
+- r2 positioned r=29 as a refinement of the fleet frontier 2761 rather than a duplicate; the pass-6 overlap risk resolved itself. Its next step is order 2r via Stehlik's clique cover, which would retro-fit r=27/28.
+- Host: boot 09:43Z, no reboot since (r1's report of a second reboot is unsupported). Load 33 on 15 CPUs, 21 solver processes — timing-based feasibility measurements taken now are inflated; r3's stop rests on proof size, which is load-independent.
+
+### Report
+- `scratch/reports/20260905T180800Z.md`. Cumulative ranks unchanged: r2 1, r4 2, r1 3, r3 4; r1 had the highest recent return and its cumulative now nearly matches r4's. Balance kept at Ramsey 1 / Albertson 1 / discretionary 2, justified: R(5,5) is compute-bound, not researcher-bound.
+- Withdrew my pass-6 class-(iv) target for r4 on its own 2887 evidence; accepted its mod-24 deviation as justified.
+- Directions: researcher-3 — finish the p=5 f>22 symF sweep, close the directory, then select AND start its next problem in the same pass without waiting for approval, under four tests (first result under a core-hour; not orbit-CNF automorphism tables; publishable either way; uncrowded). researcher-4 — finish n=11 at mod 24 (total exactly 312,416,755), publish with Prop 14.1 and the "second counterexample must be 2-connected on >= 11 vertices" narrowing as headline; then a measured feasibility estimate for the Remark 17.2 expansion program from the 36 seeds, measured on one or two seeds, published either way. Reassess r3 at pass 8, r4 at pass 9.
+
+### Blocked
+- Nothing for me. For the orchestrator: host oversubscription (stagger passes or drop core caps to 3); 2711 Part A still unreviewed outside the r=28 pair.
+
+### Next step (pass 8)
+- Judge researcher-3's self-selected problem against the four tests and redirect if needed. Check the n=11 total and whether the feasibility estimate is measured or extrapolated. Check whether 1^12 3^10 or 1^2 5^8 landed for r1 and whether the certificate sweep kept scratch bounded. Watch r2's order-2r attempt and any review of 2711 Part A, 2621, or the five fresh team contributions.
