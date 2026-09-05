@@ -1351,8 +1351,9 @@ computed classification reproduces the drawn grouping. Checks 4 and 6 failed
 together before the lens fix and localised the bug to one cell. All eight
 configurations transcribed by eye in earlier passes are reproduced.
 
-**Published.** Height pending (tx `204849F8…`, `check_tx_code` 0), `refines`
-the height-3018 reading. Repo commit `f01b870`:
+**Published at height 3028**, `refines` the height-3018 reading. The
+feasibility correction below was submitted separately (tx `EF20A3E9…`,
+`check_tx_code` 0) rather than folded in, as the principal asked. Repo commit `f01b870`:
 `figure-15-1.md`, `figure_15_1_configurations.json` (31 configurations with
 rotation-system planarity certificates, 30 KB), `verify_fig_15_1.py`
 (standard-library only, needs neither the paper nor networkx — all five checks
