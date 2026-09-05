@@ -16,6 +16,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreibp2yzfpfh77kk2gelj3zcx3bhkpx3brfiytnogun7aj6v7r2amea` lemma h2675 (researcher-3): Theorem 5, no automorphism of prime order p >= 11 for (4,6,n)-graphs, 36 <= n <= 39; last type by cube-and-conquer | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `f8d2e40` | **Confirmed, high confidence**: bookkeeping of all 221 types re-partitioned (50 types with p >= 11 all settled), verify.py cube subcommand audited, the 8 new stored certificates replayed with own formula regeneration + `lrat-check`, and the two unstored artifacts regenerated from scratch with CaDiCaL 3.0.1: `n36 1^3 11^3` (hash-only, proof deleted upstream) and the 64-cube `n39 13^3` certificate both reproduce the manifest SHA-256s bit for bit and verify; trust-boundary remarks only (six hash-only proofs no longer exist anywhere; cube directory not in repo) | `bafkreiedjnnnvmuasrcdc2qgu7c37qyztlyolxqeqilzrt7jiygd4vzkpm` review h2687 | `reviews/r46-theorem5-prime-order-11/` @ `dde5c29` |
 | `bafkreia37pkjw2nklayyugvfnbovsyfz2rnqvezivi65oaez35bfvyfsje` lemma h2689 (researcher-1): six more prime automorphism types of (5,5,42)-graphs excluded (1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8) via fixed-vertex lex-leader clauses (L); 7 open types remain | `graph-ramsey-theory/r55-42-fixed-vertex-lex-leader/` @ `3d67fce` (+ `cb8b9c6`, main guard only) | **Confirmed, high confidence**: soundness lemma for (L) re-derived by hand, its descent step and the "every orbit has an (L)-member" statement checked exhaustively on all small (profiles, G[F]) objects, positive control on Exoo's (4,6,35)-graph 35 (key-minimal relabelling satisfies own base + (L) CNF), all 7 CNFs regenerated to the recorded SHA-256s and shown equal to own base (+ audited hybrid block) followed by own (L) clauses, 3 stored LRATs `lrat-check` verified, 4 hash-only LRATs regenerated from scratch bit for bit (sizes and SHA-256s) and verified; bookkeeping 13 - 6 = 7 exact; 3 minor remarks (`logs/` missing from repo; hybrid types also rest on h2519's D/C/T/P; duplicate-literal warnings) | `bafkreib4r4uk6zkh3xd7rxyf2sktnlbp2pjvewg2byfga52i67g44cggdq` review h2867 | `reviews/r55-42-fixed-vertex-lex-leader/` @ `230177f` |
 | `bafkreia47t3ulpdyitj76j2maf46vjilificgisgra6ncy2oe64yssx2mi` lemma h2873 (researcher-1): no (5,5,42)-graph has an automorphism of type 1^15 3^9; cube-and-conquer over 1576 canonical Z_3-prefixes, 6 open prime types remain | `graph-ramsey-theory/r55-42-order3-cube-and-conquer/` @ `dc22364` | **Confirmed, high confidence**: the CNF is exactly my base clauses + the audited redundant block + my (L) clauses + my own (S) clauses; the 1576 cubes decode to good prefixes on my own numbering; the eight split generators normalise <sigma> and fix my base clause set, and hybrid.py's constraint list is invariant under all fifteen generators used in the chain (the clause set is not — auxiliary totalizer variables); completeness checked more strongly than claimed (union of the 1576 orbits = my exhaustive set of 2541538 good labelled prefixes, not just equal counts); the canonicalisation chain (cube -> (S) -> (L)) verified end to end on 40 random sigma-invariant graphs; **all 1576 certificates** re-solved, reproduced bit for bit against the manifest and `lrat-check` verified (0 failures, 10.69 GB regenerated and deleted); 3 minor remarks (`logs/verify_full.log` absent; "clauses" should read "constraints"; R(4,5), R(3,3) enter through h2519) | `bafkreicnsezbnptck3rtli354p5hk76aff7cq5m6xv5sl5t5xdjd4tvjgm` review h2901 | `reviews/r55-42-order3-cube-and-conquer/` @ `529253e` |
+| `bafkreifgq66gz677k3wemxkabrm33vc37vbc5nhqbyd2u7gfj3getnjnbe` lemma h2919 (researcher-3): fixed-vertex lex-leader (symF, researcher-1's h2689 method) closes 24 of the 28 open p = 5 types for (4,6,n), 36 <= n <= 39; retracts the p = 7 "out of reach" verdict of h2717 | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `ee13434` | **Confirmed, high confidence**: the contribution's one shared component (`symF_clauses`) removed — all 24 CNFs are exactly my own union-find goodness clauses (h2661) + a lex-leader block identical to the docstring's construction (17,525,121 base + 64,668 (L) clauses), no `--profile` clauses anywhere; block == lex predicate on 2000 random assignments per type; own exhaustive soundness test of (L) in the (4,6) setting reproduces their 1920 / 15936 orbit counts; all 24 certificates `lrat-check` verified with sizes and SHA-256s matching `certs.json`, the two unstored ones regenerated bit for bit; bookkeeping exact (221 prime types partitioned 52+34+12+123). **The h2717 correction is an understatement**: running the four untried high-f p = 7 types with symF refutes each in 2-4 s (drat-trim + lrat-check verified), and 1^4 7^5 at n = 39 also falls (490 s), while h2717's own 1^1 7^5 still times out — five of the eight p = 7 types are now refutable | `bafkreievdpajxc6mvtu7pbyup472wspzb763cputb4hgul53vvgfin22am` review h2947 | `reviews/r46-symf-p5/` @ `5892bbf` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -499,3 +500,76 @@ checkable, and in a lane where I already have independent tooling. Source at
   e(G[R]) floor; the whole Albertson/Lean lane still has no review from me);
   researcher-4's h2887 (BORS class (iv) census claim) and h2643;
   researcher-3's h2879 feasibility estimate. Re-query the graph first.
+
+## 2026-09-05 — pass 8
+
+Graph dump at height 2923 (`scratch/graph13.json`): new team items since pass 7
+were researcher-2's h2903 (Barat-Toth read directly), researcher-4's h2905
+(BORS Remark 17.2 blocked on a figure) and researcher-3's h2919 (symF closes 24
+p = 5 types), none with an incoming review. Chose h2919
+`bafkreifgq66gz677k3wemxkabrm33vc37vbc5nhqbyd2u7gfj3getnjnbe`: newest, in the
+lane where I have both the R(4,6) encoder (h2661) and the lex-leader lemma
+(h2867), and it retracts a finding (h2717) that refines a lemma I confirmed at
+h2687. Source at `ee13434` copied verbatim to `scratch/r46L/target/`;
+re-queried at height 2945 before publishing (still no incoming relations).
+
+### Established
+- The contribution's declared weak point — `symF_clauses` shared between its
+  generator and its checker — is removed by `indep_symf.py`: for all 24 types
+  the CNF is exactly my union-find base clause set (h2661 method) followed by my
+  own lex-leader block rebuilt from the docstring's specification, in order,
+  with the stated variable counts. Totals 17,525,121 base + 64,668 (L) clauses.
+  No `--profile` clauses anywhere, so the "no Ramsey-number input in any
+  published certificate" claim holds for all 24.
+- The block is exactly the lex predicate: 2000 random assignments per type with
+  the auxiliary chain forced by its biconditionals, 0 disagreements.
+- `symf_sound.py` (my counterpart of their `symftest.py`), exhaustive over all
+  sigma-invariant graphs for (n,f,p,k) = (7,3,2,2), (8,4,2,2), (9,3,3,2) and
+  (s,t) in {(4,6),(3,3)}: descent always strictly decreases the key, every
+  S_f-orbit has an (L)-member (1920 orbits at n = 7, 15936 at n = 8 — their own
+  numbers, reproduced), and goodness is constant on orbits.
+- All 24 certificates replayed: 22 stored ones `lrat-check` `c VERIFIED` with
+  sizes and SHA-256s equal to `certs.json`; the 2 unstored ones
+  (`sf_n36_f6_p5_k6`, `sf_n37_f7_p5_k6`) regenerated from scratch bit for bit
+  (124,392,209 and 53,014,536 bytes). 0 failures.
+- Bookkeeping exact: my own enumeration gives 221 prime cycle types for
+  n = 36..39, partitioned by `certs.json` as 52 + 34 + 12 + 123, pairwise
+  disjoint; 24 symF types all at p = 5; the four left open are 1^1 5^7 ... 1^4
+  5^7; all ten f > 22 types are among the 24; 24 + 4 = 28.
+- **The h2717 correction is right, and understated.** Running the four untried
+  high-f p = 7 types with symF: 1^17 7^3 (n=38) UNSAT 2 s, 1^18 7^3 (n=39) 4 s,
+  1^10 7^4 (n=38) 3 s, 1^11 7^4 (n=39) 2 s — every one drat-trim `s VERIFIED`
+  and `lrat-check` `c VERIFIED`. Beyond what the contribution predicts,
+  1^4 7^5 at n = 39 also falls (UNSAT 490 s, LRAT 352,901,834 B, verified).
+  Control: h2717's own 1^1 7^5 at n = 36 still gives no verdict in 600 s with
+  symF, so "strength scales with f" is right. Hashes are in the evidence; the
+  exclusions are researcher-3's to publish.
+- Timing: re-solves here took 3.3-20.9 s for five types but **124.5 s**
+  (1^6 5^6, n=36) and **37.8 s** (1^7 5^6, n=37) — the quoted "1 to 16 seconds"
+  does not cover the two k = 6 types on this host, and `certs.json` has null
+  `solve_s`/`trim_s`/`clauses` for all 24, so the range cannot be checked
+  against their own data. Controls without `--symf`: 1^31 5^1 and 1^8 5^6 both
+  no verdict in 900 s (DRAT 3.8 GB and 1.3 GB), supporting the "did not finish
+  in 1500 s" claim.
+
+### Published
+- Evidence `reviews/r46-symf-p5/` (80 KB): commit `5892bbf`.
+- Review `bafkreievdpajxc6mvtu7pbyup472wspzb763cputb4hgul53vvgfin22am`
+  (kind review, height 2947, tx `A153806F0F7F...`): about + verifies +
+  reproduces + supports -> h2919, about -> problem h2639, cites -> my h2687
+  review. Body confirmed identical to the committed artifact. ArtifactRef
+  recorded in the evidence README in this commit.
+
+### Blockers
+- None operational (RPC, ledger, repo all reachable).
+
+### Background computations left running
+- None. `scratch/` is 621 MB after deleting the work directory and the copied
+  certificates.
+
+### Next step
+- Candidates, in order: researcher-1's h2621 (order-7 exclusion for (5,5,42),
+  19,741 certificates — the oldest unreviewed item in that lane); the whole
+  Albertson/Lean lane of researcher-2 (h2871, h2903, h2933), which still has no
+  review from me and is the one lane where I have built no tooling;
+  researcher-4's h2887/h2905/h2929 BORS census findings. Re-query first.

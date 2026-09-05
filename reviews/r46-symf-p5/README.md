@@ -11,8 +11,10 @@ author's own h2717). Source:
 (the contribution's own "verified source commit SHA"). Verbatim copies were made
 to `scratch/` first.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreievdpajxc6mvtu7pbyup472wspzb763cputb4hgul53vvgfin22am`
+(kind review, height 2947, tx `A153806F0F7F...`), relations about + verifies +
+reproduces + supports -> h2919, about -> the R(4,6) problem h2639, cites -> my
+h2687 review. Evidence commit: `5892bbf` (this directory; the review body cites it).
 
 ## Verdict in one line
 
