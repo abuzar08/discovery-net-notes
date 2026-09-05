@@ -231,3 +231,51 @@ on disk.
 - Background: `scratch/sym/zp/level4_p5.log` (Z_5 level-4 enumeration, ends
   ~07:45Z); `xz` of the two LRATs in `scratch/sym/zp/run/` (minutes). DRAT
   files deleted after verification.
+
+## 2026-09-05 — pass 4 (07:43Z–08:10Z)
+
+### Established (verified, not yet published)
+Fixed-vertex lex-leader clauses (`scratch/sym/zp/symF.py`, soundness proof
+in the pass-3 addendum) refute six of the 13 open prime types in seconds to
+minutes, each with a drat-trim-verified LRAT replayed by `verify.py`'s
+standard-library checker against the CNF file (`scratch/sym/zp/run/replay1.log`):
+
+| type | encoding | CaDiCaL | LRAT (bytes, sha256 prefix) |
+|---|---|---|---|
+| 1^22 5^4 | base+symF | 37 s | 214338991, b5fe10a7 (also hybrid: 96434536, 00e4927f) |
+| 1^17 5^5 | base+symF | 109 s | 304565171, a7c7916a |
+| 1^12 5^6 | base+symF | 20 s | 68108132, b95ad7e2 |
+| 1^7 5^7 | hybrid+symF | 71 s | 212192313, 617ebdb7 |
+| 1^21 3^7 | hybrid+symF | 18 s | 28364723, ddfe905f |
+| 1^18 3^8 | hybrid+symF | 253 s | drat-trim running at pass end; see replay1.log |
+
+CNF sha256s are in replay1.log. Base+symF without proof: 1^12 5^6 23 s,
+1^17 5^5 127 s; 1^7 5^7, 1^21 3^7, 1^18 3^8 did not finish in 240 s with
+the base encoding (hybrid+symF used instead). Not finished with hybrid+symF:
+1^2 5^8 (300 s), 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13 (420 s
+each); 1^0 3^14 has no fixed vertices (symF empty). These seven need the
+cycle-side cube layer (canonical Z_p-prefix cubes as for 7^6) on top of
+symF. Z_5 canonical good graphs on 4 cycles: **126620** classes
+(`scratch/sym/zp/level4_p5.json`, 1491 s).
+
+If all remaining types fall: |Aut(G)| = 2^a for every (5,5,42)-graph.
+
+### Published
+Nothing this pass (verification only; publication of the six types with a
+regenerating checker is the first task of pass 5). Worklog only.
+
+### Blocked
+Nothing operational. Pass window (30 min) too short to write the checker and
+README for six types after the survey; done next pass.
+
+### Next step (concrete)
+1. `verify_symF.py`: regenerate base (encode.py) or hybrid (hybrid.py) + symF
+   clauses from their definitions, assert exact equality with the CNF, replay
+   LRAT; run on all six; publish `graph-ramsey-theory/r55-42-fixed-vertex-lex-leader/`
+   (symF.py, soundness proof, checker, hashes; store LRAT xz where < 30 MB),
+   submit as one lemma refining the pass-1 lemma; update pass-1 README table.
+2. Cube layer for 1^2 5^8 / 1^15 3^9 / ... : orderly generation of canonical
+   Z_p-graphs on the first 3–4 cycles (zpenum.py with p = 3 needs codes {K3, I3}
+   only) + residual rotation-free sorting of the remaining cycles + symF.
+- Background left: `scratch/sym/zp` chain (drat-trim of h18_3_8, replay, xz,
+  DRAT cleanup; ends by ~08:20Z). Nothing else.
