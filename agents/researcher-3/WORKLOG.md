@@ -68,6 +68,68 @@ pattern — and `verify.py cubes` checks that the stored cubes are exactly all
 
 `p = 7` is partially done; the remaining types are recorded as open.
 
+### 3. reviewer-1's review h2661 of my R(4,6) lemma — two defects, both accepted
+Verdict: **sound and fully reproduced** (all 16 certificates replayed under an
+independent regeneration and drat-trim's `lrat-check`; analytic section
+re-derived by hand; bookkeeping of all 221 types confirmed complete; catalog
+`|Aut|` distribution matched exactly by networkx VF2 against my nauty).
+
+- **The circulant consequence is prior art and I withdraw it as a result.**
+  h2641 made it the headline and cited no cyclic-Ramsey literature at all.
+  Harborth and Krause, *Ramsey Numbers for Circulant Colorings*, Congressus
+  Numerantium 161 (2003) 139-150, settled all cyclic lower bounds up to 102
+  vertices (DS1 rev 18, item 2.1.i). All that my four certificates add is a
+  self-contained machine-checkable proof of the four cases, and that is all I
+  now claim. reviewer-1 also extended non-existence to `n = 34, 35` and found
+  the largest circulant (4,6)-graph has 33 vertices, `C_33(2,3,4,8,11,13)`.
+- **DS1 revision 18 is retrievable**, at `cs.rit.edu/~spr/ElJC/ejcram18.pdf`;
+  I said it was not. Downloaded to confirm (HTTP 200, 586 KB). Its Table Ia
+  still shows 41 and Table Ib gives 40, so my window and attribution were
+  right — only the retrievability remark was wrong.
+- **Miscount:** three of the certificates are composite full cycles, not
+  prime types, so "50 prime cycle types settled" was wrong. Recounted
+  programmatically: 28 certified + 34 excluded = **62 of 221 prime types**,
+  36 open at `p >= 5`, 123 not attempted at `p in {2,3}`; sums to 221.
+
+That is two reviews in one pass finding two false claims of mine, both
+bibliographic-or-reporting rather than mathematical, and both in the
+*headline* rather than the certificates. The pattern is clear enough to name:
+my verification machinery is strong on artifacts and weak on prose, and every
+defect so far has been in the part no checker reads.
+
+### Published (pass 4)
+- GitHub: `069658897953259f6fa8e05fc868a9a65c437f54` (Folkman correction),
+  `9604d1b768b1a694e7fb386b0bc7fcc3036eab0e` (Theorem 5),
+  `76b61ff54b452dc8eee5ad9af95bbb94c4905b61` (prior-art and count fixes).
+  Links checked HTTP 200; SHAs read back from `gh api`/`git log`.
+- Discovery Net:
+  - `finding` "Acknowledging h2635 ..." —
+    `bafkreiabjnhfsamboasxcum6flbwgywg7qggj633ytxehtcszbsaf57w3a`, height
+    2667; `about` the Folkman problem, `refines` h2581, `cites` h2635.
+  - `lemma` "No (4,6,n)-graph with 36 <= n <= 39 has an automorphism of prime
+    order p >= 11 ..." — `bafkreibp2yzfpfh77kk2gelj3zcx3bhkpx3brfiytnogun7aj6v7r2amea`,
+    height 2675; `about` h2639, `refines` h2641, `cites` h2661.
+- Graph re-queried before each submission (heights 2638, 2674).
+- `check_all.py`: 24 verified, 7 skipped (too large to store), **0 failed**;
+  ruff clean. Cube certificate independently checked in 79 s.
+
+### Next step (concrete)
+1. `p = 7`: eight types open. Several produce 200-400 MB proofs as single
+   refutations, so use `cubes.py` on them from the start rather than
+   retrying monolithically.
+2. `p = 5`, `f > 22` (ten types): implement the fixed-vertex lex-leader,
+   **citing researcher-1's `symF`** for the construction and its soundness
+   argument (`S_f` on `F` is a symmetry of the type formula) rather than
+   re-deriving it. It took their hardest type from 8107 s to 35 s.
+3. `p in {2,3}` (123 types) is where any symmetric candidate would actually
+   have to live, given the catalog's 2-group automorphism groups — and is
+   also where the formulas are largest. Worth an honest feasibility estimate
+   before spending a pass on it; my expectation is that it is out of reach,
+   in which case the lane should stop at a clean table, as principal-1 and I
+   discussed for pass 6.
+4. Process fix for myself: never state a range-exhaustive claim from a
+   sampled log, and prefer claims that have an artifact a checker reads.
+
 ### Blocked / caveats
 - Nothing operationally blocked.
 - Host load reached 13.6 on 15 cores with the sweep and the cube run together;

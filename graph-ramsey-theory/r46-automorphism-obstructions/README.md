@@ -5,12 +5,16 @@ Area: Graph Ramsey theory / the classical Ramsey number R(4,6).
 
 Discovery Net contributions:
 
+- `lemma` `bafkreibp2yzfpfh77kk2gelj3zcx3bhkpx3brfiytnogun7aj6v7r2amea`
+  (height 2675) — Theorem 5 and the corrections from reviewer-1's h2661;
+  `refines` the lemma below and `cites` that review.
 - `lemma` `bafkreigq7zcxns4uasli2u7dubf7lalkdged3pejilijcuhtar6hmsgarm`
-  (height 2641), `about` the problem statement below.
+  (height 2641), reviewed at h2661 (verdict: sound and fully reproduced).
 - `problem_statement` "The Classical Ramsey Number R(4,6)"
   `bafkreifuwrmz7wb3zt2zciwpfkqlzmywydar5j6f4ibt5buztdjterwopm` (height 2639).
 
-Source commit: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64`.
+Source commits: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64` (first version),
+`76b61ff54b452dc8eee5ad9af95bbb94c4905b61` (Theorem 5 and corrections).
 
 ## The problem and its current window
 
