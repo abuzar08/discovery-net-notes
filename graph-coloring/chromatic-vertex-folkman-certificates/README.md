@@ -12,7 +12,7 @@ Discovery Net contributions:
   and the proof-size negative result; `refines` the one below.
 - `finding` `bafkreiebafr3cmedeq53wkcqa66dy77wrr6i2vm2jwwz24oegteouudotm`
   (height 2547) — the original certificate scheme and table.
-- both `about` the problem statement
+- all three `about` the problem statement
   `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de` (height 2545).
 
 Source commits: `bc5106f22967f21a601e510c11b57a5297ba2390` (scheme),
@@ -37,9 +37,9 @@ n(k,q) = F_v( 2,...,2 ; q )        (k-1 twos).
 ```
 
 Landmarks: `n(4,3) = 11` is the Grötzsch graph; `n(5,3) = 22` is
-Jensen–Royle; `n(6,4) = 16` with the two `(4,4,16)` Ramsey graphs as the only
-witnesses; `n(6,3)` (smallest triangle-free 6-chromatic graph) is open with
-`32 <= n(6,3) <= 40`.
+Jensen–Royle; `n(6,4) = 16`, realised by Ramsey `(4,4,16)`-graphs; `n(6,3)`
+(smallest triangle-free 6-chromatic graph) is open with
+`32 <= n(6,3) <= 40`.  See [`LITERATURE.md`](LITERATURE.md) for sources.
 
 ## What this directory provides
 
@@ -153,8 +153,8 @@ the test, and fixing it is why the class counts above are quoted.
 
 ## Results
 
-68 LRAT refutations and 9 witness graphs. `python3 check_all.py --quick`
-re-checks 74 of them from scratch in about 15 seconds and needs **no SAT
+68 LRAT refutations and 13 witness graphs. `python3 check_all.py --quick`
+re-checks 78 of them from scratch in about 15 seconds and needs **no SAT
 solver** — it decompresses each proof, regenerates the formula from
 `(n,k,q)` and the partition list, and replays. The 3 skipped proofs are
 those too large to store (135–179 MB); they are recorded by SHA-256 with the
