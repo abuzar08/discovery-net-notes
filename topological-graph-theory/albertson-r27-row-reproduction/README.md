@@ -23,10 +23,14 @@ dependency on that chain's repositories beyond reading its statements.
 
 ## Result
 
-**The row arithmetic that can be derived from published lemmas reproduces
-exactly. The rows themselves do not follow from published lemmas: the chain
-rests on two further inequalities of its own, and is exactly as strong as
-they are.**
+**The row arithmetic reproduces exactly from published lemmas. The chain then
+rests on exactly one further ingredient of its own: `cr(24,132) ≥ 165`, a
+single crossing beyond everything published.**
+
+*(The first version of this directory said "two" ingredients. That was based on
+single-level sampling; recursive integer-aware sampling reproduces the second
+one exactly. See "Correction" below — the headline above is the corrected
+statement.)*
 
 ### Reproduced exactly, bit for bit
 
@@ -45,11 +49,11 @@ and `5|E(H)|` are integers, so Lemma 2.1 on an `s`-vertex sample sharpens from
 `5e − 203(s−2)/9` to `5e − ⌊203(s−2)/9⌋` — is derived here from scratch and
 gives precisely the claimed gain of 7 crossings at (54,726).
 
-### The two load-bearing inputs that are *not* published
+### The load-bearing inputs
 
 Everything above stops short of the rows. The gap is closed in the chain by two
-inequalities that are the chain's own, and that go strictly beyond the cited
-published results:
+inequalities that are the chain's own. Of these, (b) turns out to be derivable
+from published lemmas after all (see "Correction"); (a) does not.
 
 **(a) `cr(H) ≥ 5e − 495` for every 24-vertex, `e`-edge simple graph `H`** —
 equivalently `cr(24,132) ≥ 165`. Published sampling gives exactly **164**. The
@@ -60,22 +64,19 @@ topological argument (Euler slack zero, a five-face disk, forced exceptional
 crossing edges), not by a density bound.
 
 **(b) `cr(H) ≥ 26q − 11706` for every 50-vertex, `q`-edge simple graph `H`** —
-the input to height 1813, which yields the 6100 and 6129 rows. At the point
-where it is applied — the mean 50-subset edge count `q = 437325/689 ≈ 634.72`
-for `(53,714)` — it asserts `cr ≥ 254232/53 ≈ 4796.8`, whereas the best
-published single-level sampling bound gives **4730**, and even the steepest
-available affine minorant (`s = 23`: `26.857q − 12301.7`) gives only ≈ 4746.
-So (b) exceeds published machinery by roughly **50–67 crossings** exactly where
-it is used. The chain derives it by "recursive convex sampling", whose
-recursion is not stated on the graph in enough detail to re-derive here.
+the input to height 1813, which yields the 6100 and 6129 rows. **This has since
+been reproduced: see "Correction" below.** Single-level sampling falls short of
+it by 50–67 crossings, but *recursive* integer-aware sampling reaches it
+exactly.
 
-### Verdict
+### Verdict (as corrected below)
 
 - The `r = 27` chain is **not** a corollary of Sadhu + Büngener–Kaufmann +
-  PRTT + Ackerman. Those four inputs, pushed as far as they go (including the
-  integer-awareness refinement), give 6076 / 6009 / 6037 / 6064 — every one
-  short of `Z(27) = 6084`.
-- The chain's correctness reduces **exactly** to (a) and (b).
+  PRTT + Ackerman *by single-level sampling*: those inputs give
+  6076 / 6009 / 6037 / 6064 — every one short of `Z(27) = 6084`.
+- With **recursive** integer-aware sampling, (b) is fully reproduced, so the
+  chain's correctness reduces **to (a) alone** — a single crossing at
+  `(24,132)`.
 - Neither (a) nor (b) is refuted by anything computed here. A falsification
   sweep over 50- and 24-vertex graphs drawn from families with rigorous
   drawing-based upper bounds (complete graphs, complete bipartite graphs, and
@@ -110,12 +111,15 @@ exists.
 | --- | --- |
 | `verify_albertson_rows.py` | the whole reproduction; standard library only, exact rational arithmetic |
 | `sweep_unpublished_inputs.py` | falsification sweep of (a) and (b) against families with rigorous upper bounds |
+| `recursive_sampling.py` | recursive integer-aware sampling bound `L(n,q)`, built from published base bounds only |
+| `soundness_check.py` | checks `L` never exceeds a known or achievable crossing number, then reports (a) and (b) |
 
 ## Reproduction
 
 ```bash
 python3 verify_albertson_rows.py        # expect: all checks passed
 python3 sweep_unpublished_inputs.py     # expect: NO VIOLATION for both claims
+python3 soundness_check.py              # expect: (b) REPRODUCED, (a) not (164 vs 165)
 ```
 
 ## Trust boundary
@@ -128,7 +132,83 @@ and Büngener–Kaufmann
 directly from the papers. The double count behind Lemma 2.2 is re-derived here
 rather than taken on trust, and the closed form is checked against it.
 
-Claims (a) and (b) are transcribed from the Discovery Net statements at heights
-1765/1773/2035 and 1813; they are **not** verified here, and this directory
-takes no position on whether they are true. Sadhu's Theorem 1.3 (the reduction
+Claim (a) is transcribed from the Discovery Net statements at heights
+1765/1773/2035; it is **not** verified here, and this directory takes no
+position on whether it is true. Claim (b), from height 1813, *is* verified
+here, in the sense that it follows from the published base bounds under the
+recursive sampling closure (see "Correction"). Sadhu's Theorem 1.3 (the reduction
 to orders 53 and 54) is used as stated and not re-proved.
+
+
+## Correction (added after the first version of this directory)
+
+The first version of this directory concluded that the `r = 27` chain rests on
+**two** inequalities beyond published work. That was based on *single-level*
+induced sampling. It is wrong for (b), and this section records the correction.
+
+`recursive_sampling.py` builds, for every `n` and every edge count `q`, an
+integer lower bound `L(n,q)` on `cr(H)` over all `n`-vertex `q`-edge simple
+graphs, from published base bounds only —
+
+* Euler, `cr ≥ q − (3n−6)`;
+* the density sum `2 cr ≥ Σ_j max(0, q − e_{j−1}(n))` with the published
+  `k`-planar density bounds `3n−6`, `4n−8`, `5n−10`, `⌊5.5n−11.5⌋`, `6n−12`
+  (the last is Ackerman's);
+* both Büngener–Kaufmann bounds, `5q − (203/9)(n−2)` and
+  `(37/9)q − (155/9)(n−2)`
+
+— closed under the induced-sampling double count, **rounding up to an integer
+at every level**, and taking the lower convex envelope before applying Jensen.
+
+Rounding at every level is the whole point. Unrounded recursive sampling gains
+nothing, because the binomial factors telescope exactly:
+
+    C(n,s₁)·C(s₁,s₂) / (C(n−4,s₁−4)·C(s₁−4,s₂−4)) = C(n,s₂) / C(n−4,s₂−4),
+
+so a two-step bound equals the direct one. With rounding it does gain, and the
+gain is amplified: a single crossing recovered at sample size `s` is multiplied
+by `n(n−1)(n−2)(n−3) / (s(s−1)(s−2)(s−3))`, which is ≈ 21.7 for `n = 50`,
+`s = 24`.
+
+**Result for (b).** The recursive bound satisfies `L(50,q) ≥ 26q − 11706` at
+every `q`, and near the point where the chain applies it — the mean 50-subset
+edge count `q = 437325/689 ≈ 634.72` — the two agree *exactly*:
+
+| q | 632 | 633 | 634 | 635 | 636 | 637 |
+| --- | --- | --- | --- | --- | --- | --- |
+| recursive bound | 4727 | 4752 | 4778 | 4804 | 4830 | 4856 |
+| `26q − 11706` | 4726 | 4752 | 4778 | 4804 | 4830 | 4856 |
+
+The recursive bound has slope exactly 26 across that stretch, so `26q − 11706`
+is precisely its affine segment at the point of use. **(b) is reproduced from
+published lemmas.**
+
+**Result for (a).** The same machinery gives `cr(24,132) ≥ 164`. So does the
+base alone. It stays 164 under every strengthening tried: the full recursion
+over all sample sizes, all the published density bounds, and injecting the
+exact values `cr(K_n)` for `n ≤ 12` together with `cr(K_13) ≥ 219` at
+`q = C(n,2)`. The claim is 165. **(a) is not reproduced, and the gap is exactly
+one crossing.**
+
+**Corrected verdict.** The Albertson `r = 27` chain reduces to exactly *one*
+ingredient beyond published work: `cr(24,132) ≥ 165`. Everything else in the
+row arithmetic follows from Sadhu, Büngener–Kaufmann, Ackerman and the sampling
+double count, once integrality is used at every level of the recursion.
+
+### Soundness of the recursive bound
+
+A lower bound that is too large is worthless, so `soundness_check.py` verifies
+that `L` never exceeds a value that is known or achievable: `L(n, C(n,2))` is
+checked against the exact `cr(K_n)` for `n ≤ 12` and against `Z(n)` (the
+two-circle drawing) beyond; every complete bipartite entry is checked against
+the Zarankiewicz drawing; and `L(n,·)` is checked to be monotone in `q`. It
+passes, and it reproduces `cr(K_5) = 1` and `cr(K_6) = 3` exactly.
+
+```bash
+python3 soundness_check.py
+```
+
+Note that (a) concerns `(24,132)`, and `132 = 6(n−2)` at `n = 24` is exactly
+where Büngener–Kaufmann's two bounds cross: both give `1474/9 = 163.77…`, so
+the integer bound is 164 and the claim asks for one more. That crossover is why
+this row is the hard one.
