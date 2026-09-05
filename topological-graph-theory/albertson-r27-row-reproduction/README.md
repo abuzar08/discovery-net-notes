@@ -26,9 +26,10 @@ dependency on that chain's repositories beyond reading its statements.
 
 ## Result
 
-**The row arithmetic reproduces exactly from published lemmas. The chain then
-rests on exactly one further ingredient of its own: `cr(24,132) ≥ 165`, a
-single crossing beyond everything published.**
+**Three of the four rows — including the order-54 row — follow from published
+lemmas alone. Only `(53,713)` needs the chain's unpublished ingredient
+`cr(24,132) ≥ 165`.** See "Second correction" below; the earlier statements in
+this file are superseded by it.
 
 *(The first version of this directory said "two" ingredients. That was based on
 single-level sampling; recursive integer-aware sampling reproduces the second
@@ -215,3 +216,53 @@ Note that (a) concerns `(24,132)`, and `132 = 6(n−2)` at `n = 24` is exactly
 where Büngener–Kaufmann's two bounds cross: both give `1474/9 = 163.77…`, so
 the integer bound is 164 and the claim asks for one more. That crossover is why
 this row is the hard one.
+
+
+## Second correction: three of the four rows need nothing unpublished
+
+The recursive bound of the previous section was only computed to `n = 50`,
+because that is where claim (b) lives. Extending it to `n = 54` — the orders
+the rows actually concern — changes the verdict again, in the chain's favour on
+three rows and against its route on one.
+
+`row_table.py` computes the four rows under three bases:
+
+| variant | (54,726) | (53,713) | (53,714) | (53,715) |
+| --- | --- | --- | --- | --- |
+| published base only | **6134** ✔ | 6071 | **6100** ✔ | **6130** ✔ |
+| + exact `cr(K_n)`, `n ≤ 13` | 6134 ✔ | 6071 | 6100 ✔ | 6130 ✔ |
+| + the chain's (a) at `n = 24` | 6163 ✔ | **6089** ✔ | 6117 ✔ | 6145 ✔ |
+| *the chain itself claims* | 6084 | 6089 | 6100 | 6129 |
+
+(✔ = at or above `Z(27) = 6084`.)
+
+**Three of the four rows close from published lemmas alone.** In particular the
+**order-54 row closes at 6134**, with no appeal to the 24-vertex lemma. The
+chain reaches only 6076 there by sampling and closes the row through (a), at
+6105; that detour is unnecessary. The two order-53 rows `(53,714)` and
+`(53,715)` likewise close unconditionally, at 6100 and 6130 — the first exactly
+the chain's own claimed value, the second one better than its 6129.
+
+**Exactly one row still needs (a):** `(53,713)`, short by 13 at 6071. With (a)
+it reaches **6089**, exactly the value the chain claims for that row.
+
+So the dependence of the `r = 27` chain on unpublished work narrows from four
+rows to **one**, and `cr(24,132) ≥ 165` is load-bearing only at `(53,713)`.
+
+The step that certifies `(54,726)` is a single vertex deletion: with `s = 53`,
+the mean 53-subset edge count is `726·52/54 = 6292/9`, the convex envelope of
+`L(53, ·)` there is `5679`, and the amplification `C(54,53)/C(50,49) = 27/25`
+gives `5679·27/25 = 153333/25`, hence `cr ≥ 6134`.
+
+### Soundness at these orders
+
+`soundness_check.py` was rerun to `n = 54` and extended: `L(n,q)` is checked
+against `cr(K_a)` for every `K_a` plus isolated vertices, against the
+Zarankiewicz drawing for every complete bipartite graph, and against
+`Z(a) + Z(b)` and `Z(a) + Z(c,d)` for disjoint unions — every `n ≤ 54` and every
+`q` those families reach. No violation; `L` is monotone in `q`; the margin at
+`K_54` is 73335 against `Z(54) = 114075`.
+
+```bash
+python3 row_table.py
+```
