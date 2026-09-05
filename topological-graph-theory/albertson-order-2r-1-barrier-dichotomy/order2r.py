@@ -280,10 +280,41 @@ def main():
     print("   => order %d is impossible whenever H contains a K_4," % n2)
     print("      i.e. whenever alpha(G) >= 4.")
     print()
-    print("PART 3   what is NOT covered")
-    print("   If H has no K_4 (alpha(G) <= 3) the barrier must come instead from two")
-    print("   disjoint triangles, giving only o(H-B) >= b-4.  Those classes (b = 6,")
-    print("   7 and 30) survive the same filters, so that branch stays open.")
+    print("PART 3   H has no two disjoint triangles: also impossible")
+    print("   If every two triangles of H meet, then for a Stehlik triangle T the")
+    print("   graph F := H - T is triangle-free (a triangle of F would be disjoint")
+    print("   from T).  Edges meeting T number at most sum_{t in T} d_H(t) - 3 <=")
+    print("   3r - 3, so e(F) >= e(H) - (3r-3).  By Cauchy-Schwarz")
+    print("       sum_{uv in E(F)} (d_F(u)+d_F(v)) = sum_v d_F(v)^2 >= (2 e(F))^2/|V(F)|,")
+    print("   so some edge uv of F has d_F(u) + d_F(v) >= 4 e(F)/|V(F)|.  F is")
+    print("   triangle-free, so N_F(u) and N_F(v) are DISJOINT independent sets of F,")
+    print("   hence disjoint cliques of G, and the split bound applies to them.")
+    nf = 2 * RCHI - 3
+    for m in (838, 839, 840):
+        eH = (2 * RCHI) * (2 * RCHI - 1) // 2 - m
+        eF = eH - (3 * RCHI - 3)
+        thr = -(-4 * eF // nf)
+        best = None
+        for a in range(1, RCHI + 1):
+            b2 = thr - a
+            if 1 <= b2 <= RCHI:
+                v2 = V.crK(a) + V.crK(b2)
+                if best is None or v2 < best:
+                    best, arg = v2, (a, b2)
+        print("     m=%d: e(F) >= %d, some edge has d+d >= %d, min crK sum %d at %s"
+              % (m, eF, thr, best, arg))
+        print("            %d > Z(%d) = %d  ->  impossible" % (best, RCHI, Z))
+        assert best > Z
+    print()
+    print("PART 4   what is NOT covered")
+    print("   Exactly one branch remains: H is K_4-free AND has two disjoint")
+    print("   triangles.  There the barrier gives only o(H-B) >= b-4.  Adding the")
+    print("   Turan cap e(H[C]) <= floor(|C|^2/3) for every K_4-free component still")
+    print("   leaves four classes per row, the tightest being b = 30 with (3,1^25):")
+    for m, val in ((838, 8207), (839, 8172), (840, 8136)):
+        print("     m=%d: b=30 split bound %d against Z(29) = %d, short by %d"
+              % (m, val, Z, Z - val))
+    print("   The b = 6 and b = 7 classes are much further off (about 4500 to 5100).")
 
 
 def eGR_2r(Rsz):

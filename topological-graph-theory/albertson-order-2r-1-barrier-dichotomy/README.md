@@ -412,10 +412,38 @@ Gallai packing or the split bound kills every case:
 > **Order 58 at `r = 29` is impossible whenever `H` contains a `K_4`, i.e.
 > whenever `alpha(G) >= 4`.**
 
-*Not covered.*  If `H` has no `K_4` at all, the barrier must come from two
-disjoint triangles and only `o(H-B) >= b-4` follows; those classes (`b = 6, 7`
-and `30`) survive the same filters, so that branch stays open.  `order2r.py`
-reports it rather than hiding it.
+**No two disjoint triangles: also impossible (new).**  Suppose instead that every
+two triangles of `H` meet.  Let `T` be a Stehlík triangle and `F := H - T`, on
+`2r-3 = 55` vertices.  `F` is triangle-free, since a triangle of `F` would be
+disjoint from `T`.  The edges meeting `T` number at most
+`sum_{t in T} d_H(t) - 3 <= 3r-3`, so `e(F) >= e(H) - (3r-3) >= 729`.  Now
+
+    sum_{uv in E(F)} (d_F(u) + d_F(v))  =  sum_v d_F(v)^2  >=  (2 e(F))^2 / |V(F)|
+
+by Cauchy–Schwarz, so some edge `uv` of `F` has
+`d_F(u) + d_F(v) >= 4 e(F)/|V(F)| >= 54`.  Because `F` is triangle-free,
+`N_F(u)` and `N_F(v)` are *disjoint* independent sets of `F`, hence **disjoint
+cliques of `G`**, and the split bound applies to them.  With `a + b >= 54` and
+`a, b <= Delta(H) <= r = 29`, `min (cr(K_a) + cr(K_b)) = 11092` at `(27,27)`,
+against `Z(29) = 8281`.  A margin of `11092` versus `8281` — not a near miss.
+The same holds for `m = 838, 839, 840`.  This argument uses no barrier machinery
+at all: only Stehlík, Cauchy–Schwarz and additivity of the crossing number.
+
+*Not covered.*  Exactly one branch of order 58 remains: `H` is `K_4`-free **and**
+has two disjoint triangles.  There the barrier gives only `o(H-B) >= b-4`.
+Adding the Turán cap `e(H[C]) <= floor(|C|^2/3)` for every `K_4`-free component
+of `H - B` raises every class but closes none: four classes survive per row, the
+tightest being `b = 30` with `(3,1^25)`.
+
+| `m` | tightest surviving split bound | `Z(29)` | short by |
+|---|---|---|---|
+| 838 | 8207 | 8281 | 74 |
+| 839 | 8172 | 8281 | 109 |
+| 840 | 8136 | 8281 | 145 |
+
+The `b = 6` and `b = 7` classes are much further off (about 4500 to 5100), so the
+`b = 30` row is where any further gain has to come from.  `order2r.py` reports
+this rather than hiding it.
 
 `order2r.py` also reproduces the eight-row `r = 29` frontier of ledger height
 2761 independently: the floors against the recursive ceiling leave orders 56, 57

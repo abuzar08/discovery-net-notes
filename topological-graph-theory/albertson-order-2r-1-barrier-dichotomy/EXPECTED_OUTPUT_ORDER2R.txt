@@ -44,7 +44,28 @@ PART 2   order 2r = 58, assuming H contains a K_4
    => order 58 is impossible whenever H contains a K_4,
       i.e. whenever alpha(G) >= 4.
 
-PART 3   what is NOT covered
-   If H has no K_4 (alpha(G) <= 3) the barrier must come instead from two
-   disjoint triangles, giving only o(H-B) >= b-4.  Those classes (b = 6,
-   7 and 30) survive the same filters, so that branch stays open.
+PART 3   H has no two disjoint triangles: also impossible
+   If every two triangles of H meet, then for a Stehlik triangle T the
+   graph F := H - T is triangle-free (a triangle of F would be disjoint
+   from T).  Edges meeting T number at most sum_{t in T} d_H(t) - 3 <=
+   3r - 3, so e(F) >= e(H) - (3r-3).  By Cauchy-Schwarz
+       sum_{uv in E(F)} (d_F(u)+d_F(v)) = sum_v d_F(v)^2 >= (2 e(F))^2/|V(F)|,
+   so some edge uv of F has d_F(u) + d_F(v) >= 4 e(F)/|V(F)|.  F is
+   triangle-free, so N_F(u) and N_F(v) are DISJOINT independent sets of F,
+   hence disjoint cliques of G, and the split bound applies to them.
+     m=838: e(F) >= 731, some edge has d+d >= 54, min crK sum 11092 at (27, 27)
+            11092 > Z(29) = 8281  ->  impossible
+     m=839: e(F) >= 730, some edge has d+d >= 54, min crK sum 11092 at (27, 27)
+            11092 > Z(29) = 8281  ->  impossible
+     m=840: e(F) >= 729, some edge has d+d >= 54, min crK sum 11092 at (27, 27)
+            11092 > Z(29) = 8281  ->  impossible
+
+PART 4   what is NOT covered
+   Exactly one branch remains: H is K_4-free AND has two disjoint
+   triangles.  There the barrier gives only o(H-B) >= b-4.  Adding the
+   Turan cap e(H[C]) <= floor(|C|^2/3) for every K_4-free component still
+   leaves four classes per row, the tightest being b = 30 with (3,1^25):
+     m=838: b=30 split bound 8207 against Z(29) = 8281, short by 74
+     m=839: b=30 split bound 8172 against Z(29) = 8281, short by 109
+     m=840: b=30 split bound 8136 against Z(29) = 8281, short by 145
+   The b = 6 and b = 7 classes are much further off (about 4500 to 5100).
