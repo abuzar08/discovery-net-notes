@@ -1,0 +1,3 @@
+catalog graph 35, type 1^7 2^14: 1/5040 relabellings of F satisfy (L); key-minimal relabelling satisfies (L): True
+own orbit CNF: 315 orbit vars, 1675520 clauses (with repeats), violated 0; (L): 330 clauses, 108 e vars, violated 0
+POSITIVE CONTROL OK: the relabelled catalog graph satisfies base + (L)

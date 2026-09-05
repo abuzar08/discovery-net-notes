@@ -1,0 +1,26 @@
+check A f=3 k=2: 512 objects, 448 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 0.02
+check A f=4 k=2: 16384 objects, 23040 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 0.12
+check A f=5 k=1: 32768 objects, 61440 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 0.34
+check A f=5 k=2: 1048576 objects, 2031616 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 12.58
+check A f=6 k=0: 32768 objects, 76800 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 0.47
+check A f=6 k=1: 2097152 objects, 5079040 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 36.88
+check A f=7 k=0: 2097152 objects, 6094848 (object,u) violations, every violation fixed by a strictly descending swap: OK
+real 49.65
+check B f=3 k=2: 512 objects, every S_3-orbit contains an (L)-satisfying member: OK
+real 0.03
+check B f=4 k=1: 1024 objects, every S_4-orbit contains an (L)-satisfying member: OK
+real 0.07
+check B f=4 k=2: 16384 objects, every S_4-orbit contains an (L)-satisfying member: OK
+real 1.16
+check B f=5 k=0: 1024 objects, every S_5-orbit contains an (L)-satisfying member: OK
+real 0.24
+check B f=5 k=1: 32768 objects, every S_5-orbit contains an (L)-satisfying member: OK
+real 12.09
+check B f=6 k=0: 32768 objects, every S_6-orbit contains an (L)-satisfying member: OK
+real 49.80

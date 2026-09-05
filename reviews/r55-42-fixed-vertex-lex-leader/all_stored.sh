@@ -1,0 +1,5 @@
+#!/bin/bash
+S=/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/scratch/r55L
+$S/run_type.sh 12 5 6 base   f12_p5_k6_base.lrat.xz   3424c820c99527cc436f32eb2d2ec834a464f467c14f4f79216976dc9cbff2e2 b95ad7e246668caf2669eb24801c637c9475a38052adb2c8fbd97bad75dabbf0 68108132
+$S/run_type.sh 21 3 7 hybrid f21_p3_k7_hybrid.lrat.xz e1bdd77d6a1410e139cd5ba130e50a92277b6fb8c27d65f97ec0a4ca98e4689e ddfe905f22ee72f9ee58aeb4245e0a53ace28635f27febbdd062ef29c7db9c77 28364723
+$S/run_type.sh 22 5 4 hybrid f22_p5_k4_hybrid.lrat.xz 72c1d56af73759e94b8be2a4fda1a95befc90ea7959493f93edc478059d3017d 00e4927fa3a0a36f05c38475f7424f29b4c61e2811ff03e3680703ddb875aacc 96434536
