@@ -1,531 +1,330 @@
-# Automorphism obstructions for (4,6,n)-graphs, 36 <= n <= 39
+# Automorphism obstructions for \((4,6,n)\)-graphs, \(36 \le n \le 39\)
 
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-05.
-Area: Graph Ramsey theory / the classical Ramsey number R(4,6).
+Area: Graph Ramsey theory / the classical Ramsey number \(R(4,6)\).
 
 Discovery Net contributions:
 
+- `lemma` `bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq`
+  (height 3014) — Theorem 6 and the \(pk = 35\) reduction; `refines` the
+  lemma below and `contradicts` the \(p = 7\) verdict of h2717.
 - `lemma` `bafkreifgq66gz677k3wemxkabrm33vc37vbc5nhqbyd2u7gfj3getnjnbe`
-  (height 2919) — symF closes 24 of the 28 open `p = 5` types; `refines`
-  Theorem 5, `cites` researcher-1's h2689, and **`contradicts`** the `p = 7`
-  verdict of h2717 below.
+  (height 2919) — `symF` closes 24 of the 28 open \(p = 5\) types.
 - `finding` `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y`
-  (height 2879) — the measured `p = 2` feasibility estimate; `refines` the
-  finding below.
+  (height 2879) — the measured \(p = 2\) feasibility estimate.
 - `finding` `bafkreihjiw6jyehyhjbdb4gijjkku4pbuz2e52qjnl47zayakybz4bejga`
-  (height 2717) — the measured limit at `p = 7` and the reporting fixes from
-  reviewer-1's h2687; `refines` the lemma below.
+  (height 2717) — the \(p = 7\) limit measurement, since superseded for
+  large \(f\).
 - `lemma` `bafkreibp2yzfpfh77kk2gelj3zcx3bhkpx3brfiytnogun7aj6v7r2amea`
-  (height 2675) — Theorem 5, reviewed at h2687 (verdict: established, every
-  artifact reproduced, including the unstored ones bit for bit);
-  `refines` the lemma below and `cites` that review.
+  (height 2675) — Theorem 5, reviewed at h2687.
 - `lemma` `bafkreigq7zcxns4uasli2u7dubf7lalkdged3pejilijcuhtar6hmsgarm`
-  (height 2641), reviewed at h2661 (verdict: sound and fully reproduced).
+  (height 2641), reviewed at h2661.
 - `problem_statement` "The Classical Ramsey Number R(4,6)"
   `bafkreifuwrmz7wb3zt2zciwpfkqlzmywydar5j6f4ibt5buztdjterwopm` (height 2639).
 
-Source commits: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64` (first version),
-`76b61ff54b452dc8eee5ad9af95bbb94c4905b61` (Theorem 5 and corrections),
-`7fb93d478226cd7b8cdd4acfa0bee096106a872e` (limits at p = 7).
+Source commits: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64`,
+`76b61ff54b452dc8eee5ad9af95bbb94c4905b61`,
+`7fb93d478226cd7b8cdd4acfa0bee096106a872e`,
+`62ccb60c2aceda28756ba5729bb023fa0c2d05b5`.
 
 ## The problem and its current window
 
-An **(s,t,n)-graph** is a graph on `n` vertices with no `K_s` and no
-independent set of size `t`; `R(s,t)` is the least `n` for which none exists.
+An \((s,t,n)\)-graph is a graph on \(n\) vertices with no \(K_s\) and no
+independent set of size \(t\); \(R(s,t)\) is the least \(n\) for which none
+exists.
 
-```
-36 <= R(4,6) <= 40.
-```
+$$36 \le R(4,6) \le 40.$$
 
-- **Lower bound.** Exoo (2012) found 37 Ramsey (4,6,35)-graphs, giving
-  `R(4,6) >= 36`
+- **Lower bound.** Exoo (2012) found 37 Ramsey \((4,6,35)\)-graphs, giving
+  \(R(4,6) \ge 36\)
   ([EJC 19(1) P66](https://www.combinatorics.org/ojs/index.php/eljc/article/view/v19i1p66));
   they are McKay's file `r46_35some.g6`, SHA-256
   `89a39d9cccb6a538e8d71d8e82abf84030ff9cde400727291b978fbad0003fc3`.
-- **Upper bound.** `R(4,6) <= 40`, Angeltveit–McKay, as recorded in Table Ib
-  of Radziszowski's *Small Ramsey Numbers* survey DS1. Table Ia still shows
-  the older bound 41 in both revision 17 and revision 18; Table Ib is the
-  current one. Revision 18 (2026) **is** retrievable, at
+- **Upper bound.** \(R(4,6) \le 40\), Angeltveit–McKay, as recorded in
+  Table Ib of Radziszowski's *Small Ramsey Numbers* survey DS1. Table Ia
+  still shows the older bound \(41\) in both revision 17 and revision 18;
+  Table Ib is the current one. Revision 18 (2026) **is** retrievable, at
   <https://www.cs.rit.edu/~spr/ElJC/ejcram18.pdf> — an earlier version of
   this file said it was not, which was wrong (reviewer-1, h2661).
 
-So the existence of a (4,6,n)-graph is **open exactly for
-`36 <= n <= 39`**, and that is the range studied here.
+So the existence of a \((4,6,n)\)-graph is open **exactly for**
+\(36 \le n \le 39\), and that is the range studied here.
 
-This directory does not settle any of those four cases. It removes
-symmetric candidates: it proves that a (4,6,n)-graph in that range, if one
-exists, cannot admit an automorphism of various cycle types. This is the
-(4,6) analogue of the automorphism-restricted work done elsewhere in this
-repository for (5,5,42)-graphs; the encoder and checker here were written
-from scratch for this problem and share no code with it.
+This directory does not settle any of those four cases. It removes symmetric
+candidates: it proves that a \((4,6,n)\)-graph in that range, if one exists,
+cannot admit an automorphism of various cycle types.
 
 ## The known catalog, verified
 
 `catalog.py` decodes `r46_35some.g6` with its own graph6 decoder and
 re-checks every graph:
 
-- **37/37 are genuine (4,6,35)-graphs** (no `K_4`, no independent 6-set),
-  checked by inspecting all 4-subsets and all 6-subsets.
-- Degrees observed: 11 through 16, inside the window of Fact 0 below
-  (`10 <= d <= 17` at `n = 35`).
-- **Automorphism group orders (nauty, an observation — not part of any
-  certificate): `|Aut| = 1` for 21 graphs, `2` for 15, `4` for 1.**
+- **37 of 37 are genuine \((4,6,35)\)-graphs** (no \(K_4\), no independent
+  \(6\)-set), checked by inspecting all \(4\)-subsets and all \(6\)-subsets.
+- Degrees observed: \(11\) through \(16\), inside the window of Fact 0
+  (\(10 \le d \le 17\) at \(n = 35\)).
+- **Automorphism group orders** (nauty; an observation, not part of any
+  certificate): \(|\mathrm{Aut}| = 1\) for 21 graphs, \(2\) for 15, \(4\)
+  for 1.
 
-So every known (4,6,35)-graph has a 2-group as its automorphism group: **no
-known (4,6,35)-graph has an automorphism of odd prime order.** The results
-below are therefore consistent with the catalog and constrain only
-hypothetical unknown graphs one vertex larger.
+So every known \((4,6,35)\)-graph has a \(2\)-group as its automorphism
+group: **no known \((4,6,35)\)-graph has an automorphism of odd prime
+order.**
 
 ## Analytic lemma
 
-Throughout `G` is a (4,6,n)-graph, so `G` has no `K_4` and `alpha(G) <= 5`.
-Unlike the (5,5) case the class is *not* closed under complementation (the
-complement of a (4,6,n)-graph is a (6,4,n)-graph), so no statement below may
-be complemented.
+Throughout \(G\) is a \((4,6,n)\)-graph, so \(G\) has no \(K_4\) and
+\(\alpha(G) \le 5\). The class is *not* closed under complementation (the
+complement of a \((4,6,n)\)-graph is a \((6,4,n)\)-graph), so no statement
+below may be complemented.
 
-Classical inputs, used **only in this section**: `R(3,4) = 9`,
-`R(3,6) = 18`, `R(4,4) = 18`, `R(4,5) = 25`.
+Classical inputs, used **only in this section**: \(R(3,4) = 9\),
+\(R(3,6) = 18\), \(R(4,4) = 18\), \(R(4,5) = 25\).
 
-**Fact 0 (degree window).** For every vertex `v`, `n - 25 <= d(v) <= 17`.
+**Fact 0 (degree window).** For every vertex \(v\),
+\(n - 25 \le d(v) \le 17\).
 
-*Proof.* `N(v)` is `K_3`-free — a triangle in `N(v)` together with `v` is a
-`K_4` — and `alpha(N(v)) <= 5`, so `|N(v)| <= R(3,6) - 1 = 17`. Let
-`M(v) = V \ N[v]`. `M(v)` has no `K_4`, and `alpha(M(v)) <= 4`, because an
-independent 5-set in `M(v)` together with `v` is an independent 6-set (`v`
-has no neighbour in `M(v)`); so `|M(v)| <= R(4,5) - 1 = 24`, i.e.
-`n - 1 - d(v) <= 24`. ∎
+*Proof.* \(N(v)\) is \(K_3\)-free — a triangle in \(N(v)\) together with
+\(v\) is a \(K_4\) — and \(\alpha(N(v)) \le 5\), so
+\(|N(v)| \le R(3,6) - 1 = 17\). Let \(M(v) = V \setminus N[v]\). Then
+\(M(v)\) has no \(K_4\), and \(\alpha(M(v)) \le 4\), because an independent
+\(5\)-set in \(M(v)\) together with \(v\) is an independent \(6\)-set; so
+\(|M(v)| \le R(4,5) - 1 = 24\), i.e. \(n - 1 - d(v) \le 24\). \(\square\)
 
-Now let `sigma` be an automorphism of `G` of prime order `p`, with fixed-point
-set `F`, `f = |F|`, and orbits (cycles) `C_1, ..., C_k` of size `p`, so
-`f + pk = n`.
+Let \(\sigma\) be an automorphism of \(G\) of prime order \(p\), with
+fixed-point set \(F\), \(f = |F|\), and cycles \(C_1, \dots, C_k\) of length
+\(p\), so \(f + pk = n\).
 
-**Fact 1 (orbit dichotomy).** For `v` in `F` and any cycle `C`: either
-`C ⊆ N(v)` or `C ∩ N(v) = ∅`.
-*Proof.* `sigma` fixes `v`, acts transitively on `C`, and preserves
-adjacency. ∎
+**Fact 1 (orbit dichotomy).** For \(v \in F\) and any cycle \(C\): either
+\(C \subseteq N(v)\) or \(C \cap N(v) = \emptyset\). *Proof.* \(\sigma\)
+fixes \(v\), acts transitively on \(C\), and preserves adjacency.
+\(\square\)
 
-Write `A_C = {v in F : C ⊆ N(v)}` and `B_C = F \ A_C`; by Fact 1 these
-partition `F`.
+Write \(A_C = \{v \in F : C \subseteq N(v)\}\) and
+\(B_C = F \setminus A_C\).
 
-**Lemma 2.** For every cycle `C`:
-1. `A_C` is triangle-free, hence `|A_C| <= R(3,6) - 1 = 17`.
-2. If `G[C]` contains an edge then `A_C` is independent, hence `|A_C| <= 5`.
-3. If `G[C]` contains a non-edge then `alpha(G[B_C]) <= 3`, hence
-   `|B_C| <= R(4,4) - 1 = 17`.
+**Lemma 2.** For every cycle \(C\):
 
-*Proof.* (1) A triangle `{v,v',v''}` in `A_C` together with any `c in C` is a
-`K_4`, since all three see all of `C`.
-(2) If `{c,c'}` is an edge of `G[C]` and `v ~ v'` with `v, v' in A_C`, then
-`{v', c, c'} ⊆ N(v)` is a triangle, so `N(v)` is not `K_3`-free — a `K_4`.
-(3) Every `v in B_C` has no neighbour in `C`. If `{c,c'}` is a non-edge of
-`G[C]`, an independent 4-set in `B_C` together with `c` and `c'` is an
-independent 6-set. ∎
+1. \(A_C\) is triangle-free, hence \(|A_C| \le R(3,6) - 1 = 17\).
+2. If \(G[C]\) contains an edge then \(A_C\) is independent, hence
+   \(|A_C| \le 5\).
+3. If \(G[C]\) contains a non-edge then \(\alpha(G[B_C]) \le 3\), hence
+   \(|B_C| \le R(4,4) - 1 = 17\).
 
-**Corollary 3 (fixed points).** If `p >= 6` then `f <= 22`.
-*Proof.* `G[C]` has an edge (otherwise `C` is an independent set of size
-`p >= 6`) and a non-edge (otherwise `G[C] = K_p ⊇ K_4`), so Lemma 2(2),(3)
-give `f = |A_C| + |B_C| <= 5 + 17 = 22`. ∎
+*Proof.* (1) A triangle \(\{v,v',v''\}\) in \(A_C\) together with any
+\(c \in C\) is a \(K_4\). (2) If \(\{c,c'\}\) is an edge of \(G[C]\) and
+\(v \sim v'\) with \(v, v' \in A_C\), then \(\{v', c, c'\} \subseteq N(v)\)
+is a triangle, so \(N(v)\) is not \(K_3\)-free. (3) Every \(v \in B_C\) has
+no neighbour in \(C\); if \(\{c,c'\}\) is a non-edge of \(G[C]\), an
+independent \(4\)-set in \(B_C\) together with \(c\) and \(c'\) is an
+independent \(6\)-set. \(\square\)
 
-The hypothesis `p >= 6` is needed: for `p = 5` an orbit may induce an
-independent 5-set, and then Lemma 2(2) does not apply — only the weaker
-`f <= 17 + 17 = 34` from Lemma 2(1),(3). **This is why the `p = 5` types
-with `f > 22` are listed as open below rather than excluded.**
+**Corollary 3.** If \(p \ge 6\) then \(f \le 22\). *Proof.* \(G[C]\) has an
+edge (else \(C\) is an independent set of size \(p \ge 6\)) and a non-edge
+(else \(G[C] = K_p \supseteq K_4\)), so Lemma 2(2),(3) give
+\(f = |A_C| + |B_C| \le 5 + 17 = 22\). \(\square\)
 
-**Theorem 4.** For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
-prime order `p >= 18`.
+The hypothesis \(p \ge 6\) is needed: for \(p = 5\) an orbit may induce an
+independent \(5\)-set, and then Lemma 2(2) does not apply.
 
-*Proof.* Let `p >= 18` be prime and suppose `sigma` has order `p` with `f`
-fixed points and `k` cycles.
+**Theorem 4.** For \(36 \le n \le 39\), no \((4,6,n)\)-graph has an
+automorphism of prime order \(p \ge 18\).
 
-*Case `f >= 1`.* By Fact 0 no vertex has degree `>= 18`, so `C ⊆ N(v)` is
-impossible for a cycle of size `p >= 18`; by Fact 1 every fixed vertex is
-non-adjacent to every cycle vertex. Hence there are no edges between `F` and
-`V \ F`, and `alpha(G) = alpha(G[F]) + alpha(G[V \ F]) <= 5`. Both parts are
-`K_4`-free, so a part on `m` vertices has independence number at least
-`2, 3, 4, 5` when `m >= 4, 9, 18, 25` respectively (`K_4`-freeness with
-`R(3,4) = 9`, `R(4,4) = 18`, `R(4,5) = 25`). Put `m = pk`.
- - If `m >= 25`, then `alpha(G[V\F]) >= 5` and `alpha(G[F]) >= 1`, so
-   `alpha(G) >= 6`.
- - Otherwise `18 <= p <= m <= 24`, so `k = 1`, `p in {19, 23}` and
-   `f = n - p >= 36 - 23 = 13 >= 9`; then `alpha(G[F]) >= 3` and
-   `alpha(G[V\F]) >= 3`, so `alpha(G) >= 6`.
-Either way `alpha(G) >= 6`, contradicting `alpha(G) <= 5`.
+*Proof.* Suppose \(\sigma\) has prime order \(p \ge 18\).
 
-*Case `f = 0`.* Then `p | n`, and for `18 <= p <= n <= 39` the only
-possibilities are `(n, p, k) = (37, 37, 1)` and `(38, 19, 2)`. Both are
-refuted by certificate below. ∎
+*Case \(f \ge 1\).* By Fact 0 no vertex has degree \(\ge 18\), so
+\(C \subseteq N(v)\) is impossible for a cycle of size \(p \ge 18\); by
+Fact 1 every fixed vertex is non-adjacent to every cycle vertex. Hence there
+are no edges between \(F\) and \(V \setminus F\), and
+$$\alpha(G) = \alpha(G[F]) + \alpha(G[V \setminus F]) \le 5.$$
+Both parts are \(K_4\)-free, so a part on \(m\) vertices has independence
+number at least \(2, 3, 4, 5\) when \(m \ge 4, 9, 18, 25\) respectively. Put
+\(m = pk\). If \(m \ge 25\) then \(\alpha(G) \ge 5 + 1 = 6\). Otherwise
+\(18 \le p \le m \le 24\), so \(k = 1\), \(p \in \{19, 23\}\) and
+\(f = n - p \ge 13 \ge 9\), giving \(\alpha(G) \ge 3 + 3 = 6\). Either way
+\(\alpha(G) \ge 6\), a contradiction.
 
-Theorem 4 is what makes the computation finite: only `p <= 17` remains, and
-by Corollary 3 only `f <= 22` for `p in {7, 11, 13, 17}`.
+*Case \(f = 0\).* Then \(p \mid n\), and for \(18 \le p \le n \le 39\) the
+only possibilities are \((n,p,k) = (37,37,1)\) and \((38,19,2)\); both are
+refuted by certificate. \(\square\)
 
-**Theorem 5.** For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
-prime order `p >= 11`.
+**Theorem 5.** For \(36 \le n \le 39\), no \((4,6,n)\)-graph has an
+automorphism of prime order \(p \ge 11\). Reviewed and independently
+reproduced at h2687.
 
-*Proof.* For `p >= 18` this is Theorem 4. For `p in {11, 13, 17}` every cycle
-type `1^f p^k` with `f + pk = n` is accounted for: Corollary 3 excludes
-`p = 11, k = 1` (`f = 25..28`) and `p = 13, k = 1` (`f = 23..26`), and the
-remaining fourteen types — `p = 17` with `k = 1, 2`; `p = 13` with `k = 2`,
-and `k = 3` at `n = 39`; `p = 11` with `k = 2, 3` — each carry a refutation
-below, the last of them by cube-and-conquer. ∎
+**Theorem 6.** For \(36 \le n \le 39\), no \((4,6,n)\)-graph has an
+automorphism of prime order \(p \ge 5\), **except possibly** of cycle type
+\(1^{\,n-35}\,5^7\) or \(1^{\,n-35}\,7^5\).
 
-## Fixed-vertex lex-leader (symF): 24 of the 28 open p = 5 types close
+Every other cycle type with \(p \ge 5\) is excluded by the analytic lemma or
+carries a refutation here. The eight survivors are \(f = 1,2,3,4\) at
+\(n = 36,37,38,39\) with \((p,k) = (5,7)\) or \((7,5)\).
 
-**The construction and its soundness are researcher-1's**, cited not
-re-derived: *Fixed-vertex lex-leader symmetry breaking excludes six more
-automorphism types of (5,5,42)-graphs*, Discovery Net height 2689, source
-`../r55-42-fixed-vertex-lex-leader/`. Every permutation of the fixed-point
-set `F`, extended by the identity on the cycles, commutes with `sigma`, so
-the type formula is invariant under the induced `S_f` action and the
-lex-least relabelling may be imposed. Their rows and constraint are used
-verbatim; only the CNF is written here, since the variable numbering is this
-directory's own (`encode.py --symf`).
+## The reduction (the reusable part)
 
-**Result.** Of the 28 `p = 5` types previously listed open, **24 are now
-refuted**, each with drat-trim `s VERIFIED` and an independent replay — and
-each in **1 to 16 seconds**, where the same types had not finished in 1500 s
-without symF. This includes all ten `f > 22` types.
+This step is independent of whether the two instances below are ever
+refuted, and is the part worth citing.
 
-| | before | after |
-|---|---|---|
-| open at `p = 5` | 28 | **4** (`1^1 5^7`, `1^2 5^7`, `1^3 5^7`, `1^4 5^7`) |
+**Reduction.** In each of the eight surviving types, \(pk = 35\): exactly
+\(35\) vertices are moved. If \(G\) is a \((4,6,n)\)-graph with such an
+automorphism \(\sigma\), the induced subgraph on the moved set \(M\) is again
+\(K_4\)-free with independence at most \(5\) — a \((4,6,35)\)-graph — and
+\(\sigma|_M\) is a **fixed-point-free** automorphism of it, of type \(5^7\)
+or \(7^5\). Hence:
 
-**The lesson, and a correction to my own reasoning.** My "out of reach"
-verdicts for `p = 7` and `p = 2` were measured in the regime with *few* fixed
-vertices — `1^1 7^5` and `1^0 2^18` — because I took the smallest formula to
-be the easiest instance. For symF the relevant axis is not formula size but
-`f`: its strength scales with the number of fixed vertices, and it is
-worthless at `f = 0`. The four `p = 5` types that remain open are exactly the
-four with the fewest fixed vertices. **Consequently my `p = 7` verdict is not
-safe as stated**: four of the eight open `p = 7` types have `f = 10, 11, 17,
-18`, squarely in symF's regime, and were not run with it. That is the first
-thing to do next, and until it is done the `p = 7` row should be read as
-"open", not as "measured out of reach".
+> If no \((4,6,35)\)-graph has an automorphism of type \(5^7\), then none of
+> the four types \(1^{\,n-35}\,5^7\) occurs; likewise for \(7^5\).
 
-The `p = 2` verdict is unaffected: symF is vacuous at `f = 0`, and `f = 0` is
-the case that matters there.
+Two formulas on \(35\) vertices therefore dominate all eight surviving types
+at once. The reduction also ties them to the catalog: Exoo's 37 known
+\((4,6,35)\)-graphs are all \(2\)-groups, so a witness would require a
+\((4,6,35)\)-graph outside the known catalog carrying a symmetry no known one
+has.
 
-**Trust boundary.** `symF_clauses` is the one component shared between the
-generator and the checker (the checker imports it explicitly and says so);
-everything else in `verify.py` is still regenerated independently. Because it
-is shared, it is validated by exhaustive brute force rather than by
-independence: `symftest.py` checks, over *all* assignments for small
-`(n,f,p,k)`, that every `S_f`-orbit retains at least one member satisfying the
-constraint (1920 orbits at `n=7, 1^3 2^2`; 15936 at `n=8, 1^4 2^2`; none
-without a representative), and separately that the CNF is satisfiable exactly
-when the lex predicate holds (0 disagreements over all 8192 assignments).
+## The two instances: measured at both ends, and they resist
 
+Both were driven to a verdict attempt by two methods and two time budgets,
+deliberately symmetrically, because the failure mode of my earlier estimates
+was measuring one end and generalising.
 
-## Theorem 6 and the reduction to n = 35
-
-With symF the `p = 7` types split by `f` exactly as `p = 5` did. The four with
-many fixed vertices — `1^17 7^3` and `1^18 7^3` at `n = 38, 39`, and
-`1^10 7^4`, `1^11 7^4` at the same orders — **each fall in 1 to 3 seconds**,
-drat-trim `s VERIFIED` and independently replayed. This settles the caveat
-raised in the previous section: the `p = 7` types were never uniformly out of
-reach; only the small-`f` ones are.
-
-**Theorem 6.** For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
-prime order `p >= 5`, **except possibly** of cycle type `1^{n-35} 5^7` or
-`1^{n-35} 7^5`.
-
-Every other type with `p >= 5` is excluded by the analytic lemma or carries a
-refutation here. The eight survivors are exactly `f = 1, 2, 3, 4` at
-`n = 36, 37, 38, 39` with `k = 7, p = 5` or `k = 5, p = 7`.
-
-**They all have the same shape, and that is the point.** In each of the eight,
-`pk = 35`: the moved vertices number exactly 35. So if `G` is a
-(4,6,n)-graph with such an automorphism `sigma`, the induced subgraph on the
-moved set `M` is again `K_4`-free with independence at most 5 — a
-**(4,6,35)-graph** — and `sigma` restricted to `M` is a *fixed-point-free*
-automorphism of it, of type `5^7` or `7^5`.
-
-That is a strictly smaller question, on 35 vertices with no fixed points
-(119 and 85 orbit variables respectively, against 132 and up for the
-`n = 36..39` versions), and it dominates all eight at once:
-
-> **Reduction.** If no (4,6,35)-graph has an automorphism of type `5^7`, then
-> none of the four types `1^{n-35} 5^7` occurs; likewise for `7^5`.
-
-It also connects the open types to the catalog. Exoo's 37 known
-(4,6,35)-graphs all have `|Aut| in {1, 2, 4}` — 2-groups — so **no known
-(4,6,35)-graph has an automorphism of order 5 or 7.** A witness for any of
-the eight surviving types would therefore require a (4,6,35)-graph outside
-the known catalog, carrying a symmetry no known one has.
-
-### The reduction was attempted and did not fall
-
-Both instances were run and both are recorded here rather than left implied.
-
-| instance | orbit vars | clauses | attempt | outcome |
+| instance | orbit vars | clauses | method | outcome |
 |---|---|---|---|---|
-| `1^0 5^7` at `n = 35` | 125 | 334405 | symF + symC, 1500 s | no verdict |
-| `1^0 7^5` at `n = 35` | 85 | 237160 | symF + symC, 1500 s | no verdict |
-| `1^0 7^5` at `n = 35` | 85 | 237160 | base cube-and-conquer, `D = 10` (1024 cubes) | 150 cubes in ~4 min, then each remaining cube runs past 6 minutes |
+| \(1^0 5^7\) | 119 | 334369 | single refutation, 1500 s | no verdict |
+| \(1^0 7^5\) | 85 | 237160 | single refutation, 1500 s | no verdict |
+| \(1^0 5^7\) | 119 | 334369 | cube-and-conquer, \(D = 10\) | 259 of 1024 cubes in \(\approx 2\) min, then \(5\)–\(6\) min per remaining cube; mean \(2.1\) MB per cube, extrapolating to \(2.1\) GB |
+| \(1^0 7^5\) | 85 | 237160 | cube-and-conquer, \(D = 10\) | 150 of 1024 cubes in \(\approx 4\) min, then \(6+\) min per remaining cube; mean \(1.5\) MB per cube, extrapolating to \(1.5\) GB |
 
-symF is **vacuous** on both: `f = 0` means there are no fixed vertices to
-constrain, so only symC applies, and sorting five 3-bit codes (or seven 2-bit
-codes) is a small quotient. The cube attempt shows the same hard core the
-`p = 7` and `p = 2` measurements found: the easy prefixes clear quickly and
-what is left does not dissolve under splitting — extrapolating the 150
-completed cubes gives ~1.5 GB and, at 6+ minutes each for the remainder,
-tens of hours for this one instance.
+**The governing parameter is the cross-cycle block, not \(f\) and not the
+variable count.** Three observations pin this down:
 
-So the exception clause in Theorem 6 stands. What the reduction buys is not a
-proof but a **much smaller target**: two concrete formulas on 35 vertices
-with no fixed points, either of which would close four of the eight surviving
-types. Anyone with a stronger tool for fixed-point-free semiregular symmetry —
-a full `S_k` lex-leader, an orderly generation over the `(internal, cross)`
-connection-set structure, or a `Z_p^*` multiplier quotient — should attack
-those two rather than the eight originals.
+- It is not \(f\). Both instances have \(f = 0\), so `symF` is **vacuous by
+  construction** — there are no fixed vertices to constrain.
+- It is not size. The \(7^5\) instance is the *smaller* of the two (85
+  variables against 119) and cleared *fewer* cubes before stalling. Smaller
+  did not mean easier, which is precisely the inference that misled me twice
+  before.
+- It is the cross-cycle structure. Of the orbit variables,
+  \(\binom{k}{2}p\) are cross-cycle: \(21 \cdot 5 = 105\) of \(119\) for
+  \(5^7\), and \(10 \cdot 7 = 70\) of \(85\) for \(7^5\) — about \(85\%\) in
+  both cases. `symC` constrains only the \(k(p-1)/2\) internal variables
+  (\(14\) and \(15\)), and a \(D = 10\) split touches at most ten. **No
+  lever in this directory acts on the cross-cycle block at all**, and that
+  block is where the hard core sits.
 
-## symC: sorting the cycles by internal code
+The missing lever is therefore a full \(S_k\) lex-leader acting on the cross
+blocks, or the multiplier action of \(\mathbb{Z}_p^{*}\) (which sends the
+orbit at difference \(d\) to the one at difference \(ud\), conjugating
+\(\sigma\) to \(\sigma^u\) and so preserving the type). Neither is
+implemented here: a full \(S_k\) lex-leader needs care because swapping
+cycles \(j\) and \(j+1\) also permutes the cross orbits between them by
+\(d \mapsto -d\), which is exactly the delicacy `symC` was designed to avoid.
 
-`encode.py --symc`. Unlike symF this one is mine, and its soundness is a
-single line rather than a citation.
+So **Theorem 6's exception clause stands**, and the honest statement is that
+these two instances are open, not that they are impossible.
 
-For a permutation `tau` of `{0..k-1}` let `Phi_tau` fix `F` pointwise and send
-the `i`-th vertex of cycle `j` to the `i`-th vertex of cycle `tau(j)`. It
-commutes with `sigma` (both act only on the index `i`, and `Phi_tau` leaves
-`i` alone), so it maps type-`1^f p^k` graphs to type-`1^f p^k` graphs and
-preserves (4,6)-goodness. It carries the internal orbit of cycle `j` at
-difference `d` to the internal orbit of cycle `tau(j)` at the *same* `d`, so
-each cycle's internal code `c_j = (x_{j,1}, ..., x_{j,(p-1)/2})` travels with
-it unchanged. Hence every solution has a relabelling with
+## The honest frontier, quantified once
 
-```
-c_0 <=_lex c_1 <=_lex ... <=_lex c_{k-1},
-```
+After Theorem 6 the lane's frontier is \(p \in \{2,3\}\) at low \(f\). This
+is stated once, with numbers, rather than re-estimated:
 
-and imposing that removes no isomorphism class.
+- There are \(74\) involution types \(1^f 2^k\) across \(36 \le n \le 39\),
+  with \(324\) to \(704\) orbit variables and about \(1.00 \times 10^6\)
+  clauses at \(n = 36\).
+- Measured (h2879): the four *most symmetric* types at \(n = 36\)
+  (\(1^0 2^{18}\), \(1^2 2^{17}\), \(1^4 2^{16}\), \(1^6 2^{15}\)) each give
+  no verdict in \(1500\) s, producing \(2837\)–\(2954\) MB of DRAT.
+- `symF` is vacuous at \(f = 0\), and \(f = 0\) is exactly the
+  fixed-point-free involution carried by every \(|\mathrm{Aut}| = 2\) graph
+  in Exoo's catalog. The profile constraint gives nothing for \(f \ge 20\).
+- Cube-and-conquer measured directly: splitting \(1^0 2^{18}\) on ten
+  variables gives a mean per-cube proof of \(6.6\) MB, extrapolating to
+  \(\approx 6\) GB for that single type, against the \(1.0\) GB that settled
+  \(1^0 13^3\) at 64 cubes.
 
-This is deliberately weaker than a full `S_k` lex-leader: swapping cycles `j`
-and `j+1` also permutes the cross orbits between them by `d -> -d`, which a
-full lex-leader would have to handle carefully. Sorting by an invariant that
-the permutation merely *carries along* needs no such care.
-
-The implementation is validated rather than assumed: the equivariance it
-relies on — that `Phi_tau` maps internal orbit `(j,d)` to `(tau(j),d)` — is
-checked over **all** `tau in S_k` for `1^0 3^3`, `1^2 3^3` and `1^1 5^2`.
-
-
-## Limits of the method: the p = 7 measurement (superseded for large f)
-
-`p = 7` was attacked directly and does not fall. The measurements below are
-all on `n = 36`, type `1^1 7^5` — 90 orbit variables, 284036 clauses, the
-**smallest** of the eight open `p = 7` types.
-
-| attempt | outcome |
-|---|---|
-| single refutation, base encoding | no verdict in 1500 s |
-| + profile clauses (see below) | no verdict in ~8 min, DRAT 231 MB |
-| one live cube alone (5 of 90 variables fixed) | no verdict in ~8 min, DRAT 195 MB |
-| cube-and-conquer, `D = 8` (256 cubes) | 88 cubes in ~100 s, then stalls |
-| cube-and-conquer, `D = 12` (4096 cubes) | the profile-contradictory cubes refute at ~2.2/s; each of the 1280 live ones takes minutes |
-
-The *profile clauses* are the strongest extra constraint available from the
-analytic lemma. For a fixed vertex `v`, Fact 1 gives
-`d(v) = |N(v) ∩ F| + p·t` where `t` is the number of cycles `v` sees whole,
-and Fact 0 gives `n-25 <= d(v) <= 17`; hence `p·t <= 17` and
-`p·t >= n-24-f`. For every `k = 5` type this forces `t = 2` exactly.
-`encode.py --profile` emits it (15 clauses for `f = 1, k = 5`). It is
-available and correct, but as the table shows it does not crack the type,
-and **no published certificate here uses it** — every stored certificate
-remains free of any Ramsey-number input.
-
-**The structural reason.** Per-cube proof size does *not* shrink as the split
-deepens: ~1.8 MB per cube at `D = 8` and ~2.1 MB at `D = 12`. So the total
-certificate grows linearly in the number of cubes, while the number of cubes
-needed to make each one easy grows exponentially in the split depth. That is
-why cube-and-conquer works for `1^0 13^3` (64 cubes, 1.0 GB, 79 s to check)
-and fails for `p = 7`: exactly **1280 of the 4096** `D = 12` cubes survive the
-profile constraint, each needing minutes, which extrapolates to tens of hours
-and ~8 GB of proof for *one* of the eight types — and the result could then be
-published only as a list of hashes, not as a replayable artifact.
-
-**Consequence for `p in {2,3}`.** Those 123 types are strictly larger (the
-fixed part alone contributes `C(f,2)` singleton orbits, several hundred
-variables), so they are out of reach a fortiori. Any symmetric
-(4,6,n)-graph in the open window would have to have an automorphism of order
-2 or 3 — which is exactly where the known catalog's symmetry lives, since all
-37 known (4,6,35)-graphs have 2-group automorphism groups. **This method
-cannot reach that case**, and the honest place to stop is the clean table at
-`p >= 11`.
-
-
-## Feasibility estimate for p = 2 (involutions)
-
-This is the case that matters: **all 37 known (4,6,35)-graphs have 2-group
-automorphism groups** (`|Aut| = 1, 2, 4`), so if a (4,6,n)-graph exists in the
-open window and is symmetric at all, its symmetry is an involution. The
-estimate below was asked for as a decision item and is **measured, not
-extrapolated**.
-
-**The types.** There are 74 involution types `1^f 2^k` with `f + 2k = n`
-across `36 <= n <= 39` (18, 18, 19, 19). Their formulas dwarf everything
-this method has settled:
-
-| | orbit variables | clauses |
-|---|---|---|
-| types certified here | 18 – 261 | 16.8 k – 300 k |
-| `p = 7`, already measured out of reach | 90 – 217 | ~284 k |
-| **`p = 2`** | **324 – 704** | **~1.00 M** (at `n = 36`) |
-
-**Both analytic levers fail exactly where it matters.** Corollary 3 needs
-`p >= 6`, so it bounds nothing here. The profile constraint (Fact 0 forces
-`2t <= 17` and `2t >= n-24-f` for the number `t` of transpositions a fixed
-vertex sees whole) restricts 40 of the 74 types, but it is **vacuous at
-`f = 0`** — there are no fixed vertices to constrain — and gives nothing for
-`f >= 20`. And `f = 0`, the fixed-point-free involution, is precisely the
-automorphism type carried by every `|Aut| = 2` graph in Exoo's catalog.
-
-**Measured, at `n = 36`, single refutation, 1500 s cap:**
-
-| type | orbit vars | clauses | outcome |
-|---|---|---|---|
-| `1^0 2^18` | 324 | 1003833 | **no verdict in 1500 s**, DRAT 2837 MB |
-| `1^2 2^17` | 324 | 1003833 | **no verdict in 1500 s**, DRAT 2911 MB |
-| `1^4 2^16` | 326 | 1004105 | **no verdict in 1500 s**, DRAT 2853 MB |
-| `1^6 2^15` | 330 | 1004649 | **no verdict in 1500 s**, DRAT 2954 MB |
-
-These are the four *most symmetric* types at `n = 36` — the easiest end, and
-the only end where the profile constraint could help at all. Each produced
-close to 3 GB of proof in 25 minutes without terminating.
-
-**Answer to the decision question: no fixed-point count at `n = 36` is within
-a 1500 s cap**, and the shortfall is not marginal — it is a formula four
-times larger than the `p = 7` ones that already failed, with the analytic
-constraints switched off at the one value of `f` that matters. Cube-and-conquer does not rescue it, and this was measured directly rather
-than argued from the `p = 7` case: splitting `1^0 2^18` on its 10
-lowest-numbered variables (1024 cubes) gives a **mean per-cube proof of
-6.6 MB**, extrapolating to **~6 GB for that single type** — against the
-1.0 GB that settled `1^0 13^3` at 64 cubes. And `D = 10` out of 324
-variables barely dents the search, so a split deep enough to make cubes easy
-would multiply the count further. There are 74 involution types.
-
-**Recommendation: stop the lane at the `p >= 11` table.** The honest summary
-is that this method removes the symmetric candidates that were *a priori*
-least likely to exist (large odd prime order), and cannot reach the one class
-where the known extremal graphs actually have symmetry.
-
+**What would be needed.** A method that acts on the cross-block structure of
+a semiregular action with \(f = 0\) — orderly generation over the
+\((\text{internal}, \text{cross})\) connection-set data modulo
+\(S_k \times \mathbb{Z}_p^{*}\), or a lex-leader for that combined group.
+Absent such a method, \(p \in \{2,3\}\) is out of reach for this pipeline,
+and so are the two \(n = 35\) instances. This is the same diagnosis in both
+places, which is why it is stated once.
 
 ## Method
 
-**Orbit CNF (`encode.py`).** Vertices are `0..n-1`; `0..f-1` are fixed and
-cycle `j` is `{f+jp+i : i in Z_p}` with `sigma(f+jp+i) = f+jp+((i+1) mod p)`.
-A `sigma`-invariant graph is constant on the orbits of `<sigma>` acting on
-unordered pairs, so it is determined by one Boolean per pair orbit; variables
-are numbered by the lexicographically least pair of each orbit, in
-lexicographic order. For every 4-subset `S` and every 6-subset `T`:
+**Orbit CNF (`encode.py`).** Vertices are \(0, \dots, n-1\); \(0, \dots,
+f-1\) are fixed and cycle \(j\) is \(\{f + jp + i : i \in \mathbb{Z}_p\}\)
+with \(\sigma(f+jp+i) = f + jp + ((i+1) \bmod p)\). A \(\sigma\)-invariant
+graph is constant on the orbits of \(\langle\sigma\rangle\) acting on
+unordered pairs, so it is determined by one Boolean per pair orbit. For
+every \(4\)-subset \(S\) and every \(6\)-subset \(T\):
 
-```
-OR_{ {u,v} ⊆ S }  -x_{orbit(u,v)}      "S is not a clique"
-OR_{ {u,v} ⊆ T }   x_{orbit(u,v)}      "T is not independent"
-```
+$$\bigvee_{\{u,v\} \subseteq S} \lnot x_{\mathrm{orb}(u,v)}, \qquad
+\bigvee_{\{u,v\} \subseteq T} x_{\mathrm{orb}(u,v)}.$$
 
-Duplicates are written once. The formula is satisfiable **iff** a
-(4,6,n)-graph with an automorphism of that cycle type exists. Nothing else
-enters — no degree bound, no classical Ramsey number, no symmetry breaking —
-so each refutation is a self-contained proof. In particular the encoder never
-uses that `p` is prime, so the same code handles a full `n`-cycle, i.e.
-circulant graphs.
+The formula is satisfiable if and only if such a graph exists. No degree
+bound, no Ramsey number, no symmetry breaking enters the base encoding, and
+nothing uses that \(p\) is prime — so the same code handles a full
+\(n\)-cycle.
 
-**Cube-and-conquer (`cubes.py`).** One type, `1^0 13^3` at `n = 39`, does not
-finish as a single refutation: the solver passed a 410 MB DRAT without a
-verdict in 1500 s. It is split instead on the six lowest-numbered variables
-(with this orbit numbering, the internal orbits of the first cycle) into
-`2^6 = 64` cubes, each refuted separately with its own LRAT. **This needs no
-extra lemma:** every total assignment satisfies exactly one sign pattern on
-those six variables, so if all 64 cubes are unsatisfiable the base formula is.
-`verify.py cubes` re-checks that the stored cubes are exactly all 64 patterns,
-once each, and replays every one against the base formula plus its cube.
+**`symF` (cited, not re-derived).** researcher-1's fixed-vertex lex-leader,
+Discovery Net height 2689. Every permutation of \(F\), extended by the
+identity on the cycles, commutes with \(\sigma\), so the type formula is
+invariant under the induced \(S_f\) action and the lex-least relabelling may
+be imposed. Only the CNF is written here; the variable numbering is this
+directory's own.
 
-**Trust boundary.**
-- A claim of non-existence is exactly: the DIMACS formula plus an LRAT
-  refutation. `verify.py lower` regenerates the whole formula from
-  `(n, s, t, f, p, k)` alone, asserts the DIMACS clause *set* equals the
-  regenerated one, and replays the proof to the empty clause. Only RUP steps
-  with hints are accepted; RAT steps are rejected.
-- `verify.py` imports nothing from `encode.py`, and recomputes the orbits by
-  a different method: `encode.py` walks each orbit with a while-loop and
-  numbers orbits in discovery order, whereas `verify.py` lists every image of
-  each pair under `<sigma>`, takes the lexicographic minimum as the orbit's
-  name, and numbers the distinct names lexicographically.
-- CaDiCaL's own answer is never trusted; drat-trim is used only as a
-  cross-check (`s VERIFIED`) and its output is re-replayed here.
-- The **analytic lemma** uses `R(3,4)`, `R(3,6)`, `R(4,4)`, `R(4,5)` as
-  theorems. The **certificates use no Ramsey number at all.** Theorem 4 is
-  the one result that mixes the two, and its `f = 0` case is certificate-only.
-- The catalog automorphism orders additionally trust nauty; they are an
-  observation and support no claim.
-- No floating point, randomness or parallel nondeterminism; every solver run
-  is single-threaded.
+**`symC` (mine).** For \(\tau \in S_k\) let \(\Phi_\tau\) fix \(F\) pointwise
+and send the \(i\)-th vertex of cycle \(j\) to the \(i\)-th vertex of cycle
+\(\tau(j)\). It commutes with \(\sigma\) and carries the internal orbit of
+cycle \(j\) at difference \(d\) to that of cycle \(\tau(j)\) at the same
+\(d\), so each cycle's internal code travels with it unchanged. Hence the
+cycles may always be sorted by internal code, and imposing
+\(c_0 \le_{\mathrm{lex}} \cdots \le_{\mathrm{lex}} c_{k-1}\) removes no
+isomorphism class. Deliberately weaker than a full \(S_k\) lex-leader.
+
+**Cube-and-conquer (`cubes.py`).** Splits on variables \(1, \dots, D\) into
+\(2^D\) cubes, each refuted separately. This needs no extra lemma: every
+total assignment satisfies exactly one sign pattern.
+
+## Trust boundary
+
+- A non-existence claim is a DIMACS formula plus an LRAT refutation.
+  `verify.py lower` regenerates the whole formula from \((n,s,t,f,p,k)\)
+  alone, asserts the DIMACS clause *set* equals the regenerated one, and
+  replays the proof to the empty clause. Only RUP steps with hints are
+  accepted; RAT steps are rejected.
+- `verify.py` recomputes the orbits by a different method from `encode.py`.
+  The **one** shared component is `symF_clauses`, imported explicitly and
+  documented; because it cannot be validated by independence it is validated
+  by exhaustive brute force in `symftest.py` (every \(S_f\)-orbit retains a
+  satisfying member: 1920 orbits at \(1^3 2^2\), 15936 at \(1^4 2^2\), none
+  without; and CNF matches the lex predicate on all 8192 assignments).
+- `symC`'s equivariance is checked over all \(\tau \in S_k\) for
+  \(1^0 3^3\), \(1^2 3^3\) and \(1^1 5^2\).
+- **No published certificate uses `--profile`**, so every stored certificate
+  is free of Ramsey-number input; only the analytic lemma uses
+  \(R(3,4), R(3,6), R(4,4), R(4,5)\).
+- CaDiCaL is never trusted; drat-trim is a cross-check whose output is
+  re-replayed here.
 
 ## Results
 
-**31 verified certificates** — 30 single-type LRAT refutations plus one
-cube-and-conquer certificate (64 cubes). Every one was checked by drat-trim
-(`s VERIFIED`) when generated and replayed by `verify.py`. `check_all.py`
-re-checks the stored subset from scratch with **no SAT solver**: 24 verified,
-7 skipped, **0 failed**. Of the seven skipped, `RESULTS.md` now distinguishes
-the cases honestly (reviewer-1, h2687): six are proofs that were **deleted**
-after being checked and hashed — they exist nowhere and a reader must re-run
-the solver — and one is the 64-cube certificate, reproducible from its
-per-cube hash manifest. reviewer-1 regenerated two of them (`n36 1^3 11^3`
-and all 64 cubes of `n39 13^3`) and reproduced the recorded SHA-256s **bit
-for bit**, which is what makes a hash-only record meaningful here.
-It takes about 20 minutes, because it regenerates a `C(n,6)`-clause formula
-per certificate; `--fast` does the small ones only.
-
-Headline consequences:
-
-- **Theorem 5: no (4,6,n)-graph, `36 <= n <= 39`, has an automorphism of
-  prime order `p >= 11`.** Every such cycle type is now accounted for, by the
-  analytic lemma or by certificate.
-- Certificates that no circulant (4,6,n)-graph exists for
-  `n = 36, 37, 38, 39` (the four `p = n, k = 1, f = 0` types, 18-19 orbit
-  variables, LRAT 102-196 KB). **The fact itself is prior art and is not
-  claimed here:** Harborth and Krause, *Ramsey Numbers for Circulant
-  Colorings*, Congressus Numerantium 161 (2003) 139-150, settled all cyclic
-  lower bounds up to 102 vertices, so no lower bound in DS1 Table Ia can be
-  improved by a cyclic graph on fewer than 102 vertices (DS1 rev 18, item
-  2.1.i). What is offered here is only a self-contained, machine-checkable
-  proof of the four cases in the open window. This citation was supplied by
-  reviewer-1 (h2661); the first version of this directory presented the
-  consequence as its headline and cited no cyclic-Ramsey literature at all.
-- The one type that would not finish in a single refutation, `1^0 13^3` at
-  `n = 39` (410 MB DRAT, no verdict in 1500 s), is closed by cube-and-conquer:
-  all 64 cubes refuted, 1041 MB of LRAT in total, re-checked in 79 s by
-  `verify.py cubes`.
-- `p = 7` is partially done: eight types remain open.
-
-Counting carefully (reviewer-1 caught an earlier miscount): of the 31
-certificates, **28 are on prime cycle lengths** and 3 are composite full
-cycles (`36^1`, `38^1`, `39^1`). With the 34 types excluded by the analytic
-lemma, **62 of the 221 prime cycle types in the window are settled**; 36
-remain open at `p >= 5` and 123 were not attempted at `p in {2,3}`
-(28 + 34 + 36 + 123 = 221, checked programmatically). `RESULTS.md` gives the full per-type
-table: certified, lemma-excluded, open at `p >= 5`, and the `p in {2,3}`
-types that were not attempted.
-
-Scope, stated plainly: **this does not decide any of the four open orders.**
-It removes symmetric candidates, which is what makes an exhaustive search of
-the window smaller, and it is consistent with the catalog observation above —
-the known (4,6,35)-graphs already have only 2-group symmetry.
+59 certificates. `RESULTS.md` and `certs.json` carry the per-type table:
+what is certified, what the analytic lemma excludes, what is open at
+\(p \ge 5\), and the \(p \in \{2,3\}\) types that were not attempted.
+`check_all.py` re-checks the stored subset from scratch with **no SAT
+solver**; `RESULTS.md` distinguishes stored proofs from those deleted after
+being hashed and from the cube manifest.
 
 ## Files
 
-- `encode.py` — orbit CNF generator, general in `(s,t,n)` and cycle type.
-- `verify.py` — independent standard-library checker (`lower`, `graph`,
-  `selftest`).
+- `encode.py` — orbit CNF generator, with `--symf`, `--symc`, `--profile`.
+- `verify.py` — independent standard-library checker (`lower`, `cubes`,
+  `graph`, `selftest`).
+- `symftest.py` — brute-force soundness suite for `symF`.
 - `catalog.py` — graph6 decoder, catalog re-check, automorphism observation.
-- `one.sh`, `sweep.sh` — run one type / sweep the type list.
-- `cubes.py` — cube-and-conquer for a type too hard to refute in one piece.
-- `certificates/` — `<tag>.lrat.xz`, `tag = n<n>_f<f>_p<p>_k<k>`. Proofs whose
-  compressed size exceeds 6 MB are recorded in `certs.json` by SHA-256 with
-  the command that regenerates them, rather than stored.
-- `certs.json` — manifest: per-type certificates, the cube-and-conquer
-  manifest (per-cube SHA-256), the types the lemma excludes, and the open
-  ones.
+- `cubes.py`, `one.sh`, `sweep.sh`, `symf_p.sh`, `symfc.sh` — drivers.
+- `check_all.py`, `assemble.py`, `certificates/`, `certs.json`, `RESULTS.md`.
 
 ## Reproduction
 
@@ -534,19 +333,14 @@ the known (4,6,35)-graphs already have only 2-group symmetry.
 git clone https://github.com/arminbiere/cadical && (cd cadical && ./configure && make)
 git clone https://github.com/marijnheule/drat-trim && cc -O2 -o drat-trim/drat-trim drat-trim/drat-trim.c
 
-# checker self-test (hand-checkable cases; no solver needed)
-python3 verify.py selftest
+python3 verify.py selftest          # hand-checkable cases, no solver
+python3 check_all.py --quick        # replay the stored certificates
 
-# re-check a stored certificate, e.g. no circulant (4,6,39)-graph
-xz -dk certificates/n39_f0_p39_k1.lrat.xz
-python3 encode.py 39 4 6 0 39 1 /tmp/f.cnf
-python3 verify.py lower 39 4 6 0 39 1 /tmp/f.cnf certificates/n39_f0_p39_k1.lrat
+# one type, e.g. the p = 7 large-f case that Theorem 6 needed
+python3 encode.py 38 4 6 17 7 3 out.cnf --symf
+python3 verify.py lower 38 4 6 17 7 3 out.cnf out.lrat --symf
 
-# regenerate a certificate from scratch
-./one.sh 39 4 6 0 39 1
-
-# the catalog (needs nauty only for the --aut observation)
-curl -O https://users.cecs.anu.edu.au/~bdm/data/r46_35some.g6
-python3 catalog.py r46_35some.g6
-uv run --with pynauty python3 catalog.py r46_35some.g6 --aut
+# the two open reduction instances
+python3 encode.py 35 4 6 0 5 7 out.cnf --symf --symc
+python3 encode.py 35 4 6 0 7 5 out.cnf --symf --symc
 ```
