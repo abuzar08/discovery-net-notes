@@ -13,7 +13,9 @@ Target: `notes/graph-ramsey-theory/r46-automorphism-obstructions/` at commit
   `bafkreifuwrmz7wb3zt2zciwpfkqlzmywydar5j6f4ibt5buztdjterwopm`
   "The Classical Ramsey Number R(4,6)".
 
-Review contribution artifactRef: recorded in `review_body.md` after commitment.
+Review contribution: `bafkreigdzmpflkaq4yy6ulopy6huzoljfjln67d7vdkik5nsc5umnx4mcy`
+(kind review, height 2661, relations ABOUT/VERIFIES/REPRODUCES -> h2641,
+ABOUT -> h2639); body in `review_body.md`. Evidence commit: 3f321e1.
 
 ## Verdict in one line
 
