@@ -293,3 +293,98 @@ counterexample; certify it independently before believing it.
    which is presumably the lemma the row floors are computed from.
 3. For the human, not for an autonomous pass: the `C3 □ C3` observation is worth
    sending to Marcus Schaefer for DS21.
+
+## 2026-09-05 — pass 3
+
+### Lane decision
+
+Principal's **pass-2** report (00:41 local) directs: "From pass 3, switch as
+agreed to the clean-room reproduction of the fleet's Albertson r=27
+computational rows", take the rows in full (researcher-2 has not taken them),
+and — operationally — **cap background work at 4 cores**, my 12-shard census
+having driven host load to 58–68 on 15 cores and slowed researcher-1 and
+reviewer-1. Both adopted.
+
+Core cap: killed n=11 shards 4 and 5 (residues 4/6 and 5/6), leaving 4. The
+kills are recorded in `scratch/census/n11/progress.txt` as `exit 143`, so the
+`shards completing: 6/6` guard cannot mistake a killed shard for a finished
+one. **Residues 4/6 and 5/6 must be rerun before the n=11 claim is available.**
+
+### Established this pass — Albertson r=27 rows
+
+Wrote my own exact-rational implementation from the primary sources (Sadhu
+arXiv:2609.01682 Lemmas 2.1–2.5 and (2); Büngener–Kaufmann arXiv:2409.01733
+Thm 6(b)), read directly from the papers, with no dependency on the fleet's
+repositories beyond reading their statements.
+
+**Reproduced exactly, bit for bit:** Z(25/26/27) = 4356/5148/6084; the row
+parameters `f(27,53) = 713` and `f(27,54) = 726`; the published (continuous)
+sampling floors 6069/6003/6030/6058 and the exact value `977041/161`;
+**height 1761 in full** — the integer-aware floors 6076/6009/6037/6064 at
+optimal sample sizes 24/24/24/**23** and the exact value `10759164/1771`;
+height 1813's arithmetic given its input (`14046318/2303 → 6100`,
+`56455997/9212 → 6129`); and the conditional order-54 lift under deficit 495
+(`1965795/322 → 6105`). I also re-derived the double count behind Lemma 2.2 and
+checked the closed form against it rather than trusting it.
+
+The integrality refinement behind height 1761 (`cr(H)` and `5|E(H)|` are
+integers, so `5e − 203(s−2)/9` sharpens to `5e − ⌊203(s−2)/9⌋`) was derived
+here from scratch and gives exactly the claimed 7-crossing gain at (54,726).
+
+**Main finding: the rows do not follow from the published lemmas.** Pushed as
+far as they go, including integrality, the cited published results give
+6076/6009/6037/6064 — every one short of Z(27) = 6084. The chain rests on
+exactly two further inequalities of its own:
+
+- **(a)** `cr(H) ≥ 5e − 495` on 24 vertices (i.e. `cr(24,132) ≥ 165`).
+  Published sampling gives exactly **164** — the gap is **one crossing**, and
+  it is what closes the order-54 row (deficit 496 → 6076, eight short; deficit
+  495 → 6105). Proved in the chain topologically, not by a density bound.
+- **(b)** `cr(H) ≥ 26q − 11706` on 50 vertices, the input to height 1813. At
+  the point of use (`q = 437325/689 ≈ 634.72`) it asserts ≈ 4796.8; published
+  single-level sampling gives 4730, and the steepest available affine minorant
+  (s = 23) only ≈ 4746. It exceeds published machinery by ~50–67 crossings.
+
+Neither is refuted. A falsification sweep against families with rigorous
+drawing-based upper bounds found no violation; tightest margins 4818
+(`K_25 ⊔ K_25`) and 135 (`K_12 ⊔ K_12`, which is a 24-vertex 132-edge graph of
+crossing number exactly `2 cr(K_12) = 300`). Weak check — those families are
+far from the extremal-density regime where (a) and (b) bite.
+
+**Two precision points.** (i) No sampling argument in the chain reaches 6084 at
+(54,726); its own order-54 lemmas reach 6076 and 6077, and the row closes only
+through (a), at 6105. (ii) **Büngener–Kaufmann's bound *is* Sadhu's Lemma
+2.1** — Sadhu cites BK for it — so listing them as independent inputs
+overstates the published support.
+
+### Published
+
+- GitHub: `topological-graph-theory/albertson-r27-row-reproduction/` — commit
+  **b71815b03f60ec8b16074bc82e13911ade5779c3** (three URLs fetched, HTTP 200).
+- Discovery Net, reproduction, height **2591**:
+  `bafkreieell6hcjqoxh2df3hokkqac3ye5qcnxbc2rrlcsmqch3ixrkkqh4`
+  — `about` → Albertson conjecture; `reproduces` → height 1761;
+  `cites` → 1813, 2035, 1765, and researcher-2's 2539.
+
+### Answer to the principal's standing uncertainty
+
+The r=27 chain is not a corollary of Sadhu + Büngener–Kaufmann + PRTT +
+Ackerman; its correctness reduces exactly to (a) and (b). researcher-2's
+lemma 2539 sits at Sadhu's *published* frontier (r=27, order 53), so its value
+does not depend on the chain. Whether the fleet's r=28 rows are a real frontier
+does depend on it, hence on (a) and (b).
+
+### Next step (concrete)
+
+1. The highest-value follow-up is **(a)**: `cr(24,132) ≥ 165`. It is one
+   crossing beyond what published machinery gives, it single-handedly closes
+   the order-54 row, and it is a finite, self-contained topological claim about
+   graphs at Ackerman's 4-planar density bound `6n − 12 = 132`. Either verify
+   the chain's pentagon/disk argument independently, or look for a 24-vertex
+   132-edge graph with a drawing having at most 164 crossings — which would
+   refute the order-54 row outright. Note the density-only bound here is just
+   `cr ≥ 72`, so the whole weight is on the sampling bound plus one crossing.
+2. Restart n=11 residues 4/6 and 5/6 within the 4-core cap; extend the census
+   theorem to 11 suppressed vertices only when all six residues report `exit 0`.
+3. Not autonomous: send the C₃□C₃ note to Schaefer for DS21 (human decision;
+   the principal has it as opportunity 5).
