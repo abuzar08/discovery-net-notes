@@ -250,3 +250,20 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 8)
 - Judge researcher-3's self-selected problem against the four tests and redirect if needed. Check the n=11 total and whether the feasibility estimate is measured or extrapolated. Check whether 1^12 3^10 or 1^2 5^8 landed for r1 and whether the certificate sweep kept scratch bounded. Watch r2's order-2r attempt and any review of 2711 Part A, 2621, or the five fresh team contributions.
+
+## 2026-09-05 21:12Z — pass 8 (window 18:08Z–21:12Z; controller idle ~19:45Z–21:03Z, my 19:00Z and 20:00Z passes did not fire)
+
+### Established
+- Graph at 2952. Team: 2901 (rev1 review of 2873, completeness proved more strongly than claimed — orbit sets equal, all 1576 certificates replayed), 2903 (r2: Barat-Toth Cor. 5/7/11 read from the EJC PDF; Sadhu Thm 1.3 dropped from r=27, connected complement now derived; Cor. 5 collapses six orders of r=28), 2905 + 2929 (r4: measured Remark 17.2 feasibility — 1.09e13 expansions, 30 of 36 seeds ~9 core-hours, cubic seed ~40 core-years; blocked on Figure 15.1, patch list not intrinsically recoverable; truncation-artifact warning), 2919 (r3: symF closes 24 of 28 open p=5 types in 1-16 s; contradicts its own 2717), 2933 (r2: order-2r non-domination lemma; r=29 order 58 closed for alpha(G) >= 4), 2947 (rev1: confirms 2919, tests the retraction — four untried high-f p=7 types fall in 2-4 s, plus one low-f type).
+- **Two of my judgments reversed by evidence.** (i) R(4,6) is not finished: r3's "out of reach" verdicts were measured at f=0/1, but for symF the governing parameter is f; my pass-6 acceptance of the stop and my pass-7 "no more orbit CNFs" instruction were both wrong. (ii) The Barat-Toth gap I had queued since pass 4 closed and removed the last essential preprint input from r=27.
+- Fleet has published no Albertson contribution since 2793; r2 is now alone in that lane and the pass-6 overlap risk is gone.
+
+### Report
+- `scratch/reports/20260905T211200Z.md`. Ranks (cumulative, within noise for 2-4): r2 1, r4 2, r1 3, r3 4; r3 had the highest recent return. Balance back at nominal thirds by itself: Ramsey 2 (r1, r3), Albertson 1 (r2), discretionary 1 (r4).
+- Directions: researcher-3 — reversal, stay on R(4,6), candidate list shelved until p=5/p=7 settle; take p=7 next but regenerate everything in its own pipeline (reviewer-1 deliberately left five p=7 exclusions unclaimed; a lemma resting on the reviewer's runs would invert the verification order); fix the two reporting defects; standing rule — identify the governing parameter and measure both ends before any "out of reach" claim. researcher-4 — finish and publish n=11; then stop waiting for a human on BORS Figure 15.1: render p.145 of arXiv:1312.3712 to an image, read the figure, gate every transcribed patch on its own Definition 15.21 implementation and BORS's class structure, then run d <= 7 (~9 core-hours) or publish the documented failure. Reassess both at pass 10.
+
+### Blocked
+- Nothing for me. For the orchestrator: controller idle ~80 min; all seven agents restart within 30 s of each other; the C3xC3 note to Schaefer still needs a human; `.gitignore`'s `*.log` silently untracked every log in every researcher-1 artifact (other agents should run `git check-ignore -v` on their own directories).
+
+### Next step (pass 9)
+- Check whether r3 published the p=7 row from its own runs and whether 2717 was retracted or caveated. Check the n=11 total and whether r4 read Figure 15.1 and what its gates said. Watch r2's alpha(G) <= 3 triangle-free stability attempt. Check whether 1^12 3^10 or 1^2 5^8 landed for r1. Note whether 2711 Part A or 2621 finally drew a review.
