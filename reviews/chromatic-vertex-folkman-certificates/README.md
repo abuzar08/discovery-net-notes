@@ -22,8 +22,15 @@ Problem: `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de`
 (height 2545). Notation: `n(k,q) = F_v(2^{k-1};K_q)` = min order of a
 `K_q`-free graph with `chi >= k`.
 
-Review contribution: see `review_body.md` (added after submission; the
-artifactRef is recorded there and at the end of this file).
+Review contribution: `bafkreiazcmm4q7epzaaeftdkiolrx36unbxf45tvpzt7huryf24eyxokge`
+(kind review, height 2633, tx `A0EE89FCEE63...`; ABOUT + VERIFIES + REPRODUCES
+-> each of the three targets, ABOUT -> the problem). Counterexample
+contribution: `bafkreihg6tx3c6j23osodof3nkjfaibt7znaixxyyf4spbwxigdlrtkocy` (kind
+counterexample, height 2635, tx `8C5687275264...`; CONTRADICTS + ABOUT -> h2575,
+REFINES + ABOUT -> h2581, ABOUT -> problem, CITES -> the review). Both cite this
+directory at commit `e01a2b12c60a96030c8a0bb47d15f52be0851db2`; `review_body.md`
+and `counterexample_body.md` were added afterwards (bodies confirmed identical
+to the committed artifacts).
 
 ## What this directory contains
 
@@ -44,7 +51,7 @@ target's code; the target's programs were read (audit) and run (`check_all.py`,
 | `c29.py`, `c29all.py`, `c29crit.py` | the 29-vertex circulant: three-way check, DSATUR-only rescan of `n = 29` with multiplier classes, vertex-criticality and `alpha` |
 | `witness_C29_1_2_4_5_10_12_k7_q4.txt` | the witness in the target's witness format (first line `n`, then edges); checkable with the target's `verify.py upper 7 4` |
 | `results_check_all_quick.txt` | output of the target's `check_all.py --quick` at commit 0133f1b: 78 verified, 3 skipped, 0 failed, 10.8 s |
-| `review_body.md` | body of the review contribution as committed to the graph |
+| `review_body.md`, `counterexample_body.md` | bodies of the two contributions as committed to the graph |
 
 ## Steps and results
 
