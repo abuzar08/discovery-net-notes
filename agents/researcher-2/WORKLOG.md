@@ -789,3 +789,69 @@ Order 57: (824) and (825) closed at height 2871; (826), (827), (828) reduced to
    the counting arguments there by structure; that would make those proofs
    uniform across both orders.
 3. Ask for review of order2r.py, and of deps.py from pass 8.
+
+## 2026-09-05 — pass 10
+
+### What I established
+1. **Order 58 at r = 29 is impossible whenever H has no two disjoint triangles.**
+   Let T be a Stehlik triangle and F := H - V(T) on 55 vertices. F is
+   triangle-free (a triangle of F would be disjoint from T). Edges meeting T
+   number at most sum_{t in T} d_H(t) - 3 <= 3r-3 = 84, so e(F) >= e(H) - 84 >=
+   729. Cauchy-Schwarz gives sum_{uv in E(F)}(d_F(u)+d_F(v)) = sum_v d_F(v)^2 >=
+   (2e(F))^2/|V(F)|, so some edge has d_F(u)+d_F(v) >= 4e(F)/|V(F)| >= 54. F is
+   triangle-free, so N_F(u) and N_F(v) are DISJOINT independent sets of F, hence
+   disjoint cliques of G, and the split bound applies: min over a+b >= 54,
+   a,b <= Delta(H) <= 29 of crK(a)+crK(b) is 11092 at (27,27), against
+   Z(29) = 8281. Margin 11092 vs 8281 — not a near miss. Same for m=838,839,840.
+   Uses no barrier machinery: only Stehlik, Cauchy-Schwarz and additivity of cr.
+   This supersedes the crude ~1480 bound I recorded for this sub-branch in pass 9.
+2. **The order-58 open set is now a single branch:** H is K_4-free AND has two
+   disjoint triangles. (Height 2933 killed "H has a K_4"; item 1 kills "H has no
+   two disjoint triangles"; those two are exhaustive of the complement.)
+3. **Negative result, reported rather than hidden.** For that last branch I added
+   the Turan cap e(H[C]) <= floor(|C|^2/3) on every component of H - B (valid
+   because H is K_4-free there). It raises every class but closes none: four
+   classes survive per row, tightest b = 30 with (3,1^25):
+       m=838: 8207 vs 8281 (short 74) ; m=839: 8172 (short 109) ; m=840: 8136 (145)
+   The b = 6 and b = 7 classes are far off (~4500-5100), so b = 30 is where any
+   further gain has to come from.
+
+### Published
+- GitHub commit 2c8b8d5 (abuzar08/discovery-net-notes): order2r.py gains PART 3
+  (the closure) and PART 4 (the negative result); EXPECTED_OUTPUT_ORDER2R.txt and
+  SHA256SUMS regenerated; README "Order 2r" section rewritten. Blob link HTTP 200.
+  order2r.py SHA-256 4ce47ce69bfc0ac0ad92beac821664c2744a5ef6bdff0e4c2b15b85f34d8c31e.
+- Discovery Net: contribution submitted, kind LEMMA, ref
+  `bafkreiafu3krb262eyahjjcr7ctiei5vqluq2wqri5vqxrcb26hjfgfpe4`,
+  tx 751CBA578C99FBF437AC0C27875979791B050A75975E63956EE9F8EF88CE048D,
+  check_tx_code 0, accepted_for_broadcast true. Relations: about -> conjecture
+  (280); refines -> my order-2r lemma (2933); cites -> the r=29 frontier (2761).
+  **NOT YET COMMITTED — see blocked.**
+- Graph re-queried at indexedHeight 2952 immediately before submitting; nothing
+  new in the Albertson lane since my own 2933.
+
+### Blocked
+- **The local chain has stopped producing blocks.** Last block 2952 at
+  2026-09-05T19:46:20Z; at 21:21Z the height is still 2952 and
+  /num_unconfirmed_txs reports 2 queued txs (mine and one other). My transaction
+  was accepted for broadcast and sits in the mempool; it should commit when the
+  chain resumes. I did NOT resubmit — resubmitting would duplicate. Verify the
+  ref above is indexed at the start of the next pass before citing it.
+- r = 29 is still not proved. Open: three order-57 rows ((57,826), (57,827),
+  (57,828) reduced to |R| in [7], [7,8,9], [7..11]) and the one order-58 branch.
+- No background computations left running.
+
+### Next step (concrete)
+1. The b = 30 class of the last order-58 branch, 74 short at m = 838. There
+   H - B has 25 singleton components plus a triangle, so 25 vertices of H have
+   all their neighbours inside a 30-set B. Apply the pass-9 non-domination lemma
+   and the disjointness lemma to those 25 singletons simultaneously: each
+   A_i := N_B(w_i) is non-dominated, and pairwise disjointness of the A_i (if it
+   extends from 2 to many) would force sum |A_i| <= |B| = 30 over 25 singletons,
+   i.e. most w_i have d_H(w_i) = 1, contradicting delta(H) >= 2. That is the
+   cheapest route to the missing 74 and needs no new crossing input.
+2. Failing that, sharpen the Turan cap: H is K_4-free AND has two disjoint
+   triangles, so H - (T1 u T2) is triangle-free on 52 vertices, giving the
+   Mantel cap 676 there and a second edge-transfer inequality to stack on the
+   component cap.
+3. Ask for review of order2r.py (PARTS 3 and 4) and of deps.py from pass 8.
