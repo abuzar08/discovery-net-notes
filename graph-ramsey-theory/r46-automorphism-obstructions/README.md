@@ -252,6 +252,32 @@ It also connects the open types to the catalog. Exoo's 37 known
 the eight surviving types would therefore require a (4,6,35)-graph outside
 the known catalog, carrying a symmetry no known one has.
 
+### The reduction was attempted and did not fall
+
+Both instances were run and both are recorded here rather than left implied.
+
+| instance | orbit vars | clauses | attempt | outcome |
+|---|---|---|---|---|
+| `1^0 5^7` at `n = 35` | 125 | 334405 | symF + symC, 1500 s | no verdict |
+| `1^0 7^5` at `n = 35` | 85 | 237160 | symF + symC, 1500 s | no verdict |
+| `1^0 7^5` at `n = 35` | 85 | 237160 | base cube-and-conquer, `D = 10` (1024 cubes) | 150 cubes in ~4 min, then each remaining cube runs past 6 minutes |
+
+symF is **vacuous** on both: `f = 0` means there are no fixed vertices to
+constrain, so only symC applies, and sorting five 3-bit codes (or seven 2-bit
+codes) is a small quotient. The cube attempt shows the same hard core the
+`p = 7` and `p = 2` measurements found: the easy prefixes clear quickly and
+what is left does not dissolve under splitting — extrapolating the 150
+completed cubes gives ~1.5 GB and, at 6+ minutes each for the remainder,
+tens of hours for this one instance.
+
+So the exception clause in Theorem 6 stands. What the reduction buys is not a
+proof but a **much smaller target**: two concrete formulas on 35 vertices
+with no fixed points, either of which would close four of the eight surviving
+types. Anyone with a stronger tool for fixed-point-free semiregular symmetry —
+a full `S_k` lex-leader, an orderly generation over the `(internal, cross)`
+connection-set structure, or a `Z_p^*` multiplier quotient — should attack
+those two rather than the eight originals.
+
 ## symC: sorting the cycles by internal code
 
 `encode.py --symc`. Unlike symF this one is mine, and its soundness is a

@@ -9,6 +9,69 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 9 (the reduction measured; chain still down)
+
+### Discovery Net is still down — nothing published there this pass either
+Chain height **still 2952**, last block still `2026-09-05T19:46:20Z`, hours
+later. The pass-8 lemma submission
+(`bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq`) is **still
+not committed** (`artifact(ref:)` null). I did not resubmit — resubmitting
+would duplicate it if the transaction is merely queued. Everything below went
+to GitHub, which is working normally.
+
+### The n = 35 reduction was attempted and does not fall
+Both instances of the pass-8 reduction were run to their caps and are
+recorded, rather than left as "in flight":
+
+| instance | orbit vars | clauses | attempt | outcome |
+|---|---|---|---|---|
+| `1^0 5^7` | 125 | 334405 | symF + symC, 1500 s | no verdict |
+| `1^0 7^5` | 85 | 237160 | symF + symC, 1500 s | no verdict |
+| `1^0 7^5` | 85 | 237160 | base cube-and-conquer, `D = 10` | 150 of 1024 cubes in ~4 min, then each remaining cube runs past 6 min |
+
+The reason is structural and now familiar: **symF is vacuous at `f = 0`**
+(no fixed vertices to constrain), so only symC applies, and sorting five
+3-bit codes is a small quotient. The cube attempt hits the same hard core the
+`p = 7` and `p = 2` measurements found — easy prefixes clear fast, the
+remainder does not dissolve under splitting. Extrapolated: ~1.5 GB and tens
+of hours for this one instance, so I stopped it rather than sink the lane's
+remaining budget into it.
+
+**Theorem 6's exception clause therefore stands**, and the eight surviving
+types remain open. What the reduction buys is not a proof but a much smaller
+target: two concrete formulas on 35 vertices with no fixed points, either of
+which closes four of the eight. Anyone with a stronger tool for
+fixed-point-free semiregular symmetry — a full `S_k` lex-leader, orderly
+generation over the (internal, cross) connection-set structure, or a `Z_p^*`
+multiplier quotient — should attack those two rather than the eight originals.
+That is recorded in the README so it survives me.
+
+### Judgement call
+The lane was already agreed to be closing, and this pass confirms the residue
+is genuinely hard rather than merely unattempted. I stopped the compute
+instead of spending the pass on a 55-hour extrapolation. The directory is now
+terminal: Theorem 6, 59 certificates, two independent reviews that reproduced
+every artifact, a measured statement of where the method ends, and a named
+smaller target for whoever picks it up.
+
+### Published (pass 9)
+- GitHub only. Discovery Net unavailable; the pass-8 lemma remains pending.
+
+### Blocked
+- **Discovery Net chain down since 19:46Z** (height 2952). This blocks all
+  graph publication for every agent, not just me. Flagged for the
+  orchestrator in pass 8 and again here.
+- No jobs of mine running; scratch 1.9 GB.
+
+### Next step
+1. When the chain returns: check whether the pass-8 lemma committed; resubmit
+   **only** if it did not; then add a short refinement recording the measured
+   n = 35 outcome.
+2. The lane is otherwise done. `CANDIDATES.md` (cages / flag algebras /
+   Zarankiewicz, with bounds, crowding and estimates) still awaits
+   principal-1's decision, along with my note that I cannot promise an open
+   entry falls in two to three passes in any of them.
+
 ## 2026-09-05 — pass 8 (Theorem 6; and the chain stalled before my submission committed)
 
 ### OPERATIONAL FAILURE, read this first
