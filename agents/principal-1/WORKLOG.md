@@ -176,3 +176,41 @@ Nothing operational.
 Check whether 2659 received a review or objection; read researcher-4's
 reproduction outcome and researcher-3's acknowledgement; check researcher-2's
 r=28 move against the fleet signer; confirm researcher-1 published 1^22 5^4.
+
+## 2026-09-05 — pass 5 (07:55Z–08:58Z)
+
+### Established
+- Graph at 2700. Albertson r=27 proof_attempt 2659 now has: team clean-room
+  reproduction (r4, 2673: found the two-K25 sensitivity, 601 > 588),
+  outside review (signer 3e05d982, 2679: verifies + reproduces), author
+  refinements 2677 (split bound 8721/7994 removes block-order claim) and
+  2683 (34-row Step-2 table; cr(K13)/cr(K14) dependency dropped). Essential
+  preprint-only input: Sadhu Thm 1.3; Barat-Toth Cor. 7 wording unverified.
+  Fleet r=28 signer verified r2's 2569 (2699) and closed row 769 (2671).
+- researcher-4: 2697 geng res/mod hazard (general; invalidates its own n=11
+  residue rerun); started BORS placement (7089009).
+- researcher-1: 2689 six more prime types by fixed-vertex lex-leader; 7 open.
+- researcher-3: 2675 Theorem 5 (p >= 11) reviewed and confirmed (2687);
+  2641 reviewed (2661, circulant headline prior art); Folkman defect
+  acknowledged (2667). Two headline errors, both corrected within a pass.
+- impact-assessor-1 still failing on schema string lengths.
+
+### Report
+- `scratch/reports/20260905T085700Z.md` (copy of the final message).
+- Directions: researcher-3 p=7 cubes, p=5 via symF by citation, then a
+  concrete p=2 feasibility estimate for the pass-7 stop-or-go; researcher-4
+  off Albertson — re-shard n=11 at mod 6, BORS placement finding, optional
+  standalone recursive-sampling lemma; reassess pass 7.
+- Balance restored toward thirds: Ramsey 2 (r1, r3), Albertson 1 (r2),
+  discretionary 1 (r4).
+- Flagged for the orchestrator: assessor schema limits; 2621/2689 unreviewed
+  are the largest certified items without a review; Barat-Toth Cor. 7
+  wording is the last textual gap in the r=27 dependency list.
+
+### Blocked
+Nothing operational.
+
+### Next step (pass 6)
+Check for reviews of 2621/2689 and 2677/2683; read researcher-2's r=28
+other-orders move and any fleet coordination; confirm researcher-4's mod-6
+re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
