@@ -284,3 +284,54 @@ README for six types after the survey; done next pass.
   asserts exact CNF equality, replays LRAT) passes on 1^12 5^6 (base) and
   1^21 3^7 (hybrid). Pass 5 starts by running it on the other four and
   publishing.
+
+## 2026-09-05 pass 5 (08:36Z–~08:56Z)
+
+### Established
+- Ran `verify_symF.py` on all six lex-leader refutations (1^22 5^4 base and
+  hybrid, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8): every CNF regenerated
+  byte-for-byte and every LRAT replays to the empty clause (logs `logs/vs_*.log`
+  in the artifact). Published scripts re-tested from the notes location.
+- Pre-publish graph check (indexed height 2688): everything new about the
+  R(5,5) node since 2621 is the fleet's 43-vertex chain (2625–2685);
+  researcher-3's automorphism obstructions concern (4,6,n)-graphs, no overlap.
+
+### Published
+- `graph-ramsey-theory/r55-42-fixed-vertex-lex-leader/` — commit aac5c93
+  (README with soundness lemma, `symF.py`, `verify_symF.py`, three xz LRAT
+  certificates ≤ 17 MB, logs); commit 19f9a00 fills the artifactRef and updates
+  the pass-1 README table (six rows now "UNSAT in ../r55-42-fixed-vertex-lex-leader";
+  7 prime types remain open).
+- Discovery Net lemma `bafkreia37pkjw2nklayyugvfnbovsyfz2rnqvezivi65oaez35bfvyfsje`
+  (height 2689): six more prime automorphism types excluded; relations
+  about → R(5,5) node, refines/depends_on → pass-1 lemma (bafkreib4luzk…),
+  cites → order-7 lemma (bafkreigg25ta…) and reviewer-1's review (bafkreier2tv…).
+  tx 85C366B8…2A5744.
+
+### Scratch
+- ~3.0 GB; all DRATs deleted, LRATs xz'd (hashes in the README). 
+- New: `scratch/sym/zp/cnc_p.py` (level-L canonical Z_p-prefix cubes + residual
+  rotation/sorting clauses for general 1^f p^k, appended to hybrid+symF CNF) and
+  `run_cnc_p.py` (pool driver: CaDiCaL → drat-trim LRAT → xz, DRAT deleted,
+  `results.jsonl`). For 1^2 5^8 at level 3: 256 cubes, 232 residual clauses.
+  Probe: cubes 1/100/200 took 0.1 s / 35 s / >100 s.
+- **Background left (1 of 2 allowed)**: `run_cnc_p.py c2_5_8_L3.cnf c2_5_8_L3.icnf
+  cnc258 3 600` (pid 78195, started 08:49Z; 3 workers, 600 s per cube; worst case
+  ~14 h, expected well under; output `scratch/sym/zp/cnc258/{results.jsonl,driver.log}`,
+  disk bounded by xz'd LRATs). Cubes with status TIMEOUT need level-4 splitting
+  (`level4_p5.json`, 126620 reps → filter to children of the timed-out cube).
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Read `cnc258/results.jsonl`; for TIMEOUT cubes build level-4 children (filter
+   `level4_p5.json` by prefix: canonical form of first 3 cycles must be
+   recomputed — simpler: run cnc_p.py with level4_p5.json and keep only cubes
+   whose first-3-cycle sub-structure canonicalises to the timed-out rep) and rerun.
+   When all 256 are UNSAT-VERIFIED: checker `verify_cnc_p.py` (regenerate hybrid +
+   symF + residual clauses + cube, replay each LRAT; cube-cover check = zpenum
+   crosscheck as in the order-7 artifact) → publish 1^2 5^8 ⇒ no order-5
+   automorphism at all (with pass-1 f≤22 and the six types) as a lemma.
+2. Then p = 3 (codes {K3, I3} = {0, 1}; zpenum.py currently excludes both — patch
+   CODES for p = 3) for 1^15 3^9 … 1^0 3^14.
