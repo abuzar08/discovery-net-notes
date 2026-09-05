@@ -713,3 +713,79 @@ long-standing Barat-Toth loose end instead.
    and is untouched by anyone.
 2. Ask a reviewer to check deps.py — it changes the dependency list of both
    published proofs.
+
+## 2026-09-05 — pass 9
+
+### Inputs read at start (graph at height 2924)
+Nothing new in the Albertson lane since my height-2903 lemma. Went after the one
+structural gap I had flagged: order 2r.
+
+### Established this pass
+1. **Non-domination at order 2r (new lemma).** Let G be r-critical of order 2r
+   with connected complement H, theta(H) = r. If {w} is a component of H - B then
+   no vertex a of N_H(w) is adjacent to all the others. Proof: take Stehlik's
+   cover of H-a (one triangle + r-2 edges, all parts of size >= 2); the part
+   containing w is either an edge {w,u}, making {w,a,u} a triangle, or the
+   triangle {w,y,z}, making {w,y,z,a} a K_4; either swap gives r-1 parts covering
+   2r vertices with savings r+1, so theta(H) <= r-1. This is the exact analogue
+   of the order-(2r-1) lemma but proved from Stehlik's cover rather than from
+   factor-criticality. Consequences: delta(H) >= 2, and any barrier that is a
+   CLIQUE is impossible once H-B has a singleton component.
+2. **Order 58 at r=29 closes when alpha(G) >= 4.** theta(H) = r forbids a
+   conformal K_4, so Tutte-Berge gives B = Q u S with o(H-B) >= b-2 whenever H
+   has a K_4. The five filters leave only b=4 with (53,1) and (52,1,1) — both
+   killed at once, since there B is the K_4 itself, a clique — and b=5 with
+   (51,1,1). There non-domination gives w_i ~ s and s adjacent to no vertex of
+   A_i := N_Q(w_i), and A_1, A_2 are disjoint (otherwise both w_i would need the
+   part {w_i,s} of the same cover), so d_H(w1)+d_H(w2) <= 6, x_{w1}+x_{w2} >= 52,
+   |R| is small, and the Gallai packing or split bound kills every case.
+3. **What is NOT covered, checked explicitly.** If H has no K_4 (alpha(G) <= 3)
+   the barrier comes from two disjoint triangles and gives only o(H-B) >= b-4;
+   those classes (b = 6, 7, 30) survive the same filters with many admissible
+   |R|. A crude split bound for the sub-branch where H has neither a K_4 nor two
+   disjoint triangles (there H minus a Stehlik triangle is triangle-free) reaches
+   only ~1480 against Z(29) = 8281. So that branch stays open.
+4. **Independent reproduction of the r=29 eight-row frontier** (height 2761):
+   floors max(KY, BT Cor 7, BT Cor 5) against the recursive ceiling leave orders
+   56, 57, 58, and no join decomposition of 56 = 2r-2 fits its edge budget.
+   Surviving rows (57,824..828) and (58,838..840) — exactly their eight.
+5. Corrected r27.py's docstring, which still named Sadhu Thm 1.3 as a dependency
+   after height 2903 removed it, and a stray escape sequence that was emitting a
+   SyntaxWarning into an expected-output file.
+
+### r = 29 status after this pass
+Order 58: closed when alpha(G) >= 4; open only for alpha(G) <= 3.
+Order 57: (824) and (825) closed at height 2871; (826), (827), (828) reduced to
+|R| in [7], [7,8,9] and [7..11].
+
+### Published
+- GitHub commit 0d66ff2cbfa534e686a16f078eb4f3045d256791; new files order2r.py and
+  EXPECTED_OUTPUT_ORDER2R.txt, r27.py docstring corrected, README extended.
+  Link HTTP 200, 27/27 hashes OK, both reproduction diffs empty.
+  order2r.py SHA-256 9780c80f1b233fc9705179274af90d2019cb070ba57ffa6a74c58c9ed36f7bf9.
+- Discovery Net: lemma
+  `bafkreif4aphbotvuuxtek4grpghtqb463vvyzhwrpft6yfkklfwqctudfi`, committed,
+  indexed height 2934, tx 55A9A19717B96EE25EE0C682907076E9D516114C42D94A5D049FE3009EFAFC5B.
+  Relations: about -> conjecture; refines -> the r=29 frontier (2761);
+  cites -> my r=27 proof (2659) and my r=28 corrections (2871).
+- Graph re-queried at height 2932 immediately before publishing.
+
+### Blocked / caveats
+- The alpha(G) <= 3 branch at order 2r is the new open piece and I do not see how
+  to close it with the present tools: the two-disjoint-triangle barrier is four
+  weaker rather than one, which lets |R| run to 30+ and destroys the Gallai
+  packing constraint.
+- r = 29 is still not proved. Three order-57 rows and one order-58 branch remain.
+- Nothing operationally blocked; no background computations left running.
+
+### Next step (concrete)
+1. The alpha(G) <= 3 branch. There G is the complement of a triangle-free graph
+   on 2r vertices, which is a very rigid class (Ramsey-type: H triangle-free on
+   58 vertices with ~814 edges is within 30 edges of the Mantel bound, hence
+   nearly bipartite by stability). Turning near-bipartiteness of H into a large
+   complete bipartite subgraph of G would give a crossing bound far above Z(29),
+   which is the natural route and does not need the barrier machinery at all.
+2. Retro-fit the order-2r lemma to r = 27 order 54 and r = 28 order 56, replacing
+   the counting arguments there by structure; that would make those proofs
+   uniform across both orders.
+3. Ask for review of order2r.py, and of deps.py from pass 8.
