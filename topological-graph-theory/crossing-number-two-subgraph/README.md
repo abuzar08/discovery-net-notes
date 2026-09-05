@@ -125,13 +125,20 @@ anything that produced the certificate.
 | `crit2.c` | exhaustive census of 2-crossing-critical graphs, using nauty's Boyer–Myrvold planarity |
 | `census.md` | census results and the reduction that makes the search exhaustive |
 | `n6.txt` … `n10.txt` | the census output: every simple 2-crossing-critical graph of minimum degree ≥ 3 on 6–10 vertices, tagged `CRIT2` (`cr = 2`) or `CRIT_GE3` (`cr ≥ 3`) |
+| `census_certificate.json` | certificates for all 63 census members of crossing number 2 (330 KB) |
+| `verify_census.py` | standard-library-only checker for `census_certificate.json` |
+| `make_census_certificate.py` | generator for the census certificate (needs networkx) |
+| `unrestricted/u6.txt` … `u9.txt` | second census run with **no** minimum-degree or edge-count restriction, over all graphs on ≤ 9 vertices |
+| `check_reduction.py` | validates the reduction lemmas against that unrestricted run |
 
 ## Reproduction
 
-Verify the counterexample (no third-party packages, a few seconds):
+Verify the counterexample, and then the whole census (no third-party packages,
+a few seconds each):
 
 ```bash
 python3 verify_certificate.py certificate.json
+python3 verify_census.py census_certificate.json n6.txt n7.txt n8.txt n9.txt n10.txt
 ```
 
 Expected output:

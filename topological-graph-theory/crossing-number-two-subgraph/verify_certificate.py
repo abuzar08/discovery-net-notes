@@ -59,17 +59,19 @@ def check_planar_embedding(nn, edges, rotation):
             return False, f"rotation at {v} is not its neighbourhood"
         rot[v] = list(lst)
 
-    # connectivity
-    seen = {0}
-    stack = [0]
-    while stack:
-        v = stack.pop()
-        for w in adj[v]:
-            if w not in seen:
-                seen.add(w)
-                stack.append(w)
-    if len(seen) != nn:
-        return False, "not connected"
+    # connected components
+    comp = {}
+    for s in range(nn):
+        if s in comp:
+            continue
+        comp[s] = s
+        stack = [s]
+        while stack:
+            v = stack.pop()
+            for w in adj[v]:
+                if w not in comp:
+                    comp[w] = s
+                    stack.append(w)
 
     # trace faces: after arriving at v from u, leave along the neighbour
     # following u in v's rotation
@@ -79,9 +81,10 @@ def check_planar_embedding(nn, edges, rotation):
         darts.add((u, v))
         darts.add((v, u))
     unused = set(darts)
-    faces = 0
+    faces = {}
     while unused:
         start = next(iter(unused))
+        root = comp[start[0]]
         d = start
         while True:
             unused.discard(d)
@@ -93,11 +96,22 @@ def check_planar_embedding(nn, edges, rotation):
                 break
             if d not in darts:
                 return False, "bad dart"
-        faces += 1
+        faces[root] = faces.get(root, 0) + 1
 
-    V, Ecount, F = nn, len(edges), faces
-    if V - Ecount + F != 2:
-        return False, f"Euler V-E+F = {V - Ecount + F} != 2"
+    # each component must have genus 0 on its own: V - E + F = 2
+    nvert, nedge = {}, {}
+    for v in range(nn):
+        nvert[comp[v]] = nvert.get(comp[v], 0) + 1
+    for u, v in edges:
+        nedge[comp[u]] = nedge.get(comp[u], 0) + 1
+    for root, V in nvert.items():
+        Ecount = nedge.get(root, 0)
+        if Ecount == 0:
+            continue                      # isolated vertex: trivially planar
+        F = faces.get(root, 0)
+        if V - Ecount + F != 2:
+            return False, (f"Euler V-E+F = {V - Ecount + F} != 2 on the "
+                           f"component of vertex {root}")
     return True, "planar"
 
 

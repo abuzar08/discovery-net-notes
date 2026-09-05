@@ -130,3 +130,54 @@ subdivision of `C3 □ C3`, or suppresses to a graph on at least 11 vertices.
 This is consistent with, and gives independent computational support for, the
 claim attributed to Vitray by Bokal–Oporowski–Richter–Salazar that `C3 □ C3` is
 the *only* 2-crossing-critical graph whose crossing number is not 2.
+
+## Every member is certified
+
+`census_certificate.json` (330 KB) carries, for each of the 63 census members
+of crossing number 2 (the 64th, `C3 □ C3`, is certified by `certificate.json`):
+
+* a Kuratowski subdivision inside the graph, and inside **every** one of its
+  1-crossing planarizations — so `cr ≥ 2`;
+* a rotation system for one planar 2-crossing planarization — so `cr = 2`;
+* a rotation system for a `≤ 1`-crossing planarization of `H − e`, for every
+  edge `e` — so `H` is 2-crossing-critical.
+
+```bash
+python3 verify_census.py census_certificate.json n6.txt n7.txt n8.txt n9.txt n10.txt
+```
+
+checks all of it — 5563 Kuratowski subdivisions and 1123 rotation systems —
+using **only the Python standard library**, and additionally confirms that the
+certified set is exactly the set of `CRIT2` lines of the census files. So the
+*positive* content of the census (that these 64 graphs really are
+2-crossing-critical, and what their crossing numbers are) no longer depends on
+nauty or on any planarity algorithm. Only the *negative* content — that the
+search missed nothing — rests on `geng` and nauty.
+
+Both checkers were mutation-tested: flipping a bit of a Kuratowski mask,
+dropping a witness, reversing a rotation list, declaring an adjacent pair as a
+crossing, or inserting a bogus member are each rejected with a specific error.
+
+## The reduction lemmas, validated empirically
+
+Lemmas 1–4 are what make the restricted search exhaustive, so they are the most
+valuable thing to test independently of their proofs. `crit2` was therefore run
+a second time with **no minimum-degree and no edge-count restriction**, over
+*all* graphs on at most 9 vertices (`unrestricted/u6.txt` … `u9.txt`):
+
+| n | all graphs | 2-crossing-critical found |
+| --- | --- | --- |
+| 6 | 156 | 1 |
+| 7 | 1044 | 7 |
+| 8 | 12346 | 43 |
+| 9 | 274668 | 260 |
+
+Of these 311 graphs, 250 suppress to a simple graph isomorphic to a member of
+the restricted census and 61 suppress to a multigraph with parallel edges — for
+which Lemma 2 forces crossing number 2, and all 61 were indeed reported with
+crossing number 2. There are **no** anomalies, and the only graph with crossing
+number at least 3 in the whole unrestricted search is again `C3 □ C3`.
+
+```bash
+uv run --with networkx python check_reduction.py
+```
