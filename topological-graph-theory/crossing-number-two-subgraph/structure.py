@@ -146,8 +146,10 @@ def main():
     print(f"\nC3 [] C3 itself: connectivity {nx.node_connectivity(C)}, "
           f"V8 subdivision {has_subdivision(C, V8)}, V10 subdivision False "
           f"(only 9 vertices)")
-    print("   => the unique counterexample lies in BORS class (iv), the one "
-          "class they DETERMINE completely.")
+    print("   => the unique counterexample lies in BORS class (iv).  NOTE: the")
+    print("      BORS abstract says they 'determine' that class, but their")
+    print("      Remark 17.2 says Section 15.7 gives a METHOD and 'it would be")
+    print("      desirable for this program to be completed'.  See census.md.")
 
 
 if __name__ == "__main__":

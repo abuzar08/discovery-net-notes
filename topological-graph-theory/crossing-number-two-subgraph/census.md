@@ -228,10 +228,10 @@ tile-built family — the whole census lies in the part of the classification
 that is finite or reducible.
 
 **And `C3 □ C3` itself is 4-connected with no `V8` subdivision**, so the unique
-counterexample sits in class **(iv)** — the one class BORS *determine
-completely*. That is the sharpest structural statement available about it here,
-and it says where a proof of Vitray's claim should start: on BORS's explicit
-list for (iv), not on the infinite family.
+counterexample sits in class **(iv)**. See "What BORS actually prove" below for
+what that does and does not give: their abstract says they *determine* class
+(iv), but their own Remark 17.2 says Section 15.7 supplies a **method** and
+"it would be desirable for this program to be completed".
 
 Consistency anchor: no Möbius ladder is itself 2-crossing-critical — `V6`
 (= `K3,3`), `V8`, `V10` and `V12` all have crossing number 1, and `crit2`
@@ -270,3 +270,62 @@ blocks and hence crossing number 2. So **a 2-crossing-critical graph of
 crossing number at least 3 — a second counterexample to the
 Bloom–Kennedy–Quintas question — must be 2-connected**, and by the census its
 suppression has at least 11 vertices.
+
+
+## What BORS actually prove, and the seed set
+
+The abstract of BORS promises to "(iv) determine all the 3-connected
+2-crossing-critical graphs that do not contain a subdivision of `V8`". Their
+closing chapter is more guarded, and the difference matters for anyone hoping
+to settle Vitray's claim by citation.
+
+**Theorem 17.1 (BORS, Classification of 2-crossing-critical graphs), part (3).**
+
+> If `G` is 3-connected and does not have a subdivision of `V10`, then `G` has
+> at most three million vertices (so there are only finitely many such
+> examples). Each of these examples either
+> * has a subdivision of `V8`, or
+> * is either one of the four graphs described in Theorem 15.6 or obtained from
+>   a 2-crossing-critical peripherally-4-connected graph with at most ten
+>   vertices by replacing each vertex `v` having precisely three neighbors with
+>   one of at most twenty patches, each patch having at most six vertices (so
+>   `G` has at most sixty vertices).
+
+**Remark 17.2.** "In Section 15.7, we provided a *method* for finding all
+3-connected, 2-crossing-critical graphs not containing a subdivision of `V8`.
+It would be desirable for this program to be completed."
+
+**Remark 17.3.** "The remaining unclassified 3-connected, 2-crossing-critical
+graphs have a subdivision of `V8` but not of `V10`. The works of Urrutia and
+Austin have found many of these, but more work is needed to find a complete
+set."
+
+So: class (iii) is finite **with an explicit bound of three million vertices**,
+and the part reachable from small seeds has at most **sixty**; but neither
+class (iii) nor class (iv) is actually enumerated in that paper. **Vitray's
+claim therefore cannot be settled by citing BORS alone.**
+
+### The census supplies the complete seed set
+
+Theorem 17.1(3) needs the 2-crossing-critical **peripherally-4-connected**
+graphs on **at most ten vertices**. Peripheral 4-connectivity implies
+3-connectivity implies minimum degree ≥ 3, so every such seed is in this
+census — and `seeds.py` extracts them:
+
+| order | 6 | 7 | 8 | 9 | 10 | total |
+| --- | --- | --- | --- | --- | --- | --- |
+| seeds | 1 | 2 | 8 | 10 | 15 | **36** |
+
+`C3 □ C3` is one of them (it is 4-connected, so it has no 3-cut and the
+condition holds vacuously).
+
+Unwinding BORS's definition takes a little care, and `seeds.py` carries
+controls for it. For a 3-cut `X` with `k` components of `G − X`: `k = 2` needs
+one component to be a single vertex; `k = 3` forces **all three** to be single
+vertices, since a two-component side can never itself be a single vertex — this
+is the `K3,3` case, and a naive reading excludes it wrongly; and `k ≥ 4` always
+fails, by splitting two against two.
+
+```bash
+uv run --with networkx python seeds.py
+```

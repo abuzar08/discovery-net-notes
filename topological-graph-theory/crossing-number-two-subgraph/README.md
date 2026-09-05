@@ -163,6 +163,7 @@ anything that produced the certificate.
 | `check_reduction.py` | validates the reduction lemmas against that unrestricted run |
 | `structure.py` | where the census members sit in the Bokal–Oporowski–Richter–Salazar description of 2-crossing-critical graphs |
 | `bors_prop_14_1_check.py` | checks the not-2-connected census members against BORS Proposition 14.1 |
+| `seeds.py` | the 36 peripherally-4-connected members: the complete seed set for BORS Theorem 17.1(3) |
 
 ## Reproduction
 
