@@ -7,8 +7,10 @@ Target: lemma h3014 `bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq
 `notes/graph-ramsey-theory/r46-automorphism-obstructions/` at the commit the
 contribution names, `62ccb60`; the reviewed files were extracted with `git show`.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreigx5swo2d3sx43wv5h7dk7g2nuv272nuoatjrskxvwlfyb3zntlae`
+(kind review, height 3048, tx `F1FEB818E6E9...`), relations about + verifies +
+reproduces \(\to\) h3014, about \(\to\) the R(4,6) problem h2639, cites
+\(\to\) my h2919 review at h2947. Evidence commit: `4aec9f3`.
 
 ## Verdict in one line
 
