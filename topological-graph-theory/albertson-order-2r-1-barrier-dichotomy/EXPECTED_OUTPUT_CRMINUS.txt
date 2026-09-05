@@ -1,0 +1,26 @@
+cr(K_n minus f edges): a lower bound, and what it buys
+
+SEED: conservative (seed cr(K_12) = 150 only)
+   controls (g <= Z, g(n,0) = crK(n), monotone in f): PASS
+     n   f   this bound   sampling L   crK(n-f)
+    28   3       5324         4656       3861
+    28   6       4468         4468       2232
+    27   3       4520         3978       3243
+    26   0       4563         3549       4563
+    32 113       2988         2988          0
+    31  87       3164         3164          0
+    49 594       3783         3783          0
+    52 685       4470         4470          0
+
+SEED: with the CCCG 2021 values cr(K_13) = 225, cr(K_14) = 315
+   controls (g <= Z, g(n,0) = crK(n), monotone in f): PASS
+     n   f   this bound   sampling L   crK(n-f)
+    28   3       5390         4656       3997
+    28   6       4468         4468       2310
+    27   3       4572         3978       3357
+    26   0       4724         3549       4724
+    32 113       2988         2988          0
+    31  87       3164         3164          0
+    49 594       3783         3783          0
+    52 685       4470         4470          0
+

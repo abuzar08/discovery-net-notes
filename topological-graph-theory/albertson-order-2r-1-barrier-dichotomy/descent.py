@@ -139,6 +139,7 @@ Exact integer arithmetic; no floating-point value enters any comparison.
 """
 import verify_range as V
 import k4free as K
+import crminus as CM
 from order2r import L, RCHI, Z
 
 r = RCHI
@@ -196,8 +197,8 @@ def level1(bsz, csizes, X, eH, verbose=False):
                 eHR = eH + P - nA * r + YA
                 eGR = CR - eHR
                 crA = max(V.crK(len(parts)), V.best_bipartition(parts),
-                          L(nA, nA * (nA - 1) // 2 - P))
-                crR = L(nR, eGR) if eGR > 0 else 0
+                          L(nA, nA * (nA - 1) // 2 - P), CM.g(nA, P))
+                crR = max(L(nR, eGR), CM.g(nR, eHR)) if eGR > 0 else 0
                 # excess left on R is X - YA, so at least nR - (X - YA) of its
                 # vertices are low and G[low(R)] is a Gallai forest
                 pR = nR - (X - YA)
@@ -277,12 +278,10 @@ def main():
     print("   nearly complete.  The bound is minimised at Y_A = 47 or 48, where")
     print("   the excess left on R is only 4 or 5, so 27 or 28 of its vertices")
     print("   are low and Gallai forces a clique block of order 23 or 24.")
-    print("   The profile is a narrow dip: at Y_A = 25 the bound is 8564 and at")
-    print("   Y_A = 49 it is 8721, both above Z, but it dips to %d in between."
-          % 7858)
-    print("   Closing the dip needs about 450 more at the minimiser, from the")
-    print("   126 edges e_G(A,R) that the split discards or from a sharper")
-    print("   crossing bound for a 32-vertex graph at 78 percent density.")
+    print("   The profile is a narrow dip in Y_A: it is above Z at both ends")
+    print("   and only the middle survives.  Closing it needs a few hundred more,")
+    print("   from the e_G(A,R) edges the split discards or from a still sharper")
+    print("   crossing bound at high density.")
     print()
     print("   Kleitman bipartite bound on a 48-vertex split, for reference:")
     for a_ in (24, 20, 16, 14, 12, 8, 4, 1):
@@ -291,10 +290,10 @@ def main():
               % (a_, 48 - a_, v, "kills" if v >= Z else "survives"))
     print()
     print("CONCLUSION")
-    print("   The second-level split raises the three surviving second-level")
-    print("   barriers of the (51,1) class from %d to 3783, 7354 and 7858"
-          % V.crK(26))
-    print("   against Z(29) = %d.  Two of the three are now within 1000, but" % Z)
+    print("   The second-level split plus the dense-subgraph bound raise the")
+    print("   three surviving second-level barriers of the (51,1) class well")
+    print("   above cr(K_26) = %d, to the values listed in PART 2," % V.crK(26))
+    print("   against Z(29) = %d.  Two of the three are now within 500, but" % Z)
     print("   none is closed, and the (50,1,1) and (49,1,1) classes do not even")
     print("   inherit the transfer.  Order 58 at r = 29 remains open.")
 

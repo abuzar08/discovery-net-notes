@@ -15,9 +15,9 @@ PART 1   maximum edges of a Gallai forest, and what 377 edges force
    contain a clique block of order >= 28, worth cr(K_28) = 6471.
 
 PART 2   the branch WITHOUT the Gallai term (the pass-10 state)
-   m=838: 4 surviving classes [(6, (51, 1), 4517), (6, (50, 1, 1), 5127), (7, (49, 1, 1), 4629), (30, (3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), 8207)]
-   m=839: 4 surviving classes [(6, (51, 1), 4494), (6, (50, 1, 1), 5102), (7, (49, 1, 1), 4605), (30, (3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), 8172)]
-   m=840: 4 surviving classes [(6, (51, 1), 4470), (6, (50, 1, 1), 5077), (7, (49, 1, 1), 4581), (30, (3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), 8136)]
+   m=838: 3 surviving classes [(6, (51, 1), 4517), (6, (50, 1, 1), 5127), (7, (49, 1, 1), 4629)]
+   m=839: 3 surviving classes [(6, (51, 1), 4494), (6, (50, 1, 1), 5102), (7, (49, 1, 1), 4605)]
+   m=840: 3 surviving classes [(6, (51, 1), 4470), (6, (50, 1, 1), 5077), (7, (49, 1, 1), 4581)]
 
 PART 3   the same branch WITH the Gallai term
    m=838: 3 surviving classes [(6, (51, 1), 4517), (6, (50, 1, 1), 5127), (7, (49, 1, 1), 4629)]
@@ -28,15 +28,32 @@ PART 4   the b = 30 class in detail, at m = 838
    c=(3, 1, 1)+1^23  minimiser Y=48, e(H[B])=54, sum_C e(H[C])=3
       B: 26 low vertices carry >= 265 edges -> clique K_24, cr = 3357
       D: -20 low vertices carry >= -921 edges -> clique K_1, cr = 0
-      split bound 8354 against Z(29) = 8281
+      split bound 9020 against Z(29) = 8281
    c=(2, 1, 1)+1^24  minimiser Y=48, e(H[B])=52, sum_C e(H[C])=1
       B: 26 low vertices carry >= 267 edges -> clique K_24, cr = 3357
       D: -20 low vertices carry >= -919 edges -> clique K_1, cr = 0
-      split bound 9252 against Z(29) = 8281
+      split bound 9941 against Z(29) = 8281
    c=(1, 1, 1)+1^25  minimiser Y=48, e(H[B])=51, sum_C e(H[C])=0
       B: 26 low vertices carry >= 268 edges -> clique K_24, cr = 3357
       D: -20 low vertices carry >= -918 edges -> clique K_1, cr = 0
       split bound 10215 against Z(29) = 8281
+
+PART 5   the seed ladder: which value of cr(K_13) is needed
+   Everything below n = 13 is uncontested.  At n = 13 the literature
+   offers 217 (bare counting), 219 (McQuillan-Pan-Richter, JCTB 115
+   (2015) 224-235, refereed), 223 (Abrego et al., EuroCG 2015,
+   non-archival) and 225 (Aichholzer, CCCG 2021, peer-reviewed but
+   single-author, 1000+ CPU-years, and recorded in NEITHER Schaefer's
+   DS21 (2026) NOR Clancy-Haythorpe-Newcombe).  The b >= 8 closure is
+   re-run at every rung:
+      counting only, cr(K_13) >= 217                     crK(28)=6250   classes with b >= 8 surviving: 0/0/0
+      McQuillan-Pan-Richter JCTB 2015, cr(K_13) >= 219   crK(28)=6299   classes with b >= 8 surviving: 0/0/0
+      Abrego et al. EuroCG 2015, cr(K_13) >= 223         crK(28)=6431   classes with b >= 8 surviving: 0/0/0
+      Aichholzer CCCG 2021, cr(K_13) = 225               crK(28)=6471   classes with b >= 8 surviving: 0/0/0
+   Zero at every rung, so the closure needs no assumption beyond
+   cr(K_12) = 150.  Without crminus.g it needed cr(K_13) >= 225:
+   at the bare counting seed b = 30 survived at 8249 (m=839) and
+   8213 (m=840) against Z(29) = 8281.
 
 CONCLUSION
    The Gallai term does not close the branch; classes survive above.

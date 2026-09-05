@@ -102,6 +102,13 @@ the split.  Exact integer arithmetic; no floating-point value enters a
 comparison.  Z(29) = 8281 is Hill's number, an UPPER bound on cr(K_29) (Hill's drawing is
 explicit), which is the direction needed here.
 
+THE DENSE-SUBGRAPH BOUND.  G[D] is K_|D| minus P edges and G[B] is K_b minus Q
+edges, and at the tight configurations P is tiny (three edges on 28 vertices).
+The generic sampling bound L(n,m) is very weak there -- L(28,375) = 4656 against
+cr(K_28) >= 6250 -- so both sides now also use crminus.g, which is built for
+exactly that shape.  This is what makes the closure below independent of which
+value of cr(K_13) one is willing to assume; see PART 5.
+
 THE EXCLUSION THRESHOLD IS >=, NOT >.  A counterexample satisfies
 cr(G) < cr(K_29) <= Z(29) = 8281, and both are integers, so cr(G) <= 8280.  A
 lower bound of exactly 8281 is therefore already a contradiction, and a class is
@@ -112,6 +119,7 @@ m = 840) lands exactly on 8281 and needs the correct threshold.
 """
 import recursive as R
 import verify_range as V
+import crminus as CM
 from order2r import L, configs, RCHI, Z
 
 r = RCHI
@@ -179,8 +187,11 @@ def branch_survivors(m, use_gallai=True, verbose_b=None):
                 if not (Pmin <= P <= Pmax):
                     continue
                 eB, eD = CB - Q, CD - P
-                crD = max(V.crK(len(c)), L(D, eD), V.best_bipartition(list(c)))
-                crB = L(b, eB) if eB > 0 else 0
+                # G[D] is K_|D| minus P edges and G[B] is K_b minus Q edges, so
+                # the dedicated dense bound of crminus.py applies to both.
+                crD = max(V.crK(len(c)), L(D, eD), V.best_bipartition(list(c)),
+                          CM.g(D, P))
+                crB = max(L(b, eB), CM.g(b, Q)) if eB > 0 else 0
                 wit = None
                 if use_gallai:
                     # low vertices and their guaranteed edges
@@ -252,6 +263,33 @@ def main():
         print("      D: %d low vertices carry >= %d edges -> clique K_%d, cr = %d"
               % (pD, eLD, qD, V.crK(qD)))
         print("      split bound %d against Z(29) = %d" % (best, Z))
+    print()
+
+    print("PART 5   the seed ladder: which value of cr(K_13) is needed")
+    print("   Everything below n = 13 is uncontested.  At n = 13 the literature")
+    print("   offers 217 (bare counting), 219 (McQuillan-Pan-Richter, JCTB 115")
+    print("   (2015) 224-235, refereed), 223 (Abrego et al., EuroCG 2015,")
+    print("   non-archival) and 225 (Aichholzer, CCCG 2021, peer-reviewed but")
+    print("   single-author, 1000+ CPU-years, and recorded in NEITHER Schaefer's")
+    print("   DS21 (2026) NOR Clancy-Haythorpe-Newcombe).  The b >= 8 closure is")
+    print("   re-run at every rung:")
+    import crminus as _CM
+    saved = dict(V._CRK)
+    for nm, base in V.SEED_LADDER:
+        V.set_base(base)
+        _CM.reset()
+        rowtxt = []
+        for mm in (838, 839, 840):
+            lv, _d = branch_survivors(mm, use_gallai=True)
+            rowtxt.append("%d" % len([t for t in lv if t[0] >= 8]))
+        print("      %-50s crK(28)=%4d   classes with b >= 8 surviving: %s"
+              % (nm, V.crK(28), "/".join(rowtxt)))
+    V.set_base(V.BASE_CCCG2021)
+    _CM.reset()
+    print("   Zero at every rung, so the closure needs no assumption beyond")
+    print("   cr(K_12) = 150.  Without crminus.g it needed cr(K_13) >= 225:")
+    print("   at the bare counting seed b = 30 survived at 8249 (m=839) and")
+    print("   8213 (m=840) against Z(29) = 8281.")
     print()
 
     if allclosed:

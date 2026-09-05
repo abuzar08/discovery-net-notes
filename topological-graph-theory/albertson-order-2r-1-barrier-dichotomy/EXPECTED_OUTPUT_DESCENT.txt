@@ -16,15 +16,15 @@ PART 1   which classes inherit a usable clique-cover bound
 PART 2   the (51,1) class: second-level barriers surviving both filters
    m=838 (X=52): 3 survive
         s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 52, split bound 3783
-        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 52, split bound 7354
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 52, split bound 7929
         s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 52, split bound 7858
-   m=839 (X=54): 4 survive
+   m=839 (X=54): 3 survive
         s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 54, split bound 3761
-        s=22 :   2 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 54, split bound 7283
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 54, split bound 7858
         s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 54, split bound 7828
-   m=840 (X=56): 4 survive
+   m=840 (X=56): 3 survive
         s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 56, split bound 3740
-        s=22 :   2 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 56, split bound 7252
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 56, split bound 7827
         s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 56, split bound 7798
 
 PART 3   why they still survive, and by how little
@@ -41,11 +41,10 @@ PART 3   why they still survive, and by how little
    nearly complete.  The bound is minimised at Y_A = 47 or 48, where
    the excess left on R is only 4 or 5, so 27 or 28 of its vertices
    are low and Gallai forces a clique block of order 23 or 24.
-   The profile is a narrow dip: at Y_A = 25 the bound is 8564 and at
-   Y_A = 49 it is 8721, both above Z, but it dips to 7858 in between.
-   Closing the dip needs about 450 more at the minimiser, from the
-   126 edges e_G(A,R) that the split discards or from a sharper
-   crossing bound for a 32-vertex graph at 78 percent density.
+   The profile is a narrow dip in Y_A: it is above Z at both ends
+   and only the middle survives.  Closing it needs a few hundred more,
+   from the e_G(A,R) edges the split discards or from a still sharper
+   crossing bound at high density.
 
    Kleitman bipartite bound on a 48-vertex split, for reference:
       cr(K_{24,24}) >=  14572   kills
@@ -58,8 +57,9 @@ PART 3   why they still survive, and by how little
       cr(K_{ 1,47}) >=      0   survives
 
 CONCLUSION
-   The second-level split raises the three surviving second-level
-   barriers of the (51,1) class from 4724 to 3783, 7354 and 7858
-   against Z(29) = 8281.  Two of the three are now within 1000, but
+   The second-level split plus the dense-subgraph bound raise the
+   three surviving second-level barriers of the (51,1) class well
+   above cr(K_26) = 4724, to the values listed in PART 2,
+   against Z(29) = 8281.  Two of the three are now within 500, but
    none is closed, and the (50,1,1) and (49,1,1) classes do not even
    inherit the transfer.  Order 58 at r = 29 remains open.

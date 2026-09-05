@@ -465,6 +465,66 @@ and a lower bound of exactly 8281 is already a contradiction.  The earlier files
 here use the conservative test "excluded when `> Z`", which reopens nothing, but
 the `m = 840` row lands exactly on 8281 and needs the correct threshold.
 
+### Scope correction, and a dense-subgraph bound that removes the dependency
+
+**The `b >= 8` closure as first published (ledger height 3014) had an undeclared
+dependency.**  The `cr(K_q)` recursion in `verify_range.py` defaults to seeding
+at the CCCG 2021 values \(\mathrm{cr}(K_{13})=225\), \(\mathrm{cr}(K_{14})=315\),
+and no file called `set_base`.  Seeding only at the uncontested
+\(\mathrm{cr}(K_{12})=150\) gives \(\mathrm{cr}(K_{28})\ge 6250\) instead of
+6471, and the \(b=30\) class **reopens**: 8249 at \(m=839\) and 8213 at
+\(m=840\), against \(Z(29)=8281\).  Only \(m=838\) survived, at 8286.  The
+`r = 27` and `r = 28` proofs were already audited against this (`r27.py` Step 6,
+`r28.py` Part C) and are unaffected; the `r = 29` order-58 work was not.
+
+`crminus.py` repairs it.  Every tight configuration here has the same shape: a
+set on which the complement has only a handful of edges, so \(G[D]\) is
+\(K_{|D|}\) minus \(f\) edges with \(f\) small.  The generic sampling bound is
+very weak there — \(L(28,375)=4656\) against \(\mathrm{cr}(K_{28})\ge 6250\).
+Write \(g(n,f)\) for a lower bound valid for every graph on \(n\) vertices with
+at least \(\binom n2-f\) edges, and take the largest of three ingredients:
+
+1. **Vertex cover.** The missing edges have a vertex cover of size at most \(f\),
+   and deleting it leaves a complete graph, so \(g(n,f)\ge\mathrm{cr}(K_{n-f})\).
+2. **Sampling.** \(L\!\left(n,\binom n2-f\right)\).
+3. **Vertex-deletion averaging.** In a good drawing crossing edges are
+   independent, so every crossing involves exactly four vertices and survives in
+   exactly \(n-4\) of the \(n\) vertex-deleted subdrawings; hence
+   \(\mathrm{cr}(F)\ge\sum_v \mathrm{cr}(F-v)/(n-4)\).  Each \(F-v\) misses
+   \(f_v\le f\) edges, and the missing edges span at least \(t(f)\) vertices
+   (\(t\) least with \(\binom t2\ge f\)), each of which lies in a missing edge and
+   so has \(f_v\le f-1\).  Therefore
+   $$g(n,f)\;\ge\;\left\lceil\frac{(n-t)\,g(n-1,f)+t\,g(n-1,f-1)}{n-4}\right\rceil .$$
+
+This gives \(g(28,3)=5324\) against the sampling value 4656, and with it the
+\(b\ge 8\) closure holds at **every** rung of the seed ladder:
+
+| seed for \(\mathrm{cr}(K_{13})\) | source | \(\mathrm{cr}(K_{28})\ge\) | classes with \(b\ge8\) surviving |
+|---|---|---|---|
+| 217 | bare counting recursion | 6250 | 0 / 0 / 0 |
+| 219 | McQuillan–Pan–Richter, *JCTB* **115** (2015) 224–235 | 6299 | 0 / 0 / 0 |
+| 223 | Ábrego et al., EuroCG 2015 (non-archival) | 6431 | 0 / 0 / 0 |
+| 225 | Aichholzer, CCCG 2021, 72–77 | 6471 | 0 / 0 / 0 |
+
+So the closure now needs nothing beyond \(\mathrm{cr}(K_{12})=150\).
+
+*A wrong version, recorded.*  The first draft of ingredient 3 used
+\((n-2)\,g(n-1,f)+2\,\mathrm{cr}(K_{n-1})\), assuming two of the deleted
+subgraphs come out complete.  That is false: \(f_v=0\) requires \(v\) to lie in
+*every* missing edge, which already fails for two disjoint missing edges.
+
+*On the status of \(\mathrm{cr}(K_{13})=225\).*  It is a published, peer-reviewed
+theorem (Aichholzer, CCCG 2021), but single-author and computer-assisted at over
+1000 CPU-years, and the author states that a negative result of that kind cannot
+be checked except by repeating the computation.  It is recorded in **neither**
+Schaefer's dynamic survey DS21 (ninth edition, 2026) **nor**
+Clancy–Haythorpe–Newcombe, both of which still give \(\mathrm{cr}(K_{13})\) only
+as lying in a range.  It is kept as the default here for larger margins, never as
+a requirement.  The asymptotic constant \(\mathrm{cr}(K_n)/Z(n)>0.98559895\)
+(Balogh–Lidický–Salazar, *SIAM J. Discrete Math.* **33** (2019) 1261–1276) does
+not help at finite \(n\): the counting recursion says \(\mathrm{cr}(K_n)/\binom n4\)
+is non-decreasing, so that limit is a supremum and every finite \(n\) lies below it.
+
 *A `K_4`-free sharpening, used throughout.*  `B` contains the disjoint triangles
 `T_1, T_2`.  A vertex adjacent to all three of some `T_i` would complete a `K_4`,
 so every vertex outside `B` has at most `b - 2` neighbours in `B`, and a vertex
@@ -528,7 +588,7 @@ would make feasible configurations look impossible.
 | second-level barrier | bound before | with the split | \(Z(29)\) |
 |---|---|---|---|
 | \(s=0\), sizes \((47,1)\) | 4724 | **3783** | 8281 |
-| \(s=22\), sizes \((3,1^{23})\) | 4724 | **7354** | 8281 |
+| \(s=22\), sizes \((3,1^{23})\) | 4724 | **7929** | 8281 |
 | \(s=23\), sizes \((1^{25})\) | 4724 | **7858** | 8281 |
 
 *Negative result.*  None of the three is closed.  For \(s=23\), \(A\) is a clique
@@ -536,9 +596,11 @@ would make feasible configurations look impossible.
 \(Y_A\) — 8564 at \(Y_A=25\) and 8721 at \(Y_A=49\), both above \(Z(29)\), but
 7858 at the minimiser \(Y_A=48\), where only 4 units of excess remain on \(R\),
 28 of its vertices are low, and Gallai forces a clique block of order 24.
-Closing the dip needs about 450 more, either from the 126 edges \(e_G(A,R)\) that
+Closing the dip needs about 420 more, either from the 126 edges \(e_G(A,R)\) that
 the split discards or from a sharper crossing bound for a 32-vertex graph at 78
-per cent density.  The \(s=0\) family is the self-similar descent case, where
+per cent density (there \(f=113\) is far too large for the dense bound above to
+beat sampling).  These figures move by at most about 100 across the whole seed
+ladder, so unlike the \(b\ge8\) closure they were never seed-critical.  The \(s=0\) family is the self-similar descent case, where
 \(R=T\cup B\) has only 9 vertices and the split has nothing to work with.
 
 `order2r.py` also reproduces the eight-row `r = 29` frontier of ledger height

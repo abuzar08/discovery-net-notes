@@ -107,8 +107,39 @@ def kleitman_bipartite(a, c):
 #   K_13 = 225 and K_14 = 315: McQuillan-Pan-Richter (JCTB 2015) bounded cr(K_13),
 #   settled as 225 (and cr(K_14)=315) by the CCCG 2021 computation
 #   "Another Small but Long Step for Crossing Numbers: cr(13)=225 and cr(14)=315".
+# The seed ladder for the cr(K_q) recursion, weakest first.  Everything below
+# n = 13 is uncontested (Guy 1972 for n <= 10; Pan-Richter, JGT 56 (2007) 128-134
+# for cr(K_11) = 100, whence cr(K_12) = 150 by the counting step).  At n = 13 the
+# literature offers three successively stronger, successively less secure values:
+#
+#   217  the bare counting recursion ceil(13/9 * 150); assumes nothing extra.
+#   219  McQuillan, Pan, Richter, "On the crossing number of K_13", J. Combin.
+#        Theory Ser. B 115 (2015) 224-235 (arXiv:1307.3297).  REFEREED JOURNAL:
+#        Kleitman parity gives cr(K_13) in {217,219,221,223,225}, and 217 is
+#        excluded by about 14.6 CPU-years of computation.
+#   223  Abrego, Aichholzer, Fernandez-Merchant, Hackl, Pammer, Pilz, Ramos,
+#        Salazar, Vogtenhuber, "All Good Drawings of Small Complete Graphs",
+#        EuroCG '15, 57-60.  Non-archival proceedings.
+#   225  Aichholzer, "Another Small but Long Step for Crossing Numbers:
+#        cr(13) = 225 and cr(14) = 315", CCCG 2021, 72-77.  Peer-reviewed
+#        conference, single author, over 1000 CPU-years, and the author states
+#        that a negative result of this kind cannot be checked except by
+#        repeating the computation.  It is NOT recorded in Schaefer's dynamic
+#        survey DS21 (ninth edition, 2026) nor in Clancy-Haythorpe-Newcombe,
+#        both of which still give cr(K_13) in {219,...,225} resp. {223,225}.
+#
+# Note that the asymptotic constant cr(K_n)/Z(n) -> c with c > 0.98559895
+# (Balogh, Lidicky, Salazar, SIAM J. Discrete Math. 33 (2019) 1261-1276) does
+# NOT help here: the counting recursion says cr(K_n)/C(n,4) is non-decreasing,
+# so that limit is a supremum and every finite n lies below it.
 BASE_CONSERVATIVE = {5: 1, 6: 3, 7: 9, 8: 18, 9: 36, 10: 60, 11: 100, 12: 150}
+BASE_MPR2015 = {**BASE_CONSERVATIVE, 13: 219}
+BASE_EUROCG2015 = {**BASE_CONSERVATIVE, 13: 223}
 BASE_CCCG2021 = {**BASE_CONSERVATIVE, 13: 225, 14: 315}
+SEED_LADDER = (("counting only, cr(K_13) >= 217", BASE_CONSERVATIVE),
+               ("McQuillan-Pan-Richter JCTB 2015, cr(K_13) >= 219", BASE_MPR2015),
+               ("Abrego et al. EuroCG 2015, cr(K_13) >= 223", BASE_EUROCG2015),
+               ("Aichholzer CCCG 2021, cr(K_13) = 225", BASE_CCCG2021))
 _CRK = {q: 0 for q in range(0, 5)}
 _CRK.update(BASE_CCCG2021)
 
