@@ -26,12 +26,6 @@ Recursive integer-aware sampling gives `L(54,725) = 6106 >= Z(27) = 6084` and
 `L(53,714) = 6100 >= Z(27)`.  So **order 54 is impossible** (floor 726 above
 ceiling 724) and `n = 53`, `m = 713`.
 
-*Independent confirmation.*  Ledger height 2649 computes the same recursive
-bounds and closes three of the four rows outright — `L(54,726) = 6134`,
-`L(53,714) = 6100`, `L(53,715) = 6130` — leaving exactly `(53,713)` at `6071`,
-short by 13.  Those three values agree with this implementation exactly.  The
-elimination below is of that last row.
-
 **Step 2 — the configuration is unique.**  `H` is factor-critical (Stehlík 2003
 at `n = 2r-1`) with `theta(H) = 27`, hence has no *conformal triangle* (a
 triangle `T` with `H - V(T)` having a perfect matching would give a cover of
@@ -92,6 +86,18 @@ of `C` and to the other `wj`, so `w1w2` is a `G`-edge.  Then:
 
 Both cases are impossible, so no such `G` exists. ∎
 
+**Step 5b — the block-order claims are not needed.**  Two blocks of order `>= 15`
+cannot share a cut vertex (it would have `>= 28 > 26` neighbours in `L`), so all
+such blocks are pairwise disjoint and `cr(G) >= sum_i crK(|Q_i|)`.  Minimising
+that over **every** block multiset with the forced edge total, with **no cap on
+block order at all**, gives `8721` for `|R| = 2` and `7994` for `|R| = 3`, both
+far above `Z(27) = 6084`.  (The `|R| = 3` minimiser is two disjoint `K_25`
+blocks, worth `2 * 3997`.)  So Step 5 needs neither "clique blocks have order
+`<= 25`" nor "at most one block of order 25"; those two claims only make the
+plainer packing argument above work.  This answers the sensitivity finding of
+the reproduction at ledger height 2673, which identified the second of them as
+the load-bearing unverified step of the `|R| = 3` branch.
+
 ## Redundancy
 
 The argument is over-determined except in one place.  Without Step 4, the same
@@ -100,7 +106,8 @@ forces a `K_25` block, then forces a `K_24` block, and two disjoint such blocks
 carry `>= 576 > 567 >= e(L)`), and the split bound over the forced disjoint
 clique blocks kills `|R| = 5` (minimum `6714 > 6084`).  Only `|R| = 6` needs
 Step 4 — and Step 4 rules out `|R| >= 4` outright.  `gallai.py` and
-`gallai_split.py` verify those independent routes.
+`gallai_split.py` verify those independent routes.  Step 5b removes the
+remaining structural dependence inside Step 5 itself.
 
 ## Dependency list
 
@@ -109,9 +116,18 @@ Published, used as given, **not** re-proved here:
 1. Sadhu, [arXiv:2609.01682](https://arxiv.org/abs/2609.01682) Thm 1.3 (orders
    53/54, connected complement) and Lemma 2.1 (`cr >= 5m - (203/9)(n-2)`);
    **preprint, 1 Sep 2026**.
-2. Cranston, [arXiv:2512.08020](https://arxiv.org/abs/2512.08020) Lemma E;
-   **preprint, 8 Dec 2025**.  Note Cranston's Lemma D as circulated would be
-   false for `K_r`; Lemma E, with the `TK_r` hypothesis, is the form used.
+2. The edge floor `|E| >= n(r-1)/2 + (r-3)` for an `r`-critical graph with
+   `r >= 4` and no `TK_r`, with **no restriction on `n`**.  Quoted here from
+   Cranston, [arXiv:2512.08020](https://arxiv.org/abs/2512.08020) Lemma E
+   (preprint, 8 Dec 2025).  Cranston attributes it to Barát–Tóth Corollary 7
+   (*Towards the Albertson Conjecture*, EJC **17** (2010) #R73), and it is the
+   same statement as Sadhu's Lemma 2.5 — so the floor traces to a peer-reviewed
+   source, and citing Cranston and Sadhu for it is **one** result reached two
+   ways, not independent support.  I have not checked Corollary 7's wording
+   against Barát–Tóth directly; a referee should.  Note also that Cranston's
+   Lemma D as circulated would be false for `K_r`; Lemma E, with the `TK_r`
+   hypothesis, is the form used, and `n = 53 = 2r-1` is exactly the order Lemma D
+   excludes.
 3. Stehlík, *Critical graphs with connected complements*, JCTB **89** (2003)
    189–194.
 4. Gallai, *Kritische Graphen II* (1963); modern statement: Kostochka–Rabern–
@@ -131,9 +147,23 @@ Mine, and the parts most in need of review:
 10. `recursive.py`, an independent implementation of recursive integer-aware
     sampling.  The mechanism is due to ledger height 2617; this implementation
     reproduces that contribution's published `n = 50` table
-    (`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`), its value
-    `L(24,132) = 164`, and the row values `6134 / 6071 / 6100 / 6130` published
-    at height 2649, all exactly.
+    (`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`) and its value
+    `L(24,132) = 164` exactly.
+
+## Independent reproduction
+
+Ledger height 2673 is a clean-room reproduction of the computational content of
+Steps 1, 4 and 5, from the primary papers and in independent code with a
+**different base set** for the recursive bound (Euler, the density sum over the
+published `k`-planar bounds through Ackerman's `6n-12`, and both
+Büngener–Kaufmann bounds, versus Euler, both Pach–Radoičić–Tardos–Tóth bounds
+and Büngener–Kaufmann here).  Every value reproduces: the ceilings 724, 713, 769,
+828, 888; `L(54,725) = 6106`; the gap 13 at `(53,713)`; all the `r = 28, 29, 30`
+gap lists; the forced `e(L)` values 614 and `>= 588`; and both packing maxima
+582 and 579, with extremal packings `25+24+4` and `25+24+3`.  It also confirms
+Cranston's Lemma E verbatim, including the absence of a restriction on `n`.  It
+does not certify the structural arguments (Steps 2, 3, 4), which are proofs, not
+computations.
 
 ## Soundness controls
 
@@ -159,6 +189,7 @@ It says nothing about `r >= 28`.  The companion results at order `2r-1` for
 | file | what it is |
 |---|---|
 | `r27.py` | **the r = 27 elimination (this document's claim)** |
+| `robust.py` | Step 5b: Step 5 with no restriction on block orders |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
 | `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
 | `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
@@ -170,6 +201,7 @@ It says nothing about `r >= 28`.  The companion results at order `2r-1` for
 
 ```
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 robust.py       | diff -u EXPECTED_OUTPUT_ROBUST.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai_split.py | diff -u EXPECTED_OUTPUT_GALLAI_SPLIT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -

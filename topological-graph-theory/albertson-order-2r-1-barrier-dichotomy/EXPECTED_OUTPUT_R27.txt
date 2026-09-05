@@ -23,6 +23,17 @@ STEP 5  Gallai low-vertex block packing
     2     51           614                   582              CONTRADICTION
     3     50           588                   579              CONTRADICTION
 
+STEP 5b  robustness: the same two cases via the split bound, with NO
+         restriction on block orders at all
+   Two blocks of order >= 15 cannot share a cut vertex (that vertex would
+   have >= 28 > 26 neighbours in L), so all such blocks are disjoint and
+   cr(G) >= sum_i crK(|Q_i|).  Minimising over EVERY block multiset with
+   the forced edge total, with no cap on block order:
+     |R|=2: |V(L)|=51, e(L) >= 614  ->  split bound >= 8721  vs Z(27)=6084  CONTRADICTION
+     |R|=3: |V(L)|=50, e(L) >= 588  ->  split bound >= 7994  vs Z(27)=6084  CONTRADICTION
+   So Step 5 needs neither 'clique blocks have order <= 25' nor
+   'at most one block of order 25'.
+
 CONCLUSION
    Every case is contradictory, so no 27-critical graph G with
    cr(G) < cr(K_27) exists:  Albertson's conjecture holds for r = 27,

@@ -1,0 +1,6 @@
+Step 5 without any block-order restriction, via the split bound
+  |R|  |V(L)|  forced e(L)>=   min split bound   Z(27)   verdict
+   2     51         614             8721        6084    CONTRADICTION
+   3     50         588             7994        6084    CONTRADICTION
+
+crK reference: {15: 430, 20: 1530, 24: 3357, 25: 3997, 26: 4724, 27: 5546}

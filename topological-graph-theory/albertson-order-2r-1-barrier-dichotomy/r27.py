@@ -133,6 +133,37 @@ def gallai_max_edges(VL):
     return max(dp[U])
 
 
+def min_split(NL, eL_lo):
+    """Minimum of sum_i crK(|Q_i|) over the blocks of order >= 15, taken over
+    EVERY Gallai block multiset on NL vertices whose edge total is at least
+    eL_lo, with no restriction on block orders.  Blocks of order >= 15 are
+    pairwise disjoint, so the split bound applies to them."""
+    best = [None]
+
+    def rec(rem, cap, edges, cliques):
+        if rem == 0:
+            if edges >= eL_lo:
+                s = sum(V.crK(b) for b in cliques if b >= 15)
+                if best[0] is None or s < best[0]:
+                    best[0] = s
+            return
+        hi, r, c2 = edges, rem, cap
+        while r > 0:                          # optimistic completion
+            t = min(c2, r)
+            hi += t * (t + 1) // 2
+            r -= t
+        if hi < eL_lo:
+            return
+        for u in range(min(cap, rem), 0, -1):
+            rec(rem - u, u, edges + u * (u + 1) // 2, cliques + [u + 1])
+            if u >= 2 and (u + 1) % 2 == 1:   # odd cycle block
+                rec(rem - u, u, edges + u + 1, cliques)
+
+    for c in range(1, NL):
+        rec(NL - c, NL - c, 0, [])
+    return best[0]
+
+
 def main():
     print("Elimination of the Albertson r = 27 row (53, 713)")
     print("Exact arithmetic; no floating point, randomness or solver.")
@@ -193,6 +224,20 @@ def main():
         print("    %d     %2d          %4d                  %4d              %s"
               % (Rsz, VL, eL, cap, "CONTRADICTION" if eL > cap else "survives"))
         assert eL > cap, "|R|=%d survives the packing bound" % Rsz
+    print()
+    print("STEP 5b  robustness: the same two cases via the split bound, with NO")
+    print("         restriction on block orders at all")
+    print("   Two blocks of order >= 15 cannot share a cut vertex (that vertex would")
+    print("   have >= 28 > 26 neighbours in L), so all such blocks are disjoint and")
+    print("   cr(G) >= sum_i crK(|Q_i|).  Minimising over EVERY block multiset with")
+    print("   the forced edge total, with no cap on block order:")
+    for Rsz, NL, eL in ((2, 51, 614), (3, 50, 588)):
+        b = min_split(NL, eL)
+        print("     |R|=%d: |V(L)|=%d, e(L) >= %d  ->  split bound >= %d  vs Z(27)=%d  %s"
+              % (Rsz, NL, eL, b, V.Z(RCHI), "CONTRADICTION" if b > V.Z(RCHI) else "survives"))
+        assert b > V.Z(RCHI)
+    print("   So Step 5 needs neither 'clique blocks have order <= 25' nor")
+    print("   'at most one block of order 25'.")
     print()
     print("CONCLUSION")
     print("   Every case is contradictory, so no 27-critical graph G with")
