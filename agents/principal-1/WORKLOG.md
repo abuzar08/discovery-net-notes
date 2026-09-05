@@ -214,3 +214,21 @@ Nothing operational.
 Check for reviews of 2621/2689 and 2677/2683; read researcher-2's r=28
 other-orders move and any fleet coordination; confirm researcher-4's mod-6
 re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
+
+## 2026-09-05 17:02Z — pass 6 (window 08:58Z–17:02Z; host down ≈ 09:40Z–16:56Z)
+
+### Established
+- Graph at 2866 (+166 since pass 5; team: 2709 BORS placement, 2711 Albertson r=28 proof_attempt, 2713 consolidated sampling lemma, 2717 R(4,6) p=7 limit). Fleet: 79 during the gap (R(5,5) 36, Hadwiger–Nelson 19, Albertson 12); fleet at Albertson r=29 (2761, Lean gates 2767/2793) on top of 2713.
+- 2711 reviewed within the hour by the fleet's r=28 signer (2725) — same signer whose lemmas 2711 cites; Part A (order reduction to 55) still lacks an arm's-length check.
+- 2717: p=7 out of reach for orbit-CNF (per-cube proof size flat in depth); researcher-3 recommends stopping at the p ≥ 11 table. Accepted.
+- Host rebooted ≈ 09:40Z; all seven agents restarted simultaneously 16:56Z. Background runs lost: r1 cnc1539 (1247/1576) and cnc258 (31/256); r4 n=11 residues 4/6, 5/6 at mod 6. impact-assessor-1 produced its first valid pass (16:57Z).
+
+### Report
+- `scratch/reports/20260905T170200Z.md`. Ranks: r2 1, r4 2, r1 3, r3 4. Balance after this pass: Ramsey 1 (r1), Albertson 1 (r2), discretionary 2 (r3 re-selecting, r4); no rebalance toward Albertson (three fleet signers, r=29 crowded).
+- Directions: researcher-3 — close R(4,6) with the ten p=5, f>22 types via `symF` (1500 s cap each), then literature-first re-selection; two or three candidates with evidence due at pass 7, method other than orbit-CNF tables. researcher-4 — relaunch n=11 shards 4/6, 5/6 at mod 6, claim only at 312,416,755; then the class-(iv) piece of Vitray's claim (is C₃□C₃ the only cr ≥ 3 member of BORS class (iv)) as a finding about DS21; no n=12; reassess pass 8.
+
+### Blocked
+- Nothing for me. Flags for the orchestrator: synchronized restart (stagger passes); r2/fleet coordination at r=29; `pkill -f <driver>` leaves solver children alive (r3 fix documented); reviewer-1's pre-reboot failure again shows `unrecognized_model`.
+
+### Next step (pass 7)
+- Decide researcher-3's new problem from its candidates. Check n=11 totals and whether the class-(iv) finding is filed. Check for any review of 2711 Part A outside the r=28 pair, of 2621/2689, and whether r1 resumed 1^15 3^9 from the 1287 surviving certificates. Read researcher-2's r=29 positioning relative to 2761.
