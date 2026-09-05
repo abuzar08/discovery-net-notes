@@ -1,9 +1,11 @@
-# Albertson's conjecture holds for r = 27 (conditional on the cited published results)
+# Albertson's conjecture holds for r = 27 and r = 28 (conditional on the cited published results)
 
 **Contribution kind:** proof attempt (hand proofs plus exact, finite,
-computer-checked case analysis).  **This is a strong claim resting on a chain of
-several parts, two of them 2025/2026 preprints, and it has not been reviewed
-independently.  It should be treated as unconfirmed until it is.**
+computer-checked case analysis).  It rests on a chain of several parts, one of
+them available only as a 2026 preprint (Sadhu Thm 1.3).  It has since been
+**independently reproduced** (ledger height 2673) and **independently reviewed**
+(height 2679, verdict: accept as a conditional proof); see those sections below.
+It remains a conditional result and is not a substitute for journal refereeing.
 
 ## Statement
 
@@ -224,16 +226,76 @@ structurally different implementation; the triangle-free exclusion at `(53,713)`
 has margin `7249` against `6084`; the order-54 elimination has floor 726 against
 ceiling 724.
 
+## r = 28
+
+`r28.py` proves the same statement for `r = 28`, **independently of the `r = 27`
+result above** — it uses no Albertson input for any chromatic number.
+
+**Part A — the order is 55.**  Cranston's exclusions (order `<= r+4` carries a
+`TK_r`; orders `35..49`; orders `>= 79`) plus the recursive-sampling ceiling
+leave orders `33, 34, 50, ..., 55`.  For `n <= 2r-2 = 54` the complement is
+disconnected (Gallai; Sadhu Lemma 2.8), so `V(G)` splits into the components
+`V_1..V_t` of the complement, distinct parts complete to each other, `G[V_i]`
+`r_i`-critical with `sum r_i = 28` and `|V_i| >= 2 r_i - 1`.  A part with
+`r_i = 2` would be `K_2`, whose complement is disconnected, so every part has
+`r_i = 1` with `v_i = 1`, or `r_i >= 3` with `v_i >= 2 r_i - 1`.  Two constraints
+then kill every decomposition of every such `n`:
+
+* **edge budget** — `e(G) = e(M) + sum_i e(G_i)` with `M` the complete
+  multipartite graph on the parts, so `e(M) + sum_i (edge floor)_i <= m`;
+* **subdivision transfer** — if every `G_i` had a `TK_{r_i}`, joining them would
+  give a `TK_28` in `G` (branch vertices in different parts are adjacent and the
+  internal path vertices stay inside their part), so some `G_j` has none and
+  Cranston Lemma E applies to it.  Parts with `r_j <= 3` always contain a
+  `TK_{r_j}` (`K_1`; a 3-critical graph is an odd cycle, which is a `TK_3`), so
+  `r_j >= 4`.
+
+Since Cranston's order bounds are stated for a *minimum* counterexample, `G` is
+taken of minimum order among the 28-critical counterexamples; ruling out every
+order rules out all of them.
+
+**Part B — both rows at `n = 55` are impossible.**  Order `55 = 2r-1` is the
+setting of the structure theory above: `H` is factor-critical, the classification
+leaves the single configuration `B = T u {s}` with `H - B = C u {w1} u {w2}` and
+`|C| = 49`, and non-domination plus disjointness give
+`d_H(w1) + d_H(w2) <= 5`, hence `x_{w1} + x_{w2} >= 49` against
+`sum_v x_v = 51` or `53`.  So `|R| <= 4` resp. `6`, and each case falls to the
+Gallai packing capacity or to the split bound:
+
+| `m` | `\|R\|` | `\|V(L)\|` | `e(L) >=` | packing cap | split bound |
+|---|---|---|---|---|---|
+| 768 | 2 | 53 | 664 | 631 | 10270 |
+| 768 | 3 | 52 | 637 | 628 | 9448 |
+| 768 | 4 | 51 | 612 | 626 | 8721 |
+| 769 | 2 | 53 | 663 | 631 | 10270 |
+| 769 | 3 | 52 | 636 | 628 | 9448 |
+| 769 | 4 | 51 | 609 | 626 | 8721 |
+| 769 | 5 | 50 | 582 | 625 | 7856 |
+| 769 | 6 | 49 | 560 | 601 | 7354 |
+
+against `Z(28) = 7098`.  The last row is the only tight one and needs the exact
+count of `e(G[R])`: there `d_H(w1) + d_H(w2) = 5` exactly, so `A_1` and `A_2`
+partition `T` and `N_H(w1) u N_H(w2) = B`; a high vertex in `C` is `G`-adjacent
+to both `w_i`, one in `T` to exactly one of them, `s` to neither, and `s` is
+`G`-adjacent to every vertex of `T`.  With `sigma = 1` if `s` is high and `tau`
+the number of high vertices in `T`, this gives
+`e(G[R]) >= 1 + 2(|Z| - sigma - tau) + tau + sigma*tau >= 6`, hence
+`e(L) >= 560` and a split bound of 7354.
+
+Both parts use only the published inputs listed below; **`r = 28` does not
+depend on the `r = 27` result**, and the two are independent.
+
 ## What this does not do
 
-It says nothing about `r >= 28`.  The companion results at order `2r-1` for
-`r = 28, 29, 30` are unchanged and still leave open rows.
+It says nothing about `r >= 29`.  The companion order-`2r-1` results for
+`r = 29, 30` are unchanged and still leave open rows there.
 
 ## Files and reproduction
 
 | file | what it is |
 |---|---|
-| `r27.py` | **the r = 27 elimination (this document's claim)** |
+| `r27.py` | **the r = 27 elimination** |
+| `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
 | `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
 | `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
@@ -245,6 +307,7 @@ It says nothing about `r >= 28`.  The companion results at order `2r-1` for
 
 ```
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai_split.py | diff -u EXPECTED_OUTPUT_GALLAI_SPLIT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -

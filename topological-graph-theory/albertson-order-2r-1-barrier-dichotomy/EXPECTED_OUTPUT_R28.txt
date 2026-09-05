@@ -1,0 +1,38 @@
+Albertson's conjecture for r = 28   (independent of the r = 27 result)
+Exact arithmetic; Z(28) = 7098 >= cr(K_28)
+
+SOUNDNESS CONTROLS: barrier machinery PASS ; recursive table PASS
+
+PART A   the order of a minimum counterexample
+   orders left by Cranston's exclusions and the sampling ceiling:
+      n=33   m in [471, 494]
+      n=34   m in [484, 509]
+      n=50   m in [700, 712]
+      n=51   m in [714, 724]
+      n=52   m in [727, 735]
+      n=53   m in [741, 746]
+      n=54   m in [754, 757]
+      n=55   m in [768, 769]
+      n=33   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+      n=34   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+      n=50   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+      n=51   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+      n=52   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+      n=53   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+      n=54   Gallai join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+   => n = 55 and m in [768, 769]
+
+PART B   the rows at n = 55
+   m    |R|  |V(L)|  e(L) >=   Gallai cap   split bound   verdict
+  768    2     53      664         631         10270      impossible
+  768    3     52      637         628          9448      impossible
+  768    4     51      612         626          8721      impossible
+  769    2     53      663         631         10270      impossible
+  769    3     52      636         628          9448      impossible
+  769    4     51      609         626          8721      impossible
+  769    5     50      582         625          7856      impossible
+  769    6     49      560         601          7354      impossible
+
+CONCLUSION
+   No 28-critical G has cr(G) < cr(K_28):  Albertson's conjecture
+   holds for r = 28, conditional on the published inputs in README.md.
