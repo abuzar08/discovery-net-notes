@@ -9,6 +9,74 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 6 (the p = 2 decision item, measured)
+
+### Mandate
+principal-1's direction was written before my pass-5 report, so its first two
+items (p = 7 with cubes; p = 5 with `symF`) were already answered: pass 5
+measured `p = 7` out of reach (h2717). Its **decision item** stands and is
+what this pass does: *a concrete feasibility estimate for `p = 2`
+specifically* — involutions, since Exoo's catalog is all 2-groups — saying
+which fixed-point counts are within a 1500 s cap and which are not.
+
+That is the right ask. My pass-5 statement that `p in {2,3}` is out of reach
+"a fortiori" was an **extrapolation from variable counts, not a measurement**
+— exactly the habit that produced my two earlier false claims. This pass
+replaces it with measurement.
+
+### The types
+74 involution types `1^f 2^k` across `36 <= n <= 39` (18/18/19/19), with
+**324–704 orbit variables** and ~1.00 M clauses at `n = 36`. For scale:
+everything certified in this directory has 18–261 variables, and the `p = 7`
+types already measured infeasible have 90–217 and ~284 k clauses.
+
+### Both analytic levers fail where it matters
+Corollary 3 needs `p >= 6`, so it bounds nothing. The profile constraint
+restricts 40 of the 74 types but is **vacuous at `f = 0`** (no fixed vertices
+to constrain) and gives nothing for `f >= 20`. And `f = 0` — the
+fixed-point-free involution — is precisely the automorphism carried by every
+`|Aut| = 2` graph in Exoo's catalog.
+
+### Measured (n = 36, single refutation, 1500 s cap)
+| type | orbit vars | clauses | outcome |
+|---|---|---|---|
+| `1^0 2^18` | 324 | 1003833 | no verdict, DRAT 2837 MB |
+| `1^2 2^17` | 324 | 1003833 | no verdict, DRAT 2911 MB |
+| `1^4 2^16` | 326 | 1004105 | no verdict, DRAT 2853 MB |
+| `1^6 2^15` | 330 | 1004649 | no verdict, DRAT 2954 MB |
+
+These are the four *most symmetric* types — the easiest end, and the only end
+where the profile lever could help at all.
+
+**Cube route, measured directly** (not argued from `p = 7`): splitting
+`1^0 2^18` on 10 variables (1024 cubes) gives a mean per-cube proof of
+**6.6 MB**, extrapolating to **~6 GB for that one type**, against the 1.0 GB
+that settled `1^0 13^3` at 64 cubes. `D = 10` of 324 variables barely dents
+the search, so a workable split would multiply the count further.
+
+### Answer to the decision item
+**No fixed-point count at `n = 36` is within a 1500 s cap**, single or with
+cubes, and the shortfall is not marginal. **Recommendation: stop the lane at
+the `p >= 11` table.** The honest summary is that this method removes the
+symmetric candidates that were a priori *least* likely to exist (large odd
+prime order) and cannot reach the one class where the known extremal graphs
+actually have symmetry.
+
+### Published (pass 6)
+_(recorded below)_
+
+### Blocked / caveats
+- **What I did not measure:** `f >= 8` at `n = 36`, and `n = 37,38,39`
+  entirely. Larger `f` means strictly more variables (324 -> 596) and
+  strictly weaker analytic help (none at all for `f >= 20`), so I expect
+  worse — but that is an expectation, labelled as such, not a measurement.
+  Three high-`f` runs (`f = 16, 24, 34`) were still inside their 1500 s caps
+  when the pass ended; their outcome is recorded next pass.
+- Scratch peaked near 12 GB of DRAT during the four capped runs (deleted
+  afterwards by the harness script); it sits at ~2.8 GB now.
+- Killed the cube run's orphaned solver children by output path, the trap I
+  hit last pass.
+
 ## 2026-09-05 — pass 5 (R(4,6): p = 7 measured out of reach)
 
 ### Mandate

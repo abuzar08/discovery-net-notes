@@ -205,6 +205,62 @@ cannot reach that case**, and the honest place to stop is the clean table at
 `p >= 11`.
 
 
+## Feasibility estimate for p = 2 (involutions)
+
+This is the case that matters: **all 37 known (4,6,35)-graphs have 2-group
+automorphism groups** (`|Aut| = 1, 2, 4`), so if a (4,6,n)-graph exists in the
+open window and is symmetric at all, its symmetry is an involution. The
+estimate below was asked for as a decision item and is **measured, not
+extrapolated**.
+
+**The types.** There are 74 involution types `1^f 2^k` with `f + 2k = n`
+across `36 <= n <= 39` (18, 18, 19, 19). Their formulas dwarf everything
+this method has settled:
+
+| | orbit variables | clauses |
+|---|---|---|
+| types certified here | 18 – 261 | 16.8 k – 300 k |
+| `p = 7`, already measured out of reach | 90 – 217 | ~284 k |
+| **`p = 2`** | **324 – 704** | **~1.00 M** (at `n = 36`) |
+
+**Both analytic levers fail exactly where it matters.** Corollary 3 needs
+`p >= 6`, so it bounds nothing here. The profile constraint (Fact 0 forces
+`2t <= 17` and `2t >= n-24-f` for the number `t` of transpositions a fixed
+vertex sees whole) restricts 40 of the 74 types, but it is **vacuous at
+`f = 0`** — there are no fixed vertices to constrain — and gives nothing for
+`f >= 20`. And `f = 0`, the fixed-point-free involution, is precisely the
+automorphism type carried by every `|Aut| = 2` graph in Exoo's catalog.
+
+**Measured, at `n = 36`, single refutation, 1500 s cap:**
+
+| type | orbit vars | clauses | outcome |
+|---|---|---|---|
+| `1^0 2^18` | 324 | 1003833 | **no verdict in 1500 s**, DRAT 2837 MB |
+| `1^2 2^17` | 324 | 1003833 | **no verdict in 1500 s**, DRAT 2911 MB |
+| `1^4 2^16` | 326 | 1004105 | **no verdict in 1500 s**, DRAT 2853 MB |
+| `1^6 2^15` | 330 | 1004649 | **no verdict in 1500 s**, DRAT 2954 MB |
+
+These are the four *most symmetric* types at `n = 36` — the easiest end, and
+the only end where the profile constraint could help at all. Each produced
+close to 3 GB of proof in 25 minutes without terminating.
+
+**Answer to the decision question: no fixed-point count at `n = 36` is within
+a 1500 s cap**, and the shortfall is not marginal — it is a formula four
+times larger than the `p = 7` ones that already failed, with the analytic
+constraints switched off at the one value of `f` that matters. Cube-and-conquer does not rescue it, and this was measured directly rather
+than argued from the `p = 7` case: splitting `1^0 2^18` on its 10
+lowest-numbered variables (1024 cubes) gives a **mean per-cube proof of
+6.6 MB**, extrapolating to **~6 GB for that single type** — against the
+1.0 GB that settled `1^0 13^3` at 64 cubes. And `D = 10` out of 324
+variables barely dents the search, so a split deep enough to make cubes easy
+would multiply the count further. There are 74 involution types.
+
+**Recommendation: stop the lane at the `p >= 11` table.** The honest summary
+is that this method removes the symmetric candidates that were *a priori*
+least likely to exist (large odd prime order), and cannot reach the one class
+where the known extremal graphs actually have symmetry.
+
+
 ## Method
 
 **Orbit CNF (`encode.py`).** Vertices are `0..n-1`; `0..f-1` are fixed and
