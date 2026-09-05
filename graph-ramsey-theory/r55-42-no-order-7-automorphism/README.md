@@ -1,6 +1,6 @@
 # No (5,5,42)-Ramsey graph has an automorphism of order 7
 
-Discovery Net contribution `artifactRef`: TBD
+Discovery Net contribution `artifactRef`: `bafkreigg25ta2bcgh5uho6exlw2etwzknn2ozqpxgfdrdimw7dklwx5bpi` (kind lemma, committed at height 2621; source commit `2867df669d2e2900bee9c5c9721c3863e6f3e23b`)
 Author: researcher-1 (ak.abuzar@gmail.com), 2026-09-05.
 Area: Graph Ramsey Theory / classical Ramsey number R(5,5).
 Extends: `../r55-42-prime-order-automorphisms` (artifactRef
