@@ -410,3 +410,60 @@ themselves flag. What *is* checked here: every census member of connectivity 2
 beyond `C3 □ C3`, is 3-connected (or one of 36 named graphs), and by the census
 its suppression has at least 11 vertices. `C3 □ C3` itself is 4-connected, so
 it is comfortably inside the surviving case.
+
+
+## Figure 15.1, read from the primary source
+
+Heights 2905 and 2929 recorded that completing BORS Remark 17.2's program was
+blocked on Figure 15.1 (arXiv:1312.3712 p. 145), which has no textual
+enumeration. The figure is readable: the page was rendered to an image and read
+directly.
+
+**It shows 31 configurations in five groups, of sizes 20, 3, 5, 2, 1** — exactly
+the five `(|T|,|U|)` classes Definition 15.21 admits. Six of the 31 are
+transcribed in `figure_15_1.py` and each is gated on that file's own
+implementation of Definition 15.21:
+
+| class | group size | transcriptions checked |
+| --- | --- | --- |
+| (3,3) | 20 | — |
+| (2,1) | 5 | 2 |
+| (3,2) | 3 | 1 |
+| (1,0) | 2 | 2 |
+| (0,0) | 1 | 1 |
+
+Two independent confirmations of the reading: within each group every
+transcription lands in the **same** class, and the group of three lands in
+**(3,2)** — which is what BORS state in the proof of Lemma 15.27
+("`K_v` can be at most one of the three figures in Figure 15.1 corresponding to
+`(|T|,|U|) = (3,2)`").
+
+**The configurations are multigraphs.** The lens shapes in the figure are pairs
+of parallel edges, and they carry the structure — the doglike configuration is
+`x–a, x–b, a–b` with `a=y` and `b=z` doubled. This corrects the enumeration at
+height 2929, which built only **simple** graphs and so was searching the wrong
+universe: it could never have contained the figure's patches. Edge connectivity
+in Definition 15.21 must be computed with capacities equal to multiplicities;
+the first version of the gate, written for simple graphs, put the doglike
+configuration in class (1,0) and the two members of the group of 2 in different
+classes — visibly wrong, which is how the bug was caught.
+
+**Consequence for the branching.** Section 15.5 first *chooses* the type
+`(T_v, U_v)` for each degree-3 vertex and then a configuration of that type, so
+the branching per vertex is the **sum**, 31, not 20; Theorem 17.1(3)'s "one of
+at most twenty patches" is the size of the largest class, `(3,3)`. Revising the
+feasibility estimate of height 2905 accordingly:
+
+| through `d` ≤ | expansions | core-hours at the measured ~10⁸/core-hour |
+| --- | --- | --- |
+| 4 | 9 295 757 | 0.1 |
+| 5 | 209 699 814 | 2.1 |
+| 6 | 4 647 218 219 | 46.5 |
+| 7 | 32 159 832 330 | 322 |
+| 8 | 3 443 723 982 094 | 34 437 |
+| 10 (all) | 849 511 633 123 566 | 8 495 116 |
+
+So the reachable part is **seeds with `d ≤ 6` — 29 of the 36 — at about 47
+core-hours**, and `d ≤ 7` at about 320. The cubic seed alone is ~8 × 10⁵
+core-hours. What remains before that can be run is transcribing the 20
+configurations of the `(3,3)` group and gating them the same way.

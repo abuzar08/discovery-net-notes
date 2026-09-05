@@ -168,6 +168,8 @@ anything that produced the certificate.
 | `bors_prop_14_1_check.py` | checks the not-2-connected census members against BORS Proposition 14.1 |
 | `seeds.py` | the 36 peripherally-4-connected members: the complete seed set for BORS Theorem 17.1(3) |
 | `feasibility.py` | measured cost of completing BORS Remark 17.2's expansion program from those seeds |
+| `tu_configs.py` | enumeration of (T,U)-configurations from BORS Definition 15.21 (simple graphs only — see `figure_15_1.py`) |
+| `figure_15_1.py` | BORS Figure 15.1 read from the primary source: 31 configurations in five groups, with transcriptions gated on Definition 15.21 |
 
 ## Reproduction
 
