@@ -648,3 +648,89 @@ mandate with no review coverage at all. Source at `0d66ff2`.
 - Then: researcher-2's older Albertson lemmas (h2677, h2683, h2871, h2903) —
   the same lane, still unreviewed, and h2933 leans on h2761/h2659 machinery I
   used as given; researcher-1's h2621; researcher-4's BORS findings.
+
+## 2026-09-05 — pass 10
+
+The chain is still down: no block since height 2952 (block time
+2026-09-05T19:46:20Z), now over 2.5 hours, with 4 transactions in the node's
+mempool including my h2933 review from pass 9. The node itself runs in an
+OrbStack container whose RPC still answers; restarting it is the orchestrator's
+call, not mine, so I did not touch it. The repository is reachable, so this pass
+did review work and published evidence, and holds both review submissions until
+the chain advances — no artifactRef is claimed that I cannot verify.
+
+Targets: the two remaining unreviewed pieces of the machinery I flagged in the
+h2933 review — researcher-2's h2871 and h2903, both in the Albertson lane.
+
+### Established — h2871 `bafkreig6xzh3ww4vzs6jtpgsox6qtfsb2enoowjgs6ju2ozffbg3u6abwu`
+(reviewed at its named commit `c354fc8`; `r28.py` has since changed, so the
+files were extracted with `git show` and their SHA-256s checked against the body)
+- Reproduction exact: `r28.py` and `r29.py` give empty diffs (84 s, 39 s).
+- Section 1: the integer bands are exact, not approximations (141/50 = 2.82,
+  307/250 = 1.228, 221/125 = 1.768), and my own evaluation gives the claimed
+  order sets 33, 34, 50..78 at r = 28 and 34, 35, 52..81 at r = 29.
+- Section 3: the e(G[R]) floor is right in all ten values — I reproduced
+  [1, 1, 3, 4, 6, 8, 10, 12, 14, 16] twice, by minimising the closed form and by
+  a brute-force enumeration over where the |R|-2 further high vertices can sit.
+- Section 2: my own split minima for the eight order-55 rows are **identical**
+  to the published lists in both recursion bases, tightest margins 256 and 6
+  over Z(28) = 7098; every r = 28 row closes in both bases **and** with the
+  Gallai cap taken without the inherited "at most one block of order r-2"
+  restriction.
+- Section 4: my table reproduces theirs row by row; with cr(K_14) = 315 the rows
+  that survive are exactly (826,7), (827,7-9), (828,7-11), so (824) and (825)
+  are eliminated and the other three reduce as claimed.
+- **Finding (unflagged dependency)**: unlike r = 27 and r = 28, the r = 29
+  reductions still rest on cr(K_13) = 225 / cr(K_14) = 315 (CCCG 2021). Seeding
+  the recursion only with cr(K_12) = 150 drops the split bound at (827, |R|=6)
+  and (828, |R|=6) from 8343 to 8059, below Z(29) = 8281, so those two rows
+  survive and the reductions weaken to 827 -> [6..9], 828 -> [6..11]. The
+  eliminations of (824) and (825) are unaffected. Margin under the CCCG values:
+  62 out of 8281.
+
+### Established — h2903 `bafkreie7shglpkgwdvhgm3uvgln3nm4o7khittzzodzmomdxiagnt34nxm`
+(named commit `1a62616`; `deps.py`, `r28.py` unchanged and hashes match)
+- I downloaded the **published EJC PDF** of Barat-Toth (EJC 17 (2010) #R73) and
+  extracted its text: Corollaries 5, 7 and 11 match the contribution's
+  quotations word for word, including Corollary 7's "Let r be a positive
+  integer, r >= 4, and let G be an r-critical graph" — wording that differs from
+  the arXiv preprint, so the published version really was the one read. The
+  paper does name the two bounds as claimed and Corollary 7 has no restriction
+  on n.
+- Reproduction exact: `deps.py`, `r28.py` empty diffs (73 s, 77 s).
+- My own floors reproduce the whole PART 3 table (rows 24, 26, 13, 11, 9, 6 all
+  closing to 0 under Corollary 5; n = 54 keeps 3, n = 55 keeps 2) and the r = 27
+  claim (n = 52 with m in [701,702], n = 53 with m = 713). Orders 32..51 are
+  closed by Corollary 5 and not by Corollary 7 — which is exactly why Sadhu
+  Thm 1.3 is no longer needed. Gallai's own theorem gives the disconnected
+  complement at n = 2r-2, so the Sadhu Lemma 2.8 citation there is a convenience.
+- The "one part only" correction is right (in a join, subdivisions in every part
+  would combine into a topological K_r).
+- Verified by inspection that `recursive.py`/`verify_range.py` build every
+  ceiling on cr >= 5m - (203/9)(n-2) (Sadhu Lemma 2.1 / Buengener-Kaufmann), so
+  the contribution's "what still rests on a preprint" is accurate — and my own
+  order-survival checks inherit it too.
+
+### Published
+- Evidence `reviews/albertson-r28-r29-partial/` — commit `680c092`.
+- Evidence `reviews/albertson-deps-barat-toth/` — commit `83c41d6` (which also
+  records the evidence commit inside the h2871 body).
+
+### Blockers
+- Chain stalled, as above. Three review bodies are now prepared and unpublished:
+  h2933 (submitted pass 9, tx `21DADC27...`, still in the mempool), h2871 and
+  h2903 (prepared this pass, deliberately not submitted while the chain is dead,
+  bodies in `scratch/alb871/review_body.md` and `scratch/alb903/review_body.md`,
+  evidence commits already filled in).
+
+### Background computations left running
+- None. `scratch/` is 624 MB.
+
+### Next step
+- When the chain advances: confirm whether tx `21DADC27...` committed (do NOT
+  resubmit h2933 blindly — check the ledger for a review of h2933 by signer
+  85350074 first), then submit the h2871 and h2903 bodies, record all three
+  artifactRefs in their evidence READMEs and add the three ledger rows.
+- Then: researcher-2's h2677/h2683 (the r=27 chain steps) and h2761 itself, the
+  last unreviewed Albertson pieces; researcher-1's h2621; researcher-4's BORS
+  findings.
