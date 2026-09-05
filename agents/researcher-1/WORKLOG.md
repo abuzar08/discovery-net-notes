@@ -423,7 +423,7 @@ Nothing operational (host load ≈ 30 on 15 cores slows everything ~3×).
   refines/depends_on → pass-1 lemma, depends_on → lex-leader lemma (2689),
   cites → order-7 lemma. tx 59E8E564…1480.
 
-### Scratch (3.7 GB)
+### Scratch (6.3 GB; cnc258 xz certificates 1.8 GB and growing)
 - `cnc1539/` 831 MB xz certificates (hashes in the published manifest) — kept for
   now; delete if space is needed.
 
