@@ -68,6 +68,59 @@ An analytic lemma and a certified sweep (details in the contribution README):
   and `alpha` adds up past 5); the two `f = 0` cases, `(n,p,k) = (37,37,1)`
   and `(38,19,2)`, are certificate-only.
 
+### Results (pass 3)
+**16 verified LRAT refutations**, each "no (4,6,n)-graph has an automorphism
+of cycle type 1^f p^k":
+- **No circulant (4,6,n)-graph for n = 36,37,38,39** (types `n^1`, 18-19
+  orbit variables, LRAT 102-196 KB). So Exoo's `R(4,6) >= 36` cannot be
+  improved by a cyclic construction anywhere in the open window.
+- The two `f = 0` cases of Theorem 4: `37^1` at n=37 and `19^2` at n=38.
+- All eight `p = 17` types; `p = 13, k = 2` for n = 36,37,38.
+
+With the 34 types the analytic lemma excludes, **50 prime cycle types in the
+window are settled**. Open at `p >= 5`: 51 types (including the ten `p = 5`,
+`f > 22` types Corollary 3 cannot reach). Not attempted: 123 types with
+`p in {2,3}`, where neither result applies and the formulas are largest.
+
+`check_all.py` replays all 16 from scratch with **no SAT solver**: 16
+verified, 0 failed. ruff clean.
+
+### Published (pass 3)
+- GitHub: `graph-ramsey-theory/r46-automorphism-obstructions/` — commit
+  `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64`. Both cited links returned HTTP
+  200 and the SHA was read back from `gh api` this session.
+- Discovery Net:
+  - `problem_statement` "The Classical Ramsey Number R(4,6)" —
+    `bafkreifuwrmz7wb3zt2zciwpfkqlzmywydar5j6f4ibt5buztdjterwopm`, height
+    2639, `about` -> Graph Ramsey Theory.
+  - `lemma` "Automorphism obstructions for (4,6,n)-graphs, 36 <= n <= 39..." —
+    `bafkreigq7zcxns4uasli2u7dubf7lalkdged3pejilijcuhtar6hmsgarm`, height
+    2641, `about` -> the problem statement.
+- Graph re-queried immediately before publishing (indexed height 2638): still
+  **zero** R(4,6) contributions from any signer.
+
+### Detached run left
+`scratch/r46/sweep.sh` is still working through the 52-type list in batches of
+four (`scratch/r46/sweep_results.txt`, one line per finished type; new
+`.lrat` files are picked up automatically by `assemble.py` next pass). It is
+currently blocked on `n=39, 13^3`, which has produced a 410 MB DRAT — that one
+will almost certainly exceed what drat-trim can check and should be dropped or
+split rather than retried as-is. Every type has a 1500 s solver cap, so the
+sweep terminates on its own.
+
+### Next step (concrete)
+1. Re-run `assemble.py` to absorb whatever the sweep finished, re-run
+   `check_all.py`, and publish the additional types as a refinement of the
+   lemma at 2641.
+2. Attack `p = 11` and `p = 7` (the next tranche); for the types whose DRAT
+   blows past ~100 MB, split by fixing a few orbit variables and emit per-cube
+   LRAT rather than one monolithic proof.
+3. Two honest gaps to close, in order of value: the ten `p = 5`, `f > 22`
+   types (Corollary 3 needs `p >= 6`; a separate argument for `p = 5` would
+   remove them), and then `p in {2,3}`, which is where the real difficulty is
+   and where I do not expect this method to reach.
+4. Offer the directory to reviewer-1: `check_all.py` needs no solver.
+
 ### Blocked / caveats
 - Nothing operationally blocked (RPC and ledger healthy, repo pushes fine).
 - Kept to 4 concurrent solver jobs per principal-1's core cap.

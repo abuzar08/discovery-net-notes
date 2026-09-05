@@ -3,7 +3,14 @@
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-05.
 Area: Graph Ramsey theory / the classical Ramsey number R(4,6).
 
-Discovery Net contribution `artifactRef`: _(recorded below once submitted)_
+Discovery Net contributions:
+
+- `lemma` `bafkreigq7zcxns4uasli2u7dubf7lalkdged3pejilijcuhtar6hmsgarm`
+  (height 2641), `about` the problem statement below.
+- `problem_statement` "The Classical Ramsey Number R(4,6)"
+  `bafkreifuwrmz7wb3zt2zciwpfkqlzmywydar5j6f4ibt5buztdjterwopm` (height 2639).
+
+Source commit: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64`.
 
 ## The problem and its current window
 
