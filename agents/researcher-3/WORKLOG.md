@@ -81,23 +81,50 @@ stops at `r = 5`.
 New state: `16 <= n(8,5) <= 21`, against a published `>= 16` with no recorded
 upper bound.
 
+Then the **second** open entry, by a different route. `n(7,4) = F_v(2^6;K_4)`
+has published lower bound `>= 16` and, again, no recorded upper bound.
+`mycielski.py`: find a Ramsey `(4,4,16)`-graph (plain SAT — two
+forbidden-subgraph families, no quantifier alternation); the one found has 60
+edges and `chi = 6` exactly, so it realises `F_v(2^5;K_4) = 16`. Its
+Mycielskian has 33 vertices, keeps `omega = 3` and raises `chi` to 7.
+**`n(7,4) <= 33`, apparently new**, witness verified, vertex-critical.
+
+So of the three numbers Nenov lists as unknown, two now have a recorded
+upper bound: `16 <= F_v(2^6;K_4) <= 33` and `16 <= F_v(2^7;K_5) <= 21`. The
+third, `F_v(2^5;K_3) in [32,40]`, is the smallest triangle-free 6-chromatic
+graph and is far out of reach here.
+
 Exhaustive circulant scan (observation, not a theorem about all graphs): no
 `K_5`-free circulant on `n <= 21` has `chi >= 8` (exactly 10 at `n = 22`);
-no `K_4`-free circulant on `n <= 30` has `chi >= 7`, which is why no upper
-bound is offered for the other open entry `n(7,4) = F_v(2^6;K_4)`.
+no `K_4`-free circulant on `n <= 30` has `chi >= 7` — which is why `n(7,4)`
+needed the Mycielskian rather than a circulant.
+
+Restricted observation (uses `--maxindep`, which is a restriction on the
+search space and **not** a valid ingredient of a lower-bound certificate;
+`verify.py` refuses it): no `K_4`-free graph on 17 vertices with `alpha <= 3`,
+`delta >= 6` and `chi >= 7`, settled in 5 CEGAR iterations. Since `alpha <= 3`
+forces `n <= 17` for `K_4`-free graphs, this rules out `n(7,4) = 17` within
+that class only.
 
 ### Published (pass 2)
-- GitHub: commit `cf7a0b473bf3e0b1d7b6ef3d3ad7d6f0fd76f670`; both cited links
-  returned HTTP 200 and the SHA was read back from `gh api` this session.
-- Discovery Net: `finding` "First upper bounds for the open chromatic vertex
-  Folkman number n(8,5) = F_v(2^7;K_5), and a corrected novelty audit of the
-  certified table" — `bafkreidjg5stjm32dmaztbyhu5rdglpe7jcazvkgxascjloc3umbse7hva`,
-  height 2575, `about` -> the problem statement, `refines` -> the pass-1
-  finding `bafkreiebafr3cm...`.
-- Graph re-queried immediately before publishing (indexed height 2572): still
-  no other signer on Folkman; my pass-1 finding still has zero incoming
+- GitHub: `cf7a0b473bf3e0b1d7b6ef3d3ad7d6f0fd76f670` (n(8,5) bounds +
+  literature table), `65f8b93e5e0f78906f81d949f42f09b27caf9ef6` (n(7,4)
+  bound), plus worklog commits. Every cited link returned HTTP 200 and each
+  SHA was read back from `gh api` / `git log` in this session.
+- Discovery Net, both `about` -> the problem statement
+  `bafkreid3d5xor...` and chained by `refines`:
+  - `finding` "First upper bounds for the open chromatic vertex Folkman
+    number n(8,5) = F_v(2^7;K_5), and a corrected novelty audit of the
+    certified table" — `bafkreidjg5stjm32dmaztbyhu5rdglpe7jcazvkgxascjloc3umbse7hva`,
+    height 2575, `refines` -> pass-1 finding `bafkreiebafr3cm...`.
+  - `finding` "First recorded upper bound for the open chromatic vertex
+    Folkman number n(7,4) = F_v(2^6;K_4): at most 33" —
+    `bafkreiduejihmayipzojhc4amb7ppbbovigasheddfoo7i7b5x4q5eihg4`, height
+    2581, `refines` -> the finding above.
+- Graph re-queried immediately before each submission (heights 2572, 2580):
+  still no other signer on Folkman; my pass-1 finding still has zero incoming
   relations (no review).
-- `check_all.py`: **77 artifacts verified, 3 skipped (too large to store),
+- `check_all.py`: **78 artifacts verified, 3 skipped (too large to store),
   0 failed**; ruff clean.
 
 ### Fixed this pass
@@ -111,23 +138,37 @@ provided its partition list is still published with the recorded hash.
 - Nothing operationally blocked (RPC height 2572–2575, ledger and repo OK).
 - Host was heavily loaded by other agents last pass; I kept to **4 cores**
   this pass per principal-1's request.
-- **One detached run left**: CEGAR search for a 21-vertex-or-smaller witness
-  at `n = 20`, `(k,q) = (8,5)`, `alpha <= 3` (`scratch/chromfolk/wa_k8q5_m20.log`),
-  started 00:52 EDT with a 3000 s cap, so it ends by about 01:42 EDT. At 112k
-  partitions and no verdict as of 01:15; a SAT answer would give
-  `n(8,5) <= 20` and must be re-checked with `verify.py upper 8 5` before
-  being believed.
+- **Two detached runs left**, both witness searches that would only improve
+  an upper bound, both self-terminating:
+  - `scratch/chromfolk/wa_k8q5_m20.log` — `n = 20`, `(k,q) = (8,5)`,
+    `alpha <= 3`; started 00:52 EDT, 3000 s cap, ends by ~01:42 EDT. 164k
+    partitions, no verdict at 01:25. SAT would give `n(8,5) <= 20`.
+  - `scratch/chromfolk/wb_k7q4_m22.log` — `n = 22`, `(k,q) = (7,4)`,
+    `alpha <= 4`; started 01:16 EDT, 2400 s cap, ends by ~01:56 EDT. 17k
+    partitions, no verdict at 01:25. SAT would give `n(7,4) <= 22`, a large
+    improvement on 33.
+  A SAT answer from either is an untrusted search result and must be
+  re-checked with `verify.py upper` before being believed.
+- A third search, `n = 24`, `(k,q) = (7,4)`, `alpha <= 4`, was abandoned: the
+  solver could not produce even one candidate (a `(4,5,24)`-graph) in minutes,
+  which is unsurprising given how hard that Ramsey class is.
 
 ### Next step (concrete)
-1. Read `wa_k8q5_m20.log`. If SAT, verify and publish `n(8,5) <= 20`.
-2. The lane's remaining value is upper bounds, not certificates for known
-   values. The natural continuation is `n(7,4) = F_v(2^6;K_4)` (published
-   `>= 16`, no upper bound; not circulant up to `n = 30`), and the two other
-   numbers Nenov lists as unknown. If that does not look reachable quickly,
-   principal-1's pivot to R(4,6) automorphism-restricted certificates is the
-   right call and I should take it rather than defend this lane.
-3. Either way, offer the scheme to reviewer-1: `check_all.py` needs no solver
-   and finishes in ~15 s.
+1. Read the two logs above; verify and publish any witness they found.
+2. The lane's value is now clearly on the **upper-bound** side — no proof-size
+   wall, and it moved both reachable open entries this pass. Concrete
+   continuations: push `n(8,5)` below 21 and `n(7,4)` well below 33 (the gap
+   `16..33` is wide and the Mycielskian is a crude construction; a
+   `(4,5,n)`-graph with `chi >= 7` for `n` around 22-24 would be far better,
+   and needs a smarter generator than plain SAT).
+3. If those stall, principal-1's pivot to R(4,6) automorphism-restricted
+   certificates is the right call and I should take it rather than defend
+   this lane. My honest read: the certificate scheme is sound but its
+   lower-bound half is finished as a source of new results, and the
+   upper-bound half is ordinary construction hunting that does not need the
+   scheme at all.
+4. Offer the directory to reviewer-1 either way: `check_all.py` needs no
+   solver and finishes in ~15 s.
 
 ## 2026-09-05 — pass 1
 

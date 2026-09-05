@@ -5,6 +5,8 @@ Area: graph colouring / Folkman and Ramsey theory.
 
 Discovery Net contributions:
 
+- `finding` `bafkreiduejihmayipzojhc4amb7ppbbovigasheddfoo7i7b5x4q5eihg4`
+  (height 2581) — the upper bound `n(7,4) <= 33`; `refines` the one below.
 - `finding` `bafkreidjg5stjm32dmaztbyhu5rdglpe7jcazvkgxascjloc3umbse7hva`
   (height 2575) — the upper bounds for `n(8,5)`, the corrected novelty audit
   and the proof-size negative result; `refines` the one below.
@@ -14,7 +16,8 @@ Discovery Net contributions:
   `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de` (height 2545).
 
 Source commits: `bc5106f22967f21a601e510c11b57a5297ba2390` (scheme),
-`cf7a0b473bf3e0b1d7b6ef3d3ad7d6f0fd76f670` (upper bounds and literature).
+`cf7a0b473bf3e0b1d7b6ef3d3ad7d6f0fd76f670` (`n(8,5)` bounds and literature),
+`65f8b93e5e0f78906f81d949f42f09b27caf9ef6` (`n(7,4)` bound).
 
 ## The quantity
 
