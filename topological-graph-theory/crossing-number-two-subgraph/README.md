@@ -162,6 +162,7 @@ anything that produced the certificate.
 | `unrestricted/u6.txt` … `u9.txt` | second census run with **no** minimum-degree or edge-count restriction, over all graphs on ≤ 9 vertices |
 | `check_reduction.py` | validates the reduction lemmas against that unrestricted run |
 | `structure.py` | where the census members sit in the Bokal–Oporowski–Richter–Salazar description of 2-crossing-critical graphs |
+| `bors_prop_14_1_check.py` | checks the not-2-connected census members against BORS Proposition 14.1 |
 
 ## Reproduction
 

@@ -237,3 +237,36 @@ Consistency anchor: no Möbius ladder is itself 2-crossing-critical — `V6`
 (= `K3,3`), `V8`, `V10` and `V12` all have crossing number 1, and `crit2`
 correctly reports none of them — so the `V10`-containing family necessarily
 begins above these orders.
+
+
+## Cross-validating BORS Proposition 14.1
+
+BORS Chapter 14 argues that the crossing number is additive over components and
+over blocks, so a 2-crossing-critical graph that is **not 2-connected** has at
+most two components, each a subdivision of `K5` or `K3,3`, and the connected
+ones arise by identifying a vertex of one with a vertex of the other — where
+"the identified vertex may be a new vertex that subdivides some edge".
+
+> **Proposition 14.1.** The thirteen graphs in Figure 14.1 are precisely those
+> 2-crossing-critical graphs that are not 2-connected.
+
+The census finds every 2-crossing-critical graph of minimum degree ≥ 3 on at
+most 10 vertices independently, so its not-2-connected members must be exactly
+the ≤ 10-vertex members of that family. They are, and
+`bors_prop_14_1_check.py` identifies each one:
+
+| n | m | connectivity | BORS construction |
+| --- | --- | --- | --- |
+| 9 | 20 | 1 | `K5 · K5` |
+| 10 | 19 | 1 | `K5 · K3,3` |
+| 10 | 20 | 0 | `K5 ⊔ K5` |
+| 10 | 21 | 1 | `K5 · K5`, the identified vertex subdividing an edge |
+
+An exhaustive search meeting a published classification exactly, including the
+subdivided-identification variant.
+
+**Consequence.** Every not-2-connected 2-crossing-critical graph has 1-critical
+blocks and hence crossing number 2. So **a 2-crossing-critical graph of
+crossing number at least 3 — a second counterexample to the
+Bloom–Kennedy–Quintas question — must be 2-connected**, and by the census its
+suppression has at least 11 vertices.
