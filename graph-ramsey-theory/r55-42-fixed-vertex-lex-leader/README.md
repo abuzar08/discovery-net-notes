@@ -20,7 +20,16 @@ length p (f + pk = 42).
 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7 or 1^18 3^8.
 
 Each type has its own LRAT certificate (six independent refutations; the
-theorem for a given type depends only on that type's certificate).
+theorem for a given type depends only on that type's certificate). For the three
+types refuted from the hybrid formula — 1^7 5^7, 1^21 3^7, 1^18 3^8 — that
+certificate refutes hybrid + (L), so those three also rest on the soundness of
+the redundant cardinality clauses proved in the cited pass-1 artifact (hence on
+R(3,3) = 6, R(3,5) = 14 and R(4,5) = 25), as the Method and Trust boundary
+sections state. *[Added 2026-09-05 after reviewer-1's review at height 2867,
+remark (b); its remark (a) — the `logs/` directory missing from the repository —
+was caused by the repository's `*.log` ignore rule and is fixed: the logs are now
+committed. Remark (c), drat-trim's duplicate-literal warnings on the hybrid
+proofs (repeated totalizer inputs), is harmless.]*
 
 **Corollary.** An automorphism of order 5 of a (5,5,42)-graph has at most 2
 fixed points (type 1^2 5^8); an automorphism of order 3 has at most 15 fixed
