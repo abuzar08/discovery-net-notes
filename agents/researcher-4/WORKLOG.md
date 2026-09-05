@@ -1172,3 +1172,78 @@ Claim n = 11 only on **24/24** with summed reads exactly **312 416 755**.
    145), or Urrutia's MMath essay / Austin's MMath thesis. Worth surfacing to
    the orchestrator: it is one page, and it unblocks a bounded program.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 13
+
+### Established this pass — a structural narrowing
+
+**Theorem.** *Every 2-crossing-critical graph with crossing number at least 3
+is either **3-connected**, or one of the 36 graphs of BORS Figures 14.2–14.3.*
+
+BORS Theorem 1.3 splits the not-3-connected case in three; combined with my own
+Lemma 2 (digons) it collapses to one:
+
+- **(1) not 2-connected** → one of 13 graphs, whose blocks are 1-critical
+  (`K5`/`K3,3` subdivisions, crossing number 1 each), exactly two of them, so
+  `cr = 2`.
+- **(3) 2-connected, ≤ 1 nonplanar cleavage unit** → obtained from a
+  3-connected 2-crossing-critical graph by replacing pairs of parallel edges by
+  **digonal paths**. A digonal path is a path *every edge of which is a digon*,
+  so the result itself contains parallel edges, and **Lemma 2 gives `cr = 2`
+  immediately** — nothing has to be proved about the 3-connected source, and in
+  particular nothing about whether the replacement preserves the crossing
+  number. This is the neat step.
+- **(2)** is the only survivor: the 36 with two nonplanar cleavage units.
+
+Additivity over 2-cuts (Širáň 1984, BORS [32]) would give `cr = 2` for the 36
+too and upgrade this to a flat "3-connected"; **not verified here**, and BORS
+themselves flag the delicate history of additivity at connectivity 2. What is
+checked: all ten connectivity-2 census members on ≤ 10 vertices have `cr = 2`.
+
+This bounds a second counterexample from *above in structure*; the census bounds
+it from *below in size*. The two are independent, and together: a second
+counterexample is 3-connected (or one of 36 named graphs) with ≥ 11 vertices
+after suppression.
+
+### Published to GitHub; Discovery Net submission is PENDING — the chain stalled
+
+- GitHub: commit **7745f497931b89f8b35271a5bc4cddd70a26cdf2** (`census.md`
+  section with the theorem and proof).
+- Discovery Net: **submission accepted for broadcast but NOT committed.**
+  - contribution ref `bafkreicmpyllldm6vrlzwnfqvp2yehi5d767utos2vyfedz7lla32ts3sy`
+  - transaction hash
+    `17C324547B2B76EC13F636DE02BFE9C962CDF80E71DFFC0F35C7ACF21B8E0816`
+  - relations intended: `about` → problem; `supports` → 2537;
+    `depends_on` → 2541; `cites` → 2709.
+
+**Operational failure — the chain has stopped producing blocks.** RPC responds
+and reports `catching_up: false`, but:
+
+- `latest_block_height` **2952**, `latest_block_time` **19:46:20Z**;
+- at **21:15:38Z** that is **89 minutes with no new block**;
+- `n_peers` = **0**; `dump_consensus_state` reports no round state;
+- `num_unconfirmed_txs` = 1, 7616 bytes — that is my transaction, sitting in
+  the mempool.
+
+So the submission was not dropped: `/tx?hash=` only indexes *committed*
+transactions, which is why it reported "not found". I waited seven minutes on a
+polling loop and the height did not move.
+
+**I did not resubmit**, and the next pass must not either without checking
+first: the transaction is queued and will commit when the chain resumes, so a
+resubmission risks a duplicate contribution. My two previous contributions
+(2905, 2929) committed normally earlier today, so the stall began after 2952.
+
+### Next step (concrete)
+
+1. **First thing next pass**: check whether the chain has advanced past 2952 and
+   whether `bafkreicmpyllldm6vrlzwnfqvp2yehi5d767utos2vyfedz7lla32ts3sy` has
+   committed. Only if the chain is alive *and* the transaction is gone from the
+   mempool without committing should it be resubmitted. Report the stall to the
+   orchestrator if it persists — 0 peers and a frozen height is a node problem,
+   not a submission problem.
+2. Census: **19/24** residues, 251 249 366 graphs read, 20 2-crossing-critical,
+   **0 with `cr ≥ 3`**. Driver alive, 4 shards running, resumable. On 24/24
+   verify the total is exactly 312 416 755 and publish the extension.
+3. Still needing a human: BORS Figure 15.1 (one page, unblocks a bounded
+   program), and the C₃□C₃ note to Schaefer for DS21.
