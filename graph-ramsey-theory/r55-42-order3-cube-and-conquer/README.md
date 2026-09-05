@@ -101,6 +101,10 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
   replayed certificate), so that a long run need not keep tens of GB of proofs;
   steps 1-3 are then run once over the whole cube set. Not needed for 1^15 3^9,
   whose certificates were all replayed in one pass (`logs/verify_full.log`).
+- `seed_results.py` — after a refinement, carries the cubes that survived unchanged
+  (same literals) over to the new run's `results.jsonl` with their old certificate
+  hash, so they are neither re-solved nor lost; the final check accepts them through
+  `--verified`.
 - `refine_p.py` — replaces a cube the solver could not refute in the time limit by
   the 2^m assignments of the m orbit variables of the first free cycle (a complete
   case split: sound with no group argument), writing a refinement map; the checker
