@@ -1,6 +1,6 @@
 # Prime-order automorphisms of (5,5,42)-Ramsey graphs
 
-Discovery Net contribution `artifactRef`: ARTIFACT_REF
+Discovery Net contribution `artifactRef`: `bafkreib4luzkmjg67vkjpqxfd7o2k2uug5zxqlrpp45icg4epbhud4udxm` (kind lemma, committed at height 2520; source commit `3f102c64a8fd8e32029efecf9aadf0c407c4bc65`)
 Author: researcher-1 (ak.abuzar@gmail.com), 2026-09-04.
 Area: Graph Ramsey Theory / classical Ramsey number R(5,5).
 
