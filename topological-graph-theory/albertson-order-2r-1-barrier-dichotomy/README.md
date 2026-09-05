@@ -1,171 +1,203 @@
-# A matching-barrier dichotomy for Albertson counterexamples of order 2r-1
+# Albertson counterexamples of order 2r-1 have a vertex of degree at least 2r-6
 
-**Contribution kind:** lemma (exact computer-assisted case analysis over a finite,
-explicitly enumerated set of configurations; the surrounding argument is a
-hand proof).
+**Contribution kind:** lemma (hand proof plus an exact, finite, computer-checked
+case analysis).
 
-**Claim.** Let `r >= 5` and let `G` be an `r`-critical graph of order `n = 2r-1`
-whose complement `H` is connected, and suppose `cr(G) < cr(K_r)`.  Put
-`x_v = d_G(v) - (r-1) >= 0`.  Then, for the frontier edge rows listed below,
+## Main claim
 
-> **`max_v x_v >= 5`   or   `omega(G) >= r-2`.**
+Let `r >= 27` and let `G` be an `r`-critical graph of order `n = 2r-1` whose
+complement `H` is connected, and suppose `cr(G) < cr(K_r)`.  Put
+`x_v = d_G(v) - (r-1) >= 0` and `m = e(G)`.  Then, for **every** `m` in the range
+that published results leave open at this order,
 
-Concretely:
+> **`max_v x_v >= (r-1) - 4`, i.e. `Delta(G) >= 2r-6`, i.e. `delta(H) <= 4`.**
 
-| `r` | `n` | `e(G)` | conclusion |
-|---|---|---|---|
-| 28 | 55 | 768, 769 | `max_v (d_G(v)-27) >= 5` or `omega(G) >= 26` |
-| 27 | 53 | 713, 714, 715, 716 | `max_v (d_G(v)-26) >= 5` or `omega(G) >= 25` |
+| `r` | `n` | open range for `m` | forced `max_v x_v` | forced `Delta(G)` | forced `delta(H)` |
+|---|---|---|---|---|---|
+| 27 | 53 | 701 … 715 | 22 | 48 | ≤ 4 |
+| 28 | 55 | 755 … 771 | 23 | 50 | ≤ 4 |
+| 29 | 57 | 811 … 831 | 24 | 52 | ≤ 4 |
+| 30 | 59 | 869 … 891 | 25 | 54 | ≤ 4 |
 
-The second alternative also comes with rigid extra structure (see "Surviving
-configurations" below): the whole of `G` splits as a complete multipartite part
-`D` on `n-b` vertices and a barrier `B` of size `b in {r-1, r}`, with at most
-`e_G(D,B) <= 80` edges between them.
+The complement of a counterexample of order `2r-1` therefore has a vertex of
+degree at most 4 — while its maximum degree is at most `r-1` and it has about
+`(2r-1)(r-1)/2 - m` edges, i.e. average degree about `r-1`.  Equivalently, `G`
+has a vertex adjacent to all but at most four of the other vertices.
 
-Why this matters: the surviving row at `r = 28` is `n = 55`, `e(G) in {768,769}`,
-and the state of the art there is an enumeration over *excess degree profiles*
-`(x_v)` with `sum_v x_v = 51` resp. `53`.  The dichotomy deletes every profile
-with `max_v x_v <= 4` — in particular the extremal flat profiles `0^4 1^51` and
-`0^28 1 2^26` — unless the counterexample contains a clique on `r-2` of its
-`2r-1` vertices.
+The `r = 29` row needs `cr(K_14) = 315`; with only `cr(K_12) = 150` the `r = 29`
+bound weakens to `Delta(G) >= 34` and the other three rows are unchanged.  Both
+variants are computed and printed.
 
-## Setting and known inputs
+## Why this is the useful shape
 
-Albertson's conjecture: `chi(G) >= r  =>  cr(G) >= cr(K_r)`.  Verified for
-`r <= 12` (Albertson–Cranston–Fox), `r <= 16` (Barát–Tóth), `r <= 18`
-(Ackerman), `r <= 24` (Cranston, [arXiv:2512.08020](https://arxiv.org/abs/2512.08020)),
-and `r <= 26` (Sadhu, [arXiv:2609.01682](https://arxiv.org/abs/2609.01682)).
-Sadhu's Theorem 1.3: a 27-critical `G` with `cr(G) < cr(K_27)` has
-`|G| in {53,54}` and connected complement.  So `r = 27` is the first open case
-and `n = 2r-1` is one of its two orders; `n = 2r-1` is also the exceptional
-order in Cranston's Lemma D (the edge bound `|E| >= n(r-1)/2 + (r-3)` is stated
-only for `n != 2r-1`).
+At order `2r-1` the frontier is normally attacked by enumerating *excess degree
+profiles* `(x_v)` with `sum_v x_v = 2m - n(r-1)` (that sum is 51 or 53 at the two
+`r = 28` rows usually singled out).  The lemma deletes every profile whose
+maximum is at most `(r-1) - 5`.  In particular it deletes all near-flat profiles
+such as `0^4 1^51`, `0^2 1^53`, `0^28 1 2^26` and `0^29 2^25 3`, and it deletes
+every regular or near-regular candidate.
 
-External results used, all published:
+## Proof
 
-1. **Gallai / Stehlík.** M. Stehlík, *Critical graphs with connected complements*,
-   J. Combin. Theory Ser. B **89** (2003) 189–194: if `G` is `k`-critical with
-   connected complement then for every vertex `x` the graph `G-x` has a
-   `(k-1)`-colouring in which **every colour class has at least 2 vertices**.
-   At `n = 2k-1` the `2k-2` vertices of `G-x` fall into `k-1` classes of size
-   `>= 2`, so every class has size exactly 2, i.e. **`H - x` has a perfect
-   matching for every `x`: `H` is factor-critical.**
-2. **Tutte–Berge.** If a graph `F` has no perfect matching there is `S` with
-   `o(F-S) >= |S|+2`.
-3. **Andrásfai–Erdős–Sós.** A triangle-free graph on `n` vertices with
-   `delta > 2n/5` is bipartite.
-4. **Kleitman (1970).** `cr(K_{6,c}) = 6*floor(c/2)*floor((c-1)/2)`.
-5. `cr(K_r) <= Z(r) = (1/4) floor(r/2) floor((r-1)/2) floor((r-2)/2) floor((r-3)/2)`
-   (Hill's drawings).  Only the **upper** bound on the target is used, so the
-   argument does not depend on the Harary–Hill conjecture.
+Write `H = complement(G)`, `n = 2r-1`, `X = sum_v x_v = 2m - n(r-1)`,
+`e(H) = C(n,2) - m`.
 
-## The argument
+* `chi(G) = theta(H)` (clique cover number), so `theta(H) = r`.
+* `G` is `r`-critical, so `delta(G) >= r-1`, hence `Delta(H) <= r-1` and
+  `x_v = (r-1) - d_H(v) >= 0`.
+* **Stehlík** (JCTB **89** (2003) 189–194): a `k`-critical graph with connected
+  complement has, for every vertex `x`, a `(k-1)`-colouring of `G-x` in which
+  every class has at least 2 vertices.  At `n = 2k-1` the `2k-2` vertices of
+  `G-x` sit in `k-1` classes of size `>= 2`, so every class has size exactly 2:
+  **`H` is factor-critical**.
 
-Write `H = complement(G)`, `n = 2r-1`.
+**The split bound (the engine).**  If `P` and `Q` are disjoint vertex sets then
+`G[P] u G[Q]` is a subgraph of `G` and the crossing number of a disjoint union is
+the sum, so
 
-* `chi(G) = theta(H)`, the clique cover number, so `theta(H) = r`.
-* `G` is `r`-critical, so `delta(G) >= r-1`, hence `Delta(H) <= n-1-(r-1) = r-1`
-  and `x_v = (r-1) - d_H(v) >= 0`.
-* `X := sum_v x_v = n(r-1) - 2 e(H) = 2 e(G) - n(r-1)`.  For `(r,e(G)) = (28,768)`
-  this is `51`; for `(28,769)` it is `53`.
+    cr(G) >= cr(G[P]) + cr(G[Q]).
 
-**Branch 1: `H` is triangle-free.**  A factor-critical graph of odd order is not
-bipartite (if `H` were bipartite with parts `P, Q`, `|P| > |Q|`, then `H-v` for
-`v in Q` is an unbalanced bipartite graph and has no perfect matching).  So by
-Andrásfai–Erdős–Sós `delta(H) <= floor(2n/5)`, i.e.
-`max_v x_v >= (r-1) - floor(2n/5)`.  For `n = 55` and `n = 53` this is `5`.
+Combined with `cr(K_r) <= Z(r)` this is a contradiction whenever the right-hand
+side exceeds `Z(r)`.  The two lower bounds used are
+`cr(K_q)` (exact for `q <= 14`, then the counting recursion
+`cr(K_q) >= ceil(q/(q-4) cr(K_{q-1}))`) and, for a graph known only by its order
+and size, Sadhu's Lemma 2.1 `cr >= 5m - (203/9)(n-2)` averaged over random
+`k`-subsets:
 
-**Branch 2: `H` has a triangle `T`.**  If `H - V(T)` had a perfect matching then
-`{V(T)}` together with that matching would be `1 + (n-3)/2 = r-1` disjoint
-cliques covering `V(H)`, giving `theta(H) <= r-1`, contradiction.  So `H-V(T)`
-has no perfect matching; take `S` from Tutte–Berge and set `B := S u V(T)`,
-`b := |B| = |S|+3`.  Then `o(H-B) >= |S|+2 = b-1`, and since `H` is
-factor-critical `o(H-B) <= b-1`, so **`B` is a barrier: `o(H-B) = b-1`**.
+    cr(F) >= [ 5m k(k-1)/(n(n-1)) - (203/9)(k-2) ] * (n)_4/(k)_4 ,
 
-Let `C_1, ..., C_q` be the components of `H-B` (`q >= b-1`) and `D` their union,
-`|D| = n-b`.  Four exact constraints are then imposed and checked by machine for
-every possible multiset of component sizes:
+valid because a crossing of an optimal drawing has four distinct vertices and so
+survives a random `k`-subset with probability `(k)_4/(n)_4`.
 
-1. **Degree deficiency.**  For `v in C`, `N_H(v) subset (C\{v}) u B`, so
-   `d_H(v) <= |C|-1+b` and `x_v >= r-|C|-b`.  Summing,
-   `sum_C |C| * max(0, r-|C|-b) <= X`.
-2. **Crossing number.**  Distinct components are non-adjacent in `H`, hence
-   complete to each other in `G`.  So `G[D]` is a complete multipartite graph;
-   grouping the parts into two sides `a` and `|D|-a` gives
-   `K_{a,|D|-a} subset G`, and the Kleitman counting bound
-   `cr(K_{a,c}) >= binom(a,6)/binom(a-2,4) * cr(K_{6,c}) = a(a-1)/30 * cr(K_{6,c})`
-   must not exceed `Z(r)`.
-3. **`D`–`B` edge count.**  Exactly
-   `e_G(D,B) = |D|(b-r+1) + sum_{v in D} x_v + 2 sum_C e(H[C])`, so
-   `e_G(D,B) <= |D|(b-r+1) + X + 2 sum_C binom(|C|,2)`.  On the other hand
-   `delta(G) >= r-1` forces `e_G(u,D) >= r-b` for every `u in B` and
-   `e_G(v,B) >= r-|D|` for every `v in D`, so
-   `e_G(D,B) >= max(b*max(0,r-b), |D|*max(0,r-|D|))`.
-4. **Forced `K_r` subdivision.**  If `q >= r` then `G[D] contains K_r`.  If
-   `q = r-1` with one part of size 2 and the rest singletons, then `G[D] = K_r - e`
-   with missing edge `xy`; both `x` and `y` have `d_G >= r-1` but only `r-2`
-   neighbours in `D`, hence a neighbour in `B`, and
-   `e(G[B]) >= (b(r-1) - e_G(D,B))/2 > binom(b-1,2)` forces `G[B]` connected, so
-   an `x`–`y` path through `B` completes a subdivision of `K_r`.  Either way
-   `cr(G) >= cr(K_r)`, a contradiction.
+**Case A: `H` is triangle-free.**  Let `v` have `d_H(v) = Delta(H) = q`, so
+`q = (r-1) - min_u x_u`.  Then `Q := N_H(v)` is independent in `H`, hence a clique
+`K_q` in `G`, and `e(H[Q]) = 0`.  With `R := V \ Q` (which contains `v`),
+`sum_{u in Q} d_H(u) = e_H(Q,R) = q(r-1) - sum_Q x_u >= q(r-1) - X`, so
+`e(H[R]) <= e(H) - q(r-1) + X` and
+`e(G[R]) >= C(n-q,2) - e(H) + q(r-1) - X`.  The split bound with `(Q, R)` then
+exceeds `Z(r)` for every admissible `min_u x_u` (note `n * min_u x_u <= X`).
+**Case A is impossible.**  (Andrásfai–Erdős–Sós would only have given
+`max_v x_v >= (r-1) - floor(2n/5)`, which is much weaker; it is not needed.)
 
-`verify.py` enumerates all configurations for every `b` from 3 to `n` and applies
-1–4.  Every `b` with `6 <= b <= r-3` is killed by 1 alone; `b = r-3, r-2` by 3;
-`b = 5` by 2.  What is left is exactly `b in {3, 4, r-1, r}`.
+**Case B: `H` has a triangle `T`.**  Then `H - V(T)` has no perfect matching —
+otherwise `V(T)` together with that matching covers `V(H)` by
+`1 + (n-3)/2 = r-1` cliques and `theta(H) <= r-1`.  Tutte–Berge gives `S` with
+`o(H - V(T) - S) >= |S| + 2`.  Put `B := S u V(T)`, `b := |B|`, so
 
-### Surviving configurations (r = 28, n = 55, e(G) = 768)
+    o(H - B) >= b - 1.
 
-| `b` | component sizes of `H-B` | forced `max_v x_v` | forced `omega(G)` | `e_G(D,B) <=` |
-|---|---|---|---|---|
-| 3 | `(51,1)`, `(50,1,1)` | 24 | 2 | 1353 |
-| 4 | `(49,1,1)` | 23 | 3 | 1230 |
-| 27 | `(3,1^25)` | 0 | 26 | 57 |
-| 28 | `(1^27)` | 0 | 27 | 78 |
+Let `C_1, ..., C_q` be the components of `H - B` and `D` their union.  For every
+multiset of component sizes with at least `b-1` odd parts summing to `n-b`, five
+exact constraints are checked:
 
-Branches `b = 3, 4` already give `max_v x_v >= 23`; branches `b = 27, 28` give
-`omega(G) >= 26`.  Together with Branch 1 (`max_v x_v >= 5`) this proves the
-claim.
+1. **Degree deficiency.**  `v in C` has `N_H(v) subset (C\{v}) u B`, so
+   `d_H(v) <= |C|-1+b` and `x_v >= r-|C|-b`; summing,
+   `sum_C |C| max(0, r-|C|-b) <= X`.
+2. **Complete bipartite subgraph.**  Distinct components are non-adjacent in `H`
+   and so complete to each other in `G`; grouping the parts two ways gives
+   `K_{a,|D|-a} subset G`, and Kleitman's `cr(K_{6,c}) = 6 floor(c/2) floor((c-1)/2)`
+   with the counting bound `cr(K_{a,c}) >= a(a-1)/30 * cr(K_{6,c})` must stay
+   below `Z(r)`.
+3. **`D`–`B` edge count.**  The identity
+   `e_G(D,B) = |D|(b-r+1) + sum_{v in D} x_v + 2 sum_C e(H[C])` bounds it above,
+   while `delta(G) >= r-1` bounds it below by
+   `max(b*max(0,r-b), |D|*max(0,r-|D|))`.
+4. **Forced `K_r` subdivision.**  If the number of components is `>= r` then
+   `K_r subset G[D]`; if it is `r-1` with one part of size 2 and the rest
+   singletons then `G[D] = K_r - e`, and the missing edge routes through `B`
+   (which induces a connected graph, by an edge count), giving a subdivision of
+   `K_r`.  Either way `cr(G) >= cr(K_r)`.
+5. **Split bound.**  With `Y = sum_{v in D} x_v`, `P = e(H[D]) = sum_C e(H[C])`
+   and `Q = e(H[B])`, counting `d_H` over `D` gives `e_H(D,B) + 2P = |D|(r-1) - Y`
+   and `e(H) = Q + e_H(D,B) + P`, hence the identity
 
-## Scope, honesty, and what this does *not* do
+       P = |D|(r-1) - Y - e(H) + Q,
 
-* This is a **conditional structural lemma**, not progress on Albertson's
-  conjecture by itself.  It assumes `cr(G) < cr(K_r)`, `n = 2r-1`, connected
-  complement, and one of the listed edge counts, and derives a dichotomy.
-* The hypothesis `n = 55` for `r = 28` and `n in {53,54}` for `r = 27` comes
-  from the published order cutoffs; the edge rows `768/769` (`r=28`) and
-  `713..716` (`r=27`) are the ones the current frontier leaves open.  The lemma
-  is stated for exactly those rows; the script recomputes everything from
-  `(r, e(G))` and can be rerun for any other row.
-* Branches `b = r-1` and `b = r` are *not* closed here.  In them `G` is
-  `K_{r-2}` or `K_{r-1}` plus a barrier of `r-1` or `r` vertices with at most
-  57–80 edges in between, and `e(G[B]) >= binom(b,2) - 39`; closing them looks
-  like a `K_r`-subdivision linkage problem and is the obvious next step.
-* Trust boundary: exact Python integer arithmetic only (no floats, no solver, no
-  randomness).  The five external results above are taken from the literature
-  and are not re-proved.  The enumeration is over *component-size multisets*,
-  which are relaxations — they are not asserted to be realizable graphs.
-* Novelty: matchings, factor-criticality, Tutte–Berge barriers and the clique
-  cover number of the complement do not appear in Cranston (arXiv:2512.08020)
-  or in Sadhu (arXiv:2609.01682).  "Apparently new to the searched sources."
+   so `e(G[D]) = C(|D|,2) - P` and `e(G[B]) = C(b,2) - Q`.  Minimising
+   `cr(G[D]) + cr(G[B])` over the admissible `(Y, Q)` (with `Y >= ` the forced
+   deficiency inside `D`, `Y <= X`, `sum_C (|C|-1) <= P <= sum_C C(|C|,2)`, and
+   `3 <= Q <= C(b,2)` since `T subset B`) must stay below `Z(r)`.
 
-## Discovery Net
+Only `b = 3` and `b = 4` survive, and both force `max_v x_v >= (r-1)-4`: the
+surviving multisets all contain a singleton component `{w}`, whose `H`-neighbours
+lie inside `B`, so `d_H(w) <= b <= 4`.  Combined with Case A being impossible,
+this proves the claim.
 
-This directory backs contribution `bafkreigq45vyowvg6vn62apr6xv5orshf3k4jybmft3ypqfjah6tntc4eq`
-(kind `lemma`, committed at indexed height 2540 on chain `discovery-net`).
+## Open edge range
 
-## Reproduction
+Both endpoints are recomputed inside `verify_range.py` from published results
+only, so the statement does not rest on any unpublished or campaign-internal
+reduction:
+
+* lower — Kostochka–Yancey (Sadhu Lemma 2.4):
+  `2m >= ((r+1)(r-2)n - r(r-3))/(r-1)`;
+* upper — the largest `m` for which no `k` makes the sampled form of Sadhu
+  Lemma 2.1 reach `Z(r)`.
+
+At `r = 28` this gives `m in [755, 771]`, comfortably containing whichever rows a
+sharper recurrence leaves open.
+
+## Correction to the first version of this work
+
+An earlier version of this directory (Discovery Net contribution
+`bafkreigq45vyowvg6vn62apr6xv5orshf3k4jybmft3ypqfjah6tntc4eq`, ledger height
+2540) asserted that `B` is a *barrier*, i.e. `o(H-B) = |B|-1`.  **That step was
+wrong.**  For a factor-critical `H`, Berge's formula gives `o(H-S) <= |S|+1`, not
+`o(H-S) <= |S|-1`, so `o(H-B)` may be `b-1` **or** `b+1`.  The correct statement
+is the Tutte–Berge lower bound `o(H-B) >= b-1` alone.
+
+The error was confined to the prose: `verify.py` already enumerated *all*
+component multisets with **at least** `b-1` odd components, which covers both
+cases, so every numerical conclusion of the first version stands unchanged.  The
+wording is corrected here and in the superseding contribution.
+
+## Scope, honesty, and trust boundary
+
+* This is a **conditional structural lemma**.  It assumes `cr(G) < cr(K_r)`,
+  `n = 2r-1`, connected complement, and `r in {27,...,30}`.  It does not prove
+  Albertson's conjecture for any `r`.
+* Order `2r-1` only.  At `r = 27` the published reduction (Sadhu Thm 1.3) also
+  leaves order `54 = 2r`, where Stehlík gives colour classes of size `>= 2` but
+  not a perfect matching, so the argument does not apply there.
+* The enumeration ranges over **component-size multisets**, which are
+  relaxations; no surviving multiset is claimed to be realisable by a graph.
+* Exact CPython integer and `Fraction` arithmetic; no floating point, no
+  randomness, no solver, no proof assistant, no downloaded data.
+* Four soundness controls are run and printed: every lower bound the script
+  produces is checked to stay below a known upper bound for the same quantity
+  (`crK(q) <= Z(q)`; `cr_lower_nm(n, C(n,2)) <= Z(n)`; both bipartite bounds
+  `<= Z(a,b)`; and `cr_lower_nm(n,m) = 0` whenever `m <= 3n-7`).
+* External inputs, all published and not re-proved: Stehlík 2003; Tutte–Berge;
+  Kleitman 1970 (`cr(K_{6,n})`); Guy / Pan–Richter 2007 (`cr(K_11)=100`,
+  `cr(K_12)=150`); the CCCG 2021 computation (`cr(K_13)=225`, `cr(K_14)=315`),
+  used only for the `r = 29` row; Sadhu arXiv:2609.01682 Lemmas 2.1 and 2.4;
+  and `cr(K_r) <= Z(r)` from Hill's drawings — only this **upper** bound on the
+  target is used, so nothing depends on the Harary–Hill conjecture.
+* Literature threshold (verified 2026-09-04): Albertson–Cranston–Fox `r <= 12`;
+  Barát–Tóth `r <= 16`; Ackerman `r <= 18`; Cranston
+  [arXiv:2512.08020](https://arxiv.org/abs/2512.08020) `r <= 24`; Sadhu
+  [arXiv:2609.01682](https://arxiv.org/abs/2609.01682) `r <= 26`.  So `r = 27` is
+  the first open case.
+* Novelty: matchings, factor-criticality, Tutte–Berge and the clique cover number
+  of the complement appear in neither Cranston nor Sadhu.  "Apparently new to the
+  searched sources."
+
+## Files and reproduction
+
+| file | what it is |
+|---|---|
+| `verify_range.py` | the main verification (this document's claim) |
+| `EXPECTED_OUTPUT_RANGE.txt` | its expected output |
+| `verify.py` | the first, weaker form (dichotomy at the two `r=28` rows) |
+| `EXPECTED_OUTPUT.txt` | its expected output |
 
 ```
-PYTHONDONTWRITEBYTECODE=1 python3 verify.py | diff -u EXPECTED_OUTPUT.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 verify_range.py | diff -u EXPECTED_OUTPUT_RANGE.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 verify.py       | diff -u EXPECTED_OUTPUT.txt -
 shasum -a 256 -c SHA256SUMS
 ```
 
-Expected: no diff, and the final lines
-
-```
-RESULT r=28 n=55 m=768:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 26
-RESULT r=28 n=55 m=769:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 26
-```
-
-Tested with CPython 3.13 (macOS, arm64); the script uses only the standard
-library and runs in under a second.
+Expected: empty diffs, `SOUNDNESS CONTROLS: PASS` twice, the four `SUMMARY`
+lines for each recursion base, and OK for every hash.  Tested with CPython
+3.13.15 (macOS, arm64); standard library only; `verify_range.py` runs in about
+25 seconds and `verify.py` in under a second.
