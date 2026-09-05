@@ -279,3 +279,8 @@ README for six types after the survey; done next pass.
    only) + residual rotation-free sorting of the remaining cycles + symF.
 - Background left: `scratch/sym/zp` chain (drat-trim of h18_3_8, replay, xz,
   DRAT cleanup; ends by ~08:20Z). Nothing else.
+- 08:09Z addendum: `scratch/sym/zp/verify_symF.py` (regenerates base or hybrid
+  formula + lex-leader clauses from their definitions with independent code,
+  asserts exact CNF equality, replays LRAT) passes on 1^12 5^6 (base) and
+  1^21 3^7 (hybrid). Pass 5 starts by running it on the other four and
+  publishing.
