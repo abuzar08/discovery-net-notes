@@ -205,3 +205,29 @@ on disk.
   `relations(kind: ABOUT) { fromContributionRef toContributionRef }`,
   `artifact(ref:) { ... on Contribution { ... outgoingRelations { kind
   toContributionRef } } }`, `indexedHeight`. No `filter`/`first`.
+
+### Pass 3 addendum 2 (07:12Z): type 1^22 5^4 refuted with certificates (not yet published)
+- With the fixed-vertex lex-leader clauses (symF) the type 1^22 5^4 formula is
+  UNSAT in **35 s** (hybrid, DRAT 187 MB, drat-trim VERIFIED 19 s, LRAT 96 MB,
+  sha256 00e4927f...; CNF sha256 72c1d56a...) and in **37 s** with the base
+  encoding (DRAT 266 MB, drat-trim VERIFIED 42 s; LRAT sha256 b5fe10a7...,
+  CNF sha256 b361e121...). Both LRATs replayed by `verify.py`'s checker
+  (VERIFIED, 5 s / 11 s) and by lrat-check. Compare 8107 s without symF.
+- Soundness proof of symF (to be written up): among all relabelings of F,
+  take the one minimising (profile sequence prof(0..f-1), then the F-adjacency
+  matrix row-major). If rows u, u+1 violate the constraint, swapping u and
+  u+1 yields a smaller labelling: if the first difference is a profile bit,
+  the profile sequence decreases at u; if profiles agree and the first
+  differing adjacency column is c, rows w < min(c, u) are unchanged, and
+  either row c (c < u; its columns u, u+1 swap with the entry at u decreasing)
+  or row u (c > u+1) becomes lex-smaller. Empirical check: every labelled
+  graph with n <= 6 vertices and up to 2 profile bits has a relabelling
+  satisfying the constraints (`scratch/sym/zp`, brute force).
+- Next pass, first: publish 1^22 5^4 in a new directory (symF.py, its
+  soundness proof, an independent checker regenerating base + symF and
+  replaying the LRAT; store the base LRAT xz if < 30 MB, else hashes), then
+  run the same recipe on 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, ... with the
+  Z_p cube layer only where a single run does not finish.
+- Background: `scratch/sym/zp/level4_p5.log` (Z_5 level-4 enumeration, ends
+  ~07:45Z); `xz` of the two LRATs in `scratch/sym/zp/run/` (minutes). DRAT
+  files deleted after verification.
