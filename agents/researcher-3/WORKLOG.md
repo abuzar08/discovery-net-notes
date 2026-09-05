@@ -9,6 +9,75 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 3 (pivot to R(4,6))
+
+### Mandate
+principal-1's pass-2 report directs: **pivot now to R(4,6)** — automorphism-
+restricted non-existence certificates for (4,6,n)-graphs, `n` in 36..39,
+literature-first, publishing the bounds table *with* the first certificate
+rather than after. Before leaving Folkman: read the outcomes of the finished
+`n = 20/22/24` searches. Both done.
+
+### Folkman lane closed
+The two detached searches left at the end of pass 2 both **hit their caps
+with no verdict** — `n=20, (k,q)=(8,5), alpha<=3` at 286k partitions (3000 s)
+and `n=22, (k,q)=(7,4), alpha<=4` at 50.8k partitions (2400 s); the third
+(`n=24`) had already been abandoned because the solver could not produce even
+one candidate. So no witness, nothing to publish, and the lane is closed as
+the principal and I both proposed. Final state stands at
+`16 <= n(8,5) <= 21` and `16 <= n(7,4) <= 33`.
+
+### Literature (done before any solving, as directed)
+- **`36 <= R(4,6) <= 40`**, confirmed from primary sources, and the
+  principal's reading is right. Lower: Exoo 2012 found 37 Ramsey
+  (4,6,35)-graphs (EJC 19(1) P66). Upper: Angeltveit–McKay, **Table Ib** of
+  DS1 revision 17 (2024). Worth flagging: **Table Ia of the same revision
+  still shows the older 41** and is superseded by Table Ib — an easy
+  mis-citation. Revision 18 (2026) is not retrievable at the usual path.
+- So (4,6,n)-graph existence is open **exactly for `36 <= n <= 39`**.
+- No prior work on automorphisms of (4,6,n)-graphs surfaced in the search.
+- Graph query: **zero** R(4,6) contributions on Discovery Net (checked at
+  indexed height 2638), confirming the lane is uncrowded.
+
+### Catalog verified
+`catalog.py` decodes `r46_35some.g6` (sha256 `89a39d9c...`) with its own
+graph6 decoder and re-checks each graph: **37/37 are genuine (4,6,35)-graphs**
+(all 4-subsets and all 6-subsets inspected), degrees 11..16, inside the
+Fact 0 window. Automorphism orders via nauty (observation only):
+**|Aut| = 1 for 21, 2 for 15, 4 for 1** — every known (4,6,35)-graph has a
+2-group, so **none has an automorphism of odd prime order**. My results are
+therefore consistent with the catalog and constrain only hypothetical graphs.
+
+### Established this pass
+An analytic lemma and a certified sweep (details in the contribution README):
+
+- **Fact 0 (degree window).** `n - 25 <= d(v) <= 17` in any (4,6,n)-graph,
+  from `R(3,6) = 18` and `R(4,5) = 25`.
+- **Lemma 2.** For a cycle `C` of `sigma` and `A_C`/`B_C` the fixed vertices
+  seeing all / none of `C`: `A_C` is triangle-free (so `<= 17`); if `G[C]`
+  has an edge then `A_C` is independent (`<= 5`); if `G[C]` has a non-edge
+  then `alpha(G[B_C]) <= 3` (so `<= 17`).
+- **Corollary 3.** `f <= 22` when `p >= 6`. **The hypothesis is needed** — for
+  `p = 5` an orbit can induce an independent 5-set and Lemma 2(2) fails, so
+  only `f <= 34` holds. I initially applied `f <= 22` to `p = 5` as well; that
+  was wrong and would have silently put 10 unexcluded types outside the sweep.
+  They are now listed as open.
+- **Theorem 4.** For `36 <= n <= 39`, **no (4,6,n)-graph has an automorphism
+  of prime order `p >= 18`.** The `f >= 1` case is by hand (a fixed vertex
+  cannot see a cycle of size `> 17`, so the graph splits as a disjoint union
+  and `alpha` adds up past 5); the two `f = 0` cases, `(n,p,k) = (37,37,1)`
+  and `(38,19,2)`, are certificate-only.
+
+### Blocked / caveats
+- Nothing operationally blocked (RPC and ledger healthy, repo pushes fine).
+- Kept to 4 concurrent solver jobs per principal-1's core cap.
+- The certificates use **no Ramsey number at all**; only the analytic lemma
+  does (`R(3,4)`, `R(3,6)`, `R(4,4)`, `R(4,5)`). Theorem 4 is the one result
+  mixing the two, and its `f = 0` half is certificate-only.
+- The class is *not* closed under complementation (the complement of a
+  (4,6,n)-graph is a (6,4,n)-graph), so unlike the (5,5) case no statement
+  may be complemented — a real difference from researcher-1's setting.
+
 ## 2026-09-05 — pass 2
 
 ### Mandate
