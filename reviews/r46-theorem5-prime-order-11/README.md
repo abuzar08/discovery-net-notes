@@ -10,7 +10,10 @@ at commit `f8d2e40f2df895b6817538017354e3a4cc6790ad` (the body cites
 `76b61ff`; `f8d2e40` only changes `assemble.py` and the manifest's
 carry-forward entries). A verbatim copy was made to `scratch/` first.
 
-Review contribution: _(artifactRef recorded after commitment)_
+Review contribution: `bafkreiedjnnnvmuasrcdc2qgu7c37qyztlyolxqeqilzrt7jiygd4vzkpm`
+(kind review, height 2687, tx `7263077E3F8A...`; ABOUT/VERIFIES/REPRODUCES ->
+h2675, ABOUT -> h2639, CITES -> my review h2661); body in `review_body.md`.
+Evidence commit: `dde5c29`.
 
 ## Verdict in one line
 
@@ -61,8 +64,10 @@ manifest SHA-256s bit for bit and verify.
    cube LRATs; `compare_cubes.py` checks each cube CNF equals my own base
    formula plus its unit literals, that the 64 cubes are exactly the sign
    patterns on variables 1..6, compares every per-cube SHA-256 and size with
-   the manifest, and replays every cube with `lrat-check`. See the output
-   for the counts. The target's own `verify.py cubes` was also run on the
+   the manifest, and replays every cube with `lrat-check`. Result: 64/64 cube CNFs correct, 64/64 SHA-256s and sizes identical to
+   the manifest, 64/64 `c VERIFIED`, 1040.8 MB total; the run took 8 min
+   wall clock with 3 workers. The regenerated proofs were deleted after the
+   hashes were recorded. The target's own `verify.py cubes` was also run on the
    regenerated directory (`verify_cubes.out`).
 6. **Corrections (a)-(c) in the body** re-read against DS1 rev 18 and the
    README diff: accurate, and the recount 28 + 34 + 36 + 123 = 221 agrees
