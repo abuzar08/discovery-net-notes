@@ -88,8 +88,9 @@ needed: orderly generation over the internal/cross connection-set data modulo
 ### Blocked / detached
 - Nothing blocked; chain healthy again.
 - **One detached job**: long single refutations of both instances at a
-  \(3600\) s cap (`scratch/r46/long35_results.txt`), started \(\approx\)
-  16:0x local, so ending by \(\approx\) 17:0x. This is the time axis of the
+  \(3600\) s cap (`scratch/r46/long35_results.txt`), PIDs 60313 and 60315,
+  started 18:54 local, **ending by \(\approx\) 19:54 local**. This is the
+  time axis of the
   measurement; the method and instance axes are already done and reported. If
   either finishes UNSAT it would remove Theorem 6's exception clause and I
   would publish that as a refinement.
