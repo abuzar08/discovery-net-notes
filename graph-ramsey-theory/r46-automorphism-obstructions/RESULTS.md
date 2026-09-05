@@ -38,6 +38,8 @@
 | 38 | `1^12 13^2` | 115 | 205832 | 12712 KB | yes | `76489f88e3ab8c18` |
 | 38 | `1^16 11^2` | 173 | 252439 | 11958 KB | yes | `bd050aa32c1091f0` |
 | 38 | `1^5 11^3` | 73 | 252046 | 9573 KB | yes | `5e593c426cc81830` |
+| 38 | `1^17 7^3` | None | None | 3451 KB | yes | `5227c3579f334c75` |
+| 38 | `1^10 7^4` | None | None | 10384 KB | yes | `b356e84219dc9e1c` |
 | 38 | `1^33 5^1` | None | None | 13119 KB | yes | `f30d51056531a813` |
 | 38 | `1^28 5^2` | None | None | 9973 KB | yes | `5480609b6ea12e68` |
 | 38 | `1^23 5^3` | None | None | 9293 KB | yes | `ed157d3bfb8f7f6d` |
@@ -51,6 +53,8 @@
 | 39 | `13^3` | 57 | 253236 | 1065782 KB | no (cube manifest; regenerate) | `cube-and-conquer` |
 | 39 | `1^17 11^2` | 191 | 301317 | 11866 KB | yes | `9a194e18531a7528` |
 | 39 | `1^6 11^3` | 81 | 297566 | 3490 KB | yes | `2adefa92553e1249` |
+| 39 | `1^18 7^3` | None | None | 7668 KB | yes | `0dfc0ed24e682634` |
+| 39 | `1^11 7^4` | None | None | 6281 KB | yes | `42f5c43b4d28a796` |
 | 39 | `1^34 5^1` | None | None | 22637 KB | yes | `754486e0516a8bc7` |
 | 39 | `1^29 5^2` | None | None | 10892 KB | yes | `bcc886a85a1239ad` |
 | 39 | `1^24 5^3` | None | None | 6005 KB | yes | `99f15d73c762e186` |
@@ -107,12 +111,8 @@
 | 37 | `1^2 7^5` | ~26 | solver did not finish in 1500 s |
 | 38 | `1^3 5^7` | ~38 | solver did not finish in 1500 s |
 | 38 | `1^3 7^5` | ~33 | solver did not finish in 1500 s |
-| 38 | `1^10 7^4` | ~97 | solver did not finish in 1500 s |
-| 38 | `1^17 7^3` | ~196 | solver did not finish in 1500 s |
 | 39 | `1^4 5^7` | ~48 | solver did not finish in 1500 s |
 | 39 | `1^4 7^5` | ~41 | solver did not finish in 1500 s |
-| 39 | `1^11 7^4` | ~111 | solver did not finish in 1500 s |
-| 39 | `1^18 7^3` | ~216 | solver did not finish in 1500 s |
 
 ### Not attempted: p = 2 and p = 3 (123 types)
 

@@ -201,7 +201,65 @@ def symF_clauses(n, f, p, k, idx, orb, first_aux):
     return clauses, aux - first_aux
 
 
-def build(n, s, t, f, p, k, profile=False, symf=False):
+
+def symC_clauses(n, f, p, k, idx, orb, first_aux):
+    """Sort the cycles by their internal code (my own, not researcher-1's).
+
+    SOUNDNESS, one line.  For a permutation tau of {0..k-1} let Phi_tau fix F
+    pointwise and send the i-th vertex of cycle j to the i-th vertex of cycle
+    tau(j).  Phi_tau commutes with sigma (both act on the index i, and Phi_tau
+    does not touch it), so it maps type-1^f p^k graphs to type-1^f p^k graphs
+    and preserves (s,t)-goodness.  It carries the INTERNAL orbit of cycle j at
+    difference d to the internal orbit of cycle tau(j) at the same d, so the
+    internal code c_j = (x_{j,1}, ..., x_{j,(p-1)/2}) is carried along
+    unchanged.  Hence every solution has a relabelling in which the cycles are
+    sorted by internal code, and imposing
+
+        c_0 <=_lex c_1 <=_lex ... <=_lex c_{k-1}
+
+    removes no isomorphism class.  (This is deliberately weaker than a full
+    S_k lex-leader, whose soundness needs care because swapping cycles j and
+    j+1 also permutes the cross orbits between them by d -> -d; sorting by an
+    invariant that the permutation merely carries along needs no such care.)
+
+    Returns (clauses, n_aux).  Only defined for odd p.
+    """
+    if p % 2 == 0 or k < 2:
+        return [], 0
+    half = (p - 1) // 2
+
+    def internal(j, d):
+        a = f + j * p
+        b = f + j * p + d
+        return orb[idx[(min(a, b), max(a, b))]] + 1
+
+    clauses = []
+    aux = first_aux
+    for j in range(k - 1):
+        ra = [internal(j, d) for d in range(1, half + 1)]
+        rb = [internal(j + 1, d) for d in range(1, half + 1)]
+        prev = None
+        for t, (a, b) in enumerate(zip(ra, rb)):
+            if prev is None:
+                clauses.append(sorted((-a, b)))
+            else:
+                clauses.append(sorted((-prev, -a, b)))
+            if t == len(ra) - 1:
+                break
+            aux += 1
+            e = aux
+            if prev is None:
+                for cl in ((-e, a, -b), (-e, -a, b), (e, a, b), (e, -a, -b)):
+                    clauses.append(sorted(cl))
+            else:
+                for cl in ((-e, prev), (-e, a, -b), (-e, -a, b),
+                           (e, -prev, a, b), (e, -prev, -a, -b)):
+                    clauses.append(sorted(cl))
+            prev = e
+    return clauses, aux - first_aux
+
+
+def build(n, s, t, f, p, k, profile=False, symf=False, symc=False):
     idx = pair_index(n)
     sigma = permutation(n, f, p, k)
     orb, nvar = pair_orbits(n, sigma, idx)
@@ -211,6 +269,10 @@ def build(n, s, t, f, p, k, profile=False, symf=False):
     if symf:
         sf, naux = symF_clauses(n, f, p, k, idx, orb, nvar)
         cls = cls + [tuple(c) for c in sf]
+        nvar += naux
+    if symc:
+        sc, naux = symC_clauses(n, f, p, k, idx, orb, nvar)
+        cls = cls + [tuple(c) for c in sc]
         nvar += naux
     return nvar, cls
 
@@ -230,10 +292,11 @@ def main():
     n, s, t, f, p, k = (int(x) for x in sys.argv[1:7])
     prof = "--profile" in sys.argv[8:]
     sf = "--symf" in sys.argv[8:]
-    nvar, cls = build(n, s, t, f, p, k, profile=prof, symf=sf)
+    sc = "--symc" in sys.argv[8:]
+    nvar, cls = build(n, s, t, f, p, k, profile=prof, symf=sf, symc=sc)
     write_dimacs(sys.argv[7], nvar, cls)
     print(f"n={n} ({s},{t}) type 1^{f} {p}^{k}: "
-          f"vars={nvar} clauses={len(cls)} profile={prof} symf={sf}"
+          f"vars={nvar} clauses={len(cls)} profile={prof} symf={sf} symc={sc}"
           + (f" weights={allowed_profile_weights(n, f, p, k)}" if prof else ""))
     return 0
 

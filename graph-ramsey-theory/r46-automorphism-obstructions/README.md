@@ -215,7 +215,74 @@ without a representative), and separately that the CNF is satisfiable exactly
 when the lex predicate holds (0 disagreements over all 8192 assignments).
 
 
-## Limits of the method: the p = 7 measurement (see the caveat above)
+## Theorem 6 and the reduction to n = 35
+
+With symF the `p = 7` types split by `f` exactly as `p = 5` did. The four with
+many fixed vertices — `1^17 7^3` and `1^18 7^3` at `n = 38, 39`, and
+`1^10 7^4`, `1^11 7^4` at the same orders — **each fall in 1 to 3 seconds**,
+drat-trim `s VERIFIED` and independently replayed. This settles the caveat
+raised in the previous section: the `p = 7` types were never uniformly out of
+reach; only the small-`f` ones are.
+
+**Theorem 6.** For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
+prime order `p >= 5`, **except possibly** of cycle type `1^{n-35} 5^7` or
+`1^{n-35} 7^5`.
+
+Every other type with `p >= 5` is excluded by the analytic lemma or carries a
+refutation here. The eight survivors are exactly `f = 1, 2, 3, 4` at
+`n = 36, 37, 38, 39` with `k = 7, p = 5` or `k = 5, p = 7`.
+
+**They all have the same shape, and that is the point.** In each of the eight,
+`pk = 35`: the moved vertices number exactly 35. So if `G` is a
+(4,6,n)-graph with such an automorphism `sigma`, the induced subgraph on the
+moved set `M` is again `K_4`-free with independence at most 5 — a
+**(4,6,35)-graph** — and `sigma` restricted to `M` is a *fixed-point-free*
+automorphism of it, of type `5^7` or `7^5`.
+
+That is a strictly smaller question, on 35 vertices with no fixed points
+(119 and 85 orbit variables respectively, against 132 and up for the
+`n = 36..39` versions), and it dominates all eight at once:
+
+> **Reduction.** If no (4,6,35)-graph has an automorphism of type `5^7`, then
+> none of the four types `1^{n-35} 5^7` occurs; likewise for `7^5`.
+
+It also connects the open types to the catalog. Exoo's 37 known
+(4,6,35)-graphs all have `|Aut| in {1, 2, 4}` — 2-groups — so **no known
+(4,6,35)-graph has an automorphism of order 5 or 7.** A witness for any of
+the eight surviving types would therefore require a (4,6,35)-graph outside
+the known catalog, carrying a symmetry no known one has.
+
+## symC: sorting the cycles by internal code
+
+`encode.py --symc`. Unlike symF this one is mine, and its soundness is a
+single line rather than a citation.
+
+For a permutation `tau` of `{0..k-1}` let `Phi_tau` fix `F` pointwise and send
+the `i`-th vertex of cycle `j` to the `i`-th vertex of cycle `tau(j)`. It
+commutes with `sigma` (both act only on the index `i`, and `Phi_tau` leaves
+`i` alone), so it maps type-`1^f p^k` graphs to type-`1^f p^k` graphs and
+preserves (4,6)-goodness. It carries the internal orbit of cycle `j` at
+difference `d` to the internal orbit of cycle `tau(j)` at the *same* `d`, so
+each cycle's internal code `c_j = (x_{j,1}, ..., x_{j,(p-1)/2})` travels with
+it unchanged. Hence every solution has a relabelling with
+
+```
+c_0 <=_lex c_1 <=_lex ... <=_lex c_{k-1},
+```
+
+and imposing that removes no isomorphism class.
+
+This is deliberately weaker than a full `S_k` lex-leader: swapping cycles `j`
+and `j+1` also permutes the cross orbits between them by `d -> -d`, which a
+full lex-leader would have to handle carefully. Sorting by an invariant that
+the permutation merely *carries along* needs no such care.
+
+The implementation is validated rather than assumed: the equivariance it
+relies on — that `Phi_tau` maps internal orbit `(j,d)` to `(tau(j),d)` — is
+checked over **all** `tau in S_k` for `1^0 3^3`, `1^2 3^3` and `1^1 5^2`.
+
+
+## Limits of the method: the p = 7 measurement (superseded for large f)
 
 `p = 7` was attacked directly and does not fall. The measurements below are
 all on `n = 36`, type `1^1 7^5` — 90 orbit variables, 284036 clauses, the
