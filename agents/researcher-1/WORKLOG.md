@@ -448,3 +448,58 @@ Nothing operational.
    level-4 classes; decide before running). Publish 1^12 3^10 as a second section
    of the same artifact.
 2. cnc258 timeouts → level-4 children; then 1^2 5^8 ⇒ no order-5 automorphism.
+
+## 2026-09-05 pass 8 (17:47Z–~18:05Z)
+
+### Established
+- **Cube refinement, published**: `refine_p.py` replaces a cube the solver cannot
+  refute within the time limit by the 2^m assignments of the m orbit variables of
+  the first free cycle ((p−1)/2 internal + p cross variables; p = 3: 16 children,
+  p = 5: 128) — a complete case split, sound with no group argument, so nothing new
+  has to be proved about symmetry. `verify_cnc_p.py --refine map.json` checks that
+  every refined cube's children are exactly those 2^m assignments and runs the
+  canonicity/completeness checks on the parents. Positive test on a synthetic map
+  for 1^15 3^9 (2 cubes refined → 1606 subcubes, all checks passed) and negative
+  test (one child deleted → "children are not the complete 2^4 split", exit 1).
+- **Incremental replay, published**: `sweep_verify.py` replays the certificates
+  currently on disk against the regenerated formula, records each verdict and hash
+  in `verified.jsonl`, and deletes the replayed certificate. First sweep on the
+  1^2 5^8 run: **46 certificates VERIFIED** (12.5 GB raw of proofs so far), scratch
+  5.3 GB → 3.2 GB. This keeps the 20 GB scratch limit reachable for runs whose
+  proofs are hundreds of MB per cube.
+- Decision: the level-5 Z_3 enumeration (`zpenum.py 5 3`) was **killed and is not
+  needed** — refinement by complete case split subsumes it and needs no new
+  canonicity argument (the level-5 canon was also brute-forcing 38880 group
+  elements per candidate and had not finished in 50 min).
+- Host had rebooted again before this pass; both runs were resumed from
+  `results.jsonl` (the driver skips cubes already UNSAT-VERIFIED).
+
+### Published
+- Commits e4baa4f (`refine_p.py` + `--refine` in the checker) and 9f244a3
+  (`sweep_verify.py`) in `graph-ramsey-theory/r55-42-order3-cube-and-conquer/`,
+  with README entries stating that neither was needed for the 1^15 3^9 result
+  (its `logs/verify_full.log` was produced by the checker at commit dc22364,
+  which differs only by the `--refine` option).
+- No new graph contribution this pass (no new theorem). Graph checked: indexed 2896.
+
+### Background left (2)
+- `cnc12310` — 1^12 3^10, 1576 level-4 cubes, 3 workers, 900 s cap (pid 57253,
+  started 17:48Z): 232 done, median 0.2 s, max 32.8 s so far; the hard cubes are
+  expected late in the list (probe: cube 1200 > 100 s). Output `scratch/sym/zp/cnc12310/`.
+- `cnc258` — 1^2 5^8, 256 level-3 cubes, 4 workers, 600 s cap (pid 46333, restarted
+  17:08Z): 48 done, median 74.7 s, max 463.3 s; certificates are large (up to
+  823 MB), so sweep and delete each pass.
+
+### Blocked
+Nothing operational. Scratch 7.2 GB (limit 20 GB) — the sweep must be run every
+pass while `cnc258` is going.
+
+### Next step (concrete)
+1. Each pass: `python3 manifest_p.py <icnf> <dir>/results.jsonl <dir>/manifest.json`
+   then `python3 sweep_verify.py … --jobs 4` for `cnc258` and `cnc12310`.
+2. When `cnc12310` finishes: refine its timeouts (`refine_p.py c12_3_10_L4.icnf
+   cnc12310/results.jsonl c12_3_10_L4r.icnf c12_3_10_L4r_map.json 12 3 10 4`),
+   rerun the driver on the refined icnf into a fresh directory, then
+   `verify_cnc_p.py 12 3 10 4 … --refine …` for the whole set; publish 1^12 3^10
+   in the same artifact (new section) and submit a lemma.
+3. Then 1^2 5^8 (same recipe, level 3 + refinement), then 1^9 3^11 … 1^0 3^14.
