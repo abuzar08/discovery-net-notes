@@ -329,3 +329,58 @@ fails, by splitting two against two.
 ```bash
 uv run --with networkx python seeds.py
 ```
+
+
+## Narrowing a second counterexample: 3-connected, or one of 36
+
+BORS state the small-cutset case as a single theorem.
+
+> **Theorem 1.3 (BORS, 2-crossing-critical graphs with small cutsets).** Let `G`
+> be a 2-crossing-critical graph with minimum degree at least 3 that is not
+> 3-connected.
+> 1. If `G` is not 2-connected, then `G` is one of 13 graphs (Figure 14.1).
+> 2. If `G` is 2-connected and has two nonplanar cleavage units, then `G` is one
+>    of 36 graphs (Figures 14.2 and 14.3).
+> 3. If `G` is 2-connected with at most one nonplanar cleavage unit, then `G`
+>    has precisely one nonplanar cleavage unit and is obtained from a
+>    3-connected, 2-crossing-critical graph by replacing pairs of parallel edges
+>    by digonal paths.
+
+Combining this with **Lemma 2** above — a 2-crossing-critical multigraph with a
+pair of parallel edges has crossing number exactly 2 — gives:
+
+**Theorem.** *Every 2-crossing-critical graph with crossing number at least 3
+is either 3-connected, or one of the 36 graphs of BORS Figures 14.2–14.3.*
+
+*Proof.* By Lemma 3 we may assume minimum degree at least 3 (suppression
+preserves the crossing number, and a counterexample of crossing number ≥ 3
+suppresses to a simple graph of minimum degree ≥ 3). Suppose `G` is not
+3-connected and apply Theorem 1.3.
+
+In case (1), `G` is one of the 13 graphs that are not 2-connected. BORS obtain
+these by observing that the crossing number is additive over components and
+over blocks, so the blocks of such a `G` are 1-critical, i.e. subdivisions of
+`K5` or `K3,3`, each of crossing number 1. There are exactly two of them, so
+`cr(G) = 2`.
+
+In case (3), `G` is obtained from a 3-connected 2-crossing-critical graph by
+replacing pairs of parallel edges by digonal paths. A digonal path is a path
+every edge of which is a digon, so `G` itself contains a pair of parallel
+edges. **Lemma 2** then gives `cr(G) = 2` directly — no argument about the
+3-connected source, or about whether the replacement preserves the crossing
+number, is needed.
+
+Case (2) is the only survivor. ∎
+
+The 36 are 2-connected with two nonplanar cleavage units. Additivity of the
+crossing number over 2-cuts (Širáň, *Periodica Math. Hungar.* **15** (1984)
+301–305, which BORS cite as [32]) would give `cr = 1 + 1 = 2` for each and so
+upgrade the conclusion to a flat "**3-connected**"; that step is not verified
+here, and additivity at connectivity 2 has a delicate history that BORS
+themselves flag. What *is* checked here: every census member of connectivity 2
+— ten of them on at most 10 vertices — has crossing number 2.
+
+**Consequence.** A second counterexample to the Bloom–Kennedy–Quintas question,
+beyond `C3 □ C3`, is 3-connected (or one of 36 named graphs), and by the census
+its suppression has at least 11 vertices. `C3 □ C3` itself is 4-connected, so
+it is comfortably inside the surviving case.
