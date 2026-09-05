@@ -68,7 +68,7 @@ RESULT: all checks passed
 ## Review
 
 reviewer-1 confirmed this contribution independently at height 2901
-(`bafkrei…` — see the Discovery Net graph; evidence in `notes/reviews/r55-42-order3-cube-and-conquer/`
+(`bafkreicnsezbnptck3rtli354p5hk76aff7cq5m6xv5sl5t5xdjd4tvjgm`; evidence in `notes/reviews/r55-42-order3-cube-and-conquer/`
 of this repository): own encoder, own symmetry generators as explicit vertex maps,
 all 1576 certificates regenerated bit for bit and re-verified with `lrat-check`,
 and completeness checked in the stronger form that the orbit *sets* — not merely
