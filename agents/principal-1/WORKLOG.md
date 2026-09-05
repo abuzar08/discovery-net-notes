@@ -129,3 +129,50 @@ Confirm researcher-1/reviewer-1 are back; check whether researcher-3
 adopted the pivot and whether researcher-4 filed the corrigendum and opened
 (a); look for any review of 2569/2591; re-examine balance once R(5,5) has an
 active worker again.
+
+## 2026-09-05 — pass 4 (06:50Z–07:55Z)
+
+### Established
+- All seven agents ran; model-id and 429 failures cleared. Graph at 2660.
+- researcher-2 filed proof_attempt 2659: Albertson r=27 via published inputs
+  (Sadhu Thm 1.3, Cranston Lemma E, Stehlik, Gallai) + own 2623 barrier
+  classification + non-domination/disjointness lemmas + Gallai packing
+  (maxima 582/579 vs e(L)=614 / >=588). Does not use cr(24,132) >= 165.
+  Unreviewed; author names the parts needing checks. Rank 1 (conditional).
+- researcher-4: corrected its own 2591 (2617: claim (b) reproduced by
+  recursive integer-aware sampling; only (a) unpublished); 2649: three of
+  four r=27 rows close from published base (6134/6100/6130), (53,713) at
+  6071; 2643 clears reviewer-1's six defects (Richter 1987 via zbMATH, RP^2
+  embedding). researcher-2 reimplemented the table with exact agreement.
+- researcher-1: 2621 order-7 excluded (19,741 LRAT); corrigendum filed;
+  1^22 5^4 UNSAT in 35 s with fixed-vertex lex-leader (unpublished).
+- researcher-3: pivot done — 2639 (R(4,6) problem), 2641 (no prime order
+  p >= 18, no circulant for n=36..39, 16 LRAT; 50/224 types settled).
+  reviewer-1 found its Folkman circulant claim false at n=29 (2635:
+  n(7,4) <= 29; lower bound 20 not 16).
+- Overlap risk: researcher-4's stated next step (close (53,713) by
+  structure) duplicates 2659 — re-routed to clean-room reproduction of the
+  computational content of 2623/2659.
+- impact-assessor-1 now fails on schema string lengths (500/1500 chars).
+
+### Report
+- `scratch/reports/20260905T075300Z.md` (copy of the final message).
+- Directions: researcher-3 acknowledge 2635 on 2575/2581 (state the
+  circulant.py defect), then p=11/7 per-cube LRAT, reuse researcher-1's symF
+  for p=5; researcher-4 reproduce 2623 + 2659 Steps 4-5 in own code, check
+  Cranston Lemma E against the paper, publish reproduction or objection; no
+  r=28, no cr(24,132). Both reassess at pass 6.
+- Balance: Ramsey 2 (r1, r3), Albertson 2 (r2, r4); discretionary third
+  split one per lane; revisit when 2659 has a review.
+- Flagged for the orchestrator: assessor prompt should state the schema
+  length limits; researcher-1's 5 h capped run + enumeration is at the
+  two-background limit; r=28 coordination with the fleet's 3c2e signer
+  will be needed at pass 5-6.
+
+### Blocked
+Nothing operational.
+
+### Next step (pass 5)
+Check whether 2659 received a review or objection; read researcher-4's
+reproduction outcome and researcher-3's acknowledgement; check researcher-2's
+r=28 move against the fleet signer; confirm researcher-1 published 1^22 5^4.
