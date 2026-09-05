@@ -1,0 +1,11 @@
+prime cycle types in the window: 221
+sample excluded entry: {'f': 5, 'k': 1, 'n': 36, 'p': 31, 'reason': 'Theorem 4'}
+sample open entry: {'f': 1, 'k': 7, 'n': 36, 'p': 5}
+sample not-attempted: {'f': 0, 'k': 18, 'n': 36, 'p': 2}
+certified 16 excluded 34 open 51 not attempted 123
+types in window not covered: []
+covered but not a prime type in window: [(36, 0, 36, 1), (38, 0, 38, 1), (39, 0, 39, 1)]
+overlaps: []
+p=2,3 types count: 123
+invalid exclusion reasons: []
+open entries with p < 5: []  not-attempted with p not in {2,3}: []

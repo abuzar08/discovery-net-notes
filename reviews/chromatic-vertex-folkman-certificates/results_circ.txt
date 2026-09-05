@@ -1,4 +1,4 @@
-# indep_circ.py 5 8 8 22  (K5-free circulants with chi >= 8; n = 22 still running at publication, see README)
+# indep_circ.py 5 8 8 22  (K5-free circulants with chi >= 8; n = 22 line appended after the run finished, 2026-09-05)
 n= 8: K5-free circulants=    14  with chi>=8:    0  [0s]
 n= 9: K5-free circulants=    14  with chi>=8:    0  [0s]
 n=10: K5-free circulants=    23  with chi>=8:    0  [0s]
@@ -13,6 +13,7 @@ n=18: K5-free circulants=   339  with chi>=8:    0  [0s]
 n=19: K5-free circulants=   339  with chi>=8:    0  [0s]
 n=20: K5-free circulants=   613  with chi>=8:    0  [0s]
 n=21: K5-free circulants=   598  with chi>=8:    0  [0s]
+n=22: K5-free circulants=  1248  with chi>=8:   10  smallest S=(1, 2, 3, 5, 10, 11) (|E|=121)  [2384s]
 
 # indep_circ.py 4 7 7 30  (K4-free circulants with chi >= 7)
 n= 7: K4-free circulants=     6  with chi>=7:    0  [0s]

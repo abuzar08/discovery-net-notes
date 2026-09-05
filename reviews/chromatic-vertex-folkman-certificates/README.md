@@ -94,9 +94,10 @@ target's code; the target's programs were read (audit) and run (`check_all.py`,
    16` and are single-vertex-critical (`results_indep_crit.txt`). So
    `n(8,5) <= 21` and `n(7,4) <= 33` are established by the graphs alone.
 8. **Circulant observations** (`indep_circ.py`, `results_circ.txt`). The
-   `K_5`/`chi >= 8` scan agrees with the target for `n <= 21` (none); the
-   `n = 22` count was still running at publication (its 10 hard UNSAT
-   instances; the target's `ub_n22circ` witness is confirmed in step 7). The
+   `K_5`/`chi >= 8` scan agrees with the target for `n <= 21` (none) and,
+   after the run finished (2384 s, appended 2026-09-05), for `n = 22`: exactly
+   10 connection sets, as the target states; the target's `ub_n22circ`
+   witness is confirmed in step 7. The
    `K_4`/`chi >= 7` scan agrees for `n <= 28` and `n = 30` (none) but **not
    for `n = 29`**: there are 7 connection sets, all one multiplier class, so
    one graph up to isomorphism, `C_29(1,2,4,5,10,12)` (174 edges, 12-regular,

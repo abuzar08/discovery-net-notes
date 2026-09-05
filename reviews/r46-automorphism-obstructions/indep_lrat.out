@@ -1,0 +1,64 @@
+1^0 36^1 n=36: own vars=18 clauses=16794  target vars=18 clauses=16794 (distinct 16794)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 16927.  Deleted clauses = 16913.  Max live clauses = 16794
+1^10 13^2 n=36: own vars=90 clauses=144907  target vars=90 clauses=144907 (distinct 144907)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 201518.  Deleted clauses = 201484.  Max live clauses = 144907
+1^19 17^1 n=36: own vars=198 clauses=112429  target vars=198 clauses=112429 (distinct 112429)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 129195.  Deleted clauses = 129161.  Max live clauses = 112429
+1^2 17^2 n=36: own vars=38 clauses=112335  target vars=38 clauses=112335 (distinct 112335)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 116751.  Deleted clauses = 116739.  Max live clauses = 112335
+1^0 37^1 n=37: own vars=18 clauses=20196  target vars=18 clauses=20196 (distinct 20196)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 20486.  Deleted clauses = 20469.  Max live clauses = 20196
+1^11 13^2 n=37: own vars=102 clauses=173075  target vars=102 clauses=173075 (distinct 173075)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 228734.  Deleted clauses = 228692.  Max live clauses = 173075
+1^20 17^1 n=37: own vars=218 clauses=142450  target vars=218 clauses=142450 (distinct 142450)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 158611.  Deleted clauses = 158570.  Max live clauses = 142450
+1^3 17^2 n=37: own vars=42 clauses=133685  target vars=42 clauses=133685 (distinct 133685)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 137161.  Deleted clauses = 137130.  Max live clauses = 133685
+1^0 19^2 n=38: own vars=37 clauses=143459  target vars=37 clauses=143459 (distinct 143459)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 195998.  Deleted clauses = 195969.  Max live clauses = 143459
+1^0 38^1 n=38: own vars=19 clauses=25237  target vars=19 clauses=25237 (distinct 25237)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 25554.  Deleted clauses = 25538.  Max live clauses = 25237
+1^12 13^2 n=38: own vars=115 clauses=205832  target vars=115 clauses=205832 (distinct 205832)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 268263.  Deleted clauses = 268235.  Max live clauses = 205832
+1^21 17^1 n=38: own vars=239 clauses=179406  target vars=239 clauses=179406 (distinct 179406)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 197057.  Deleted clauses = 197018.  Max live clauses = 179406
+1^4 17^2 n=38: own vars=47 clauses=158330  target vars=47 clauses=158330 (distinct 158330)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 158798.  Deleted clauses = 158784.  Max live clauses = 158330
+1^0 39^1 n=39: own vars=19 clauses=29888  target vars=19 clauses=29888 (distinct 29888)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 30194.  Deleted clauses = 30179.  Max live clauses = 29888
+1^22 17^1 n=39: own vars=261 clauses=224633  target vars=261 clauses=224633 (distinct 224633)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 240241.  Deleted clauses = 240205.  Max live clauses = 224633
+1^5 17^2 n=39: own vars=53 clauses=186662  target vars=53 clauses=186662 (distinct 186662)  SAME=True
+  sha256 matches manifest
+  c VERIFIED
+  c Added clauses = 187320.  Deleted clauses = 187299.  Max live clauses = 186662
