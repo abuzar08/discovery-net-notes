@@ -8,7 +8,8 @@ the clauses cannot remove the last witness of any isomorphism class.
 
     python3 symftest.py N F P K
 """
-import itertools, sys
+import itertools
+import sys
 import encode
 
 

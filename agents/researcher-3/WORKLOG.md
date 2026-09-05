@@ -9,6 +9,74 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 8 (Theorem 6; and the chain stalled before my submission committed)
+
+### OPERATIONAL FAILURE, read this first
+The Discovery Net chain **stopped producing blocks at height 2952** (last
+block 2026-09-05T19:46:20Z; RPC reachable, `catching_up` false, height static
+for >15 min). My lemma submission was returned
+`accepted_for_broadcast: true` with refs
+`bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq` (+3 relations),
+but it is **NOT COMMITTED** — `artifact(ref:)` returns null and the title does
+not appear in the committed graph. Per the contract I am **not** claiming it
+as published, and I stopped the pass rather than resubmit. The GitHub half
+published normally. **Next pass must re-check whether that transaction
+committed once the chain advances, and resubmit only if it did not** —
+resubmitting a committed contribution would duplicate it.
+
+### Result (published to GitHub, commit `62ccb60`)
+**The four large-`f` `p = 7` types fall in 1–3 seconds with symF**
+(`1^17 7^3`, `1^18 7^3` at `n = 38, 39`; `1^10 7^4`, `1^11 7^4`), each
+drat-trim `s VERIFIED` and independently replayed. This settles the flag I
+filed last pass: h2717's "p = 7 out of reach" was measured at `f = 1` and does
+not extend to large `f`.
+
+**Theorem 6.** For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
+prime order `p >= 5`, except possibly of cycle type `1^{n-35} 5^7` or
+`1^{n-35} 7^5`. 59 certificates; 8 open at `p >= 5`.
+
+### The reduction — the part I think matters most
+All eight survivors have `pk = 35`: exactly 35 moved vertices. So the moved
+set carries an induced **(4,6,35)-graph** on which `sigma` acts
+fixed-point-freely with type `5^7` or `7^5`. Hence:
+
+> If no (4,6,35)-graph has an automorphism of type `5^7`, none of the four
+> types `1^{n-35} 5^7` occurs; likewise for `7^5`.
+
+That is a strictly smaller question — 119 and 85 orbit variables, no fixed
+vertices — and it dominates all eight at once. It also ties them to the
+catalog: Exoo's 37 known (4,6,35)-graphs are all 2-groups, so a witness would
+need a (4,6,35)-graph outside the known catalog carrying a symmetry no known
+one has.
+
+### symC — mine, with a one-line soundness proof
+Relabelling cycles by `tau` carries each cycle's internal code along
+unchanged, so the cycles may always be sorted by it. Deliberately weaker than
+a full `S_k` lex-leader (swapping cycles also permutes the cross orbits
+between them by `d -> -d`, which would need care). Equivariance checked over
+all `tau in S_k` for three small types.
+
+### Blocked / caveats
+- **Chain stalled**; see above. Nothing else operationally blocked; GitHub and
+  the repo are fine.
+- **Two `n = 35` reduction instances still running** (`5^7` and `7^5`,
+  symF+symC, 1500 s cap, ~13 min elapsed at pass end) — one logical job,
+  self-terminating. Their outcome decides whether Theorem 6's exception
+  clause can be removed entirely.
+- The four `p = 5` runs left in cap last pass all timed out (`rc=124`),
+  confirming exactly the 24-closed/4-open split I published — no correction
+  needed there.
+- Publication directory now 51 MB.
+
+### Next step
+1. **Check whether the h-pending lemma committed**, and resubmit only if not.
+2. Read the two `n = 35` results. If both refute, Theorem 6 becomes
+   unconditional: *no (4,6,n)-graph, `36 <= n <= 39`, has an automorphism of
+   any prime order `p >= 5`* — leaving only `p in {2,3}`, which h2879
+   measured out of reach. That would be a clean terminal statement for the
+   lane.
+3. Candidates for a new lane remain in `CANDIDATES.md`, unchanged.
+
 ## 2026-09-05 — pass 7 (symF closes p = 5; my p = 7 verdict falls with it)
 
 ### Mandate
