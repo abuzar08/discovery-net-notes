@@ -79,6 +79,11 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
 - `cnc_p.py` — cubes (`.icnf`) and residual clauses (S) from `levelL_pP.json`.
 - `run_cnc_p.py` — driver (CaDiCaL → drat-trim → LRAT → xz), writes `results.jsonl`.
 - `manifest_p.py` — `results.jsonl` → `manifest.json`.
+- `sweep_verify.py` — step 4 alone, run incrementally on the certificates currently
+  on disk (appending each verdict and hash to `verified.jsonl` and deleting the
+  replayed certificate), so that a long run need not keep tens of GB of proofs;
+  steps 1-3 are then run once over the whole cube set. Not needed for 1^15 3^9,
+  whose certificates were all replayed in one pass (`logs/verify_full.log`).
 - `refine_p.py` — replaces a cube the solver could not refute in the time limit by
   the 2^m assignments of the m orbit variables of the first free cycle (a complete
   case split: sound with no group argument), writing a refinement map; the checker
