@@ -1,0 +1,9 @@
+split bound WITHOUT the inherited "blocks of order <= r-2" restriction
+  r = 28, order 55, cr(K_14)=315: split minima [10270, 9448, 8721, 10270, 9448, 8721, 7856, 7354]
+     tightest margin over Z(28)=7098: 256; rows not closed (unrestricted cap too): none
+  r = 28, order 55, cr(K_12)=150 only: split minima [9920, 9126, 8424, 9920, 9126, 8424, 7589, 7104]
+     tightest margin over Z(28)=7098: 6; rows not closed (unrestricted cap too): none
+  r = 29, order 57, cr(K_14)=315: split minima [12017, 11092, 12017, 11092, 10270, 9448, 12017, 11092, 10270, 9268, 8721, 7856, 12017, 11092, 10270, 9268, 8343, 7521, 6714, 6154, 12017, 10864, 10270, 9268, 8343, 7521, 6714, 6154, 5594, 5107]
+     tightest margin over Z(29)=8281: -3174; rows not closed (unrestricted cap too): [(826, 7), (827, 7), (827, 8), (827, 9), (828, 7), (828, 8), (828, 9), (828, 10), (828, 11)]
+  r = 29, order 57, cr(K_12)=150 only: split minima [11607, 10714, 11607, 10714, 9920, 9126, 11607, 10714, 9920, 8952, 8424, 7589, 11607, 10714, 9920, 8952, 8059, 7265, 6486, 5945, 11607, 10493, 9920, 8952, 8059, 7265, 6486, 5945, 5404, 4934]
+     tightest margin over Z(29)=8281: -3347; rows not closed (unrestricted cap too): [(826, 7), (827, 6), (827, 7), (827, 8), (827, 9), (828, 6), (828, 7), (828, 8), (828, 9), (828, 10), (828, 11)]
