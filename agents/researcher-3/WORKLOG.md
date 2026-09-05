@@ -9,6 +9,99 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 10 (both \(n=35\) instances resist; lane frontier stated once)
+
+*Notation: this entry follows the LaTeX requirement. Entries below it predate
+that requirement and are deliberately left as written — they are superseded
+records, and rewriting them would be a mass edit of files I am not otherwise
+touching. The published README, which is the artifact readers and the graph
+viewer see, has been fully converted. Say the word if you want the history
+converted too.*
+
+### Chain recovered; the pending submission had committed
+Chain is at height 3041+ (was stalled at 2952 for two passes). Per
+principal-1's instruction I checked **before** resubmitting:
+`bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq` **committed at
+height 3014**. I did not resubmit. Holding that submission across two passes
+rather than retrying was the right call.
+
+### Mandate
+principal-1: drive the two fixed-point-free \((4,6,35)\) instances of type
+\(5^7\) and \(7^5\) to a verdict; if either resists, report which and what
+the governing parameter looks like, applying my own standing rule — measure
+at both ends before calling anything out of reach; then state the
+\(p \in \{2,3\}\) frontier plainly and quantify it once rather than
+reopening the estimate a third time.
+
+### Both resist, measured symmetrically
+In pass 9 I had measured \(7^5\) with cube-and-conquer but only a single
+refutation for \(5^7\) — exactly the asymmetry my rule warns about. This
+pass closed that gap.
+
+| instance | orbit vars | clauses | method | outcome |
+|---|---|---|---|---|
+| \(1^0 5^7\) | 119 | 334369 | single, 1500 s | no verdict |
+| \(1^0 7^5\) | 85 | 237160 | single, 1500 s | no verdict |
+| \(1^0 5^7\) | 119 | 334369 | cubes, \(D=10\) | 259/1024 in \(\approx 2\) min, then 5–6 min per cube; 2.1 MB mean, \(\approx 2.1\) GB extrapolated |
+| \(1^0 7^5\) | 85 | 237160 | cubes, \(D=10\) | 150/1024 in \(\approx 4\) min, then 6+ min per cube; 1.5 MB mean, \(\approx 1.5\) GB extrapolated |
+
+**Theorem 6 keeps its exception clause.** The instances are open, not
+impossible.
+
+### The governing parameter — and the inference that would have misled me again
+- **Not \(f\).** Both have \(f = 0\), so `symF` is vacuous *by
+  construction*: no fixed vertices to constrain.
+- **Not size.** \(7^5\) is the **smaller** instance (85 variables against
+  119) and cleared **fewer** cubes (150 against 259). Smaller did not mean
+  easier. Reading difficulty off formula size is precisely what produced my
+  two earlier over-strong claims, and here it points the wrong way again.
+- **It is the cross-cycle block.** \(\binom{k}{2}p\) of the variables are
+  cross-cycle: \(105\) of \(119\) and \(70\) of \(85\), about
+  \(85\%\) in both. `symC` constrains only the \(k(p-1)/2\) internal
+  variables (14 and 15) and a \(D=10\) split touches at most ten. **No
+  lever in this lane acts on the cross-cycle block at all.**
+
+Missing lever: a full \(S_k\) lex-leader on the cross blocks, or the
+\(\mathbb{Z}_p^{*}\) multiplier (sending difference \(d\) to \(ud\),
+conjugating \(\sigma\) to \(\sigma^u\), so preserving the type).
+Neither implemented; the \(S_k\) version needs care because a cycle swap
+permutes the cross orbits between them by \(d \mapsto -d\), the delicacy
+`symC` was built to avoid.
+
+### Frontier, stated once
+\(p \in \{2,3\}\) at low \(f\): 74 involution types, \(324\)–\(704\)
+orbit variables, \(\approx 10^6\) clauses at \(n=36\); the four most
+symmetric \(n=36\) types give no verdict in 1500 s at 2837–2954 MB DRAT;
+cubes on \(1^0 2^{18}\) give 6.6 MB per cube, \(\approx 6\) GB for one
+type. Same diagnosis as above, which is why it is stated once. What would be
+needed: orderly generation over the internal/cross connection-set data modulo
+\(S_k \times \mathbb{Z}_p^{*}\), or a lex-leader for that group.
+
+### Published (pass 10)
+- GitHub `c69d094ff552862684660488c3a26bd3fc6a00eb` — README rewritten in
+  LaTeX, with the reduction as a separate citable step and the frontier
+  quantified.
+- Discovery Net `finding` `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a`,
+  **height 3044**; `about` h2639, `refines` h3014, `cites` h2879.
+- Graph re-queried before publishing (indexed height 3041).
+
+### Blocked / detached
+- Nothing blocked; chain healthy again.
+- **One detached job**: long single refutations of both instances at a
+  \(3600\) s cap (`scratch/r46/long35_results.txt`), started \(\approx\)
+  16:0x local, so ending by \(\approx\) 17:0x. This is the time axis of the
+  measurement; the method and instance axes are already done and reported. If
+  either finishes UNSAT it would remove Theorem 6's exception clause and I
+  would publish that as a refinement.
+
+### Next step
+1. Read `long35_results.txt`. If either is UNSAT, verify and publish
+   Theorem 6 unconditional; otherwise record the time axis as closed too.
+2. The lane is then terminal by my reading: Theorem 6 with a named exception,
+   the reduction as the reusable step, and a frontier that this pipeline
+   cannot reach without a cross-block method. `CANDIDATES.md` stays shelved
+   per principal-1.
+
 ## 2026-09-05 — pass 9 (the reduction measured; chain still down)
 
 ### Discovery Net is still down — nothing published there this pass either

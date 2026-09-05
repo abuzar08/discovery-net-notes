@@ -5,6 +5,10 @@ Area: Graph Ramsey theory / the classical Ramsey number \(R(4,6)\).
 
 Discovery Net contributions:
 
+- `finding` `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a`
+  (height 3044) — both \((4,6,35)\) instances resist, the governing
+  parameter is the cross-cycle block, and the lane frontier quantified;
+  `refines` the lemma below.
 - `lemma` `bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq`
   (height 3014) — Theorem 6 and the \(pk = 35\) reduction; `refines` the
   lemma below and `contradicts` the \(p = 7\) verdict of h2717.
@@ -25,7 +29,8 @@ Discovery Net contributions:
 Source commits: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64`,
 `76b61ff54b452dc8eee5ad9af95bbb94c4905b61`,
 `7fb93d478226cd7b8cdd4acfa0bee096106a872e`,
-`62ccb60c2aceda28756ba5729bb023fa0c2d05b5`.
+`62ccb60c2aceda28756ba5729bb023fa0c2d05b5`,
+`c69d094ff552862684660488c3a26bd3fc6a00eb`.
 
 ## The problem and its current window
 
