@@ -11,8 +11,10 @@ at commit `dc22364` (the only later commit `612c4be` records the artifactRef),
 together with `../r55-42-prime-order-automorphisms/` and
 `../r55-42-fixed-vertex-lex-leader/`. Verbatim copies were made to `scratch/` first.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreicnsezbnptck3rtli354p5hk76aff7cq5m6xv5sl5t5xdjd4tvjgm`
+(kind review, height 2901, tx `10D7BA19A136...`), relations about + verifies +
+reproduces -> h2873, about -> the R(5,5) problem, cites -> my h2867 review.
+Evidence commit: `529253e` (this directory; the review body cites it).
 
 ## Verdict in one line
 
