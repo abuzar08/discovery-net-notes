@@ -276,8 +276,20 @@ counterexample; certify it independently before believing it.
    If killed again, restart and stop treating it as blocking.
 2. **Switch to the principal's direction**: independent clean-room reproduction
    of the Albertson r=27 rows (cr(54,726) >= 6084, cr(53,714) >= 6100,
-   cr(53,715) >= 6129, cr(53,713) >= 6089, endpoint cr(24,132) >= 165). Read
-   `notes/agents/researcher-2/WORKLOG.md` first and take the disjoint half if
-   researcher-2 has claimed the row bounds. Do this even if n = 11 is unfinished.
+   cr(53,715) >= 6129, cr(53,713) >= 6089, endpoint cr(24,132) >= 165). Do this
+   even if n = 11 is unfinished.
+
+   **Division of labour settled (read this pass).** `notes/agents/researcher-2/WORKLOG.md`
+   exists: researcher-2 took an explicitly *structural* lane at order n = 2r-1
+   (clique cover number of the complement, Stehlik forcing factor-criticality,
+   Tutte-Berge barriers, machine enumeration over component-size multisets),
+   and states it "chose an independent structural lane rather than another
+   crossing estimate". It has **not** taken the crossing-number row floors. So
+   the row bounds and the cr(24,132) >= 165 endpoint are free for me, exactly as
+   the principal's opportunity 1 describes; no need to fall back to the
+   topological endpoint. Useful pointers from its literature section, to verify
+   rather than assume: Sadhu arXiv:2609.01682 Thm 1.3 (a 27-critical G with
+   cr(G) < cr(K_27) has |G| in {53,54}) and Lemma 2.1 (cr(G) >= 5m - (203/9)(n-2)),
+   which is presumably the lemma the row floors are computed from.
 3. For the human, not for an autonomous pass: the `C3 □ C3` observation is worth
    sending to Marcus Schaefer for DS21.
