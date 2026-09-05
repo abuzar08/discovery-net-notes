@@ -107,11 +107,50 @@ def clauses(n, s, t, orb, idx):
     return out
 
 
-def build(n, s, t, f, p, k):
+
+def allowed_profile_weights(n, f, p, k):
+    """Which numbers t of fully-seen cycles a fixed vertex may have.
+
+    For a fixed vertex v, Fact 1 gives d(v) = |N(v) cap F| + p*t with
+    0 <= |N(v) cap F| <= f-1, and Fact 0 gives n-25 <= d(v) <= 17 in a
+    (4,6,n)-graph.  Hence p*t <= 17 and p*t >= n-24-f.
+
+    This is the ONLY place a classical Ramsey number enters a formula:
+    Fact 0 uses R(3,6) = 18 and R(4,5) = 25.  Certificates built with it
+    are conditional on those two values; without --profile the encoding is
+    self-contained.
+    """
+    return [t for t in range(k + 1) if p * t <= 17 and p * t >= n - 24 - f]
+
+
+def profile_clauses(n, f, p, k, idx, orb):
+    """Restrict each fixed vertex to allowed_profile_weights."""
+    import itertools as _it
+    ok = allowed_profile_weights(n, f, p, k)
+    if not ok or (len(ok) == k + 1):
+        return []
+    lo, hi = min(ok), max(ok)
+    if set(ok) != set(range(lo, hi + 1)):
+        raise SystemExit("non-contiguous profile weights not supported")
+    out = []
+    for v in range(f):
+        prof = [orb[idx[(v, f + j * p)]] + 1 for j in range(k)]
+        for S in _it.combinations(prof, hi + 1):        # at most hi
+            out.append(sorted(-x for x in S))
+        if lo > 0:
+            for S in _it.combinations(prof, k - lo + 1):  # at least lo
+                out.append(sorted(S))
+    return out
+
+
+def build(n, s, t, f, p, k, profile=False):
     idx = pair_index(n)
     sigma = permutation(n, f, p, k)
     orb, nvar = pair_orbits(n, sigma, idx)
-    return nvar, clauses(n, s, t, orb, idx)
+    cls = clauses(n, s, t, orb, idx)
+    if profile:
+        cls = cls + [tuple(c) for c in profile_clauses(n, f, p, k, idx, orb)]
+    return nvar, cls
 
 
 def write_dimacs(path, nvar, cls):
@@ -123,14 +162,16 @@ def write_dimacs(path, nvar, cls):
 
 
 def main():
-    if len(sys.argv) != 8:
+    if len(sys.argv) < 8:
         print(__doc__)
         return 2
     n, s, t, f, p, k = (int(x) for x in sys.argv[1:7])
-    nvar, cls = build(n, s, t, f, p, k)
+    prof = "--profile" in sys.argv[8:]
+    nvar, cls = build(n, s, t, f, p, k, profile=prof)
     write_dimacs(sys.argv[7], nvar, cls)
     print(f"n={n} ({s},{t}) type 1^{f} {p}^{k}: "
-          f"orbit vars={nvar} clauses={len(cls)}")
+          f"orbit vars={nvar} clauses={len(cls)} profile={prof}"
+          + (f" weights={allowed_profile_weights(n, f, p, k)}" if prof else ""))
     return 0
 
 

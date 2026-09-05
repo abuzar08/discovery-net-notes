@@ -32,6 +32,8 @@ def run_cube(args):
     drat = os.path.join(outdir, tag + ".drat")
     lrat = os.path.join(outdir, tag + ".lrat")
     if os.path.exists(lrat) and os.path.getsize(lrat) > 0:
+        if os.path.exists(cnf):
+            os.remove(cnf)
         return tag, "cached", os.path.getsize(lrat)
     encode.write_dimacs(cnf, nvar, base + [[x] for x in cube])
     r = subprocess.run([CADICAL, "-q", "--binary=false", cnf, drat],
@@ -45,6 +47,7 @@ def run_cube(args):
                        capture_output=True, text=True)
     ok = "s VERIFIED" in v.stdout
     os.remove(drat)
+    os.remove(cnf)      # regenerable from (n,s,t,f,p,k) + the cube
     return tag, "VERIFIED" if ok else "drat-trim FAILED", \
         os.path.getsize(lrat) if os.path.exists(lrat) else 0
 

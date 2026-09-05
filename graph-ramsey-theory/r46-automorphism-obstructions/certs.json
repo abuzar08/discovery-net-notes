@@ -313,7 +313,7 @@
       "tag": "n39_f6_p11_k3"
     },
     {
-      "clauses": null,
+      "clauses": 253236,
       "cube_and_conquer": true,
       "f": 0,
       "k": 3,
@@ -321,7 +321,7 @@
       "lrat_sha256": "cube-and-conquer, see cube_certificates",
       "lrat_xz_bytes": -1,
       "n": 39,
-      "orbit_vars": null,
+      "orbit_vars": 57,
       "p": 13,
       "stored": false,
       "tag": "cubes_n39_13_3"

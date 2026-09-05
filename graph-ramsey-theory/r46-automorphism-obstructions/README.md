@@ -156,6 +156,50 @@ remaining fourteen types — `p = 17` with `k = 1, 2`; `p = 13` with `k = 2`,
 and `k = 3` at `n = 39`; `p = 11` with `k = 2, 3` — each carry a refutation
 below, the last of them by cube-and-conquer. ∎
 
+## Limits of the method: why p = 7 is out of reach
+
+`p = 7` was attacked directly and does not fall. The measurements below are
+all on `n = 36`, type `1^1 7^5` — 90 orbit variables, 284036 clauses, the
+**smallest** of the eight open `p = 7` types.
+
+| attempt | outcome |
+|---|---|
+| single refutation, base encoding | no verdict in 1500 s |
+| + profile clauses (see below) | no verdict in ~8 min, DRAT 231 MB |
+| one live cube alone (5 of 90 variables fixed) | no verdict in ~8 min, DRAT 195 MB |
+| cube-and-conquer, `D = 8` (256 cubes) | 88 cubes in ~100 s, then stalls |
+| cube-and-conquer, `D = 12` (4096 cubes) | the profile-contradictory cubes refute at ~2.2/s; each of the 1280 live ones takes minutes |
+
+The *profile clauses* are the strongest extra constraint available from the
+analytic lemma. For a fixed vertex `v`, Fact 1 gives
+`d(v) = |N(v) ∩ F| + p·t` where `t` is the number of cycles `v` sees whole,
+and Fact 0 gives `n-25 <= d(v) <= 17`; hence `p·t <= 17` and
+`p·t >= n-24-f`. For every `k = 5` type this forces `t = 2` exactly.
+`encode.py --profile` emits it (15 clauses for `f = 1, k = 5`). It is
+available and correct, but as the table shows it does not crack the type,
+and **no published certificate here uses it** — every stored certificate
+remains free of any Ramsey-number input.
+
+**The structural reason.** Per-cube proof size does *not* shrink as the split
+deepens: ~1.8 MB per cube at `D = 8` and ~2.1 MB at `D = 12`. So the total
+certificate grows linearly in the number of cubes, while the number of cubes
+needed to make each one easy grows exponentially in the split depth. That is
+why cube-and-conquer works for `1^0 13^3` (64 cubes, 1.0 GB, 79 s to check)
+and fails for `p = 7`: exactly **1280 of the 4096** `D = 12` cubes survive the
+profile constraint, each needing minutes, which extrapolates to tens of hours
+and ~8 GB of proof for *one* of the eight types — and the result could then be
+published only as a list of hashes, not as a replayable artifact.
+
+**Consequence for `p in {2,3}`.** Those 123 types are strictly larger (the
+fixed part alone contributes `C(f,2)` singleton orbits, several hundred
+variables), so they are out of reach a fortiori. Any symmetric
+(4,6,n)-graph in the open window would have to have an automorphism of order
+2 or 3 — which is exactly where the known catalog's symmetry lives, since all
+37 known (4,6,35)-graphs have 2-group automorphism groups. **This method
+cannot reach that case**, and the honest place to stop is the clean table at
+`p >= 11`.
+
+
 ## Method
 
 **Orbit CNF (`encode.py`).** Vertices are `0..n-1`; `0..f-1` are fixed and
@@ -214,7 +258,13 @@ once each, and replays every one against the base formula plus its cube.
 cube-and-conquer certificate (64 cubes). Every one was checked by drat-trim
 (`s VERIFIED`) when generated and replayed by `verify.py`. `check_all.py`
 re-checks the stored subset from scratch with **no SAT solver**: 24 verified,
-7 skipped (proofs too large to store, recorded by SHA-256), **0 failed**.
+7 skipped, **0 failed**. Of the seven skipped, `RESULTS.md` now distinguishes
+the cases honestly (reviewer-1, h2687): six are proofs that were **deleted**
+after being checked and hashed — they exist nowhere and a reader must re-run
+the solver — and one is the 64-cube certificate, reproducible from its
+per-cube hash manifest. reviewer-1 regenerated two of them (`n36 1^3 11^3`
+and all 64 cubes of `n39 13^3`) and reproduced the recorded SHA-256s **bit
+for bit**, which is what makes a hash-only record meaningful here.
 It takes about 20 minutes, because it regenerates a `C(n,6)`-clause formula
 per certificate; `--fast` does the small ones only.
 

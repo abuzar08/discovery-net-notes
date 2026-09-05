@@ -70,7 +70,7 @@ def canonical_orbits(n, f, p, k):
     return {pr: order[c] for pr, c in canon.items()}, len(order)
 
 
-def regenerate(n, s, t, f, p, k):
+def regenerate(n, s, t, f, p, k, profile=False):
     name, nvar = canonical_orbits(n, f, p, k)
     seen = set()
     order = []
@@ -86,6 +86,14 @@ def regenerate(n, s, t, f, p, k):
         if cl not in seen:
             seen.add(cl)
             order.append(cl)
+    if profile:
+        idx = {pr: i for i, pr in enumerate(
+            (u, w) for u in range(n) for w in range(u + 1, n))}
+        orb = [0] * len(idx)
+        for pr, i in idx.items():
+            orb[i] = name[pr]
+        order = order + [tuple(c)
+                         for c in profile_clauses(n, f, p, k, idx, orb)]
     return nvar, order
 
 
@@ -208,7 +216,7 @@ def cmd_lower(a):
     the stored cubes are exactly all sign patterns on the split variables.
     """
     n, s, t, f, p, k = (int(x) for x in a[:6])
-    nvar, want = regenerate(n, s, t, f, p, k)
+    nvar, want = regenerate(n, s, t, f, p, k, profile="--profile" in a)
     if "--cube" in a:
         for lit in a[a.index("--cube") + 1:]:
             v = int(lit)
@@ -241,17 +249,13 @@ def cmd_cubes(a):
     seen = set()
     for cube in sorted(want_cubes):
         tag = "c" + "".join("1" if x > 0 else "0" for x in cube)
-        cnf = os.path.join(d, tag + ".cnf")
         lrat = os.path.join(d, tag + ".lrat")
-        if not (os.path.exists(cnf) and os.path.exists(lrat)):
+        if not os.path.exists(lrat):
             raise SystemExit(f"missing cube {tag}")
-        got_nvar, got = read_dimacs(cnf)
-        if got_nvar != nvar:
-            raise SystemExit(f"{tag}: variable count {got_nvar} != {nvar}")
-        exp = base + [(x,) for x in cube]
-        if len(got) != len(exp) or set(got) != set(exp):
-            raise SystemExit(f"{tag}: clause set differs from base+cube")
-        replay(exp, lrat)
+        # The cube's DIMACS need not be stored: the proof is replayed
+        # directly against the formula regenerated here from
+        # (n,s,t,f,p,k) plus the cube's own unit clauses.
+        replay(base + [(x,) for x in cube], lrat)
         seen.add(cube)
     if seen != want_cubes:
         raise SystemExit("cube set is not exactly all sign patterns")
@@ -305,3 +309,38 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def allowed_profile_weights(n, f, p, k):
+    """Which numbers t of fully-seen cycles a fixed vertex may have.
+
+    For a fixed vertex v, Fact 1 gives d(v) = |N(v) cap F| + p*t with
+    0 <= |N(v) cap F| <= f-1, and Fact 0 gives n-25 <= d(v) <= 17 in a
+    (4,6,n)-graph.  Hence p*t <= 17 and p*t >= n-24-f.
+
+    This is the ONLY place a classical Ramsey number enters a formula:
+    Fact 0 uses R(3,6) = 18 and R(4,5) = 25.  Certificates built with it
+    are conditional on those two values; without --profile the encoding is
+    self-contained.
+    """
+    return [t for t in range(k + 1) if p * t <= 17 and p * t >= n - 24 - f]
+
+
+def profile_clauses(n, f, p, k, idx, orb):
+    """Restrict each fixed vertex to allowed_profile_weights."""
+    import itertools as _it
+    ok = allowed_profile_weights(n, f, p, k)
+    if not ok or (len(ok) == k + 1):
+        return []
+    lo, hi = min(ok), max(ok)
+    if set(ok) != set(range(lo, hi + 1)):
+        raise SystemExit("non-contiguous profile weights not supported")
+    out = []
+    for v in range(f):
+        prof = [orb[idx[(v, f + j * p)]] + 1 for j in range(k)]
+        for S in _it.combinations(prof, hi + 1):        # at most hi
+            out.append(sorted(-x for x in S))
+        if lo > 0:
+            for S in _it.combinations(prof, k - lo + 1):  # at least lo
+                out.append(sorted(S))
+    return out
