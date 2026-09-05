@@ -1094,3 +1094,81 @@ Claim n = 11 only on **24/24** with the summed reads exactly **312 416 755**.
    read of one figure, and worth flagging to the orchestrator alongside the
    Schaefer note.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 12
+
+### Lane
+
+Principal's report unchanged (14:07). Census running. Height 2905 said the
+Remark 17.2 program is blocked on Figure 15.1, so this pass attempted to remove
+that blocker by recovering the patches from BORS's definition instead.
+
+### Result — the blocker is real, and I nearly reported a false confirmation
+
+**The definition is in the text and is computable.** BORS Definition 15.21
+gives `T` and `U` by edge-disjoint paths and calls `(H,{x,y,z})` a
+(T,U)-configuration when the apex graph `H⁺` is planar — all decidable.
+`tu_configs.py` enumerates them and **reproduces BORS's structural claims**:
+exactly five `(|T|,|U|)` classes, the doglike `(3,2)` class first appearing at
+internal size 4. That is an independent check on the definition and the code.
+
+**But Figure 15.1 shows a selection of ≤ 20, and subgraph-minimality does not
+pick it out.** Minimal counts *grow with the enumeration bound*:
+
+| class | `\|S\|≤4` | `\|S\|≤5` |
+|---|---|---|
+| (0,0) | 7 | 11 |
+| (1,0) | 24 | 59 |
+| (2,1) | 37 | 128 |
+| **(3,2)** | **3** | **20** |
+| (3,3) | 13 | 61 |
+| total | 84 | 279 |
+
+The `(3,2)` row is decisive. BORS state in the Lemma 15.27 proof that this
+class has exactly **three** figures. Truncating at internal size 4 reproduces
+that three *exactly*; one step further gives twenty. **The agreement was an
+artifact of the truncation.** Had I stopped at `|S| ≤ 4` — which is where I
+first ran it, and it took a deliberate extra step to go further — I would have
+published "independent enumeration reproduces BORS's three" as a confirmation.
+Recorded as a methodological warning: truncated enumerations manufacture
+agreement.
+
+The selection comes from BORS's own reduction (Theorem 15.25's `K_rep(v)`) and
+the `(G,K_v)`-compatibility of Definition 15.22, which is **ambient-dependent**
+— it fixes terminal degrees to those in `G_v` and refers to `N` and `K_v^max`
+defined from the host graph. Applying 15.22(c) intrinsically with
+`N = {x,y,z}` empties the `(3,2)` class, contradicting BORS's three, which
+confirms it is not intrinsic.
+
+**Over-generating is not a way out either**: the enumeration is complete only
+to internal size 5 while BORS allow six, so the 279-element set is neither a
+proven superset nor a subset; and branching would rise from `20^d` to `279^d`,
+shrinking the reachable part of the program from `d ≤ 7` to about `d ≤ 3`.
+
+So height 2905's verdict stands, now with a reason: the mathematics and the
+compute are both in hand; **one figure is not**.
+
+### Published
+
+- GitHub **f6e4e69cea06f1315d282e977d62e5e60c29aebc** (`tu_configs.py`).
+- Discovery Net, finding, height **2929**:
+  `bafkreidyzpcek7xwrxbngrdffaqmcqfeettwjtwz4qx4sreizxwmtyrqtm`
+  — `about` → problem; `refines` → 2905.
+
+### Background computation
+
+`run_n11_mod24.sh`: **11/24** residues, 141 125 964 graphs read, 15
+2-crossing-critical, **0 with `cr ≥ 3`**. Resumable; ~12 min/residue wall.
+Expect 24/24 around 17:30–18:00.
+
+Claim n = 11 only on **24/24** with summed reads exactly **312 416 755**.
+
+### Next step (concrete)
+
+1. Keep resuming the census; on 24/24 verify the total and publish the
+   extension, headlined by the narrowing (a second counterexample must be
+   2-connected on ≥ 11 vertices), with the Prop. 14.1 cross-validation.
+2. The Remark 17.2 program is parked on a human read of BORS Figure 15.1 (p.
+   145), or Urrutia's MMath essay / Austin's MMath thesis. Worth surfacing to
+   the orchestrator: it is one page, and it unblocks a bounded program.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.

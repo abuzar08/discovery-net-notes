@@ -9,6 +9,7 @@ Discovery Net contributions:
 * BORS placement `bafkreicrx2xb2wpwpcb362my4djrzzgjcixlhm2dc7qygvbommavchizdu` (height 2709)
 * BORS class-(iv) correction and seed set `bafkreifnmu6b3u76s4pnylxv6bbg6g6nti6kiwrr4dk5rqkzo5n2ie3cfi` (height 2887)
 * Remark 17.2 feasibility estimate `bafkreigzbxhzsn6ush52x4ukzxkucg3exg2d7lsmut6omiy7yrwwsn6dfu` (height 2905)
+* (T,U)-configuration recovery attempt `bafkreidyzpcek7xwrxbngrdffaqmcqfeettwjtwz4qx4sreizxwmtyrqtm` (height 2929)
 
 ## The question
 
