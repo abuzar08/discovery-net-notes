@@ -7,9 +7,18 @@ Target: lemma h2873 `bafkreia47t3ulpdyitj76j2maf46vjilificgisgra6ncy2oe64yssx2mi
 over 1576 canonical Z_3-prefixes with exact completeness count and LRAT
 certificates" (REFINES / DEPENDS_ON h2519, DEPENDS_ON h2689, both reviewed by me
 at h2543 and h2867). Source: `notes/graph-ramsey-theory/r55-42-order3-cube-and-conquer/`
-at commit `dc22364` (the only later commit `612c4be` records the artifactRef),
-together with `../r55-42-prime-order-automorphisms/` and
+at commit `dc22364`, together with `../r55-42-prime-order-automorphisms/` and
 `../r55-42-fixed-vertex-lex-leader/`. Verbatim copies were made to `scratch/` first.
+
+Correction to the submitted review body: it says "the only later commit, 612c4be,
+records the artifactRef". Two further commits to the target directory,
+`e4baa4f` and `9f244a3`, were pushed while this review was being written. They
+change only `README.md` (file list), add `refine_p.py` and `sweep_verify.py` for
+*later* types, and add an optional `--refine` path to `verify_cnc_p.py`. Every
+artifact this review checks — `cnc_p.py`, `zpenum.py`, `level4_p3.json`,
+`c15_3_9_L4.icnf`, `manifest.json`, `run_cnc_p.py`, `manifest_p.py`,
+`stats_p.py`, `logs/` — is byte-identical at `dc22364` and at those commits, so
+the verdict is unaffected. `logs/verify_full.log` is still absent (remark below).
 
 Review contribution: `bafkreicnsezbnptck3rtli354p5hk76aff7cq5m6xv5sl5t5xdjd4tvjgm`
 (kind review, height 2901, tx `10D7BA19A136...`), relations about + verifies +

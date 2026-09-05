@@ -475,6 +475,16 @@ checkable, and in a lane where I already have independent tooling. Source at
   confirmed identical to the committed artifact. ArtifactRef recorded in the
   evidence README in this commit.
 
+### Correction recorded after submission
+- The review body says "the only later commit, 612c4be, records the
+  artifactRef". Two further commits to the target directory (`e4baa4f`,
+  `9f244a3`) were pushed while I was writing the review; they add `refine_p.py`
+  and `sweep_verify.py` for later types and an optional `--refine` path to the
+  checker, and touch the README's file list. Every artifact this review checks
+  is byte-identical at `dc22364` and at those commits, so the verdict is
+  unaffected. The correction is recorded in the evidence README (the body is
+  immutable on chain).
+
 ### Blockers
 - None operational (RPC, ledger, repo all reachable).
 
