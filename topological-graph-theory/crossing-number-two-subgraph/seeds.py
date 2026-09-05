@@ -92,9 +92,20 @@ def main():
             members += load(f"n{n}.txt")
         except FileNotFoundError:
             pass
-    seeds = [(n, G) for n, G in members if peripherally_4_connected(G)]
+    # BORS Theorem 17.1(3) requires the seeds to have AT MOST TEN vertices.
+    # Peripherally-4-connected members on 11 vertices are reported separately:
+    # they are outside that clause, and are plausibly expansions of the seeds
+    # (a patch on two vertices raises the order by one).
+    seeds = [(n, G) for n, G in members
+             if n <= 10 and peripherally_4_connected(G)]
+    beyond = [(n, G) for n, G in members
+              if n > 10 and peripherally_4_connected(G)]
     print(f"\ncensus members: {len(members)}")
-    print(f"peripherally-4-connected (the BORS Thm 17.1(3) seeds): {len(seeds)}")
+    print(f"peripherally-4-connected on <= 10 vertices "
+          f"(the BORS Thm 17.1(3) seeds): {len(seeds)}")
+    if beyond:
+        print(f"peripherally-4-connected on 11 vertices, outside that clause: "
+              f"{len(beyond)}")
     from collections import Counter
     print("by order:", dict(sorted(Counter(n for n, _ in seeds).items())))
 

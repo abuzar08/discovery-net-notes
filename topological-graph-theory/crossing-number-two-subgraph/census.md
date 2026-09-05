@@ -98,6 +98,13 @@ for n in 6 7 8 9 10; do
   lo=$(( (3*n+1)/2 )); hi=$(( 3*n-4 ))
   ./geng -q -d3 $n $lo:$hi | ./crit2 > n$n.txt
 done
+
+# n = 11 is 312,416,755 graphs; run it as a complete single-mod cover,
+# residue by residue, and check the counts sum to that exactly.
+for r in $(seq 0 23); do
+  ./geng -q -d3 11 17:29 $r/24 | ./crit2 > n11.$r.txt 2> n11.$r.log
+done
+cat n11.*.txt > n11.txt
 ```
 
 ## Results
@@ -113,7 +120,7 @@ number of vertices (`geng` search space in the third column):
 | 8 | 2392 | 10 | 0 |
 | 9 | 73195 | 17 | **1** (`C3 □ C3`) |
 | 10 | 3871146 | 32 | 0 |
-| 11 | 312416755 | *(running)* | *(running)* |
+| 11 | 312416755 | 24 | 0 |
 
 Sanity anchors inside the census: the Petersen graph appears at `n = 10`
 (`cr = 2`), `K3,4` at `n = 7`, and `K5 ⊔ K5` at `n = 10`; `K6` and `K3,5` are
@@ -123,12 +130,19 @@ graph of girth 4), consistent with Richter's determination of the eight cubic
 2-crossing-critical graphs, the others having more than 10 vertices.
 
 **Theorem (computer-assisted).** Every 2-crossing-critical graph without
-isolated vertices whose suppression has at most 10 vertices has crossing
+isolated vertices whose suppression has at most **11** vertices has crossing
 number 2, with the single exception of `C3 □ C3` and its subdivisions.
 
 Equivalently: if `G` has `cr(G) ≥ 2` and no subgraph of crossing number 2, then
 every edge-minimal subgraph of `G` with crossing number at least 2 is a
-subdivision of `C3 □ C3`, or suppresses to a graph on at least 11 vertices.
+subdivision of `C3 □ C3`, or suppresses to a graph on at least **12** vertices.
+
+The `n = 11` layer is the largest: **312 416 755** graphs searched, 24
+2-crossing-critical, none of crossing number ≥ 3. It was run as a complete
+single-`mod` cover (residues 0..23 at `mod` 24, resumable), and the acceptance
+check is that the 24 residue counts sum to exactly 312 416 755, which they do —
+matching `geng -u` on the unsharded space. See the `res/mod` coverage hazard
+recorded separately: mixing `mod` values silently breaks coverage.
 
 This is consistent with, and gives independent computational support for, the
 claim attributed to Vitray by Bokal–Oporowski–Richter–Salazar that `C3 □ C3` is
@@ -136,8 +150,8 @@ the *only* 2-crossing-critical graph whose crossing number is not 2.
 
 ## Every member is certified
 
-`census_certificate.json` (330 KB) carries, for each of the 63 census members
-of crossing number 2 (the 64th, `C3 □ C3`, is certified by `certificate.json`):
+`census_certificate.json` (493 KB) carries, for each of the 87 census members
+of crossing number 2 (the 88th, `C3 □ C3`, is certified by `certificate.json`):
 
 * a Kuratowski subdivision inside the graph, and inside **every** one of its
   1-crossing planarizations — so `cr ≥ 2`;
@@ -146,13 +160,13 @@ of crossing number 2 (the 64th, `C3 □ C3`, is certified by `certificate.json`)
   edge `e` — so `H` is 2-crossing-critical.
 
 ```bash
-python3 verify_census.py census_certificate.json n6.txt n7.txt n8.txt n9.txt n10.txt
+python3 verify_census.py census_certificate.json n6.txt n7.txt n8.txt n9.txt n10.txt n11.txt
 ```
 
-checks all of it — 5563 Kuratowski subdivisions and 1123 rotation systems —
+checks all of it — for the 87 members of crossing number 2 —
 using **only the Python standard library**, and additionally confirms that the
 certified set is exactly the set of `CRIT2` lines of the census files. So the
-*positive* content of the census (that these 64 graphs really are
+*positive* content of the census (that these 88 graphs really are
 2-crossing-critical, and what their crossing numbers are) no longer depends on
 nauty or on any planarity algorithm. Only the *negative* content — that the
 search missed nothing — rests on `geng` and nauty.
@@ -207,9 +221,9 @@ inside a one-edge subdivision of `V8`, which exercises the spare-vertex logic.
 
 | class | members |
 | --- | --- |
-| 3-connected, **no `V8` subdivision** — BORS (iv), *determined* | **26** |
-| 3-connected, `V8` but no `V10` — BORS (iii), *finite* | **24** |
-| not 3-connected — BORS (ii) | **14** |
+| 3-connected, **no `V8` subdivision** — BORS (iv) | **33** |
+| 3-connected, `V8` but no `V10` — BORS (iii), *finite* | **32** |
+| not 3-connected — BORS (ii) | **23** |
 | 3-connected with a `V10` subdivision — BORS (i), *infinite family* | **0** |
 
 | n | members | 3-connected | `V8` subdivision | `V10` subdivision |
@@ -219,6 +233,7 @@ inside a one-edge subdivision of `V8`, which exercises the spare-vertex logic.
 | 8 | 10 | 9 | 4 | 0 |
 | 9 | 18 | 14 | 9 | 0 |
 | 10 | 32 | 23 | 11 | 0 |
+| 11 | 24 | 15 | 8 | 0 |
 
 Vertex connectivity distribution: `{0: 1, 1: 3, 2: 10, 3: 46, 4: 4}`; the one
 disconnected member is `K5 ⊔ K5`.
@@ -269,7 +284,12 @@ subdivided-identification variant.
 blocks and hence crossing number 2. So **a 2-crossing-critical graph of
 crossing number at least 3 — a second counterexample to the
 Bloom–Kennedy–Quintas question — must be 2-connected**, and by the census its
-suppression has at least 11 vertices.
+suppression has at least **12** vertices. (The narrowing below strengthens
+"2-connected" to "3-connected, or one of 36".)
+
+At `n = 11` the census recovers `K5 ⊔ K3,3`, the second of BORS's three
+disconnected examples; the third, `K3,3 ⊔ K3,3`, has 12 vertices and is just
+beyond reach.
 
 
 ## What BORS actually prove, and the seed set
@@ -315,6 +335,12 @@ census — and `seeds.py` extracts them:
 | order | 6 | 7 | 8 | 9 | 10 | total |
 | --- | --- | --- | --- | --- | --- | --- |
 | seeds | 1 | 2 | 8 | 10 | 15 | **36** |
+
+BORS's clause requires the seeds to have **at most ten vertices**, so the seed
+set stays at 36 even though the census now reaches 11. The census does find 5
+further peripherally-4-connected members on 11 vertices; those are outside the
+clause, and are plausibly among the graphs it *produces* — replacing a degree-3
+vertex by a two-vertex patch raises the order by one.
 
 `C3 □ C3` is one of them (it is 4-connected, so it has no 3-cut and the
 condition holds vacuously).
