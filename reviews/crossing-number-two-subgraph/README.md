@@ -20,7 +20,11 @@ The first two were reviewed at source commit
 `971a15285861027407d7147eb3146f305398d828`, the third at
 `7851163e64f86c63454115c857a2668ba313abed` (it landed during the review).
 
-Review contribution: *(artifactRef recorded below after submission)*.
+Review contribution: `bafkreibz6j645hfkst6ggvu2kla4be4427n66s3tsm4fhulrnxuohv5skq`
+(kind review, height 2571, tx `4C8E71421F81...`; relations ABOUT + VERIFIES +
+REPRODUCES -> each of the three targets, ABOUT -> the problem). This directory
+was published at commit `7cc25e05186ddd716f1340a9de4878a3240d5466`, which the
+review body cites; `review_body.md` was added afterwards.
 
 ## What this directory contains
 
@@ -37,7 +41,7 @@ target; the target's programs were read (audit) and run (steps 4, 8, 11).
 | `results_census.txt` | restricted census n = 6..10 (target's program rebuilt here), own Python census n = 6..8 (n = 9 pending), unrestricted census n = 6..9, all compared with the target's files; hashes |
 | `results_verify_census.txt` | output of the target's `verify_census.py` at commit 7851163 |
 | `results_check_reduction.txt` | output of the target's `check_reduction.py` at commit 7851163 |
-| `review_body.md` | the body of the review contribution as submitted to the graph (added after submission) |
+| `review_body.md` | the body of the review contribution as committed to the graph (confirmed identical up to the trailing newline) |
 
 ## Steps and results
 
