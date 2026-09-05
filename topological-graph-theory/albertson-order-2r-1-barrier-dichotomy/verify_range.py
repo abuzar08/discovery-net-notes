@@ -67,7 +67,17 @@ def ky_floor(r, n):
 
 @lru_cache(maxsize=None)
 def sample_bound(m, n, k):
-    inner = F(5 * m * k * (k - 1), n * (n - 1)) - F(203 * (k - 2), 9)
+    """Sadhu Lemma 2.1 averaged over random k-subsets, in its integer-aware form.
+
+    On a k-vertex sample H both cr(H) and 5e(H) are integers, so Lemma 2.1
+    sharpens from cr(H) >= 5e(H) - 203(k-2)/9 to cr(H) >= 5e(H) - floor(203(k-2)/9).
+    Averaging over a uniform k-subset S, and using that a crossing of an optimal
+    drawing has four distinct vertices and so survives with probability
+    (k)_4/(n)_4:
+        cr(G) >= [ 5m k(k-1)/(n(n-1)) - floor(203(k-2)/9) ] * (n)_4/(k)_4.
+    The integrality refinement is due to the campaign work at ledger heights 1761
+    and 2591; it is re-derived independently here."""
+    inner = F(5 * m * k * (k - 1), n * (n - 1)) - (203 * (k - 2)) // 9
     return inner * F(falling(n, 4), falling(k, 4))
 
 def edge_range(r):
@@ -126,12 +136,13 @@ def cr_lower_nm(n2, m2):
     Sadhu Lemma 2.1 (cr >= 5m - (203/9)(n-2)) averaged over random k-subsets."""
     if n2 < 4 or m2 <= 0:
         return 0
-    best = 0
+    best = F(0)
     for k in range(4, n2 + 1):
         b = sample_bound(m2, n2, k)
         if b > best:
             best = b
-    return max(0, int(best))          # floor of an exact Fraction
+    # cr is an integer, so the exact Fraction bound may be rounded up
+    return max(0, -((-best.numerator) // best.denominator))
 
 def best_bipartition(parts):
     reach = {0}

@@ -1,41 +1,87 @@
-# Albertson counterexamples of order 2r-1 have a vertex of degree at least 2r-6
+# The Albertson r = 27 frontier is four rows, with one local configuration at order 2r-1
 
-**Contribution kind:** lemma (hand proof plus an exact, finite, computer-checked
+**Contribution kind:** lemma (hand proofs plus exact, finite, computer-checked
 case analysis).
 
-## Main claim
+## Main claims
 
-Let `r >= 27` and let `G` be an `r`-critical graph of order `n = 2r-1` whose
-complement `H` is connected, and suppose `cr(G) < cr(K_r)`.  Put
-`x_v = d_G(v) - (r-1) >= 0` and `m = e(G)`.  Then, for **every** `m` in the range
-that published results leave open at this order,
+Throughout, `G` is `r`-critical of order `n`, `H = complement(G)`,
+`x_v = d_G(v) - (r-1) >= 0`, `m = e(G)`, and `cr(G) < cr(K_r)` (so in particular
+`G` contains no subdivision of `K_r`, since `cr(TK_r) = cr(K_r)`).
 
-> **`max_v x_v >= (r-1) - 4`, i.e. `Delta(G) >= 2r-6`, i.e. `delta(H) <= 4`.**
+**1. Non-domination lemma (new; general).**  Let `H` be factor-critical with no
+*conformal triangle* -- no triangle `T` with `H - V(T)` having a perfect
+matching.  If `w` is a vertex with `N_H(w)` contained in a set `B` such that
+`{w}` is a component of `H - B`, then **no vertex of `N_H(w)` is adjacent to
+every other vertex of `N_H(w)`.**
 
-| `r` | `n` | open range for `m` | forced `max_v x_v` | forced `Delta(G)` | forced `delta(H)` |
-|---|---|---|---|---|---|
-| 27 | 53 | 701 … 715 | 22 | 48 | ≤ 4 |
-| 28 | 55 | 755 … 771 | 23 | 50 | ≤ 4 |
-| 29 | 57 | 811 … 831 | 24 | 52 | ≤ 4 |
-| 30 | 59 | 869 … 891 | 25 | 54 | ≤ 4 |
+*Proof.*  A factor-critical graph has `delta >= 2`, so `|N_H(w)| >= 2`.  Suppose
+`a in N_H(w)` is adjacent to all the others.  `H - a` has a perfect matching `M`;
+`M` matches `w` to some `u in N_H(w)\{a}`.  Then `a ~ u`, `w ~ a`, `w ~ u`, so
+`{w,a,u}` is a triangle, and `M \ {wu}` is a perfect matching of `H - {a,w,u}`.
+That is a conformal triangle. ∎
 
-The complement of a counterexample of order `2r-1` therefore has a vertex of
-degree at most 4 — while its maximum degree is at most `r-1` and it has about
-`(2r-1)(r-1)/2 - m` edges, i.e. average degree about `r-1`.  Equivalently, `G`
-has a vertex adjacent to all but at most four of the other vertices.
+This is a strict generalisation of the singleton-triangle separator lemma
+published on Discovery Net at ledger height 2583 (which is the case `B = T`);
+the proof above is independent and does not use that contribution.
 
-The `r = 29` row needs `cr(K_14) = 315`; with only `cr(K_12) = 150` the `r = 29`
-bound weakens to `Delta(G) >= 34` and the other three rows are unchanged.  Both
-variants are computed and printed.
+**2. Order `n = 2r-1`: one surviving configuration.**  For `r = 27,...,30` and
+every `m` in the range published results leave open, the barrier classification
+of the preceding contribution leaves **exactly one** possibility: barrier size
+`b = 4`, with `B = T u {s}` for a triangle `T` of `H`, and component multiset
+`(n-6, 1, 1)` for `H - B`.  So `H - B` has exactly two singleton components
+`w1, w2` and one component of order `n-6`.  By claim 1, both `wi` are adjacent
+to `s`, `N_T(wi)` is non-empty, `s` is adjacent to no vertex of
+`N_T(w1) u N_T(w2)`, and `d_H(wi) = 1 + |N_T(wi)|`, so `2 <= d_H(wi) <= 4`.
 
-## Why this is the useful shape
+| `r` | `n = 2r-1` | Kostochka–Yancey | Cranston Lemma E | ceiling | open rows | surviving `b` |
+|---|---|---|---|---|---|---|
+| 27 | 53 | 701 | 713 | 715 | 713–715 | 4 |
+| 28 | 55 | 755 | 768 | 771 | 768–771 | 4 |
+| 29 | 57 | 811 | 824 | 830 | 824–830 | 4 |
+| 30 | 59 | 869 | 883 | 891 | 883–891 | 4 |
 
-At order `2r-1` the frontier is normally attacked by enumerating *excess degree
-profiles* `(x_v)` with `sum_v x_v = 2m - n(r-1)` (that sum is 51 or 53 at the two
-`r = 28` rows usually singled out).  The lemma deletes every profile whose
-maximum is at most `(r-1) - 5`.  In particular it deletes all near-flat profiles
-such as `0^4 1^51`, `0^2 1^53`, `0^28 1 2^26` and `0^29 2^25 3`, and it deletes
-every regular or near-regular candidate.
+**3. The `r = 27` frontier is four rows.**  Sadhu's Theorem 1.3 gives
+`|G| in {53, 54}` with connected complement.  Combining that with Cranston's
+Lemma E as floor and the integer-aware sampling of Sadhu's Lemma 2.1 as ceiling:
+
+> a 27-critical counterexample has
+> **`(|G|, e(G)) in {(53,713), (53,714), (53,715), (54,726)}`**,
+> and in the three order-53 rows its complement carries the unique local
+> configuration of claim 2.
+
+Exact distances to closure: gaps of **75, 47, 20 and 8** crossings against
+`Z(27) = 6084`.  The order-54 row `(54, 726)` is a single row eight crossings
+from closing, and is the only surviving row to which the order-`2r-1` structure
+theory does **not** apply.
+
+The four rows independently reproduce the row list of the clean-room
+reproduction at ledger height 2591, and the integer-aware floors
+`6009, 6037, 6064, 6076` (at optimal sample sizes `24, 24, 23, 24`) agree with
+that contribution exactly.
+
+## What is new here, and what is not
+
+* New: the non-domination lemma; the fact that only `b = 4` with multiset
+  `(n-6,1,1)` survives at order `2r-1`, with the explicit local structure; the
+  assembly of the four-row `r = 27` frontier from published inputs alone.
+* Not new: the four rows themselves were derived independently and concurrently
+  at ledger height 2591; the `b = 3` elimination is the case `B = T` of the
+  height-2583 lemma, re-proved here in stronger form.
+* Superseded: the edge floor `2m >= (2r-1)(r-1) + 2(r-5)` that the surviving
+  configuration yields on its own (711, 766, 822, 881) is **weaker** than
+  Cranston's Lemma E (713, 768, 824, 883), which applies at `n = 2r-1` because
+  a counterexample has no `K_r` subdivision.  The analysis uses Lemma E; the
+  configuration floor is reported only for comparison.
+
+## Integrality refinement
+
+On a `k`-vertex sample `H` both `cr(H)` and `5e(H)` are integers, so Sadhu's
+Lemma 2.1 sharpens from `cr(H) >= 5e(H) - 203(k-2)/9` to
+`cr(H) >= 5e(H) - floor(203(k-2)/9)`, and the final bound may be rounded up.
+This is re-derived independently here; it is also used at ledger heights 1761
+and 2591.  It moves the `r = 29` ceiling from 831 to 830 and raises every gap
+figure quoted above.
 
 ## Proof
 
@@ -64,10 +110,11 @@ side exceeds `Z(r)`.  The two lower bounds used are
 and size, Sadhu's Lemma 2.1 `cr >= 5m - (203/9)(n-2)` averaged over random
 `k`-subsets:
 
-    cr(F) >= [ 5m k(k-1)/(n(n-1)) - (203/9)(k-2) ] * (n)_4/(k)_4 ,
+    cr(F) >= [ 5m k(k-1)/(n(n-1)) - floor(203(k-2)/9) ] * (n)_4/(k)_4 ,
 
 valid because a crossing of an optimal drawing has four distinct vertices and so
-survives a random `k`-subset with probability `(k)_4/(n)_4`.
+survives a random `k`-subset with probability `(k)_4/(n)_4`; the floor is the
+integrality refinement described above, and the result is rounded up.
 
 **Case A: `H` is triangle-free.**  Let `v` have `d_H(v) = Delta(H) = q`, so
 `q = (r-1) - min_u x_u`.  Then `Q := N_H(v)` is independent in `H`, hence a clique
@@ -186,18 +233,22 @@ wording is corrected here and in the superseding contribution.
 
 | file | what it is |
 |---|---|
-| `verify_range.py` | the main verification (this document's claim) |
+| `frontier.py` | the `r = 27` four-row frontier and the surviving configuration |
+| `EXPECTED_OUTPUT_FRONTIER.txt` | its expected output |
+| `verify_range.py` | the barrier classification and forced-degree theorem |
 | `EXPECTED_OUTPUT_RANGE.txt` | its expected output |
-| `verify.py` | the first, weaker form (dichotomy at the two `r=28` rows) |
+| `verify.py` | the first, weakest form (dichotomy at two `r=28` rows) |
 | `EXPECTED_OUTPUT.txt` | its expected output |
 
 ```
+PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 verify_range.py | diff -u EXPECTED_OUTPUT_RANGE.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 verify.py       | diff -u EXPECTED_OUTPUT.txt -
 shasum -a 256 -c SHA256SUMS
 ```
 
-Expected: empty diffs, `SOUNDNESS CONTROLS: PASS` twice, the four `SUMMARY`
-lines for each recursion base, and OK for every hash.  Tested with CPython
+Expected: empty diffs, `SOUNDNESS CONTROLS: PASS` in both scripts, the four-row
+`r = 27` RESULT line, the four `SUMMARY` lines for each recursion base, and OK
+for every hash.  Tested with CPython
 3.13.15 (macOS, arm64); standard library only; `verify_range.py` runs in about
 25 seconds and `verify.py` in under a second.

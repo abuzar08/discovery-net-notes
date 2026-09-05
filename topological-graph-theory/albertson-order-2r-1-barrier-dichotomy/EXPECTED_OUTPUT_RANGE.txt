@@ -23,13 +23,13 @@ r = 28,  n = 2r-1 = 55,  Z(r) = 7098,  open edge range m in [755, 771]
       b= 4   6 of 17 rows (m=766..771), forced max_v x_v >= 23
    RESULT  max_v (d_G(v)-(r-1)) >= 23   =>   Delta(G) >= 50, delta(complement) <= 4
 
-r = 29,  n = 2r-1 = 57,  Z(r) = 8281,  open edge range m in [811, 831]
+r = 29,  n = 2r-1 = 57,  Z(r) = 8281,  open edge range m in [811, 830]
    Case A (complement triangle-free): Andrasfai-Erdos-Sos would give max_v x_v >= 6;
-      surviving rows: [(831, [1])]
+      surviving rows: NONE - case A is impossible
    Case B (complement has a triangle): surviving barrier sizes
-      b= 3  21 of 21 rows (m=811..831), forced max_v x_v >= 25
-      b= 4  10 of 21 rows (m=822..831), forced max_v x_v >= 24
-   RESULT  max_v (d_G(v)-(r-1)) >= 6   =>   Delta(G) >= 34, delta(complement) <= 22
+      b= 3  20 of 20 rows (m=811..830), forced max_v x_v >= 25
+      b= 4   9 of 20 rows (m=822..830), forced max_v x_v >= 24
+   RESULT  max_v (d_G(v)-(r-1)) >= 24   =>   Delta(G) >= 52, delta(complement) <= 4
 
 r = 30,  n = 2r-1 = 59,  Z(r) = 9555,  open edge range m in [869, 891]
    Case A (complement triangle-free): Andrasfai-Erdos-Sos would give max_v x_v >= 6;
@@ -41,7 +41,7 @@ r = 30,  n = 2r-1 = 59,  Z(r) = 9555,  open edge range m in [869, 891]
 
 SUMMARY base=cr(K_12)=150  r=27  n=53  m in [701,715]:  Delta(G) >= 48
 SUMMARY base=cr(K_12)=150  r=28  n=55  m in [755,771]:  Delta(G) >= 50
-SUMMARY base=cr(K_12)=150  r=29  n=57  m in [811,831]:  Delta(G) >= 34
+SUMMARY base=cr(K_12)=150  r=29  n=57  m in [811,830]:  Delta(G) >= 52
 SUMMARY base=cr(K_12)=150  r=30  n=59  m in [869,891]:  Delta(G) >= 54
 
 ############################################################################
@@ -65,12 +65,12 @@ r = 28,  n = 2r-1 = 55,  Z(r) = 7098,  open edge range m in [755, 771]
       b= 4   6 of 17 rows (m=766..771), forced max_v x_v >= 23
    RESULT  max_v (d_G(v)-(r-1)) >= 23   =>   Delta(G) >= 50, delta(complement) <= 4
 
-r = 29,  n = 2r-1 = 57,  Z(r) = 8281,  open edge range m in [811, 831]
+r = 29,  n = 2r-1 = 57,  Z(r) = 8281,  open edge range m in [811, 830]
    Case A (complement triangle-free): Andrasfai-Erdos-Sos would give max_v x_v >= 6;
       surviving rows: NONE - case A is impossible
    Case B (complement has a triangle): surviving barrier sizes
-      b= 3  21 of 21 rows (m=811..831), forced max_v x_v >= 25
-      b= 4  10 of 21 rows (m=822..831), forced max_v x_v >= 24
+      b= 3  20 of 20 rows (m=811..830), forced max_v x_v >= 25
+      b= 4   9 of 20 rows (m=822..830), forced max_v x_v >= 24
    RESULT  max_v (d_G(v)-(r-1)) >= 24   =>   Delta(G) >= 52, delta(complement) <= 4
 
 r = 30,  n = 2r-1 = 59,  Z(r) = 9555,  open edge range m in [869, 891]
@@ -83,6 +83,6 @@ r = 30,  n = 2r-1 = 59,  Z(r) = 9555,  open edge range m in [869, 891]
 
 SUMMARY base=cr(K_14)=315  r=27  n=53  m in [701,715]:  Delta(G) >= 48
 SUMMARY base=cr(K_14)=315  r=28  n=55  m in [755,771]:  Delta(G) >= 50
-SUMMARY base=cr(K_14)=315  r=29  n=57  m in [811,831]:  Delta(G) >= 52
+SUMMARY base=cr(K_14)=315  r=29  n=57  m in [811,830]:  Delta(G) >= 52
 SUMMARY base=cr(K_14)=315  r=30  n=59  m in [869,891]:  Delta(G) >= 54
 
