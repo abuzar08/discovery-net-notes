@@ -372,6 +372,55 @@ exactly one of them, one in `T \ (A_1 u A_2)` to both, `s` to neither, and `s` i
 `1, 1, 3, 4, 6, 8, 10, 12, 14, 16` for `|R| = 2..11`.  `r28.py` now uses this
 form throughout; every `r = 28` case still closes.
 
+## Order 2r: a non-domination lemma and the closure of order 58 at r = 29
+
+Order `2r` was the one order the structure theory above did not reach (at `r=27`
+order 54 died by counting, not structure).  `order2r.py` opens it.
+
+At `n = 2r` the complement `H` has `Delta(H) <= r`, `x_v = r - d_H(v)`, and
+`theta(H) = r`, so no clique partition of `V(H)` into `r-1` parts exists.  Two
+consequences: for every `K_4` of `H`, `H - K_4` has no perfect matching; and for
+every pair of disjoint triangles, `H` minus both has none.  Stehlík at this order
+gives, for every vertex `x`, a partition of `H - x` into one triangle and `r-2`
+edges — every part of size `>= 2`.
+
+**Non-domination at order `2r` (new).**  *Let `{w}` be a component of `H - B`.
+Then no vertex `a` of `N_H(w)` is adjacent to every other vertex of `N_H(w)`.*
+Proof: take Stehlík's cover of `H - a`.  The part containing `w` consists of `w`
+and vertices of `N_H(w)\{a}`, all adjacent to `a` by assumption.  If it is an
+edge `{w,u}` then `{w,a,u}` is a triangle and swapping it in gives `r-1` parts
+covering `2r` vertices with savings `r+1`; if it is the triangle `{w,y,z}` then
+`{w,y,z,a}` is a `K_4` and the same count applies.  Either way
+`theta(H) <= r-1`. ∎  Two consequences: `delta(H) >= 2`, and **any barrier `B`
+that is a clique is impossible** once `H - B` has a singleton component.
+
+At `r = 29`, order `58`, the classification under the `K_4` route leaves only
+`b = 4` with `(53,1)` and `(52,1,1)` — both killed at once, since there `B` is the
+`K_4` itself — and `b = 5` with `H - B = C u {w1} u {w2}`, `|C| = 51`.  There
+`B = Q u {s}`; non-domination gives `w_i ~ s` and `s` adjacent to no vertex of
+`A_i := N_Q(w_i)`, and `A_1, A_2` are disjoint because otherwise both `w_i` would
+have to occupy the part `{w_i, s}` of the same cover.  Hence
+`d_H(w1) + d_H(w2) <= 6` and `x_{w1} + x_{w2} >= 52`, so `|R|` is small, and the
+Gallai packing or the split bound kills every case:
+
+| `m` | `\|R\|` range | outcome |
+|---|---|---|
+| 838 | 2 | impossible |
+| 839 | 2–4 | impossible |
+| 840 | 2–6 | impossible |
+
+> **Order 58 at `r = 29` is impossible whenever `H` contains a `K_4`, i.e.
+> whenever `alpha(G) >= 4`.**
+
+*Not covered.*  If `H` has no `K_4` at all, the barrier must come from two
+disjoint triangles and only `o(H-B) >= b-4` follows; those classes (`b = 6, 7`
+and `30`) survive the same filters, so that branch stays open.  `order2r.py`
+reports it rather than hiding it.
+
+`order2r.py` also reproduces the eight-row `r = 29` frontier of ledger height
+2761 independently: the floors against the recursive ceiling leave orders 56, 57
+and 58, and the Gallai join/edge budget kills order 56 = 2r-2.
+
 ## r = 29 (partial)
 
 `r29.py` applies the same order-`2r-1` machinery to the five order-57 rows of the
@@ -404,6 +453,7 @@ and order 58 is untouched.  Nothing here bears on `r >= 30`.
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
 | `deps.py` | the dependency reduction and the Corollary 5 simplification |
+| `order2r.py` | the order-2r non-domination lemma and order 58 at r = 29 |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
 | `frontier.py` | the `r = 27` single-row frontier and the surviving configuration |
 | `recursive.py` | recursive integer-aware sampling bound `L(n,q)` |
@@ -418,6 +468,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 deps.py         | diff -u EXPECTED_OUTPUT_DEPS.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 order2r.py      | diff -u EXPECTED_OUTPUT_ORDER2R.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai_split.py | diff -u EXPECTED_OUTPUT_GALLAI_SPLIT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 frontier.py     | diff -u EXPECTED_OUTPUT_FRONTIER.txt -

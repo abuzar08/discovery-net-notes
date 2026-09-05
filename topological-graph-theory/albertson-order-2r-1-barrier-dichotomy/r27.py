@@ -9,13 +9,23 @@ solver, no external data.  Imports recursive.py and verify_range.py.
 THE ARGUMENT
 
 Suppose G is 27-critical with cr(G) < cr(K_27).  Then G has no subdivision of
-K_27 (cr(TK_27) = cr(K_27)), and by Sadhu arXiv:2609.01682 Thm 1.3 we have
-|G| in {53, 54} with H := complement(G) connected.
+K_27, since cr(TK_27) = cr(K_27).
 
-Step 1 (frontier; ledger height 2623).  Cranston arXiv:2512.08020 Lemma E gives
-e(G) >= n(r-1)/2 + (r-3), i.e. 713 at n = 53 and 726 at n = 54; recursive
-integer-aware sampling gives L(54,725) >= Z(27) and L(53,714) >= Z(27).  So
-order 54 is impossible and n = 53, m = 713.
+Step 1 (frontier; ledger height 2623).  The edge floor
+e(G) >= n(r-1)/2 + (r-3) is Barat-Toth Corollary 7 (Electronic Journal of
+Combinatorics 17 (2010) #R73), quoted by Cranston arXiv:2512.08020 as his
+Lemma E; it gives 713 at n = 53 and 726 at n = 54, and recursive integer-aware
+sampling gives L(54,725) >= Z(27) and L(53,714) >= Z(27).  So order 54 is
+impossible and n = 53, m = 713.
+
+  As originally written this step also invoked Sadhu arXiv:2609.01682 Thm 1.3
+  for |G| in {53,54} and for the connected complement.  That is NO LONGER
+  NEEDED: deps.py in this directory derives both from Barat-Toth Corollaries 5,
+  7 and 11 together with the ceiling and the Gallai join argument -- in
+  particular the complement must be connected at n = 53, because the
+  disconnected case admits no join decomposition inside the edge budget.  This
+  file still reads the order and the connectivity as given, so that it can be
+  checked on its own; deps.py supplies them.
 
 Step 2 (configuration; ledger height 2623).  H is factor-critical (Stehlik 2003
 at n = 2r-1) with theta(H) = 27, hence no conformal triangle.  The barrier

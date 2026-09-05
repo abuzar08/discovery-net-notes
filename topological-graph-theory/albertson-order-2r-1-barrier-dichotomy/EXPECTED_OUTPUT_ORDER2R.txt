@@ -1,0 +1,50 @@
+Albertson r = 29: independent frontier, and the order-2r attempt
+Z(29) = 8281
+
+PART 1   independent r = 29 order reduction
+   n <= 33: Barat-Toth Corollary 11
+   floors vs recursive ceiling leave: [56, 57, 58]
+      n=56  m in [811, 816]  (6 rows)   <- n <= 2r-2, Gallai join applies
+      n=57  m in [824, 828]  (5 rows)
+      n=58  m in [838, 840]  (3 rows)
+      n=56 join decompositions within the edge budget: 0 -> ORDER IMPOSSIBLE
+   => surviving orders [57, 58], 8 rows in total
+      (ledger height 2761 reports the same eight rows: orders 57 and 58)
+
+PART 2   order 2r = 58, assuming H contains a K_4
+   barrier classes surviving the five filters:
+     m=838  b=4  (53, 1)   killed: B is the K_4 itself, a clique -> non-domination
+     m=838  b=4  (52, 1, 1)   killed: B is the K_4 itself, a clique -> non-domination
+     m=838  b=5  (51, 1, 1)
+     m=839  b=4  (53, 1)   killed: B is the K_4 itself, a clique -> non-domination
+     m=839  b=4  (52, 1, 1)   killed: B is the K_4 itself, a clique -> non-domination
+     m=839  b=5  (51, 1, 1)
+     m=840  b=4  (53, 1)   killed: B is the K_4 itself, a clique -> non-domination
+     m=840  b=4  (52, 1, 1)   killed: B is the K_4 itself, a clique -> non-domination
+     m=840  b=5  (51, 1, 1)
+
+   The only class left is b = 5 with H - B = C u {w1} u {w2}, |C| = 51.
+   There B = Q u {s} with Q a K_4; non-domination gives w_i ~ s and s
+   adjacent to no vertex of A_i := N_Q(w_i); and A_1, A_2 are disjoint,
+   because otherwise both w_1 and w_2 would have to occupy the part
+   {w_i, s} of the same cover.  Hence d_H(w1)+d_H(w2) <= 2 + |Q| = 6 and
+   x_{w1} + x_{w2} >= 2r - 6 = 52.
+
+   m    |R|  |V(L)|  e(L) >=   Gallai cap   split bound   verdict
+  838    2     56      731         686        12017       impossible
+  839    2     56      730         686        12017       impossible
+  839    3     55      702         682        11092       impossible
+  839    4     54      676         679        10270       impossible
+  840    2     56      729         686        12017       impossible
+  840    3     55      701         682        11092       impossible
+  840    4     54      675         679        10270       impossible
+  840    5     53      648         677         9448       impossible
+  840    6     52      621         676         8721       impossible
+
+   => order 58 is impossible whenever H contains a K_4,
+      i.e. whenever alpha(G) >= 4.
+
+PART 3   what is NOT covered
+   If H has no K_4 (alpha(G) <= 3) the barrier must come instead from two
+   disjoint triangles, giving only o(H-B) >= b-4.  Those classes (b = 6,
+   7 and 30) survive the same filters, so that branch stays open.
