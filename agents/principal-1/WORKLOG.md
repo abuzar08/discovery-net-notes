@@ -267,3 +267,27 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 9)
 - Check whether r3 published the p=7 row from its own runs and whether 2717 was retracted or caveated. Check the n=11 total and whether r4 read Figure 15.1 and what its gates said. Watch r2's alpha(G) <= 3 triangle-free stability attempt. Check whether 1^12 3^10 or 1^2 5^8 landed for r1. Note whether 2711 Part A or 2621 finally drew a review.
+
+## 2026-09-05 22:15Z — pass 9 (window 21:12Z–22:15Z)
+
+### Operational failure (reported, not fixed — outside my read-only mandate)
+- **Discovery Net block production has halted.** Last block 2952 at 19:46:20Z. RPC responds, `catching_up` false, ledger reads fine; `dump_consensus_state` frozen at height 2953 round 0 step 4 (precommit wait) since 19:46:24Z, validator set 3, `n_peers` 0, 4 txs in the mempool. The node cannot reach a 2/3 quorum with no peers — the other validators are unreachable. Needs the human/orchestrator.
+- Four team contributions are accepted for broadcast but uncommitted and not citable: r4's narrowing theorem, r3's Theorem 6, r2's order-58 branch lemma, reviewer-1's review of 2933. Every agent detected the stall independently and none resubmitted; all recorded pending refs for a check-before-resubmit.
+- Committed graph unchanged from pass 8, so this assessment is from repository commits and agent reports.
+
+### Established
+- r4: **n=11 census complete** — 312,416,755 graphs, 24 two-crossing-critical, none with cr >= 3; acceptance criterion met exactly. A second BKQ counterexample suppresses to >= 12 vertices. Plus the structural narrowing (every 2-crossing-critical graph with cr >= 3 is 3-connected or one of BORS's 36; digonal paths consist of digons, so its own Lemma 2 gives cr = 2). Plus **Figure 15.1 read as directed**: 31 configurations in five groups (20,3,5,2,1), class map confirmed twice; the gate caught the first transcription because the configurations are multigraphs — which retro-corrects its own 2929 (that enumeration built simple graphs only). Revised branching 31, not 20: d <= 6 = 29 seeds ~47 core-hours.
+- r3: regenerated the four large-f p=7 types itself (1-3 s each) rather than citing the reviewer, giving **Theorem 6** (36 <= n <= 39: no automorphism of prime order p >= 5 except possibly 1^{n-35}5^7 or 1^{n-35}7^5, 59 certificates) and the **pk = 35 reduction** — every survivor's moved set is a (4,6,35)-graph with fixed-point-free sigma, one smaller question dominating all eight. Two instances in flight.
+- r2: order 58 at r=29 impossible when H has no two disjoint triangles (Stehlik + Cauchy-Schwarz + additivity of cr; 11092 vs Z(29)=8281, no barrier machinery). With 2933 the order-58 open set is a single branch: H K4-free with two disjoint triangles. Reported a clean negative (Turan cap closes nothing; b=30 short by 74).
+- reviewer-1: first review of the Albertson lane, chosen as the largest unreviewed gap; confirmed 2933, checked Stehlik/Barat-Toth against primary sources, validated the cover construction on 687,829 instances, recomputed the order-58 table under weaker assumptions (all nine rows still impossible), flagged one compressed load-bearing step in the disjointness argument.
+- r1: no theorem for a second window — slow, not stuck. Measured that refinement beats solver time (a cube unrefutable in 240 s under any preset splits into 0.1 s children); 1^2 5^8 reorganised into 5061 cubes, median 0.1 s, no timeouts; 1^12 3^10 at 976/1576 verified; cross-run verification bookkeeping so replayed-and-deleted certificates still count; scratch 14 GB -> 3.2 GB.
+
+### Report
+- `scratch/reports/20260905T221500Z.md`. Ranks: r2 1, r4 2, r3 3, r1 4 (r1 lowest recent return, explicitly slow not stuck). Balance at nominal thirds; no reallocation.
+- Directions: researcher-3 — drive the two fixed-point-free (4,6,35) instances to a verdict; if both refute publish Theorem 6 unconditional, with the pk=35 reduction stated separately as the reusable step; then state the p in {2,3} low-f frontier plainly instead of re-estimating it; verify its queued tx committed before resubmitting; CANDIDATES.md stays shelved. researcher-4 — transcribe the remaining (3,3) group of 20 under the same gates, file the multigraph correction to 2929 as its own contribution, then run d <= 6 only (~47 core-hours) as a resumable, .done-marked, acceptance-criterion-first job; no d=7, no cubic seed, no n=12; keep the n=11 ">= 12 vertices" consequence at the front of the write-up.
+
+### Blocked
+- The chain. Nothing publishes until block production resumes.
+
+### Next step (pass 10)
+- First: check whether the chain advanced past 2952 and whether the four queued transactions committed (and whether any agent duplicated a submission on recovery). Then: the (4,6,35) verdicts and whether Theorem 6 became unconditional; whether r4 transcribed the (3,3) group and started d <= 6; r2's b=30 class; whether 1^12 3^10 or 1^2 5^8 landed. Watch for a review of 2711 Part A or the inherited Albertson filter/ceiling machinery.
