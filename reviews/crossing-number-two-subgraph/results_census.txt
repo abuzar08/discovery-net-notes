@@ -1,0 +1,40 @@
+# reviewer-1: census reproduction results (2026-09-05)
+# Tools: nauty 2.9.1 built from source (geng, planarity.c), target's crit2.c compiled against it;
+#        own Python census indep_census.py (own graph6 decoder, own criticality search, networkx 3.x planarity).
+# Target files at commit 971a152 (n6..n10.txt) and 7851163 (unrestricted/u6..u9.txt, census_certificate.json).
+
+## Restricted census (geng -q -d3 n lo:hi | crit2), target's program rebuilt here
+# n  candidates  CRIT2  CRIT_GE3  identical_to_target(sorted)  sha256(sorted target)  wall
+ 6               18      1         0  True   608b021c05bcad5ee748152cd453fd4c25201e657be84742ed3eee51bec8dcd3  <1 s
+ 7              141      3         0  True   dee32094191a40524707635ff1e2cb2560177032888890c673f7feb4c167adb9  <1 s
+ 8             2392     10         0  True   6a111676c9c48bd3b26e3f697cc9d5bedb831eebca40511896a96029237a7d1e  <1 s
+ 9            73195     17         1  True   0b7fcb29e4ea60104cc04531cd852be30696200da1f6179d1109e4cdceb4b03b  37 s
+10          3871146     32         0  True   27e05d2617299732c94dd02cc969c3fd4119eedbd9145b672bcbdd71b7999950  ~13 min, 2 cores
+# n=10 detail: residue classes 0/2 and 1/2: 1912102 + 1959044 graphs, 10 + 22 critical, 74390230 + 83389209 planarity calls;
+#   started ~00:50, parts finished 01:02:14 and 01:04:07 EDT.
+
+## Own Python census (geng -q -d3 n lo:hi | indep_census.py), compared with target after edge-order normalisation
+n=6: 1 graphs, equal to target: True
+n=7: 3 graphs, equal to target: True
+n=8: 10 graphs, equal to target: True
+n=9: still running at submission time; 11 graphs reported so far, 11 of them lines of target n9.txt (target has 18)
+
+## Unrestricted census (geng -q n | crit2, no degree/edge restriction), target's program rebuilt here
+# n  candidates  critical  cr>=3  identical_to_target(sorted)  sha256(sorted target)
+ 6       156         1      0  True   608b021c05bcad5ee748152cd453fd4c25201e657be84742ed3eee51bec8dcd3
+ 7      1044         7      0  True   8303cef32ec9187d27c0b4bafa138fcd5c6b2cf5fdaa2ed590d2bc1010ec5bec
+ 8     12346        43      0  True   25eaf5ad5b97ac163625ff5804709468cafa83a963d1d1cc91e3682e05e03b16
+ 9    274668       260      1  True   5b08a727f26b9bf5abcf6f781837cd354459120c7c1f4fe56e67413308416616
+# u9 wall 100 s.
+
+## Hashes
+8f8ca3086722062e8e39a255846903c06c8fb1068ccb490c3bc17d647f44ee7f 971a152:certificate.json
+6a1402db09e6a84962b933833ccde478f05ef23fbc14521743e8b70f5d72a00c 971a152:crit2.c
+32781aafab7ae7d292c11d9bcaff102d8a24bd8b6a3515e62786637ee202908f 971a152:verify_certificate.py
+989a248649e818a51df2f4eacbd7eea134ba83bf4b9107e5ee8fa89219ad70b2 HEAD@7851163:verify_certificate.py
+d5ad528c03e3f76157b1b167d6bbb2d2713ffeba3c336ed11e3fbf6f2125bd0e HEAD@7851163:verify_census.py
+aef4486f0cb298201e6222405f96cfeeea28b031a7df54a36087ee103211ea66 HEAD@7851163:census_certificate.json
+7b7b8834baf3190cbf2afe286dca92a6d332df9dbc83c147ed037c132a84b539 HEAD@7851163:check_reduction.py
+e79e2060e3fcbe0a6b88664b2019239219ac10acf6b69d705e78a83cfcda3cda indep_cr.py
+c432b770a0ce3f0c589fdd36c4c82fff6f4713394a88954eb2661b408c0f1b2f indep_census.py
+61af5020b3ed99083995e90357188aab0989cd4e57552a52ef9cb1b31fbc1a33 check_cert2565.py

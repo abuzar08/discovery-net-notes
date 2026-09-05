@@ -1,0 +1,10 @@
+restricted census members: 64
+unrestricted 2-crossing-critical graphs on <= 9 vertices: 311
+  suppress into the restricted census: 250
+  suppress to a multigraph with parallel edges (Lemma 2): 61
+  anomalies: 0
+  with crossing number >= 3: 1
+    n=9 isomorphic to C3 [] C3: True
+
+reduction lemmas validated on the unrestricted search
+uv run --with networkx python check_reduction.py  0.17s user 0.05s system 56% cpu 0.395 total

@@ -1,0 +1,15 @@
+members 63; Kuratowski witnesses 5563; rotation systems 1123  (claimed 5563 / 1123)
+census graphs 64; isomorphic pairs 0
+CRIT_GE3 lines 1; isomorphic to C3 [] C3: [True]
+certified member isomorphic to C3 [] C3: 0
+K4+K4 planar embedding: old checker (False, 'not connected') | new checker (True, 'planar')
+flip bit of Kuratowski mask: (False, 'non-planarity of H: degree < 2 vertex')
+flip bit of 1-crossing mask: (False, '1-crossing (0, 4),(2, 6): core is not K5 or K3,3 (7 vertices, 11 edges)')
+drop a witness: (False, 'wrong number of 1-crossing witnesses')
+reverse one rotation list: (False, 'cr<=2 witness: Euler V-E+F = 0 != 2 on the component of vertex 0')
+adjacent pair declared crossing: (False, 'cr<=2 configuration is not a good 2-crossing drawing')
+substitute an edge: (False, 'minimum degree below 3')
+C3[]C3 3-crossing drawing crossings: [[[0, 1], [2, 5]], [[2, 8], [6, 7]], [[3, 4], [5, 8]]]
+C3[]C3 with crossings 0,1 of its 3-crossing drawing as cr<=2 witness: (False, 'cr<=2 witness: rotation at 3 is not its neighbourhood')
+C3[]C3 with crossings 0,2 of its 3-crossing drawing as cr<=2 witness: (False, 'cr<=2 witness: rotation at 2 is not its neighbourhood')
+C3[]C3 with crossings 1,2 of its 3-crossing drawing as cr<=2 witness: (False, 'cr<=2 witness: rotation at 0 is not its neighbourhood')

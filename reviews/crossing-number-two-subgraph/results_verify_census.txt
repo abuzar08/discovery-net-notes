@@ -1,0 +1,8 @@
+verified 63 members, each 2-crossing-critical with cr = 2
+    n =  6 : 1
+    n =  7 : 3
+    n =  8 : 10
+    n =  9 : 17
+    n = 10 : 32
+certified set equals the 63 `CRIT2` lines of 5 census files
+python3 verify_census.py census_certificate.json n6.txt n7.txt n8.txt n9.txt   0.15s user 0.01s system 98% cpu 0.155 total
