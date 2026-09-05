@@ -40,19 +40,6 @@
       "tag": "n36_f14_p11_k2"
     },
     {
-      "clauses": 286815,
-      "f": 15,
-      "k": 3,
-      "lrat_bytes": 390063322,
-      "lrat_sha256": "7d0bfaa3e6cfab534923b01679e8a0c72728ad732131db9d42d6f11831a55ed7",
-      "lrat_xz_bytes": -1,
-      "n": 36,
-      "orbit_vars": 180,
-      "p": 7,
-      "stored": false,
-      "tag": "n36_f15_p7_k3"
-    },
-    {
       "clauses": 112429,
       "f": 19,
       "k": 1,
@@ -66,19 +53,6 @@
       "tag": "n36_f19_p17_k1"
     },
     {
-      "clauses": 350685,
-      "f": 22,
-      "k": 2,
-      "lrat_bytes": 195462475,
-      "lrat_sha256": "d407a4e994de7285b8b850a1f2501cd7eb60b1075ba4a9cea7262d2302d76865",
-      "lrat_xz_bytes": -1,
-      "n": 36,
-      "orbit_vars": 288,
-      "p": 7,
-      "stored": false,
-      "tag": "n36_f22_p7_k2"
-    },
-    {
       "clauses": 112335,
       "f": 2,
       "k": 2,
@@ -90,32 +64,6 @@
       "p": 17,
       "stored": true,
       "tag": "n36_f2_p17_k2"
-    },
-    {
-      "clauses": 178227,
-      "f": 3,
-      "k": 3,
-      "lrat_bytes": 61992624,
-      "lrat_sha256": "26cb86247537ed9165309627d1fe43344dd992be7c29cdc38a064e996ec88e1d",
-      "lrat_xz_bytes": -1,
-      "n": 36,
-      "orbit_vars": 60,
-      "p": 11,
-      "stored": false,
-      "tag": "n36_f3_p11_k3"
-    },
-    {
-      "clauses": 282647,
-      "f": 8,
-      "k": 4,
-      "lrat_bytes": 122367793,
-      "lrat_sha256": "76d4ff905d8f103d4eae047159921fd829c96e7d97ad44fc61233ca9f720a812",
-      "lrat_xz_bytes": -1,
-      "n": 36,
-      "orbit_vars": 114,
-      "p": 7,
-      "stored": false,
-      "tag": "n36_f8_p7_k4"
     },
     {
       "clauses": 20196,
@@ -157,19 +105,6 @@
       "tag": "n37_f15_p11_k2"
     },
     {
-      "clauses": 344025,
-      "f": 16,
-      "k": 3,
-      "lrat_bytes": 339538951,
-      "lrat_sha256": "87a12c88ae50257919f9992b89e41a31f9bc230127a33e66bcf4256dbe11c809",
-      "lrat_xz_bytes": -1,
-      "n": 37,
-      "orbit_vars": 198,
-      "p": 7,
-      "stored": false,
-      "tag": "n37_f16_p7_k3"
-    },
-    {
       "clauses": 142450,
       "f": 20,
       "k": 1,
@@ -207,19 +142,6 @@
       "p": 11,
       "stored": true,
       "tag": "n37_f4_p11_k3"
-    },
-    {
-      "clauses": 337115,
-      "f": 9,
-      "k": 4,
-      "lrat_bytes": 130130195,
-      "lrat_sha256": "448abfd1a06cb086010be59fae6e292e41032848ad72ddbecc4bf62bb2f7f542",
-      "lrat_xz_bytes": -1,
-      "n": 37,
-      "orbit_vars": 126,
-      "p": 7,
-      "stored": false,
-      "tag": "n37_f9_p7_k4"
     },
     {
       "clauses": 143459,
@@ -403,6 +325,90 @@
       "p": 13,
       "stored": false,
       "tag": "cubes_n39_13_3"
+    },
+    {
+      "clauses": 286815,
+      "f": 15,
+      "k": 3,
+      "lrat_bytes": 390063322,
+      "lrat_present_locally": false,
+      "lrat_sha256": "7d0bfaa3e6cfab534923b01679e8a0c72728ad732131db9d42d6f11831a55ed7",
+      "lrat_xz_bytes": -1,
+      "n": 36,
+      "orbit_vars": 180,
+      "p": 7,
+      "stored": false,
+      "tag": "n36_f15_p7_k3"
+    },
+    {
+      "clauses": 350685,
+      "f": 22,
+      "k": 2,
+      "lrat_bytes": 195462475,
+      "lrat_present_locally": false,
+      "lrat_sha256": "d407a4e994de7285b8b850a1f2501cd7eb60b1075ba4a9cea7262d2302d76865",
+      "lrat_xz_bytes": -1,
+      "n": 36,
+      "orbit_vars": 288,
+      "p": 7,
+      "stored": false,
+      "tag": "n36_f22_p7_k2"
+    },
+    {
+      "clauses": 178227,
+      "f": 3,
+      "k": 3,
+      "lrat_bytes": 61992624,
+      "lrat_present_locally": false,
+      "lrat_sha256": "26cb86247537ed9165309627d1fe43344dd992be7c29cdc38a064e996ec88e1d",
+      "lrat_xz_bytes": -1,
+      "n": 36,
+      "orbit_vars": 60,
+      "p": 11,
+      "stored": false,
+      "tag": "n36_f3_p11_k3"
+    },
+    {
+      "clauses": 282647,
+      "f": 8,
+      "k": 4,
+      "lrat_bytes": 122367793,
+      "lrat_present_locally": false,
+      "lrat_sha256": "76d4ff905d8f103d4eae047159921fd829c96e7d97ad44fc61233ca9f720a812",
+      "lrat_xz_bytes": -1,
+      "n": 36,
+      "orbit_vars": 114,
+      "p": 7,
+      "stored": false,
+      "tag": "n36_f8_p7_k4"
+    },
+    {
+      "clauses": 344025,
+      "f": 16,
+      "k": 3,
+      "lrat_bytes": 339538951,
+      "lrat_present_locally": false,
+      "lrat_sha256": "87a12c88ae50257919f9992b89e41a31f9bc230127a33e66bcf4256dbe11c809",
+      "lrat_xz_bytes": -1,
+      "n": 37,
+      "orbit_vars": 198,
+      "p": 7,
+      "stored": false,
+      "tag": "n37_f16_p7_k3"
+    },
+    {
+      "clauses": 337115,
+      "f": 9,
+      "k": 4,
+      "lrat_bytes": 130130195,
+      "lrat_present_locally": false,
+      "lrat_sha256": "448abfd1a06cb086010be59fae6e292e41032848ad72ddbecc4bf62bb2f7f542",
+      "lrat_xz_bytes": -1,
+      "n": 37,
+      "orbit_vars": 126,
+      "p": 7,
+      "stored": false,
+      "tag": "n37_f9_p7_k4"
     }
   ],
   "cube_certificates": [
