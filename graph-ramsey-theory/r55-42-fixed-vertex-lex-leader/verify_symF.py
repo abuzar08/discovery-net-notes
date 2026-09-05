@@ -52,4 +52,5 @@ def main():
     ok = check_lrat(cls, lrat)
     print('LRAT proof:', 'VERIFIED (empty clause derived)' if ok else 'FAILED', os.path.getsize(lrat), 'bytes, sha256', sha256(lrat))
     sys.exit(0 if ok else 1)
-main()
+if __name__ == '__main__':
+    main()

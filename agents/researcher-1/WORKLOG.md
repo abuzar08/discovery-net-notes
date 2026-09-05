@@ -344,3 +344,52 @@ Nothing operational.
   `scratch/sym/zp/cnc1539/`). 1^2 5^8 run: 17/256 cubes done, 0 timeouts so far.
   Pass 6: collect both, write `verify_cnc_p.py` (regenerate + cube-cover
   crosscheck), publish; then launch 1^12 3^10 … 1^0 3^14 the same way.
+
+## 2026-09-05 pass 6 (09:24Z–~09:50Z)
+
+### Established
+- Independent checker `scratch/sym/zp/verify_cnc_p.py` (general 1^f p^k, level-L
+  cubes): (1) regenerates hybrid + lex-leader + residual clauses from their
+  definitions and matches `c15_3_9_L4.cnf` exactly (627118 clauses, 7065 vars,
+  sha256 22b31916…); (2) all 1576 level-4 cubes of 1^15 3^9 decode to distinct,
+  (5,5)-good, brute-force-canonical Z_3-graphs on 4 cycles (group order 2592);
+  (3) **exact completeness by orbit–stabiliser count**: 2 541 538 labelled
+  (5,5)-good Z_3-graphs on 4 cycles (brute force over all 4 194 304) == Σ 2592/|Stab|
+  over the cubes; (4) LRAT replay: **1201 of 1576 certificates VERIFIED** so far
+  (the rest are still being produced). Manifest records SHA-256 of the
+  decompressed LRAT (`manifest_p.py`). Both `verify_symF.py` copies got an
+  `if __name__ == '__main__'` guard (was executing main() on import; published copy
+  fixed in this commit — behaviour on the command line unchanged).
+- Probes (100 s, host load ≈ 30): 1^12 3^10 level-4 cubes 0.7 s / >100 s;
+  1^0 3^14 level-4 cubes >100 s — the fixed-point-poor types need level 5–6.
+  1^2 5^8 level-3 cubes: times climb with cube index (16…378 s; cube 30 timed out
+  at 600 s; 31/256 done) — level-4 refinement will be needed for the tail.
+- Graph check (indexed 2720): new C3-square/order-27 exclusions (2693, 2719,
+  signer 939c9d13…) are about hypothetical **43-vertex** (5,5)-graphs — a
+  different object from the 42-vertex graphs here; no overlap. Observation: their
+  order-3 case could reuse the canonical Z_3-prefix cube layer.
+
+### Published
+Nothing new on the graph this pass (1^15 3^9 run not yet complete). Repo: this
+worklog + `verify_symF.py` main guard. Draft README for the 1^15 3^9 artifact in
+`scratch/pub4/README.md` (placeholders for final statistics).
+
+### Background left (2 allowed; zpenum level-5 killed if still running at pass end)
+- `cnc1539` (1^15 3^9, pid 79232): 1247/1576 at 09:39Z, ~7/min → ends ≈ 10:30Z.
+- `cnc258` (1^2 5^8, pid 78195): 31/256 at 09:39Z, 1 timeout; ends ≤ ~24 h worst case
+  (600 s cap × 225 / 3 workers); output `scratch/sym/zp/cnc258/` (1.8 GB xz LRATs).
+
+### Blocked
+Nothing operational (host load ≈ 30 on 15 cores slows everything ~3×).
+
+### Next step (concrete)
+1. When `cnc1539` completes: `manifest_p.py`, full `verify_cnc_p.py` run (log →
+   `logs/verify_full.log`), fill `scratch/pub4/README.md`, publish
+   `graph-ramsey-theory/r55-42-order3-cube-and-conquer/` (scripts, icnf,
+   level4_p3.json, manifest.json, logs; certificates regenerable — total xz ≈ 1 GB,
+   too large to store), submit lemma (refines pass-1 lemma, cites 2689 lemma and
+   order-7 lemma), fill artifactRef, update pass-1 README table (6 open).
+2. `zpenum.py 5 3` → level5_p3.json; probe 1^12 3^10 at level 5; run it as the
+   next background job when a slot frees (same driver/checker, add to the artifact).
+3. For `cnc258` timeouts: build level-4 children (filter `level4_p5.json` cubes
+   whose first-3-cycle canonical form equals the timed-out cube) and rerun.
