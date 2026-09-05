@@ -148,6 +148,11 @@ claim.
   cover number of the complement do not appear in Cranston (arXiv:2512.08020)
   or in Sadhu (arXiv:2609.01682).  "Apparently new to the searched sources."
 
+## Discovery Net
+
+This directory backs contribution `bafkreigq45vyowvg6vn62apr6xv5orshf3k4jybmft3ypqfjah6tntc4eq`
+(kind `lemma`, committed at indexed height 2540 on chain `discovery-net`).
+
 ## Reproduction
 
 ```
