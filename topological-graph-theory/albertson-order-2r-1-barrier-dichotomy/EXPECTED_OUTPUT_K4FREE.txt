@@ -1,0 +1,42 @@
+Albertson order 58 at r = 29: the last branch (H K_4-free with two
+disjoint triangles), closed by Gallai low-vertex blocks.
+Z(29) = 8281   (Hill's number, an upper bound on cr(K_29))
+
+PART 1   maximum edges of a Gallai forest, and what 377 edges force
+   A low vertex has d_G = r-1 = 28, so every clique block through it
+   has order <= r = 29.
+      maxgallai(30, 15) = 211
+      maxgallai(30, 20) = 245
+      maxgallai(30, 25) = 315
+      maxgallai(30, 27) = 357
+      maxgallai(30, 28) = 381
+      maxgallai(30, 29) = 407
+   So a Gallai forest on 30 vertices with more than 357 edges must
+   contain a clique block of order >= 28, worth cr(K_28) = 6471.
+
+PART 2   the branch WITHOUT the Gallai term (the pass-10 state)
+   m=838: 4 surviving classes [(6, (51, 1), 4517), (6, (50, 1, 1), 5127), (7, (49, 1, 1), 4629), (30, (3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), 8207)]
+   m=839: 4 surviving classes [(6, (51, 1), 4494), (6, (50, 1, 1), 5102), (7, (49, 1, 1), 4605), (30, (3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), 8172)]
+   m=840: 4 surviving classes [(6, (51, 1), 4470), (6, (50, 1, 1), 5077), (7, (49, 1, 1), 4581), (30, (3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), 8136)]
+
+PART 3   the same branch WITH the Gallai term
+   m=838: 3 surviving classes [(6, (51, 1), 4517), (6, (50, 1, 1), 5127), (7, (49, 1, 1), 4629)]
+   m=839: 3 surviving classes [(6, (51, 1), 4494), (6, (50, 1, 1), 5102), (7, (49, 1, 1), 4605)]
+   m=840: 3 surviving classes [(6, (51, 1), 4470), (6, (50, 1, 1), 5077), (7, (49, 1, 1), 4581)]
+
+PART 4   the b = 30 class in detail, at m = 838
+   c=(3, 1, 1)+1^23  minimiser Y=48, e(H[B])=54, sum_C e(H[C])=3
+      B: 26 low vertices carry >= 265 edges -> clique K_24, cr = 3357
+      D: -20 low vertices carry >= -921 edges -> clique K_1, cr = 0
+      split bound 8354 against Z(29) = 8281
+   c=(2, 1, 1)+1^24  minimiser Y=48, e(H[B])=52, sum_C e(H[C])=1
+      B: 26 low vertices carry >= 267 edges -> clique K_24, cr = 3357
+      D: -20 low vertices carry >= -919 edges -> clique K_1, cr = 0
+      split bound 9252 against Z(29) = 8281
+   c=(1, 1, 1)+1^25  minimiser Y=48, e(H[B])=51, sum_C e(H[C])=0
+      B: 26 low vertices carry >= 268 edges -> clique K_24, cr = 3357
+      D: -20 low vertices carry >= -918 edges -> clique K_1, cr = 0
+      split bound 10215 against Z(29) = 8281
+
+CONCLUSION
+   The Gallai term does not close the branch; classes survive above.

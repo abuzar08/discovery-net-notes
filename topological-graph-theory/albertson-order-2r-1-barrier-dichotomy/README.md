@@ -429,21 +429,80 @@ against `Z(29) = 8281`.  A margin of `11092` versus `8281` — not a near miss.
 The same holds for `m = 838, 839, 840`.  This argument uses no barrier machinery
 at all: only Stehlík, Cauchy–Schwarz and additivity of the crossing number.
 
-*Not covered.*  Exactly one branch of order 58 remains: `H` is `K_4`-free **and**
-has two disjoint triangles.  There the barrier gives only `o(H-B) >= b-4`.
-Adding the Turán cap `e(H[C]) <= floor(|C|^2/3)` for every `K_4`-free component
-of `H - B` raises every class but closes none: four classes survive per row, the
-tightest being `b = 30` with `(3,1^25)`.
+**The last branch: `b >= 8` closed by Gallai blocks inside the barrier (new).**
+Exactly one branch of order 58 remained: `H` is `K_4`-free **and** has two
+disjoint triangles.  There `B` contains `T_1 u T_2`, so the barrier only gives
+`o(H-B) >= b-4`, which lets `b` run to 30.  `k4free.py` closes every class with
+`b >= 8`.
 
-| `m` | tightest surviving split bound | `Z(29)` | short by |
-|---|---|---|---|
-| 838 | 8207 | 8281 | 74 |
-| 839 | 8172 | 8281 | 109 |
-| 840 | 8136 | 8281 | 145 |
+*The excess split.*  With `x_v := d_G(v) - 28 = 29 - d_H(v) >= 0` and
+`Y := sum_{v in D} x_v` (so `B` carries `X - Y`), at most `X - Y` vertices of `B`
+are non-low, hence `G` restricted to the low vertices of `B` is a Gallai forest
+on at least `b - (X-Y)` vertices carrying at least `e(G[B]) - (X-Y)(b-1)` edges.
 
-The `b = 6` and `b = 7` classes are much further off (about 4500 to 5100), so the
-`b = 30` row is where any further gain has to come from.  `order2r.py` reports
-this rather than hiding it.
+*Maximum edges of a Gallai forest.*  Every component is a block tree, so
+`sum_i (|Q_i| - 1) <= p - 1`; odd cycles carry fewer edges than cliques of the
+same order, and `t -> C(t+1,2)` is convex, so
+
+    maxgallai(p, q) = k*C(q,2) + C(rem+1, 2),   k = floor((p-1)/(q-1)),
+                                                rem = (p-1) - k(q-1)
+
+is the maximum on `p` vertices with all blocks of order `<= q`.  A low vertex has
+`d_G = 28`, so its blocks have order `<= 29`.  Then `maxgallai(30, 27) = 357`
+while the minimiser forces 377 edges on 30 low vertices — so a **clique block of
+order at least 28** is forced, worth `cr(K_28) = 6471`, and it lies inside `B`,
+disjoint from `D`.  The split bound jumps from 8207 to:
+
+| `m` | b=30 split bound, was | with Gallai | `Z(29)` | verdict |
+|---|---|---|---|---|
+| 838 | 8207 | 8354 | 8281 | impossible |
+| 839 | 8172 | 8317 | 8281 | impossible |
+| 840 | 8136 | 8281 | 8281 | impossible |
+
+*The threshold is `>=`, not `>`.*  A counterexample has
+`cr(G) < cr(K_29) <= Z(29) = 8281` with both sides integers, so `cr(G) <= 8280`
+and a lower bound of exactly 8281 is already a contradiction.  The earlier files
+here use the conservative test "excluded when `> Z`", which reopens nothing, but
+the `m = 840` row lands exactly on 8281 and needs the correct threshold.
+
+*A `K_4`-free sharpening, used throughout.*  `B` contains the disjoint triangles
+`T_1, T_2`.  A vertex adjacent to all three of some `T_i` would complete a `K_4`,
+so every vertex outside `B` has at most `b - 2` neighbours in `B`, and a vertex
+in a component of size `s` of `H - B` satisfies `x_v >= r + 3 - s - b` — one
+better than before.  For a singleton at `b = 6` it gives `x_w >= 25`, not 23.
+
+> **Order 58 at `r = 29` is impossible whenever `H` contains a `K_4`, whenever
+> `H` has no two disjoint triangles, or whenever the barrier has `b >= 8`.**
+
+*Not covered.*  Three classes survive, all with `B` barely larger than
+`T_1 u T_2`: `b = 6` with `(51,1)` and `(50,1,1)`, and `b = 7` with `(49,1,1)`,
+at split bounds 4424–5127 against 8281.  These are not near misses — `B` is too
+small for a Gallai argument — so `descent.py` attacks them from inside the big
+component `C` and reports two reductions plus a negative result.
+
+**Clique-cover transfer (new).**  `theta(H) <= theta(H[C]) + theta(H - C)`, and
+for `c = (51,1)` the set `H - C = B u {w}` is covered by `T_1, T_2, {w}`, so
+`theta(H[C]) >= 26` with `|C| = 51 = 2*26 - 1`.  Since a cover of `H[C]` by `t`
+triangles, `e` edges and `s` singletons has size `51 - 2t - e`, this says exactly
+`2t + e <= 25` for every packing — and a triangle plus a perfect matching of the
+rest costs `2 + 24 = 26`.  So **`H[C]` has no conformal triangle**: the same
+condition that drives the order-`2r-1` theory above reappears one level down, on
+`2*26 - 1` vertices.  Parity is essential, so the transfer reaches the `(51,1)`
+class only; `(50,1,1)` gives `theta >= 25` with `|C|` even, and `(49,1,1)` gives
+`theta >= 24`, which forbids nothing.
+
+*Negative result.*  Tutte then gives a second-level barrier `S` inside `C - T`
+with `o(H[C]-T-S) >= |S|+2`, and its components together with `{w}` are pairwise
+completely joined in `G`.  The excess filter (`x_v >= 24 - n_i - s`) and the
+Kleitman bipartition filter cut the admissible second-level barriers from 68 per
+row to **five**, in three families — but not to zero.  The survivors are `s = 0`
+with sizes `(47,1)` (the self-similar descent case: `C` shrinks by 4 while
+`theta` drops by 2, so the transfer reapplies verbatim and never terminates
+inside the excess budget), and `s = 22, 23` with ~25 isolated vertices, where a
+lone vertex costs `max(0, 24-1-s) = 0` and 26 parts give only `cr(K_26) = 4724`.
+Closing these needs a bound on how large a Tutte barrier of a graph with
+`theta(H[C]) >= 26` and `Delta(H) <= 29` can be — a matching-theory question, not
+a crossing-number one.
 
 `order2r.py` also reproduces the eight-row `r = 29` frontier of ledger height
 2761 independently: the floors against the recursive ceiling leave orders 56, 57

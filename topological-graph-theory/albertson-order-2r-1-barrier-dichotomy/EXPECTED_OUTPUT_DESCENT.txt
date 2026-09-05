@@ -1,0 +1,59 @@
+Albertson order 58 at r = 29: the three b <= 7 classes
+Z(29) = 8281;  a counterexample has cr(G) <= 8280
+
+PART 1   which classes inherit a usable clique-cover bound
+   b=6 c=(51, 1):    |C|=51, H-C is 7 vertices covered by 3 cliques,
+        theta(H[C]) >= 26, so every packing has 2t + e <= 25;
+        triangle + perfect matching of the rest costs 26  -> FORBIDDEN, transfer usable
+   b=6 c=(50, 1, 1): |C|=50, H-C is 8 vertices covered by 4 cliques,
+        theta(H[C]) >= 25, so every packing has 2t + e <= 25;
+        |C| is even, so C - T is odd and has no perfect
+        matching for trivial reasons  -> no transfer
+   b=7 c=(49, 1, 1): |C|=49, H-C is 9 vertices covered by 5 cliques,
+        theta(H[C]) >= 24, so every packing has 2t + e <= 25;
+        triangle + perfect matching of the rest costs 25  -> allowed, no transfer
+
+PART 2   the (51,1) class: second-level barriers surviving both filters
+   m=838 (X=52): 5 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 52
+        s=22 :   3 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 52
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 52
+   m=839 (X=54): 5 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 54
+        s=22 :   3 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 54
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 54
+   m=840 (X=56): 5 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 56
+        s=22 :   3 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 56
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 56
+
+PART 3   why they survive
+   Family A (s = 0, sizes (47,1)): the lone vertex costs 24-1-0 = 23
+   and w costs 25, total 48 <= 52, and K_{1,47} forces no crossings.
+   This is the descent case -- C shrinks by 4 while theta drops by 2,
+   so the transfer reapplies verbatim on 47 = 2*24 - 1 vertices.  The
+   descent is self-similar and does not terminate inside the budget.
+   Families B (s = 22, sizes (3,1^23) and neighbours, cost 48) and
+   C (s = 23, all 25 remaining vertices isolated, cost 25): once s is
+   that large a lone vertex costs only max(0, 24 - 1 - s) = 0, so the
+   excess filter is silent, and 26 parts give only cr(K_26) = 4724.
+   Killing these needs a bound on how big a Tutte barrier of a graph
+   with theta(H[C]) >= 26 and Delta(H) <= 29 can be -- not a crossing
+   bound.  That is the open problem.
+
+   Kleitman bipartite bound on a 48-vertex split, for reference:
+      cr(K_{24,24}) >=  14572   kills
+      cr(K_{20,28}) >=  13832   kills
+      cr(K_{16,32}) >=  11520   kills
+      cr(K_{14,34}) >=   9900   kills
+      cr(K_{12,36}) >=   8078   survives
+      cr(K_{ 8,40}) >=   4256   survives
+      cr(K_{ 4,44}) >=    756   survives
+      cr(K_{ 1,47}) >=      0   survives
+
+CONCLUSION
+   Reduction 1 puts the no-conformal-triangle condition back on the
+   table one level down, and Reduction 2 raises every singleton's
+   excess by two, but the excess and bipartition filters together do
+   NOT close the (51,1) class, and the other two classes do not even
+   inherit the transfer.  The three b <= 7 classes remain open.
