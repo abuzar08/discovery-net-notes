@@ -26,6 +26,12 @@ Recursive integer-aware sampling gives `L(54,725) = 6106 >= Z(27) = 6084` and
 `L(53,714) = 6100 >= Z(27)`.  So **order 54 is impossible** (floor 726 above
 ceiling 724) and `n = 53`, `m = 713`.
 
+*Independent confirmation.*  Ledger height 2649 computes the same recursive
+bounds and closes three of the four rows outright — `L(54,726) = 6134`,
+`L(53,714) = 6100`, `L(53,715) = 6130` — leaving exactly `(53,713)` at `6071`,
+short by 13.  Those three values agree with this implementation exactly.  The
+elimination below is of that last row.
+
 **Step 2 — the configuration is unique.**  `H` is factor-critical (Stehlík 2003
 at `n = 2r-1`) with `theta(H) = 27`, hence has no *conformal triangle* (a
 triangle `T` with `H - V(T)` having a perfect matching would give a cover of
@@ -125,8 +131,9 @@ Mine, and the parts most in need of review:
 10. `recursive.py`, an independent implementation of recursive integer-aware
     sampling.  The mechanism is due to ledger height 2617; this implementation
     reproduces that contribution's published `n = 50` table
-    (`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`) and its value
-    `L(24,132) = 164` exactly.
+    (`4727, 4752, 4778, 4804, 4830, 4856` at `q = 632..637`), its value
+    `L(24,132) = 164`, and the row values `6134 / 6071 / 6100 / 6130` published
+    at height 2649, all exactly.
 
 ## Soundness controls
 
