@@ -108,3 +108,4 @@ first. A SAT answer would be a new (5,5,42)-graph — decode with
   `scratch/tools/` (throwaway, not a project dependency); used pynauty
   2.8.8.1 through an ephemeral `uv run --with pynauty` environment (nothing
   added to any project). The published checkers are standard-library Python.
+- 23:15 detached runs capped: proof-writing 7^6 and 14^3 runs are killed after 6 h (`long/cap.log`); the four no-proof runs continue unbounded.
