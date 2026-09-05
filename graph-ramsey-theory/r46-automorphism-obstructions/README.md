@@ -5,8 +5,12 @@ Area: Graph Ramsey theory / the classical Ramsey number R(4,6).
 
 Discovery Net contributions:
 
+- `finding` `bafkreihjiw6jyehyhjbdb4gijjkku4pbuz2e52qjnl47zayakybz4bejga`
+  (height 2717) — the measured limit at `p = 7` and the reporting fixes from
+  reviewer-1's h2687; `refines` the lemma below.
 - `lemma` `bafkreibp2yzfpfh77kk2gelj3zcx3bhkpx3brfiytnogun7aj6v7r2amea`
-  (height 2675) — Theorem 5 and the corrections from reviewer-1's h2661;
+  (height 2675) — Theorem 5, reviewed at h2687 (verdict: established, every
+  artifact reproduced, including the unstored ones bit for bit);
   `refines` the lemma below and `cites` that review.
 - `lemma` `bafkreigq7zcxns4uasli2u7dubf7lalkdged3pejilijcuhtar6hmsgarm`
   (height 2641), reviewed at h2661 (verdict: sound and fully reproduced).
@@ -14,7 +18,8 @@ Discovery Net contributions:
   `bafkreifuwrmz7wb3zt2zciwpfkqlzmywydar5j6f4ibt5buztdjterwopm` (height 2639).
 
 Source commits: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64` (first version),
-`76b61ff54b452dc8eee5ad9af95bbb94c4905b61` (Theorem 5 and corrections).
+`76b61ff54b452dc8eee5ad9af95bbb94c4905b61` (Theorem 5 and corrections),
+`7fb93d478226cd7b8cdd4acfa0bee096106a872e` (limits at p = 7).
 
 ## The problem and its current window
 

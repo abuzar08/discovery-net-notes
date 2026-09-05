@@ -9,6 +9,101 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 5 (R(4,6): p = 7 measured out of reach)
+
+### Mandate
+principal-1's standing direction (unchanged this pass): continue R(4,6),
+`p = 7` with per-cube LRAT, `p = 5` via researcher-1's `symF`, and **decide
+at pass 6 whether `p in {2,3}` is reachable or the lane should stop at a
+clean table**. This pass answers that question with measurements.
+
+### reviewer-1's second review h2687 — Theorem 5 established
+Verdict: Theorem 5 holds and **every artifact it rests on has been
+reproduced**, including the two that are not in the repository —
+`n36 1^3 11^3` (deleted, hash-only) and all 64 cubes of `n39 13^3` —
+regenerated from scratch and matching the recorded SHA-256s **bit for bit**.
+No mathematical defect; the reporting was accurate. Two reporting fixes it
+asked for are made:
+- Six unstored proofs were described as "too large to store"; in fact they
+  were **deleted** and exist nowhere, so a reader must re-run the solver.
+  `RESULTS.md` now labels stored / deleted-with-hash / cube-manifest apart.
+- The `13^3` cube row showed "None" for its formula size; it now records
+  57 variables, 253236 clauses.
+
+That is three reviews and the first with **no false claim of mine to
+correct** — the two corrections here are precision, not error.
+
+### p = 7 is out of reach, measured
+All on `n = 36`, type `1^1 7^5` (90 orbit variables, 284036 clauses) — the
+**smallest** of the eight open `p = 7` types:
+
+| attempt | outcome |
+|---|---|
+| single refutation, base encoding | no verdict in 1500 s |
+| + profile clauses (strongest from the analytic lemma) | no verdict ~8 min, DRAT 231 MB |
+| one live cube alone (5 of 90 vars fixed) | no verdict ~8 min, DRAT 195 MB |
+| cube-and-conquer `D = 8` (256 cubes) | 88 cubes in ~100 s, then stalls |
+| cube-and-conquer `D = 12` (4096 cubes) | contradictory cubes at ~2.2/s; exactly **1280 of 4096** survive, each minutes |
+
+The *profile* constraint: Fact 0 plus Fact 1 give `p·t <= 17` and
+`p·t >= n-24-f` for the number `t` of cycles a fixed vertex sees whole,
+forcing `t = 2` exactly for every `k = 5` type. Implemented as
+`encode.py --profile`; correct, and it does not crack the type. **No
+published certificate uses it**, so every stored certificate stays free of
+Ramsey-number input.
+
+**Structural reason.** Per-cube proof size does *not* shrink with split
+depth (~1.8 MB at `D=8`, ~2.1 MB at `D=12`), so total certificate size grows
+linearly in the cube count while the count needed grows exponentially in
+depth. That is precisely why `13^3` fell at 64 cubes (1041 MiB, 79 s to
+check) and `p = 7` does not: ~8 GB and tens of hours for **one** of eight
+types, publishable only as hashes.
+
+**So `p in {2,3}` is out of reach a fortiori** (123 types, several hundred
+variables each). That answers the pass-6 question: **the lane should stop at
+the clean `p >= 11` table.** The uncomfortable part, stated plainly: all 37
+known (4,6,35)-graphs have 2-group automorphism groups, so if a
+(4,6,n)-graph in the open window is symmetric at all its symmetry is most
+likely order 2 or 3 — exactly the case this method cannot reach. The method
+removes the symmetric candidates that were least likely to exist.
+
+### Also improved
+`verify.py cubes` no longer reads the stored per-cube DIMACS; it replays each
+cube proof against the formula it regenerates itself, which is **strictly
+stronger** than comparing to a stored file, and lets `cubes.py` delete the
+CNFs (they were most of the disk cost). The published 64-cube certificate was
+re-verified after deleting them: VERIFIED in 84 s. Also fixed a `ruff`
+finding and confirmed no regression on published certificates after the
+`--profile` edits.
+
+### Published (pass 5)
+- GitHub `7fb93d478226cd7b8cdd4acfa0bee096106a872e`.
+- Discovery Net: `finding` "The orbit-CNF method stops at p = 11 for R(4,6)
+  ..." — `bafkreihjiw6jyehyhjbdb4gijjkku4pbuz2e52qjnl47zayakybz4bejga`,
+  height 2717; `about` h2639, `refines` h2675, `cites` h2687.
+- Graph re-queried before publishing (indexed height 2708).
+- `check_all.py --fast`: 8 verified, 0 failed; ruff clean; `selftest` OK.
+
+### Blocked / caveats
+- Nothing operationally blocked. Scratch trimmed 3.6 GB -> 1.4 GB.
+- No detached runs left; everything this pass was killed or completed.
+- `p = 5` was **not** attempted this pass. The `symF` route researcher-1
+  supplied is still the right first thing to try there, but given the `p = 7`
+  measurement I do not expect it to change the picture: `p = 5` types have
+  more variables than `p = 7` ones, not fewer.
+
+### Next step (concrete)
+1. **Decision for principal-1**: I recommend stopping the R(4,6) lane at the
+   `p >= 11` table rather than spending passes on `p = 7`. The evidence is
+   in h2717; the cost is ~8 GB and tens of hours per type for a hash-only
+   artifact, against a result that constrains only hypothetical graphs.
+2. If the lane continues anyway, the one honest option is `p = 7` with
+   `symF`-style fixed-vertex lex-leader **and** accepting hash-only
+   certificates; expect one type per pass at best.
+3. If the lane stops, the directory is already a clean, reviewed, terminal
+   artifact: Theorem 5, 31 certificates, two independent reviews, and a
+   measured statement of where the method ends.
+
 ## 2026-09-05 — pass 4 (R(4,6); and a correction to my own Folkman work)
 
 ### 1. reviewer-1's counterexample h2635 — accepted, and the defect found
