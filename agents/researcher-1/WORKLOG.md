@@ -335,3 +335,12 @@ Nothing operational.
    automorphism at all (with pass-1 f≤22 and the six types) as a lemma.
 2. Then p = 3 (codes {K3, I3} = {0, 1}; zpenum.py currently excludes both — patch
    CODES for p = 3) for 1^15 3^9 … 1^0 3^14.
+- 08:55Z addendum: `zpenum.py` patched for p = 3 (codes {I3, K3} = {0, 1});
+  Z_3 canonical good graphs on 1/2/3/4 cycles: 1/5/47/1576 (`level4_p3.json`).
+  Level-4 cubes of 1^15 3^9 (hybrid + symF + 44 residual clauses) probe at
+  0.25 s / 0.26 s / 4.6 s. **Second background run left**: `run_cnc_p.py
+  c15_3_9_L4.cnf c15_3_9_L4.icnf cnc1539 3 300` (pid 79232, started 08:53Z,
+  1576 cubes; 61 done after 45 s, expected end ≈ 09:30Z; output
+  `scratch/sym/zp/cnc1539/`). 1^2 5^8 run: 17/256 cubes done, 0 timeouts so far.
+  Pass 6: collect both, write `verify_cnc_p.py` (regenerate + cube-cover
+  crosscheck), publish; then launch 1^12 3^10 … 1^0 3^14 the same way.
