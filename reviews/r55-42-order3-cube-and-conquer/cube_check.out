@@ -1,0 +1,6 @@
+1576 cubes decoded on my own orbit numbering; each fixes exactly the 22 prefix variables
+goodness (no K5, no I5 on 12 vertices): 1576/1576 good
+8 generators: coordinate action derived and validated against the explicit vertex action on 12 vertices
+orbits: pairwise disjoint, sizes 2..2592, total 2541538 labelled prefixes
+exhaustive enumeration: 2541538 (5,5)-good labelled prefixes out of 4194304
+COMPLETENESS OK: the union of the 1576 orbits is exactly the set of good labelled prefixes

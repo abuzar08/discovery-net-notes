@@ -1,0 +1,17 @@
+42 redundant constraints in hybrid.py's manifest (1254 literal slots)
+  swap cycles 0,1: constraint list invariant: True
+  cycle 0->1->2->3->0: constraint list invariant: True
+  rotate cycle 0: constraint list invariant: True
+  rotate cycle 1: constraint list invariant: True
+  rotate cycle 2: constraint list invariant: True
+  rotate cycle 3: constraint list invariant: True
+  rotate free cycle 4: constraint list invariant: True
+  rotate free cycle 5: constraint list invariant: True
+  rotate free cycle 6: constraint list invariant: True
+  rotate free cycle 7: constraint list invariant: True
+  rotate free cycle 8: constraint list invariant: True
+  swap free cycles 4,5: constraint list invariant: True
+  swap fixed vertices 0,1: constraint list invariant: True
+  i -> 2i (all cycles): constraint list invariant: True
+  complement: constraint list invariant: True
+HYBRID CONSTRAINT INVARIANCE OK

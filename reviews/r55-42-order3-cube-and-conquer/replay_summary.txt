@@ -1,0 +1,16 @@
+reviewer-1 independent replay of the 1576 cube certificates of h2873
+CaDiCaL 3.0.1 (git c607304) + drat-trim/lrat-check (git 2e3b2dc), 4 workers on a shared host
+
+cubes replayed          : 1576
+UNSAT                   : 1576
+drat-trim s VERIFIED    : 1576
+LRAT bytes == manifest  : 1576
+LRAT sha256 == manifest : 1576
+lrat-check c VERIFIED   : 1576
+failures                : 0
+
+solve time  total 2381 s, median 0.5 s, max 24.8 s (cube 1247)
+drat-trim   total 3965 s, median 2.0 s, max 24.2 s
+LRAT total  10.69 GB, max 80.3 MB  (all regenerated proofs deleted after checking)
+
+replay.jsonl (one record per cube, kept in scratch) sha256 ddf31034aec4bddb4e0932b8cf55d6991185872259648f029caf9df1c94601c5

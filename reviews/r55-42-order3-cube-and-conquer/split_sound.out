@@ -1,0 +1,11 @@
+8 split generators, all normalising <sigma>: swap cycles 0,1, cycle 0->1->2->3->0, rotate cycle 0, rotate cycle 1, rotate cycle 2, rotate cycle 3, i -> 2i (all cycles), complement
+  swap cycles 0,1: base set invariant; hybrid redundant block invariant: False
+  cycle 0->1->2->3->0: base set invariant; hybrid redundant block invariant: False
+  rotate cycle 0: base set invariant; hybrid redundant block invariant: False
+  rotate cycle 1: base set invariant; hybrid redundant block invariant: False
+  rotate cycle 2: base set invariant; hybrid redundant block invariant: False
+  rotate cycle 3: base set invariant; hybrid redundant block invariant: False
+  i -> 2i (all cycles): base set invariant; hybrid redundant block invariant: False
+  complement: base set invariant (K5 <-> I5)
+40/40 random sigma-invariant graphs with good prefix were mapped, by the published order of operations, onto a graph satisfying one cube + (S) + (L); descent steps 26..73, cubes hit 40 distinct
+SPLIT SOUNDNESS TEST OK

@@ -1,0 +1,4 @@
+formula 1^15 3^9: 570144 orbit + 56034 redundant + 896 lex-leader + 44 residual clauses, 7065 variables (357 orbit variables); matches c15_3_9_L4.cnf (sha256 22b31916853a0488ff6af7efc9d0ff9ce8cfe334f683502ed22d82144258fc01)
+cubes: 1576 distinct canonical (5,5)-good Z_3-graphs on 4 cycles (0 failures); group order 2592; sum of orbit sizes 2541538
+completeness: 2541538 labelled (5,5)-good Z_3-graphs on 4 cycles == sum of orbit sizes
+RESULT: all checks passed (no certificates checked)
