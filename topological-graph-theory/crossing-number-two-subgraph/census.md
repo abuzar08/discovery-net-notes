@@ -184,3 +184,36 @@ number at least 3 in the whole unrestricted search is again `C3 □ C3`.
 ```bash
 uv run --with networkx python check_reduction.py
 ```
+
+
+## Where the members sit in the BORS description
+
+Bokal–Oporowski–Richter–Salazar ([arXiv:1312.3712](https://arxiv.org/abs/1312.3712))
+determine all 3-connected 2-crossing-critical graphs containing a subdivision
+of the Möbius ladder `V10` — an infinite, tile-built family — show that only
+**finitely many** 3-connected ones do not contain such a subdivision, and show
+how the non-3-connected ones arise from the 3-connected ones. `structure.py`
+places the census in that division.
+
+| n | members | 3-connected | contains `V8` subgraph | contains `V10` subdivision |
+| --- | --- | --- | --- | --- |
+| 6 | 1 | 1 | 0 | 0 |
+| 7 | 3 | 3 | 0 | 0 |
+| 8 | 10 | 9 | 4 | 0 |
+| 9 | 18 | 14 | 1 | 0 |
+| 10 | 32 | 23 | 0 | 0 |
+
+Vertex connectivity distribution over the 64 members: `{0: 1, 1: 3, 2: 10,
+3: 46, 4: 4}` — the one disconnected member is `K5 ⊔ K5`.
+
+For `n ≤ 10` a `V10` subdivision is the same as a `V10` subgraph, since `V10`
+is cubic and so all ten of its vertices are branch vertices, leaving no room
+for subdivision vertices. **No member contains one.** So every
+2-crossing-critical graph on at most 10 vertices is either not 3-connected, or
+3-connected without a `V10` subdivision — a member of the BORS *finite
+exceptional* family, never of their infinite tile-built family.
+
+Consistency anchor: no Möbius ladder is itself 2-crossing-critical — `V6`
+(= `K3,3`), `V8`, `V10` and `V12` all have crossing number 1, and `crit2`
+correctly reports none of them — so the `V10`-containing family necessarily
+begins above these orders.
