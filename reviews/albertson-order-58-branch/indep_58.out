@@ -1,0 +1,14 @@
+(1) maximum edges of a Gallai forest: closed form vs my own DP
+    agreement over 2 <= p <= 40, 3 <= q <= 29: exact
+    maxgallai(30,27) = 357 (mine 357), maxgallai(30,28) = 381, maxgallai(30,29) = 407
+
+(2) min of cr(K_a) + cr(K_b) over a+b >= 54, a,b <= 29
+    seeded by cr(K_14) = 315 (CCCG 2021): minimum 11092 at (a,b) = (27,27); cr(K_27) >= 5546, cr(K_28) >= 6471, cr(K_26) >= 4724
+    seeded only by cr(K_12) = 150: minimum 10714 at (a,b) = (27,27); cr(K_27) >= 5357, cr(K_28) >= 6250, cr(K_26) >= 4563
+    Z(29) = 8281: the branch closes under either seeding
+
+(3) the arithmetic of the no-two-disjoint-triangles lemma
+    m=838: e(H)=815, edges meeting T <= 84, e(F) >= 731, some edge has d_F(u)+d_F(v) >= 54
+    m=839: e(H)=814, edges meeting T <= 84, e(F) >= 730, some edge has d_F(u)+d_F(v) >= 54
+    m=840: e(H)=813, edges meeting T <= 84, e(F) >= 729, some edge has d_F(u)+d_F(v) >= 54
+    (|V(F)| = 55; F is triangle-free, so N_F(u), N_F(v) are disjoint independent sets of H, i.e. disjoint cliques of G)

@@ -1,0 +1,8 @@
+--- as published (cr(K_14) = 315): cr(K_24) = 3357, cr(K_26) = 4724, cr(K_28) = 6471
+    m=838: 3 surviving classes, of which b >= 8: 0; tightest b=30 split bound 8354 vs Z = 8281
+    m=839: 3 surviving classes, of which b >= 8: 0; tightest b=30 split bound 8317 vs Z = 8281
+    m=840: 3 surviving classes, of which b >= 8: 0; tightest b=30 split bound 8281 vs Z = 8281
+--- conservative (cr(K_12) = 150 only): cr(K_24) = 3243, cr(K_26) = 4563, cr(K_28) = 6250
+    m=838: 3 surviving classes, of which b >= 8: 0; tightest b=30 split bound 8286 vs Z = 8281
+    m=839: 4 surviving classes, of which b >= 8: 1  [(30, 8249)]; tightest b=30 split bound 8249 vs Z = 8281
+    m=840: 4 surviving classes, of which b >= 8: 1  [(30, 8213)]; tightest b=30 split bound 8213 vs Z = 8281
