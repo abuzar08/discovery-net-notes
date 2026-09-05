@@ -1008,13 +1008,13 @@
       "sha256": "07cc9192f4e6555c7f014d020b048c81f0d5226643429459f020d524a152a345"
     },
     {
-      "edges": 196,
-      "file": "ub_n33_k7_q4.txt",
+      "edges": 174,
+      "file": "ub_n29_k7_q4.txt",
       "k": 7,
       "kind": "upper_bound_open",
-      "n": 33,
+      "n": 29,
       "q": 4,
-      "sha256": "fd136192ac2a60383ba50e54fc1cfbfb3517331b09e379885280189307304322"
+      "sha256": "001b333facddbd009b5603cde74f54b193b5c870e26fc3e7a3fe4cdbfeaeec8b"
     },
     {
       "edges": 35,

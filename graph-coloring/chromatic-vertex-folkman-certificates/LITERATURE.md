@@ -10,6 +10,38 @@ n(k,q) = F_v( 2^r ; K_q ),      r = k - 1.
 Nenov indexes the same family as `F_v(2_r; r-j+1)`, so `q = r-j+1`, i.e.
 `j = r-q+1 = k-q`.
 
+> ## CORRECTION (2026-09-05, after reviewer-1's counterexample h2635)
+>
+> Two claims about `n(7,4) = F_v(2^6;K_4)` below are **wrong**, and are
+> superseded by this banner. They are left in place so the record is legible.
+>
+> 1. **"No `K_4`-free circulant on `n <= 30` (or `<= 28`) has `chi >= 7`" is
+>    FALSE.** `C_29(1,2,4,5,10,12)` is `K_4`-free with `chi = 7`
+>    (reviewer-1, h2635; independently re-checked here). At `n = 29` exactly
+>    7 connection sets work, forming one orbit under the units mod 29, so one
+>    graph up to isomorphism. For every other `n <= 30` the scan was right.
+> 2. **The lower bound is `>= 20`, not `>= 16`.** Nenov (arXiv:0903.3151)
+>    Lemma 2.3, `|V(G)| >= F_v(2_{r-1};q) + alpha(G)`, together with
+>    `F_v(2^5;K_4) = 16` and `R(4,4) = 18`, gives `F_v(2^6;K_4) >= 20`.
+> 3. Consequently `n(7,4) <= 33` was **not new** — it is Mycielskian folklore,
+>    and it is superseded by `<= 29` from the circulant above.
+>
+> **Corrected state: `20 <= n(7,4) <= 29`.**
+>
+> **Where the defect was: not in `circulant.py`.** Its clique test and its
+> colourability test are exact and uncapped, and the pass-2 run *did* find and
+> report the `n = 29` witness — the line
+> `n=29: 7 K_4-free circulants with chi >= 7` is in `circ_k7q4.log`, and the
+> witness file was written. The error was mine in reading that log: I
+> inspected only its first and last lines and reported "0 hits up to n = 30"
+> from the head and the tail. Nothing was heuristic, capped, or timed out.
+>
+> The `K_5`-free scan behind `n(8,5)` was re-run in full and **is correct**:
+> no `K_5`-free circulant on `n <= 21` has `chi >= 8`, and exactly 10 do at
+> `n = 22`. The `n(8,5) <= 21` bound rests on SAT witnesses independently
+> checked by `verify.py upper`, not on any circulant scan, and stands.
+
+
 ## Sources actually read (not summaries)
 
 All four were read as **primary text**, by downloading the arXiv LaTeX
@@ -130,7 +162,7 @@ independently obtained 21-vertex witness with 119 edges is also stored.
 - no `K_5`-free circulant on `n <= 21` vertices has `chi >= 8`; at `n = 22`
   there are exactly 10, the smallest connection set being
   `C_22(1,2,3,5,10,11)` (121 edges);
-- no `K_4`-free circulant on `n <= 28` vertices has `chi >= 7`.
+- ~~no `K_4`-free circulant on `n <= 28` vertices has `chi >= 7`~~ — **false at `n = 29`, see the correction banner**.
 
 The second line is why `n(7,4)` needed a different construction.
 
