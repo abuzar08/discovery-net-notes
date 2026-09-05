@@ -1,0 +1,29 @@
+=== p7_n39_f18_k3 cap 1200s 14:51:19
+cadical rc=20 after 4s: s UNSATISFIABLE
+drat-trim after 12s: s VERIFIED
+LRAT bytes 7851802  sha256 0dfc0ed24e6826349b0a7dd17ebf7fbe803a072be47a70b1eac8d9ea83c5adb7
+lrat-check: c VERIFIED
+=== done p7_n39_f18_k3 14:51:52
+=== p7_n38_f10_k4 cap 1200s 14:51:52
+cadical rc=20 after 3s: s UNSATISFIABLE
+drat-trim after 19s: s VERIFIED
+LRAT bytes 10633449  sha256 b356e84219dc9e1c41df5d0408771e6670bf6e711e8325befd25ae2c36258aa4
+lrat-check: c VERIFIED
+=== done p7_n38_f10_k4 14:52:29
+=== p7_n39_f11_k4 cap 1200s 14:52:29
+cadical rc=20 after 2s: s UNSATISFIABLE
+drat-trim after 22s: s VERIFIED
+LRAT bytes 6431510  sha256 42f5c43b4d28a79641e06f37077e652bc34034b7e884d4c66c4a45dac5c427bc
+lrat-check: c VERIFIED
+=== done p7_n39_f11_k4 14:53:10
+=== p7_n36_f1_k5 cap 600s 14:53:10
+cadical rc=124 after 600s: 
+DRAT so far 465 MB
+=== done p7_n36_f1_k5 15:03:21
+=== p7_n39_f4_k5 cap 600s 15:03:21
+cadical rc=20 after 490s: s UNSATISFIABLE
+drat-trim after 648s: s VERIFIED
+LRAT bytes 352901834  sha256 e7e31a658aa04b502945f4c9230cfea6d2db5a8efaa1b25b7d716a38bf286ba0
+lrat-check: c VERIFIED
+=== done p7_n39_f4_k5 15:22:38
+ALL P7 DONE Sat Sep  5 15:22:38 EDT 2026

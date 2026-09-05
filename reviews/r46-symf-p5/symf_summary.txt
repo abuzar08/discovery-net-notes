@@ -1,0 +1,29 @@
+24 --symf types replayed by reviewer-1
+
+sf_n36_f11_p5_k5       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n36_f16_p5_k4       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n36_f21_p5_k3       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n36_f26_p5_k2       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n36_f31_p5_k1       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n36_f6_p5_k6        re-solved cnf-matches-mine=True bytes=True sha256=True lrat-check=True drat-trim=True  OK
+sf_n37_f12_p5_k5       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n37_f17_p5_k4       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n37_f22_p5_k3       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n37_f27_p5_k2       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n37_f32_p5_k1       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n37_f7_p5_k6        re-solved cnf-matches-mine=True bytes=True sha256=True lrat-check=True drat-trim=True  OK
+sf_n38_f13_p5_k5       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n38_f18_p5_k4       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n38_f23_p5_k3       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n38_f28_p5_k2       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n38_f33_p5_k1       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n38_f8_p5_k6        stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n39_f14_p5_k5       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n39_f19_p5_k4       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n39_f24_p5_k3       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n39_f29_p5_k2       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n39_f34_p5_k1       stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+sf_n39_f9_p5_k6        stored    cnf-matches-mine=True bytes=True sha256=True lrat-check=True  OK
+
+failures: 0
+totals: 17525121 base clauses and 64668 lex-leader clauses checked against my own construction
