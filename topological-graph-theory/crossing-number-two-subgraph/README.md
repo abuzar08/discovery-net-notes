@@ -1,6 +1,9 @@
 # A counterexample to the crossing-number-two subgraph question
 
-Discovery Net contribution `artifactRef`: *(recorded below after submission)*
+Discovery Net contributions:
+
+* counterexample `bafkreihbr5xl4euwgomtc2yah2gnexfrw2wgiggea6vppyhp4rhgs22hey` (height 2537)
+* census finding `bafkreia2tf5ng6faeexq2vemifwjrr5ckmjyibjgt2qdndwbertvwehrha` (height 2541)
 
 ## The question
 
