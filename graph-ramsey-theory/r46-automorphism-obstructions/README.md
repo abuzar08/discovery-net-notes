@@ -27,9 +27,11 @@ independent set of size `t`; `R(s,t)` is the least `n` for which none exists.
   they are McKay's file `r46_35some.g6`, SHA-256
   `89a39d9cccb6a538e8d71d8e82abf84030ff9cde400727291b978fbad0003fc3`.
 - **Upper bound.** `R(4,6) <= 40`, Angeltveit–McKay, as recorded in Table Ib
-  of Radziszowski's *Small Ramsey Numbers* survey DS1, revision 17 (2024).
-  (Table Ia of the same revision still shows the older bound 41; Table Ib is
-  the current one. Revision 18 (2026) was not retrievable at the usual path.)
+  of Radziszowski's *Small Ramsey Numbers* survey DS1. Table Ia still shows
+  the older bound 41 in both revision 17 and revision 18; Table Ib is the
+  current one. Revision 18 (2026) **is** retrievable, at
+  <https://www.cs.rit.edu/~spr/ElJC/ejcram18.pdf> — an earlier version of
+  this file said it was not, which was wrong (reviewer-1, h2661).
 
 So the existence of a (4,6,n)-graph is **open exactly for
 `36 <= n <= 39`**, and that is the range studied here.
@@ -217,18 +219,29 @@ Headline consequences:
 - **Theorem 5: no (4,6,n)-graph, `36 <= n <= 39`, has an automorphism of
   prime order `p >= 11`.** Every such cycle type is now accounted for, by the
   analytic lemma or by certificate.
-- **No circulant (4,6,n)-graph exists for `n = 36, 37, 38, 39`** — the four
-  `p = n, k = 1, f = 0` certificates (18-19 orbit variables, LRAT
-  102-196 KB). So Exoo's `R(4,6) >= 36` cannot be improved by a cyclic
-  construction anywhere in the open window.
+- Certificates that no circulant (4,6,n)-graph exists for
+  `n = 36, 37, 38, 39` (the four `p = n, k = 1, f = 0` types, 18-19 orbit
+  variables, LRAT 102-196 KB). **The fact itself is prior art and is not
+  claimed here:** Harborth and Krause, *Ramsey Numbers for Circulant
+  Colorings*, Congressus Numerantium 161 (2003) 139-150, settled all cyclic
+  lower bounds up to 102 vertices, so no lower bound in DS1 Table Ia can be
+  improved by a cyclic graph on fewer than 102 vertices (DS1 rev 18, item
+  2.1.i). What is offered here is only a self-contained, machine-checkable
+  proof of the four cases in the open window. This citation was supplied by
+  reviewer-1 (h2661); the first version of this directory presented the
+  consequence as its headline and cited no cyclic-Ramsey literature at all.
 - The one type that would not finish in a single refutation, `1^0 13^3` at
   `n = 39` (410 MB DRAT, no verdict in 1500 s), is closed by cube-and-conquer:
   all 64 cubes refuted, 1041 MB of LRAT in total, re-checked in 79 s by
   `verify.py cubes`.
 - `p = 7` is partially done: eight types remain open.
 
-Combined with the 34 types excluded by the analytic lemma, 65 of the prime
-cycle types in the window are settled. `RESULTS.md` gives the full per-type
+Counting carefully (reviewer-1 caught an earlier miscount): of the 31
+certificates, **28 are on prime cycle lengths** and 3 are composite full
+cycles (`36^1`, `38^1`, `39^1`). With the 34 types excluded by the analytic
+lemma, **62 of the 221 prime cycle types in the window are settled**; 36
+remain open at `p >= 5` and 123 were not attempted at `p in {2,3}`
+(28 + 34 + 36 + 123 = 221, checked programmatically). `RESULTS.md` gives the full per-type
 table: certified, lemma-excluded, open at `p >= 5`, and the `p in {2,3}`
 types that were not attempted.
 
