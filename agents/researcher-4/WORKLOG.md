@@ -740,3 +740,96 @@ entirely — its mod-12 classes do not tile residues 4/6 and 5/6.
    reduces matters to a finite family — and the classification above shows my
    census sits entirely inside that finite family.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 8
+
+### Lane
+
+Principal's pass-5 report (04:55): Albertson assignment complete — "2673 did
+what was needed, the outside review cites it, and the author retired the step
+you flagged". Return to my own line and make it a finished, publishable unit,
+in order: (i) re-shard n=11 at mod 6; (ii) finish the BORS placement as a
+`finding` refining 2541/2565; (iii) if time remains, record the recursive
+sampling bound as a standalone lemma. **All three done.**
+
+(i) was already running from pass 7 — residues 4/6 and 5/6 at the original
+`mod`, 2 shards under the cap, started 04:46.
+
+### (ii) BORS placement — height 2709
+
+Replaced the earlier *subgraph* test with an **exact subdivision** test. `V8`
+and `V10` are cubic, so all their vertices are branch vertices; with
+`|V(G)| − |V(H)|` spare vertices each spare vertex can be the interior of at
+most one path, and the enumeration allows exactly that. Seven controls,
+including `V8` inside a one-edge subdivision of `V8` — the control that
+actually exercises the spare-vertex logic — and negatives (`V8` not in `C8`,
+not in `K5`).
+
+Placement of the 64 members into BORS's four classes:
+
+| class | members |
+|---|---|
+| 3-connected, no `V8` subdivision — BORS (iv), **determined** | **26** |
+| 3-connected, `V8` but no `V10` — BORS (iii), finite | 24 |
+| not 3-connected — BORS (ii) | 14 |
+| 3-connected with a `V10` subdivision — BORS (i), infinite family | **0** |
+
+**The sharp point: `C3 □ C3` is 4-connected with no `V8` subdivision, so the
+unique counterexample sits in class (iv) — the one class BORS determine
+completely.** That says where a proof of Vitray's claim should start: on BORS's
+explicit list for (iv), not on the infinite tile family. And no member has a
+`V10` subdivision, so the whole census lies in the finite or reducible part.
+
+Anchor: no Möbius ladder is itself 2-crossing-critical (`V6` = `K3,3`, `V8`,
+`V10`, `V12` all have crossing number 1; `crit2` reports none), so the
+`V10` family necessarily begins above these orders.
+
+### (iii) Recursive sampling bound consolidated — height 2713
+
+One artifact for a bound two agents have now implemented separately (mine at
+2617/2649; researcher-2's `recursive.py` at 2623, on a different base set):
+statement, proof, code, soundness suite. Records why the rounding is the whole
+mechanism — unrounded recursion telescopes since
+`C(n,s1)C(s1,s2)/(C(n−4,s1−4)C(s1−4,s2−4)) = C(n,s2)/C(n−4,s2−4)`, both sides
+picking up `C(n−s2,s1−s2)` — and that the lower convex envelope is the right
+object, not a compromise: the true minimum of `Σ L(s,q_S)` over integer `q_S`
+with fixed sum is exactly `C(n,s)·L̂(s, mean)`.
+
+Soundness suite: **29 125 upper-bound checks** to `n = 54` against settled and
+drawing-achievable values, plus monotonicity and vanishing below `3n−6`. All
+pass; reproduces `cr(K_5) = 1` and `cr(K_6) = 3` exactly.
+
+### Published
+
+- GitHub **600fe1153109989bfc1dd57fe8539bd7ff4e92a8** (exact BORS placement)
+  and **e1f5df66d78c1b57156905eff2f67e9a5dc23be2** (consolidated bound; URL
+  HTTP 200).
+- Discovery Net finding **2709**
+  `bafkreicrx2xb2wpwpcb362my4djrzzgjcixlhm2dc7qygvbommavchizdu`
+  — `about` → problem; `refines` → 2541, 2565; `supports` → 2537.
+- Discovery Net lemma **2713**
+  `bafkreie5r7hjwnfvhevsty2k2fcwnwcdekjscxwhjzth3xout5qhlbs3ti`
+  — `about` → Topological Graph Theory, Graph Theory; `refines` → 2617, 2649;
+  `cites` → 2623.
+
+### Background computation
+
+`scratch/run_n11c.sh` (started 04:46): residues **4/6 and 5/6** at the original
+`mod`, 2 shards, within the cap. Neither shard has exited yet.
+
+**Claim n = 11 only when** `n11c/summary.txt` reports `shards completing: 2/2`
+**and** `205 231 695 + (n11c read) == 312 416 755` exactly. `census/n11b/` is to
+be discarded — its mod-12 classes do not tile residues 4/6 and 5/6 (height
+2697).
+
+### Next step (concrete)
+
+1. Combine `n11` residues 0–3 with `n11c` residues 4–5, verify the total is
+   exactly 312 416 755, and publish the census extension to 11 suppressed
+   vertices, with the BORS placement recomputed to include the new members.
+2. Then the principal reassesses whether the line stops there or extends to
+   n = 12 / `cr ≥ 3` structure. If left to choose: BORS class (iv) is now the
+   obvious target — `C3 □ C3` lives there, BORS determine that class, and
+   Bokal–Chimani et al. give `cr = 2` for large 3-connected members, so
+   Vitray's claim plausibly reduces to a finite check.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.

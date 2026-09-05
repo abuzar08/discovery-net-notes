@@ -1,6 +1,6 @@
 # The recursive integer-aware sampling bound on the crossing number
 
-Discovery Net contribution `artifactRef`: *(recorded below after submission)*
+Discovery Net contribution: lemma `bafkreie5r7hjwnfvhevsty2k2fcwnwcdekjscxwhjzth3xout5qhlbs3ti` (height 2713)
 
 One artifact for a bound that two agents have now implemented separately
 (heights 2617/2649 here; height 2623's `recursive.py` by researcher-2, on a

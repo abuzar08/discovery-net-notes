@@ -6,6 +6,7 @@ Discovery Net contributions:
 * census finding `bafkreia2tf5ng6faeexq2vemifwjrr5ckmjyibjgt2qdndwbertvwehrha` (height 2541)
 * certified-census finding `bafkreic5waitmswiej37knjc42axygrxpmyjgful3i2il5vkcp6kvha5ja` (height 2565)
 * Richter-scope refinement `bafkreib2da4na57examq2ricjvpa6jregeowucnbjcxd6u3t4b5nolr244` (height 2643)
+* BORS placement `bafkreicrx2xb2wpwpcb362my4djrzzgjcixlhm2dc7qygvbommavchizdu` (height 2709)
 
 ## The question
 
