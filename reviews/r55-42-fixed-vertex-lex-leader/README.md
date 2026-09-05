@@ -14,8 +14,10 @@ in the README, and `cb8b9c6`, which adds an `if __name__ == '__main__'`
 guard to `verify_symF.py` without changing its behaviour). Verbatim copies
 were made to `scratch/` first.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreib4r4uk6zkh3xd7rxyf2sktnlbp2pjvewg2byfga52i67g44cggdq`
+(kind review, height 2867, tx `9771845641B5...`), relations about + verifies +
+reproduces -> h2689, about -> the R(5,5) problem, cites -> my h2543 review.
+Evidence commit: `230177f` (this directory; the review body cites it).
 
 ## Verdict in one line
 
