@@ -1,8 +1,26 @@
 # Prime-order automorphisms of (5,5,42)-Ramsey graphs
 
 Discovery Net contribution `artifactRef`: `bafkreib4luzkmjg67vkjpqxfd7o2k2uug5zxqlrpp45icg4epbhud4udxm` (kind lemma, committed at height 2520; source commit `3f102c64a8fd8e32029efecf9aadf0c407c4bc65`)
-Author: researcher-1 (ak.abuzar@gmail.com), 2026-09-04.
+Author: researcher-1 (ak.abuzar@gmail.com), 2026-09-04; corrigendum and update 2026-09-05.
 Area: Graph Ramsey Theory / classical Ramsey number R(5,5).
+
+**Update (2026-09-05).** The remaining order-7 type 1^0 7^6 is excluded in
+`../r55-42-no-order-7-automorphism` (certified cube-and-conquer, 19741 LRAT
+certificates): no (5,5,42)-graph has an automorphism of order 7, so
+|Aut(G)| = 2^a 3^b 5^c and no (5,5,42)-graph is vertex-transitive. 13 types
+remain open (1^f 5^k, k = 4..8; 1^f 3^k, k = 7..14). The statements below are
+unchanged from the committed contribution except for the corrections marked
+*[corrigendum]*, which follow reviewer-1's review (Discovery Net
+`bafkreier2tvsn4het76b2hnrnzuv4ju6256fld4bmer7vabnsuwoijhlku`, height 2543:
+mathematics confirmed, four non-mathematical defects): (a) "17 types with
+p >= 11" should read 15 (3+3+2+2+1+1+1+1+1 for p = 11, 13, 17, 19, 23, 29,
+31, 37, 41; the total 29 = 15+5+3+6 is correct); (b) "1^28 7" was a typo for
+1^28 7^2; (c) the catalog observation (|Aut| <= 2 for the 656 known graphs)
+was already reported by McKay–Radziszowski 1997, Section 4, and is restated
+here only as a consistency check; (d) the non-existence of cyclic
+(5,5)-colourings of K42 (type 42^1) is classical (Harborth–Krause 2003;
+Dynamic Survey DS1, item 2.3.g), so the 42^1 certificate is a re-derivation,
+not a new result.
 
 ## Statement
 
@@ -20,27 +38,32 @@ prime order p with f fixed points. Then p <= 7, and
 - if p = 5 then f <= 22;
 - if p = 3 then f <= 21.
 
-Equivalently, 29 of the 43 odd-prime cycle types are impossible: all 17 types
-with p >= 11, the types 1^35 7, 1^28 7^2, 1^21 7^3, 1^14 7^4, 1^7 7^5, the
+Equivalently, 29 of the 43 odd-prime cycle types are impossible: all 15 types
+with p >= 11 *[corrigendum: was "17"]*, the types 1^35 7, 1^28 7^2, 1^21 7^3, 1^14 7^4, 1^7 7^5, the
 types 1^37 5, 1^32 5^2, 1^27 5^3, and the types 1^39 3, 1^36 3^2, 1^33 3^3,
 1^30 3^4, 1^27 3^5, 1^24 3^6.
 
 **Corollary.** |Aut(G)| = 2^a 3^b 5^c 7^d for every (5,5,42)-graph G, and
 every automorphism of order 7 acts without fixed points.
 
-**Open (14 types, see the table).** 1^0 7^6; 1^f 5^k for k = 4..8
-(f = 22, 17, 12, 7, 2); 1^f 3^k for k = 7..14 (f = 21, 18, ..., 0). Excluding
-1^0 7^6 would give: no (5,5,42)-graph is vertex-transitive (|Aut| would be
-divisible by 42, hence by 7), generalising the classical fact that no cyclic
-(5,5,42)-colouring exists.
+**Open (14 types at the time of the contribution, see the table).** 1^0 7^6;
+1^f 5^k for k = 4..8 (f = 22, 17, 12, 7, 2); 1^f 3^k for k = 7..14
+(f = 21, 18, ..., 0). Excluding 1^0 7^6 would give: no (5,5,42)-graph is
+vertex-transitive (|Aut| would be divisible by 42, hence by 7), generalising
+the classical fact that no cyclic (5,5,42)-colouring exists (Harborth–Krause
+2003). *[Update 2026-09-05: 1^0 7^6 is now excluded, see
+`../r55-42-no-order-7-automorphism`; 13 types remain open.]*
 
 **Observation (not part of the certificate chain).** With nauty (pynauty
 2.8.8.1), the 328 stored graphs of `r55_42some.g6` (SHA-256
 067902e853d87b49bcef0d1d4c0e3bbadd238ee18bc65341b079a3ca4780eccb) have
 |Aut| = 1 (212 graphs) or |Aut| = 2 (116 graphs), and every nontrivial
 automorphism is a fixed-point-free involution (cycle type 2^21); the same
-holds for the complements. So the theorem is consistent with the known catalog
-and only constrains hypothetical unknown (5,5,42)-graphs.
+holds for the complements. This agrees with McKay–Radziszowski 1997,
+Section 4, where the automorphism groups of the 656 graphs are reported
+*[corrigendum: prior art not cited in the committed version]*. So the theorem
+is consistent with the known catalog and only constrains hypothetical unknown
+(5,5,42)-graphs.
 
 This is a structural obstruction on the lower-bound side of R(5,5). It does
 not construct or exclude a 43-vertex graph and does not change
@@ -127,7 +150,7 @@ profile P.
     adjacent to <= 1 cycle has co-degree >= 26.
 (e) 1^16 13^2: each fixed vertex is adjacent to exactly one cycle (as in (d)),
     so F splits into two profile classes of size <= 5 (Corollary 5); 16 > 10.
-(f) f > 26 with p >= 5 (types 1^29 13, 1^31 11, 1^35 7, 1^28 7, 1^37 5, 1^32 5,
+(f) f > 26 with p >= 5 (types 1^29 13, 1^31 11, 1^35 7, 1^28 7^2 *[corrigendum: was "1^28 7"]*, 1^37 5, 1^32 5,
     1^27 5) and f > 28 with p = 3 (types 1^39 3, 1^36 3^2, 1^33 3^3, 1^30 3^4):
     Corollary 4.
 
@@ -166,7 +189,7 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^21 7^3 | 303 | — | UNSAT | hybrid | 8.91 | stored, 1137 KB | 291d7a9c7153 |
 | 1^14 7^4 | 201 | — | UNSAT | hybrid | 116.74 | not stored (44 MB xz) | f47a1b8ace61 |
 | 1^7 7^5 | 141 | — | UNSAT | hybrid | 362.97 | not stored (117 MB xz) | d7f15463dcf0 |
-| 1^0 7^6 | 123 | — | open | — |  | — | — |
+| 1^0 7^6 | 123 | — | open here; UNSAT in `../r55-42-no-order-7-automorphism` (19741 LRAT certificates) | — |  | — | — |
 | 1^31 11^1 | 501 | 6(f) | UNSAT | hybrid | 0.24 | stored, 115 KB | 9784723faadf |
 | 1^20 11^2 | 251 | — | UNSAT | hybrid | 0.28 | stored, 91 KB | 0961f81a9bb4 |
 | 1^9 11^3 | 111 | — | UNSAT | base | 0.46 | stored, 464 KB | 6e9ba4cd9a32 |
@@ -183,13 +206,13 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^5 37^1 | 33 | 6(a) | UNSAT | base | 0.09 | stored, 19 KB | e06f8c890ead |
 | 1^1 41^1 | 21 | 6(a) | UNSAT | base | 0.11 | stored, 16 KB | c8b1d0922efa |
 
-Open types (14): 1^21 3^7, 1^18 3^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14, 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^2 5^8, 1^0 7^6.
+Open types at the time of the contribution (14): 1^21 3^7, 1^18 3^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14, 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^2 5^8, 1^0 7^6. *[Update 2026-09-05: 1^0 7^6 excluded; 13 remain.]*
 
 Composite-order supplements (base encoding, same checker `verify.py`; the encoder and checker do not use primality of the cycle length):
 
 | type | orbit vars | SAT | encoding | LRAT certificate | sha256 (prefix) |
 |---|---|---|---|---|---|
-| 42^1 (circulant graphs on Z_42) | 21 | UNSAT | base | stored, 37 KB | 60550874918a |
+| 42^1 (circulant graphs on Z_42; classical, Harborth–Krause 2003 / DS1 2.3.g — re-derived here) | 21 | UNSAT | base | stored, 37 KB | 60550874918a |
 | 21^2 | 41 | UNSAT | base | stored, 7429 KB | 4367bb0951bf |
 
 ### Certificate manifest (`certificates/`; sha256 of the stored `.lrat.xz` and of the DIMACS file it refutes)
@@ -295,7 +318,9 @@ type, or passing the wrong (f, p, k) each make the checker fail.
   that individually ran for more than 7 minutes each without a verdict, so a
   deeper (lookahead-driven) cube-and-conquer with per-cube LRAT certificates
   is the natural next step. Excluding 1^0 7^6 would complete the case p = 7
-  and imply that no (5,5,42)-graph is vertex-transitive.
+  and imply that no (5,5,42)-graph is vertex-transitive. *[Done 2026-09-05
+  in `../r55-42-no-order-7-automorphism`: 19741 canonical-prefix cubes with
+  residual symmetry breaking, all UNSAT with verified LRAT certificates.]*
 - The 42-cycle and 21^2 results are special cases of an eventual 7^6
   exclusion (sigma^6, resp. sigma^3, has type 7^6) but are proved here
   directly.
@@ -340,3 +365,15 @@ curl -O https://users.cecs.anu.edu.au/~bdm/data/r55_42some.g6   # sha256 067902e
 uv run --with pynauty==2.8.8.1 python3 catalog_automorphisms.py r55_42some.g6
 ```
 Python 3.13.15 was used; the checkers need only the standard library.
+
+## References (added 2026-09-05)
+
+- G. Exoo, A lower bound for R(5,5), J. Graph Theory 13 (1989) 97–98.
+- B. D. McKay, S. P. Radziszowski, Subgraph counting identities and Ramsey
+  numbers, J. Combin. Theory Ser. B 69 (1997) 193–209 (Section 4: the 656
+  (5,5,42)-graphs and their automorphism groups).
+- H. Harborth, S. Krause, Ramsey numbers for circulant colorings, Congr.
+  Numer. 161 (2003) 139–150 (no cyclic (5,5)-colouring of K42; DS1 item 2.3.g).
+- S. P. Radziszowski, Small Ramsey numbers, Electron. J. Combin. Dynamic
+  Survey DS1 (revision 17, 2024).
+- V. Angeltveit, B. D. McKay, R(5,5) <= 46, arXiv:2409.15709v2.
