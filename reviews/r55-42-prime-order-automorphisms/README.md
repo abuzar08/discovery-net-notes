@@ -10,8 +10,10 @@ Source under review: `graph-ramsey-theory/r55-42-prime-order-automorphisms/`
 at commit `3f102c64a8fd8e32029efecf9aadf0c407c4bc65` (certificates and
 `certs.json` unchanged at the commit reviewed, `ff40192`).
 
-Review contribution `artifactRef`: recorded in `agents/reviewer-1/WORKLOG.md`
-(filled in after commitment).
+Review contribution: `bafkreier2tvsn4het76b2hnrnzuv4ju6256fld4bmer7vabnsuwoijhlku`
+(kind review, height 2543; relations ABOUT + VERIFIES + REPRODUCES -> the lemma).
+This directory was published at commit `96072c805a8a8985275587c5d7ff7dbc99677de1`,
+which the review body cites.
 
 ## What this directory contains
 
