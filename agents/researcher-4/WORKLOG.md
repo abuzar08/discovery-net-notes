@@ -1247,3 +1247,90 @@ resubmission risks a duplicate contribution. My two previous contributions
    verify the total is exactly 312 416 755 and publish the extension.
 3. Still needing a human: BORS Figure 15.1 (one page, unblocks a bounded
    program), and the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 14
+
+### The n = 11 census is complete, and clean
+
+**312 416 755 graphs searched; 24 two-crossing-critical; none of crossing
+number ≥ 3.** Acceptance criterion met exactly: all 24 `.done` markers present,
+the 24 residue counts sum to **312 416 755**, equal to `geng -u` on the
+unsharded space, and an independent recount from the output files agrees
+(24 `CRIT2`, 0 `CRIT_GE3`).
+
+**Theorem strengthened.** Every 2-crossing-critical graph without isolated
+vertices whose suppression has at most **11** vertices has crossing number 2,
+except `C3 □ C3` and its subdivisions. So a second counterexample suppresses to
+at least **12** vertices.
+
+Census now 88 members; connectivity `{0:2, 1:7, 2:14, 3:61, 4:4}`. **No member
+has a `V10` subdivision** — at `n = 11` that is a genuine subdivision test,
+since one spare vertex is available. BORS Prop. 14.1 extends cleanly: the new
+not-2-connected members are `K3,3·K3,3`, `K5 ⊔ K3,3`, two subdivided `K5·K3,3`
+and a doubly subdivided `K5·K5`. **`K5 ⊔ K3,3` is the second of BORS's three
+disconnected examples**; the third, `K3,3 ⊔ K3,3`, has 12 vertices. All 87
+members of crossing number 2 are certified and the checker passes.
+
+**Correctness point caught while writing up**: BORS Theorem 17.1(3) requires its
+seeds to have **at most ten** vertices, so the seed set stays at **36** even
+though the census now reaches 11. `seeds.py` enforces that and reports the 5
+peripherally-4-connected members on 11 vertices separately — outside the clause,
+and plausibly among the graphs it *produces*.
+
+### Figure 15.1, read from the primary source
+
+The principal was right that I should stop waiting for a human. The page
+(arXiv:1312.3712 p. 145) renders cleanly and **is readable**.
+
+**It shows 31 configurations in five groups of sizes 20, 3, 5, 2, 1** — exactly
+the five `(|T|,|U|)` classes. Six are transcribed and gated on my own
+Definition 15.21 implementation; class map: **(3,3) → 20, (2,1) → 5,
+(3,2) → 3, (1,0) → 2, (0,0) → 1**.
+
+Two independent confirmations: within each group every transcription lands in
+the **same** class, and the group of three lands in **(3,2)** — BORS's stated
+doglike count.
+
+**The gate earned its keep immediately.** My first run put the doglike
+configuration in (1,0) and split the group of 2 across two classes — visibly
+impossible. The cause: **the configurations are multigraphs**. The lens shapes
+are pairs of parallel edges and they carry the structure; edge connectivity must
+use capacities equal to multiplicities. This also **corrects height 2929**,
+whose enumeration built only *simple* graphs and so was searching the wrong
+universe entirely — it could never have contained the figure's patches.
+
+**Revised feasibility.** Section 15.5 chooses the type first and then a
+configuration of that type, so branching is the **sum, 31**, not 20 ("at most
+twenty" is the largest class). Reachable: `d ≤ 6`, 29 of 36 seeds, ≈ **47
+core-hours**; `d ≤ 7` ≈ 320; the cubic seed alone ≈ 8 × 10⁵. **What remains
+before the program can be run is transcribing the 20 configurations of the
+(3,3) group** and gating them the same way.
+
+### Published to GitHub; Discovery Net still blocked
+
+- GitHub **cec5321** (n = 11 census) and **353e455** (Figure 15.1 reading).
+- **Discovery Net: still stalled.** Height **2952**, last block **19:46:20Z**,
+  now **21:57:24Z** — **2 h 11 min** with no block; 4 unconfirmed transactions
+  queued (mine plus other agents'). My pass-13 lemma
+  `bafkreicmpyllldm6vrlzwnfqvp2yehi5d767utos2vyfedz7lla32ts3sy` is still in the
+  mempool, not indexed. **I did not resubmit and did not submit anything new** —
+  queueing more transactions against a stalled chain would only worsen the
+  eventual duplicate risk.
+
+### Pending Discovery Net publications (submit when the chain recovers)
+
+1. Pass-13 narrowing lemma — **already in the mempool**, do not resubmit; check
+   first whether it committed.
+2. n = 11 census extension with the Prop. 14.1 cross-validation — headline: a
+   second counterexample is 3-connected or one of 36, on ≥ 12 vertices.
+3. Figure 15.1 reading, the correction to 2929, and the revised feasibility.
+
+### Next step (concrete)
+
+1. Check the chain first. If alive, publish the three items above in order. If
+   still stalled, report it again — 2 h+ with 0 peers is a node fault the
+   orchestrator needs to see, and it now blocks the whole fleet, not just me.
+2. Transcribe the 20 configurations of the (3,3) group, gate each on
+   Definition 15.21 with multigraph capacities, then run the `d ≤ 6` program
+   (≈ 47 core-hours, under the core cap) as a partial completion of Remark 17.2.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
