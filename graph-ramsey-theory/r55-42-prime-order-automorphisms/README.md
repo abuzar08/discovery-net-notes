@@ -52,7 +52,10 @@ every automorphism of order 7 acts without fixed points.
 vertex-transitive (|Aut| would be divisible by 42, hence by 7), generalising
 the classical fact that no cyclic (5,5,42)-colouring exists (Harborth–Krause
 2003). *[Update 2026-09-05: 1^0 7^6 is now excluded, see
-`../r55-42-no-order-7-automorphism`; 13 types remain open.]*
+`../r55-42-no-order-7-automorphism`; 13 types remain open.]* *[Update 2026-09-05
+(later): 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8 are excluded with
+fixed-vertex lex-leader symmetry breaking, see `../r55-42-fixed-vertex-lex-leader`;
+7 types remain open: 1^2 5^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14.]*
 
 **Observation (not part of the certificate chain).** With nauty (pynauty
 2.8.8.1), the 328 stored graphs of `r55_42some.g6` (SHA-256
@@ -168,8 +171,8 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^30 3^4 | 577 | 6(f) | UNSAT | hybrid | 0.28 | stored, 82 KB | 32fefea0effd |
 | 1^27 3^5 | 521 | — | UNSAT | hybrid | 1.2 | stored, 281 KB | d9627501dbf0 |
 | 1^24 3^6 | 471 | — | UNSAT | hybrid | 2.47 | stored, 201 KB | 531bd9f18e74 |
-| 1^21 3^7 | 427 | — | open | — |  | — | — |
-| 1^18 3^8 | 389 | — | open | — |  | — | — |
+| 1^21 3^7 | 427 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
+| 1^18 3^8 | 389 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
 | 1^15 3^9 | 357 | — | open | — |  | — | — |
 | 1^12 3^10 | 331 | — | open | — |  | — | — |
 | 1^9 3^11 | 311 | — | open | — |  | — | — |
@@ -179,10 +182,10 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^37 5^1 | 705 | 6(f) | UNSAT | hybrid | 0.35 | stored, 239 KB | dbda5b77c66f |
 | 1^32 5^2 | 569 | 6(f) | UNSAT | hybrid | 0.32 | stored, 149 KB | cf6c4f29de34 |
 | 1^27 5^3 | 453 | 6(f) | UNSAT | hybrid | 0.65 | stored, 0 KB | 2337d1b42569 |
-| 1^22 5^4 | 357 | — | open | — |  | — | — |
-| 1^17 5^5 | 281 | — | open | — |  | — | — |
-| 1^12 5^6 | 225 | — | open | — |  | — | — |
-| 1^7 5^7 | 189 | — | open | — |  | — | — |
+| 1^22 5^4 | 357 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
+| 1^17 5^5 | 281 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
+| 1^12 5^6 | 225 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
+| 1^7 5^7 | 189 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
 | 1^2 5^8 | 173 | — | open | — |  | — | — |
 | 1^35 7^1 | 633 | 6(f) | UNSAT | hybrid | 0.3 | stored, 182 KB | 944abcc44d03 |
 | 1^28 7^2 | 447 | 6(f) | UNSAT | hybrid | 0.21 | stored, 58 KB | 29c240790a11 |
@@ -206,7 +209,7 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^5 37^1 | 33 | 6(a) | UNSAT | base | 0.09 | stored, 19 KB | e06f8c890ead |
 | 1^1 41^1 | 21 | 6(a) | UNSAT | base | 0.11 | stored, 16 KB | c8b1d0922efa |
 
-Open types at the time of the contribution (14): 1^21 3^7, 1^18 3^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14, 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^2 5^8, 1^0 7^6. *[Update 2026-09-05: 1^0 7^6 excluded; 13 remain.]*
+Open types at the time of the contribution (14): 1^21 3^7, 1^18 3^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14, 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^2 5^8, 1^0 7^6. *[Update 2026-09-05: 1^0 7^6 excluded; 13 remain.]* *[Later the same day: 1^22 5^4, 1^17 5^5, 1^12 5^6, 1^7 5^7, 1^21 3^7, 1^18 3^8 excluded; 7 remain.]*
 
 Composite-order supplements (base encoding, same checker `verify.py`; the encoder and checker do not use primality of the cycle length):
 

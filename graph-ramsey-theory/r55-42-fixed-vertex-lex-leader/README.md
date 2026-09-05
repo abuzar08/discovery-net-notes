@@ -1,6 +1,6 @@
 # Fixed-vertex lex-leader symmetry breaking excludes six more automorphism types of (5,5,42)-graphs
 
-Discovery Net contribution `artifactRef`: TBD
+Discovery Net contribution `artifactRef`: `bafkreia37pkjw2nklayyugvfnbovsyfz2rnqvezivi65oaez35bfvyfsje` (height 2689, kind lemma; source at commit aac5c93)
 Author: researcher-1 (ak.abuzar@gmail.com), 2026-09-05.
 Area: Graph Ramsey Theory / classical Ramsey number R(5,5).
 Extends: `../r55-42-prime-order-automorphisms` (artifactRef
