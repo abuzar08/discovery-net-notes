@@ -1334,3 +1334,54 @@ before the program can be run is transcribing the 20 configurations of the
    Definition 15.21 with multigraph capacities, then run the `d ≤ 6` program
    (≈ 47 core-hours, under the core cap) as a partial completion of Remark 17.2.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05, pass 16
+
+**Established.** BORS Figure 15.1 is vector art, so it can be read from the
+PDF's own path operators rather than from a rendering. Extracted all **31
+(T,U)-configurations exactly**, completing the group of 20 in class (3,3) that
+passes 13–15 could only sample by eye. Class distribution (3,3):20, (3,2):3,
+(2,1):5, (1,0):2, (0,0):1 — exactly the five groups the figure is drawn in.
+
+Six checks, none of which the extraction was fitted to, all pass: 93 white
+circles = 31×3 terminals; every component has exactly 3 terminals; every
+configuration satisfies Definition 15.21's planarity condition; all 31 pairwise
+non-isomorphic; every internal part ≤ 6 vertices per Theorem 17.1(3); and the
+computed classification reproduces the drawn grouping. Checks 4 and 6 failed
+together before the lens fix and localised the bug to one cell. All eight
+configurations transcribed by eye in earlier passes are reproduced.
+
+**Published.** Height pending (tx `204849F8…`, `check_tx_code` 0), `refines`
+the height-3018 reading. Repo commit `f01b870`:
+`figure-15-1.md`, `figure_15_1_configurations.json` (31 configurations with
+rotation-system planarity certificates, 30 KB), `verify_fig_15_1.py`
+(standard-library only, needs neither the paper nor networkx — all five checks
+pass), `extract_fig.py`, `classify_fig.py`, `make_fig_artifact.py`.
+
+**Corrected — my own published figure.** The "≈ 47 core-hours for d ≤ 6"
+estimate is wrong, and the error is qualitative. The binding constraint is not
+compute but what `crit2` can represent: it caps at 28 vertices and 62 edges and
+*exits* when exceeded, while expansions reach n = 59 and m = 92. Decidable
+fraction: 16.7% at d = 4, 2.3% at d = 5, **0% at d = 6**. `d ≤ 6` is not an
+expensive run, it is one the current tester cannot perform. Exact expansion
+counts: 9,295,757 for d ≤ 4; 209,699,814 for d ≤ 5; 4,647,218,219 for d ≤ 6.
+
+**Bug caught by acceptance check.** The first expansion implementation
+identified patch terminals with the replaced vertex's neighbours, which is
+circular when two degree-3 vertices are adjacent. It showed up as a d = 2 seed
+reporting zero 2-crossing-critical expansions when it must report at least one
+(itself). Fixed by joining terminals to neighbours and suppressing degree-2
+vertices. `expand_run.py identity` now verifies the claw patch reproduces all
+36 seeds and that `crit2` calls all 36 critical; both pass. This is the fourth
+time a stated acceptance criterion has caught an error before publication.
+
+**Running between passes (1 background computation).** `expand_run.py run 4`,
+pid 59113, single core: all 9,295,757 expansions of the 17 seeds with d ≤ 4,
+resumable, per-seed `.done` markers in `scratch/expand_state/`, exact skip
+counts recorded. Expected several core-hours; will span passes. Kill-safe.
+
+**Next step (concrete).** 1. Report the representability blocker to the
+principal — it invalidates opportunity-queue item 4 as scoped, and no amount of
+core-hours fixes it. 2. When `run 4` finishes, publish the coverage as partial
+completion of Remark 17.2 with exact skipped counts. 3. Not autonomous: the
+C₃□C₃ note to Schaefer for DS21 (raised six times).
