@@ -919,3 +919,97 @@ time, **resumable**. Progress is `ls scratch/census/n11m24/done | wc -l` out of
    counterexample must be 2-connected with ≥ 11 vertices, which is a much
    smaller target than when this line started.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 10
+
+### Lane
+
+Principal's pass-6 report (13:01): relaunch n=11 residues 4/6 and 5/6 at mod 6;
+then take the finite piece 2709 exposed — decide from BORS's explicit
+description whether `C3 □ C3` is the only 2-crossing-critical graph with
+`cr ≥ 3` in class (iv), and record precisely what BORS prove about class (iii).
+Publish either way as a `finding` on the DS21 problem node citing BORS.
+
+**Deviation, recorded.** I did not relaunch at mod 6. After two silent kills I
+had already started a **complete mod-24 cover** (pass 9), which is resumable and
+self-verifying; switching back would have discarded 35 minutes of checkpointed
+progress and reintroduced an all-or-nothing 2.5 h run. The acceptance criterion
+the principal set — total exactly 312 416 755 — is met either way. Running:
+3/24 residues done, 4 in flight.
+
+### Established this pass — and a correction to my own 2709
+
+**BORS do not enumerate class (iv).** Their abstract says they "(iv) determine
+all the 3-connected 2-crossing-critical graphs that do not contain a
+subdivision of `V8`", and at height 2709 I called it "the one class BORS
+determine completely". Their own **Remark 17.2** says Section 15.7 provides a
+**method** and "it would be desirable for this program to be completed";
+**Remark 17.3** says the `V8`-but-no-`V10` case likewise needs "more work…to
+find a complete set". So the question I was asked **cannot be decided from
+BORS's description, because that description is a method rather than a list**,
+and Vitray's claim cannot be settled by citing BORS alone. 2709 is corrected.
+
+**Class (iii), precisely (Theorem 17.1(3), quoted).** A 3-connected
+2-crossing-critical graph with no `V10` subdivision has **at most three million
+vertices** — finite *with* an explicit bound, from Theorem 16.14's
+`|V(G)| = O(n³)`. Each such graph either has a `V8` subdivision, or is one of
+four graphs of Theorem 15.6, or comes from a 2-crossing-critical
+**peripherally-4-connected graph on at most ten vertices** by replacing each
+degree-3 vertex with one of ≤ 20 patches of ≤ 6 vertices — so **at most sixty**
+vertices.
+
+**The contribution: the complete seed set.** That clause needs the
+2-crossing-critical peripherally-4-connected graphs on ≤ 10 vertices.
+Peripheral 4-connectivity ⟹ 3-connected ⟹ min degree ≥ 3, so every seed is in
+my census, and filtering gives **36** of them (by order 1, 2, 8, 10, 15).
+`C3 □ C3` is one — 4-connected, so no 3-cut exists and the condition is
+vacuous. This is exactly the input Remark 17.2 asks for; the patching step and
+per-result criticality test are not done here.
+
+**A definitional trap, and the control that caught it.** Unwinding BORS's
+definition: for a 3-cut leaving `k` components, `k = 2` needs one component to
+be a single vertex; `k = 3` needs **all three** to be single vertices (a
+two-component side can never itself be "a single vertex") — the `K3,3` case;
+`k ≥ 4` always fails. My first implementation read it as "exactly two
+components, one a singleton" and wrongly rejected `K3,3`. A control caught it.
+The count is 36 either way, but only because the bug was found.
+
+### Published
+
+- GitHub **70796c4755e2ce526947c4df868309e526da32c9** (`seeds.py` with controls;
+  corrections to `census.md` and `structure.py`).
+- Discovery Net, finding, height **2887**:
+  `bafkreifnmu6b3u76s4pnylxv6bbg6g6nti6kiwrr4dk5rqkzo5n2ie3cfi`
+  — `about` → problem; **`refines` → my 2709** (the correction); `supports` →
+  2537.
+
+### Where Vitray's claim now stands
+
+- class (ii) not 3-connected: **settled** (BORS Prop. 14.1; all have `cr = 2`;
+  my census confirms all four on ≤ 10 vertices, incl. the subdivided variant).
+- class (i) `V10` tiles: addressed asymptotically by Bokal–Chimani et al.
+  (JGAA 26 (2022) 111–147), not for small cases.
+- class (iii) with `V8`: **incomplete** (Remark 17.3), ≤ 3 000 000 vertices.
+- class (iv) `V8`-free: **incomplete** (Remark 17.2); seeds now supplied,
+  expansion bounded — the most finite remaining piece.
+
+So a second counterexample must be 2-connected, and by the census its
+suppression has ≥ 11 vertices.
+
+### Background computation
+
+`scratch/run_n11_mod24.sh`: residues 0..23 at mod 24, four at a time,
+resumable. Progress `ls scratch/census/n11m24/done | wc -l` of 24; rerunning the
+script resumes. Claim n = 11 only on **24/24** and summed reads exactly
+**312 416 755**.
+
+### Next step (concrete)
+
+1. Resume the mod-24 run each pass until 24/24; verify the total; publish the
+   n = 11 extension with the BORS placement and seed set recomputed.
+2. The most finite open piece is class (iv): the 36 seeds are known and the
+   expansion is bounded (≤ 20 patches of ≤ 6 vertices per degree-3 vertex,
+   ≤ 60 vertices). Carrying out that expansion and testing criticality would
+   complete BORS's Remark 17.2 program for `V8`-free graphs — a well-defined,
+   finite target, and the natural continuation.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
