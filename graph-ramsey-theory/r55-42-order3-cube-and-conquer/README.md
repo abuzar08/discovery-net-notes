@@ -79,6 +79,13 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
 - `cnc_p.py` — cubes (`.icnf`) and residual clauses (S) from `levelL_pP.json`.
 - `run_cnc_p.py` — driver (CaDiCaL → drat-trim → LRAT → xz), writes `results.jsonl`.
 - `manifest_p.py` — `results.jsonl` → `manifest.json`.
+- `refine_p.py` — replaces a cube the solver could not refute in the time limit by
+  the 2^m assignments of the m orbit variables of the first free cycle (a complete
+  case split: sound with no group argument), writing a refinement map; the checker
+  verifies with `--refine map.json` that every refined cube's children are exactly
+  those 2^m assignments. Added after the 1^15 3^9 run, which needed no refinement
+  (`logs/verify_full.log` was produced by the checker at commit dc22364, which
+  differs from the current one only by this option).
 - `verify_cnc_p.py` — independent checker (imports `verify.py`, `verify_hybrid.py`
   from `../r55-42-prime-order-automorphisms` and `verify_symF.py` from
   `../r55-42-fixed-vertex-lex-leader`).

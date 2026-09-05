@@ -22,14 +22,18 @@ Checks (standard library only, code written separately from the generators):
      recorded in the manifest and
      is a valid LRAT refutation of formula.cnf + the unit clauses of cube i
      (clause ids: file order, then the cube literals in cube order).
-usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--skip-lrat] [--skip-complete]
+If some cubes were too hard and were refined by a complete case split on further
+variables (refine_p.py), pass the refined .icnf together with `--refine map.json`:
+the checker then verifies that the children of every refined cube are exactly the
+2^m assignments of the m split variables (so the split is a complete case
+distinction), runs checks 2 and 3 on the parent cubes, and replays one certificate
+per child.
+usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map.json] [--skip-lrat] [--skip-complete]
 Exit status 0 iff everything checked passed."""
 import sys, os, json, itertools, hashlib, lzma
 from multiprocessing import Pool
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-for d in (os.path.join(HERE, '..', 'r55-42-fixed-vertex-lex-leader'),):
-    if os.path.exists(os.path.join(d, 'verify_symF.py')): sys.path.insert(0, d)
 for d in (os.path.join(HERE, '..', 'r55-42-prime-order-automorphisms'), os.path.join(HERE, '..'), os.path.join(HERE, '..', '..', '..', 'notes', 'graph-ramsey-theory', 'r55-42-prime-order-automorphisms')):
     if os.path.exists(os.path.join(d, 'verify.py')): sys.path.insert(0, d); break
 from verify import read_dimacs, check_lrat, sha256
@@ -167,6 +171,9 @@ def main():
     argv = sys.argv[1:]; jobs = 4
     if '--jobs' in argv:
         i = argv.index('--jobs'); jobs = int(argv[i + 1]); del argv[i:i + 2]
+    refine = None
+    if '--refine' in argv:
+        i = argv.index('--refine'); refine = json.load(open(argv[i + 1])); del argv[i:i + 2]
     flags = {a for a in argv if a.startswith('--')}; args = [a for a in argv if not a.startswith('--')]
     f, p, k, L = map(int, args[:4]); icnf, cnfpath, manpath, certdir = args[4:8]
     assert f + p * k == N
@@ -185,8 +192,34 @@ def main():
     print(f'formula 1^{f} {p}^{k}: {len(base)} orbit + {len(extra)} redundant + {len(lex)} lex-leader + {len(S)} residual clauses, {nvfile} variables ({nvo} orbit variables); matches {os.path.basename(cnfpath)} (sha256 {sha256(cnfpath)})')
     # 2./3. cubes
     cubes = [list(map(int, l.split()[1:-1])) for l in open(icnf) if l.startswith('a ')]
-    dec = [decode(c, var, f, p, L) for c in cubes]
-    assert len(set(dec)) == len(cubes), 'duplicate cubes'
+    if refine is None:
+        parents = cubes
+    else:
+        sv = refine['split_vars']; recs = refine['cubes']
+        assert len(recs) == len(cubes), 'refinement map does not match the cube file'
+        par = {}
+        for c, rec in zip(cubes, recs):
+            i, add = rec['parent'], rec['added']
+            assert add == c[len(c) - len(add):] if add else True, 'child does not end in its added literals'
+            base = c[:len(c) - len(add)] if add else c
+            par.setdefault(i, {'cube': base, 'added': set()})
+            assert par[i]['cube'] == base, f'inconsistent parent cube {i}'
+            if add:
+                assert sorted(map(abs, add)) == sorted(sv), f'child of cube {i} splits on the wrong variables'
+                par[i]['added'].add(tuple(add))
+        assert sorted(par) == list(range(len(par))), 'parent indices are not 0..n-1'
+        full = {tuple(s * v for s, v in zip(signs, sv)) for signs in itertools.product((1, -1), repeat=len(sv))}
+        nref = 0
+        for i in sorted(par):
+            a = par[i]['added']
+            if a:
+                assert a == full, f'cube {i}: children are not the complete 2^{len(sv)} split'
+                nref += 1
+            assert not (set(map(abs, par[i]['cube'])) & set(sv)), f'cube {i} already fixed a split variable'
+        parents = [par[i]['cube'] for i in sorted(par)]
+        print(f'refinement: {len(parents)} cubes, {nref} of them split completely on {len(sv)} variables {sv} into {len(cubes)} subcubes')
+    dec = [decode(c, var, f, p, L) for c in parents]
+    assert len(set(dec)) == len(parents), 'duplicate cubes'
     G = group(p, L)
     bad = 0; orbit_sum = 0
     with Pool(jobs, initializer=_init_kw, initargs=({'p': p, 'group': G},)) as pool:
@@ -194,7 +227,7 @@ def main():
             if not canonical: print(f'cube {i}: not canonical'); bad += 1
             if not gd: print(f'cube {i}: not (5,5)-good'); bad += 1
             assert len(G) % stab == 0; orbit_sum += len(G) // stab
-        print(f'cubes: {len(cubes)} distinct canonical (5,5)-good Z_{p}-graphs on {L} cycles ({bad} failures); group order {len(G)}; sum of orbit sizes {orbit_sum}')
+        print(f'cubes: {len(parents)} distinct canonical (5,5)-good Z_{p}-graphs on {L} cycles ({bad} failures); group order {len(G)}; sum of orbit sizes {orbit_sum}')
         if '--skip-complete' not in flags:
             code_tuples = list(itertools.product(range(1 << H), repeat=L))
             total = sum(pool.imap_unordered(count_good, code_tuples))
