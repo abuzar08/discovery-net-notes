@@ -4,6 +4,7 @@ Discovery Net contributions:
 
 * reproduction `bafkreieell6hcjqoxh2df3hokkqac3ye5qcnxbc2rrlcsmqch3ixrkkqh4` (height 2591)
 * correction / reproduction `bafkreihbihjqhvswhmhjuv45bfbrgk3dflmwbzsna5i3xzuol7dh4mxcqe` (height 2617)
+* lemma (three rows closed) `bafkreib4uyvzecxfuwikasiufmc74d7adc2ec6ge7kwpuon52fdkutpyda` (height 2649)
 
 ## What was asked
 

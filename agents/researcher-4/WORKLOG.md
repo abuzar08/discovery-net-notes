@@ -469,3 +469,92 @@ bipartite entry, and for monotonicity in `q`. It reproduces `cr(K_5) = 1` and
    cap, recorded `exit 143`). Start them when the four live shards exit, keeping
    to 4 threads. Only claim n=11 when all six report `exit 0`.
 3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 5
+
+### Lane
+
+Principal's pass-3 report directs: housekeeping on reviewer-1's defect list
+first, then entirely on inequality (a) `cr(24,132) ≥ 165`, keeping to the 4-core
+cap. Both done, and the main result went further than (a).
+
+n=11: the first four shards finished (**205,231,695 graphs, 21
+2-crossing-critical, 0 with cr ≥ 3**). Verified nauty's res/mod refinement
+empirically (class `r mod 6` = `r mod 12` ∪ `r+6 mod 12`, checked at n=9) and
+relaunched the two killed residues as **4 shards** 4/12, 10/12, 5/12, 11/12 —
+covering exactly residues 4/6 and 5/6, at the core cap.
+
+### Housekeeping: reviewer-1's defect list (height 2571) cleared
+
+reviewer-1 confirmed the counterexample, the census reduction and the certified
+census, and raised six defects. All addressed; published as a refinement at
+height **2643**.
+
+The substantive one was reference [699], which I had never examined.
+Congressus Numerantium is not digitised, but the **zbMATH review (Zbl
+0647.05021)** gives Richter 1987's theorem: BKQ holds if `G` does not embed in
+the projective plane, or if `G` has a `K_{3,3}` subdivision with only one Tutte
+bridge. I verified `C3 □ C3` satisfies **neither**: all **156** of its `K_{3,3}`
+subdivisions have at least **6** Tutte bridges, and it *does* embed in RP² — I
+found an explicit embedding scheme of Euler characteristic `9−18+10 = 1`. [698]
+is inapplicable (4-regular, not cubic). So neither Richter paper covers the
+counterexample. Novelty restated as reviewer-1 asked. Also: `cr(G−e) = 1` now
+certified (not just `≤ 1`) by 18 further Kuratowski bitmasks; isolated-vertex
+proviso added; the `K5 ⊔ K5` wording corrected (it is the *planarization* that
+is planar and disconnected); `check_reduction.py` now compares tags; and the
+`contradicts` relation from 2537 to the problem node is submitted.
+
+### Main result — three of the four Albertson r=27 rows close from published lemmas
+
+My recursive bound was previously computed only to n=50, because that is where
+claim (b) lives. Extending it to **n=54**, the orders the rows actually concern,
+changes the verdict again:
+
+| variant | (54,726) | (53,713) | (53,714) | (53,715) |
+|---|---|---|---|---|
+| published base only | **6134** ✔ | 6071 | **6100** ✔ | **6130** ✔ |
+| + the chain's (a) at n=24 | 6163 ✔ | **6089** ✔ | 6117 ✔ | 6145 ✔ |
+| *chain claims* | 6084 | 6089 | 6100 | 6129 |
+
+(✔ = at or above `Z(27) = 6084`.)
+
+- **The order-54 row needs nothing unpublished**: 6134 outright. The chain
+  reaches only 6076 there and closes the row through its 24-vertex lemma (a) at
+  6105 — an unnecessary detour. This corrects my own height-2591 statement that
+  the order-54 row depends on (a).
+- `(53,715)` closes at **6130**, one better than the chain's 6129; `(53,714)` at
+  exactly its claimed 6100.
+- **Only `(53,713)` still needs (a)**, short by 13 at 6071; with (a) it gives
+  exactly **6089**, the chain's claimed value.
+
+Certifying step at (54,726) is a single vertex deletion: `s = 53`, mean
+53-subset edge count `726·52/54 = 6292/9`, envelope value 5679, amplification
+`C(54,53)/C(50,49) = 27/25`, giving `153333/25` hence `cr ≥ 6134`.
+
+**Soundness rechecked to n=54 and extended**: `L` never exceeds a known or
+achievable value across `K_a`+isolated, all complete bipartite graphs, and
+disjoint unions of these; monotone in `q`; margin 73335 vs `Z(54) = 114075`;
+reproduces `cr(K_5) = 1`, `cr(K_6) = 3`.
+
+### Published
+
+- GitHub: `3d46d44` (reviewer defect fixes) and `cffe406` (row table + n=54).
+- Discovery Net: refinement height **2643**
+  `bafkreib2da4na57examq2ricjvpa6jregeowucnbjcxd6u3t4b5nolr244`;
+  standalone `contradicts` relation 2537 → problem node; lemma height **2649**
+  `bafkreib4uyvzecxfuwikasiufmc74d7adc2ec6ge7kwpuon52fdkutpyda`
+  (`refines` → my 2617; `cites` → 2035, 1761, 1765, researcher-2's 2539).
+
+### Next step (concrete)
+
+1. **`(53,713)` is now the whole game** — the single row, short by 13, and the
+   only place `cr(24,132) ≥ 165` is load-bearing. Two routes: (i) close it from
+   published lemmas by using structure my `L(n,q)` ignores — a 27-critical graph
+   of order 53 has δ ≥ 26 and no `K_27`-subdivision, neither of which enters a
+   bound over *all* `n`-vertex `q`-edge graphs; (ii) settle `cr(24,132) ≥ 165`
+   itself. Route (i) looks better: `L` is deliberately structure-blind, so there
+   is real headroom.
+2. n=11: check `scratch/census/n11b/summary.txt`; claim n=11 only when it
+   reports `shards completing: 4/4` **and** the earlier `n11/summary.txt` 4/6 is
+   combined with it — together they cover all six residues.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
