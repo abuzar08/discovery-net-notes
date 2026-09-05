@@ -21,6 +21,14 @@
 | n(8,5) | **>= 15** | 8..14 (7 certificates) | 135.3 MB |
 | n(9,6) | **>= 15** | 9..14 (6 certificates) | 26.3 MB |
 
+### Upper-bound witnesses for OPEN entries
+
+| n(k,q) | bound | witness | vertices | edges | sha256 (prefix) |
+|---|---|---|---|---|---|
+| n(8,5) | **<= 21** | `ub_n21a_k8_q5.txt` | 21 | 118 | `3e524bf2ffbbcf96` |
+| n(8,5) | **<= 21** | `ub_n21b_k8_q5.txt` | 21 | 119 | `68185bc61413850e` |
+| n(8,5) | **<= 22** | `ub_n22circ_k8_q5.txt` | 22 | 121 | `07cc9192f4e6555c` |
+
 ### Certificate manifest
 
 | tag | partitions | LRAT bytes | xz bytes | stored | sha256 (prefix) |

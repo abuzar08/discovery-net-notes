@@ -173,6 +173,69 @@ def mindeg_clauses(n, d, idx):
     return out
 
 
+def mindeg_seq_clauses(n, d, idx, first_aux):
+    """Same constraint as mindeg_clauses, via a Sinz sequential counter.
+
+    "at least d of the n-1 row literals" is encoded as "at most B = (n-1)-d
+    of their negations".  Uses O(n*B) auxiliary variables per vertex instead
+    of C(n-1, n-d) clauses and no auxiliaries.  Logically equivalent to
+    mindeg_clauses, so the critical-reduction justification is unchanged;
+    the point of having both is to measure which yields smaller proofs.
+
+    Returns (clauses, n_aux).
+    """
+    clauses = []
+    aux = first_aux
+    for v in range(n):
+        row = [idx[(min(v, w), max(v, w))] + 1
+               for w in range(n) if w != v]
+        L = len(row)
+        B = L - d
+        if B < 0:
+            clauses.append([])          # unsatisfiable: degree impossible
+            continue
+        if B == 0:                      # every row literal must be true
+            for lit in row:
+                clauses.append([lit])
+            continue
+        y = [-lit for lit in row]       # count the negations
+        s = [[0] * (B + 1) for _ in range(L + 1)]
+        for i in range(1, L):
+            for j in range(1, B + 1):
+                aux += 1
+                s[i][j] = aux
+        clauses.append([-y[0], s[1][1]])
+        for j in range(2, B + 1):
+            clauses.append([-s[1][j]])
+        for i in range(2, L):
+            clauses.append([-y[i - 1], s[i][1]])
+            clauses.append([-s[i - 1][1], s[i][1]])
+            for j in range(2, B + 1):
+                clauses.append([-y[i - 1], -s[i - 1][j - 1], s[i][j]])
+                clauses.append([-s[i - 1][j], s[i][j]])
+            clauses.append([-y[i - 1], -s[i - 1][B]])
+        clauses.append([-y[L - 1], -s[L - 1][B]])
+    return clauses, aux - first_aux
+
+
+def indep_clauses(n, a, idx):
+    """No independent set of size a+1: alpha(G) <= a.
+
+    For every (a+1)-subset S:  OR_{ {u,v} in S } x_{uv}.
+
+    This is NOT valid in general -- it is an extra restriction on the search
+    space.  Use it only when hunting for a WITNESS (an upper bound): any
+    graph found still proves n(k,q) <= n, and restricting the search can
+    only cause a witness to be missed, never to be wrongly reported.  Never
+    use it inside a lower-bound certificate; verify.py refuses to.
+    """
+    out = []
+    for S in itertools.combinations(range(n), a + 1):
+        out.append(sorted(idx[(u, v)] + 1
+                          for u, v in itertools.combinations(S, 2)))
+    return out
+
+
 def build(n, k, q, partitions, symbreak=False, mindeg=None):
     """Full CNF for CF(n,k,q) relaxed to the given list of partitions."""
     idx, _ = pair_index(n)

@@ -131,7 +131,7 @@ def mono_pairs(part):
 
 # ------------------------------------------------------------------- search
 
-def run(n, k, q, symbreak=False, mindeg=None, report=2.0):
+def run(n, k, q, symbreak=False, mindeg=None, maxindep=None, report=2.0):
     c = k - 1
     idx, pairs = encode.pair_index(n)
     nvar = len(pairs)
@@ -139,6 +139,8 @@ def run(n, k, q, symbreak=False, mindeg=None, report=2.0):
     extra = []
     if mindeg is not None:
         extra += encode.mindeg_clauses(n, mindeg, idx)
+    if maxindep is not None:
+        extra += encode.indep_clauses(n, maxindep, idx)
     if symbreak:
         sb, naux = encode.symbreak_clauses(n, idx)
         extra += sb
@@ -187,8 +189,10 @@ def main():
     rest = sys.argv[4:]
     sb = "--symbreak" in rest
     md = int(rest[rest.index("--mindeg") + 1]) if "--mindeg" in rest else None
-    print(f"CF(n={n}, k={k}, q={q})  symbreak={sb} mindeg={md}", flush=True)
-    status, data, it, el = run(n, k, q, symbreak=sb, mindeg=md)
+    mi = int(rest[rest.index("--maxindep") + 1]) if "--maxindep" in rest else None
+    print(f"CF(n={n}, k={k}, q={q})  symbreak={sb} mindeg={md} maxindep={mi}",
+          flush=True)
+    status, data, it, el = run(n, k, q, symbreak=sb, mindeg=md, maxindep=mi)
     if status == "UNSAT":
         print(f"UNSAT: no K_{q}-free graph on {n} vertices with chi >= {k}")
         print(f"  iterations={it}  partitions={len(data)}  time={el:.1f}s")

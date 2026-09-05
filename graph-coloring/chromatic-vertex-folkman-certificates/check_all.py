@@ -47,8 +47,8 @@ def main():
 
     print("== upper bounds (witness graphs) ==", flush=True)
     for w in manifest["witnesses"]:
-        p = os.path.join(HERE, "witnesses",
-                         f"witness_n{w['n']}_k{w['k']}_q{w['q']}.txt")
+        p = os.path.join(HERE, "witnesses", w.get(
+            "file", f"witness_n{w['n']}_k{w['k']}_q{w['q']}.txt"))
         if sha256(p) != w["sha256"]:
             fails.append(f"{p}: sha256 mismatch")
             continue

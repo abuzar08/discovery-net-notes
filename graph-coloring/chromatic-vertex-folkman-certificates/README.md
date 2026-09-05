@@ -170,17 +170,21 @@ graph checked independently.
 | `n(7,6)` | **11** | `m = 7..10`, 4 certificates | 45 | easy; witness is `C_5 + C_5 + K_1` |
 | `n(8,6)` | **14** | `m = 8..13`, 6 certificates | 65 | known: `F_v(2_7;6) = 7+7`, Nenov |
 
-`+` denotes the graph join. The "easy" rows are marked so because the search
-independently rediscovered exactly the classical join constructions — the
-witness edge counts match `C_5 + K_{q-3}` and `C_5 + C_5 + K_{q-5}` on the
-nose — which is a useful check on the whole pipeline rather than a new
-result. The two `n(k,k-2)` rows agree with Nenov's `F_v(2_r;r-1) = r+7`
-at `r = 6, 7`; that theorem is stated for `r > 6`, so the `r = 6` case
-`n(7,5) = 13` is confirmed here by certificate rather than assumed.
+`+` denotes the graph join. The search independently rediscovered exactly the
+classical extremal constructions — the witness edge counts match Dirac's
+`K_{r-2}+C_5` and Nenov's `K_{r-5}+C_5+C_5` on the nose — which is a check on
+the pipeline, not a new result.
 
-**No novelty is claimed for any value in this table.** What is apparently
-new to the searched sources is that each now carries a compact, independently
-checkable certificate.
+**All nine values are known.** See [`LITERATURE.md`](LITERATURE.md) for the
+per-entry attribution, read from the arXiv LaTeX sources of the primary
+papers. What is apparently new to the searched sources is only that each
+value now carries a compact, independently checkable certificate.
+
+> **Correction to the first version of this directory.** It stated that
+> Nenov's `F_v(2_r;r-1) = r+7` is "stated for `r > 6`", so that `n(7,5) = 13`
+> was being confirmed by certificate rather than assumed. That is wrong:
+> Theorem 1.5(b) of arXiv:0903.3151 reads `r >= 6`, which covers it. The
+> claim came from a secondary summary rather than the paper.
 
 ### Four certified lower bounds
 
@@ -189,10 +193,49 @@ certificates, not as improvements on the literature.
 
 | `n(k,q)` | certified here | chain | comparison |
 |---|---|---|---|
-| `n(6,4)` | `>= 14` | `m = 6..13`, 8 certificates | known to be 16, so this is weaker |
-| `n(7,4)` | `>= 15` | `m = 7..14`, 8 certificates | open (`F_v(2_6;4)`); `>= 17` follows from `n(6,4)=16`, so this is weaker |
-| `n(8,5)` | `>= 15` | `m = 8..14`, 7 certificates | open (`F_v(2_7;5)`); the trivial bound from `n(7,5)=13` is only `>= 14` |
-| `n(9,6)` | `>= 15` | `m = 9..14`, 6 certificates | expected 17 from `F_v(2_r;r-2) = r+9` (`r >= 8`) |
+| `n(6,4)` | `>= 14` | `m = 6..13`, 8 certificates | known `= 16`; weaker |
+| `n(7,4)` | `>= 15` | `m = 7..14`, 8 certificates | open; published `>= 16` (immediate from `F_v(2^5;K_4)=16`); weaker |
+| `n(8,5)` | `>= 15` | `m = 8..14`, 7 certificates | open; published `>= 16` (Nenov Thm 1.1); weaker by one |
+| `n(9,6)` | `>= 15` | `m = 9..14`, 6 certificates | known `= 17` (Nenov Thm 1.6(b)); weaker |
+
+All four are weaker than what is published. In particular the first version
+of this directory said `n(8,5) >= 15` "improves on the trivial `>= 14`"; that
+is superseded — Nenov's Theorem 1.1 already gives `>= 16`.
+
+### New: the first upper bounds for an open entry
+
+`n(8,5) = F_v(2^7;K_5)` is one of the three numbers Nenov lists as unknown
+(`F_v(2^r;K_{r-2})`, `5 <= r <= 7`). Its published lower bound is `>= 16` and
+**no upper bound for it appears in any of the primary sources read**: Nenov's
+only construction needs `r >= 3s+6 = 9` for `s = 1`, and the current
+Xu–Radziszowski table of `F_v(2^r;H)` stops at `r = 5`.
+
+Upper bounds need no refutation at all — just a graph — so they are not
+subject to the proof-size wall below.
+
+| bound | evidence | status |
+|---|---|---|
+| `n(8,5) <= 22` | a `K_5`-free graph with `alpha <= 3` on 22 vertices has `chi >= ceil(22/3) = 8`, and such graphs exist since `R(4,5) = 25` | a one-line counting argument; **not claimed as new**, only as not previously written down. A canonical witness is the circulant `C_22(1,2,3,5,10,11)`, 121 edges |
+| `n(8,5) <= 21` | two explicit 21-vertex witnesses (118 and 119 edges), both verified | **apparently new** — it does *not* follow from the counting argument, which stops at 22 |
+
+So this number moves from "published `>= 16`, no recorded upper bound" to
+`16 <= n(8,5) <= 21`.
+
+Both 21-vertex witnesses are `K_5`-free with `alpha = 3`, and the 118-edge one
+is vertex-critical for the property: no single vertex and no pair of vertices
+can be deleted while keeping `chi >= 8` (checked exhaustively). They were
+found by two independent routes — a direct CEGAR search at `n = 21`, and
+greedy vertex-deletion from a 22-vertex witness — and are non-isomorphic
+(different edge counts).
+
+**Exhaustive circulant scan** (`circulant.py`; an observation over the whole
+circulant family, not a theorem about all graphs):
+
+- no `K_5`-free circulant on `n <= 21` vertices has `chi >= 8`; at `n = 22`
+  there are exactly 10;
+- no `K_4`-free circulant on `n <= 30` vertices has `chi >= 7`, which is why
+  no upper bound for the other open entry `n(7,4) = F_v(2^6;K_4)` is offered
+  here.
 
 ### Where the method stops
 
@@ -206,11 +249,31 @@ grows by roughly a factor of 30 per additional vertex:
 | 13 | 11897 | 152 MB |
 
 At `m = 15` the CEGAR search itself also stops converging: 116k partitions in
-900 s without a verdict. So `n(6,4) = 16`, and the open `n(7,4)`, `n(8,5)`
-and `n(6,3) in [32,40]`, are out of reach of this method as implemented.
-Reducing proof size — minimising the partition set, cube-and-conquer with
-per-cube proofs, and a smaller min-degree encoding than the current
-`C(n-1, n-k+1)` clauses per vertex — is the next thing to try.
+900 s without a verdict.
+
+**The min-degree encoding is not the cause, and replacing it does not help.**
+`encode.py` offers a second, logically equivalent min-degree encoding
+(`mindeg_seq_clauses`, a Sinz sequential counter) using `O(n·(n-1-d))`
+auxiliary variables instead of `C(n-1, n-d)` clauses and none. Same instance,
+same solver, both encodings (`exp_encoding.py`):
+
+| instance | clauses (subsets → counter) | DRAT (subsets → counter) |
+|---|---|---|
+| `m=12, (k,q)=(6,4)` | 7348 → 4876 | 3.35 MB → 3.36 MB (**+0.1%**) |
+| `m=13, (k,q)=(6,4)` | 19767 → 15386 | 107.2 MB → 106.3 MB (**−0.9%**) |
+| `m=13, (k,q)=(8,5)` | 17525 → 7021 | 2.71 MB → 2.56 MB (**−5.5%**) |
+
+The formula shrinks by up to 60%, the proof by at most 5%. Since proof length
+grows ~30× per vertex, buying one more vertex needs a 30× reduction; the
+best available encoding change buys 1.05×. The difficulty is intrinsic to the
+partition-blocking clauses, not to how the degree bound is written. Combined
+with the search itself stalling at `m = 15`, **the lower-bound side of this
+method cannot reach the open entries**, and no refinement of the encoding
+will change that. Cube-and-conquer would make a large proof checkable in
+pieces but cannot help here, because at `m = 15` the search does not even
+produce a partition set to refute.
+
+This is why the open entry was moved from the *upper* side instead.
 
 ### Measured effect of the two search aids
 
@@ -229,6 +292,11 @@ symmetry breaking, 56 with symmetry breaking and the min-degree clauses.
 - `mkchain.sh` — builds, externally verifies and independently replays one
   certificate per `m`.
 - `check_all.py` — re-checks every stored artifact from scratch; no solver.
+- `LITERATURE.md` — what is already known, from the primary papers, with
+  every result here labelled known / weaker-than-known / new.
+- `circulant.py` — exhaustive scan of the circulant family (upper bounds).
+- `shrink.py` — deletes vertices from a witness while `chi >= k` survives.
+- `exp_encoding.py` — the min-degree encoding comparison reported above.
 - `certificates/` — `<tag>.parts.txt` (partition list, always stored) and
   `<tag>.lrat.xz` (refutation, stored when at most 6 MB compressed), with
   `tag = n<m>_k<k>_q<q>`.
