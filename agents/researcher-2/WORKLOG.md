@@ -1042,3 +1042,99 @@ minimiser. `k4free.py` re-verified unchanged: the \(b\ge 8\) closure is robust.
    second-level barrier (with \(|R|=s+12\)) and hence the same split.
 3. Ask for review of `descent.py` and `k4free.py`, and of `deps.py` from pass 8.
 4. Convert the older README sections to LaTeX as they are next touched.
+
+## 2026-09-05 — pass 13
+
+### What I established
+
+**1. A scope defect in my own published claim (height 3014), found and reported.**
+The \(\mathrm{cr}(K_q)\) recursion in `verify_range.py` defaults to seeding at the
+CCCG 2021 values \(\mathrm{cr}(K_{13})=225\), \(\mathrm{cr}(K_{14})=315\), and **no
+file called** `set_base`. Seeding only at the uncontested
+\(\mathrm{cr}(K_{12})=150\) gives \(\mathrm{cr}(K_{28})\ge 6250\) instead of 6471,
+and the \(b=30\) class **reopens**: 8249 at \(m=839\) and 8213 at \(m=840\)
+against \(Z(29)=8281\); only \(m=838\) survived, at 8286. So the \(b\ge8\)
+closure as published held only under \(\mathrm{cr}(K_{13})\ge225\). My \(r=27\)
+and \(r=28\) proofs were already audited against exactly this (`r27.py` Step 6,
+`r28.py` Part C) and are unaffected — the \(r=29\) order-58 work was not.
+
+**2. The repair: `crminus.py`, a lower bound for \(K_n\) minus \(f\) edges.**
+Every tight configuration here has that shape, and the generic sampling bound is
+very weak at high density (\(L(28,375)=4656\) against \(\mathrm{cr}(K_{28})\ge
+6250\)). Let \(g(n,f)\) bound \(\mathrm{cr}(F)\) for every \(F\) on \(n\) vertices
+with at least \(\binom n2-f\) edges; take the largest of a vertex-cover bound
+\(\mathrm{cr}(K_{n-f})\), the sampling bound, and vertex-deletion averaging:
+in a good drawing crossing edges are independent, so every crossing involves
+exactly four vertices and survives in exactly \(n-4\) of the \(n\) deletions,
+whence \(\mathrm{cr}(F)\ge\sum_v\mathrm{cr}(F-v)/(n-4)\); each \(F-v\) misses
+\(f_v\le f\) edges, and the \(\ge t(f)\) vertices spanned by the missing edges
+have \(f_v\le f-1\), giving
+$$g(n,f)\ \ge\ \left\lceil\frac{(n-t)\,g(n-1,f)+t\,g(n-1,f-1)}{n-4}\right\rceil .$$
+This gives \(g(28,3)=5324\) at the bare counting seed.
+
+**3. The closure is now unconditional.** With \(g\) wired into `k4free.py`, zero
+classes with \(b\ge8\) survive at every rung of a four-step seed ladder
+(217 / 219 / 223 / 225), so it needs nothing beyond \(\mathrm{cr}(K_{12})=150\).
+
+**4. Literature, established from primary sources.** \(\mathrm{cr}(K_{13})=225\)
+is a real published theorem (Aichholzer, CCCG 2021, 72--77, Theorem 1) but
+single-author, 1000+ CPU-years, and by the author's own statement checkable only
+by repeating the computation; it appears in **neither** Schaefer's DS21 (ninth
+edition, 2026) **nor** Clancy--Haythorpe--Newcombe. Strongest refereed-journal
+value: \(\mathrm{cr}(K_{13})\ge219\) (McQuillan, Pan, Richter, *JCTB* **115**
+(2015) 224--235). The best asymptotic constant \(0.98559895\)
+(Balogh--Lidicky--Salazar, *SIDMA* **33** (2019) 1261--1276) gives nothing at
+finite \(n\), since the counting recursion makes \(\mathrm{cr}(K_n)/\binom n4\)
+non-decreasing so that limit is a supremum. A four-rung ladder
+(`BASE_CONSERVATIVE`, `BASE_MPR2015`, `BASE_EUROCG2015`, `BASE_CCCG2021`) is now
+in `verify_range.py` with the citations inline.
+
+### Corrections made this pass
+- My first draft of the averaging step used \((n-2)g(n-1,f)+2\,\mathrm{cr}(K_{n-1})\),
+  assuming two deleted subgraphs come out complete. **False**: \(f_v=0\) needs
+  \(v\) in *every* missing edge, which fails already for two disjoint missing
+  edges. Replaced by the \(t(f)\) step above, which only claims \(f_v\le f-1\)
+  for a spanned vertex. The wrong version is recorded in `crminus.py`.
+
+### Side effect
+`crminus` raises the open \(s=22\) order-58 barrier from 7354 to 7929 against
+8281; \(s=23\) is unchanged at 7858 (\(f=113\) is far too large for \(g\) to beat
+sampling) and \(s=0\) unchanged at 3783. Across the ladder these move by at most
+about 100, so unlike the \(b\ge8\) closure they were never seed-critical.
+
+### Published
+- GitHub commit `5edeb38`: new `crminus.py`, seed ladder in `verify_range.py`,
+  `crminus` wired into `k4free.py` (PART 5 = the ladder) and `descent.py`,
+  README scope-correction section in LaTeX, expected outputs and `SHA256SUMS`
+  regenerated (33/33 verify). Blob links HTTP 200.
+  `crminus.py` SHA-256 `a60c61fdfb579e191008bf663c7f2996f931798d5168e4c9fc342839535125f5`.
+- Discovery Net: LEMMA `bafkreifj6xsnly76ikx6rftbo3fnyywodatuuxlfcmoutscrwbl754gsny`,
+  tx `6CCDB3FBEA9A13C971042E8D12505CF2FFF8CADF515FA67887B18851376721EA`,
+  **committed at height 3068**. Relations: `about` conjecture (280); `refines`
+  the \(b\ge8\) closure it corrects (3014); `cites` the second-level split (3046).
+  Graph re-queried at height 3065 immediately before submitting.
+
+### Blocked
+- Order 58 is not closed: three second-level barriers of the \((51,1)\) class
+  survive (3783, 7929, 7858), and \((50,1,1)\), \((49,1,1)\) do not inherit the
+  clique-cover transfer.
+- Order 57 rows 826, 827, 828 remain open at \(|R|\in[7]\), \([7,8,9]\),
+  \([7,\dots,11]\); I inspected them this pass but `crminus` does not apply,
+  since the Gallai blocks there are already complete.
+- \(r=29\) is not proved. No background computations left running.
+
+### Next step (concrete)
+1. **Audit the rest of the r = 29 chain against the seed ladder**, exactly as
+   done here for \(b\ge8\): `order2r.py` (height 2933, the \(\alpha(G)\ge4\)
+   closure) and the no-two-disjoint-triangles closure (height 3014) have not been
+   re-run at the bare counting seed. The latter had margin \(11092\) vs \(8281\)
+   so is certainly safe; the former is not obviously so and must be checked.
+2. `r29.py` has a stale docstring: PART A still reads "28-critical",
+   "sum r_i = 28", "n = 55 = 2r-1 and m in {768,769}", copied from `r28.py`, and
+   `DEG = RCHI - 1` is commented "low-vertex degree 27" when it is 28. The
+   computation uses the right constants; only the prose is wrong. Fix it.
+3. For the \(s=23\) order-58 barrier, 423 short: the discarded \(e_G(A,R)=126\)
+   edges, or a bound for a 32-vertex graph at 78 per cent density beating
+   sampling where \(f=113\) is too large for `crminus`.
+4. Ask for review of `crminus.py` — the averaging step is the load-bearing new
+   argument and I already got one version of it wrong.
