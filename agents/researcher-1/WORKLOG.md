@@ -503,3 +503,57 @@ pass while `cnc258` is going.
    `verify_cnc_p.py 12 3 10 4 … --refine …` for the whole set; publish 1^12 3^10
    in the same artifact (new section) and submit a lemma.
 3. Then 1^2 5^8 (same recipe, level 3 + refinement), then 1^9 3^11 … 1^0 3^14.
+
+## 2026-09-05 pass 9 (18:28Z–~18:50Z)
+
+### Established
+- **reviewer-1 confirmed the 1^15 3^9 lemma** (review `bafkreicnsezbnptck3rtli354p5hk76aff7cq5m6xv5sl5t5xdjd4tvjgm`,
+  height 2901): own encoder and own symmetry generators as explicit vertex maps,
+  all 1576 certificates regenerated bit for bit and re-verified with `lrat-check`,
+  and completeness checked in a *stronger* form than I proved — the orbit **sets**
+  (not merely their sizes) coincide with the 2 541 538 good labelled prefixes.
+  Three minor defects, all non-mathematical, now fixed:
+  (a) `logs/verify_full.log` was missing from the repository — cause found: the
+      repository `.gitignore` has `*.log`, so **every** log in my artifacts was
+      silently untracked (this is also remark (a) of review h2867). Fixed with
+      `git add -f` for all three artifacts: `r55-42-order3-cube-and-conquer/logs/`,
+      `r55-42-fixed-vertex-lex-leader/logs/` (16 files), `r55-42-no-order-7-automorphism/verify_l3.log`.
+  (b) the invariance sentence now says the hybrid **constraints** (not clauses) are
+      invariant — the clause set is not, because totalizer auxiliaries are tied to
+      the vertex or cycle their constraint is about; README rewritten with the reason.
+  (c) trust-boundary remark already covered; the review is now cited in the README.
+- Also fixed remark (b) of review h2867 (lex-leader lemma): the Statement now says
+  that the three hybrid-based types (1^7 5^7, 1^21 3^7, 1^18 3^8) rest on the
+  redundant-clause soundness of the pass-1 artifact (hence on R(3,3), R(3,5), R(4,5)),
+  and records remarks (a) and (c).
+- `refine_p.py`: added `--nvars m` (split on the first m of the (p−1)/2 + p next-cycle
+  variables — p = 5 with m = 5 gives 32 children instead of 128) and a guard that
+  **refuses to refine an unfinished run** (cubes with no record) unless
+  `--include-missing` is passed; caught immediately in a dry run that would otherwise
+  have "refined" 200 not-yet-attempted cubes.
+- **369 certificates independently replayed and deleted** by `sweep_verify.py`:
+  52 of 1^2 5^8 (cubes 0–54) and 317 of 1^12 3^10, all VERIFIED, hashes in
+  `<dir>/verified.jsonl`; scratch 9.5 GB → 7.2 GB.
+
+### Published
+Commits 5c3a3d4 (logs committed; invariance wording), 72cce82 (review artifactRef),
+23ca0f8 (h2867 remark (b) in the lex-leader README), 069cc48 (`refine_p.py` guard
+and `--nvars`). No new graph contribution (no new theorem this pass).
+
+### Background left (2)
+- `cnc12310` (1^12 3^10, pid 57253): 321/1576, median 0.3 s but max 371.8 s — the
+  hard cubes have started to appear; 900 s cap, 3 workers.
+- `cnc258` (1^2 5^8, pid 46333): 54/256, two TIMEOUTs so far (cubes 50, 52),
+  600 s cap, 4 workers.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Sweep both runs every pass (`manifest_p.py` then `sweep_verify.py --jobs 2`);
+   scratch stays ≈ 7 GB that way.
+2. When `cnc12310` finishes: `refine_p.py … 12 3 10 4` (16 children per hard cube),
+   rerun the driver on the refined `.icnf` into `cnc12310r/`, then the full
+   `verify_cnc_p.py … --refine`; publish 1^12 3^10 as a second section of the
+   order-3 artifact and submit the lemma.
+3. Same for 1^2 5^8 with `--nvars 5`; that type closes order 5 entirely.
