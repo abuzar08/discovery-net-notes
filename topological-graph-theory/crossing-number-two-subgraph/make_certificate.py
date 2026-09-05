@@ -170,6 +170,11 @@ def main():
         one.append(k)
     cert["one_crossing_witnesses"] = one
 
+    # (A') each G - e is non-planar, so cr(G - e) = 1 exactly
+    cert["G_minus_e_nonplanar"] = [kuratowski(N, [f for f in E if f != e])
+                                   for e in E]
+    assert all(w is not None for w in cert["G_minus_e_nonplanar"])
+
     # (C) cr(G) <= 3
     pairs = [(e, f) for e, f in itertools.combinations(E, 2) if indep(e, f)]
     got = None

@@ -57,7 +57,7 @@ def main():
     restricted = []
     for n in range(6, 11):
         restricted += load(f"n{n}.txt")
-    R = [nx.Graph(E) for _, _, E in restricted]
+    R = [(tag, nx.Graph(E)) for tag, _, E in restricted]
     print("restricted census members:", len(R))
 
     simple_ok = multi = 0
@@ -79,10 +79,16 @@ def main():
                     bad.append(("parallel edges but cr >= 3", nn, E))
                 continue
             G = nx.Graph(edges)
-            if any(nx.is_isomorphic(G, H) for H in R):
-                simple_ok += 1
-            else:
+            match = [rtag for rtag, H in R if nx.is_isomorphic(G, H)]
+            if not match:
                 bad.append(("suppression not in restricted census", nn, E))
+            elif any(rtag != tag for rtag in match):
+                # crossing number is invariant under subdivision, so the tag of
+                # an unrestricted graph must equal the tag of the census member
+                # its suppression is isomorphic to
+                bad.append(("tag mismatch with census member", nn, tag, match))
+            else:
+                simple_ok += 1
 
     print(f"unrestricted 2-crossing-critical graphs on <= 9 vertices: {total}")
     print(f"  suppress into the restricted census: {simple_ok}")

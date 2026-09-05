@@ -1,8 +1,11 @@
 # Census of small 2-crossing-critical graphs
 
 A graph `H` is **2-crossing-critical** when `cr(H) ≥ 2` and `cr(H − e) ≤ 1` for
-every edge `e` — equivalently, `cr(H) ≥ 2` and every proper subgraph has
-crossing number at most 1.
+every edge `e`. Throughout, graphs are assumed to have **no isolated vertices**;
+with that proviso this is equivalent to "`cr(H) ≥ 2` and every proper subgraph
+has crossing number at most 1". (Without it the two differ: `C3 □ C3 ⊔ K1`
+satisfies the first but not the second, and suppression would leave it on 10
+vertices. Isolated vertices affect no crossing number, so nothing is lost.)
 
 **Observation 0.** The following are equivalent.
 
@@ -119,9 +122,9 @@ cubic members occur with `n ≤ 10` (the Petersen graph and one bipartite cubic
 graph of girth 4), consistent with Richter's determination of the eight cubic
 2-crossing-critical graphs, the others having more than 10 vertices.
 
-**Theorem (computer-assisted).** Every 2-crossing-critical graph whose
-suppression has at most 10 vertices has crossing number 2, with the single
-exception of `C3 □ C3` and its subdivisions.
+**Theorem (computer-assisted).** Every 2-crossing-critical graph without
+isolated vertices whose suppression has at most 10 vertices has crossing
+number 2, with the single exception of `C3 □ C3` and its subdivisions.
 
 Equivalently: if `G` has `cr(G) ≥ 2` and no subgraph of crossing number 2, then
 every edge-minimal subgraph of `G` with crossing number at least 2 is a

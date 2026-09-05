@@ -297,6 +297,15 @@ def main(path):
     assert covered == set(E), "not every edge covered"
     print(f"cr(G - e) <= 1 for all {len(E)} edges: verified by rotation systems")
 
+    # cr(G - e) >= 1: each G - e is non-planar
+    assert len(cert["G_minus_e_nonplanar"]) == len(E)
+    for e, w in zip(E, cert["G_minus_e_nonplanar"]):
+        rest = [f for f in E if f != e]
+        ok, why = check_kuratowski(N, rest, w)
+        assert ok, f"G-{e} non-planarity: {why}"
+    print(f"cr(G - e) >= 1 for all {len(E)} edges: Kuratowski subdivisions "
+          f"=> cr(G - e) = 1 exactly")
+
     print()
     print("CONCLUSION")
     print("  cr(C3 [] C3) = 3 >= 2.")

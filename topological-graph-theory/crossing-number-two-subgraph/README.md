@@ -65,14 +65,41 @@ citing
 > presentation at AMS Summer Conference, Ohio State University, August 1990.
 
 That is a conference presentation, with no published proof that we could
-locate, and the consequence for the Bloom–Kennedy–Quintas question appears
-never to have been recorded: the question is still listed as open in the 2026
-edition of DS21.
+locate. But the BORS sentence is itself in print and, by the equivalence above,
+already *is* a counterexample. What is unrecorded is the cross-reference: the
+question is still listed as open in the 2026 edition of DS21.
+
+**The two Richter papers DS21 cites for this question do not cover it.**
+DS21 cites [698] *Cubic graphs with crossing number two* (JGT 12 (1988)
+363–374) and [699] *Subgraphs with crossing number two* (Congr. Numerantium 60
+(1987) 169–180). Congressus Numerantium is not digitised, but the zbMATH review
+of [699] (Zbl 0647.05021) gives its result:
+
+> Let `G` be a graph with crossing number at least 2. If either `G` does not
+> embed in the projective plane, or `G` contains a subdivision of `K_{3,3}`
+> that has only one bridge (in the sense of Tutte), then `G` contains a
+> subgraph `H` with crossing number exactly 2.
+
+`richter_1987_check.py` verifies that `C3 □ C3` satisfies **neither**
+hypothesis: all **156** of its `K_{3,3}` subdivisions have at least **6** Tutte
+bridges (never one), and it *does* embed in the projective plane. An explicit
+embedding scheme of Euler characteristic `9 − 18 + 10 = 1` is
+
+```
+rotation  0:[1,3,6,2] 1:[2,7,4,0] 2:[8,1,0,5] 3:[4,5,6,0] 4:[3,5,7,1]
+          5:[2,8,3,4] 6:[7,8,3,0] 7:[1,4,6,8] 8:[2,5,6,7]
+negative edges  06 14 17 25 34 36 45 58 67 78
+```
+
+(10 faces, non-orientable). [698] is inapplicable too: `C3 □ C3` is 4-regular,
+not cubic. So the counterexample is outside the scope of both papers and
+contradicts neither.
 
 What this directory contributes is therefore:
 
-1. the explicit observation that the DS21 open question is answered in the
-   negative by `C3 □ C3`;
+1. explicit, certified confirmation that the DS21 open question is answered in
+   the negative by the known example `C3 □ C3`, together with the verification
+   that neither Richter paper already covers it;
 2. a **self-contained, machine-checkable certificate** of the two facts that
    the answer rests on (`cr(G) = 3` and `cr(G − e) ≤ 1` for all 18 edges),
    independent of any published proof;
@@ -120,7 +147,8 @@ anything that produced the certificate.
 
 | file | what it is |
 | --- | --- |
-| `certificate.json` | the certificate (58 KB): 18 rotation systems for `cr(G−e) ≤ 1`, one for `cr(G) ≤ 3`, and 5940 Kuratowski bitmasks for `cr(G) ≥ 3` |
+| `certificate.json` | the certificate (58 KB): 18 rotation systems for `cr(G−e) ≤ 1` and 18 Kuratowski bitmasks giving `cr(G−e) ≥ 1`, so `cr(G−e) = 1` exactly; one rotation system for `cr(G) ≤ 3`; and 5940 Kuratowski bitmasks for `cr(G) ≥ 3` |
+| `richter_1987_check.py` | verifies that neither Richter paper cited by DS21 covers `C3 □ C3` |
 | `verify_certificate.py` | standard-library-only checker for `certificate.json` |
 | `make_certificate.py` | generator (needs networkx; only used to *produce* the certificate) |
 | `crit2.c` | exhaustive census of 2-crossing-critical graphs, using nauty's Boyer–Myrvold planarity |
@@ -151,6 +179,7 @@ cr(G) >= 2: all 99 one-crossing planarizations non-planar
 cr(G) >= 3: all 5841 two-crossing planarizations non-planar
 cr(G) <= 3: explicit 3-crossing drawing verified  =>  cr(G) = 3
 cr(G - e) <= 1 for all 18 edges: verified by rotation systems
+cr(G - e) >= 1 for all 18 edges: Kuratowski subdivisions => cr(G - e) = 1 exactly
 
 CONCLUSION
   cr(C3 [] C3) = 3 >= 2.
