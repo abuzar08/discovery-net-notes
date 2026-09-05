@@ -143,13 +143,75 @@ def profile_clauses(n, f, p, k, idx, orb):
     return out
 
 
-def build(n, s, t, f, p, k, profile=False):
+
+def symF_clauses(n, f, p, k, idx, orb, first_aux):
+    """Fixed-vertex lex-leader (researcher-1's `symF`), for this layout.
+
+    CONSTRUCTION AND SOUNDNESS ARE CITED, NOT RE-DERIVED: see researcher-1,
+    "Fixed-vertex lex-leader symmetry breaking excludes six more automorphism
+    types of (5,5,42)-graphs", Discovery Net height 2689, source
+    notes/graph-ramsey-theory/r55-42-fixed-vertex-lex-leader/.  In brief:
+    every permutation of the fixed-point set F, extended by the identity on
+    the cycles, commutes with sigma, so it maps type-1^f p^k graphs to
+    type-1^f p^k graphs and preserves (s,t)-goodness; the type formula is
+    therefore invariant under the induced S_f action on its variables, and
+    any constraint satisfied by at least one relabelling of every solution
+    may be imposed.  Their row and constraint are used verbatim:
+
+        R_u = ( x(u, c_0), ..., x(u, c_{k-1}),
+                x(u, w) for w in 0..f-1, w not in {u, u+1} )
+        (L)  R_u <=_lex R_{u+1}   for u = 0 .. f-2,
+
+    where c_j = f + j*p is the first vertex of cycle j.
+
+    Only the CNF for (L) is written here, since the variable numbering is
+    this file's own.  Returns (clauses, n_aux).
+    """
+    clauses = []
+    aux = first_aux
+
+    def var(a, b):
+        return orb[idx[(a, b)] if a < b else idx[(b, a)]] + 1
+
+    for u in range(f - 1):
+        others = [w for w in range(f) if w != u and w != u + 1]
+        row_a = [var(u, f + j * p) for j in range(k)] + \
+                [var(u, w) for w in others]
+        row_b = [var(u + 1, f + j * p) for j in range(k)] + \
+                [var(u + 1, w) for w in others]
+        prev = None                      # None means "equal so far" is true
+        for t, (a, b) in enumerate(zip(row_a, row_b)):
+            # prev -> (a -> b)
+            if prev is None:
+                clauses.append(sorted((-a, b)))
+            else:
+                clauses.append(sorted((-prev, -a, b)))
+            if t == len(row_a) - 1:
+                break
+            aux += 1
+            e = aux                       # e <-> prev AND (a == b)
+            if prev is None:
+                for cl in ((-e, a, -b), (-e, -a, b), (e, a, b), (e, -a, -b)):
+                    clauses.append(sorted(cl))
+            else:
+                for cl in ((-e, prev), (-e, a, -b), (-e, -a, b),
+                           (e, -prev, a, b), (e, -prev, -a, -b)):
+                    clauses.append(sorted(cl))
+            prev = e
+    return clauses, aux - first_aux
+
+
+def build(n, s, t, f, p, k, profile=False, symf=False):
     idx = pair_index(n)
     sigma = permutation(n, f, p, k)
     orb, nvar = pair_orbits(n, sigma, idx)
     cls = clauses(n, s, t, orb, idx)
     if profile:
         cls = cls + [tuple(c) for c in profile_clauses(n, f, p, k, idx, orb)]
+    if symf:
+        sf, naux = symF_clauses(n, f, p, k, idx, orb, nvar)
+        cls = cls + [tuple(c) for c in sf]
+        nvar += naux
     return nvar, cls
 
 
@@ -167,10 +229,11 @@ def main():
         return 2
     n, s, t, f, p, k = (int(x) for x in sys.argv[1:7])
     prof = "--profile" in sys.argv[8:]
-    nvar, cls = build(n, s, t, f, p, k, profile=prof)
+    sf = "--symf" in sys.argv[8:]
+    nvar, cls = build(n, s, t, f, p, k, profile=prof, symf=sf)
     write_dimacs(sys.argv[7], nvar, cls)
     print(f"n={n} ({s},{t}) type 1^{f} {p}^{k}: "
-          f"orbit vars={nvar} clauses={len(cls)} profile={prof}"
+          f"vars={nvar} clauses={len(cls)} profile={prof} symf={sf}"
           + (f" weights={allowed_profile_weights(n, f, p, k)}" if prof else ""))
     return 0
 

@@ -11,6 +11,7 @@
       "orbit_vars": 18,
       "p": 36,
       "stored": true,
+      "symf": false,
       "tag": "n36_f0_p36_k1"
     },
     {
@@ -24,6 +25,7 @@
       "orbit_vars": 90,
       "p": 13,
       "stored": true,
+      "symf": false,
       "tag": "n36_f10_p13_k2"
     },
     {
@@ -37,6 +39,7 @@
       "orbit_vars": 140,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n36_f14_p11_k2"
     },
     {
@@ -50,6 +53,7 @@
       "orbit_vars": 198,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n36_f19_p17_k1"
     },
     {
@@ -63,6 +67,7 @@
       "orbit_vars": 38,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n36_f2_p17_k2"
     },
     {
@@ -76,6 +81,7 @@
       "orbit_vars": 18,
       "p": 37,
       "stored": true,
+      "symf": false,
       "tag": "n37_f0_p37_k1"
     },
     {
@@ -89,6 +95,7 @@
       "orbit_vars": 102,
       "p": 13,
       "stored": true,
+      "symf": false,
       "tag": "n37_f11_p13_k2"
     },
     {
@@ -102,6 +109,7 @@
       "orbit_vars": 156,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n37_f15_p11_k2"
     },
     {
@@ -115,6 +123,7 @@
       "orbit_vars": 218,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n37_f20_p17_k1"
     },
     {
@@ -128,6 +137,7 @@
       "orbit_vars": 42,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n37_f3_p17_k2"
     },
     {
@@ -141,6 +151,7 @@
       "orbit_vars": 66,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n37_f4_p11_k3"
     },
     {
@@ -154,6 +165,7 @@
       "orbit_vars": 37,
       "p": 19,
       "stored": true,
+      "symf": false,
       "tag": "n38_f0_p19_k2"
     },
     {
@@ -167,6 +179,7 @@
       "orbit_vars": 19,
       "p": 38,
       "stored": true,
+      "symf": false,
       "tag": "n38_f0_p38_k1"
     },
     {
@@ -180,6 +193,7 @@
       "orbit_vars": 115,
       "p": 13,
       "stored": true,
+      "symf": false,
       "tag": "n38_f12_p13_k2"
     },
     {
@@ -193,6 +207,7 @@
       "orbit_vars": 173,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n38_f16_p11_k2"
     },
     {
@@ -206,6 +221,7 @@
       "orbit_vars": 239,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n38_f21_p17_k1"
     },
     {
@@ -219,6 +235,7 @@
       "orbit_vars": 47,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n38_f4_p17_k2"
     },
     {
@@ -232,6 +249,7 @@
       "orbit_vars": 73,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n38_f5_p11_k3"
     },
     {
@@ -245,6 +263,7 @@
       "orbit_vars": 19,
       "p": 39,
       "stored": true,
+      "symf": false,
       "tag": "n39_f0_p39_k1"
     },
     {
@@ -258,6 +277,7 @@
       "orbit_vars": 129,
       "p": 13,
       "stored": true,
+      "symf": false,
       "tag": "n39_f13_p13_k2"
     },
     {
@@ -271,6 +291,7 @@
       "orbit_vars": 191,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n39_f17_p11_k2"
     },
     {
@@ -284,6 +305,7 @@
       "orbit_vars": 261,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n39_f22_p17_k1"
     },
     {
@@ -297,6 +319,7 @@
       "orbit_vars": 53,
       "p": 17,
       "stored": true,
+      "symf": false,
       "tag": "n39_f5_p17_k2"
     },
     {
@@ -310,7 +333,344 @@
       "orbit_vars": 81,
       "p": 11,
       "stored": true,
+      "symf": false,
       "tag": "n39_f6_p11_k3"
+    },
+    {
+      "clauses": null,
+      "f": 11,
+      "k": 5,
+      "lrat_bytes": 4881661,
+      "lrat_sha256": "25fbfcc9c6446099d157b0d28a6cecb09272a777e63449e0823d3559c93e2092",
+      "lrat_xz_bytes": 417900,
+      "n": 36,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n36_f11_p5_k5"
+    },
+    {
+      "clauses": null,
+      "f": 16,
+      "k": 4,
+      "lrat_bytes": 5858090,
+      "lrat_sha256": "a86d406ea5b2a33d7d04ed24ee325a99dceed73362183e4a669cb65dd32cf740",
+      "lrat_xz_bytes": 562904,
+      "n": 36,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n36_f16_p5_k4"
+    },
+    {
+      "clauses": null,
+      "f": 21,
+      "k": 3,
+      "lrat_bytes": 3432122,
+      "lrat_sha256": "6e095ed8117f6da44ad4c1a1b422b80962d4a20816077683b494e59237b8cfa9",
+      "lrat_xz_bytes": 130812,
+      "n": 36,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n36_f21_p5_k3"
+    },
+    {
+      "clauses": null,
+      "f": 26,
+      "k": 2,
+      "lrat_bytes": 10999908,
+      "lrat_sha256": "c39fb694e3cfe2c2348d7766836c64fb0b2b160f63f12d5cece6e116eb31aa03",
+      "lrat_xz_bytes": 1268928,
+      "n": 36,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n36_f26_p5_k2"
+    },
+    {
+      "clauses": null,
+      "f": 31,
+      "k": 1,
+      "lrat_bytes": 14404794,
+      "lrat_sha256": "d9d36bbe7259393d1cbc6d1d364393900c3d4cb40a12af321f2fa9c68e85aac3",
+      "lrat_xz_bytes": 1220128,
+      "n": 36,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n36_f31_p5_k1"
+    },
+    {
+      "clauses": null,
+      "f": 6,
+      "k": 6,
+      "lrat_bytes": 124392209,
+      "lrat_sha256": "69d1ba228b87fe3382c3b33664f6bee6696bfd1c2408c1481d92958a81847b3b",
+      "lrat_xz_bytes": -1,
+      "n": 36,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": false,
+      "symf": true,
+      "tag": "sf_n36_f6_p5_k6"
+    },
+    {
+      "clauses": null,
+      "f": 12,
+      "k": 5,
+      "lrat_bytes": 7299681,
+      "lrat_sha256": "7cd0a477cb59058b29302397afa17fe2dbd292b884115459016fd1ed0c24dd7a",
+      "lrat_xz_bytes": 736164,
+      "n": 37,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n37_f12_p5_k5"
+    },
+    {
+      "clauses": null,
+      "f": 17,
+      "k": 4,
+      "lrat_bytes": 5033022,
+      "lrat_sha256": "82519c052c9645fd49a4f33fe9882f3d69c8413dadc7e1768d5c5a926c25e237",
+      "lrat_xz_bytes": 331776,
+      "n": 37,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n37_f17_p5_k4"
+    },
+    {
+      "clauses": null,
+      "f": 22,
+      "k": 3,
+      "lrat_bytes": 3794025,
+      "lrat_sha256": "192ae1cd177b6295d02fad04aac33f199c097db548f27302199fe8cb02538a72",
+      "lrat_xz_bytes": 164828,
+      "n": 37,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n37_f22_p5_k3"
+    },
+    {
+      "clauses": null,
+      "f": 27,
+      "k": 2,
+      "lrat_bytes": 5145324,
+      "lrat_sha256": "2c6183a9b575dc2883eb81b739a3353ec097cb2b65891c343a2986da873f8d91",
+      "lrat_xz_bytes": 106632,
+      "n": 37,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n37_f27_p5_k2"
+    },
+    {
+      "clauses": null,
+      "f": 32,
+      "k": 1,
+      "lrat_bytes": 19569242,
+      "lrat_sha256": "2df81ab6f7b45993901a9a75a4329f1d15e0dcb63197f935e6f584159acaa80d",
+      "lrat_xz_bytes": 1813264,
+      "n": 37,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n37_f32_p5_k1"
+    },
+    {
+      "clauses": null,
+      "f": 7,
+      "k": 6,
+      "lrat_bytes": 53014536,
+      "lrat_sha256": "32b4bc50b439f90b4f4bbfe699f194a8dd8699cd368edde388dcdee5b7d68e30",
+      "lrat_xz_bytes": -1,
+      "n": 37,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": false,
+      "symf": true,
+      "tag": "sf_n37_f7_p5_k6"
+    },
+    {
+      "clauses": null,
+      "f": 13,
+      "k": 5,
+      "lrat_bytes": 8518518,
+      "lrat_sha256": "2f4f0458d3ec69c778eb098fdb78e53629b6f823a8726ea374475deb51024e9d",
+      "lrat_xz_bytes": 837996,
+      "n": 38,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n38_f13_p5_k5"
+    },
+    {
+      "clauses": null,
+      "f": 18,
+      "k": 4,
+      "lrat_bytes": 18863304,
+      "lrat_sha256": "1471679ab9a9c8df9de6e4da5605c761523539a4b0ce1abc4cae1e463b852262",
+      "lrat_xz_bytes": 2147296,
+      "n": 38,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n38_f18_p5_k4"
+    },
+    {
+      "clauses": null,
+      "f": 23,
+      "k": 3,
+      "lrat_bytes": 9515721,
+      "lrat_sha256": "ed157d3bfb8f7f6d0c8c147d2451a8591f94ed9786d7ee718491bdf3a2d3e0cb",
+      "lrat_xz_bytes": 935520,
+      "n": 38,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n38_f23_p5_k3"
+    },
+    {
+      "clauses": null,
+      "f": 28,
+      "k": 2,
+      "lrat_bytes": 10212571,
+      "lrat_sha256": "5480609b6ea12e68009119f9bb6876eedbc4c4959a34b7351249d48b6f1dafbd",
+      "lrat_xz_bytes": 775140,
+      "n": 38,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n38_f28_p5_k2"
+    },
+    {
+      "clauses": null,
+      "f": 33,
+      "k": 1,
+      "lrat_bytes": 13434228,
+      "lrat_sha256": "f30d51056531a813f8d8c9f8962f4703e2a85977edd41af3e5993431563c1ef7",
+      "lrat_xz_bytes": 736740,
+      "n": 38,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n38_f33_p5_k1"
+    },
+    {
+      "clauses": null,
+      "f": 8,
+      "k": 6,
+      "lrat_bytes": 31403428,
+      "lrat_sha256": "24068f7fda2d4bbfeaf104bd509890a9a8aee3ff98d5a3bc16eef35380547b1f",
+      "lrat_xz_bytes": 4980692,
+      "n": 38,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n38_f8_p5_k6"
+    },
+    {
+      "clauses": null,
+      "f": 14,
+      "k": 5,
+      "lrat_bytes": 6796788,
+      "lrat_sha256": "26949a54ec26abc0be77e099824953737606440067da6b6fb708ad9855961f11",
+      "lrat_xz_bytes": 454708,
+      "n": 39,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n39_f14_p5_k5"
+    },
+    {
+      "clauses": null,
+      "f": 19,
+      "k": 4,
+      "lrat_bytes": 7158412,
+      "lrat_sha256": "11490327ddea983dab8cc9506a8bc32783f55401e12762c40bbbdaa7b658a448",
+      "lrat_xz_bytes": 469468,
+      "n": 39,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n39_f19_p5_k4"
+    },
+    {
+      "clauses": null,
+      "f": 24,
+      "k": 3,
+      "lrat_bytes": 6148983,
+      "lrat_sha256": "99f15d73c762e1862e50e31296eef0949d71351629e4f5dbe648affd5200a204",
+      "lrat_xz_bytes": 216808,
+      "n": 39,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n39_f24_p5_k3"
+    },
+    {
+      "clauses": null,
+      "f": 29,
+      "k": 2,
+      "lrat_bytes": 11153079,
+      "lrat_sha256": "bcc886a85a1239add9bdbce244b88957ad4dd8d0973f751d24d64d65c8d751bc",
+      "lrat_xz_bytes": 761688,
+      "n": 39,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n39_f29_p5_k2"
+    },
+    {
+      "clauses": null,
+      "f": 34,
+      "k": 1,
+      "lrat_bytes": 23179816,
+      "lrat_sha256": "754486e0516a8bc7cdb2c70fa1f9e72ec316bf51db65b9f0c8a1a9263aa4ec7f",
+      "lrat_xz_bytes": 1415744,
+      "n": 39,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n39_f34_p5_k1"
+    },
+    {
+      "clauses": null,
+      "f": 9,
+      "k": 6,
+      "lrat_bytes": 27535719,
+      "lrat_sha256": "3c06897768851fdfdc44d6113d8ba768f18cfac828f8cdd37b7f8f61911a68d2",
+      "lrat_xz_bytes": 3784716,
+      "n": 39,
+      "orbit_vars": null,
+      "p": 5,
+      "stored": true,
+      "symf": true,
+      "tag": "sf_n39_f9_p5_k6"
     },
     {
       "clauses": 253236,
@@ -1684,42 +2044,6 @@
       "p": 7
     },
     {
-      "f": 6,
-      "k": 6,
-      "n": 36,
-      "p": 5
-    },
-    {
-      "f": 11,
-      "k": 5,
-      "n": 36,
-      "p": 5
-    },
-    {
-      "f": 16,
-      "k": 4,
-      "n": 36,
-      "p": 5
-    },
-    {
-      "f": 21,
-      "k": 3,
-      "n": 36,
-      "p": 5
-    },
-    {
-      "f": 26,
-      "k": 2,
-      "n": 36,
-      "p": 5
-    },
-    {
-      "f": 31,
-      "k": 1,
-      "n": 36,
-      "p": 5
-    },
-    {
       "f": 2,
       "k": 7,
       "n": 37,
@@ -1732,42 +2056,6 @@
       "p": 7
     },
     {
-      "f": 7,
-      "k": 6,
-      "n": 37,
-      "p": 5
-    },
-    {
-      "f": 12,
-      "k": 5,
-      "n": 37,
-      "p": 5
-    },
-    {
-      "f": 17,
-      "k": 4,
-      "n": 37,
-      "p": 5
-    },
-    {
-      "f": 22,
-      "k": 3,
-      "n": 37,
-      "p": 5
-    },
-    {
-      "f": 27,
-      "k": 2,
-      "n": 37,
-      "p": 5
-    },
-    {
-      "f": 32,
-      "k": 1,
-      "n": 37,
-      "p": 5
-    },
-    {
       "f": 3,
       "k": 7,
       "n": 38,
@@ -1778,12 +2066,6 @@
       "k": 5,
       "n": 38,
       "p": 7
-    },
-    {
-      "f": 8,
-      "k": 6,
-      "n": 38,
-      "p": 5
     },
     {
       "f": 10,
@@ -1792,40 +2074,10 @@
       "p": 7
     },
     {
-      "f": 13,
-      "k": 5,
-      "n": 38,
-      "p": 5
-    },
-    {
       "f": 17,
       "k": 3,
       "n": 38,
       "p": 7
-    },
-    {
-      "f": 18,
-      "k": 4,
-      "n": 38,
-      "p": 5
-    },
-    {
-      "f": 23,
-      "k": 3,
-      "n": 38,
-      "p": 5
-    },
-    {
-      "f": 28,
-      "k": 2,
-      "n": 38,
-      "p": 5
-    },
-    {
-      "f": 33,
-      "k": 1,
-      "n": 38,
-      "p": 5
     },
     {
       "f": 4,
@@ -1840,52 +2092,16 @@
       "p": 7
     },
     {
-      "f": 9,
-      "k": 6,
-      "n": 39,
-      "p": 5
-    },
-    {
       "f": 11,
       "k": 4,
       "n": 39,
       "p": 7
     },
     {
-      "f": 14,
-      "k": 5,
-      "n": 39,
-      "p": 5
-    },
-    {
       "f": 18,
       "k": 3,
       "n": 39,
       "p": 7
-    },
-    {
-      "f": 19,
-      "k": 4,
-      "n": 39,
-      "p": 5
-    },
-    {
-      "f": 24,
-      "k": 3,
-      "n": 39,
-      "p": 5
-    },
-    {
-      "f": 29,
-      "k": 2,
-      "n": 39,
-      "p": 5
-    },
-    {
-      "f": 34,
-      "k": 1,
-      "n": 39,
-      "p": 5
     }
   ],
   "tools": {

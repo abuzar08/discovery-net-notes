@@ -67,15 +67,16 @@ def main():
             cnf = os.path.join(td, f"{tag}.cnf")
             args = [str(c["n"]), "4", "6", str(c["f"]), str(c["p"]),
                     str(c["k"])]
+            flag = ["--symf"] if c.get("symf") else []
             r = subprocess.run(
                 [sys.executable, os.path.join(HERE, "encode.py")]
-                + args + [cnf], capture_output=True, text=True)
+                + args + [cnf] + flag, capture_output=True, text=True)
             if r.returncode != 0:
                 fails.append(f"{tag}: encode failed {r.stderr}")
                 continue
             r = subprocess.run(
                 [sys.executable, os.path.join(HERE, "verify.py"), "lower"]
-                + args + [cnf, lrat], capture_output=True, text=True)
+                + args + [cnf, lrat] + flag, capture_output=True, text=True)
             good = r.returncode == 0 and "VERIFIED" in r.stdout
             ok += good
             if not good:

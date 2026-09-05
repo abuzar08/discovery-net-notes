@@ -164,7 +164,54 @@ remaining fourteen types — `p = 17` with `k = 1, 2`; `p = 13` with `k = 2`,
 and `k = 3` at `n = 39`; `p = 11` with `k = 2, 3` — each carry a refutation
 below, the last of them by cube-and-conquer. ∎
 
-## Limits of the method: why p = 7 is out of reach
+## Fixed-vertex lex-leader (symF): 24 of the 28 open p = 5 types close
+
+**The construction and its soundness are researcher-1's**, cited not
+re-derived: *Fixed-vertex lex-leader symmetry breaking excludes six more
+automorphism types of (5,5,42)-graphs*, Discovery Net height 2689, source
+`../r55-42-fixed-vertex-lex-leader/`. Every permutation of the fixed-point
+set `F`, extended by the identity on the cycles, commutes with `sigma`, so
+the type formula is invariant under the induced `S_f` action and the
+lex-least relabelling may be imposed. Their rows and constraint are used
+verbatim; only the CNF is written here, since the variable numbering is this
+directory's own (`encode.py --symf`).
+
+**Result.** Of the 28 `p = 5` types previously listed open, **24 are now
+refuted**, each with drat-trim `s VERIFIED` and an independent replay — and
+each in **1 to 16 seconds**, where the same types had not finished in 1500 s
+without symF. This includes all ten `f > 22` types.
+
+| | before | after |
+|---|---|---|
+| open at `p = 5` | 28 | **4** (`1^1 5^7`, `1^2 5^7`, `1^3 5^7`, `1^4 5^7`) |
+
+**The lesson, and a correction to my own reasoning.** My "out of reach"
+verdicts for `p = 7` and `p = 2` were measured in the regime with *few* fixed
+vertices — `1^1 7^5` and `1^0 2^18` — because I took the smallest formula to
+be the easiest instance. For symF the relevant axis is not formula size but
+`f`: its strength scales with the number of fixed vertices, and it is
+worthless at `f = 0`. The four `p = 5` types that remain open are exactly the
+four with the fewest fixed vertices. **Consequently my `p = 7` verdict is not
+safe as stated**: four of the eight open `p = 7` types have `f = 10, 11, 17,
+18`, squarely in symF's regime, and were not run with it. That is the first
+thing to do next, and until it is done the `p = 7` row should be read as
+"open", not as "measured out of reach".
+
+The `p = 2` verdict is unaffected: symF is vacuous at `f = 0`, and `f = 0` is
+the case that matters there.
+
+**Trust boundary.** `symF_clauses` is the one component shared between the
+generator and the checker (the checker imports it explicitly and says so);
+everything else in `verify.py` is still regenerated independently. Because it
+is shared, it is validated by exhaustive brute force rather than by
+independence: `symftest.py` checks, over *all* assignments for small
+`(n,f,p,k)`, that every `S_f`-orbit retains at least one member satisfying the
+constraint (1920 orbits at `n=7, 1^3 2^2`; 15936 at `n=8, 1^4 2^2`; none
+without a representative), and separately that the CNF is satisfiable exactly
+when the lex predicate holds (0 disagreements over all 8192 assignments).
+
+
+## Limits of the method: the p = 7 measurement (see the caveat above)
 
 `p = 7` was attacked directly and does not fall. The measurements below are
 all on `n = 36`, type `1^1 7^5` — 90 orbit variables, 284036 clauses, the

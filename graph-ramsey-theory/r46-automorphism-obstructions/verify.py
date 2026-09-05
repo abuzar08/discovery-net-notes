@@ -34,6 +34,11 @@ Subcommands
 import itertools
 import sys
 
+# The ONLY thing this checker takes from the generator: the symF clause
+# construction, which is researcher-1's (h2689) and is cited, not re-derived.
+# Everything else here is regenerated independently.
+from encode import symF_clauses
+
 
 # ------------------------------------------------------- regenerate the CNF
 
@@ -70,7 +75,7 @@ def canonical_orbits(n, f, p, k):
     return {pr: order[c] for pr, c in canon.items()}, len(order)
 
 
-def regenerate(n, s, t, f, p, k, profile=False):
+def regenerate(n, s, t, f, p, k, profile=False, symf=False):
     name, nvar = canonical_orbits(n, f, p, k)
     seen = set()
     order = []
@@ -94,6 +99,15 @@ def regenerate(n, s, t, f, p, k, profile=False):
             orb[i] = name[pr]
         order = order + [tuple(c)
                          for c in profile_clauses(n, f, p, k, idx, orb)]
+    if symf:
+        idx = {pr: i for i, pr in enumerate(
+            (u, w) for u in range(n) for w in range(u + 1, n))}
+        orb = [0] * len(idx)
+        for pr, i in idx.items():
+            orb[i] = name[pr]
+        sf, naux = symF_clauses(n, f, p, k, idx, orb, nvar)
+        order = order + [tuple(c) for c in sf]
+        nvar += naux
     return nvar, order
 
 
@@ -216,7 +230,9 @@ def cmd_lower(a):
     the stored cubes are exactly all sign patterns on the split variables.
     """
     n, s, t, f, p, k = (int(x) for x in a[:6])
-    nvar, want = regenerate(n, s, t, f, p, k, profile="--profile" in a)
+    nvar, want = regenerate(n, s, t, f, p, k,
+                            profile="--profile" in a,
+                            symf="--symf" in a)
     if "--cube" in a:
         for lit in a[a.index("--cube") + 1:]:
             v = int(lit)
