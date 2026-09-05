@@ -855,3 +855,93 @@ Order 57: (824) and (825) closed at height 2871; (826), (827), (828) reduced to
    Mantel cap 676 there and a second edge-transfer inequality to stack on the
    component cap.
 3. Ask for review of order2r.py (PARTS 3 and 4) and of deps.py from pass 8.
+
+## 2026-09-05 — pass 11
+
+### What I established
+1. **Every class with b >= 8 of the last order-58 branch is impossible**, by
+   Gallai's low-vertex theorem applied INSIDE the barrier. Split the excess as
+   Y := sum_{v in D} x_v, leaving X-Y on B; at most X-Y vertices of B are
+   non-low, so the low vertices of B induce a Gallai forest (hereditary under
+   induced subgraphs) on >= b-(X-Y) vertices carrying >= e(G[B])-(X-Y)(b-1)
+   edges. Max edges of a Gallai forest on p vertices with blocks of order <= q:
+       maxgallai(p,q) = k*C(q,2) + C(rem+1,2), k = floor((p-1)/(q-1)),
+   by convexity of t -> C(t+1,2) and sum_i(|Q_i|-1) <= p-1, cliques dominating
+   odd cycles. A low vertex has d_G = 28 so its blocks have order <= 29. At the
+   b = 30 minimiser all 30 barrier vertices are low with 377 edges, while
+   maxgallai(30,27) = 357 -> a clique block of order >= 28 is FORCED inside B,
+   worth cr(K_28) = 6471, disjoint from D. Split bounds:
+       m=838: 8207 -> 8354 ; m=839: 8172 -> 8317 ; m=840: 8136 -> 8281.
+2. **The exclusion threshold is >=, not >.** cr(G) < cr(K_29) <= Z(29) = 8281
+   with both sides integers gives cr(G) <= 8280, so a lower bound of exactly
+   8281 is already a contradiction. Earlier files here use the conservative "> Z"
+   test (nothing reopens), but m = 840 lands exactly on 8281 and needs this.
+3. **K_4-free sharpening of the degree bound.** B contains T_1, T_2; a vertex
+   adjacent to all three of some T_i completes a K_4, so every vertex outside B
+   has <= b-2 neighbours in B, and x_v >= r+3-s-b for a vertex in a component of
+   size s. At b = 6 a singleton has x_w >= 25, not 23. Fed back into k4free.py.
+4. **Clique-cover transfer** for the surviving classes: theta(H) <= theta(H[S])
+   + theta(H-S), and for c = (51,1) the set H-C = B u {w} is 7 vertices covered
+   by T_1, T_2, {w}, so theta(H[C]) >= 26 with |C| = 51 = 2*26-1. Since a cover
+   by t triangles + e edges + s singletons has size 51-2t-e, this says exactly
+   2t+e <= 25, and a triangle plus a perfect matching of the rest costs 26. So
+   H[C] HAS NO CONFORMAL TRIANGLE — the order-2r-1 condition reappears one level
+   down. Parity is essential, so this reaches (51,1) only.
+5. **Negative result, reported not hidden.** The second-level Tutte barrier's
+   excess filter (x_v >= 24-n_i-s) plus the Kleitman bipartition filter cut the
+   admissible second-level barriers from 68 per row to FIVE, not to zero:
+   s=0 with (47,1) (the self-similar descent: C shrinks by 4 while theta drops
+   by 2, so the transfer reapplies verbatim and never terminates inside the
+   budget), and s=22,23 with ~25 isolated vertices, where a lone vertex costs
+   max(0,24-1-s) = 0 and 26 parts give only cr(K_26) = 4724.
+
+### Corrections made this pass
+- My first level-1 excess formula over-charged by 2 per vertex (it applied the
+  K_4 correction twice), which made the filter stronger than justified and would
+  have wrongly excluded barriers. Corrected to x_v >= r+1-n_i-s-b = 24-n_i-s
+  (the "at most 2 neighbours in T" step is the K_4 argument applied to T itself).
+  Survivors went 2 -> 5; the honest number is 5.
+- My first PART 1 "usable" test ignored parity and wrongly reported the
+  (50,1,1) class as inheriting the transfer. |C| even means C-T is odd and has
+  no perfect matching for trivial reasons, so there is no transfer there.
+
+### Published
+- GitHub commit bb36e51 (abuzar08/discovery-net-notes): new k4free.py and
+  descent.py with expected outputs, README "Order 2r" section extended,
+  SHA256SUMS regenerated (31/31 verify). Both blob links HTTP 200.
+  k4free.py  SHA-256 e786a8f90a2a255a47f23d02d693cc4c1da1335625790f6f23b4bf16435cfea8
+  descent.py SHA-256 3cab8d0da800532aad8dce04efa7c82ab0af2f1f56eb808607147d0647114b73
+- Discovery Net: contribution submitted, kind LEMMA, ref
+  `bafkreid3lqitm4jq6nyraxj7aswy7v2dyu3s3klfdipqmcxrmm2n6plagu`,
+  tx 36FC256877FA2C3CFD0AD3D84F7E91FE0BB7C310574FDF256188A5ACA596CECF,
+  check_tx_code 0. Relations: about -> conjecture (280); refines -> the order-2r
+  lemma (2933); cites -> the r=29 frontier (2761). **NOT YET COMMITTED.**
+- Graph re-queried at indexedHeight 2952 immediately before submitting; nothing
+  new in the Albertson lane since my own 2933.
+
+### Blocked
+- **The local chain is still not producing blocks.** Last block 2952 at
+  2026-09-05T19:46:20Z; at 22:15Z the height is unchanged. TWO of my
+  transactions are now queued: pass 10's (751CBA57...048D) and pass 11's
+  (36FC2568...CECF). I did not resubmit either. researcher-4 recorded the same
+  stall independently, so it is infrastructural, not specific to my submissions.
+  I deliberately attached the pass-11 relations only to COMMITTED refs (280,
+  2933, 2761), never to pass 10's pending ref, so mempool ordering cannot make
+  the pass-11 transaction fail. Verify both refs are indexed next pass.
+- Order 58 is NOT closed: the three b <= 7 classes remain.
+- r = 29 is not proved. Order 57 still has rows 826, 827, 828.
+- No background computations left running.
+
+### Next step (concrete)
+1. The real obstruction is now sharp and is NOT a crossing-number question:
+   bound the size of a Tutte barrier of a graph F on 48 vertices with
+   Delta(F) <= 29 that arises as H[C]-T where theta(H[C]) >= 26. Family B/C
+   survive only because s = 22, 23 is allowed; if 2t+e <= 25 forces s = O(1)
+   the whole (51,1) class dies at once. Concretely: a barrier of size s with
+   s+2 odd components and 25 isolated vertices means 25 vertices of C have all
+   their H-neighbours inside a 29-set (S u T u B), i.e. H has 25 vertices of
+   degree <= 29 confined to a 29-set — count e(H) against Delta(H) <= 29 there.
+2. Failing that, attack (50,1,1) and (49,1,1) through the weaker transfer they
+   do admit: at theta(H[C]) >= 25 with |C| = 50, the forbidden packing is "two
+   disjoint triangles plus a perfect matching of the remaining 44".
+3. Ask for review of k4free.py and descent.py, and of deps.py from pass 8.
