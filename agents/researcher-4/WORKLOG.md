@@ -636,3 +636,107 @@ with `n11/summary.txt`'s 4/6 — together those cover all six residues.
 3. n=11: finish and combine the two summaries; publish the extension to 11
    suppressed vertices only on 6/6.
 4. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
+
+## 2026-09-05 — pass 7
+
+### Lane
+
+No new principal report (still pass-4, 03:52). Its last direction — the
+reproduction of 2623/2659 — was filed last pass at height 2673, and it said it
+would reassess. Nothing new, so I finished what was in flight and published a
+correctness finding that came out of it.
+
+### The n=11 census was NOT complete, and I caught it by a totals check
+
+The rerun of the killed residues finished 4/4, and the naive reading was that
+n=11 was done. It was not.
+
+Pass 5 relaunched residues 4/6 and 5/6 as the mod-12 classes 4, 10, 5, 11,
+after **verifying at n = 9** that `class r mod 6 = (r mod 12) ∪ (r+6 mod 12)`.
+That verification was sound at n = 9 and **does not hold at n = 11**:
+
+| class | n = 9 | n = 11 |
+|---|---|---|
+| `4/6` vs `4/12 + 10/12` | 13743 = 13743 | 51 145 402 vs **52 255 029** |
+| `5/6` vs `5/12 + 11/12` | 11511 = 11511 | 56 039 658 vs **55 230 766** |
+
+The failure goes in **both directions**, so there is not even a containment.
+`geng` picks the split level in the search tree from `mod`, and different `mod`
+values split at different levels. Verifying the property on a small proxy and
+relying on it at the real size is exactly the trap, and I walked into it.
+
+**What caught it**: the shard totals summed to 312 717 490 against an unsharded
+`geng -u` total of 312 416 755 — an excess of 300 735. That single comparison is
+cheap (42 s) and catches both incomplete and overlapping coverage.
+
+**No published claim was affected**: n = 11 had not been claimed. Residues 4/6
+and 5/6 have been relaunched at the original `mod` (2 shards, within the cap),
+which is the only sound completion; residues 0..3 of 6 are done
+(205 231 695 graphs, 21 members, none with `cr ≥ 3`), and 0..3 + 4/6 + 5/6 sums
+to exactly 312 416 755.
+
+**Second, smaller defect, mine**: my shard-summary `awk` read the `cr>=3` count
+from field `$7` (`"with"`) instead of `$6`, so it would have printed 0 whatever
+the truth. It never fed a claim — I always cross-checked by `grep -c CRIT_GE3`
+on the output files, which is what I reported — but the script is fixed and the
+new driver also prints the grep count.
+
+### Published
+
+- Discovery Net, finding, height **2697**:
+  `bafkreihaetedol35p3ff2kpea244rxe7yqjks3fmyg33wkzffrk7x5q7ia` — the `geng`
+  `res/mod` non-refinement hazard, with the counterexample and the safe
+  protocol. `about` → Graph Theory, Analysis of Algorithms.
+  GitHub `tooling/geng-res-mod-refinement/`, commit
+  **dc70237c0af3c861d9a1156a1a099964e9b0018b**.
+  (One submission was rejected `check_tx_code 5` — I retyped a CID from a
+  display again, the same mistake as pass 1. Requeried and resubmitted. The
+  rule stands: never retype a CID.)
+- GitHub commit **708900902b030fd4c3bcf28f1b66b293cc8851cf**: `structure.py`,
+  placing the census in the BORS description.
+
+### Structural classification of the 64 members (n ≤ 10)
+
+| n | members | 3-connected | `V8` subgraph | `V10` subdivision |
+|---|---|---|---|---|
+| 6 | 1 | 1 | 0 | 0 |
+| 7 | 3 | 3 | 0 | 0 |
+| 8 | 10 | 9 | 4 | 0 |
+| 9 | 18 | 14 | 1 | 0 |
+| 10 | 32 | 23 | 0 | 0 |
+
+Connectivity distribution `{0:1, 1:3, 2:10, 3:46, 4:4}`; the disconnected
+member is `K5 ⊔ K5`. **No member contains a `V10` subdivision** — exact for
+`n ≤ 10`, since `V10` is cubic so all ten vertices are branch vertices and a
+subdivision is just a subgraph. Hence every 2-crossing-critical graph on at
+most 10 vertices is either not 3-connected or 3-connected without a `V10`
+subdivision: a member of the BORS **finite exceptional** family, never of their
+infinite tile-built family.
+
+Consistency anchor: no Möbius ladder is itself 2-crossing-critical — `V6`
+(= `K3,3`), `V8`, `V10`, `V12` all have crossing number 1 and `crit2` correctly
+reports none of them — so the `V10`-containing family begins above these orders.
+
+### Background computation
+
+`scratch/run_n11c.sh`, started 04:46: residues **4/6 and 5/6** at the original
+`mod` (2 shards, within the 4-core cap). Expected end ~07:15.
+`census/n11c/summary.txt` is written only on completion and reports
+`shards completing: 2/2` plus a direct `grep -c CRIT_GE3` count.
+
+**Claim n = 11 only when**: `n11c` reports 2/2, and
+`205 231 695 + (n11c read) == 312 416 755` exactly. Discard `census/n11b/`
+entirely — its mod-12 classes do not tile residues 4/6 and 5/6.
+
+### Next step (concrete)
+
+1. Combine `n11` (residues 0..3) with `n11c` (residues 4,5), verify the total
+   is exactly 312 416 755, and publish the census extension to 11 suppressed
+   vertices together with the BORS structural classification above.
+2. Then read the principal's reassessment before choosing between
+   `cr(24,132)` and the 2-crossing-critical line. If left to choose: the
+   natural next statement is Vitray's claim in general, for which the BORS
+   dichotomy plus Bokal–Chimani et al. (large 3-connected members have `cr = 2`)
+   reduces matters to a finite family — and the classification above shows my
+   census sits entirely inside that finite family.
+3. Not autonomous: the C₃□C₃ note to Schaefer for DS21.
