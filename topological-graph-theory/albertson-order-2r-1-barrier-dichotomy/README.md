@@ -491,18 +491,55 @@ condition that drives the order-`2r-1` theory above reappears one level down, on
 class only; `(50,1,1)` gives `theta >= 25` with `|C|` even, and `(49,1,1)` gives
 `theta >= 24`, which forbids nothing.
 
-*Negative result.*  Tutte then gives a second-level barrier `S` inside `C - T`
-with `o(H[C]-T-S) >= |S|+2`, and its components together with `{w}` are pairwise
-completely joined in `G`.  The excess filter (`x_v >= 24 - n_i - s`) and the
+Tutte then gives a second-level barrier \(S\) inside \(C-T\) with
+\(o(H[C]-T-S)\ge |S|+2\), and its components together with \(\{w\}\) are pairwise
+completely joined in \(G\).  The excess filter \(x_v\ge 24-n_i-s\) and the
 Kleitman bipartition filter cut the admissible second-level barriers from 68 per
-row to **five**, in three families — but not to zero.  The survivors are `s = 0`
-with sizes `(47,1)` (the self-similar descent case: `C` shrinks by 4 while
-`theta` drops by 2, so the transfer reapplies verbatim and never terminates
-inside the excess budget), and `s = 22, 23` with ~25 isolated vertices, where a
-lone vertex costs `max(0, 24-1-s) = 0` and 26 parts give only `cr(K_26) = 4724`.
-Closing these needs a bound on how large a Tutte barrier of a graph with
-`theta(H[C]) >= 26` and `Delta(H) <= 29` can be — a matching-theory question, not
-a crossing-number one.
+row to five, in three families.
+
+**The second-level split bound (new).**  The decisive step is that the second
+level supplies a *partition* of \(V(H)\), not just a multipartite subgraph.  Put
+
+$$A := D_1\cup\cdots\cup D_k\cup W, \qquad R := S\cup T\cup B,$$
+
+where \(W\) are the singleton components of \(H-B\).  These are disjoint and
+\(A\cup R=V(H)\), since
+\(|A|+|R|=(|C|-3-s)+|W|+(s+3+b)=|C|+|W|+b=58\).  Inside \(A\) the only \(H\)-edges
+are those inside the \(D_i\), so with \(P:=\sum_i e(H[D_i])\),
+
+$$e(H)=P+e_H(A,R)+e(H[R]).$$
+
+Every excess is non-negative and they total \(X\), so
+\(\sum_{v\in A}x_v\le X\), that is \(|A|r-(2P+e_H(A,R))\le X\).  Substituting
+gives the key inequality
+
+$$e(H[R])\;\le\;e(H)+P-|A|\,r+Y_A,\qquad Y_A:=\sum_{v\in A}x_v,$$
+
+so \(G[R]\) is forced to be **nearly complete**.  Since \(A\) and \(R\) are
+disjoint, the crossing number is additive:
+
+$$\mathrm{cr}(G)\;\ge\;\mathrm{cr}(G[A])+\mathrm{cr}(G[R]).$$
+
+The excess left on \(R\) is \(X-Y_A\), so at least \(|R|-(X-Y_A)\) of its vertices
+are low and Gallai applies there too.  \(P\) must be taken as large as the
+feasibility cap \(e(H[R])\le\binom{|R|}{2}\) allows — pinning it at its Turán cap
+would make feasible configurations look impossible.
+
+| second-level barrier | bound before | with the split | \(Z(29)\) |
+|---|---|---|---|
+| \(s=0\), sizes \((47,1)\) | 4724 | **3783** | 8281 |
+| \(s=22\), sizes \((3,1^{23})\) | 4724 | **7354** | 8281 |
+| \(s=23\), sizes \((1^{25})\) | 4724 | **7858** | 8281 |
+
+*Negative result.*  None of the three is closed.  For \(s=23\), \(A\) is a clique
+\(K_{26}\) of \(G\) worth 4724 and \(|R|=32\); the bound is a narrow dip in
+\(Y_A\) — 8564 at \(Y_A=25\) and 8721 at \(Y_A=49\), both above \(Z(29)\), but
+7858 at the minimiser \(Y_A=48\), where only 4 units of excess remain on \(R\),
+28 of its vertices are low, and Gallai forces a clique block of order 24.
+Closing the dip needs about 450 more, either from the 126 edges \(e_G(A,R)\) that
+the split discards or from a sharper crossing bound for a 32-vertex graph at 78
+per cent density.  The \(s=0\) family is the self-similar descent case, where
+\(R=T\cup B\) has only 9 vertices and the split has nothing to work with.
 
 `order2r.py` also reproduces the eight-row `r = 29` frontier of ledger height
 2761 independently: the floors against the recursive ceiling leave orders 56, 57

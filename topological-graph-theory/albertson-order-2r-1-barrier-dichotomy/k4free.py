@@ -47,9 +47,12 @@ Every non-low vertex carries at least one unit of excess, so
       #(low vertices of B) >= b - (X - Y),   #(low vertices of D) >= |D| - Y.
 
 G restricted to the low vertices of B is a Gallai forest, and likewise inside D.
-Deleting the at most X-Y non-low vertices of B costs at most (X-Y)(b-1) edges:
+Deleting the at most X-Y non-low vertices of B costs at most one G-degree each,
+and a vertex carrying x_v of the excess has d_G = 28 + x_v, so k deleted vertices
+carrying k' units of excess cost at most 28k + k' <= 29k edges.  Hence
 
-      e(G[L_B]) >= e(G[B]) - (X-Y)(b-1),    e(G[L_D]) >= e(G[D]) - Y(|D|-1).
+      e(G[L_B]) >= e(G[B]) - (X-Y) min(b-1, r),
+      e(G[L_D]) >= e(G[D]) - Y min(|D|-1, r).
 
 MAXIMUM EDGES OF A GALLAI FOREST.  Let F be a Gallai forest on p vertices with
 every block of order <= q.  Each component is a block tree, so summing over
@@ -182,8 +185,8 @@ def branch_survivors(m, use_gallai=True, verbose_b=None):
                 if use_gallai:
                     # low vertices and their guaranteed edges
                     pB, pD = b - (X - Y), D - Y
-                    eLB = eB - (X - Y) * (b - 1)
-                    eLD = eD - Y * (D - 1)
+                    eLB = eB - (X - Y) * min(b - 1, r)
+                    eLD = eD - Y * min(D - 1, r)
                     qB = forced_clique(pB, eLB, r) if pB >= 2 else 1
                     qD = forced_clique(pD, eLD, r) if pD >= 2 else 1
                     if qB is None or qD is None:

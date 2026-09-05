@@ -14,32 +14,38 @@ PART 1   which classes inherit a usable clique-cover bound
         triangle + perfect matching of the rest costs 25  -> allowed, no transfer
 
 PART 2   the (51,1) class: second-level barriers surviving both filters
-   m=838 (X=52): 5 survive
-        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 52
-        s=22 :   3 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 52
-        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 52
-   m=839 (X=54): 5 survive
-        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 54
-        s=22 :   3 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 54
-        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 54
-   m=840 (X=56): 5 survive
-        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 56
-        s=22 :   3 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 56
-        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 56
+   m=838 (X=52): 3 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 52, split bound 3783
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 52, split bound 7354
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 52, split bound 7858
+   m=839 (X=54): 4 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 54, split bound 3761
+        s=22 :   2 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 54, split bound 7283
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 54, split bound 7828
+   m=840 (X=56): 4 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 56, split bound 3740
+        s=22 :   2 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 56, split bound 7252
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 56, split bound 7798
 
-PART 3   why they survive
-   Family A (s = 0, sizes (47,1)): the lone vertex costs 24-1-0 = 23
-   and w costs 25, total 48 <= 52, and K_{1,47} forces no crossings.
-   This is the descent case -- C shrinks by 4 while theta drops by 2,
-   so the transfer reapplies verbatim on 47 = 2*24 - 1 vertices.  The
-   descent is self-similar and does not terminate inside the budget.
-   Families B (s = 22, sizes (3,1^23) and neighbours, cost 48) and
-   C (s = 23, all 25 remaining vertices isolated, cost 25): once s is
-   that large a lone vertex costs only max(0, 24 - 1 - s) = 0, so the
-   excess filter is silent, and 26 parts give only cr(K_26) = 4724.
-   Killing these needs a bound on how big a Tutte barrier of a graph
-   with theta(H[C]) >= 26 and Delta(H) <= 29 can be -- not a crossing
-   bound.  That is the open problem.
+PART 3   why they still survive, and by how little
+   Family A (s = 0, sizes (47,1)).  Here R = T u B is only 9 vertices,
+   so the second-level split has almost nothing to work with: the
+   feasibility cap e(H[R]) <= C(9,2) = 36 forces P up to 594 and A
+   carries the whole bound, L(49, 582).  This is the self-similar
+   descent case -- C shrinks by 4 while theta drops by 2, so the
+   transfer reapplies verbatim on 47 = 2*24 - 1 vertices -- and it is
+   still the furthest from Z.
+   Families B (s = 22) and C (s = 23).  Now R is 31 or 32 vertices and
+   the split is strong: A is a clique K_26 or K_27 of G worth 4724,
+   and R carries at most e(H) + P - |A| r + Y_A H-edges, so G[R] is
+   nearly complete.  The bound is minimised at Y_A = 47 or 48, where
+   the excess left on R is only 4 or 5, so 27 or 28 of its vertices
+   are low and Gallai forces a clique block of order 23 or 24.
+   The profile is a narrow dip: at Y_A = 25 the bound is 8564 and at
+   Y_A = 49 it is 8721, both above Z, but it dips to 7858 in between.
+   Closing the dip needs about 450 more at the minimiser, from the
+   126 edges e_G(A,R) that the split discards or from a sharper
+   crossing bound for a 32-vertex graph at 78 percent density.
 
    Kleitman bipartite bound on a 48-vertex split, for reference:
       cr(K_{24,24}) >=  14572   kills
@@ -52,8 +58,8 @@ PART 3   why they survive
       cr(K_{ 1,47}) >=      0   survives
 
 CONCLUSION
-   Reduction 1 puts the no-conformal-triangle condition back on the
-   table one level down, and Reduction 2 raises every singleton's
-   excess by two, but the excess and bipartition filters together do
-   NOT close the (51,1) class, and the other two classes do not even
-   inherit the transfer.  The three b <= 7 classes remain open.
+   The second-level split raises the three surviving second-level
+   barriers of the (51,1) class from 4724 to 3783, 7354 and 7858
+   against Z(29) = 8281.  Two of the three are now within 1000, but
+   none is closed, and the (50,1,1) and (49,1,1) classes do not even
+   inherit the transfer.  Order 58 at r = 29 remains open.

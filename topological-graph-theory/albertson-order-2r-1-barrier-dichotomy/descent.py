@@ -96,6 +96,39 @@ G the sets D_1, ..., D_k, {w} are pairwise completely joined: G contains that
 complete multipartite graph, hence K_{a, 49-s-a} for every realisable sub-sum a,
 and K_{k+1} by taking one vertex per part.  Both must stay below Z(29).
 
+SECOND-LEVEL SPLIT (the filter that closes families B and C).  Put
+
+        A := D_1 u ... u D_k u W        (W = the singletons of H - B)
+        R := S u T u B.
+
+These are disjoint and A u R = V(H), since |A| + |R| = (|C| - 3 - s) + |W| +
+(s + 3 + b) = |C| + |W| + b = 58.  Inside A the only H-edges are those inside the
+D_i (distinct components are non-adjacent, W is non-adjacent to D and to itself),
+so writing P := sum_i e(H[D_i]),
+
+        e(H) = P + e_H(A, R) + e(H[R]).
+
+Every excess is non-negative and they total X, so sum_{v in A} x_v <= X, i.e.
+
+        |A| r - (2P + e_H(A,R))  <=  X,      e_H(A,R) >= |A| r - 2P - X,
+
+and substituting into the edge count gives the key inequality
+
+        e(H[R])  <=  e(H) + P - |A| r + X,
+
+hence   e(G[R]) >= C(|R|,2) - e(H) - P + |A| r - X.
+
+P is capped by Turan (each D_i is K_4-free), and taking P at its cap is the
+conservative choice: it lowers both e(G[R]) and e(G[A]) = C(|A|,2) - P.  Since A
+and R are disjoint the crossing number is additive over them:
+
+        cr(G) >= cr(G[A]) + cr(G[R]),
+        cr(G[A]) >= max( crK(k + |W|), best_bipartition, L(|A|, C(|A|,2) - P) ),
+        cr(G[R]) >= L(|R|, e(G[R])).
+
+If the bound on e(H[R]) comes out negative the configuration is impossible
+outright.
+
 The filters pull against each other -- excess wants one huge component,
 bipartition wants no two large ones -- and together with Reduction 2 they cut
 the second-level barriers from 68 per row to FIVE, in three families.  But five is
@@ -105,7 +138,8 @@ them and PART 3 says why each escapes.
 Exact integer arithmetic; no floating-point value enters any comparison.
 """
 import verify_range as V
-from order2r import RCHI, Z
+import k4free as K
+from order2r import L, RCHI, Z
 
 r = RCHI
 n = 2 * r
@@ -126,7 +160,7 @@ def partitions(total, nodd):
     return out
 
 
-def level1(bsz, csizes, X, verbose=False):
+def level1(bsz, csizes, X, eH, verbose=False):
     """Second-level barriers of the (51,1) class surviving both filters."""
     C = max(csizes)
     others = [x for x in csizes if x != C]
@@ -146,7 +180,39 @@ def level1(bsz, csizes, X, verbose=False):
                 continue
             if V.crK(len(parts)) >= Z:
                 continue
-            surv.append((s, tuple(sizes), xw + cost))
+            # --- second-level split bound, with Gallai blocks inside R ---
+            nA = sum(sizes) + len(others)
+            nR = s + 3 + bsz
+            CR = nR * (nR - 1) // 2
+            Pmax = sum(min(ni * ni // 3, ni * (ni - 1) // 2) for ni in sizes)
+            Pmin = sum(ni - 1 for ni in sizes)
+            best = None
+            for YA in range(xw + cost, X + 1):
+                # e(H[R]) = eH + P - |A| r + YA must lie in [0, C(|R|,2)].
+                # The bound decreases in P, so take P as large as feasible.
+                P = min(Pmax, CR - eH + nA * r - YA)
+                if P < max(Pmin, nA * r - eH - YA):
+                    continue                  # no feasible P for this YA
+                eHR = eH + P - nA * r + YA
+                eGR = CR - eHR
+                crA = max(V.crK(len(parts)), V.best_bipartition(parts),
+                          L(nA, nA * (nA - 1) // 2 - P))
+                crR = L(nR, eGR) if eGR > 0 else 0
+                # excess left on R is X - YA, so at least nR - (X - YA) of its
+                # vertices are low and G[low(R)] is a Gallai forest
+                pR = nR - (X - YA)
+                eLR = eGR - (X - YA) * min(nR - 1, r)
+                if pR >= 2:
+                    qR = K.forced_clique(pR, eLR, r)
+                    if qR is None:
+                        continue              # no Gallai forest with that many edges
+                    crR = max(crR, V.crK(qR))
+                t = crA + crR
+                if best is None or t < best:
+                    best = t
+            if best is None or best >= Z:
+                continue
+            surv.append((s, tuple(sizes), xw + cost, best))
     return surv
 
 
@@ -179,48 +245,58 @@ def main():
     print("PART 2   the (51,1) class: second-level barriers surviving both filters")
     for m in (838, 839, 840):
         X = 2 * m - n * (r - 1)
-        surv = level1(6, (51, 1), X)
+        eH = n * (n - 1) // 2 - m
+        surv = level1(6, (51, 1), X, eH)
         print("   m=%d (X=%d): %d survive%s" % (m, X, len(surv),
               "  -> CLASS IMPOSSIBLE" if not surv else ""))
         fams = {}
-        for s, sizes, cost in surv:
-            fams.setdefault(s, []).append((sizes, cost))
+        for s, sizes, cost, cr in surv:
+            fams.setdefault(s, []).append((sizes, cost, cr))
         for s in sorted(fams):
             ex = fams[s][0]
-            print("        s=%2d : %3d barriers, e.g. sizes %s%s costing %d of %d"
+            print("        s=%2d : %3d barriers, e.g. sizes %s%s costing %d of %d,"
+                  " split bound %d"
                   % (s, len(fams[s]),
                      str(ex[0][:3]),
                      "+1^%d" % (len(ex[0]) - 3) if len(ex[0]) > 3 else "",
-                     ex[1], X))
+                     ex[1], X, ex[2]))
     print()
 
-    print("PART 3   why they survive")
-    print("   Family A (s = 0, sizes (47,1)): the lone vertex costs 24-1-0 = 23")
-    print("   and w costs 25, total 48 <= 52, and K_{1,47} forces no crossings.")
-    print("   This is the descent case -- C shrinks by 4 while theta drops by 2,")
-    print("   so the transfer reapplies verbatim on 47 = 2*24 - 1 vertices.  The")
-    print("   descent is self-similar and does not terminate inside the budget.")
-    print("   Families B (s = 22, sizes (3,1^23) and neighbours, cost 48) and")
-    print("   C (s = 23, all 25 remaining vertices isolated, cost 25): once s is")
-    print("   that large a lone vertex costs only max(0, 24 - 1 - s) = 0, so the")
-    print("   excess filter is silent, and 26 parts give only cr(K_26) = %d."
+    print("PART 3   why they still survive, and by how little")
+    print("   Family A (s = 0, sizes (47,1)).  Here R = T u B is only 9 vertices,")
+    print("   so the second-level split has almost nothing to work with: the")
+    print("   feasibility cap e(H[R]) <= C(9,2) = 36 forces P up to 594 and A")
+    print("   carries the whole bound, L(49, 582).  This is the self-similar")
+    print("   descent case -- C shrinks by 4 while theta drops by 2, so the")
+    print("   transfer reapplies verbatim on 47 = 2*24 - 1 vertices -- and it is")
+    print("   still the furthest from Z.")
+    print("   Families B (s = 22) and C (s = 23).  Now R is 31 or 32 vertices and")
+    print("   the split is strong: A is a clique K_26 or K_27 of G worth %d,"
           % V.crK(26))
-    print("   Killing these needs a bound on how big a Tutte barrier of a graph")
-    print("   with theta(H[C]) >= 26 and Delta(H) <= 29 can be -- not a crossing")
-    print("   bound.  That is the open problem.")
+    print("   and R carries at most e(H) + P - |A| r + Y_A H-edges, so G[R] is")
+    print("   nearly complete.  The bound is minimised at Y_A = 47 or 48, where")
+    print("   the excess left on R is only 4 or 5, so 27 or 28 of its vertices")
+    print("   are low and Gallai forces a clique block of order 23 or 24.")
+    print("   The profile is a narrow dip: at Y_A = 25 the bound is 8564 and at")
+    print("   Y_A = 49 it is 8721, both above Z, but it dips to %d in between."
+          % 7858)
+    print("   Closing the dip needs about 450 more at the minimiser, from the")
+    print("   126 edges e_G(A,R) that the split discards or from a sharper")
+    print("   crossing bound for a 32-vertex graph at 78 percent density.")
     print()
     print("   Kleitman bipartite bound on a 48-vertex split, for reference:")
-    for a in (24, 20, 16, 14, 12, 8, 4, 1):
-        v = V.kleitman_bipartite(a, 48 - a)
+    for a_ in (24, 20, 16, 14, 12, 8, 4, 1):
+        v = V.kleitman_bipartite(a_, 48 - a_)
         print("      cr(K_{%2d,%2d}) >= %6d   %s"
-              % (a, 48 - a, v, "kills" if v >= Z else "survives"))
+              % (a_, 48 - a_, v, "kills" if v >= Z else "survives"))
     print()
     print("CONCLUSION")
-    print("   Reduction 1 puts the no-conformal-triangle condition back on the")
-    print("   table one level down, and Reduction 2 raises every singleton's")
-    print("   excess by two, but the excess and bipartition filters together do")
-    print("   NOT close the (51,1) class, and the other two classes do not even")
-    print("   inherit the transfer.  The three b <= 7 classes remain open.")
+    print("   The second-level split raises the three surviving second-level")
+    print("   barriers of the (51,1) class from %d to 3783, 7354 and 7858"
+          % V.crK(26))
+    print("   against Z(29) = %d.  Two of the three are now within 1000, but" % Z)
+    print("   none is closed, and the (50,1,1) and (49,1,1) classes do not even")
+    print("   inherit the transfer.  Order 58 at r = 29 remains open.")
 
 
 if __name__ == "__main__":
