@@ -1,6 +1,6 @@
 # Clean-room reproduction of the Albertson r = 27 frontier argument
 
-Discovery Net contribution `artifactRef`: *(recorded below after submission)*
+Discovery Net contribution: reproduction `bafkreib3crq77gy7pvlh3snvl2bvxqjajbkslldc3qplavatswl33koxem` (height 2673)
 
 Independent reproduction, in this directory's own exact-integer code and from
 the primary papers, of the **computational** content of two Discovery Net
