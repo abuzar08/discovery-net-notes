@@ -28,7 +28,12 @@ the checker then verifies that the children of every refined cube are exactly th
 2^m assignments of the m split variables (so the split is a complete case
 distinction), runs checks 2 and 3 on the parent cubes, and replays one certificate
 per child.
-usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map.json] [--skip-lrat] [--skip-complete]
+Long runs whose proofs are too large to keep replay each certificate as it appears
+(sweep_verify.py) and delete it. Pass those sweep logs with `--verified a.jsonl,b.jsonl`:
+a cube whose certificate is no longer on disk is then accepted if some log records a
+VERIFIED replay for exactly its literals, and such cubes are reported separately from
+the ones replayed in this run.
+usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map.json] [--verified logs] [--skip-lrat] [--skip-complete]
 Exit status 0 iff everything checked passed."""
 import sys, os, json, itertools, hashlib, lzma
 from multiprocessing import Pool
@@ -171,6 +176,16 @@ def main():
     argv = sys.argv[1:]; jobs = 4
     if '--jobs' in argv:
         i = argv.index('--jobs'); jobs = int(argv[i + 1]); del argv[i:i + 2]
+    prev = {}
+    if '--verified' in argv:
+        i = argv.index('--verified')
+        for path in argv[i + 1].split(','):
+            for line in open(path):
+                r = json.loads(line)
+                if r.get('status') == 'VERIFIED' and r.get('cube_lits') is not None:
+                    prev[tuple(r['cube_lits'])] = r.get('sha256')
+        del argv[i:i + 2]
+        print(f'{len(prev)} cubes recorded VERIFIED by earlier replay sweeps')
     refine = None
     if '--refine' in argv:
         i = argv.index('--refine'); refine = json.load(open(argv[i + 1])); del argv[i:i + 2]
@@ -238,13 +253,19 @@ def main():
         print('RESULT:', 'all checks passed (no certificates checked)' if bad == 0 else 'FAILURES'); sys.exit(0 if bad == 0 else 1)
     manifest = json.load(open(manpath))
     counts = {}
+    todo = []
+    for i, c in enumerate(cubes):
+        if not os.path.exists(os.path.join(certdir, f'c{i}.lrat.xz')) and tuple(c) in prev:
+            counts['VERIFIED earlier'] = counts.get('VERIFIED earlier', 0) + 1
+        else:
+            todo.append((i, c))
     with Pool(jobs, initializer=_init_kw, initargs=({'cls': cls, 'certdir': certdir, 'manifest': manifest},)) as pool:
-        for i, res in pool.imap_unordered(check_cube, list(enumerate(cubes)), chunksize=4):
+        for i, res in pool.imap_unordered(check_cube, todo, chunksize=4):
             counts[res] = counts.get(res, 0) + 1
             if res not in ('VERIFIED', 'missing', 'not in manifest'): print(f'cube {i}: {res}')
     print('certificates:', ', '.join(f'{v} {k}' for k, v in sorted(counts.items())))
-    soft = ('VERIFIED', 'missing', 'not in manifest')
-    ok = bad == 0 and all(k in soft for k in counts) and counts.get('VERIFIED', 0) == len(cubes)
+    soft = ('VERIFIED', 'VERIFIED earlier', 'missing', 'not in manifest')
+    ok = bad == 0 and all(k in soft for k in counts) and counts.get('VERIFIED', 0) + counts.get('VERIFIED earlier', 0) == len(cubes)
     print('RESULT:', 'all checks passed' if ok else ('FAILURES' if bad or any(k not in soft for k in counts) else 'incomplete (missing certificates)'))
     sys.exit(0 if ok else 1)
 

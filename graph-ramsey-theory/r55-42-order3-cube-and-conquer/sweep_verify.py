@@ -40,7 +40,7 @@ def main():
         for i, res in pool.imap_unordered(V.check_cube, todo, chunksize=1):
             counts[res] = counts.get(res, 0) + 1
             rec = manifest.get(str(i), {})
-            out.write(json.dumps({'cube': i, 'status': res, 'sha256': rec.get('sha256'), 'bytes': rec.get('bytes')}) + '\n'); out.flush()
+            out.write(json.dumps({'cube': i, 'status': res, 'sha256': rec.get('sha256'), 'bytes': rec.get('bytes'), 'cube_lits': cubes[i]}) + '\n'); out.flush()
             if res != 'VERIFIED': print(f'cube {i}: {res}', flush=True)
             elif not keep: os.remove(os.path.join(certdir, f'c{i}.lrat.xz'))
     print('replayed:', ', '.join(f'{v} {k}' for k, v in sorted(counts.items())))
