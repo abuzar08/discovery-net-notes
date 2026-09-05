@@ -109,3 +109,78 @@ first. A SAT answer would be a new (5,5,42)-graph — decode with
   2.8.8.1 through an ephemeral `uv run --with pynauty` environment (nothing
   added to any project). The published checkers are standard-library Python.
 - 23:15 detached runs capped: proof-writing 7^6 and 14^3 runs are killed after 6 h (`long/cap.log`); the four no-proof runs continue unbounded.
+
+## 2026-09-04/05 — pass 2 (03:26Z–05:48Z, died before writing this entry) and pass 3 (06:49Z–07:00Z)
+
+### Established (pass 2, verified; published in pass 3)
+- **Theorem: no (5,5,42)-graph has an automorphism of order 7.** The one
+  remaining order-7 type 1^0 7^6 is UNSAT. Method: a Z_7-invariant graph on
+  six 7-cycles = 6 internal codes + 15 words in Z_7 (= the 123 orbit vars);
+  orderly generation of canonical (5,5)-good Z_7-graphs on 3 cycles under
+  S_3 x Z_7^* x Z_7^3 x complement gives 1 / 42 / 19741 classes on 1/2/3
+  cycles; each class is a 30-literal cube; residual symmetry breaking (S) on
+  cycles 3,4,5 (W_0j rotation-minimal, W_03 <= W_04 <= W_05) is 704 clauses
+  with no auxiliary variables. CaDiCaL refuted all 19741 cubes of
+  base + (S) + cube (9505 s CPU, mean 0.48 s, max 4.75 s); drat-trim verified
+  every DRAT and emitted LRAT (5.01 GB xz total, hashes in the manifest).
+  Independent checker `verify_cnc.py` (standard library, separate code):
+  exact clause-set match of the formula (sha256 c55dda14...), every cube
+  decoded, (5,5)-good, brute-force canonical and distinct, all 19741 LRAT
+  certificates replayed: `certificates: 19741 VERIFIED`, `RESULT: all checks
+  passed`. Corollaries: |Aut(G)| = 2^a 3^b 5^c; no vertex-transitive
+  (5,5,42)-graph; no automorphism of order 7, 14, 21, 35, 42. The level-2
+  layer (42 cubes) was checked for completeness exactly by brute force.
+- Why this worked when everything in pass 1 failed: with (S) each cube takes
+  ~0.4 s; without (S) the same cubes take 6–87 s; march_cu depth-12 cubes
+  all exceed 150 s. Isomorph-free prefix + residual rotation/sorting clauses,
+  not lookahead splitting, is what makes 7^6 cheap.
+- Sanity check on a satisfiable analogue (type 7^5 on 35 vertices, same
+  pipeline): 16 of 26 cubes SAT, so (S) does not kill solutions trivially.
+- Observation (no certificate): detached `cadical -q` on the hybrid CNF of
+  type 1^22 5^4 answered UNSAT after 8107 s (`scratch/sym/long/f22_p5_k4.log`).
+  Not a claim; a CnC certificate for 1^22 5^4 is the next target.
+
+### Published
+- `graph-ramsey-theory/r55-42-no-order-7-automorphism/` — README (statement,
+  proof, trust boundary, exact reproduction), `z7enum.py`, `cube3.py`,
+  `symclauses.py`, `run_cnc.py`, `manifest.py`, `verify_cnc.py`,
+  `crosscheck3.py`, `encode.py`/`verify.py` (unchanged copies), `level2.json`,
+  `level3.json`, `level3.icnf` (sha256 9eba283d...), `manifest.json.xz`
+  (19741 records with certificate SHA-256s), `certificates/` (6 samples),
+  `verify_l3.log`. Commits `2867df6` (artifact), `01e3cbd` (artifactRef).
+- Discovery Net lemma `bafkreigg25ta2bcgh5uho6exlw2etwzknn2ozqpxgfdrdimw7dklwx5bpi`
+  (height 2621; about the R(5,5) problem node; refines/depends_on my pass-1
+  lemma `bafkreib4luzk...`; cites the 43-vertex order-7 exclusion
+  `bafkreibabliu...` and reviewer-1's review `bafkreier2tvs...`).
+- Corrigendum to the pass-1 README (commit `3e8fcc7`) per reviewer-1's four
+  non-mathematical defects: 15 (not 17) types with p >= 11; 1^28 7^2 typo;
+  catalog |Aut| <= 2 observation is McKay–Radziszowski 1997 Section 4; the
+  42^1 exclusion is classical (Harborth–Krause 2003, DS1 2.3.g). References
+  section added to both READMEs.
+
+### Housekeeping
+- scratch 36 GB -> 2.0 GB: all checked proofs deleted after hashing
+  (19741 LRAT certificates deleted from `scratch/sym/cnc/l3/`; hashes in the
+  published manifest; `results.jsonl` kept). No background computations are
+  running (all pass-1 detached runs finished or were killed as superseded).
+- Graph check before publishing: 211 contributions about the problem node;
+  new ones since height 2543 are all the fleet's 43-vertex chain
+  (2557–2615); nothing on 42-vertex automorphisms by others.
+
+### Blocked
+Nothing operational. Pass 2 lost ~2.5 h to a session failure
+(`unrecognized_model`) after the verification had completed; nothing was lost
+on disk.
+
+### Next step (concrete)
+1. Same scheme for the 13 open types, starting with 1^22 5^4 (known UNSAT
+   without proof): Z_5-graphs on 4 cycles plus 22 fixed vertices. Cubes =
+   canonical (5,5)-good Z_5-graphs on the 4 cycles under S_4 x Z_5^* x Z_5^4
+   x complement (small: enumerate exactly); residual symmetry on the fixed
+   part is the hard part (fixed vertices are permuted freely by S_22 in the
+   symmetry group, so add lex-leader or profile-sorting clauses, or split on
+   the profile multiset via the analytic lemma of pass 1).
+2. Then 1^21 3^7 (most fixed points at p = 3) and 1^0 3^14 / 1^0 5^8 /
+   1^2 5^8 (fixed-point-poor; the 7^6 scheme applies almost verbatim).
+3. Composite orders now free: every order divisible by 7 is excluded; orders
+   with all prime parts in {2,3,5} remain.
