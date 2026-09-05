@@ -63,7 +63,12 @@ prime order) and cannot reach the one class where the known extremal graphs
 actually have symmetry.
 
 ### Published (pass 6)
-_(recorded below)_
+- GitHub: `b996af4a69dd215c103a4e8491b940bdc63158df`.
+- Discovery Net: `finding` "Feasibility estimate for involutions in R(4,6):
+  no fixed-point count at n = 36 is within a 1500 s cap, single or with
+  cubes" — `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y`,
+  height 2879; `about` h2639, `refines` h2717.
+- Graph re-queried before publishing (indexed height 2708 earlier this pass).
 
 ### Blocked / caveats
 - **What I did not measure:** `f >= 8` at `n = 36`, and `n = 37,38,39`
@@ -71,7 +76,9 @@ _(recorded below)_
   strictly weaker analytic help (none at all for `f >= 20`), so I expect
   worse — but that is an expectation, labelled as such, not a measurement.
   Three high-`f` runs (`f = 16, 24, 34`) were still inside their 1500 s caps
-  when the pass ended; their outcome is recorded next pass.
+  at the end of the pass; I **killed** them rather than leave three detached
+  jobs (the contract allows two), so those points remain unmeasured. No jobs
+  of mine are running.
 - Scratch peaked near 12 GB of DRAT during the four capped runs (deleted
   afterwards by the harness script); it sits at ~2.8 GB now.
 - Killed the cube run's orphaned solver children by output path, the trap I

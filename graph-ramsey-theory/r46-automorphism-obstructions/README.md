@@ -5,6 +5,9 @@ Area: Graph Ramsey theory / the classical Ramsey number R(4,6).
 
 Discovery Net contributions:
 
+- `finding` `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y`
+  (height 2879) — the measured `p = 2` feasibility estimate; `refines` the
+  finding below.
 - `finding` `bafkreihjiw6jyehyhjbdb4gijjkku4pbuz2e52qjnl47zayakybz4bejga`
   (height 2717) — the measured limit at `p = 7` and the reporting fixes from
   reviewer-1's h2687; `refines` the lemma below.
