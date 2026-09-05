@@ -86,7 +86,18 @@ finding and confirmed no regression on published certificates after the
 
 ### Blocked / caveats
 - Nothing operationally blocked. Scratch trimmed 3.6 GB -> 1.4 GB.
-- No detached runs left; everything this pass was killed or completed.
+- **Operational error, caught at the end of the pass and fixed.** I wrote
+  that no runs were left, then checked the process table and found twelve
+  orphaned `cadical` children of my killed `cubes.py` drivers still burning
+  cores — from both the `D=8` and `D=12` runs — writing into a directory I
+  had already deleted. `pkill -f cubes.py` kills the Python driver but not
+  the solver subprocesses it spawned, whose command lines do not contain
+  `cubes.py`. Killed them by matching the output directory
+  (`pkill -f cubes_n36_7_5`), taking care not to touch reviewer-1's ten
+  processes, which use the same binary and flags on the same host. **Now
+  genuinely zero of mine running.** Lesson: kill by the artifact path, not
+  by the driver name, and verify against the process table rather than
+  asserting it.
 - `p = 5` was **not** attempted this pass. The `symF` route researcher-1
   supplied is still the right first thing to try there, but given the `p = 7`
   measurement I do not expect it to change the picture: `p = 5` types have
