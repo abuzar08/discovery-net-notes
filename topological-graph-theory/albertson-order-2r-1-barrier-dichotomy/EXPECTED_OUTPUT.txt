@@ -1,0 +1,206 @@
+==============================================================================
+Albertson barrier dichotomy at order n = 2r-1, r = 28
+==============================================================================
+r=28  n=55  m=768  e(H)=717  deficiency budget X=51  Z(r)=7098
+   b  q=b-1  #cfg  #survive   min forced max_v x_v   min omega   note
+   3      2     8         2                     24           2   e_G(D,B)<=1353  cfgs=[(51, 1), (50, 1, 1)]
+   4      3     4         1                     23           3   e_G(D,B)<=1230  cfgs=[(49, 1, 1)]
+   5      4     1         0                      -           -   excluded (all 1 configs)
+   6      5     0         0                      -           -   excluded: degree deficiency
+   7      6     0         0                      -           -   excluded: degree deficiency
+   8      7     0         0                      -           -   excluded: degree deficiency
+   9      8     0         0                      -           -   excluded: degree deficiency
+  10      9     0         0                      -           -   excluded: degree deficiency
+  11     10     0         0                      -           -   excluded: degree deficiency
+  12     11     0         0                      -           -   excluded: degree deficiency
+  13     12     0         0                      -           -   excluded: degree deficiency
+  14     13     0         0                      -           -   excluded: degree deficiency
+  15     14     0         0                      -           -   excluded: degree deficiency
+  16     15     0         0                      -           -   excluded: degree deficiency
+  17     16     0         0                      -           -   excluded: degree deficiency
+  18     17     0         0                      -           -   excluded: degree deficiency
+  19     18     0         0                      -           -   excluded: degree deficiency
+  20     19     0         0                      -           -   excluded: degree deficiency
+  21     20     0         0                      -           -   excluded: degree deficiency
+  22     21     0         0                      -           -   excluded: degree deficiency
+  23     22     0         0                      -           -   excluded: degree deficiency
+  24     23     0         0                      -           -   excluded: degree deficiency
+  25     24    11         0                      -           -   excluded (all 11 configs)
+  26     25     8         0                      -           -   excluded (all 8 configs)
+  27     26     3         1                      0          26   e_G(D,B)<=57  cfgs=[(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  28     27     1         1                      0          27   e_G(D,B)<=78  cfgs=[(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  -> surviving barrier sizes b: [3, 4, 27, 28]
+  -> branches with forced max_v x_v < 5: b in [27, 28], each forcing omega(G) >= 26
+
+r=28  n=55  m=769  e(H)=716  deficiency budget X=53  Z(r)=7098
+   b  q=b-1  #cfg  #survive   min forced max_v x_v   min omega   note
+   3      2     8         2                     24           2   e_G(D,B)<=1355  cfgs=[(51, 1), (50, 1, 1)]
+   4      3     4         1                     23           3   e_G(D,B)<=1232  cfgs=[(49, 1, 1)]
+   5      4     1         0                      -           -   excluded (all 1 configs)
+   6      5     0         0                      -           -   excluded: degree deficiency
+   7      6     0         0                      -           -   excluded: degree deficiency
+   8      7     0         0                      -           -   excluded: degree deficiency
+   9      8     0         0                      -           -   excluded: degree deficiency
+  10      9     0         0                      -           -   excluded: degree deficiency
+  11     10     0         0                      -           -   excluded: degree deficiency
+  12     11     0         0                      -           -   excluded: degree deficiency
+  13     12     0         0                      -           -   excluded: degree deficiency
+  14     13     0         0                      -           -   excluded: degree deficiency
+  15     14     0         0                      -           -   excluded: degree deficiency
+  16     15     0         0                      -           -   excluded: degree deficiency
+  17     16     0         0                      -           -   excluded: degree deficiency
+  18     17     0         0                      -           -   excluded: degree deficiency
+  19     18     0         0                      -           -   excluded: degree deficiency
+  20     19     0         0                      -           -   excluded: degree deficiency
+  21     20     0         0                      -           -   excluded: degree deficiency
+  22     21     0         0                      -           -   excluded: degree deficiency
+  23     22     0         0                      -           -   excluded: degree deficiency
+  24     23     0         0                      -           -   excluded: degree deficiency
+  25     24    13         0                      -           -   excluded (all 13 configs)
+  26     25     8         0                      -           -   excluded (all 8 configs)
+  27     26     3         1                      0          26   e_G(D,B)<=59  cfgs=[(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  28     27     1         1                      0          27   e_G(D,B)<=80  cfgs=[(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  -> surviving barrier sizes b: [3, 4, 27, 28]
+  -> branches with forced max_v x_v < 5: b in [27, 28], each forcing omega(G) >= 26
+
+Triangle-free branch detail (Andrasfai-Erdos-Sos, n = 55):
+  delta(H) > 2n/5 = 22 forces H bipartite; a factor-critical graph of odd
+  order is never bipartite, so delta(H) <= 22, i.e. max_v d_G(v) >= 32,
+  i.e. max_v x_v >= 5.
+
+RESULT r=28 n=55 m=768:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 26
+RESULT r=28 n=55 m=769:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 26
+
+==============================================================================
+Albertson barrier dichotomy at order n = 2r-1, r = 27
+==============================================================================
+r=27  n=53  m=713  e(H)=665  deficiency budget X=48  Z(r)=6084
+   b  q=b-1  #cfg  #survive   min forced max_v x_v   min omega   note
+   3      2     7         2                     23           2   e_G(D,B)<=1250  cfgs=[(49, 1), (48, 1, 1)]
+   4      3     3         1                     22           3   e_G(D,B)<=1132  cfgs=[(47, 1, 1)]
+   5      4     1         0                      -           -   excluded (all 1 configs)
+   6      5     0         0                      -           -   excluded: degree deficiency
+   7      6     0         0                      -           -   excluded: degree deficiency
+   8      7     0         0                      -           -   excluded: degree deficiency
+   9      8     0         0                      -           -   excluded: degree deficiency
+  10      9     0         0                      -           -   excluded: degree deficiency
+  11     10     0         0                      -           -   excluded: degree deficiency
+  12     11     0         0                      -           -   excluded: degree deficiency
+  13     12     0         0                      -           -   excluded: degree deficiency
+  14     13     0         0                      -           -   excluded: degree deficiency
+  15     14     0         0                      -           -   excluded: degree deficiency
+  16     15     0         0                      -           -   excluded: degree deficiency
+  17     16     0         0                      -           -   excluded: degree deficiency
+  18     17     0         0                      -           -   excluded: degree deficiency
+  19     18     0         0                      -           -   excluded: degree deficiency
+  20     19     0         0                      -           -   excluded: degree deficiency
+  21     20     0         0                      -           -   excluded: degree deficiency
+  22     21     0         0                      -           -   excluded: degree deficiency
+  23     22     0         0                      -           -   excluded: degree deficiency
+  24     23    11         0                      -           -   excluded (all 11 configs)
+  25     24     8         0                      -           -   excluded (all 8 configs)
+  26     25     3         1                      0          25   e_G(D,B)<=54  cfgs=[(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  27     26     1         1                      0          26   e_G(D,B)<=74  cfgs=[(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  -> surviving barrier sizes b: [3, 4, 26, 27]
+  -> branches with forced max_v x_v < 5: b in [26, 27], each forcing omega(G) >= 25
+
+r=27  n=53  m=714  e(H)=664  deficiency budget X=50  Z(r)=6084
+   b  q=b-1  #cfg  #survive   min forced max_v x_v   min omega   note
+   3      2     7         2                     23           2   e_G(D,B)<=1252  cfgs=[(49, 1), (48, 1, 1)]
+   4      3     3         1                     22           3   e_G(D,B)<=1134  cfgs=[(47, 1, 1)]
+   5      4     1         0                      -           -   excluded (all 1 configs)
+   6      5     0         0                      -           -   excluded: degree deficiency
+   7      6     0         0                      -           -   excluded: degree deficiency
+   8      7     0         0                      -           -   excluded: degree deficiency
+   9      8     0         0                      -           -   excluded: degree deficiency
+  10      9     0         0                      -           -   excluded: degree deficiency
+  11     10     0         0                      -           -   excluded: degree deficiency
+  12     11     0         0                      -           -   excluded: degree deficiency
+  13     12     0         0                      -           -   excluded: degree deficiency
+  14     13     0         0                      -           -   excluded: degree deficiency
+  15     14     0         0                      -           -   excluded: degree deficiency
+  16     15     0         0                      -           -   excluded: degree deficiency
+  17     16     0         0                      -           -   excluded: degree deficiency
+  18     17     0         0                      -           -   excluded: degree deficiency
+  19     18     0         0                      -           -   excluded: degree deficiency
+  20     19     0         0                      -           -   excluded: degree deficiency
+  21     20     0         0                      -           -   excluded: degree deficiency
+  22     21     0         0                      -           -   excluded: degree deficiency
+  23     22     0         0                      -           -   excluded: degree deficiency
+  24     23    13         0                      -           -   excluded (all 13 configs)
+  25     24     8         0                      -           -   excluded (all 8 configs)
+  26     25     3         1                      0          25   e_G(D,B)<=56  cfgs=[(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  27     26     1         1                      0          26   e_G(D,B)<=76  cfgs=[(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  -> surviving barrier sizes b: [3, 4, 26, 27]
+  -> branches with forced max_v x_v < 5: b in [26, 27], each forcing omega(G) >= 25
+
+r=27  n=53  m=715  e(H)=663  deficiency budget X=52  Z(r)=6084
+   b  q=b-1  #cfg  #survive   min forced max_v x_v   min omega   note
+   3      2     7         2                     23           2   e_G(D,B)<=1254  cfgs=[(49, 1), (48, 1, 1)]
+   4      3     3         1                     22           3   e_G(D,B)<=1136  cfgs=[(47, 1, 1)]
+   5      4     1         0                      -           -   excluded (all 1 configs)
+   6      5     0         0                      -           -   excluded: degree deficiency
+   7      6     0         0                      -           -   excluded: degree deficiency
+   8      7     0         0                      -           -   excluded: degree deficiency
+   9      8     0         0                      -           -   excluded: degree deficiency
+  10      9     0         0                      -           -   excluded: degree deficiency
+  11     10     0         0                      -           -   excluded: degree deficiency
+  12     11     0         0                      -           -   excluded: degree deficiency
+  13     12     0         0                      -           -   excluded: degree deficiency
+  14     13     0         0                      -           -   excluded: degree deficiency
+  15     14     0         0                      -           -   excluded: degree deficiency
+  16     15     0         0                      -           -   excluded: degree deficiency
+  17     16     0         0                      -           -   excluded: degree deficiency
+  18     17     0         0                      -           -   excluded: degree deficiency
+  19     18     0         0                      -           -   excluded: degree deficiency
+  20     19     0         0                      -           -   excluded: degree deficiency
+  21     20     0         0                      -           -   excluded: degree deficiency
+  22     21     0         0                      -           -   excluded: degree deficiency
+  23     22     0         0                      -           -   excluded: degree deficiency
+  24     23    15         0                      -           -   excluded (all 15 configs)
+  25     24     8         0                      -           -   excluded (all 8 configs)
+  26     25     3         1                      0          25   e_G(D,B)<=58  cfgs=[(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  27     26     1         1                      0          26   e_G(D,B)<=78  cfgs=[(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  -> surviving barrier sizes b: [3, 4, 26, 27]
+  -> branches with forced max_v x_v < 5: b in [26, 27], each forcing omega(G) >= 25
+
+r=27  n=53  m=716  e(H)=662  deficiency budget X=54  Z(r)=6084
+   b  q=b-1  #cfg  #survive   min forced max_v x_v   min omega   note
+   3      2     7         2                     23           2   e_G(D,B)<=1256  cfgs=[(49, 1), (48, 1, 1)]
+   4      3     3         1                     22           3   e_G(D,B)<=1138  cfgs=[(47, 1, 1)]
+   5      4     1         0                      -           -   excluded (all 1 configs)
+   6      5     0         0                      -           -   excluded: degree deficiency
+   7      6     0         0                      -           -   excluded: degree deficiency
+   8      7     0         0                      -           -   excluded: degree deficiency
+   9      8     0         0                      -           -   excluded: degree deficiency
+  10      9     0         0                      -           -   excluded: degree deficiency
+  11     10     0         0                      -           -   excluded: degree deficiency
+  12     11     0         0                      -           -   excluded: degree deficiency
+  13     12     0         0                      -           -   excluded: degree deficiency
+  14     13     0         0                      -           -   excluded: degree deficiency
+  15     14     0         0                      -           -   excluded: degree deficiency
+  16     15     0         0                      -           -   excluded: degree deficiency
+  17     16     0         0                      -           -   excluded: degree deficiency
+  18     17     0         0                      -           -   excluded: degree deficiency
+  19     18     0         0                      -           -   excluded: degree deficiency
+  20     19     0         0                      -           -   excluded: degree deficiency
+  21     20     0         0                      -           -   excluded: degree deficiency
+  22     21     0         0                      -           -   excluded: degree deficiency
+  23     22     0         0                      -           -   excluded: degree deficiency
+  24     23    16         0                      -           -   excluded (all 16 configs)
+  25     24     8         0                      -           -   excluded (all 8 configs)
+  26     25     3         1                      0          25   e_G(D,B)<=60  cfgs=[(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  27     26     1         1                      0          26   e_G(D,B)<=80  cfgs=[(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)]
+  -> surviving barrier sizes b: [3, 4, 26, 27]
+  -> branches with forced max_v x_v < 5: b in [26, 27], each forcing omega(G) >= 25
+
+Triangle-free branch detail (Andrasfai-Erdos-Sos, n = 53):
+  delta(H) > 2n/5 = 21 forces H bipartite; a factor-critical graph of odd
+  order is never bipartite, so delta(H) <= 21, i.e. max_v d_G(v) >= 31,
+  i.e. max_v x_v >= 5.
+
+RESULT r=27 n=53 m=713:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 25
+RESULT r=27 n=53 m=714:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 25
+RESULT r=27 n=53 m=715:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 25
+RESULT r=27 n=53 m=716:  max_v (d_G(v)-(r-1)) >= 5   OR   omega(G) >= 25
+
