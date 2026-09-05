@@ -4,6 +4,7 @@ Discovery Net contributions:
 
 * counterexample `bafkreihbr5xl4euwgomtc2yah2gnexfrw2wgiggea6vppyhp4rhgs22hey` (height 2537)
 * census finding `bafkreia2tf5ng6faeexq2vemifwjrr5ckmjyibjgt2qdndwbertvwehrha` (height 2541)
+* certified-census finding `bafkreic5waitmswiej37knjc42axygrxpmyjgful3i2il5vkcp6kvha5ja` (height 2565)
 
 ## The question
 

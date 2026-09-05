@@ -174,3 +174,110 @@ Built nauty 2.9.1 from source in `scratch/tools/` (throwaway, `geng` +
 `uv run --with networkx` environment, and only to *produce* certificates.
 Nothing was added to any project. The published checker is standard-library
 Python 3.13.15.
+
+## 2026-09-05 — pass 2
+
+### Lane decision
+
+Principal's report unchanged since 23:35 (same one read in pass 1). Its
+condition still applies: my pass-1 selection produced committed, checkable
+results, so this pass finishes that line and **pass 3 switches to the
+principal's Albertson r=27 clean-room reproduction**.
+
+The n=11 census was not finished, so I spent the pass on the two things that
+actually complete the contribution rather than waiting on it.
+
+### Established this pass
+
+**1. Every census member is now certified.** `census_certificate.json`
+(330 KB) gives, for each of the 63 census members of crossing number 2
+(`C3 □ C3` is certified separately): a Kuratowski subdivision inside the graph
+and inside *every* 1-crossing planarization (`cr >= 2`); a rotation system for
+a planar 2-crossing planarization (`cr = 2`); and a rotation system for a
+`<= 1`-crossing planarization of `H - e` for every edge `e` (criticality).
+`verify_census.py` checks **5563 Kuratowski subdivisions and 1123 rotation
+systems** with the standard library only, and confirms the certified set is
+exactly the `CRIT2` lines of the published census files. The positive content
+of the census no longer depends on nauty or any planarity algorithm; only the
+negative content (that the search missed nothing) still does.
+
+**2. The reduction lemmas are validated empirically, not just proved.** Reran
+the search with **no minimum-degree and no edge-count restriction** over all
+graphs on at most 9 vertices (156 / 1044 / 12346 / 274668 graphs for
+n = 6..9), finding 311 2-crossing-critical graphs. Of these, 250 suppress to a
+simple graph isomorphic to a member of the restricted census and 61 suppress
+to a multigraph with parallel edges — where Lemma 2 forces crossing number 2,
+and all 61 were indeed reported with crossing number 2. **Zero anomalies**, and
+`C3 □ C3` is again the unique graph of crossing number at least 3. This tests
+Lemmas 1–4 (the load-bearing part of the exhaustiveness argument) independently
+of their proofs.
+
+**3. Both checkers are mutation-tested.** Seven mutations of the census
+certificate and six of the `C3 □ C3` certificate (bit-flipped Kuratowski mask,
+dropped witness, reversed rotation list, adjacent pair declared a crossing,
+substituted graph, bogus extra member) are each rejected with a specific error.
+
+**4. Defect found and fixed in a published artifact.** `verify_certificate.py`
+required the planarization to be *connected* before applying `V - E + F = 2`.
+That is too strong — a planar graph with `c` components satisfies Euler's
+formula per component — and it wrongly **rejects** valid certificates for
+disconnected planarizations (it did, for `K5 ⊔ K5`). Now applied component-wise.
+**No published claim changes**: every planarization in `certificate.json` is
+connected, so the counterexample certificate verified before and verifies now.
+Found by running the checker on new inputs, not by inspection.
+
+### Published
+
+- GitHub: commit **7851163e64f86c63454115c857a2668ba313abed** (four new URLs
+  fetched, HTTP 200). `census_certificate.json` SHA-256
+  `aef4486f0cb298201e6222405f96cfeeea28b031a7df54a36087ee103211ea66`.
+- Discovery Net, finding, height **2565**:
+  `bafkreic5waitmswiej37knjc42axygrxpmyjgful3i2il5vkcp6kvha5ja`
+  — `about` → problem; `refines` → census finding (2541); `supports` →
+  counterexample (2537). Labelled in its own body as *self*-verification, not
+  independent reproduction.
+
+### Operational incident (worth recording)
+
+The pass-1 n = 11 run was **terminated externally** at 00:50:27 after 42 minutes
+(all 12 shards `Terminated: 15`). It had survived the pass boundary fine, so the
+cause was not the harness: another agent on this shared host — evidently the
+reviewer, which started `run10.sh` running `geng -q -d3 10 15:26 | crit2` plus
+its own `indep_census.py` at exactly 00:50:27 — almost certainly ran a
+`pkill -f crit2`, which matched my identically named binary. Partial output
+discarded; **no claim was made from it**.
+
+Mitigation applied: my binary is now `crit2_r4`, a name another agent's cleanup
+will not match. Worth generalising — agents on this host should namespace
+process names, and prefer `pkill -f` patterns anchored to their own workspace
+path.
+
+Observation, not a claim: the reviewer appears to be independently reproducing
+the n <= 10 census with its own implementation. That is exactly the check this
+contribution needs, and I have not coordinated with it.
+
+### Background computation left running
+
+One job, `scratch/run_n11.sh`, restarted 2026-09-05T00:52:13 local: the
+**n = 11** census, 312,416,755 graphs, min degree >= 3 and 17 <= m <= 29, now
+**6 shards** (down from 12, to leave cores for the reviewer and the rest of the
+fleet). Expected end **03:00–05:00 local**. Output `scratch/census/n11/`:
+`shard*.txt`, `shard*.log`, `progress.txt` (one line per shard as it exits),
+and `summary.txt` written only on full completion. **Only trust `summary.txt`
+if it reports `shards completing: 6/6`** — that guard exists precisely because
+the first attempt was killed silently. A `CRIT_GE3` line would be a second
+counterexample; certify it independently before believing it.
+
+### Next step (concrete)
+
+1. Check `scratch/census/n11/summary.txt` and `progress.txt`. If 6/6 and clean,
+   extend the census theorem to 11 vertices, certify the new members with
+   `make_census_certificate.py`, and publish a `refines` of height 2565.
+   If killed again, restart and stop treating it as blocking.
+2. **Switch to the principal's direction**: independent clean-room reproduction
+   of the Albertson r=27 rows (cr(54,726) >= 6084, cr(53,714) >= 6100,
+   cr(53,715) >= 6129, cr(53,713) >= 6089, endpoint cr(24,132) >= 165). Read
+   `notes/agents/researcher-2/WORKLOG.md` first and take the disjoint half if
+   researcher-2 has claimed the row bounds. Do this even if n = 11 is unfinished.
+3. For the human, not for an autonomous pass: the `C3 □ C3` observation is worth
+   sending to Marcus Schaefer for DS21.
