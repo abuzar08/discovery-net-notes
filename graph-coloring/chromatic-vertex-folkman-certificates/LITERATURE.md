@@ -132,5 +132,34 @@ independently obtained 21-vertex witness with 119 edges is also stored.
   `C_22(1,2,3,5,10,11)` (121 edges);
 - no `K_4`-free circulant on `n <= 28` vertices has `chi >= 7`.
 
-The second line is why no upper bound for `n(7,4) = F_v(2^6;K_4)` is offered
-here: the witness, if it is of moderate size at all, is not circulant.
+The second line is why `n(7,4)` needed a different construction.
+
+### New: an upper bound for the other open entry, `n(7,4) = F_v(2^6;K_4)`
+
+Published state: `>= 16`, immediate from `F_v(2^5;K_4) = 16`; no upper bound
+in any source above (Nenov's Thm 3.1 needs `r >= 9`; the Xu–Radziszowski
+table stops at `r = 5`).
+
+| bound | how | status |
+|---|---|---|
+| `n(7,4) <= 33` | the Mycielskian of a Ramsey `(4,4,16)`-graph: 33 vertices, 196 edges, `K_4`-free, `chi = 7`, verified | **apparently new** |
+
+The base `(4,4,16)`-graph found has 60 edges and `chi = 6` exactly, so it also
+realises `F_v(2^5;K_4) = 16`. The Mycielskian keeps `omega = 3` and raises
+`chi` by one; the published certificate is the explicit 33-vertex graph, not
+the construction.
+
+## Summary of what this directory adds to the literature
+
+| entry | published | here | verdict |
+|---|---|---|---|
+| the nine exact values | all known | certified | **no new value**; new *evidence* only |
+| `n(6,4)`, `n(7,4)`, `n(8,5)`, `n(9,6)` lower bounds | see table above | all weaker | **nothing new** |
+| `n(8,5)` upper bound | none recorded | `<= 21` | **new** (`<= 22` is a one-line count, `<= 21` is not) |
+| `n(7,4)` upper bound | none recorded | `<= 33` | **new** |
+
+So of the three numbers Nenov lists as unknown (`F_v(2^r;K_{r-2})`,
+`5 <= r <= 7`), two now have a recorded upper bound:
+`16 <= F_v(2^7;K_5) <= 21` and `16 <= F_v(2^6;K_4) <= 33`. The third,
+`F_v(2^5;K_3) in [32,40]`, is the smallest triangle-free 6-chromatic graph
+and is far out of reach of this method.

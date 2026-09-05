@@ -234,14 +234,41 @@ found by two independent routes — a direct CEGAR search at `n = 21`, and
 greedy vertex-deletion from a 22-vertex witness — and are non-isomorphic
 (different edge counts).
 
+#### The second open entry: `n(7,4) = F_v(2^6;K_4) <= 33`
+
+Same situation: published lower bound `>= 16` (immediate from
+`F_v(2^5;K_4) = 16`), and no upper bound in the sources read.
+
+`mycielski.py` produces one. Find a Ramsey `(4,4,16)`-graph `G` — `K_4`-free,
+`alpha <= 3`, 16 vertices, which is a plain SAT problem with no quantifier
+alternation — and check `chi(G) = 6` (the graph found has 60 edges, `chi >= 6`
+and `chi < 7`, so it realises `F_v(2^5;K_4) = 16`). Its Mycielskian has
+`2·16+1 = 33` vertices, keeps `omega = 3`, and raises the chromatic number by
+one.
+
+| bound | witness | status |
+|---|---|---|
+| `n(7,4) <= 33` | `ub_n33_k7_q4.txt`, 33 vertices, 196 edges, `K_4`-free, `chi = 7` | **apparently new** |
+
+The Mycielskian theory is only how the graph was *found*; the certificate is
+the graph itself, checked by `verify.py upper 7 4`. It is vertex-critical for
+the property: no vertex and no pair can be deleted while `chi >= 7` survives.
+
 **Exhaustive circulant scan** (`circulant.py`; an observation over the whole
 circulant family, not a theorem about all graphs):
 
 - no `K_5`-free circulant on `n <= 21` vertices has `chi >= 8`; at `n = 22`
   there are exactly 10;
-- no `K_4`-free circulant on `n <= 30` vertices has `chi >= 7`, which is why
-  no upper bound for the other open entry `n(7,4) = F_v(2^6;K_4)` is offered
-  here.
+- no `K_4`-free circulant on `n <= 30` vertices has `chi >= 7` — which is why
+  `n(7,4)` needed the Mycielskian rather than a circulant.
+
+**Restricted observation** (uses `--maxindep`, so it is *not* a certified
+lower bound and `verify.py` refuses to treat it as one): there is no
+`K_4`-free graph on 17 vertices with `alpha <= 3`, minimum degree `>= 6` and
+`chi >= 7`; the CEGAR settles it in 5 iterations with 4 partitions. Since
+`alpha <= 3` forces `n <= 17` for `K_4`-free graphs, `n(7,4) = 17` would have
+had to come from that class, so this rules out the smallest value the
+published lower bound leaves open — within that class only.
 
 ### Where the method stops
 
