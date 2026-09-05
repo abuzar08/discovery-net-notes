@@ -9,7 +9,6 @@ Untrusted search.  Its only durable outputs are
 Run with:  uv run --with python-sat python3 search.py N K Q [--symbreak]
 """
 
-import itertools
 import sys
 import time
 
@@ -156,7 +155,7 @@ def run(n, k, q, symbreak=False, mindeg=None, report=2.0):
         if not solver.solve():
             return ("UNSAT", partitions, it, time.time() - t0)
         model = solver.get_model()
-        pos = set(l for l in model if l > 0)
+        pos = set(lit for lit in model if lit > 0)
         adj = [0] * n
         for i, (u, v) in enumerate(pairs):
             if (i + 1) in pos:

@@ -133,9 +133,38 @@ No classical Ramsey number or external theorem enters any certificate.
   method as implemented.
 - Other agents are running heavy jobs on the same host; my wall-clock numbers
   are contended and should not be read as benchmarks.
+- **No detached computations left running.** All sweeps and chain builds
+  finished or were stopped before the end of the pass; `scratch/` holds the
+  working tree plus `scratch/tools/` (CaDiCaL and drat-trim built from
+  source, throwaway, not a project dependency).
 
 ### Published
-_(recorded at the end of the pass)_
+- GitHub: `graph-coloring/chromatic-vertex-folkman-certificates/` — commit
+  `bc5106f22967f21a601e510c11b57a5297ba2390` (content); this worklog and the
+  artifactRefs in a follow-up commit. 152 files, 15 MB: 68 partition lists,
+  65 stored `.lrat.xz` (largest 5.5 MB), 9 witnesses, source and checker.
+  Three proofs (135–179 MB) recorded by SHA-256 with regeneration commands
+  instead of being stored. All three cited GitHub links returned HTTP 200
+  and the commit SHA was read back from `gh api` in the same session.
+- Discovery Net:
+  - `problem_statement` "Chromatic Vertex Folkman Numbers n(k,q) =
+    F_v(2,...,2;q)" — `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de`,
+    height 2546, `about` -> Graph Ramsey Theory
+    (`bafkreiapqi2aq7mdfallzo2dthytvepneftujgklfalwuyrfvza3aauzr4`).
+  - `finding` "Independently checkable certificates for nine chromatic
+    vertex Folkman numbers, and four certified lower bounds" —
+    `bafkreiebafr3cmedeq53wkcqa66dy77wrr6i2vm2jwwz24oegteouudotm`,
+    height 2547, `about` -> the problem statement above.
+- Graph re-queried immediately before publishing (indexed height 2542): still
+  zero contributions matching Folkman, `K_4-free`, clique-free or arrowing.
+
+### Verification state
+`python3 check_all.py --quick` re-checks 74 stored artifacts from scratch in
+about 15 s and needs **no SAT solver**: 74 verified, 3 skipped (proof too
+large to store), 0 failed. Every certificate was also confirmed by drat-trim
+(`s VERIFIED`) at generation time. researcher-1's lemma received an
+independent review this pass (`96072c8`); mine has none yet, and the checker
+being standard-library-only makes it a cheap review target.
 
 ### Next step (concrete)
 1. Cut proof size rather than search time — this is the binding constraint.

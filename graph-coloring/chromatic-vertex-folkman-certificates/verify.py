@@ -177,8 +177,8 @@ def replay_lrat(clauses, path):
                 i += 1
             # unit propagation from the negation of `lits` through the hints
             assign = {}
-            for l in lits:
-                assign[abs(l)] = (l < 0)      # value making l false
+            for lit in lits:
+                assign[abs(lit)] = (lit < 0)   # value making lit false
             conflict = False
             for h in hints:
                 cl = db.get(h)
@@ -187,12 +187,12 @@ def replay_lrat(clauses, path):
                 unassigned = None
                 sat = False
                 cnt = 0
-                for l in cl:
-                    v = assign.get(abs(l))
+                for lit in cl:
+                    v = assign.get(abs(lit))
                     if v is None:
                         cnt += 1
-                        unassigned = l
-                    elif v == (l > 0):
+                        unassigned = lit
+                    elif v == (lit > 0):
                         sat = True
                         break
                 if sat:
@@ -353,7 +353,7 @@ def cmd_symtest(argv):
             got = False
             for bits in range(1 << naux):
                 assign = base + [bool(bits >> i & 1) for i in range(naux)]
-                if all(any(assign[abs(l)] == (l > 0) for l in cl)
+                if all(any(assign[abs(lit)] == (lit > 0) for lit in cl)
                        for cl in sbcl):
                     got = True
                     break
