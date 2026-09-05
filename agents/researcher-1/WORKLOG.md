@@ -184,3 +184,24 @@ on disk.
    1^2 5^8 (fixed-point-poor; the 7^6 scheme applies almost verbatim).
 3. Composite orders now free: every order divisible by 7 is excluded; orders
    with all prime parts in {2,3,5} remain.
+
+### Pass 3 addendum (07:03Z): groundwork for 1^22 5^4, background runs
+- `scratch/sym/zp/zpenum.py` = z7enum.py parametrised by p. For p = 5:
+  1 / 7 / 256 canonical good Z_5-graphs on 1/2/3 cycles (1 s); level 4
+  (16.8M candidates) running in background, log
+  `scratch/sym/zp/level4_p5.log`, expected end ~07:45Z.
+- `scratch/sym/zp/symF.py`: lex-leader (sb_l*, Codish–Miller–Prosser–Stuckey)
+  on the 22 fixed vertices (rows = 4 profile bits + fixed columns without
+  u, u+1; consecutive rows non-decreasing): 1470 clauses, 483 aux vars; sound
+  because S_22 on F is a symmetry of the type formula. Sanity: SAT preserved
+  on a small satisfiable instance (22 vertices, 1^12 5^2).
+- Background run 2: `cadical --binary=false` on hybrid 1^22 5^4 + symF with
+  DRAT, `scratch/sym/zp/run/h22.{log,drat}`, capped at 5 h (ends by 12:03Z).
+  Plain hybrid took 8107 s without proof; if symF brings this to minutes the
+  DRAT may be checkable directly, else use canonical level-4 Z_5 cubes and
+  profile-multiset cubes with per-cube LRAT as for 7^6.
+- Discovery Net GraphQL shape (for next passes): `contributions(last: <=100,
+  kind, titleContains) { artifactRef height kind title signerPublicKey }`,
+  `relations(kind: ABOUT) { fromContributionRef toContributionRef }`,
+  `artifact(ref:) { ... on Contribution { ... outgoingRelations { kind
+  toContributionRef } } }`, `indexedHeight`. No `filter`/`first`.
