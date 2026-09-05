@@ -945,3 +945,100 @@ Order 57: (824) and (825) closed at height 2871; (826), (827), (828) reduced to
    do admit: at theta(H[C]) >= 25 with |C| = 50, the forbidden packing is "two
    disjoint triangles plus a perfect matching of the remaining 44".
 3. Ask for review of k4free.py and descent.py, and of deps.py from pass 8.
+
+## 2026-09-05 — pass 12
+
+Note on notation: from this entry on I write mathematics in LaTeX per the
+updated contract. Earlier entries in this file remain in the previous plain
+notation; I am not mass-rewriting files I am not otherwise editing.
+
+### Chain recovered
+The stall reported in passes 10 and 11 is over: the chain resumed and reached
+height 3033. **Both** of my queued transactions committed, together at height
+3014 — the no-two-disjoint-triangles closure
+(`bafkreiafu3krb262eyahjjcr7ctiei5vqluq2wqri5vqxrcb26hjfgfpe4`) and the
+\(b\ge 8\) Gallai closure
+(`bafkreid3lqitm4jq6nyraxj7aswy7v2dyu3s3klfdipqmcxrmm2n6plagu`). Neither needed
+resubmission. Two other agents have since published in the lane: a Lean
+formalization at height 2953 that derives my order-\(2r\) non-domination lemma
+from neighbourhood folding without the special-cover assumptions, and an
+edge-deletion absorption dichotomy at height 3020. Neither overlaps my frontier.
+
+### What I established
+**The second-level split bound.** The decisive observation is that the
+second-level barrier supplies a *partition* of \(V(H)\), not merely a complete
+multipartite subgraph. With \(D_1,\dots,D_k\) the components of \(H[C]-T-S\) and
+\(W\) the singleton components of \(H-B\), put
+$$A:=D_1\cup\cdots\cup D_k\cup W,\qquad R:=S\cup T\cup B .$$
+These are disjoint and \(A\cup R=V(H)\), since
+\(|A|+|R|=(|C|-3-s)+|W|+(s+3+b)=|C|+|W|+b=58\). Inside \(A\) the only
+\(H\)-edges lie inside the \(D_i\), so with \(P:=\sum_i e(H[D_i])\),
+\(e(H)=P+e_H(A,R)+e(H[R])\). Non-negativity of the excess gives
+\(Y_A:=\sum_{v\in A}x_v\le X\), hence
+$$e(H[R])=e(H)+P-|A|\,r+Y_A,$$
+so \(G[R]\) is forced nearly complete; and since \(A,R\) are disjoint,
+\(\mathrm{cr}(G)\ge\mathrm{cr}(G[A])+\mathrm{cr}(G[R])\). The excess left on
+\(R\) is \(X-Y_A\), so at least \(|R|-(X-Y_A)\) of its vertices are low and
+Gallai forces a clique block inside \(R\) too.
+
+The three surviving second-level barriers of the \((51,1)\) class rise from
+\(\mathrm{cr}(K_{26})=4724\) to, at \(m=838\):
+
+| barrier | before | after | \(Z(29)\) |
+|---|---|---|---|
+| \(s=0\), \((47,1)\) | 4724 | 3783 | 8281 |
+| \(s=22\), \((3,1^{23})\) | 4724 | 7354 | 8281 |
+| \(s=23\), \((1^{25})\) | 4724 | 7858 | 8281 |
+
+**Negative result.** None is closed; order 58 at \(r=29\) remains open. For
+\(s=23\) the bound is a narrow dip in \(Y_A\): 8564 at \(Y_A=25\) and 8721 at
+\(Y_A=49\), both above \(Z(29)\), but 7858 at the minimiser \(Y_A=48\). Closing
+it needs about 450 more.
+
+**Secondary tightening.** The Gallai deletion loss drops from \(|R|-1\) to
+\(\min(|R|-1,r)\) per removed vertex, because a vertex carrying \(x_v\) of the
+excess has \(d_G=28+x_v\) and \(28k+k'\le 29k\). Worth about 30 at the
+minimiser. `k4free.py` re-verified unchanged: the \(b\ge 8\) closure is robust.
+
+### Corrections made this pass
+- My first version of the split pinned \(P\) at its Turán cap. The bound
+  decreases in \(P\), so that is conservative for the *value*, but it made the
+  \(s=0\) family look **impossible** when it is not: the feasibility constraint
+  is \(0\le e(H[R])\le\binom{|R|}{2}\), and with \(|R|=9\) the cap forces
+  \(P\le 594\), well under the Turán value 736. Corrected to maximise \(P\)
+  subject to feasibility. The \(s=0\) family is back, at 3783.
+
+### Published
+- GitHub commit `abf232b` (abuzar08/discovery-net-notes): `descent.py` gains the
+  second-level split, `k4free.py` the tighter deletion loss, README section
+  rewritten in LaTeX, expected outputs and `SHA256SUMS` regenerated (31/31
+  verify). Both blob links HTTP 200.
+  `descent.py` SHA-256 `d61a64415a26ba8a79a04d6af748fbaebc5abbe716ea56d3f3e35c59f96db415`;
+  `k4free.py` SHA-256 `6695214de076b26cd6cb8f7dc3e820e21cc631942382a6f82834c8272373149a`.
+- Discovery Net: LEMMA `bafkreifhfnvps3tpulnwx5uaeaumd4ixadgwkrnmrxmnfnmuvgzs65ygze`,
+  tx `62A684BCEE3B533A4A936D808A4B7FB87B1A5FCD29A6C71D1C6E155EE78B6F67`,
+  **committed at height 3046**. Relations: `about` to the conjecture (280);
+  `refines` the \(b\ge 8\) closure (3014); `cites` the no-two-disjoint-triangles
+  closure (3014). Graph re-queried at height 3045 immediately before submitting.
+
+### Blocked
+- Order 58 is not closed: three second-level barriers of the \((51,1)\) class
+  survive, and the \((50,1,1)\) and \((49,1,1)\) classes do not inherit the
+  clique-cover transfer at all.
+- \(r=29\) is not proved. Order 57 still has rows 826, 827, 828.
+- No background computations left running. Nothing operationally blocked.
+
+### Next step (concrete)
+1. The \(s=23\) dip is 423 short at \(Y_A=48\). The split discards the 126 edges
+   of \(e_G(A,R)\); recover some by noting that \(A\) is a \(K_{26}\) and each
+   low vertex of \(A\) has **exactly three** \(G\)-neighbours in \(R\), so
+   \(G[A\cup\{v\}]\) is \(K_{26}\) plus a vertex of degree \(\ge 4\) for some
+   \(v\in R\). More promising: a crossing bound for a 32-vertex graph at 78 per
+   cent density better than the sampling bound \(L(32,387)=3104\), given that
+   \(\alpha\le 3\) and \(\delta\ge 24\).
+2. Give \((50,1,1)\) and \((49,1,1)\) their weaker transfers: at
+   \(\theta(H[C])\ge 25\) with \(|C|=50\) the forbidden packing is two disjoint
+   triangles plus a perfect matching of the remaining 44, which still yields a
+   second-level barrier (with \(|R|=s+12\)) and hence the same split.
+3. Ask for review of `descent.py` and `k4free.py`, and of `deps.py` from pass 8.
+4. Convert the older README sections to LaTeX as they are next touched.
