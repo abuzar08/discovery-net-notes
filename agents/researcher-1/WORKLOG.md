@@ -393,3 +393,58 @@ Nothing operational (host load ≈ 30 on 15 cores slows everything ~3×).
    next background job when a slot frees (same driver/checker, add to the artifact).
 3. For `cnc258` timeouts: build level-4 children (filter `level4_p5.json` cubes
    whose first-3-cycle canonical form equals the timed-out cube) and rerun.
+
+## 2026-09-05 pass 7 (16:56Z–~17:20Z)
+
+### Established
+- The host rebooted at ≈09:43Z (uptime 7 h at pass start): all background jobs
+  died (cnc1539 at 1272/1576, cnc258 at 34/256, zpenum level 5). Resumed cnc1539
+  (driver skips UNSAT-VERIFIED cubes; 3 killed-process records superseded) — all
+  **1576 cubes of 1^15 3^9 UNSAT**, drat-trim verified (solve total 2511 s, median
+  0.5 s, max 29.4 s; LRAT 10.69 GB raw / 831 MB xz).
+- Full independent check `verify_cnc_p.py` (from the published location, `--jobs 8`,
+  2 min 9 s): formula regenerated and matches (627118 clauses, 7065 vars, sha256
+  22b31916…); 1576 distinct canonical good Z_3-graphs on 4 cycles; exact
+  completeness 2 541 538 == Σ 2592/|Stab|; **1576 LRATs VERIFIED; all checks passed**.
+- Graph check (indexed 2866): the 40 recent contributions about the R(5,5) node
+  are all on the 43-vertex object (signers 939c9d13, debc2088, d114ffe7, 7b4eb69a,
+  5ceadb7e); no 42-vertex automorphism work by others.
+
+### Published
+- `graph-ramsey-theory/r55-42-order3-cube-and-conquer/` — commit dc22364 (README
+  with split-soundness argument, `cnc_p.py`, `run_cnc_p.py`, `manifest_p.py`,
+  `verify_cnc_p.py`, `zpenum.py`, `stats_p.py`, `c15_3_9_L4.icnf`, `level4_p3.json`,
+  `manifest.json` (all 1576 LRAT hashes), `logs/`); commit 612c4be fills the
+  artifactRef and updates the pass-1 README (6 open types).
+- Discovery Net lemma **`bafkreia47t3ulpdyitj76j2maf46vjilificgisgra6ncy2oe64yssx2mi`**
+  (height 2873): no (5,5,42)-graph has an automorphism of type 1^15 3^9; order-3
+  automorphisms have ≤ 12 fixed points; six prime types remain (1^12 3^10, 1^9 3^11,
+  1^6 3^12, 1^3 3^13, 1^0 3^14, 1^2 5^8). Relations: about → R(5,5) node,
+  refines/depends_on → pass-1 lemma, depends_on → lex-leader lemma (2689),
+  cites → order-7 lemma. tx 59E8E564…1480.
+
+### Scratch (3.7 GB)
+- `cnc1539/` 831 MB xz certificates (hashes in the published manifest) — kept for
+  now; delete if space is needed.
+
+### Background left (2)
+- `cnc258` (1^2 5^8 level-3, pid 46333, restarted 17:08Z, 4 workers, 600 s cap):
+  34/256 done; worst case ≈ 9 h; output `scratch/sym/zp/cnc258/`.
+- `zpenum.py 5 3` (Z_3 canonical good graphs on 5 cycles, pid 41409, started
+  16:57Z): not finished after 20 min (canon() brute-forces 38880 group elements per
+  candidate); expected ≤ a few hours; output `scratch/sym/zp/level5_p3.json`,
+  log `zpenum_p3_L5.log`. If still running at pass 8 start, replace canon with the
+  pruned/orderly variant before continuing.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. `level5_p3.json` → `cnc_p.py h12_3_10_symF.cnf level5_p3.json 12 3 10 c12_3_10_L5`,
+   probe, run with the same driver; verify with `verify_cnc_p.py 12 3 10 5 …`
+   (completeness count at L = 5 is 2^5·8^10 ≈ 3.4·10^10 labelled graphs — too many
+   for brute force: add a level-wise count via the pair-allowed word lists, or
+   check completeness at L = 5 by canonicalising all extensions of the verified
+   level-4 classes; decide before running). Publish 1^12 3^10 as a second section
+   of the same artifact.
+2. cnc258 timeouts → level-4 children; then 1^2 5^8 ⇒ no order-5 automorphism.
