@@ -18,6 +18,11 @@ Subcommands
       1^F P^K.  Checks that FORMULA.cnf is exactly the CNF determined by
       (N,S,T,F,P,K) and replays PROOF.lrat to the empty clause.
 
+  cubes N S T F P K DIR D
+      Certifies the type by cube-and-conquer: checks that DIR holds exactly
+      the 2^D cubes over variables 1..D (every sign pattern, once), and
+      replays each cube's LRAT against the base formula plus that cube.
+
   graph S T FILE
       Checks that an explicit graph is an (S,T,|V|)-graph: no K_S and no
       independent set of size T.  Format: first token |V|, then edge pairs.
@@ -195,8 +200,21 @@ def check_graph(n, adj, s, t):
 # ------------------------------------------------------------------ command
 
 def cmd_lower(a):
+    """lower N S T F P K FORMULA.cnf PROOF.lrat [--cube l1 l2 ...]
+
+    With --cube, the regenerated formula is the base formula plus one unit
+    clause per listed literal.  A full cube split is sound because every
+    total assignment satisfies exactly one cube; `cubes` below checks that
+    the stored cubes are exactly all sign patterns on the split variables.
+    """
     n, s, t, f, p, k = (int(x) for x in a[:6])
     nvar, want = regenerate(n, s, t, f, p, k)
+    if "--cube" in a:
+        for lit in a[a.index("--cube") + 1:]:
+            v = int(lit)
+            if not 1 <= abs(v) <= nvar:
+                raise SystemExit(f"cube literal {v} out of range")
+            want = want + [(v,)]
     got_nvar, got = read_dimacs(a[6])
     if got_nvar != nvar:
         raise SystemExit(f"variable count {got_nvar} != regenerated {nvar}")
@@ -204,10 +222,43 @@ def cmd_lower(a):
         raise SystemExit(f"clause set differs: file {len(got)}, "
                          f"regenerated {len(want)}")
     step = replay(want, a[7])
+    cube = (" under cube " + " ".join(a[a.index("--cube") + 1:])
+            if "--cube" in a else "")
     print(f"VERIFIED  no ({s},{t},{n})-graph has an automorphism of cycle "
-          f"type 1^{f} {p}^{k}")
+          f"type 1^{f} {p}^{k}{cube}")
     print(f"  orbit vars={nvar} clauses={len(want)} "
           f"empty clause at LRAT step {step}")
+
+
+def cmd_cubes(a):
+    import itertools as it
+    import os
+    n, s, t, f, p, k = (int(x) for x in a[:6])
+    d, D = a[6], int(a[7])
+    nvar, base = regenerate(n, s, t, f, p, k)
+    want_cubes = {tuple((i + 1) if b else -(i + 1) for i, b in enumerate(sg))
+                  for sg in it.product((True, False), repeat=D)}
+    seen = set()
+    for cube in sorted(want_cubes):
+        tag = "c" + "".join("1" if x > 0 else "0" for x in cube)
+        cnf = os.path.join(d, tag + ".cnf")
+        lrat = os.path.join(d, tag + ".lrat")
+        if not (os.path.exists(cnf) and os.path.exists(lrat)):
+            raise SystemExit(f"missing cube {tag}")
+        got_nvar, got = read_dimacs(cnf)
+        if got_nvar != nvar:
+            raise SystemExit(f"{tag}: variable count {got_nvar} != {nvar}")
+        exp = base + [(x,) for x in cube]
+        if len(got) != len(exp) or set(got) != set(exp):
+            raise SystemExit(f"{tag}: clause set differs from base+cube")
+        replay(exp, lrat)
+        seen.add(cube)
+    if seen != want_cubes:
+        raise SystemExit("cube set is not exactly all sign patterns")
+    print(f"VERIFIED  no ({s},{t},{n})-graph has an automorphism of cycle "
+          f"type 1^{f} {p}^{k}")
+    print(f"  cube-and-conquer on variables 1..{D}: all {len(seen)} cubes "
+          f"present exactly once, each refuted")
 
 
 def cmd_graph(a):
@@ -247,7 +298,7 @@ def main():
     if len(sys.argv) < 2:
         print(__doc__)
         return 2
-    {"lower": cmd_lower, "graph": cmd_graph,
+    {"lower": cmd_lower, "graph": cmd_graph, "cubes": cmd_cubes,
      "selftest": cmd_selftest}[sys.argv[1]](sys.argv[2:])
     return 0
 

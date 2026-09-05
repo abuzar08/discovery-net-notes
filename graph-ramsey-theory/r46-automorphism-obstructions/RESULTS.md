@@ -6,18 +6,33 @@
 | 36 | `1^19 17^1` | 198 | 112429 | 3684 KB | yes | `c3ec3c3e94bed19e` |
 | 36 | `1^2 17^2` | 38 | 112335 | 1219 KB | yes | `4bf28b7b018e7d4c` |
 | 36 | `1^10 13^2` | 90 | 144907 | 11980 KB | yes | `9a9f515cb68b07f1` |
+| 36 | `1^14 11^2` | 140 | 175336 | 10475 KB | yes | `5e9c483a3a39a158` |
+| 36 | `1^3 11^3` | 60 | 178227 | 60540 KB | no (hash only) | `26cb86247537ed91` |
+| 36 | `1^22 7^2` | 288 | 350685 | 190881 KB | no (hash only) | `d407a4e994de7285` |
+| 36 | `1^15 7^3` | 180 | 286815 | 380921 KB | no (hash only) | `7d0bfaa3e6cfab53` |
+| 36 | `1^8 7^4` | 114 | 282647 | 119500 KB | no (hash only) | `76d4ff905d8f103d` |
 | 37 | `37^1` | 18 | 20196 | 134 KB | yes | `b86e81764f262155` |
 | 37 | `1^20 17^1` | 218 | 142450 | 3980 KB | yes | `7d90d88fe395f158` |
 | 37 | `1^3 17^2` | 42 | 133685 | 1314 KB | yes | `b821c4649db58015` |
 | 37 | `1^11 13^2` | 102 | 173075 | 11644 KB | yes | `072cab4de298d414` |
+| 37 | `1^15 11^2` | 156 | 210774 | 8113 KB | yes | `bf0a1c3d191f1490` |
+| 37 | `1^4 11^3` | 66 | 212480 | 20756 KB | yes | `003b095daa033693` |
+| 37 | `1^16 7^3` | 198 | 344025 | 331581 KB | no (hash only) | `87a12c88ae502579` |
+| 37 | `1^9 7^4` | 126 | 337115 | 127080 KB | no (hash only) | `448abfd1a06cb086` |
 | 38 | `38^1` | 19 | 25237 | 165 KB | yes | `210c6d6c66fb9627` |
 | 38 | `19^2` | 37 | 143459 | 8619 KB | yes | `d357d75baebd4568` |
 | 38 | `1^21 17^1` | 239 | 179406 | 4430 KB | yes | `5d4c2e733cf37ad0` |
 | 38 | `1^4 17^2` | 47 | 158330 | 1031 KB | yes | `7ab59806d206468c` |
 | 38 | `1^12 13^2` | 115 | 205832 | 12712 KB | yes | `76489f88e3ab8c18` |
+| 38 | `1^16 11^2` | 173 | 252439 | 11958 KB | yes | `bd050aa32c1091f0` |
+| 38 | `1^5 11^3` | 73 | 252046 | 9573 KB | yes | `5e593c426cc81830` |
 | 39 | `39^1` | 19 | 29888 | 191 KB | yes | `a8a346f72d942a40` |
 | 39 | `1^22 17^1` | 261 | 224633 | 4476 KB | yes | `232f072d9afac0b2` |
 | 39 | `1^5 17^2` | 53 | 186662 | 1266 KB | yes | `42eef46cecac6a37` |
+| 39 | `1^13 13^2` | 129 | 243834 | 13381 KB | yes | `c004f9abe05d0f40` |
+| 39 | `13^3` | None | None | 1065782 KB | no (hash only) | `cube-and-conquer` |
+| 39 | `1^17 11^2` | 191 | 301317 | 11866 KB | yes | `9a194e18531a7528` |
+| 39 | `1^6 11^3` | 81 | 297566 | 3490 KB | yes | `2adefa92553e1249` |
 
 ### Excluded by the analytic lemma (no certificate needed)
 
@@ -64,50 +79,35 @@
 |---|---|---|---|
 | 36 | `1^1 5^7` | ~21 | solver did not finish in 1500 s |
 | 36 | `1^1 7^5` | ~20 | solver did not finish in 1500 s |
-| 36 | `1^3 11^3` | ~27 | solver did not finish in 1500 s |
 | 36 | `1^6 5^6` | ~63 | solver did not finish in 1500 s |
-| 36 | `1^8 7^4` | ~72 | solver did not finish in 1500 s |
 | 36 | `1^11 5^5` | ~120 | solver did not finish in 1500 s |
-| 36 | `1^14 11^2` | ~129 | solver did not finish in 1500 s |
-| 36 | `1^15 7^3` | ~159 | solver did not finish in 1500 s |
 | 36 | `1^16 5^4` | ~192 | solver did not finish in 1500 s |
 | 36 | `1^21 5^3` | ~279 | solver did not finish in 1500 s |
-| 36 | `1^22 7^2` | ~281 | solver did not finish in 1500 s |
 | 36 | `1^26 5^2` | ~381 | Corollary 3 needs p >= 6, so f is unbounded here |
 | 36 | `1^31 5^1` | ~498 | Corollary 3 needs p >= 6, so f is unbounded here |
 | 37 | `1^2 5^7` | ~29 | solver did not finish in 1500 s |
 | 37 | `1^2 7^5` | ~26 | solver did not finish in 1500 s |
-| 37 | `1^4 11^3` | ~33 | solver did not finish in 1500 s |
 | 37 | `1^7 5^6` | ~75 | solver did not finish in 1500 s |
-| 37 | `1^9 7^4` | ~84 | solver did not finish in 1500 s |
 | 37 | `1^12 5^5` | ~136 | solver did not finish in 1500 s |
-| 37 | `1^15 11^2` | ~145 | solver did not finish in 1500 s |
-| 37 | `1^16 7^3` | ~177 | solver did not finish in 1500 s |
 | 37 | `1^17 5^4` | ~212 | solver did not finish in 1500 s |
 | 37 | `1^22 5^3` | ~303 | solver did not finish in 1500 s |
 | 37 | `1^27 5^2` | ~409 | Corollary 3 needs p >= 6, so f is unbounded here |
 | 37 | `1^32 5^1` | ~530 | Corollary 3 needs p >= 6, so f is unbounded here |
 | 38 | `1^3 5^7` | ~38 | solver did not finish in 1500 s |
 | 38 | `1^3 7^5` | ~33 | solver did not finish in 1500 s |
-| 38 | `1^5 11^3` | ~40 | solver did not finish in 1500 s |
 | 38 | `1^8 5^6` | ~88 | solver did not finish in 1500 s |
 | 38 | `1^10 7^4` | ~97 | solver did not finish in 1500 s |
 | 38 | `1^13 5^5` | ~153 | solver did not finish in 1500 s |
-| 38 | `1^16 11^2` | ~162 | solver did not finish in 1500 s |
 | 38 | `1^17 7^3` | ~196 | solver did not finish in 1500 s |
 | 38 | `1^18 5^4` | ~233 | solver did not finish in 1500 s |
 | 38 | `1^23 5^3` | ~328 | Corollary 3 needs p >= 6, so f is unbounded here |
 | 38 | `1^28 5^2` | ~438 | Corollary 3 needs p >= 6, so f is unbounded here |
 | 38 | `1^33 5^1` | ~563 | Corollary 3 needs p >= 6, so f is unbounded here |
-| 39 | `13^3` | ~18 | solver did not finish in 1500 s |
 | 39 | `1^4 5^7` | ~48 | solver did not finish in 1500 s |
 | 39 | `1^4 7^5` | ~41 | solver did not finish in 1500 s |
-| 39 | `1^6 11^3` | ~48 | solver did not finish in 1500 s |
 | 39 | `1^9 5^6` | ~102 | solver did not finish in 1500 s |
 | 39 | `1^11 7^4` | ~111 | solver did not finish in 1500 s |
-| 39 | `1^13 13^2` | ~116 | solver did not finish in 1500 s |
 | 39 | `1^14 5^5` | ~171 | solver did not finish in 1500 s |
-| 39 | `1^17 11^2` | ~180 | solver did not finish in 1500 s |
 | 39 | `1^18 7^3` | ~216 | solver did not finish in 1500 s |
 | 39 | `1^19 5^4` | ~255 | solver did not finish in 1500 s |
 | 39 | `1^24 5^3` | ~354 | Corollary 3 needs p >= 6, so f is unbounded here |

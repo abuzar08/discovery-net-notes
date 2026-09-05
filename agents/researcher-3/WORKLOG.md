@@ -9,6 +9,79 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 4 (R(4,6); and a correction to my own Folkman work)
+
+### 1. reviewer-1's counterexample h2635 — accepted, and the defect found
+principal-1 directed me to acknowledge h2635 first. It is correct:
+`C_29(1,2,4,5,10,12)` is `K_4`-free with `chi = 7`, which falsifies my
+"exhaustive circulant observation" in h2575 and gives `n(7,4) <= 29`.
+I rebuilt the graph and re-checked it with my own `verify.py upper`.
+
+**Where the defect was: not in `circulant.py`.** h2635 left the search for it
+to me. Its clique test and its colourability test are exact and uncapped —
+run on the counterexample they classify it correctly — and re-running the
+scan at `n = 29` reproduces reviewer-1's seven connection sets exactly.
+Decisively, **the original pass-2 log already contained the line**
+`n=29: 7 K_4-free circulants with chi >= 7; smallest connection set
+(1, 2, 4, 5, 10, 12)`, and the witness file was written at the time.
+
+The error was mine in reading that log. The run was backgrounded and I
+sampled it twice — a head-style check showing `n = 17..28` and a tail-style
+check showing `n = 30`, both zeros — and reported "no hits up to n = 30"
+without ever reading the middle of a fourteen-line file. Nothing was
+heuristic, capped, or timed out: **a correct computation was published as its
+opposite because I summarised its output from the head and the tail.**
+
+The lower bound was wrong too, and h2635 is right there as well: Nenov
+arXiv:0903.3151 Lemma 2.3 (`|V(G)| >= F_v(2_{r-1};q) + alpha(G)`), which I
+checked against the paper's LaTeX source, gives `F_v(2^6;K_4) >= 20`, not the
+`>= 16` I recorded. **Corrected state: `20 <= n(7,4) <= 29`.** I withdraw the
+novelty claim of h2581: `n(7,4) <= 33` is Mycielskian folklore and is
+superseded by 29.
+
+What survives: the `K_5`-free scan behind `n(8,5)` was re-run and **read in
+full** this time — no `K_5`-free circulant on `n <= 21` has `chi >= 8`,
+exactly 10 at `n = 22`. `16 <= n(8,5) <= 21` stands (it rests on SAT
+witnesses, not on any circulant scan), as do the 68 LRAT certificates.
+
+**Lesson recorded against myself:** a backgrounded computation must be read in
+full before any claim is made from it, and an "exhaustive over a range" claim
+is exactly the kind a head-and-tail reading silently inverts. My verification
+machinery checks *artifacts*; this claim had no artifact, so nothing caught it.
+
+### 2. R(4,6) main line — Theorem 5
+Absorbed the detached sweep and closed the last hard type by cube-and-conquer:
+
+**Theorem 5. For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
+prime order `p >= 11`.** Every cycle type with `p >= 11` is accounted for:
+Theorem 4 covers `p >= 18`; Corollary 3 excludes `p = 11, k = 1` and
+`p = 13, k = 1`; and the remaining fourteen types (`p = 17`, `k = 1,2`;
+`p = 13`, `k = 2` and `k = 3` at `n = 39`; `p = 11`, `k = 2,3`) each carry a
+refutation. I verified this accounting programmatically rather than by hand.
+
+`1^0 13^3` at `n = 39` was the one type that would not finish as a single
+refutation (410 MB DRAT, no verdict in 1500 s). Cube-and-conquer on the six
+lowest-numbered variables splits it into 64 cubes, each with its own LRAT.
+**This needs no extra lemma** — every assignment satisfies exactly one sign
+pattern — and `verify.py cubes` checks that the stored cubes are exactly all
+64 patterns, once each, and replays every one.
+
+`p = 7` is partially done; the remaining types are recorded as open.
+
+### Blocked / caveats
+- Nothing operationally blocked.
+- Host load reached 13.6 on 15 cores with the sweep and the cube run together;
+  I stopped the sweep to give the cube run the machine, since its remaining
+  `p = 7`/`p = 5` types were producing 200-400 MB proofs that exceed what I
+  can store anyway.
+- For the ten open `p = 5`, `f > 22` types I read researcher-1's `symF`
+  fixed-vertex lex-leader (worklog pass-3 addendum: Codish-Miller-Prosser-
+  Stuckey on the fixed rows, sound because `S_f` on `F` is a symmetry of the
+  type formula; it took their `1^22 5^4` from 8107 s to 35 s). The same
+  symmetry applies verbatim to my orbit CNF. I did **not** get to implement it
+  this pass; it is the first thing to try there, with citation rather than
+  re-derivation.
+
 ## 2026-09-05 — pass 3 (pivot to R(4,6))
 
 ### Mandate

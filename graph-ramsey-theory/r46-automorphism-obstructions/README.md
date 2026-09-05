@@ -140,6 +140,16 @@ refuted by certificate below. ∎
 Theorem 4 is what makes the computation finite: only `p <= 17` remains, and
 by Corollary 3 only `f <= 22` for `p in {7, 11, 13, 17}`.
 
+**Theorem 5.** For `36 <= n <= 39`, no (4,6,n)-graph has an automorphism of
+prime order `p >= 11`.
+
+*Proof.* For `p >= 18` this is Theorem 4. For `p in {11, 13, 17}` every cycle
+type `1^f p^k` with `f + pk = n` is accounted for: Corollary 3 excludes
+`p = 11, k = 1` (`f = 25..28`) and `p = 13, k = 1` (`f = 23..26`), and the
+remaining fourteen types — `p = 17` with `k = 1, 2`; `p = 13` with `k = 2`,
+and `k = 3` at `n = 39`; `p = 11` with `k = 2, 3` — each carry a refutation
+below, the last of them by cube-and-conquer. ∎
+
 ## Method
 
 **Orbit CNF (`encode.py`).** Vertices are `0..n-1`; `0..f-1` are fixed and
@@ -160,6 +170,16 @@ enters — no degree bound, no classical Ramsey number, no symmetry breaking —
 so each refutation is a self-contained proof. In particular the encoder never
 uses that `p` is prime, so the same code handles a full `n`-cycle, i.e.
 circulant graphs.
+
+**Cube-and-conquer (`cubes.py`).** One type, `1^0 13^3` at `n = 39`, does not
+finish as a single refutation: the solver passed a 410 MB DRAT without a
+verdict in 1500 s. It is split instead on the six lowest-numbered variables
+(with this orbit numbering, the internal orbits of the first cycle) into
+`2^6 = 64` cubes, each refuted separately with its own LRAT. **This needs no
+extra lemma:** every total assignment satisfies exactly one sign pattern on
+those six variables, so if all 64 cubes are unsatisfiable the base formula is.
+`verify.py cubes` re-checks that the stored cubes are exactly all 64 patterns,
+once each, and replays every one against the base formula plus its cube.
 
 **Trust boundary.**
 - A claim of non-existence is exactly: the DIMACS formula plus an LRAT
@@ -184,27 +204,33 @@ circulant graphs.
 
 ## Results
 
-**16 verified LRAT refutations**, each of the form "no (4,6,n)-graph has an
-automorphism of cycle type `1^f p^k`". `python3 check_all.py` replays all 16
-from scratch with **no SAT solver** and reports 16 verified, 0 failed; each
-was also cross-checked by drat-trim (`s VERIFIED`) when generated.
+**31 verified certificates** — 30 single-type LRAT refutations plus one
+cube-and-conquer certificate (64 cubes). Every one was checked by drat-trim
+(`s VERIFIED`) when generated and replayed by `verify.py`. `check_all.py`
+re-checks the stored subset from scratch with **no SAT solver**: 24 verified,
+7 skipped (proofs too large to store, recorded by SHA-256), **0 failed**.
+It takes about 20 minutes, because it regenerates a `C(n,6)`-clause formula
+per certificate; `--fast` does the small ones only.
 
 Headline consequences:
 
+- **Theorem 5: no (4,6,n)-graph, `36 <= n <= 39`, has an automorphism of
+  prime order `p >= 11`.** Every such cycle type is now accounted for, by the
+  analytic lemma or by certificate.
 - **No circulant (4,6,n)-graph exists for `n = 36, 37, 38, 39`** — the four
-  `p = n, k = 1, f = 0` certificates (18–19 orbit variables, LRAT 102–196 KB).
-  So Exoo's `R(4,6) >= 36` cannot be improved by a cyclic construction
-  anywhere in the open window.
-- **Theorem 4**: no automorphism of prime order `p >= 18` at all, for every
-  `n` in the window. Its two `f = 0` cases are the certificates
-  `n37_f0_p37_k1` and `n38_f0_p19_k2`.
-- All eight `p = 17` types (`k = 1` and `k = 2`, every `n`) and the `p = 13`,
-  `k = 2` types for `n = 36, 37, 38` are refuted.
+  `p = n, k = 1, f = 0` certificates (18-19 orbit variables, LRAT
+  102-196 KB). So Exoo's `R(4,6) >= 36` cannot be improved by a cyclic
+  construction anywhere in the open window.
+- The one type that would not finish in a single refutation, `1^0 13^3` at
+  `n = 39` (410 MB DRAT, no verdict in 1500 s), is closed by cube-and-conquer:
+  all 64 cubes refuted, 1041 MB of LRAT in total, re-checked in 79 s by
+  `verify.py cubes`.
+- `p = 7` is partially done: eight types remain open.
 
-Combined with the 34 types excluded by the analytic lemma, 50 of the prime
+Combined with the 34 types excluded by the analytic lemma, 65 of the prime
 cycle types in the window are settled. `RESULTS.md` gives the full per-type
-table: what is certified, what the lemma excludes, what is open at `p >= 5`,
-and the `p in {2,3}` types that were not attempted.
+table: certified, lemma-excluded, open at `p >= 5`, and the `p in {2,3}`
+types that were not attempted.
 
 Scope, stated plainly: **this does not decide any of the four open orders.**
 It removes symmetric candidates, which is what makes an exhaustive search of
@@ -218,7 +244,13 @@ the known (4,6,35)-graphs already have only 2-group symmetry.
   `selftest`).
 - `catalog.py` — graph6 decoder, catalog re-check, automorphism observation.
 - `one.sh`, `sweep.sh` — run one type / sweep the type list.
-- `certificates/` — `<tag>.lrat.xz`, `tag = n<n>_f<f>_p<p>_k<k>`.
+- `cubes.py` — cube-and-conquer for a type too hard to refute in one piece.
+- `certificates/` — `<tag>.lrat.xz`, `tag = n<n>_f<f>_p<p>_k<k>`. Proofs whose
+  compressed size exceeds 6 MB are recorded in `certs.json` by SHA-256 with
+  the command that regenerates them, rather than stored.
+- `certs.json` — manifest: per-type certificates, the cube-and-conquer
+  manifest (per-cube SHA-256), the types the lemma excludes, and the open
+  ones.
 
 ## Reproduction
 
