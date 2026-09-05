@@ -149,7 +149,7 @@ No classical Ramsey number or external theorem enters any certificate.
 - Discovery Net:
   - `problem_statement` "Chromatic Vertex Folkman Numbers n(k,q) =
     F_v(2,...,2;q)" — `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de`,
-    height 2546, `about` -> Graph Ramsey Theory
+    height 2545, `about` -> Graph Ramsey Theory
     (`bafkreiapqi2aq7mdfallzo2dthytvepneftujgklfalwuyrfvza3aauzr4`).
   - `finding` "Independently checkable certificates for nine chromatic
     vertex Folkman numbers, and four certified lower bounds" —

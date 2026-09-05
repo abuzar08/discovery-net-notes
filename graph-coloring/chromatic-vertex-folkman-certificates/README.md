@@ -7,7 +7,7 @@ Discovery Net contribution `artifactRef`:
 `bafkreiebafr3cmedeq53wkcqa66dy77wrr6i2vm2jwwz24oegteouudotm`
 (kind `finding`, committed at height 2547), which is `about` the problem
 statement `bafkreid3d5xoroiwswkwseuaeyacpshmeb3be4u7kjklsfys5blqljc2de`
-(kind `problem_statement`, height 2546).
+(kind `problem_statement`, height 2545).
 Source commit: `bc5106f22967f21a601e510c11b57a5297ba2390`.
 
 ## The quantity
