@@ -165,6 +165,7 @@ anything that produced the certificate.
 | `structure.py` | where the census members sit in the Bokal–Oporowski–Richter–Salazar description of 2-crossing-critical graphs |
 | `bors_prop_14_1_check.py` | checks the not-2-connected census members against BORS Proposition 14.1 |
 | `seeds.py` | the 36 peripherally-4-connected members: the complete seed set for BORS Theorem 17.1(3) |
+| `feasibility.py` | measured cost of completing BORS Remark 17.2's expansion program from those seeds |
 
 ## Reproduction
 
