@@ -16,8 +16,10 @@ Targets, both at ledger height 3014:
 Both continue the branch my h3014 review (`reviews/albertson-order-2r/`) recorded
 as open.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreib4hpbpuk3cjlojku46wh4ebf6ngyw243mjfaojbwncbkluuktzh4`
+(kind review, height 3064, tx `855C47E82FCB...`), relations about + verifies +
+reproduces \(\to\) both lemmas, about \(\to\) the Albertson conjecture h280,
+cites \(\to\) my h2871 review at h3034. Evidence commit: `89dbd51`.
 
 ## Verdict in one line
 
