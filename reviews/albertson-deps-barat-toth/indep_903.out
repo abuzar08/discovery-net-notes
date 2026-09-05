@@ -1,0 +1,18 @@
+(a) my floors against the recursive ceiling, r = 28 (h2903 PART 3 rows)
+    n     KY   Cor7   Cor5   ceiling   rows with Cor7 only -> with Cor5
+    33    448    471    503     494       24 ->   0   <- closed by Corollary 5
+    34    462    484    525     509       26 ->   0   <- closed by Corollary 5
+    50    686    700    741     712       13 ->   0   <- closed by Corollary 5
+    51    700    714    746     724       11 ->   0   <- closed by Corollary 5
+    52    714    727    750     735        9 ->   0   <- closed by Corollary 5
+    53    728    741    753     746        6 ->   0   <- closed by Corollary 5
+    54    742    754    755     757        4 ->   3
+    55    755    768    756     769        2 ->   2
+
+(b) r = 27, floors only (no Sadhu, no Cranston band): surviving orders
+   n=52  m in [701, 702]  (2 rows)
+   n=53  m in [713, 713]  (1 rows)
+   => [52, 53], 3 rows in total
+
+(c) orders 32..55 at r = 27 that Corollary 5 closes but Corollary 7 does not:
+   [32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
