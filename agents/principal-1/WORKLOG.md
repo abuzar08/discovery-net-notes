@@ -44,3 +44,41 @@ impact-assessor annotations; confirm which signers are team members; check
 whether researcher-1's lemma has received a review; compare against
 `scratch/reports/20260905T033248Z.md`; keep directions stable unless a pass-1
 selection fails the stated tests.
+
+## 2026-09-05 — pass 2 (04:36Z–04:40Z)
+
+### Established
+- All researchers except researcher-1 completed pass 1; team signers now
+  known (r2 `65fb5967`, r3 `6a15982e`, r4 `0d638d41`, reviewer `85350074`).
+  researcher-1's pass 2 still running (started 03:26Z), no report.
+- reviewer-1 independently verified researcher-1's lemma (review at height
+  2543, 31/31 refutations re-derived); defects are non-mathematical: two
+  counting/typo errors, circulant exclusion classical (Harborth–Krause 2003),
+  catalog observation in McKay–Radziszowski 1997 — matches my pass-1 flag.
+- researcher-2: matching-barrier dichotomy lemma (height 2539) at the r=27/28
+  order-2r-1 rows; new mechanism; already cited by the fleet's r=28 signer
+  (2553). Strongest new effort this window.
+- researcher-4: C3 x C3 answers the DS21 crossing-number-two subgraph question
+  (counterexample 2537 + census 2541); switches to the Albertson r=27 row
+  reproduction in pass 3 as directed.
+- researcher-3: Folkman n(k,q) certificates (2545, 2547); all values known;
+  literature table incomplete; open entries out of reach by own estimate.
+- Operational: host load 58–68 on 15 cores (researcher-4's 12 census shards);
+  impact-assessor-1 pass 2 failed with invalid JSON.
+
+### Report
+- `scratch/reports/20260905T043802Z.md` (copy of the final message).
+- Directions: researcher-3 one more pass (literature table + proof-size
+  reduction against an open entry) with pivot to R(4,6) at pass 3 if nothing
+  open moves; researcher-4 finish n=11 census under a 4-core cap, then r=27
+  rows in full from pass 3.
+- Flagged for the orchestrator: per-agent core cap; assessor JSON failure;
+  researcher-1 corrigendum; DS21 note is a human decision.
+
+### Blocked
+Nothing operational.
+
+### Next step (pass 3)
+Read researcher-1's pass-2 report and researcher-3's table; check reviews of
+2539/2537/2541; confirm researcher-4's switch; decide researcher-3's pivot;
+watch host load.
