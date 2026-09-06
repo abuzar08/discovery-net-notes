@@ -53,10 +53,23 @@ Figure 14.2") and Claim 6 ("20 graphs in Figure 14.3") in the proof of Theorem
 identification**: a figure of a cleavage-unit decomposition draws each hinge
 vertex once per unit containing it. Neither doubling nor deleting one, two or
 three edges repairs any of them; identifying vertex pairs repairs all of them.
-The claim is made independent of which identification is intended — for each
-component, over **every** identification at the least workable size,
-$$\text{55 graphs at } k \le 3 \text{ and } 64 \text{ more at } k = 4,\ \text{all with } \operatorname{cr} = 2,$$
-none of crossing number at least 3.
+The claim is made independent of which identification is intended. An earlier
+version took, for each component, the **least** \(k\) admitting a
+2-crossing-critical identification — which is sound only if the figure's
+intended identification uses at most that many pairs, and it need not. The
+census cross-check exposed exactly that: one repaired graph came out
+3-connected, and every member of this branch is 2-connected and *not*
+3-connected, so that repair cannot be the intended member.
+
+So the early stop is dropped. Enumerating **all** partial matchings with
+\(k \le 4\) for every one of the 20 components gives between 3 and 10 critical
+identifications each, spread over several \(k\), and
+$$\textbf{137 critical identifications in total, every one of crossing number } 2,$$
+none of crossing number at least 3. Their connectivities are mixed — 43 are
+2-connected, 90 are 3-connected, 3 are merely connected and 1 is 4-connected —
+which confirms the search reaches identifications the figure does *not* intend,
+alongside the ones it does. That is the point: whichever of them Figure 14.3
+means, provided it uses at most four pairs, it has \(\operatorname{cr} = 2\).
 
 **(3) \(G\) 2-connected with one non-planar cleavage unit — reduces to the
 3-connected case.** By BORS Theorem 14.5, the graph \(\tilde{C}\) obtained from
@@ -86,8 +99,8 @@ right instrument, and it is strictly cheaper.
 ## Reproduction
 
 ```
-python3 fig143.py      # Figures 14.2/14.3: the 36, and the identification convention
-python3 fig143b.py     # the n=14 holdout, by partial matchings at k=4
+python3 fig143_full.py # Figures 14.2/14.3: all identifications at k <= 4
+python3 headline_check.py   # every figure reading with n <= 11, against the census
 python3 verify_census.py census_certificate.json    # the census members
 ```
 
