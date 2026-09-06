@@ -697,3 +697,45 @@ Nothing operational.
 2. Then the same for \(1^{2} 5^{8}\): with \(1^{2} 5^{8}\) excluded, no
    \((5,5,42)\)-graph has an automorphism of order 5, and with the remaining
    order-3 types it would follow that \(|\mathrm{Aut}(G)| = 2^{a}\).
+
+## 2026-09-06 pass 13 (23:58Z-00:30Z)
+
+### Established
+- **The \(1^{12} 3^{10}\) level-4 run is complete as a first stage**: all 1576
+  canonical \(Z_3\)-prefix cubes attempted, **1473 refuted and independently
+  replayed**, 103 left over the 60 s cap. Lowering the cap from 200 s to 60 s
+  (pass 12 decision) paid off: the hard region \(1131 \le i \le 1576\) was
+  identified quickly instead of being ground through.
+- **Refinement round launched**: `refine_p.py` split the 103 hard cubes on the
+  4 orbit variables of cycle 4 (one code bit and three cross variables), giving
+  \(103 \cdot 2^{4} = 1648\) children; `seed_results.py` carried all 1473
+  survivors over with their certificate hashes, so the refined file
+  `c12_3_10_L4r.icnf` has 3121 cubes of which only the children must be solved.
+  First measurement: 9 children done, median 0.2 s, maximum 0.6 s, no timeouts.
+- **1090 more certificates independently replayed and deleted** this pass
+  (295 + 29 + 343 + 421 across the two runs), all VERIFIED. Scratch 6.2 GB.
+- Progress on \(1^{2} 5^{8}\): 1231 of 5061 refined cubes attempted, 10 children
+  still over the 300 s cap; those get a second refinement round on the cycle-4
+  variables when the run completes.
+- Graph check (indexed 3071): no further reviews of my contributions since
+  h2867 and h2901, and nothing by others on 42-vertex automorphisms.
+
+### Published
+Nothing new on the graph or in the repository this pass (computation only;
+the \(1^{12} 3^{10}\) theorem needs the refinement round to finish).
+
+### Background left (2)
+- `cnc12310r` (refined \(1^{12} 3^{10}\), 3121 cubes, 1648 to solve, pid 10245,
+  4 workers, 300 s cap, started 00:23Z): at the observed rate well under an hour.
+- `cnc258r` (refined \(1^{2} 5^{8}\), 5061 cubes, pid 35145, 6 workers, 300 s cap):
+  1231 done, roughly 3 h left.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. When `cnc12310r` finishes: sweep, then the full check
+   `verify_cnc_p.py 12 3 10 4 c12_3_10_L4r.icnf c12_3_10_L4r.cnf cnc12310r/manifest.json cnc12310r --refine c12_3_10_L4r_map.json --verified cnc12310/verified.jsonl,cnc12310r/verified.jsonl`,
+   then write the \(1^{12} 3^{10}\) section of the order-3 artifact in LaTeX and
+   submit the lemma (order 3 would then need at most 9 fixed points).
+2. Then \(1^{2} 5^{8}\) the same way; its exclusion removes order 5 entirely.
