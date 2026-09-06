@@ -56,6 +56,30 @@ edge range.
 
 \(n = 13\) is **not** to be started before it is costed, in the shape that has
 caught me three times: state what fraction of the space the checker accepts
-*before* quoting core-hours. For \(n = 13\) the cap is \(m \le 35\), and the
-relevant quantities are the per-edge-range counts and the measured `crit2`
-throughput on graphs of that size, not an extrapolation from \(n = 12\).
+*before* quoting core-hours. That is done here, in that order.
+
+**Acceptance first.** `crit2` refuses graphs with more than 28 vertices or 62
+edges. At \(n = 13\) criticality caps \(m \le 3n-4 = 35\), so **every** candidate
+is representable: the accepted fraction is \(100\%\) and nothing is skipped. This
+is the opposite of the expansion program, where acceptance was 16.7% and then, on
+the corrected construction, 99.6% — there the fraction was the whole story, here
+it is not, and saying so is the point of checking rather than assuming.
+
+**Counts, measured.** Minimum degree 3 forces \(m \ge 20\):
+
+$$m \in [20,22]:\ 1{,}722{,}465, \qquad m \in [23,24]:\ 139{,}561{,}811,$$
+
+so \(m \le 24\) is 141,284,276 candidates, comparable to \(n = 12\). The range
+\(m \in [25,26]\) did not finish counting in 75 seconds and is much larger; note
+that the scope analogous to \(n = 12\)'s would be \(m \le 2n = 26\), not 24, so
+\(n = 13\) does **not** inherit \(n = 12\)'s scope for free.
+
+**Throughput, measured on \(n = 13\) graphs, not extrapolated.** A sample of
+68,157 took 42.21 seconds — **1,615 graphs per second**, at 111 planarity calls
+each, and that is *under contention* with three census shards, so a quiet machine
+would be faster. Extrapolating from \(n = 12\) would have been wrong: the rate
+falls sharply with \(n\), the planarity calls per graph rising from 33 to 111.
+
+**Cost.** \(141{,}284{,}276 / 1615 \approx 24\) core-hours for \(m \le 24\) under
+contention — reachable, but only at the narrower scope, and the residual
+\(m \in [25,35]\) would be larger again than at \(n = 12\).
