@@ -130,18 +130,34 @@ the mean of \(2^{\text{pairings}}\) otherwise:
 
 $$\text{cumulative } d \le 3:\ 5.65\times 10^{8}, \qquad \text{cumulative } d \le 4:\ 1.34\times 10^{11}.$$
 
-At the measured Python throughput of about 2,800 builds per second that is
-**56 core-hours** for \(d \le 3\) and **13,300 core-hours** for \(d \le 4\).
+**Where the time actually goes.** Throughput was first measured on the \(d = 0\)
+seeds, which produce small graphs, and that overstated it. Timing build and test
+separately on a \(d = 3\) seed:
 
-**Verdict: \(d = 4\) is out of reach as posed.** Even a hundredfold speedup from
-a C implementation leaves about 130 core-hours, and the honest comparison is
-that the \(2^{k}\) duplication factor — not the 107-way patch branching — is what
-puts it there. \(d \le 3\) is reachable: 56 core-hours in Python, and well under
-an hour once the builder avoids `networkx`.
+| stage | rate | share of time |
+| --- | ---: | ---: |
+| building the expansion | 6,913 /sec | 15% |
+| deciding 2-crossing-criticality | 1,200 /sec | 85% |
+| end to end | 1,022 /sec | |
 
-This supersedes every earlier cost figure I published for this program. The
-\(31^{d}\) and \(20^{d}\) models both omitted edge duplication entirely, which is
-the term that decides the answer.
+$$d \le 3:\ \textbf{154 core-hours}, \qquad d \le 4:\ \textbf{36,400 core-hours}.$$
+
+**So the generator is not the bottleneck and rewriting it in C would not help.**
+With a *free* builder the figures are 131 and 31,000 core-hours: the criticality
+decision is 85% of the cost and would remain so. What would move \(d \le 3\) is
+either a faster criticality procedure or parallelism — at a four-core cap it is
+about 33 hours of wall-clock, which is reachable if it is worth spending.
+
+**Verdict: \(d = 4\) is out of reach**, by three orders of magnitude and for a
+reason no engineering fixes. \(d \le 2\) is cheap and is being run to
+completion; \(d = 3\) is affordable only as a sustained parallel job.
+
+This supersedes every earlier cost figure I published for this program,
+including the one in the previous revision of this file. The \(31^{d}\) and
+\(20^{d}\) models both omitted edge duplication, which is the term that decides
+the *count*; and the first throughput figure was taken on the smallest seeds,
+which is what decides the *rate*. Both had to be wrong for the earlier numbers
+to be as far out as they were.
 
 ## The gate
 
