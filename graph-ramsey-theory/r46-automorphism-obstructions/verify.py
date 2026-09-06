@@ -23,6 +23,13 @@ Subcommands
       the 2^D cubes over variables 1..D (every sign pattern, once), and
       replays each cube's LRAT against the base formula plus that cube.
 
+  tree N S T F P K DIR [DIR ...]
+      Certifies the type by a cube split of arbitrary, non-uniform depth.
+      Checks that the leaf tags form a complete prefix-free code (no tag a
+      prefix of another; Kraft sum exactly 1), which is precisely the
+      statement that the cubes partition the assignment space, and replays
+      every leaf.
+
   graph S T FILE
       Checks that an explicit graph is an (S,T,|V|)-graph: no K_S and no
       independent set of size T.  Format: first token |V|, then edge pairs.
@@ -374,6 +381,106 @@ def cmd_cubes(a):
           f"present exactly once, each refuted")
 
 
+def cmd_tree(a):
+    """Verify a cube split of ARBITRARY, non-uniform depth.
+
+    Usage: tree N S T F P K DIR [DIR ...] [flags]
+
+    Each DIR holds files c<bits>.lrat, where <bits> is the sign pattern on
+    variables 1..len(bits).  Depths may differ: a cube that closed early keeps
+    its short tag, and one that did not is replaced by its children.
+
+    SOUNDNESS.  The leaf tags must form a complete prefix-free binary code:
+
+      * prefix-free -- no leaf tag is a prefix of another, so no assignment
+        satisfies two leaves;
+      * Kraft sum  sum over leaves of 2^-|tag|  equals exactly 1, so no
+        assignment escapes every leaf.
+
+    Together these say precisely that the cubes partition the space of total
+    assignments, which is all the cube-and-conquer argument needs -- uniform
+    depth was never required.  Each leaf is then replayed against the formula
+    regenerated here plus that leaf's own unit clauses.
+    """
+    import os
+    from fractions import Fraction
+    n, s, t, f, p, k = (int(x) for x in a[:6])
+    dirs = [x for x in a[6:] if not x.startswith("--")]
+    nvar, base = regenerate(n, s, t, f, p, k,
+                            profile="--profile" in a,
+                            symf="--symf" in a,
+                            symc="--symc" in a,
+                            syms="--syms" in a)
+    leaves = {}
+    pruned = 0
+    for d in dirs:
+        for fn in os.listdir(d):
+            if not fn.startswith("c"):
+                continue
+            if fn.endswith(".done"):
+                # Leaf already replayed and released by prune.py; its hash is
+                # in that run's manifest.  It still counts for the PARTITION
+                # check, which reads only names, but it is not re-replayed
+                # here and the summary says so.
+                q, tag = None, fn[1:-5]
+                pruned += 1
+            elif fn.endswith(".lrat"):
+                q = os.path.join(d, fn)
+                if os.path.getsize(q) == 0:
+                    continue
+                tag = fn[1:-5]
+            else:
+                continue
+            if set(tag) - set("01") or not tag:
+                raise SystemExit(f"bad leaf name {fn}")
+            if tag in leaves:
+                raise SystemExit(f"leaf {tag} appears in two directories")
+            leaves[tag] = q
+
+    if not leaves:
+        raise SystemExit("no leaves found")
+    tags = sorted(leaves)
+    for x, y in zip(tags, tags[1:]):          # sorted: only neighbours can nest
+        if y.startswith(x):
+            raise SystemExit(f"leaf {x} is a prefix of leaf {y}: not a partition")
+    kraft = sum(Fraction(1, 2 ** len(x)) for x in tags)
+    if kraft > 1:
+        raise SystemExit(f"Kraft sum is {kraft} > 1: impossible for a "
+                         f"prefix-free set; the directories overlap")
+
+    depths = {}
+    replayed = 0
+    for tag, q in leaves.items():
+        lits = [(i + 1) if c == "1" else -(i + 1) for i, c in enumerate(tag)]
+        if q is not None:
+            replay(base + [(x,) for x in lits], q)
+            replayed += 1
+        depths[len(tag)] = depths.get(len(tag), 0) + 1
+    if kraft == 1:
+        print(f"VERIFIED  no ({s},{t},{n})-graph has an automorphism of cycle "
+              f"type 1^{f} {p}^{k}")
+    else:
+        # A prefix-free set with Kraft sum < 1 refutes exactly that fraction
+        # of the assignment space and says nothing about the rest.  This is
+        # reported, not treated as a failure, because partial coverage with an
+        # exact measure is a real (and citable) intermediate result -- but it
+        # is NOT a refutation and must never be quoted as one.
+        print(f"PARTIAL   the type 1^{f} {p}^{k} is NOT refuted")
+        print(f"  refuted fraction of the assignment space: {kraft} "
+              f"= {float(kraft):.9f}")
+        print(f"  open fraction: {1 - kraft} = {float(1 - kraft):.9f}")
+    print(f"  {len(leaves)} leaves; {replayed} replayed here to the empty "
+          f"clause, {pruned} replayed earlier by prune.py and released "
+          f"(hashes in that run's manifest)")
+    print(f"  depths: " + ", ".join(f"{d}: {c}" for d, c in sorted(depths.items())))
+    if kraft == 1:
+        print(f"  leaf tags are prefix-free with Kraft sum exactly 1, so they "
+              f"partition all assignments")
+    else:
+        print(f"  leaf tags are prefix-free, so the covered fraction is exact "
+              f"and the leaves do not overlap")
+
+
 def cmd_graph(a):
     s, t = int(a[0]), int(a[1])
     n, adj, m = read_graph(a[2])
@@ -412,6 +519,7 @@ def main():
         print(__doc__)
         return 2
     {"lower": cmd_lower, "graph": cmd_graph, "cubes": cmd_cubes,
+     "tree": cmd_tree,
      "selftest": cmd_selftest}[sys.argv[1]](sys.argv[2:])
     return 0
 

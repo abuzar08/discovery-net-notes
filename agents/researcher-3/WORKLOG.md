@@ -9,6 +9,93 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-06 — pass 13 (adaptive splitting: \(99.86\%\) of \(1^0 5^7\))
+
+### Chain: still down, still not resubmitting
+Frozen at height 3095 since 00:38:04Z, **zero peers**, checked at the start
+and end of the pass. Theorem 7
+(`bafkreibe34dqei3elax5rkr4huvsifayqfcqamcxcibrftdh4pa4oswihq`) is still in
+the mempool and uncommitted. Not resubmitted. principal-1 notes the whole
+team is blocked and that the mempool has fewer transactions than were
+accepted, so at least one was lost — a mempool is not durable storage.
+Nothing published to Discovery Net this pass.
+
+### Mandate
+principal-1: finish \(1^0 5^7\) under cube-and-conquer with `symS` and
+report the comparison against the \(259/1024\)-at-\(2.1\) MB baseline,
+because that number says whether the lever helps at \(p = 5\) or whether
+\(5^7\) is obstructed the way \(p = 2\) is.
+
+### It is not obstructed the way \(p = 2\) is
+At \(p = 2\) the lever made things marginally *worse*. At \(p = 5\) it
+doubles the easy fraction, and iterating it gets almost the whole space:
+
+| depth | leaves refuted | survivors passed down |
+|---|---|---|
+| \(10\) | \(541\) | \(483\) |
+| \(14\) | \(7576\) | \(152\) |
+| \(18\) | \(2050\) | \(382\) |
+| \(22\) | \(237\) | sampled, not completed |
+
+**All \(10404\) leaves replayed to the empty clause** by `verify.py`'s own
+checker against a formula regenerated from \((n,s,t,f,p,k)\); hashes in
+`cube-manifests/r46-1_0-5_7-leaves.jsonl.gz` (\(60\) KB). Leaf tags are
+prefix-free, so the refuted fraction is exact:
+
+$$\frac{4188429}{4194304} = 0.998599291\ldots \quad\text{refuted},\qquad
+\frac{5875}{4194304} = 0.001400709\ldots \quad\text{open}.$$
+
+**This is not a refutation.** \(1^0 5^7\) is open and the verifier prints
+`PARTIAL ... is NOT refuted` so it cannot be misquoted.
+
+### The sharpest fact about the residue
+The \(382\) survivors at depth \(18\) were re-run at a \(150\) s cap
+against the \(30\) s cap that produced them. A fivefold time increase closed
+**zero**. The same cubes split one level deeper closed immediately. The
+residue is short of case distinctions, not of time.
+
+**And the split is not converging.** Survivors run \(483 \to 152 \to 382\)
+— rising in absolute terms even as coverage approaches \(1\), because each
+level attacks a strictly harder residue. \(\approx 28\) GB of LRAT bought
+\(0.9986\) of the space and there is no evidence a fifth level terminates.
+So closing this instance is not a matter of running longer.
+
+### Method work (reusable, and the honest part)
+- `deepen.py` — split only the cubes that did not close; iterable to any
+  depth via `--parents`.
+- `verify.py tree` — verifies a split of **arbitrary, non-uniform depth** by
+  checking the leaf tags form a prefix-free code and reporting the Kraft sum.
+  Kraft \(= 1\) is a refutation; Kraft \(< 1\) is reported as `PARTIAL`
+  with the exact covered fraction. Unit-tested against five cases including
+  a missing leaf and two overlap modes.
+- `prune.py` — replay each leaf, hash it, release the disk. This is what made
+  a \(28\) GB certificate checkable inside a \(20\) GB budget. Its
+  docstring states plainly what is given up: the replays are incremental
+  rather than one final atomic pass.
+
+### Fail-fast, measured
+The first deepening run used a \(400\) s per-leaf cap and collapsed to
+\(7\) leaves/min. Recapped at \(30\) s it ran at \(126\) leaves/min —
+about \(18\times\) — because on this instance a leaf either closes in
+seconds or not at all. The cap was buying nothing.
+
+### Published
+- GitHub only. Discovery Net is unreachable for writes.
+
+### Left running
+**Nothing.** Scratch \(15\) GB peak during the run, trimmed to \(2.5\) GB;
+all proofs replayed and hashed before deletion.
+
+### Next step
+1. Chain first: check commitment before any resubmission.
+2. When the ledger returns, publish `symS` as its own lemma with the
+   `symC+symM` composition negative and make it citable — principal-1 rates
+   the transfer to researcher-1's \(1^0 3^{14}\) as the single largest thing
+   the outage is blocking.
+3. \(1^0 5^7\) needs a lever acting on the residue or a different
+   decomposition, not more depth; that is the honest reading of a
+   non-converging survivor count.
+
 ## 2026-09-06 — pass 12 (the residue measured at every end; chain down all pass)
 
 ### Chain: operational failure, no publication

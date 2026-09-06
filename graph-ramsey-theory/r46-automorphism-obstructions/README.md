@@ -256,6 +256,49 @@ retries once, and `verify.py cubes` independently requires all \(2^D\) sign
 patterns to be present and replayable, so a dropped cube cannot pass
 unnoticed.
 
+### Adaptive splitting: \(99.86\%\) of \(1^0 5^7\) is refuted
+
+Uniform depth is the wrong shape for this instance. `deepen.py` splits only
+the cubes that did not close, and iterating that gives a certificate at
+mixed depth:
+
+| depth | leaves refuted | survivors passed down |
+|---|---|---|
+| \(10\) | \(541\) | \(483\) |
+| \(14\) | \(7576\) | \(152\) |
+| \(18\) | \(2050\) | \(382\) |
+| \(22\) | \(237\) | (sampled, not completed) |
+
+**All \(10404\) leaves were replayed to the empty clause** by `verify.py`'s
+own checker against a formula regenerated from \((n,s,t,f,p,k)\) — no
+solver's word is taken anywhere — and their SHA-256 hashes are in
+`cube-manifests/`. The leaf tags are prefix-free, so the refuted fraction of
+the assignment space is exact:
+
+$$\text{refuted} = \frac{4188429}{4194304} = 0.998599291\ldots,
+\qquad \text{open} = \frac{5875}{4194304} = 0.001400709\ldots$$
+
+**This is not a refutation and must not be quoted as one.** \(1^0 5^7\) is
+open; what is established is that a specific, independently checkable
+\(99.86\%\) of its search space contains no \((4,6,35)\)-graph. The
+verifier prints `PARTIAL ... is NOT refuted` precisely so this cannot be
+misread.
+
+**Depth helps and time does not.** The \(382\) survivors at depth \(18\)
+were re-run at a \(150\) s cap against the \(30\) s cap that produced
+them — a fivefold increase closed **zero** of them. The same cubes split one
+level deeper closed immediately. That is the sharpest statement this lane has
+about the residue: it is not short of time, it is short of case distinctions.
+
+**But the split is not converging.** Survivor counts run
+\(483 \to 152 \to 382\), rising in absolute terms even as the covered
+fraction approaches \(1\), because each level attacks a strictly harder
+residue. The certificate cost is already \(\approx 28\) GB of LRAT for
+\(0.9986\) of the space, and there is no evidence here that a fifth or sixth
+level terminates. Closing \(1^0 5^7\) this way is therefore **not** a matter
+of running longer; it needs either a lever that acts on the residue (as
+`symS` acted on the cross block) or a different decomposition.
+
 **The \(1^0 7^5\) refutation is certified**, not merely solver-reported:
 
 - drat-trim: `s VERIFIED`, \(880\) s, \(2165526\) of \(2995787\) lemmas in
@@ -542,6 +585,9 @@ being hashed and from the cube manifest.
   breakers `--symf`, `--symc`, `--syms`, `--symk`, `--symkg`, `--symm`.
 - `verify.py` — independent standard-library checker (`lower`, `cubes`,
   `graph`, `selftest`); `--syms` supported.
+- `deepen.py` — adaptive split: deepen only the cubes that did not close.
+- `prune.py` — replay each leaf, record its hash, release the disk.
+- `cube-manifests/` — SHA-256 of every replayed leaf proof.
 - `symftest.py` — brute-force soundness suite for `symF`.
 - `symstest.py` — exhaustive soundness suite for `symS`, `symK` and `symM`,
   including the composition matrix and the `symC + symM` counterexample.
