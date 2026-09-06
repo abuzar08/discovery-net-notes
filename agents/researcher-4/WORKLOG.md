@@ -1671,3 +1671,65 @@ needs a scope correction or retraction.
 **Next step (concrete).** 1. File the two corrections above the moment the chain
 advances. 2. Restructure the gate around per-target order and size and complete
 it. 3. Not autonomous: the \(C_3\square C_3\) note to Marcus Schaefer for DS21.
+
+## 2026-09-06, pass 20
+
+**The acceptance gate has passed.** Seeds **36/36**, targets **15/15**. Every
+census graph with a peripherally-4-connected base that the previous program
+failed to produce is now produced, with an explicit witness — for example the
+\((9,18)\) graph over \(K_{3,3}\) by configurations \([25,1,1,31,25,25]\), and the
+\((11,20)\) graph over the 10-vertex base by \([31,31,31,31,30]\). The
+brute-force gate that blew up last pass was the wrong shape: restructuring the
+search around each target's order and size, so that almost everything is pruned
+before a graph is built, finished all 15 in minutes.
+
+**Direction taken** (principal, 02:29). Four things, all done.
+
+1. **The connectivity-2 closure written up as the lane's headline**, standing
+   entirely on its own —
+   `second-counterexample-is-3-connected.md`. It uses the census and the
+   literature and depends on no part of the expansion program, so readers do not
+   have to disentangle the two.
+2. **No retraction of the \(d \le 4\) run.** The principal takes the
+   inconsistency as theirs and asks instead for a `refines` stating plainly how
+   the two enumerations relate; that is now a section of the single feasibility
+   statement, and says what I established last pass: the old run enumerated a
+   *different construction*, not a sub-case, but its one substantive finding
+   survives because it is a statement about \(\operatorname{cr}(L) \ge 2\) bases.
+3. **One statement superseding 3028 and 3074**, not a third revision —
+   `feasibility.md`. What survives (the figure extraction, the scoping
+   correction); what does not (the branching number, wrong twice, and the
+   representability figures, which were an artifact of the wrong attachment
+   model); and the corrected numbers.
+4. **The port-agreement insight stated explicitly**, as asked. Defining the port
+   of \(v\) at a neighbour \(w\) as the multiset of edges from \(K_v\) toward
+   \(w\), the port has size 2 exactly when \(w \in T_v\); so two adjacent
+   degree-3 patches can be joined **if and only if** \(w \in T_v \iff v \in T_w\).
+   Section 15.7 states that as a side condition on the choices. It is not a side
+   condition — it **is** the requirement that the construction is defined at all,
+   and it needs no enforcing, because a mismatch simply has no joining.
+
+**Built for the team.** `publish_queue.py`: an idempotent publication queue that
+checks each contribution against the **committed ledger** by title and submits
+only what is genuinely absent, so it is safe to run repeatedly and cannot create
+duplicates. Written because this outage showed that "accepted for broadcast" is
+not evidence of publication. It also settles my earlier duplicate worry, which
+the principal recorded without endorsing: with a ledger check in front of every
+submission the question does not arise.
+
+**Operational — unchanged and not self-healing.** Chain frozen at height
+**3095** since 00:38Z. Four of my contributions are unpublished and uncitable:
+`A91FC803…` (connectivity-2 closure), `B3CE6B01…` (the \(d\le4\) run),
+`72411D59…` (the crossing bound analysis) and `6A738D09…` (the feasibility
+statement). All four verified absent from the ledger, not assumed. The principal
+reports the node is waiting on two unreachable validators while its own
+containers report healthy; no agent can fix this.
+
+**Next step (concrete).** 1. Run `publish_queue.py` at the start of every pass
+until the four items commit; do not cite them meanwhile. 2. With \(d \le 4\) now
+both feasible (\(8.4\times10^7\) assignments per seed) and ~99.6% decidable, the
+scientific payoff is to run the corrected program at that depth — it needs a C
+implementation, since \(10^9\) builds is out of reach in Python. 3. Not
+autonomous: the \(C_3\square C_3\) note to Marcus Schaefer for DS21, now the
+ninth consecutive request and explicitly ranked by the principal *below*
+restoring the chain.
