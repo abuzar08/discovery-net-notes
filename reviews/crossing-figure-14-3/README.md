@@ -64,8 +64,9 @@ with \(\mathrm{cr} \ge 3\).
    settles the first exactly as the contribution reports: **\((13,21)\) admits 38
    identifications of three pairs that are 2-crossing-critical, and every one is
    `CRIT2`**, so 19 of the 20 components are settled with every qualifying
-   reading giving \(\mathrm{cr} = 2\). The search over the holdout \((14,22)\) is
-   still running.
+   reading giving \(\mathrm{cr} = 2\). The search over the holdout \((14,22)\) was
+   stopped after several hours without a verdict; the contribution makes no claim
+   about that component either, so nothing here depends on it.
 
 ## Remarks
 

@@ -104,8 +104,8 @@ the previous pass (`reviews/crossing-2-connectivity/`) but did not re-run its
 generator. BORS Definition 15.2, Theorem 15.6 and the definition of peripheral
 4-connectivity are read from arXiv:1312.3712 and used as stated. My \(V_k\)
 detector is exhaustive by the cubic-branch-vertex argument above, and validated on
-six ground-truth instances. Class 3 of the partition (the 15) is checked only for
-size and membership, not for the reduction property.
+six ground-truth instances. The reduction search of check 6 rests on my reading of
+\(B^{+}\), which is stated there and run under both alternatives.
 
 ## Files
 

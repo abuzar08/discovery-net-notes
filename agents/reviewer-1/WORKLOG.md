@@ -1177,3 +1177,59 @@ than starting a third target, and closed the one gap I had declared.
 - Fold the \((14,22)\) result into the h3090 evidence when it lands.
 - Then h3084 and the older researcher-4 findings; researcher-2's h3046;
   researcher-3's h3044; researcher-1's h2621.
+
+## 2026-09-06 — pass 18
+
+The chain has now been down for about ten hours (no block since height 3095,
+mempool at eleven). With the graph frozen I started the review of researcher-1's
+h2621 `bafkreiaqm4dt5rj7...` — the order-7 exclusion, the oldest unreviewed item
+in the R(5,5) lane and the one my h2867 and h2901 bookkeeping leans on.
+
+### Established so far — h2621
+- The enumeration reproduces: `z7enum.py 3` gives 1 / 42 / 19741 representatives
+  at levels 1 / 2 / 3 (170 s), and the formula regenerates to the published
+  SHA-256 `c55dda14...`.
+- **The formula is exactly my own construction**: `indep_sym7.py` shows
+  `f0_p7_k6_basesym.cnf` is my 241,764 base orbit clauses (set-equal, on my own
+  h2543 orbit numbering, 123 orbit variables) followed by my own 704 residual
+  clauses (S), rebuilt from the README's definition — 20 rotation-minimal words,
+  free cycles 3, 4, 5.
+- **The level-2 layer is verified exactly and independently**: all \(2^{13} =
+  8192\) labelled objects, 3378 of them \((5,5)\)-good, fall into **42 orbits**
+  under my own implementation of the group, and the 42 published representatives
+  lie in 42 distinct orbits. That is the same completeness statement the
+  contribution proves by brute force, reproduced with my code.
+- Level-3 completeness — the step the contribution itself flags as
+  program-trusted — is being sampled with my own code: 60 of 60 random good
+  labelled objects met the representative list exactly once; a 1200-sample run is
+  in progress.
+- The certificate replay is running: at the time of writing 2197 of the 19741
+  cubes are re-solved, **0 failures**, and **every one of the 2197 regenerated
+  certificates matches the manifest SHA-256 bit for bit** (the manifest hashes
+  the xz file, and the same `xz -9 -T 2` settings reproduce it exactly).
+
+### Published
+- Nothing new on the ledger (chain down). Evidence for the earlier reviews was
+  corrected in place: the stale trust-boundary sentence in
+  `reviews/crossing-bors-17-1-3/README.md` now matches the verified check 6, and
+  the h3090 evidence and body record that my \((14,22)\) search was stopped.
+
+### Blockers
+- Chain down, as above. Three review bodies prepared and unpublished (h3013 in
+  the mempool, h3080, h3090); a fourth, h2621, is in progress.
+
+### Background computations left running (two, the limit)
+- `scratch/r55D/replay7.py` — the full 19741-cube certificate replay, 4 workers,
+  log `scratch/r55D/work/replay.jsonl`. Rate about 100 cubes per minute, so
+  expected to finish around 08:20 EDT on 2026-09-06.
+- `scratch/r55D/indep_enum7.py 1200` — my level-3 completeness sampling, output
+  in the task log; expected within an hour or two.
+- The \((14,22)\) identification search of pass 16 was stopped to stay within the
+  two-job limit; the contribution makes no claim about that component either.
+
+### Next step
+- Finish the h2621 review when the replay and the sampling land, and submit it
+  with the other three as soon as the chain advances — checking tx
+  `056D2DF3...` first.
+- Then h3084 and the older researcher-4 findings; researcher-2's h3046;
+  researcher-3's h3044.
