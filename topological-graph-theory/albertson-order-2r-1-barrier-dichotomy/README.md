@@ -639,17 +639,58 @@ and 58, and the Gallai join/edge budget kills order 56 = 2r-2.
 eight-row `r = 29` frontier published at ledger height 2761.  Two of the five
 close outright; the other three reduce to explicit high-vertex counts:
 
-| row | outcome |
-|---|---|
-| (57, 824) | eliminated |
-| (57, 825) | eliminated |
-| (57, 826) | reduces to `\|R\| = 7` |
-| (57, 827) | reduces to `\|R\| in {7,8,9}` |
-| (57, 828) | reduces to `\|R\| in {7,...,11}` |
+| row | after `r29.py` | after `aug57.py` |
+|---|---|---|
+| (57, 824) | eliminated | eliminated |
+| (57, 825) | eliminated | eliminated |
+| (57, 826) | `\|R\| = 7` | **eliminated** |
+| (57, 827) | `\|R\| in {7,8,9}` | `\|R\| in {8,9}` |
+| (57, 828) | `\|R\| in {7,...,11}` | unchanged |
 
-Order 58 = 2r is **not** covered: there Stehlík gives one colour class of size
-three rather than a perfect matching, so `H` need not be factor-critical and none
-of the structure theory applies.  This does not prove Albertson's conjecture for
+### Two discarded resources, recovered (`aug57.py`)
+
+`min_split` scores only the clique blocks of the Gallai forest \(L\) induced by
+the low vertices, and throws away two things.
+
+**Augmenting a block by \(w_1,w_2\).**  First, the scoring needs no
+vertex-disjointness: distinct blocks are *edge*-disjoint, and a crossing between
+edges of different blocks is counted in neither, so \(\sum_i\mathrm{cr}(Q_i)\le
+\mathrm{cr}(G)\) at once.  (Dropping the "order \(\ge15\)" restriction changes no
+number — the minimiser never uses small blocks — but it licenses the next step.)
+Since \(N_H(w_i)\subseteq B\), each \(w_i\) is \(G\)-adjacent to *every* vertex of
+\(C\), and \(w_1w_2\in E(G)\).  So for any block \(Q_j\),
+
+$$(Q_j\cap C)\cup\{w_1,w_2\}\ \text{is a clique of order}\ q_j-\beta_j+2,\qquad
+\beta_j:=|Q_j\cap B|,$$
+
+and its edges lie either inside \(Q_j\) or at \(w_1,w_2\), which are high and so
+in no block.  Hence
+\(\mathrm{cr}(G)\ge\mathrm{cr}(K_{q_j-\beta_j+2})+\sum_{l\ne j}\mathrm{cr}(Q_l)\).
+Since \(T\) is an \(H\)-triangle its vertices are pairwise \(G\)-non-adjacent, so a
+clique holds at most one of them; and a \(B\)-vertex in two blocks of order
+\(\ge22\) would have degree \(\ge43>28\).  So \(\beta_j\le2\), at most one
+\(\beta_j=2\), and \(\sum_j\beta_j\le4\).
+
+**Every low vertex needs block degree.**  A low vertex has \(d_G(v)=28\)
+*exactly*, and its neighbours inside \(L\) are exactly the union of its blocks
+minus itself, so
+
+$$\sum_{\text{blocks}\ni v}(|Q|-1)\ \ge\ 28-|R|\ =:\ \delta_0 .$$
+
+Two consequences: there is **no isolated vertex** in \(L\) (it would need 28
+neighbours inside \(R\)), so \(\mathrm{extra}:=\sum_j q_j-p\ge0\); and any block
+with \(q-1<\delta_0\) has all its vertices in a second block, of which there are
+at most \(\mathrm{extra}\), so \(q\le\mathrm{extra}\).  At \(|R|=7\) this gives
+\(\delta_0=21\), killing the connector-block minimisers such as \((26,23,3)\).
+
+Together these take \((57,826)\) from 7856 to 8343 against \(Z(29)=8281\), and
+\((57,827)\) at \(|R|=7\) from 7521 to 8343.  The `plain` column of `aug57.py`
+reproduces `r29.py` exactly, which checks the harness.
+
+Order 58 = 2r is **not** covered by this argument: there Stehlík gives one colour
+class of size three rather than a perfect matching, so `H` need not be
+factor-critical and none of the order-\(2r-1\) structure theory applies; it is
+handled separately above.  This does not prove Albertson's conjecture for
 `r = 29`.
 
 ## What this does not do
