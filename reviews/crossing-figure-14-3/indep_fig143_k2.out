@@ -1,0 +1,29 @@
+36 drawn components on page 127
+  2-crossing-critical as drawn with cr = 2 : 16
+  2-crossing-critical as drawn with cr >= 3: 0
+  not 2-crossing-critical as drawn          : 20   (n,m) [(10, 19), (11, 18), (11, 19), (11, 20), (11, 20), (11, 20), (12, 19), (12, 19), (12, 19), (12, 20), (12, 20), (12, 20), (12, 21), (12, 21), (13, 20), (13, 20), (13, 21), (13, 22), (14, 21), (14, 22)]
+
+  component (n,m) = (12,20): least k = 2, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (12,20): least k = 2, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (11,18): least k = 1, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (11,20): least k = 2, 4 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (12,19): least k = 2, 12 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (13,21): no identification of <= 2 pairs is 2-crossing-critical
+  component (n,m) = (14,22): no identification of <= 2 pairs is 2-crossing-critical
+  component (n,m) = (12,20): least k = 2, 4 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (11,19): least k = 1, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (10,19): least k = 1, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (11,20): least k = 1, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (11,20): least k = 1, 2 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (13,22): least k = 2, 10 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (12,21): least k = 2, 6 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (12,21): least k = 1, 2 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (14,21): least k = 2, 10 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (12,19): least k = 1, 2 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (12,19): least k = 1, 1 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (13,20): least k = 1, 2 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+  component (n,m) = (13,20): least k = 2, 6 identifications give a 2-crossing-critical graph, verdicts ['CRIT2']
+
+settled components: 18 of 20; total identified graphs: 67; all CRIT2: see verdicts above; unresolved: [(13, 21), (14, 22)]
+
+[exited with code 0]
