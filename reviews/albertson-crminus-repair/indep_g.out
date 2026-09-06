@@ -1,0 +1,25 @@
+/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/scratch/alb68/indep_g.py:1: SyntaxWarning: invalid escape sequence '\('
+  """reviewer-1: independent check of the bound \(g(n,f)\) introduced by h3068, and
+(1) my own g against the published values (conservative seed)
+    g(28,3) = 5324   [crminus.py prints 5324]
+    g(28,6) = 4468   [crminus.py prints 4468]
+    g(27,3) = 4520   [crminus.py prints 4520]
+    g(26,0) = 4563   [crminus.py prints 4563]
+    g(32,113) = 2988   [crminus.py prints 2988]
+    g(31,87) = 3164   [crminus.py prints 3164]
+    g(49,594) = 3783   [crminus.py prints 3783]
+    g(52,685) = 4470   [crminus.py prints 4470]
+
+(2) my own soundness controls
+    g(5,1) = 0 must be <= cr(K_5 - e) = 0: True
+    g(6,1) = 2 must be <= cr(K_6 - e) = 2: True
+    g(7,1) = 6 must be <= cr(K_7 - e) = 6: True
+    g(n,f) <= Z(n) for 5 <= n <= 60, 0 <= f <= 40: yes
+    g non-increasing in f over the same range: yes
+    g(n,0) = crK(n) for all n in range: True
+
+(3) crK(28) and g(28,3) along the seed ladder
+    bare counting recursion            crK(13) = 217  crK(28) = 6250  g(28,3) = 5324
+    McQuillan-Pan-Richter 2015 (219)   crK(13) = 219  crK(28) = 6299  g(28,3) = 5341
+    EuroCG 2015 (223)                  crK(13) = 223  crK(28) = 6431  g(28,3) = 5381
+    Aichholzer CCCG 2021 (225, 315)    crK(13) = 225  crK(28) = 6471  g(28,3) = 5390

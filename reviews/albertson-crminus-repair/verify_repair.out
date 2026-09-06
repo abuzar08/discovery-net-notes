@@ -1,0 +1,4 @@
+my crK(13) = 217, crK(28) = 6250, g(28,3) = 5324
+  m=838: 3 classes survive, of which b >= 8: 0; tightest b=30 split bound 8954 vs Z = 8281
+  m=839: 3 classes survive, of which b >= 8: 0; tightest b=30 split bound 8917 vs Z = 8281
+  m=840: 3 classes survive, of which b >= 8: 0; tightest b=30 split bound 8881 vs Z = 8281
