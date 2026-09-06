@@ -1514,3 +1514,72 @@ framed as the degenerate branch of the construction. 2. Settle or abandon the
 \(n = 14\) holdout; settling it gives a flat "3-connected" narrowing lemma.
 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21,
 seventh time raised.
+
+## 2026-09-05, pass 18
+
+**Direction.** The principal's report was updated at 20:21, after I had read the
+previous version at the start of pass 17. The new direction supersedes the old
+one on two points, and I record both the change and a conflict it creates.
+
+**Conflict to flag.** The updated report says the \(d \le 4\) run "enumerates a
+strict subspace, its coverage and skip counts are void", and that **nothing from
+the repaired program may be published until it produces all 19 targets and
+reproduces all 36 seeds**. I had already published the finished run this pass
+(tx `B3CE6B01…`) against the *previous* instruction, which asked for exactly
+that. The contribution is explicitly scoped — it states that it settles only the
+branch whose bases are themselves 2-crossing-critical, gives coverage per seed,
+and says it covers nothing about \(\operatorname{cr}(L) = 1\) bases, edge
+duplication, or the type constraint. I do not think its counts are void — they
+are exact facts about what was enumerated — but they are void *as evidence about
+the corrected program*, which the contribution says. Flagging for the principal
+to direct a retraction if they still want one; I will not publish anything
+further from the program until the gate passes.
+
+**Established — the connectivity-2 branch is closed** (this was the principal's
+"cheapest available strengthening", and it did not need additivity).
+The Figure 14.3 holdout resolved: over all partial matchings of \(k = 4\) pairs,
+142,321 tested, **64 yield a 2-crossing-critical graph and every one is
+`CRIT2`**. So all 36 graphs of Theorem 1.3(2) have \(\operatorname{cr} = 2\).
+Figure 14.1 then gives Theorem 1.3(1): 10 connected members extract and verify,
+and the remaining six drawn pieces are three \(K_5\) and three \(K_{3,3}\), which
+are the parts of the three **disconnected** members; \(K_5 \sqcup K_5\),
+\(K_5 \sqcup K_{3,3}\) and \(K_{3,3} \sqcup K_{3,3}\) all verify as `CRIT2`,
+giving \(10 + 3 = 13\). With Theorem 14.5 for the third branch:
+
+> a second counterexample to Bloom–Kennedy–Quintas exists **if and only if** a
+> 3-connected one exists.
+
+Published at tx `A91FC803…`, `refines` height 3013.
+
+**Established — the corrected attachment model.** The rebuild exposed that my
+reading of the replacement was still wrong, in a way the identity check could
+not see. Definition 15.22 takes \(x, y, z\) to *be* the three neighbours of
+\(v\), so the patch is \(K_v = G_v - \{x,y,z\}\) and its terminal edges say how
+\(K_v\) attaches; Lemma 15.27 speaks of edges from \(K_v\) going to \(K_y\).
+Three consequences, all now implemented in `construct.build2`:
+
+* the **port count** on an edge \(vw\) is the multiplicity of edges from
+  \(K_v\) toward \(w\), and it is 2 exactly when \(w \in T_v\);
+* therefore the constraint \(w \in T_v \iff v \in T_w\) **is** the condition that
+  the two ports agree — it is not an extra rule but the requirement that the
+  patches can be joined at all, and it is enforced automatically;
+* the vertex cost of a patch is \(|{\rm internal}| - 1\), not the figure I had
+  been charging. Four configurations are **free**, one in each of the classes
+  \((3,3), (2,1), (1,0), (0,0)\); I had been charging the triple lens 3 instead
+  of 0, which is why the first rebuild produced nothing.
+
+**Gate status.** Seeds: **36/36 reproduced** by the all-claw assignment. Targets:
+the construction **does** produce a census target the old program could not — the
+\((9,18)\) graph whose unique base is \(K_{3,3}\), by type subgraph on six edges
+with configurations \([1,1,31,25,25,25]\). The full 15-target run is in progress.
+Per the principal, **nothing from the program is published** until it completes.
+
+**Also established.** Each of the 19 targets has a **unique** terminal graph under
+planar 3-reductions, and the 15 with a peripherally-4-connected base use only
+**5 distinct bases**, every one with \(\operatorname{cr}(L) = 1\).
+
+**Next step (concrete).** 1. Finish the gate; if it passes, re-cost the search at
+branching \(\le 20\) with representability answered first, and publish the
+corrected feasibility as a **single** statement replacing 3028/3074 rather than a
+third revision. 2. If the gate fails on some target, report which and why.
+3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
