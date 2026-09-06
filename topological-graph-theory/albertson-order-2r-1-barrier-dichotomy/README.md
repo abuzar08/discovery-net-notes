@@ -633,6 +633,42 @@ ladder, so unlike the \(b\ge8\) closure they were never seed-critical.  The \(s=
 2761 independently: the floors against the recursive ceiling leave orders 56, 57
 and 58, and the Gallai join/edge budget kills order 56 = 2r-2.
 
+
+### Two of the three order-58 classes are eliminated (`order58gal.py`)
+
+The low-vertex machinery built for order 57 is **barrier-independent** -- it
+needs only that \(G\) is 29-critical, Gallai's theorem, and
+\(\theta(H)=\chi(G)=29\) -- and had never been applied here.  Transferring it
+kills two of the three classes.
+
+The lever is that \(\lvert R\rvert\) is *capped*.  A singleton component
+\(\{w\}\) of \(H-B\) has \(d_H(w)\le b-2\), so \(x_w\ge r+2-b=31-b\); with \(W\)
+singletons and every other high vertex carrying at least one unit of excess,
+
+$$\lvert R\rvert \;\le\; W + X - W(31-b).$$
+
+For \((50,1,1)\) at \(b=6\) that gives \(\lvert R\rvert\le 4,6,8\), and for
+\((49,1,1)\) at \(b=7\) it gives \(\lvert R\rvert\le 6,8,10\).  Such a small
+\(\lvert R\rvert\) forces \(\lvert L\rvert\ge48\) and hence, through
+\(e(L)=m-28\lvert R\rvert-X+e(G[R])\) with
+\(e(G[R])\le\binom{\lvert R\rvert}{2}\), a very large \(e(L)\) inside a very
+narrow band.  Every Gallai multiset in that band then either has blocks so large
+that \(\sum_i\mathrm{cr}(K_{q_i})\ge Z(29)\), or is rejected by the covering
+constraint.  Nothing survives:
+
+| class | \(\lvert R\rvert\le\) | verdict |
+|---|---|---|
+| \(b=6\), \((50,1,1)\) | 4 / 6 / 8 | **eliminated** at all three rows |
+| \(b=7\), \((49,1,1)\) | 6 / 8 / 10 | **eliminated** at all three rows |
+| \(b=6\), \((51,1)\) | 28 / 30 / 32 | survives, now needs \(\lvert R\rvert\ge11\) |
+
+> **Order 58 at \(r=29\) reduces to the single class \(b=6\), \(c=(51,1)\), with
+> \(\lvert R\rvert\ge11\).**
+
+The surviving class has only **one** singleton, so the excess bound applies once
+instead of twice and caps \(\lvert R\rvert\) an order of magnitude higher; that
+is exactly why the forcing is far weaker there.
+
 ## r = 29 (partial)
 
 `r29.py` applies the same order-`2r-1` machinery to the five order-57 rows of the

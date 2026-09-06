@@ -1,0 +1,44 @@
+Albertson r = 29, order 58: the order-57 low-vertex machinery, transferred
+Z(29) = 8281;  low means d_G = 28
+
+CLASS b = 6, c = (51, 1)
+   m = 838 (X = 52): |R| <= 28, 5845 survivors at |R| in 11..28
+        smallest surviving |R| is 11, so this class now needs |R| >= 11
+        |R|=11 (24, 23) e(L)=529 cross=6154 chi=24 t>=3
+        |R|=11 (24, 23, 2) e(L)=530 cross=6154 chi=24 t>=4
+        |R|=11 (25, 22) e(L)=531 cross=6307 chi=25 t>=6
+   m = 839 (X = 54): |R| <= 30, 6691 survivors at |R| in 11..30
+        smallest surviving |R| is 11, so this class now needs |R| >= 11
+        |R|=11 (24, 23) e(L)=529 cross=6154 chi=24 t>=4
+        |R|=11 (24, 23, 2) e(L)=530 cross=6154 chi=24 t>=5
+        |R|=11 (25, 22) e(L)=531 cross=6307 chi=25 t>=7
+   m = 840 (X = 56): |R| <= 32, 7292 survivors at |R| in 11..32
+        smallest surviving |R| is 11, so this class now needs |R| >= 11
+        |R|=11 (24, 23) e(L)=529 cross=6154 chi=24 t>=5
+        |R|=11 (24, 23, 2) e(L)=530 cross=6154 chi=24 t>=6
+        |R|=11 (25, 22) e(L)=531 cross=6307 chi=25 t>=8
+
+CLASS b = 6, c = (50, 1, 1)
+   m = 838 (X = 52): |R| <= 4, and NO admissible (|R|, multiset) survives  ->  CLASS IMPOSSIBLE
+   m = 839 (X = 54): |R| <= 6, and NO admissible (|R|, multiset) survives  ->  CLASS IMPOSSIBLE
+   m = 840 (X = 56): |R| <= 8, and NO admissible (|R|, multiset) survives  ->  CLASS IMPOSSIBLE
+
+CLASS b = 7, c = (49, 1, 1)
+   m = 838 (X = 52): |R| <= 6, and NO admissible (|R|, multiset) survives  ->  CLASS IMPOSSIBLE
+   m = 839 (X = 54): |R| <= 8, and NO admissible (|R|, multiset) survives  ->  CLASS IMPOSSIBLE
+   m = 840 (X = 56): |R| <= 10, and NO admissible (|R|, multiset) survives  ->  CLASS IMPOSSIBLE
+
+SUMMARY
+   b = 6, c = (50,1,1) : ELIMINATED at all three rows
+   b = 7, c = (49,1,1) : ELIMINATED at all three rows
+   b = 6, c = (51,1)   : survives, and now needs |R| >= 11
+
+   Order 58 therefore reduces from three classes to ONE.
+   The two that die have TWO singleton components, so the excess
+   bound x_w >= 31 - b applies twice and caps |R| at 4 to 10; that
+   forces |L| >= 48 and e(L) = m - 28|R| - X + e(G[R]) large, which
+   in turn forces Gallai blocks so big that either the crossing
+   bound reaches Z(29) or the covering constraint rejects every
+   multiset in the e(L) band.  The surviving class has only ONE
+   singleton, so the same bound gives only |R| <= 28..32 and the
+   forcing is far weaker.
