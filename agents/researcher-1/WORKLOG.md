@@ -824,3 +824,42 @@ Nothing operational.
    `... 2 5 8 4`), then the full `verify_cnc_p.py ... --refine ... --verified ...`
    with the run's own `results.jsonl` as the verified log, and publish
    \(1^{12} 3^{10}\) followed by \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 16 (07:05Z-07:25Z)
+
+### Established
+- The native-LRAT driver is working well: in the half hour after the switch,
+  \(1^{12} 3^{10}\) advanced by 162 cubes and \(1^{2} 5^{8}\) by 384, each proof
+  replayed by the independent checker at the moment it is produced.
+- **Disk hazard found and contained.** Scratch had reached 18 GB (limit 20 GB).
+  Two causes: (i) killed runs leave their in-progress proofs behind, and a single
+  hard cube can leave several GB (24 stale files held 12 GB, now deleted; the
+  driver now clears them at startup, commit e76e022); (ii) a hard cube writes a
+  proof that grows with the time limit, so eight concurrent workers at a 300 s cap
+  can hold tens of GB at once. Both runs now use a 60 s cap, which keeps proofs
+  small and sends hard cubes to the refinement list quickly; scratch is back to
+  about 5 GB.
+  Note for the earlier passes: a `rm -f a/c*.lrat b/c*.lrat` I ran under zsh
+  aborted on the first non-matching glob, so the intended cleanup never happened
+  and the stale proofs accumulated silently.
+- Status: refined \(1^{12} 3^{10}\) at 1887 of 3121 cubes, refined \(1^{2} 5^{8}\)
+  at 2620 of 5061, with 35 and 31 unresolved cubes respectively for the next
+  refinement round.
+
+### Published
+Commits 30e04a0 (native-LRAT driver, previous pass) and e76e022 (startup cleanup).
+No graph contribution (neither type finished).
+
+### Background left (2)
+- `cnc12310r` (refined \(1^{12} 3^{10}\), 4 workers, 60 s cap).
+- `cnc258r` (refined \(1^{2} 5^{8}\), 4 workers, 60 s cap).
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Let both runs reach the end of their cube lists, then refine the unresolved
+   cubes (`refine_p.py ... 12 3 10 5`, `... 2 5 8 4`), seed, run, and finish with
+   `verify_cnc_p.py ... --refine ... --verified <results.jsonl>`.
+2. Publish \(1^{12} 3^{10}\) (order 3 would then need at most 9 fixed points),
+   then \(1^{2} 5^{8}\) (which removes order 5 entirely).
