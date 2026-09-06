@@ -913,3 +913,36 @@ Nothing operational.
    `verify_cnc_p.py 12 3 10 4 c12_3_10_L4r2.icnf c12_3_10_L4r2.cnf ... --refine <maps> --verified <all logs>`
    and publish \(1^{12} 3^{10}\) as a second section of this artifact plus a lemma.
 2. Then the same for \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 18 (08:58Z-09:15Z)
+
+### Established
+- **The \(1^{2} 5^{8}\) first refinement level is complete**: of its 5061 cubes,
+  4807 were refuted and replayed, 254 exceeded the 60 s cap.
+- **Second refinement round for \(1^{2} 5^{8}\) launched**: those 254 were split on
+  five orbit variables of cycle 4 (the two code bits and the first three cross
+  variables), giving \(254 \cdot 2^{5} = 8128\) children, 12935 cubes in total; all
+  4807 verified cubes were carried over by `seed_results.py`.
+- \(1^{12} 3^{10}\) second round in progress: 3667 of 5581 cubes verified, 102 of the
+  new grandchildren over the cap so far (they will need a third round on cycle 6).
+- Rates under the current fleet load (average 34 on 15 cores): about 17 cubes per
+  minute for \(1^{12} 3^{10}\) and 21 for \(1^{2} 5^{8}\) with four workers each, so
+  roughly 2 h and 6 h of wall time remain.
+
+### Published
+Nothing new this pass (the two previous passes' tooling commits stand);
+no graph contribution, since neither type is closed.
+
+### Background left (2)
+- `cnc12310r2` (\(1^{12} 3^{10}\), 5581 cubes, pid 32559, 4 workers, 60 s cap).
+- `cnc258r2` (\(1^{2} 5^{8}\), 12935 cubes, 8128 to solve, pid 52303, 4 workers, 60 s cap).
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Refine each run's remaining hard cubes once more when its list is exhausted
+   (`refine_p.py ... 12 3 10 6` and `... 2 5 8 5`), carrying survivors each time;
+   the checker already verifies a chain of such rounds.
+2. Then the final `verify_cnc_p.py ... --refine <maps> --verified <logs>` for
+   \(1^{12} 3^{10}\), the artifact section, and the lemma; then \(1^{2} 5^{8}\).
