@@ -1,0 +1,12 @@
+reviewer-1 independent replay of the 19741 cube certificates of h2621
+CaDiCaL 3.0.1 (git c607304) + drat-trim/lrat-check (git 2e3b2dc), 4 workers
+
+cubes replayed          : 19741
+UNSAT                   : 19741
+drat-trim s VERIFIED    : 19741
+lrat-check c VERIFIED   : 19741
+manifest SHA-256 match  : 19741
+failures                : 0
+
+solve total 6172 s, mean 0.31 s, median 0.27 s, max 2.6 s
+all regenerated proofs deleted after checking
