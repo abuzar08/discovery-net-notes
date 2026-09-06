@@ -259,7 +259,214 @@ def symC_clauses(n, f, p, k, idx, orb, first_aux):
     return clauses, aux - first_aux
 
 
-def build(n, s, t, f, p, k, profile=False, symf=False, symc=False):
+def _lex_le(ra, rb, aux):
+    """Clauses for ra <=_lex rb over equal-length literal rows.
+
+    Same encoding symC uses, factored out; symC's own copy is left untouched
+    so its published formulas stay byte-identical.  aux_t means "the rows
+    agree on positions 0..t"; the biconditional makes every row assignment
+    satisfying the predicate extendable, so the constraint is exactly the
+    predicate and nothing more.
+    """
+    cls = []
+    prev = None
+    for t, (a, b) in enumerate(zip(ra, rb)):
+        if prev is None:
+            cls.append(sorted((-a, b)))
+        else:
+            cls.append(sorted((-prev, -a, b)))
+        if t == len(ra) - 1:
+            break
+        aux += 1
+        e = aux
+        if prev is None:
+            for c in ((-e, a, -b), (-e, -a, b), (e, a, b), (e, -a, -b)):
+                cls.append(sorted(c))
+        else:
+            for c in ((-e, prev), (-e, a, -b), (-e, -a, b),
+                      (e, -prev, a, b), (e, -prev, -a, -b)):
+                cls.append(sorted(c))
+        prev = e
+    return cls, aux
+
+
+def cross_row(f, p, k, j, jp, idx, orb):
+    """The p cross orbits between cycles j < jp, indexed by difference d."""
+    a = f + j * p
+    return [orb[idx[(a, f + jp * p + d)]] + 1 for d in range(p)]
+
+
+def symS_clauses(n, f, p, k, idx, orb, first_aux):
+    """Cycle-shift normalisation.  Acts on the CROSS block; nothing else here does.
+
+    SOUNDNESS.  For b in Z_p^k let Phi_b fix F pointwise and send v_{j,i} to
+    v_{j,i+b_j}.  Then Phi_b sigma = sigma Phi_b (both act on i by translation),
+    so Phi_b maps type-1^f p^k graphs to type-1^f p^k graphs and preserves
+    (s,t)-goodness.  On orbits it fixes every fixed-fixed, fixed-cycle and
+    internal orbit, and carries the cross orbit (j,j',d) to (j,j',d+b_{j'}-b_j).
+    The diagonal b = (c,...,c) acts trivially, so the induced group is
+    Z_p^{k-1}, of order p^(k-1).
+
+    Write y^(j) for the length-p vector of cross orbits between cycle 0 and
+    cycle j.  Phi_b rotates y^(j) by b_j - b_0, and the k-1 values b_j - b_0
+    are free and independent.  So given any assignment, choosing each b_j to
+    make y^(j) the lex-greatest of its p rotations is possible simultaneously
+    for all j, and imposing
+
+        rot_r(y^(j)) <=_lex y^(j)   for j = 1..k-1 and r = 1..p-1
+
+    removes no isomorphism class.  Because each b_j is fixed by the (0,j)
+    block alone, completeness needs no argument about the other blocks: they
+    are carried wherever the choice sends them, and nothing is imposed there.
+
+    COMPOSITION.  symS constrains only cross orbits; symC constrains only
+    internal orbits, which every Phi_b fixes.  So a symC-sorting cycle
+    permutation may be applied first and a shift second without disturbing it,
+    and symS + symC is sound in either order.  This is checked exhaustively
+    over all assignments in `symstest.py`, not merely argued here, because the
+    reviewer's finding on symC + symF was that composition order can matter.
+
+    Returns (clauses, n_aux).
+    """
+    if k < 2:
+        return [], 0
+    cls = []
+    aux = first_aux
+    for j in range(1, k):
+        y = cross_row(f, p, k, 0, j, idx, orb)
+        for r in range(1, p):
+            rot = [y[(d + r) % p] for d in range(p)]
+            c, aux = _lex_le(rot, y, aux)
+            cls.extend(c)
+    return cls, aux - first_aux
+
+
+def mult_orbit_map(n, f, p, k, u, idx, orb, nvar):
+    """The map on orbit variables induced by mu_u: v_{j,i} -> v_{j,u*i}.
+
+    mu_u conjugates sigma to sigma^u, and p is prime, so <sigma^u> = <sigma>:
+    mu_u carries sigma-invariant graphs to sigma-invariant graphs and orbits
+    to orbits.  It is a normaliser element, not a centraliser element, which
+    is why it must be read off the pair action rather than assumed.
+    """
+    pi = list(range(n))
+    for j in range(k):
+        for i in range(p):
+            pi[f + j * p + i] = f + j * p + (u * i) % p
+    g = [None] * nvar
+    for (a, b), i in idx.items():
+        c, d = pi[a], pi[b]
+        t = orb[idx[(min(c, d), max(c, d))]]
+        if g[orb[i]] is None:
+            g[orb[i]] = t
+        elif g[orb[i]] != t:
+            raise SystemExit(f"mu_{u} does not act on orbits")
+    return g
+
+
+def perm_orbit_map(pi, idx, orb, norb):
+    """Push a vertex permutation to a map on orbit variables, or raise."""
+    g = [None] * norb
+    for (a, b), i in idx.items():
+        c, d = pi[a], pi[b]
+        t = orb[idx[(min(c, d), max(c, d))]]
+        if g[orb[i]] is None:
+            g[orb[i]] = t
+        elif g[orb[i]] != t:
+            raise SystemExit("permutation does not act on orbits")
+    return g
+
+
+def _symK_perms(k, gens_only):
+    """All of S_k, or just the adjacent transpositions.
+
+    Imposing only SOME of a lex-leader's constraints is always sound: the
+    lex-greatest member of each orbit satisfies every constraint, so it
+    survives any subset of them.  The subset is weaker, never unsound, and it
+    is what makes k = 7 affordable (6 constraints instead of 5039).
+    """
+    if not gens_only:
+        return list(itertools.permutations(range(k)))
+    out = []
+    for j in range(k - 1):
+        t = list(range(k))
+        t[j], t[j + 1] = t[j + 1], t[j]
+        out.append(tuple(t))
+    return out
+
+
+def symK_clauses(n, f, p, k, idx, orb, first_aux, gens_only=False):
+    """S_k lex-leader over cycle permutations: X >=_lex X o Phi_tau for all tau.
+
+    SOUNDNESS.  Phi_tau sends v_{j,i} to v_{tau(j),i} and fixes F pointwise;
+    it commutes with sigma, so it preserves the type and (s,t)-goodness.
+    Requiring X to be lex-greatest in its orbit under a group leaves at least
+    one representative of every orbit, so this is sound alone.
+
+    The delicacy the lane's earlier note flagged -- that a cycle swap carries
+    the cross orbit (j,j',d) to (tau(j'),tau(j),-d) when tau reverses the pair,
+    not to (.,.,d) -- is handled by reading the induced map off the VERTEX
+    permutation in `perm_orbit_map` rather than writing a formula for it, so
+    the sign is never derived by hand.  This is strictly stronger than symC,
+    which only sorts by the internal code; symC is the part of it that needs
+    no lex-leader machinery.  Do not enable both: symK subsumes symC.
+
+    Returns (clauses, n_aux).
+    """
+    if k < 2:
+        return [], 0
+    norb = max(orb) + 1
+    cls = []
+    aux = first_aux
+    base = list(range(1, norb + 1))
+    for tau in _symK_perms(k, gens_only):
+        if all(tau[j] == j for j in range(k)):
+            continue
+        pi = list(range(n))
+        for j in range(k):
+            for i in range(p):
+                pi[f + j * p + i] = f + tau[j] * p + i
+        g = perm_orbit_map(pi, idx, orb, norb)
+        img = [0] * norb
+        for o, t in enumerate(g):
+            img[t] = o + 1
+        c, aux = _lex_le(img, base, aux)
+        cls.extend(c)
+    return cls, aux - first_aux
+
+
+def symM_clauses(n, f, p, k, idx, orb, first_aux):
+    """Multiplier lex-leader: X >=_lex X o mu_u for every u in Z_p^*.
+
+    SOUNDNESS.  {mu_u : u in Z_p^*} induces a group of order dividing p-1 on
+    the orbit variables, and requiring X to be lex-greatest in its orbit under
+    a group always leaves at least one representative of every orbit.  So this
+    is sound ALONE for any group; what is not automatic is composition, since
+    mu_u need not preserve the region cut out by another breaker.  Composition
+    with symS and symC is therefore checked exhaustively in `symstest.py`
+    rather than argued.
+
+    Returns (clauses, n_aux).  The comparison is over all nvar orbit variables
+    in index order, so this is a genuine lex-leader, not a partial one.
+    """
+    if p <= 2:
+        return [], 0
+    norb = max(orb) + 1                  # orbit variables only; aux are not acted on
+    cls = []
+    aux = first_aux
+    base = list(range(1, norb + 1))
+    for u in range(2, p):
+        g = mult_orbit_map(n, f, p, k, u, idx, orb, norb)
+        img = [0] * norb
+        for o, t in enumerate(g):
+            img[t] = o + 1
+        c, aux = _lex_le(img, base, aux)
+        cls.extend(c)
+    return cls, aux - first_aux
+
+
+def build(n, s, t, f, p, k, profile=False, symf=False, symc=False, syms=False,
+          symm=False, symk=False, symkg=False):
     idx = pair_index(n)
     sigma = permutation(n, f, p, k)
     orb, nvar = pair_orbits(n, sigma, idx)
@@ -273,6 +480,19 @@ def build(n, s, t, f, p, k, profile=False, symf=False, symc=False):
     if symc:
         sc, naux = symC_clauses(n, f, p, k, idx, orb, nvar)
         cls = cls + [tuple(c) for c in sc]
+        nvar += naux
+    if syms:
+        ss, naux = symS_clauses(n, f, p, k, idx, orb, nvar)
+        cls = cls + [tuple(c) for c in ss]
+        nvar += naux
+    if symk or symkg:
+        sk, naux = symK_clauses(n, f, p, k, idx, orb, nvar,
+                                gens_only=(symkg and not symk))
+        cls = cls + [tuple(c) for c in sk]
+        nvar += naux
+    if symm:
+        sm, naux = symM_clauses(n, f, p, k, idx, orb, nvar)
+        cls = cls + [tuple(c) for c in sm]
         nvar += naux
     return nvar, cls
 
@@ -293,10 +513,16 @@ def main():
     prof = "--profile" in sys.argv[8:]
     sf = "--symf" in sys.argv[8:]
     sc = "--symc" in sys.argv[8:]
-    nvar, cls = build(n, s, t, f, p, k, profile=prof, symf=sf, symc=sc)
+    ss = "--syms" in sys.argv[8:]
+    sm = "--symm" in sys.argv[8:]
+    sk_ = "--symk" in sys.argv[8:]
+    skg = "--symkg" in sys.argv[8:]
+    nvar, cls = build(n, s, t, f, p, k, profile=prof, symf=sf, symc=sc,
+                      syms=ss, symm=sm, symk=sk_, symkg=skg)
     write_dimacs(sys.argv[7], nvar, cls)
     print(f"n={n} ({s},{t}) type 1^{f} {p}^{k}: "
-          f"vars={nvar} clauses={len(cls)} profile={prof} symf={sf} symc={sc}"
+          f"vars={nvar} clauses={len(cls)} profile={prof} symf={sf} symc={sc} "
+          f"syms={ss} symm={sm} symk={sk_} symkg={skg}"
           + (f" weights={allowed_profile_weights(n, f, p, k)}" if prof else ""))
     return 0
 

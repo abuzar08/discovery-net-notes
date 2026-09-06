@@ -75,7 +75,8 @@ def canonical_orbits(n, f, p, k):
     return {pr: order[c] for pr, c in canon.items()}, len(order)
 
 
-def regenerate(n, s, t, f, p, k, profile=False, symf=False):
+def regenerate(n, s, t, f, p, k, profile=False, symf=False, symc=False,
+               syms=False):
     name, nvar = canonical_orbits(n, f, p, k)
     seen = set()
     order = []
@@ -108,7 +109,93 @@ def regenerate(n, s, t, f, p, k, profile=False, symf=False):
         sf, naux = symF_clauses(n, f, p, k, idx, orb, nvar)
         order = order + [tuple(c) for c in sf]
         nvar += naux
+    if symc:
+        sc, naux = symC_regen(n, f, p, k, name, nvar)
+        order = order + [tuple(c) for c in sc]
+        nvar += naux
+    if syms:
+        ss, naux = symS_regen(n, f, p, k, name, nvar)
+        order = order + [tuple(c) for c in ss]
+        nvar += naux
     return nvar, order
+
+
+def _lex_le_regen(ra, rb, aux):
+    """ra <=_lex rb, written here so verify.py imports no clause builder."""
+    cls = []
+    prev = None
+    for t, (a, b) in enumerate(zip(ra, rb)):
+        cls.append(sorted((-a, b)) if prev is None else sorted((-prev, -a, b)))
+        if t == len(ra) - 1:
+            break
+        aux += 1
+        e = aux
+        if prev is None:
+            for c in ((-e, a, -b), (-e, -a, b), (e, a, b), (e, -a, -b)):
+                cls.append(sorted(c))
+        else:
+            for c in ((-e, prev), (-e, a, -b), (-e, -a, b),
+                      (e, -prev, a, b), (e, -prev, -a, -b)):
+                cls.append(sorted(c))
+        prev = e
+    return cls, aux
+
+
+def symC_regen(n, f, p, k, name, first_aux):
+    """Rebuild symC: cycles sorted by internal code c_j = (x_{j,1..(p-1)/2})."""
+    if p % 2 == 0 or k < 2:
+        return [], 0
+    half = (p - 1) // 2
+
+    def internal(j, d):
+        return name[(f + j * p, f + j * p + d)] + 1
+
+    cls = []
+    aux = first_aux
+    for j in range(k - 1):
+        ra = [internal(j, d) for d in range(1, half + 1)]
+        rb = [internal(j + 1, d) for d in range(1, half + 1)]
+        c, aux = _lex_le_regen(ra, rb, aux)
+        cls.extend(c)
+    return cls, aux - first_aux
+
+
+def symS_regen(n, f, p, k, name, first_aux):
+    """Rebuild the symS clauses here rather than importing them.
+
+    What this does and does not check.  The cross rows are read off THIS
+    file's own orbit naming (`canonical_orbits`, which takes a minimum over
+    explicit images and shares no code with encode.pair_orbits), so a fault in
+    the orbit numbering would surface as a mismatch.  The lex-CNF layout is
+    the same construction written twice by the same author, so it is a
+    transcription check, not an independent derivation; the mathematical
+    content of symS is what `symstest.py` checks exhaustively.
+    """
+    if k < 2:
+        return [], 0
+    cls = []
+    aux = first_aux
+    for j in range(1, k):
+        y = [name[(f, f + j * p + d)] + 1 for d in range(p)]
+        for r in range(1, p):
+            rot = [y[(d + r) % p] for d in range(p)]
+            prev = None
+            for tpos, (a, b) in enumerate(zip(rot, y)):
+                cls.append(sorted((-a, b)) if prev is None
+                           else sorted((-prev, -a, b)))
+                if tpos == p - 1:
+                    break
+                aux += 1
+                e = aux
+                if prev is None:
+                    for c in ((-e, a, -b), (-e, -a, b), (e, a, b), (e, -a, -b)):
+                        cls.append(sorted(c))
+                else:
+                    for c in ((-e, prev), (-e, a, -b), (-e, -a, b),
+                              (e, -prev, a, b), (e, -prev, -a, -b)):
+                        cls.append(sorted(c))
+                prev = e
+    return cls, aux - first_aux
 
 
 def read_dimacs(path):
@@ -232,7 +319,9 @@ def cmd_lower(a):
     n, s, t, f, p, k = (int(x) for x in a[:6])
     nvar, want = regenerate(n, s, t, f, p, k,
                             profile="--profile" in a,
-                            symf="--symf" in a)
+                            symf="--symf" in a,
+                            symc="--symc" in a,
+                            syms="--syms" in a)
     if "--cube" in a:
         for lit in a[a.index("--cube") + 1:]:
             v = int(lit)

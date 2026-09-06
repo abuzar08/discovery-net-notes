@@ -186,21 +186,54 @@ at once. The reduction also ties them to the catalog: Exoo's 37 known
 \((4,6,35)\)-graph outside the known catalog carrying a symmetry no known one
 has.
 
-## The two instances: measured at both ends, and they resist
+## The two instances, and what the lever changed
 
-Both were driven to a verdict attempt by two methods and two time budgets,
+Both were driven to a verdict attempt by two methods and three time budgets,
 deliberately symmetrically, because the failure mode of my earlier estimates
 was measuring one end and generalising.
+
+**Without the lever** (published encoding, `symF + symC`):
 
 | instance | orbit vars | clauses | method | outcome |
 |---|---|---|---|---|
 | \(1^0 5^7\) | 119 | 334369 | single refutation, 1500 s | no verdict |
 | \(1^0 7^5\) | 85 | 237160 | single refutation, 1500 s | no verdict |
+| \(1^0 5^7\) | 119 | 334369 | single refutation, 3600 s | no verdict, 2501 MB DRAT |
+| \(1^0 7^5\) | 85 | 237160 | single refutation, 3600 s | no verdict, 2111 MB DRAT |
 | \(1^0 5^7\) | 119 | 334369 | cube-and-conquer, \(D = 10\) | 259 of 1024 cubes in \(\approx 2\) min, then \(5\)–\(6\) min per remaining cube; mean \(2.1\) MB per cube, extrapolating to \(2.1\) GB |
 | \(1^0 7^5\) | 85 | 237160 | cube-and-conquer, \(D = 10\) | 150 of 1024 cubes in \(\approx 4\) min, then \(6+\) min per remaining cube; mean \(1.5\) MB per cube, extrapolating to \(1.5\) GB |
 
+**With `symS`** (`symF + symC + symS`, same solver, same machine):
+
+| instance | outcome |
+|---|---|
+| \(1^0 7^5\) | **UNSAT in 600 s**, 354 MB DRAT |
+| \(1^0 5^7\) | no verdict in 1800 s, 1660 MB DRAT |
+
+> **Status of the \(1^0 7^5\) refutation.** CaDiCaL reported UNSAT; by this
+> directory's own trust boundary that is *not yet a proof*. The claim becomes
+> a certificate only once drat-trim has checked the DRAT and `verify.py` has
+> replayed the resulting LRAT against an independently regenerated formula.
+> Until that is recorded here with a hash, **Theorem 6 keeps both exception
+> clauses** and nothing below is restated.
+
+So the lever is decisive on one instance and not (yet) on the other. On
+\(1^0 7^5\) it converts "no verdict in 3600 s" into a refutation in 600 s —
+at least a sixfold reduction in time and a sixfold reduction in proof size,
+for \(864\) extra clauses. On \(1^0 5^7\) it raises the proof-production rate
+(\(55\) MB/min against \(42\)) without closing the instance in the budget
+tried.
+
+**Why the asymmetry is the expected direction, not a surprise.** \(5^7\) is
+the larger instance (119 variables against 85, \(105\) cross variables
+against \(70\)), and it was already the one that needed more. `symS` breaks
+the larger group there (\(5^6 = 15625\) against \(7^4 = 2401\)) but starts
+from a bigger space; the two effects do not have to cancel in either
+direction, and measurement, not the group order, is what settles it.
+
 **The governing parameter is the cross-cycle block, not \(f\) and not the
-variable count.** Three observations pin this down:
+variable count.** Three observations pin this down, and the lever is the
+confirmation: acting on the cross block is exactly what broke \(7^5\).
 
 - It is not \(f\). Both instances have \(f = 0\), so `symF` is **vacuous by
   construction** — there are no fixed vertices to constrain.
@@ -216,16 +249,80 @@ variable count.** Three observations pin this down:
   lever in this directory acts on the cross-cycle block at all**, and that
   block is where the hard core sits.
 
-The missing lever is therefore a full \(S_k\) lex-leader acting on the cross
-blocks, or the multiplier action of \(\mathbb{Z}_p^{*}\) (which sends the
-orbit at difference \(d\) to the one at difference \(ud\), conjugating
-\(\sigma\) to \(\sigma^u\) and so preserving the type). Neither is
-implemented here: a full \(S_k\) lex-leader needs care because swapping
-cycles \(j\) and \(j+1\) also permutes the cross orbits between them by
-\(d \mapsto -d\), which is exactly the delicacy `symC` was designed to avoid.
+## The lever: `symS`, cycle-shift normalisation
 
-So **Theorem 6's exception clause stands**, and the honest statement is that
-these two instances are open, not that they are impossible.
+The diagnosis above asked for a constraint acting on the cross block, and
+named two candidates: a full \(S_k\) lex-leader, and the multiplier action of
+\(\mathbb{Z}_p^{*}\). **Both were the wrong place to look.** The largest
+symmetry of a fixed-point-free semiregular action is neither of them; it is
+the group of independent per-cycle rotations, which the earlier analysis in
+this directory missed entirely.
+
+**Definition.** For \(b \in \mathbb{Z}_p^{k}\) let \(\Phi_b\) fix \(F\)
+pointwise and send \(v_{j,i} \mapsto v_{j,\,i+b_j}\) — rotate cycle \(j\) by
+\(b_j\), each cycle independently.
+
+**Lemma S.** \(\Phi_b\) commutes with \(\sigma\), so it carries type-\(1^f
+p^k\) graphs to type-\(1^f p^k\) graphs and preserves \((s,t)\)-goodness. On
+pair orbits it fixes every fixed-fixed, fixed-cycle and internal orbit, and
+carries the cross orbit \((j,j',d)\) to \((j,j',\,d + b_{j'} - b_j)\). The
+diagonal \(b = (c,\dots,c)\) is \(\sigma^c\) and acts trivially, so the
+induced group is \(\mathbb{Z}_p^{\,k-1}\), of order \(p^{\,k-1}\).
+
+*Proof of the commuting claim.* \(\sigma\Phi_b(v_{j,i}) = v_{j,i+b_j+1} =
+\Phi_b\sigma(v_{j,i})\); both act on \(i\) by translation. \(\square\)
+
+**The constraint.** Write \(y^{(j)} = (x_{0,j,0},\dots,x_{0,j,p-1})\) for the
+length-\(p\) vector of cross orbits between cycle \(0\) and cycle \(j\).
+\(\Phi_b\) rotates \(y^{(j)}\) by \(b_j - b_0\), and the \(k-1\) differences
+\(b_j - b_0\) are free and independent. So `symS` imposes
+
+$$\mathrm{rot}_r\bigl(y^{(j)}\bigr) \le_{\mathrm{lex}} y^{(j)}, \qquad
+j = 1,\dots,k-1, \quad r = 1,\dots,p-1,$$
+
+that is, each \(y^{(j)}\) is the lex-greatest of its \(p\) rotations. This is
+a **complete** break of \(\mathbb{Z}_p^{\,k-1}\): given any assignment, choose
+each \(b_j\) to canonicalise its own block, and because \(b_j\) is fixed by
+the \((0,j)\) block alone the \(k-1\) choices do not interfere. No argument
+about the other cross blocks is needed — they are carried wherever the choice
+sends them, and nothing is imposed there.
+
+**It is nearly free.** \((k-1)(p-1)\) lex chains of length \(p\):
+
+| instance | group broken | added clauses | added variables |
+|---|---|---|---|
+| \(1^0 7^5\) | \(7^4 = 2401\) | \(864\)  (\(+0.36\%\)) | \(144\) |
+| \(1^0 5^7\) | \(5^6 = 15625\) | \(576\)  (\(+0.17\%\)) | \(96\) |
+
+**Soundness is checked, not asserted** (`symstest.py`, every check exhaustive
+over *all* assignments, never sampled):
+
+- **Q1** every \(\Phi_b\) induces a well-defined map on pair orbits and
+  preserves \((4,6)\)-goodness, verified at the **graph** level against the
+  vertex permutation rather than against a formula for the induced action —
+  this is the check that catches an indexing error;
+- **Q2** the CNF clauses encode exactly the intended predicate, with the
+  auxiliary variables brute-forced too, so a clause merely *implied* by the
+  predicate would show up; **Q2b** repeats this at larger sizes through the
+  forced auxiliary values, and agrees with Q2 wherever both run;
+- **Q3** every assignment has a shift landing in the constrained region;
+- **Q4** `symS` composes with `symC` and with `symF`.
+
+### A composition that is not sound
+
+The reviewer's finding on `symC` + `symF` — that composition order can matter
+— generalises, and the exhaustive check earned its keep:
+
+> **`symS` + `symC` + `symM` is unsound.** At \(f=0, p=5, k=2\), \(64\) of the
+> \(512\) assignments have *no* image under the full group satisfying all
+> three. Each pair among the three is sound; the triple is not.
+
+The cause (**Q6**) is that \(\mu_u\) sends internal difference \(d\) to
+\(\pm ud\), so it *permutes internal differences* and does not preserve
+internal codes: `symC` and `symM` constrain the same coordinates in
+incompatible ways, and `symS` is not implicated. **Use `symF + symC + symS`,
+or `symF + symS + symM`, but never all four.** This is exactly the trap that
+a soundness argument alone would have walked into.
 
 ## The honest frontier, quantified once
 
@@ -306,6 +403,13 @@ total assignment satisfies exactly one sign pattern.
   without; and CNF matches the lex predicate on all 8192 assignments).
 - `symC`'s equivariance is checked over all \(\tau \in S_k\) for
   \(1^0 3^3\), \(1^2 3^3\) and \(1^1 5^2\).
+- `symS` is regenerated inside `verify.py` (`symS_regen`) rather than
+  imported, from that file's own orbit naming, so a fault in the orbit
+  numbering would surface as a formula mismatch. The lex-CNF layout is the
+  same construction written twice by one author, so that part is a
+  transcription check, not an independent derivation; the mathematical
+  content is what `symstest.py` settles exhaustively. This is stated because
+  the distinction matters and is easy to overstate.
 - **No published certificate uses `--profile`**, so every stored certificate
   is free of Ramsey-number input; only the analytic lemma uses
   \(R(3,4), R(3,6), R(4,4), R(4,5)\).
@@ -323,10 +427,13 @@ being hashed and from the cube manifest.
 
 ## Files
 
-- `encode.py` — orbit CNF generator, with `--symf`, `--symc`, `--profile`.
+- `encode.py` — orbit CNF generator, with `--profile` and the symmetry
+  breakers `--symf`, `--symc`, `--syms`, `--symk`, `--symkg`, `--symm`.
 - `verify.py` — independent standard-library checker (`lower`, `cubes`,
-  `graph`, `selftest`).
+  `graph`, `selftest`); `--syms` supported.
 - `symftest.py` — brute-force soundness suite for `symF`.
+- `symstest.py` — exhaustive soundness suite for `symS`, `symK` and `symM`,
+  including the composition matrix and the `symC + symM` counterexample.
 - `catalog.py` — graph6 decoder, catalog re-check, automorphism observation.
 - `cubes.py`, `one.sh`, `sweep.sh`, `symf_p.sh`, `symfc.sh` — drivers.
 - `check_all.py`, `assemble.py`, `certificates/`, `certs.json`, `RESULTS.md`.
@@ -345,7 +452,16 @@ python3 check_all.py --quick        # replay the stored certificates
 python3 encode.py 38 4 6 17 7 3 out.cnf --symf
 python3 verify.py lower 38 4 6 17 7 3 out.cnf out.lrat --symf
 
-# the two open reduction instances
+# the lever: exhaustive soundness suite (no solver, standard library only)
+python3 symstest.py
+
+# the reduction instance that the lever closes, end to end
+python3 encode.py 35 4 6 0 7 5 s75.cnf --symf --symc --syms
+cadical -q --binary=false s75.cnf s75.drat        # UNSAT, about 600 s
+drat-trim s75.cnf s75.drat -L s75.lrat
+python3 verify.py lower 35 4 6 0 7 5 s75.cnf s75.lrat --symf --symc --syms
+
+# the instance still open, with and without the lever
 python3 encode.py 35 4 6 0 5 7 out.cnf --symf --symc
-python3 encode.py 35 4 6 0 7 5 out.cnf --symf --symc
+python3 encode.py 35 4 6 0 5 7 out.cnf --symf --symc --syms
 ```
