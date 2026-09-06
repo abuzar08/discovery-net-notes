@@ -1031,3 +1031,36 @@ Nothing operational.
 2. Then the final chained check
    (`verify_cnc_p.py ... --refine <maps in order> --verified <all logs>`),
    the artifact section and the lemma for \(1^{12} 3^{10}\), then \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 21 (19:24Z-19:40Z)
+
+### Established
+- The escalation to a 600 s limit is settling hard cubes steadily, as the pass-19
+  reasoning predicted: for \(1^{12} 3^{10}\) the unresolved set went 242 to 210,
+  for \(1^{2} 5^{8}\) 269 to 172, in about an hour of three workers each.
+- Running totals for \(1^{12} 3^{10}\): 5362 cubes verified, 14931 s of solving and
+  7974 s of independent replay so far.
+- Drafted the artifact section for \(1^{12} 3^{10}\) in `scratch/pub5/section_draft.md`
+  (statement, formula sizes, refinement chain, escalation rationale, result
+  placeholders), so that publication is a fill-in once the last cube falls.
+
+### Published
+Nothing this pass (computation); no graph contribution.
+
+### Background left (2)
+- `cnc12310r2` escalation (\(1^{12} 3^{10}\), 210 hard cubes left, pid 5799,
+  3 workers, 600 s cap).
+- `cnc258r2` escalation (\(1^{2} 5^{8}\), 172 hard cubes left, pid 5800, 3 workers,
+  600 s cap).
+Both are expected to exhaust their lists within a few hours; scratch 5.7 GB.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. When an escalation ends, refine its survivors on the next free cycle
+   (`refine_p.py ... 12 3 10 6`, `... 2 5 8 5`), carry the verified cubes with
+   `seed_results.py`, run at 60 s, escalate again if needed.
+2. Publish \(1^{12} 3^{10}\) with the chained check
+   (`verify_cnc_p.py 12 3 10 4 ... --refine <maps> --verified <logs>`) and submit
+   the lemma; then \(1^{2} 5^{8}\).
