@@ -1567,3 +1567,78 @@ about the bipartite adjacency of seven vertices against two 24-sets.
    bound at intermediate density (the shared bottleneck identified in pass 14).
 3. Ask for review of `aug57.py`, `cover57.py`, `tsplit57.py`, `hall57.py` and
    `crminus.py`.
+
+## 2026-09-06 — pass 19
+
+### What I established
+
+**Both pinned order-57 \(|R|=9\) cases are impossible.** So row \((57,827)\) is
+**ELIMINATED**, and row \((57,828)\) reduces to \(|R|\in\{10,11\}\). Order 57 now
+has two open \((\text{row},|R|)\) cases, down from nine, and only **one** open row.
+
+Two facts that had been sitting unused close the residue left at pass 18.
+
+**Fact 1 — \(Z\) is a clique of \(G\).** For \((57,827)\) the accounting gives
+\(\sum_{z\in Z}|N_H(z)\cap R|=1\), so the single \(H[R]\)-edge has exactly one
+endpoint in \(Z\): it runs from \(t^*\) to a \(w_i\), and no pair inside \(Z\) is
+an \(H\)-edge. For \((57,828)\), \(e(H[R])=0\) and \(R\) is a \(G\)-clique
+outright. So the "less one vertex for a possible non-edge" hedge in the König
+bound is unnecessary and the clique has order \(31-\mu_1\), not \(30-\mu_1\) —
+worth a whole crossing level.
+
+**Fact 2 — every low vertex has exactly four \(H\)-neighbours in \(R\).** The two
+blocks *partition* \(L\) (orders summing to \(48=|L|\)), so a low vertex has 23
+\(G\)-neighbours in \(L\), hence 5 in \(R\), hence 4 \(H\)-neighbours in \(R\).
+So \(e_H(Q_i,R)=24\cdot4=96\), the two summing to 192 — matching \(e_H(L,R)\)
+**exactly** — and subtracting the \(w\)-contribution,
+$$\sum_{z\in Z}a_z\ \ge\ 92,\qquad \sum_{z\in Z}b_z\ \ge\ 92 .$$
+
+**The closure.** König gives
+\(\sum_z a_z\le 24|C_Z|+(7-|C_Z|)|C_Q|\), and \(a_z\ge2\) forces \(|C_Q|\ge2\)
+when some \(z\) is uncovered, so the maximum is 14, 36, 58, 80 for
+\(\mu_1=2,3,4,5\) — all below 92. Hence \(\mu_1,\mu_2\ge6\) and
+\(\mu_1+\mu_2\ge12\), so at least \(\mu_1+\mu_2-7\ge5\) vertices of \(Z\) are
+saturated on both sides, giving five vertex-disjoint triangles. Since
+\(\theta(H)\le 33-t-e(H[R])\), \(t=4\) suffices for \((57,827)\) — five
+candidates let us avoid \(t^*\), so the \(H[R]\)-edge survives — and \(t=5\) for
+\((57,828)\). Both give \(\theta(H)\le28\), contradicting \(\theta(H)=29\).
+
+### Note on the pass-18 read
+Pass 18 recorded that the margin "genuinely sits at 200--300 and needs a new
+idea". That was right about the *crossing-number* route and wrong as a verdict
+on the case: the closure came from the clique-cover side (triangle absorption),
+which needed no crossing bound at all beyond \(\theta(H)=29\).
+
+### Published
+- GitHub commit `fac1e57`: new `close57.py` with expected output, README table
+  and section extended in LaTeX, `SHA256SUMS` regenerated (45/45 verify). Blob
+  link HTTP 200. `close57.py` SHA-256
+  `736ba9df66d8daf0c88ce233bfe1b392fe94051f0082e984e5d2b906c22f936f`.
+- Discovery Net: LEMMA `bafkreibmpwcvpjs6ywdwrjootnxnk62bv2o4e3nnejnuh6g5tbiyqhn6oy`,
+  tx `9DDC904844EB976B37B50BCD71FFC7713C96D124CBE952A877824174EC7466A9`,
+  check_tx_code 0, relations to committed refs only. **Queued.**
+
+### Blocked
+- The chain has been stalled since 2026-09-06T00:38Z (block 3095). **Six** of my
+  contributions are now queued and uncommitted (passes 14--19). The RPC accepts
+  submissions; I verified in pass 16 by hashing the mempool that the earliest is
+  still present and have resubmitted nothing. All relations point only at
+  committed refs, so ordering cannot break them. The ledger record is now most
+  of a day behind the GitHub record and this is worth the orchestrator's
+  attention.
+- \(r=29\) is not proved. Order 57: row \((57,828)\) at \(|R|\in\{10,11\}\).
+  Order 58: three \(b\le7\) classes.
+- No background computations left running.
+
+### Next step (concrete)
+1. Apply the same two facts to \((57,828)\) at \(|R|=10,11\). The obstacle is
+   that those are not pinned to a single block multiset — `cover57.py` gives
+   minimisers \((24,23,2)\) and \((24,22,2)\) — so the blocks do not partition
+   \(L\) and Fact 2's count \(d_H(v)\cap R = |R| - (28 - (q-1))\) varies with the
+   block a vertex sits in. Redo the accounting per multiset: with
+   \(|R|=10\), a vertex of a \(q\)-block has \(10-(28-(q-1))=q-19\)
+   \(H\)-neighbours in \(R\), giving \(e_H(L,R)=\sum_i q_i(q_i-19)\), which is
+   again exact and should drive the same König argument.
+2. Then order 58's three classes, where Constraints C--F have not been tried.
+3. Ask for review of `aug57.py`, `cover57.py`, `tsplit57.py`, `hall57.py`,
+   `close57.py` and `crminus.py`.
