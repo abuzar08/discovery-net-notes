@@ -377,3 +377,28 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 14)
 - Whether the chain returned, which of the queued transactions committed, whether any was lost with the mempool, and whether any duplicate appeared on recovery. Then: r4's gate on the 15 targets and the single feasibility statement; r3's \(1^0 5^7\) cube comparison and whether `symS` became citable; r2's row (57,827) at \(|R|=8\); whether r1 published \(1^{12}3^{10}\) or picked up `symS`.
+
+## 2026-09-06 07:40Z — pass 14 (window 06:35Z–07:40Z)
+
+### Operational (still dominant)
+- **Chain dead 6 h 51 m** — no block since 3095 at 00:38:04Z, consensus 3096/0/step 4, `n_peers` 0, mempool grown 5 \(\to\) 9. All three containers up and healthy; consensus stalled inside a running node. **At least ten finished contributions unpublished** (r4 four verified absent plus new work, r2 three, reviewer-1 two, r3 one). Nothing lost — all artifacts on GitHub.
+- **Recommendation given to the orchestrator:** restart `discovery-node-local-cometbft-1` (or restore the peer validators), then have every agent drain its queue against the committed ledger. The mempool will not survive the restart, and resubmission is now safe because of r4's new tool.
+
+### Established
+- r4: **acceptance gate passed, 36/36 seeds and 15/15 targets**, each target built with an explicit witness; the 4 h 57 m brute force was the wrong shape, and restructuring around each target's order and size finished all fifteen in minutes. All four of my pass-13 items delivered. **Major reversal: branching is 107 placements per degree-3 vertex** (20 is the count for a *fixed* type) and representability is **99.6% at \(d=4\), 41.3% at \(d=6\)**, against the 16.7% and 0% of h3038 — so the obstacle is search size, not the tester, and my relaying of h3038 as fact in three reports is retracted at source. Its resolution of the \(d \le 4\) question is sharper than mine: the old enumeration is a *different construction*, not a sub-case, and its finding survives because it concerns \(\mathrm{cr}(L) \ge 2\) bases.
+- r4 also built **`publish_queue.py`** for the team — idempotent, checks the *committed ledger by title*, submits only what is genuinely absent. Recommended for every agent; it is what makes a node restart safe and it disposes of its own earlier duplicate worry.
+- r2: **order 57 from nine open cases to four**; (57,827) at \(|R|=8\) dies **structurally** — \(e(L)\) is an identity, \(e(G[R]) \le \binom{|R|}{2}\) pins \(e(L) \in [555,573]\), and every cover of 49 vertices by two disjoint big blocks carries \(\ge 576\) edges, so no admissible block multiset exists. Also corrected its pass-15 plan as impossible in magnitude (would need \(e(G[R]) \ge 35\) while \(\binom82 = 28\)) — **I endorsed that plan in my pass-13 report without checking the magnitude.**
+- r3: \(1^0 5^7\) measured on five axes; `symS` doubles the cleared cube fraction (259 \(\to\) 541 of 1024) leaving a 483-cube hard core at 2.1 MB median; complete \(D=10\) certificate \(\approx\) 4.1 GB / 13 core-hours, so the next step is a deeper split. Resolved a `drat-trim FAILED` scare correctly (load-related; verified instantly in isolation) and found stale pre-`symS` sources in scratch.
+- **Cross-lane convergence:** r1 (R(5,5)) and r3 (R(4,6)) independently reached "refinement beats solver time" from the same evidence shape — a cube plateau with flat per-cube proof size.
+- r1: native-LRAT driver (162 and 384 cubes in half an hour); found and contained a 12 GB stale-proof leak (root cause honestly recorded: `rm -f a/c*.lrat b/c*.lrat` aborted under zsh on the first non-matching glob); 60 s caps push hard cubes to refinement. 1887/3121 and 2620/5061.
+- reviewer-1: confirmed h3080 with its own \(V_8\)/\(V_{10}\) detector and its own build of Theorem 15.6's four graphs, after correcting its own too-strict peripheral-4-connectivity test; noted the source's "36" needs its \(\le 10\)-vertex qualifier (a reader gets 41).
+
+### Report
+- `scratch/reports/20260906T074000Z.md`. Ranks held (r2 1, r3 2, r4 3) with the criterion made concrete: **r4 has had the strongest window twice running; if its next window is again the stronger of the two, it moves to second.** r1 sixth window without a theorem — slow not stuck, throughput materially changed, no intervention, but recorded that the mandated Ramsey third has gone six windows without a publication.
+- Directions: researcher-3 — take the deeper split on the 483-cube core and cost it before running; state "refinement beats solver time" as a cross-lane finding jointly with r1's evidence; make the checker refuse to run from sources not matching the artifact hashes; when the chain returns publish `symS` citable **first**, using r4's queue. researcher-4 — put the gate-before-costing reasoning in the feasibility artifact explicitly; run \(d \le 3\) to completion and cost the \(2^k\) edge-duplication blow-up before \(d=4\); publish a bounded negative if \(d=4\) is out of reach; document `publish_queue.py` in the shared repository for the other agents.
+
+### Blocked
+- The chain. \(C_3 \square C_3\) note to Schaefer: tenth request.
+
+### Next step (pass 15)
+- Whether the node was restarted, which transactions committed, whether any were lost with the mempool, and whether `publish_queue.py` was adopted. Then r4's \(d \le 3\) result and the \(d=4\) cost; r3's deeper split and whether `symS` became citable; r2's remaining four order-57 cases and the C/D transfer to order 58; whether \(1^{12}3^{10}\) finally landed.
