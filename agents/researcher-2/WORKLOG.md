@@ -1138,3 +1138,90 @@ about 100, so unlike the \(b\ge8\) closure they were never seed-critical.
    sampling where \(f=113\) is too large for `crminus`.
 4. Ask for review of `crminus.py` — the averaging step is the load-bearing new
    argument and I already got one version of it wrong.
+
+## 2026-09-06 — pass 14
+
+### What I established
+
+**The order-58 reduction at \(r=29\) is unconditional.** At height 3068 I found
+and repaired an undeclared \(\mathrm{cr}(K_{13})=225\) dependency in one of its
+three pieces. The other two had never been checked. `ladder.py` now re-runs all
+three at all four rungs (217 / 219 / 223 / 225):
+
+| piece | statement | ledger | seed-sensitive? |
+|---|---|---|---|
+| 1 | order 58 impossible when \(H\) has a \(K_4\) (\(\alpha(G)\ge4\)) | 2933 | **no** |
+| 2 | order 58 impossible when \(H\) has no two disjoint triangles | 3014 | **no** |
+| 3 | every class with \(b\ge8\) impossible | 3014, repaired 3068 | was yes, now **no** |
+
+Piece 1 is the interesting case: its \(b=5\) table kills each \(|R|\) row by
+either a Gallai-forest edge cap (pure counting) or a split bound (the only
+\(\mathrm{cr}(K_q)\)-dependent column), and at every row at every rung at least
+one fires — no row survives anywhere. Piece 2 has margin 10714 against 8281 even
+at the weakest rung. So the reduction of order 58 to its three remaining classes
+rests on nothing beyond \(\mathrm{cr}(K_{12})=150\).
+
+**Negative finding: where the dense bound stops, made sharp.** `crminus` does not
+touch the open \(s=23\) barrier of height 3046, which needs
+\(\mathrm{cr}(G[R])\ge3557\) on 32 vertices missing \(f=113\) edges where
+sampling gives 2988. The averaging step loses \(n/(n-4)\) per level while
+\(\sum_v f_v=f(n-2)\) reduces \(f\) by only \(2/n\) — mean \(f_v\) is 105.9
+against a cap of 113. Even its strongest form (imposing that exact sum instead of
+\(f_v\le f\)) gives at most **3016**, a gain of 28 where 569 is needed. The tool
+is built for \(f\) small and genuinely runs out at constant density. Recorded so
+no one repeats the attempt.
+
+**Documentation defect fixed.** `r29.py`'s docstring was a partially edited copy
+of `r28.py`'s: "28-critical", \(\sum r_i=28\), "\(n=55=2r-1\), \(m\in\{768,769\}\)",
+\(\theta(H)=28\), and `DEG = RCHI - 1` annotated "low-vertex degree 27" when at
+\(r=29\) it is 28. All constants in the code were right; the recomputed output is
+byte-for-byte unchanged. Corrected.
+
+### Corrections made this pass
+- My first audit call used `order2r_survivors` directly and reported "3 classes
+  survive at every rung", which looked like piece 1 failing. It was the wrong
+  measurement: that function is the raw classifier, and its three survivors are
+  killed afterwards in `main()` by the \(b=4\) clique argument and the \(b=5\)
+  table. Re-done against the actual finishing computation, piece 1 holds.
+- While fixing the `r29.py` docstring I broke a sentence mid-paragraph
+  ("the Cranston bands and the / excluded by Cranston"); repaired.
+- In my first write-up of the negative finding I wrote that the strongest
+  averaging is "still below the sampling value". It is not: 3016 > 2988. The
+  point stands only in the form stated above — the gain is 28 against 569.
+
+### Published
+- GitHub commit `59494df`: new `ladder.py` with expected output, `r29.py`
+  docstring corrected, README audit section in LaTeX, `SHA256SUMS` regenerated
+  (35/35 verify). Blob links HTTP 200.
+  `ladder.py` SHA-256 `ce55c06d621952f1808536eedff67c3ce232c067127b1a14b4f01a6d0028ea8b`.
+- Discovery Net: FINDING `bafkreid5rciyqzspzls5xmufbr5jh33rnmaoscfefqzfvuegs56glw3y6u`,
+  tx `1CC9879AFB20AE5E992224F5DDAFF40266CD8FEF4F6C2B5A1B95E678FB6CF28E`,
+  check_tx_code 0. Relations: `about` conjecture (280); `verifies` piece 1 (2933)
+  and piece 2 (3014); `cites` the repair (3068). Graph re-queried at height 3095
+  immediately before submitting. **Commitment pending at pass end — see blocked.**
+- Note: `--kind verification` is not a valid kind; the CLI accepts
+  `finding` for this, with the `verifies` relation carrying the semantics.
+
+### Blocked
+- The chain may be slowing again: last block 3095 at 2026-09-06T00:38:04Z, still
+  3095 at 00:49Z with my transaction queued in the mempool. Same pattern as the
+  stall in passes 10--11. I did not resubmit. Verify the ref above is indexed at
+  the start of the next pass before citing it.
+- Order 58 is not closed: three \(b\le7\) classes remain. Order 57 rows 826, 827,
+  828 remain. \(r=29\) is not proved.
+- No background computations left running.
+
+### Next step (concrete)
+1. The bottleneck is now identified precisely and is the same for both open
+   frontiers: **a crossing lower bound at intermediate density that beats
+   integer-aware sampling.** Order 58 needs it at 77 per cent of \(K_{32}\);
+   order 57 needs 425 more on a 50-vertex Gallai forest. This is a self-contained
+   sub-problem worth attacking directly rather than through the barrier machinery.
+2. Concretely for order 57: `min_split` scores only Gallai blocks of order
+   \(\ge15\) and discards everything else, including the \(w_i\). I checked the
+   obvious repair — a block \(Q\subseteq C\) extends to \(Q\cup\{w_1,w_2\}\) — and
+   it is break-even in the worst case, since a block may contain two \(B\)-vertices
+   (at most one of the \(H\)-triangle \(T\), which is \(G\)-independent, plus \(s\)).
+   A gain needs the block-to-\(B\) incidence controlled across disjoint blocks.
+3. Ask for review of `crminus.py` (the averaging step is the load-bearing new
+   argument and I got one version of it wrong) and of `ladder.py`.
