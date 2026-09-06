@@ -639,15 +639,16 @@ and 58, and the Gallai join/edge budget kills order 56 = 2r-2.
 eight-row `r = 29` frontier published at ledger height 2761.  Two of the five
 close outright; the other three reduce to explicit high-vertex counts:
 
-| row | after `r29.py` | after `aug57.py` | after `cover57.py` |
-|---|---|---|---|
-| (57, 824) | eliminated | eliminated | eliminated |
-| (57, 825) | eliminated | eliminated | eliminated |
-| (57, 826) | `\|R\| = 7` | **eliminated** | eliminated |
-| (57, 827) | `\|R\| in {7,8,9}` | `\|R\| in {8,9}` | **`\|R\| = 9`** |
-| (57, 828) | `\|R\| in {7,...,11}` | unchanged | **`\|R\| in {9,10,11}`** |
+| row | after `r29.py` | after `aug57.py` | after `cover57.py` | after `close57.py` |
+|---|---|---|---|---|
+| (57, 824) | eliminated | eliminated | eliminated | eliminated |
+| (57, 825) | eliminated | eliminated | eliminated | eliminated |
+| (57, 826) | `\|R\| = 7` | **eliminated** | eliminated | eliminated |
+| (57, 827) | `\|R\| in {7,8,9}` | `\|R\| in {8,9}` | `\|R\| = 9` | **eliminated** |
+| (57, 828) | `\|R\| in {7,...,11}` | unchanged | `\|R\| in {9,10,11}` | **`\|R\| in {10,11}`** |
 
-Open `(row, |R|)` cases at order 57: **four**, down from nine.
+Open `(row, |R|)` cases at order 57: **two**, down from nine; and only **one**
+row remains.
 
 ### Two discarded resources, recovered (`aug57.py`)
 
@@ -801,8 +802,42 @@ single possible non-edge of \(G[R]\)) disjoint from \(Q_2\):
 
 and symmetrically in \(\mu_2\).  So the whole residue is
 \((\mu_1,\mu_2)\in\{(4,4),(4,5),(5,4),(4,6),(6,4),(5,5)\}: a statement purely
-about the bipartite adjacency of seven vertices against two 24-sets.  **The case
-is not closed**, and this is exactly where it stands.
+about the bipartite adjacency of seven vertices against two 24-sets.
+
+### That residue is now closed (`close57.py`)
+
+Two facts that were sitting unused finish it.
+
+**\(Z\) is a clique of \(G\).**  For \((57,827)\) the accounting gives
+\(\sum_{z\in Z}\lvert N_H(z)\cap R\rvert=1\), so exactly one endpoint of the
+single \(H[R]\)-edge lies in \(Z\): the edge runs from \(t^*\) to a \(w_i\), and
+**no pair inside \(Z\) is an \(H\)-edge**.  For \((57,828)\), \(e(H[R])=0\) and
+\(R\) is a \(G\)-clique outright.  So the "less one vertex for a possible
+non-edge" hedge in the König bound is unnecessary, and the clique has order
+\(31-\mu_1\), not \(30-\mu_1\).
+
+**Every low vertex has exactly four \(H\)-neighbours in \(R\).**  The blocks
+partition \(L\), so a low vertex has exactly 23 \(G\)-neighbours in \(L\), hence
+\(28-23=5\) in \(R\), hence \(9-5=4\) \(H\)-neighbours in \(R\).  Therefore
+\(e_H(Q_i,R)=24\cdot4=96\), the two summing to 192, which matches \(e_H(L,R)\)
+exactly.  Subtracting the \(w\)-contribution,
+
+$$\sum_{z\in Z}a_z \;\ge\; 92, \qquad \sum_{z\in Z}b_z \;\ge\; 92 .$$
+
+Now König bites hard.  A cover \(C_Z\cup C_Q\) of size \(\mu_1\) gives
+\(\sum_z a_z\le 24\lvert C_Z\rvert+(7-\lvert C_Z\rvert)\lvert C_Q\rvert\), and
+\(a_z\ge2\) forces \(\lvert C_Q\rvert\ge2\) whenever some \(z\) is uncovered.
+Maximising over the admissible splits gives at most 14, 36, 58, 80 for
+\(\mu_1=2,3,4,5\) — all below 92.  So \(\mu_1\ge6\), symmetrically
+\(\mu_2\ge6\), and \(\mu_1+\mu_2\ge12\): at least
+\(\mu_1+\mu_2-7\ge5\) vertices of \(Z\) are saturated on both sides, giving
+five vertex-disjoint triangles.  Since
+\(\theta(H)\le 33-t-e(H[R])\), \(t=4\) suffices for \((57,827)\) (choosing the
+four to avoid \(t^*\), so the \(H[R]\)-edge survives) and \(t=5\) for
+\((57,828)\); both give \(\theta(H)\le28\), contradicting \(\theta(H)=29\).
+
+**So both \(\lvert R\rvert=9\) cases are impossible.  Row \((57,827)\) is
+eliminated, and row \((57,828)\) reduces to \(\lvert R\rvert\in\{10,11\}\).**
 
 Order 58 = 2r is **not** covered by this argument: there Stehlík gives one colour
 class of size three rather than a perfect matching, so `H` need not be

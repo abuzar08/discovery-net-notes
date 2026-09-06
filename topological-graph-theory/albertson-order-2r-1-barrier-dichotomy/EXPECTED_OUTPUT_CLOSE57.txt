@@ -1,0 +1,43 @@
+Albertson r = 29, order 57: the pinned |R| = 9 cases are impossible
+Z(29) = 8281;  |L| = 48, blocks (24,24), |R| = 9, |Z| = 7
+
+FACT 2   every low vertex has exactly 4 H-neighbours in R
+   The blocks partition L, so a low vertex has 23 G-neighbours in L,
+   hence 5 in R, hence 4 H-neighbours in R.  So e_H(Q_i,R) = 96.
+
+KOENIG BOUND   largest sum_z a_z admitted by a cover of size k
+      k = 2 :  sum_z a_z <=  14
+      k = 3 :  sum_z a_z <=  36
+      k = 4 :  sum_z a_z <=  58
+      k = 5 :  sum_z a_z <=  80
+      k = 6 :  sum_z a_z <= 102
+      k = 7 :  sum_z a_z <= 168
+      k = 8 :  sum_z a_z <= 168
+
+ROW (57, 827)
+   a=3 tau=1 : e(H[R])=1, sum_Z|N^L|=188
+        sum_z a_z >= 92 and sum_z b_z >= 92, so mu_1, mu_2 >= 6
+        hence mu_1 + mu_2 >= 12 and at least 5 vertices of Z
+        are saturated on both sides; t = 4 triangles are needed (theta <= 33 - t - 1)
+        5 available >= 4 needed  ->  IMPOSSIBLE
+        (the surviving H-edge of R runs from t* to a w_i, and w_i is
+         never absorbed; 5 candidates for 4 slots let us avoid t*,
+         so theta(H[R']) = 5 - 1 = 4 as used above.)
+
+ROW (57, 828)
+   a=1 tau=0 : e(H[R])=0, sum_Z|N^L|=189
+        sum_z a_z >= 93 and sum_z b_z >= 93, so mu_1, mu_2 >= 6
+        hence mu_1 + mu_2 >= 12 and at least 5 vertices of Z
+        are saturated on both sides; t = 5 triangles are needed (theta <= 33 - t - 0)
+        5 available >= 5 needed  ->  IMPOSSIBLE
+   a=2 tau=0 : e(H[R])=0, sum_Z|N^L|=188
+        sum_z a_z >= 92 and sum_z b_z >= 92, so mu_1, mu_2 >= 6
+        hence mu_1 + mu_2 >= 12 and at least 5 vertices of Z
+        are saturated on both sides; t = 5 triangles are needed (theta <= 33 - t - 0)
+        5 available >= 5 needed  ->  IMPOSSIBLE
+
+CONCLUSION
+   Both pinned |R| = 9 cases are impossible.
+   Row (57, 827) had |R| = 9 as its only open case, so it is
+   ELIMINATED.  Row (57, 828) reduces to |R| in [10, 11].
+   Order 57 open (row, |R|) cases: 2, down from 4.
