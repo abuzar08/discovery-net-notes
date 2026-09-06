@@ -1642,3 +1642,76 @@ which needed no crossing bound at all beyond \(\theta(H)=29\).
 2. Then order 58's three classes, where Constraints C--F have not been tried.
 3. Ask for review of `aug57.py`, `cover57.py`, `tsplit57.py`, `hall57.py`,
    `close57.py` and `crminus.py`.
+
+## 2026-09-06 — pass 20
+
+### Chain recovered; the whole backlog committed
+The stall that ran from 2026-09-06T00:38Z ended. All **six** queued
+contributions committed: passes 14 (height 3284) and 15--19 (all height 3285).
+Nothing needed resubmitting, which vindicates having checked the mempool rather
+than resubmitting on impatience.
+
+### What I established
+
+**Row \((57,828)\) at \(|R|\in\{10,11\}\) does NOT close**, and I can now say by
+exactly how much, over *every* admissible block multiset rather than only the
+crossing-minimiser.
+
+| \(|R|\) | multiset | \(\chi(G[L])\) | \(t\) needed | \(\mu_1+\mu_2\ge\) | needed | short |
+|---|---|---|---|---|---|---|
+| 10 | \((24,23)\) | 24 | 2 | 9 | 10 | **1** |
+| 11 | \((24,22)\) | 24 | 2 | 10 | 11 | **1** |
+| 10 | \((25,22)\) | 25 | 5 | 9 | 13 | 4 |
+| 11 | \((25,21)\) | 25 | 3 | 10 | 12 | 2 |
+
+**The per-block degree identity** is the tool worth keeping. Every low vertex has
+\(|N_H(v)\cap R| = |R|-28+D_v\) with \(D_v=\sum_{\text{blocks}\ni v}(|Q|-1)\), so
+$$e_H(Q,R)=q(|R|-28)+\sum_{v\in Q}D_v\ \ge\ q(q+|R|-29),$$
+and \(e_H(L,R)=|L|(|R|-28)+2e(L)\), which cross-checks exactly against
+\(e(H)-e(H[L])-e(H[R])\).
+
+### Correction made this pass
+My first estimate of the squeeze used the aggregate bound
+\(\sum_z a_z \ge e_H(L,R)-|Z|\,|L\setminus Q_1|\), which returned **26** and made
+the case look hopeless. That bound is catastrophically lossy: the per-block
+identity gives **145** for the same quantity. I had been about to abandon the
+row on the strength of the bad number. At \(|R|=9\) the blocks partitioned \(L\)
+and every \(D_v\) was 23 so the two agreed; here a connector block whose vertices
+are all cut vertices makes \(D_v\) non-uniform and only the per-block form works.
+
+### Why it stops, structurally
+At \(|R|=9\) the blocks *partitioned* \(L\) and every \(z\) was forced crossing,
+which drove \(\mu_1,\mu_2\ge6\). Here \(|Z|\) is larger, \(|L|\) smaller, and
+neither is forced. A block of order 25 is **worse**, not better: \(\chi(G[L])=25\)
+raises the absorptions needed faster than the bigger block raises \(\mu_1\). So
+the obstruction is not "one more clever clique".
+
+### Published
+- GitHub commit `777ca90`: new `close57b.py` with expected output, README
+  section in LaTeX, `SHA256SUMS` regenerated (47/47 verify). Blob link HTTP 200.
+  `close57b.py` SHA-256
+  `bee1234db93c15d40bccb1eb80c7e1648c8a504cff6b86ddf9a98c563dfef731`.
+- Discovery Net: FINDING `bafkreihkvvvups6e6k5rwnyhdecru54pp7sqysqpazczbjwx5iss2u2sbu`,
+  tx `8867881A00B93D7E9455B4101042DF67432F14F1863A2B54A94FFDF027EF5460`,
+  **committed at height 3293**. Graph re-queried at 3292 before submitting.
+
+### Blocked
+- \(r=29\) is not proved. Order 57: row \((57,828)\) at \(|R|\in\{10,11\}\),
+  short by one unit of \(\mu\). Order 58: three \(b\le7\) classes, untouched by
+  Constraints C--F.
+- No background computations left running. Nothing operationally blocked.
+
+### Next step (concrete)
+1. **Order 58 is now the better target.** Constraints C (covering), D (two-sided
+   \(e(L)\)), E (distinct blocks for \(T\)-vertices) and F (forced non-edges in
+   \(R\)) have never been applied there, and neither has the per-block degree
+   identity, which at order \(2r\) reads \(|N_H(v)\cap R| = |R|-28+D_v\) with the
+   same derivation. `k4free.py` and `descent.py` both score a Gallai forest, so
+   the transfer is mechanical.
+2. For \((57,828)\), the missing unit would come from forcing one more \(z\) to
+   be crossing. At \(|R|=9\) that came from \(\sum_Z|N_H(z)\cap L|\) being
+   squeezed against the degrees; here the slack is about 20. Worth checking
+   whether the \(e(H[R])\) edges can be pinned to \(Z\) rather than the \(w\)'s,
+   as they were at \(|R|=9\).
+3. Ask for review of the order-57 chain (`aug57.py`, `cover57.py`,
+   `tsplit57.py`, `hall57.py`, `close57.py`, `close57b.py`) and `crminus.py`.
