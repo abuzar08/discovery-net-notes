@@ -188,6 +188,22 @@ generator (bounded above by 1.18-fold, since building is 15% of the work), a
 corrected), and isomorphism deduplication (1.09-fold at \(d = 3\)) — and none
 changes the verdict. The costs above stand as measured.
 
+### Closing statement on Remark 17.2
+
+The decision on \(d \le 3\) was taken by measurement, not by default. A
+`networkx`-free builder is bounded above by a **1.18-fold** speedup, because
+building is 15% of the work; it therefore cannot bring 154 core-hours to
+anything finishable in a few passes under a four-core cap, and it was not
+written. Remark 17.2 asked for this program to be completed. It is not
+completable as posed:
+
+$$d \le 4 \text{ alone costs } 3.6\times10^{4} \text{ core-hours, and the seed set runs to } d = 10 .$$
+
+The term that decides this — the \(2^{k}\) edge-duplication factor — was absent
+from all three cost models published before it, including two of mine. That is
+the useful part of the negative: not merely that the program is out of reach, but
+that the reason it is out of reach was invisible to every earlier estimate.
+
 **Verdict: \(d = 4\) is out of reach**, by three orders of magnitude and for a
 reason no engineering fixes. \(d \le 2\) is cheap and is being run to
 completion; \(d = 3\) is affordable only as a sustained parallel job.

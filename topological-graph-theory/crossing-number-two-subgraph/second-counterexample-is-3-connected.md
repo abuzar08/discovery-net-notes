@@ -4,6 +4,15 @@
 census and the published literature, and depends on **none** of the expansion
 program in [`corrected-construction.md`](corrected-construction.md).
 
+> **One hypothesis, stated as a hypothesis.** Branch (2) below rests on reading
+> Figure 14.3, and specifically on the identification it intends using **at most
+> four vertex pairs**. Every identification with \(k \le 4\) has been checked
+> exhaustively — 137 of them are 2-crossing-critical and every one has
+> \(\operatorname{cr} = 2\) — so the conclusion holds for any intended reading
+> within that bound. It is not the same as proved: a reading needing five or more
+> pairs is not covered. Branches (1) and (3), and the twelve-vertex floor, do not
+> depend on it.
+
 ## The question
 
 Bloom, Kennedy and Quintas asked whether every graph with
@@ -24,6 +33,10 @@ equivalently whether every 2-crossing-critical graph has
 > **Corollary.** A second counterexample to Bloom–Kennedy–Quintas exists **if and
 > only if** a 3-connected one exists, and any such graph has at least 12
 > vertices.
+
+The corollary's forward direction is unconditional. The reverse direction — that
+no non-3-connected graph is a second counterexample — carries the Figure 14.3
+hypothesis above.
 
 The minimum-degree hypothesis costs nothing: by BORS Theorem 17.1(1) every
 2-crossing-critical graph is a subdivision of one of minimum degree at least 3,
