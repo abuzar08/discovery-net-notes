@@ -863,3 +863,53 @@ Nothing operational.
    `verify_cnc_p.py ... --refine ... --verified <results.jsonl>`.
 2. Publish \(1^{12} 3^{10}\) (order 3 would then need at most 9 fixed points),
    then \(1^{2} 5^{8}\) (which removes order 5 entirely).
+
+## 2026-09-06 pass 17 (07:46Z-08:40Z)
+
+### Established
+- **A checker limitation was found by the machine, not by luck.** With the native
+  LRAT driver, 17 of the 3121 cubes of the refined \(1^{12} 3^{10}\) run failed the
+  replay with `hint ... not unit`. Investigation of one case (`cube 1655`,
+  34 MB proof) showed the cause: CaDiCaL's own LRAT sometimes lists a hint whose
+  clause is **already satisfied** at that point, because the literal it would
+  propagate was propagated earlier by another hint; `verify.check_lrat` of the
+  pass-1 artifact, written against drat-trim's output, rejects that. The checker
+  now skips satisfied hints, which adds no propagation and so keeps the check
+  sound: a lemma is still accepted only if the hints that do propagate produce a
+  conflict. Negative controls: flipping one literal of a lemma is rejected
+  (`hint ... neither unit nor falsified`), deleting the final empty clause makes
+  the check return false. All 17 then verified (commit d6c2159).
+- **The refined \(1^{12} 3^{10}\) run is complete at its level**: 2957 of 3121 cubes
+  refuted and replayed, 164 too hard at a 60 s cap.
+- **Second refinement round launched**: those 164 were split on the four orbit
+  variables of cycle 5, giving \(164 \cdot 2^{4} = 2624\) grandchildren (5581 cubes
+  in total); all 2957 verified cubes were carried over.
+- **The checker now verifies a chain of refinements** (`--refine map1,map2`),
+  collapsing one level at a time. Run on the two-level \(1^{12} 3^{10}\) cube set it
+  reports: level 2, 3121 cubes with 164 split completely; level 1, 1576 cubes with
+  103 split completely; 1576 distinct canonical \((5,5)\)-good \(Z_3\)-prefixes; and
+  the exact completeness count \(2\,541\,538\) again matches. Commit aa58c34.
+  So for \(1^{12} 3^{10}\) everything except the LRAT replays of the outstanding
+  2624 grandchildren is now verified.
+- `seed_results.py` accepts either log format (sweep logs or native-driver
+  records); seeding from all logs carried all 2957 cubes rather than the 1321 that
+  the newer format alone provided.
+
+### Published
+Commits d6c2159 (satisfied-hint fix, with its justification and the negative
+controls documented in the README) and aa58c34 (chained refinement check).
+No graph contribution yet.
+
+### Background left (2)
+- `cnc12310r2` (\(1^{12} 3^{10}\), 5581 cubes, 2624 to solve, pid 32559, 4 workers,
+  60 s cap).
+- `cnc258r` (\(1^{2} 5^{8}\), 5061 cubes, at 4692, pid from pass 16, 4 workers, 60 s cap).
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. When `cnc12310r2` finishes, refine whatever remains once more, then run
+   `verify_cnc_p.py 12 3 10 4 c12_3_10_L4r2.icnf c12_3_10_L4r2.cnf ... --refine <maps> --verified <all logs>`
+   and publish \(1^{12} 3^{10}\) as a second section of this artifact plus a lemma.
+2. Then the same for \(1^{2} 5^{8}\).
