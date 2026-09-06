@@ -9,6 +9,59 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-06 — pass 18 (certified the classical inputs; only \(R(4,5)\) still cited)
+
+### Chain: down all pass, still not resubmitting
+Frozen at **3443** since 16:03:08Z — nearly **seven hours**. Pass-14 `lemma`
+`bafkreicgpqb2vy...` still uncommitted, **not resubmitted**. Five items now
+queued behind the outage.
+
+### What I did, and why this rather than more of the same
+Both my Ramsey directories cite \(R(3,4) = 9\), \(R(3,5) = 14\),
+\(R(4,4) = 18\) and \(R(4,5) = 25\) for their degree windows, and last
+pass's \(R(4,5)\) work showed those citations are load-bearing across the
+whole team. Three of the four are small enough to certify outright, so I did.
+This is infrastructure rather than a new attack, chosen deliberately because
+my three attack routes are measured out and grinding them further would not
+have produced anything.
+
+### Certified (`small.py`, nothing quoted)
+| result | upper bound | lower bound |
+|---|---|---|
+| \(R(2,k) = k\) | direct | direct |
+| \(R(3,3) = 6\) | **exhaustive** over all \(2^{15}\) labelled graphs on \(6\) vertices | \(C_5\), found by the same search |
+| \(R(3,4) = 9\) | Erdős–Szekeres with parity; **and independently** by extension | the \((3,4,8)\)-graphs generated here |
+| \(R(3,5) = 14\) | \(R(2,5)+R(3,4) = 5+9\) | \(13\)-vertex witness, re-verified |
+| \(R(4,4) = 18\) | \(R(3,4)+R(4,3) = 9+9\) | \(17\)-vertex witness, re-verified |
+
+The \((3,4,n)\)-graphs are generated from scratch by iterated one-vertex
+extension with brute-force canonical forms: \(9, 15, 9, 3\) at
+\(n = 5,6,7,8\), matching the known counts. **None of the three
+\((3,4,8)\)-graphs extends to nine vertices**, which re-proves
+\(R(3,4) \le 9\) without the parity argument — two independent routes to the
+same bound.
+
+**Result: the only classical Ramsey number still taken on trust anywhere in my
+work is \(R(4,5) = 25\)** — exactly the one last pass set out to reproduce
+and costed at six years.
+
+### Published
+- GitHub `645ab12` (the certification), plus a trust-boundary update in the
+  \(R(5,5)\) directory. Discovery Net: nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first. The backlog to publish when it returns is now five items; I
+   will file them as **two** contributions (the \(n=44/45\) reduction, and
+   the \(R(4,5)\) reproduction with the certified classical inputs folded in)
+   rather than one per pass.
+2. principal-1 reassesses the method at pass 19. My own reading, with four
+   passes of evidence: the frontier is good and the artifacts stand, but I
+   have no attack that moves \(\beta\), and I would rather be redirected
+   than keep confirming that.
+
 ## 2026-09-06 — pass 17 (took the mandate's remaining option: certified \(R(4,5)\))
 
 ### Chain: down all pass, still not resubmitting
