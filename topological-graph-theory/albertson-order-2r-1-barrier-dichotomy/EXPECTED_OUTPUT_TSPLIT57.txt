@@ -1,0 +1,71 @@
+Albertson r = 29, order 57: the last four cases
+Z(29) = 8281;  a counterexample has cr(G) <= 8280
+
+  row  |R|   j  sig   e(L) range    score   minimiser      verdict
+  827    9   0   0    [529,553]     none   none          impossible
+  827    9   0   1    [529,551]     none   none          impossible
+  827    9   1   0    [529,552]     7354   (24, 24)      SURVIVES
+  827    9   1   1    [529,550]     none   none          impossible
+  827    9   2   0    [529,550]     none   none          impossible
+  827    9   2   1    [529,548]     none   none          impossible
+  827    9   3   0    [529,547]     none   none          impossible
+  827    9   3   1    [529,545]     none   none          impossible
+  828    9   0   0    [528,552]     none   none          impossible
+  828    9   0   1    [528,550]     none   none          impossible
+  828    9   1   0    [528,552]     7354   (24, 24)      SURVIVES
+  828    9   1   1    [528,550]     none   none          impossible
+  828    9   2   0    [528,551]     none   none          impossible
+  828    9   2   1    [528,549]     none   none          impossible
+  828    9   3   0    [528,548]     none   none          impossible
+  828    9   3   1    [528,546]     none   none          impossible
+  828   10   0   0    [502,533]     none   none          impossible
+  828   10   0   1    [502,531]     none   none          impossible
+  828   10   1   0    [502,533]     6714   (24, 23, 2)   SURVIVES
+  828   10   1   1    [502,531]     6714   (24, 23, 2)   SURVIVES
+  828   10   2   0    [502,531]     6714   (24, 23, 2)   SURVIVES
+  828   10   2   1    [502,529]     6714   (24, 23)      SURVIVES
+  828   10   3   0    [502,528]     none   none          impossible
+  828   10   3   1    [502,526]     none   none          impossible
+  828   11   0   0    [476,515]     none   none          impossible
+  828   11   0   1    [476,513]     none   none          impossible
+  828   11   1   0    [476,514]     6154   (24, 22, 2)   SURVIVES
+  828   11   1   1    [476,512]     6154   (24, 22, 2)   SURVIVES
+  828   11   2   0    [476,512]     6154   (24, 22, 2)   SURVIVES
+  828   11   2   1    [476,510]     6154   (24, 22, 2)   SURVIVES
+  828   11   3   0    [476,509]     6154   (24, 22, 2)   SURVIVES
+  828   11   3   1    [476,507]     6154   (23, 23, 2)   SURVIVES
+
+RESULT at order 57
+   row (57, 827) keeps |R| in [9]
+   row (57, 828) keeps |R| in [9, 10, 11]
+
+   Open (row, |R|) cases at order 57: 4, unchanged.
+
+WHAT IS GAINED, since the case count does not move
+   j = 0 is impossible in EVERY remaining case: at least one vertex
+   of the H-triangle T must be high.  With j = 0 the three T-vertices
+   of L need three pairwise distinct blocks (Constraint E), and no
+   admissible multiset supplies them inside the e(L) band.
+
+   The two |R| = 9 cases are pinned to a SINGLE configuration:
+      j = 1, sigma = 0, block multiset (24, 24).
+   So G[L] is exactly two disjoint copies of K_24 covering all 48 low
+   vertices, with NO edges between them, and e(G[R]) = C(9,2) - 1 = 35.
+
+   That rigidity is the opening for the next step.  No G-edges between
+   the blocks means H contains the complete bipartite graph K_{24,24}
+   between them, so H has a perfect matching on L using 24 edges, and
+   theta(H) <= 24 + theta(H[R]) = 24 + 8 = 32.  Pushing to 28 needs
+   four vertex-disjoint triangles {z, u, v} with z high, u and v in
+   different blocks: each such triangle replaces an edge of the
+   matching and absorbs one vertex of R, and 32 - 4 = 28 contradicts
+   theta(H) = 29.  A high z fails to give one only if all of its
+   H-neighbours in L lie in a single block, and then z is G-adjacent
+   to all 24 vertices of the OTHER block, giving a K_25 of G.  With
+   |Z| = 7 one of the two alternatives has at least four vertices;
+   in the second, two of them attach to the same block (and are
+   G-adjacent, since G[R] misses only one pair), giving a K_26 that
+   is disjoint from the other block augmented by w_1, w_2:
+      cr(K_26) + cr(K_25) = 4724 + 3997 = 8721 >= 8281.
+   Making the first alternative rigorous needs a system of distinct
+   representatives for the u and v; that is the open step.

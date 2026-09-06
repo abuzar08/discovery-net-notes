@@ -720,6 +720,48 @@ covering 49 vertices by two disjoint big blocks — \((26,23)\), \((25,24)\),
 vertices the covering condition cannot supply.  So **no admissible block multiset
 exists at all**: the case dies structurally, not by a crossing count.
 
+### The last four cases, pinned (`tsplit57.py`)
+
+Two further exact constraints.  **Constraint E:** \(T\) is an \(H\)-triangle, so
+its vertices are pairwise \(G\)-non-adjacent and no two can share a clique block.
+Writing \(j:=|T\cap R|\), the \(3-j\) low \(T\)-vertices need pairwise distinct
+blocks, and since a vertex lies in at most one big block,
+
+$$3-j \;\;\le\;\; n_{\mathrm{big}} + \Bigl(p-\sum_{\text{big}}q_j\Bigr).$$
+
+**Constraint F:** some pairs inside \(R\) are forced \(G\)-non-edges — the \(j\)
+high \(T\)-vertices are pairwise \(H\)-adjacent, each high \(T\)-vertex lying in
+\(A_1\cup A_2\) is \(H\)-adjacent to its \(w_i\), and if \(s\) is high it is
+\(H\)-adjacent to both \(w_i\).  With \(a:=|A_1|+|A_2|\),
+
+$$e(G[R]) \;\;\le\;\; \binom{|R|}{2}-\binom{j}{2}-\max(0,\,j-3+a)-2\sigma ,$$
+
+and the excess budget forces \(a\ge a_{\min}:=\max(0,|R|+52-X)\).  (The \(j\)-term
+must use \(a_{\min}\), not \(j\): a high \(T\)-vertex outside \(A_1\cup A_2\) forces
+nothing.)
+
+These do **not** reduce the case count, which stays at four.  What they give is
+rigidity: \(j=0\) is impossible in every remaining case, so at least one
+\(T\)-vertex is high; and the two \(|R|=9\) cases are pinned to the single
+configuration \(j=1\), \(\sigma=0\), block multiset \((24,24)\).  There \(G[L]\) is
+exactly two disjoint copies of \(K_{24}\) covering all 48 low vertices with **no**
+edges between them, and \(e(G[R])=\binom92-1=35\).
+
+*The opening this creates.*  No \(G\)-edges between the blocks means \(H\supseteq
+K_{24,24}\) there, so \(H\) has a 24-edge perfect matching on \(L\) and
+\(\theta(H)\le 24+\theta(H[R])=32\).  Four vertex-disjoint triangles \(\{z,u,v\}\)
+with \(z\) high and \(u,v\) in different blocks would each replace a matching edge
+and absorb a vertex of \(R\), giving \(\theta(H)\le 28\) against \(\theta(H)=29\).
+A high \(z\) fails to supply one only if all its \(H\)-neighbours in \(L\) lie in a
+single block — and then \(z\) is \(G\)-adjacent to all 24 of the *other* block,
+giving a \(K_{25}\).  Since \(|Z|=7\), one alternative has at least four vertices;
+in the second, two attach to the same block and are \(G\)-adjacent (only one pair
+of \(G[R]\) is missing), giving a \(K_{26}\) disjoint from the other block
+augmented by \(w_1,w_2\):
+\(\mathrm{cr}(K_{26})+\mathrm{cr}(K_{25})=4724+3997=8721\ge 8281\).
+Making the first alternative rigorous needs a system of distinct representatives
+for the \(u\) and \(v\); that is the open step.
+
 Order 58 = 2r is **not** covered by this argument: there Stehlík gives one colour
 class of size three rather than a perfect matching, so `H` need not be
 factor-critical and none of the order-\(2r-1\) structure theory applies; it is

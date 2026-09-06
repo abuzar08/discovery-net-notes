@@ -49,7 +49,7 @@ perfect matching, so H need not be factor-critical and none of this applies.
   At n = 2r-1 the complement H is factor-critical (Stehlik 2003) with
   theta(H) = 29, hence no conformal triangle.  The barrier classification leaves
   one configuration: B = T u {s} with T a triangle of H, and
-  H - B = C u {w1} u {w2} with |C| = 49 and N_H(wi) inside B.
+  H - B = C u {w1} u {w2} with |C| = 57 - 4 - 2 = 51 and N_H(wi) inside B.
   Non-domination (no vertex of N_H(w) dominates the rest of N_H(w)) gives
   wi ~ s and s adjacent to no vertex of A_i := N_T(wi); disjointness of A_1, A_2
   gives d_H(w1) + d_H(w2) <= 5, so with x_v = d_G(v) - 27 = 27 - d_H(v) and
