@@ -1,9 +1,8 @@
 # The replacement construction, corrected — and the re-costing that follows
 
-> **Gate not yet passed.** Per the principal's criterion, nothing from this
-> program is published on the graph until it reproduces all 36 seeds *and*
-> produces all of the census targets the previous version failed on. Seeds:
-> 36/36. Targets: one verified so far. This file is the working record.
+> **Gate passed.** Seeds 36/36, targets 15/15. The single statement that
+> supersedes heights 3028 and 3074 is [`feasibility.md`](feasibility.md); this
+> file remains as the working record of how the correction was found.
 
 ## What was wrong
 
@@ -79,8 +78,8 @@ the acceptance criterion; `focus.py` searches for one specified target.
   peripherally-4-connected base is \(K_{3,3}\), via a type subgraph on six edges
   with configurations \([1,1,31,25,25,25]\). This is a graph the previous program
   could not produce.
-* The exhaustive 15-target run has not completed: a brute-force enumeration over
-  all type subgraphs, placements and port pairings blew up on the \(K_{3,3}\)
-  base (4h57m, still on the first of five bases). It needs the search restructured
-  around the target's order and size, as `focus.py` does, rather than enumerating
-  everything and filtering afterwards.
+* **Targets: 15/15.** The brute-force enumeration over all type subgraphs,
+  placements and port pairings blew up on the \(K_{3,3}\) base (4h57m, still on
+  the first of five bases). Restructuring the search around each target's order
+  and size, as `focus.py` does, rather than enumerating everything and filtering
+  afterwards, completed all 15 in minutes (`gate3.py`).
