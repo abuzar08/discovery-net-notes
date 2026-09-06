@@ -1851,6 +1851,11 @@ counterexample there.
   subdivision, it passes **90.4%** and saves nothing. General lesson worth
   keeping: subdivision is a `graph6` presentation detail, and every structural
   predicate belongs on the multigraph.
+* Isomorphism deduplication, the third candidate, also fails where it matters.
+  `labelg` canonicalises far faster than the criticality test, but the
+  duplication rate collapses exactly at the expensive depth: 18.2% distinct at
+  \(d = 2\) (a 2.23-fold saving) against 91.2% distinct at \(d = 3\) (1.09-fold).
+  Three optimisations measured, none changes the verdict.
 
 **Running between passes (1 background computation).** `run_corrected.py 2` —
 the last seed of the \(d \le 2\) range (5.5M expansions). \(d = 3\) is costed at
