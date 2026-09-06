@@ -11,7 +11,9 @@ native LRAT the same child takes 84 s to solve and 23 s to replay).
 Each cube produces one record in <outdir>/results.jsonl:
   {cube, solve_s, replay_s, status, lrat_bytes, lrat_sha256, cube_lits}
 with status UNSAT-VERIFIED (refuted and replayed to the empty clause), TIMEOUT,
-SAT, or REPLAY-FAILED. Certificates are deleted after a successful replay unless
+SAT, REPLAY-FAILED, or PROOF-TOO-LARGE (refuted, but the proof exceeds MAXPROOF
+bytes, default 1.5 GB, so it was discarded unreplayed and the cube is left for the
+refinement path; replaying holds the proof's clause database in memory). Certificates are deleted after a successful replay unless
 --keep is given; their SHA-256 stays in the record, so a later
 verify_cnc_p.py --verified <results.jsonl> accepts the cube by literal match.
 Resuming skips cubes already UNSAT-VERIFIED and cubes that timed out at a limit
@@ -28,6 +30,10 @@ argv = [a for a in sys.argv[1:] if not a.startswith('--')]
 KEEP = '--keep' in sys.argv; RETRY = '--retry-timeouts' in sys.argv
 BASE, ICNF, OUTD, W, TO = argv[0], argv[1], argv[2], int(argv[3]), int(argv[4])
 CAD = os.environ.get('CADICAL', '../../tools/cadical/build/cadical')
+# A replay holds the whole proof's clause database in memory, so a multi-gigabyte
+# proof can exhaust the machine and take the worker pool down with it. Above this
+# size the cube is left unresolved and goes to the refinement path instead.
+MAXPROOF = int(os.environ.get('MAXPROOF', 1_500_000_000))
 
 _hdr = open(BASE).readline().split()
 NV, NC = int(_hdr[2]), int(_hdr[3])
@@ -61,7 +67,12 @@ def run(i):
                            capture_output=True, text=True)
         rec['solve_s'] = round(time.time() - t0, 1); rec['exit'] = r.returncode
         if r.returncode == 20:
-            rec['lrat_bytes'] = os.path.getsize(lrat); rec['lrat_sha256'] = sha256_of(lrat)
+            rec['lrat_bytes'] = os.path.getsize(lrat)
+            if rec['lrat_bytes'] > MAXPROOF:
+                rec['status'] = 'PROOF-TOO-LARGE'; os.remove(lrat)
+                rec['cube_lits'] = [int(l) for l in cube]
+                return rec
+            rec['lrat_sha256'] = sha256_of(lrat)
             t1 = time.time()
             ok = check_lrat(formula() + [[int(l)] for l in cube], lrat)
             rec['replay_s'] = round(time.time() - t1, 1)
