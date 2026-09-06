@@ -44,8 +44,8 @@ What remains is finite and explicit:
 
 | branch (Theorem 1.3) | status |
 | --- | --- |
-| not 2-connected: 13 graphs (Figure 14.1) | checked in an earlier pass |
-| 2-connected, two non-planar cleavage units: 36 graphs (Figures 14.2, 14.3) | **16 settled here, 20 open** |
+| not 2-connected: 13 graphs (Figure 14.1) | **all 13 settled**, \(\operatorname{cr} = 2\) |
+| 2-connected, two non-planar cleavage units: 36 graphs (Figures 14.2, 14.3) | **all 36 settled**, \(\operatorname{cr} = 2\) |
 | 2-connected, one non-planar cleavage unit | reduces to the 3-connected case by Theorem 14.5 |
 
 ## The 36 graphs, extracted
@@ -87,9 +87,56 @@ verdicts of **every** identification of \(k\) pairs that does so:
 $$\text{55 such graphs in total, all reported } \texttt{CRIT2}, \text{ none } \texttt{CRIT\_GE3}.$$
 
 So whichever identification of at most three pairs Figure 14.3 denotes, the
-graph it denotes has \(\operatorname{cr} = 2\). One component, on \(n = 14\),
-\(m = 22\), admits no such identification at \(k \le 3\) and is **unresolved**;
-no claim is made about it.
+graph it denotes has \(\operatorname{cr} = 2\).
+
+**The holdout.** One component, on \(n = 14\), \(m = 22\), admits no such
+identification at \(k \le 3\). Identifying vertices the figure drew twice pairs
+up *distinct* copies, so the right model is a partial **matching**, not an
+arbitrary multiset of pairs — which is both more faithful and a far smaller
+search. Over all matchings of \(k = 4\) pairs, 142,321 tested, **64 yield a
+2-crossing-critical graph and every one is `CRIT2`**. The holdout is settled:
+\(\operatorname{cr} = 2\).
+
+So **all 36 graphs of Figures 14.2 and 14.3 have \(\operatorname{cr} = 2\)**.
+
+
+## Theorem 1.3(1): the 13 graphs, all settled
+
+Figure 14.1 (page index 125) extracts to 16 components of at least four
+vertices. Ten have connectivity 1, minimum degree at least 3, and all verify as
+`CRIT2`. The other six are three copies of \(K_5\) and three of \(K_{3,3}\) —
+these are not members in their own right but the pieces of the **disconnected**
+members, since "not 2-connected" includes disconnected. The three disjoint
+unions \(K_5 \sqcup K_5\), \(K_5 \sqcup K_{3,3}\) and \(K_{3,3} \sqcup K_{3,3}\)
+all verify as `CRIT2`, as they must, the crossing number being additive over
+components so that each has \(\operatorname{cr} = 1 + 1 = 2\).
+
+$$10 + 3 = 13,$$
+matching Theorem 1.3(1), and **none has \(\operatorname{cr} \ge 3\)**.
+
+## The branch is closed
+
+Collecting the three cases of Theorem 1.3, for \(G\) 2-crossing-critical with
+minimum degree at least 3 and not 3-connected:
+
+* not 2-connected — one of 13 graphs, all with \(\operatorname{cr} = 2\);
+* 2-connected with two non-planar cleavage units — one of 36 graphs, all with
+  \(\operatorname{cr} = 2\);
+* 2-connected with one non-planar cleavage unit — by Theorem 14.5,
+  \(\operatorname{cr}(G) = \operatorname{cr}(\tilde{C})\) for a **3-connected**
+  2-crossing-critical \(\tilde{C}\), and \(G\) is recovered from \(\tilde{C}\) by
+  replacing digons with digonal paths.
+
+**Consequence.** If \(G\) is 2-crossing-critical with minimum degree at least 3
+and \(\operatorname{cr}(G) \ge 3\), then either \(G\) is 3-connected, or \(G\) is
+obtained by digonal-path replacement from a 3-connected 2-crossing-critical
+graph of the same crossing number. Hence
+
+> **a second counterexample to Bloom–Kennedy–Quintas exists if and only if a
+> 3-connected one exists,**
+
+and the search may be restricted to 3-connected graphs with no loss. The 36-graph
+escape clause in my earlier lemma is gone.
 
 ## What survives independently of the figure
 
@@ -119,14 +166,12 @@ now settled. Closing it needs Figure 14.3's convention, on 20 explicit graphs.
 
 ## Where this leaves the lemma
 
-The lemma improves from "3-connected or one of 36" to **"3-connected, or the
-single unresolved graph of Figure 14.3"**. Of the 36: the 16 of Figure 14.2 have
-\(\operatorname{cr} = 2\) directly; 19 of Figure 14.3's 20 have
-\(\operatorname{cr} = 2\) under every identification of at most three pairs that
-makes them 2-crossing-critical; the one-non-planar-cleavage-unit branch reduces
-to the 3-connected case by Theorem 14.5; and the census independently forces any
-second counterexample to have at least 12 vertices. What remains is one drawn
-component on 14 vertices and 22 edges.
+The lemma improves from "3-connected or one of 36" to a flat statement: **a
+second counterexample exists if and only if a 3-connected one exists.** All 13
+graphs of Theorem 1.3(1) and all 36 of Theorem 1.3(2) have
+\(\operatorname{cr} = 2\), and Theorem 14.5 sends the remaining branch back to
+the 3-connected case. Independently of any figure, the census forces a second
+counterexample to have at least 12 vertices.
 
 ## Sources
 
