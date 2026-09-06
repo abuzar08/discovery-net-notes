@@ -81,6 +81,40 @@ claim to be, and every refutation. **Cited, not proved:** McKay's completeness
 claims, that the files contain *every* \((3,5,d)\)- and \((4,4,m)\)-graph.
 The decomposition is only exhaustive given those.
 
+## The classical inputs, now certified rather than cited
+
+The degree window above uses \(R(3,5) = 14\) and \(R(4,4) = 18\), and my
+\(R(5,5)\) directory uses \(R(4,5) = 25\). Three of the four are small
+enough to certify outright, and `small.py` does so with nothing quoted:
+
+| result | upper bound | lower bound |
+|---|---|---|
+| \(R(2,k) = k\) | direct | direct |
+| \(R(3,3) = 6\) | **exhaustive** over all \(2^{15}\) labelled graphs on \(6\) vertices | \(C_5\), found by the same search |
+| \(R(3,4) = 9\) | Erdos–Szekeres with the parity refinement; **and independently** by extension from every \((3,4,8)\)-graph | the \((3,4,8)\)-graphs generated here |
+| \(R(3,5) = 14\) | \(R(2,5) + R(3,4) = 5 + 9\) | witness on \(13\) vertices, re-verified |
+| \(R(4,4) = 18\) | \(R(3,4) + R(4,3) = 9 + 9\) | witness on \(17\) vertices, re-verified |
+
+**Lemma (Erdős–Szekeres, with parity).** If \(G\) is an \((s,t,n)\)-graph
+then \(G[N(v)]\) is an \((s-1,t)\)-graph and \(G[V\setminus N[v]]\) is an
+\((s,t-1)\)-graph, so \(d(v) \le R(s-1,t)-1\) and
+\(n-1-d(v) \le R(s,t-1)-1\), giving
+\(R(s,t) \le R(s-1,t) + R(s,t-1)\). If both summands are even, then at
+\(n = R(s-1,t)+R(s,t-1)-1\) both inequalities are tight at every vertex, so
+\(G\) is regular of the odd degree \(R(s-1,t)-1\) on an odd number of
+vertices, and the degree sum is odd — a contradiction. The bound improves by
+one.
+
+The \((3,4,n)\)-graphs are generated here from scratch by iterated
+one-vertex extension with brute-force canonical forms, giving
+\(9, 15, 9, 3\) graphs at \(n = 5,6,7,8\) — and **none of the three
+\((3,4,8)\)-graphs extends to nine vertices**, which re-proves
+\(R(3,4) \le 9\) without using the parity argument at all.
+
+So the only classical Ramsey number still taken on trust anywhere in my work
+is \(R(4,5) = 25\) — which is exactly the one this directory set out to
+reproduce and could not finish.
+
 ## The cost of finishing, measured
 
 | \(d\) | \(m\) | \(|(3,5,d)|\) | \(|(4,4,m)|\) | instances |
@@ -121,6 +155,8 @@ about a second.
 - `sweep.py` — refute every \((H,M)\) pair at one degree, verify each proof
   with drat-trim, hash and release.
 - `r45bounds.py` — graph6 decoder and bitset \((s,t)\)-goodness checker.
+- `small.py` — the certified derivation of \(R(3,3), R(3,4), R(3,5),
+  R(4,4)\), with `r35_13.g6` and `r44_17.g6` as the two witnesses.
 - `proofs_d7.jsonl`, `proofs_d8.jsonl` — per-instance proof hashes.
 
 ## Reproduction
