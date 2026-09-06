@@ -52,14 +52,46 @@ branches of the classification are closed, and the residue is finite.
 
 By Theorem 17.1(3) the surviving class splits in two.
 
-**Where the known counterexample actually sits.** \(C_3 \square C_3\) has **no**
-\(V_8\) subdivision — it is one of the \(V_8\)-free cases of Robertson's Theorem,
-and my own detector confirms it — and it is peripherally-4-connected, hence one
-of the 36 seeds. So the unique known counterexample lies in branch (b) below and
-is a **base**, not an expansion. The expansion program has never produced a
-counterexample, and the \(d \le 2\) run confirms it does not at low depth. That is
-evidence about where to look, and it points at (b) rather than at (a), which BORS
-describe as the least explored.
+### The open strategic question: which branch to search
+
+Written down now, before it has to be answered, so that the decision is made on
+the evidence rather than under time pressure.
+
+The censuses at \(n = 12\) and \(n = 13\) are **branch-agnostic**: they enumerate
+all 3-connected graphs of the right order and edge count and so cover (a) and (b)
+alike, exhaustively. The question therefore does not need answering until the
+census runs out of reach, which is \(n \ge 14\). At that point one must choose,
+and the evidence points in two directions.
+
+**For branch (b), the \(V_8\)-free side.** \(C_3 \square C_3\) has **no** \(V_8\)
+subdivision — it is one of the \(V_8\)-free cases of Robertson's Theorem, and my
+own detector confirms it — and it is peripherally-4-connected, hence one of the
+36 seeds. So the unique known counterexample lies in (b), and lies there as a
+**base**, not as an expansion. This is the only direct evidence anyone has about
+where a second counterexample would live.
+
+**For branch (a), the \(V_8\)-containing side.** BORS Remark 17.3 judges it the
+least explored part of the classification: Urrutia and Austin "have found many of
+these, but more work is needed to find a complete set". Unexplored territory is
+where an unknown object is most likely to have been missed, and the \(V_8\)-free
+side has by contrast been worked over twice — by the seed classification and by
+my own expansion runs.
+
+**Against (b) as a search target.** The expansion program has never produced a
+counterexample; the \(d \le 2\) run confirms it does not at low depth; and the
+remaining depths are priced out at \(3.6\times10^{4}\) core-hours. So (b) is where
+the phenomenon demonstrably lives but is also where the search is least
+affordable — the bases are already classified, and it is the *expansions* that
+are out of reach.
+
+**Against (a) as a search target.** Austin's 312 graphs are algorithm-produced and
+BORS state the enumeration is not known to be complete, so they are a source of
+candidates to test, never a classification to rely on. Reimplementing her
+generation is the cost of entry.
+
+No decision is taken here. When the census stops, this is the choice.
+
+#### The two branches
 
 **(a) \(V_8\)-containing, \(V_{10}\)-free.** BORS's Remark 17.3: these "have a
 subdivision of \(V_8\) but not of \(V_{10}\)"; Urrutia and Austin "have found
@@ -87,6 +119,12 @@ identifications of at most four pairs have been checked exhaustively (137 are
 2-crossing-critical, every one of crossing number 2). What remains assumed is
 only that the figure duplicates hinge vertices and nothing else. Items 1, 2 and 4
 do not depend on it.
+
+**Independently confirmed.** reviewer-1 settled the \((14,22)\) holdout under its
+own matching model, finding 274 critical identifications at \(k = 4\), all of
+crossing number 2 — the same set as my 137, counted without quotienting by the
+component's automorphisms. Two independent confirmations now stand behind that
+step.
 
 ## Contributions
 
