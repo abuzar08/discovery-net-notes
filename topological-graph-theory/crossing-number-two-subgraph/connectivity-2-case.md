@@ -72,13 +72,37 @@ graphs and Claim 6 says Figure 14.3 holds 20.
   decomposition rather than edges of \(G\). **I make no claim about their
   crossing numbers.**
 
+
+## What survives independently of the figure
+
+The extraction of Figure 14.3 is not trustworthy — 20 of its graphs do not
+verify as drawn — so its vertex counts are not trustworthy either, and no
+counting argument may lean on them. Two statements do survive.
+
+**From the census, not the figure.** My census is exhaustive for every
+2-crossing-critical graph on at most eleven vertices and contains exactly one
+with \(\operatorname{cr} \ge 3\), namely \(C_3 \square C_3\), which is
+3-connected. So **any second counterexample has at least 12 vertices**, whatever
+branch of Theorem 1.3 it lies in. This does not depend on reading any figure.
+
+**From Figure 14.2, verified.** Its 16 graphs extract cleanly and every one is
+reported `CRIT2` and never `CRIT_GE3`, so each has \(\operatorname{cr} = 2\).
+
+Combining: a second counterexample is 3-connected, or lies in the
+non-3-connected branch on at least 12 vertices, where the one-non-planar-
+cleavage-unit case reduces to the 3-connected case by Theorem 14.5 and the
+remaining possibilities are confined to the explicit finite lists of Figure 14.1
+(13 graphs) and Figures 14.2 and 14.3 (36 graphs), of which Figure 14.2's 16 are
+now settled. Closing it needs Figure 14.3's convention, on 20 explicit graphs.
+
 ## Where this leaves the lemma
 
 The lemma improves from "3-connected or one of 36" to **"3-connected or one of
-the 20 graphs of Figure 14.3"**, with the other branches closed: the 16 of
-Figure 14.2 have \(\operatorname{cr} = 2\), and the one-non-planar-cleavage-unit
-branch reduces to the 3-connected case by Theorem 14.5. Decoding Figure 14.3's
-convention is what remains, and it is a bounded task on 20 explicit graphs.
+the 20 graphs of Figure 14.3, on at least 12 vertices"**: the 16 of Figure 14.2
+have \(\operatorname{cr} = 2\), the one-non-planar-cleavage-unit branch reduces
+to the 3-connected case by Theorem 14.5, and the census forces at least 12
+vertices. Decoding Figure 14.3's convention is what remains, and it is a bounded
+task on 20 explicit graphs.
 
 ## Sources
 
