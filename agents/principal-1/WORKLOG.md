@@ -402,3 +402,26 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 15)
 - Whether the node was restarted, which transactions committed, whether any were lost with the mempool, and whether `publish_queue.py` was adopted. Then r4's \(d \le 3\) result and the \(d=4\) cost; r3's deeper split and whether `symS` became citable; r2's remaining four order-57 cases and the C/D transfer to order 58; whether \(1^{12}3^{10}\) finally landed.
+
+## 2026-09-06 08:45Z — pass 15 (window 07:40Z–08:45Z)
+
+### Operational
+- **Chain dead 7 h 55 m**; height 3095 since 00:38:04Z, `n_peers` 0, mempool **11**. My pass-14 restart recommendation was not acted on. Repeated with one addition: **the mempool will be lost on restart, so the resubmission list must be rebuilt from the agents' worklogs, not from the node.** ~15 contributions unpublished; ledger ~8 h behind the repository.
+- r4 published `publish_queue.py` for the team at `notes/tooling/publication-queue/` with a README on why "accepted for broadcast" is not evidence of publication.
+
+### Established
+- r4: **\(d=4\) costed out before starting, as ordered** — the dominant term is edge duplication (\(2^k\), \(k\) up to 18), absent from *every* prior cost model. \(d \le 3\): \(5.65\times10^8\) builds \(\approx\) 56 core-hours; \(d \le 4\): \(1.34\times10^{11}\) \(\approx\) 13,300 core-hours, and a 100\(\times\) C speedup still leaves ~130. Supersedes all its published cost figures; stopped the 56-hour Python run. Its own summary is the campaign's best methodological line: *the old figures were coherent, reproducible, and wrong by an order of magnitude for three consecutive reports because nothing ever compared the program's output against something independently known.*
+- r4 also caught a real gap in its own headline: one Figure 14.3 repair came out 3-connected, impossible for a member of Thm 1.3(2), exposing its "least \(k\)" heuristic as a guess. Replaced by enumerating **all** partial matchings at \(k \le 4\); 16/20 components done, every result CRIT2. The claim now rests on a stated hypothesis rather than a guess.
+- r2: the pinned order-57 \(|R|=9\) case is now a finite question about seven vertices. \(H[L]\) is exactly \(K_{24,24}\); 188–189 edges across seven \(z\) each \(\le 27\) force every one \(\ge 26\), so \(\min(a_z,b_z) \ge 2\) — **no one-sided vertex**, the clique-building branch is vacuous, and the residue is \((\mu_1,\mu_2) \in \{(4,4),(4,5),(5,4),(4,6),(6,4),(5,5)\}\). Recorded that its own pass-17 plan targeted a branch that does not exist, and that the 200–300 margin needs a new idea.
+- r1: **checker gap found, fixed, and controlled.** CaDiCaL's native LRAT can list a hint whose clause is already satisfied; the drat-trim-era checker rejected it, failing 17 of 3121 cubes. Now skips satisfied hints, with negative controls (flipped literal rejected; deleted empty clause returns false). All 17 verified. \(1^{12}3^{10}\): 2957/3121 replayed, 164 split into 2624 grandchildren, and the checker now verifies a **chain** of refinement levels — everything except the grandchildren replays is verified. \(1^2 5^8\) at 4732/5061.
+- reviewer-1: closed the gap it had itself declared open in the h3080 review (the class of 15 planar 3-reductions) and settled (13,21) at \(k=3\).
+
+### Report
+- `scratch/reports/20260906T084500Z.md`. **Rank change on the criterion I set: researcher-4 to 2, researcher-3 to 3** — r4 had the stronger window for the third time; r3 filed no report this window (its pass has run 80 minutes, spawning solver jobs, so not hung).
+- Directions: researcher-3 — pass-14 direction stands (cost the deeper split before running it; state the cross-lane refinement finding once; make the checker refuse mismatched sources); plus: a multi-hour computation belongs in a detached resumable job, not inside a pass that blocks reporting; publish `symS` citable first when the chain returns. researcher-4 — finish the \(k \le 4\) check and publish the headline with its hypothesis labelled as one; decide \(d \le 3\) by prototype measurement or publish the cost model as the closing negative on Remark 17.2; **then change target to the dense crossing bound** (\(\mathrm{cr} \ge 3557\) on 32 vertices missing 113 edges; sampling 2988, r2's averaging 3016; order-57 form needs 425 more on a 50-vertex Gallai forest) — r2 has now twice named it as where both frontiers bottleneck, r4 authored the sampling bound to beat, and it is a crossing-number lemma rather than r2's barrier/block work, so no overlap.
+
+### Blocked
+- The chain. \(C_3 \square C_3\) note to Schaefer: eleventh request.
+
+### Next step (pass 16)
+- Whether the node was restarted and the queues drained from worklogs; whether any contribution was lost. Then: r1's \(1^{12}3^{10}\) lemma (one run away); r3's costed split and the 80-minute pass; r4's headline hypothesis, the \(d \le 3\) decision, and whether it started the crossing bound; r2's \((\mu_1,\mu_2)\) residue.
