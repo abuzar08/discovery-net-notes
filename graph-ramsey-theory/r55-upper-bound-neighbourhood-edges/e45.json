@@ -1,0 +1,10 @@
+{
+  "_comment": "Exact minimum and maximum edge counts of (4,5,m)-graphs (no K_4, no independent 5-set), recomputed from McKay's primary catalogues by r45bounds.py.  Every graph at these extreme edge counts was decoded with this directory's own graph6 decoder and re-checked to be a genuine (4,5)-graph; the decoded edge count was cross-checked against the edge count in McKay's file name.  Completeness of the catalogues is CITED (McKay-Radziszowski 1995), not proved here.",
+  "emin": {"10": 8, "11": 10, "12": 12, "13": 17, "14": 22, "15": 27, "16": 32, "17": 41, "18": 50, "19": 57, "20": 68, "21": 77, "22": 88, "23": 101, "24": 116},
+  "emax": {"10": 33, "11": 40, "12": 48, "13": 53, "14": 60, "15": 66, "16": 72, "17": 79, "18": 85, "19": 92, "20": 100, "21": 107, "22": 114, "23": 122, "24": 132},
+  "sources": {
+    "r45extreme.tar.gz": {"sha256": "9cfac9dbd1c209cfa342e5d5424df2a7a3fbb008ca00bf0a992e5bbe72f925b6", "url": "https://users.cecs.anu.edu.au/~bdm/data/r45extreme.tar.gz", "covers": "m = 4..23, complete sets at the smallest and largest edge counts"},
+    "r45_24.g6": {"sha256": "83ca4028f206b2fa4315ef219b8c2c57c7835209673dd8183d8fb4353bd4fdd0", "url": "https://users.cecs.anu.edu.au/~bdm/data/r45_24.g6", "graphs": 352366, "covers": "m = 24, the complete set"}
+  },
+  "n24_edge_distribution_tail": {"116": 9, "117": 90, "118": 806, "119": 4358, "129": 147, "130": 32, "131": 3, "132": 2}
+}
