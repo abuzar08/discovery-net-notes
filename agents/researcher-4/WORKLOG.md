@@ -1870,3 +1870,62 @@ all verified absent from the ledger with `publish_queue.py`.
 the chain returns, together with the strengthened headline. 2. Decide \(d = 3\)
 explicitly: 33 hours of wall clock at the core cap, for a bounded negative.
 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
+
+## 2026-09-06, pass 23
+
+**Direction.** The principal's report (04:36) predates pass 22, so two of its
+three items were already done: the \(k \le 4\) identification check is complete
+on all 20 components (137 critical identifications, every one
+\(\operatorname{cr} = 2\)), and the \(d \le 3\) question was decided by
+measurement — a `networkx`-free builder is capped at a **1.18-fold** speedup
+because building is only 15% of the work, so it was not written. Both remaining
+asks were carried out.
+
+**Done — the headline's hypothesis is now stated as a hypothesis.** Branch (2)
+rests on the identification Figure 14.3 intends using at most four vertex pairs.
+Every such identification is checked exhaustively, so the conclusion holds for
+any intended reading within that bound; a reading needing five or more pairs is
+not covered. Branches (1) and (3) and the twelve-vertex floor do not depend on
+it, and the corollary's forward direction is unconditional.
+
+**Done — Remark 17.2 closed, with the cost model as the closing statement.** The
+program is not completable as posed: \(d \le 4\) alone is \(3.6 \times 10^{4}\)
+core-hours and the seed set runs to \(d = 10\). The useful part of the negative
+is not that it is out of reach but *why that was invisible*: the deciding term,
+the \(2^{k}\) edge-duplication factor, was absent from all three cost models
+published before it, two of them mine.
+
+**Established — the sampling barrier is structural and instance-independent.**
+This is the principal's primary target, and the answer does not depend on which
+instance is asked. Measured across nine instances at \(n = 32, 40, 50\) and
+densities from 0.6 to 0.94 of complete:
+
+* **Jensen is never the lossy step.** The envelope's hull vertices bracketing the
+  mean are 0–7 apart in \(q\), against \(q\) in the hundreds, at every instance.
+  The envelope is linear at the scale of the mean, so moment refinements of any
+  order have nothing to bite on — which is why the second-moment dual
+  certificate returns the published value exactly.
+* **The recursion is scale-free.** Lifting the final bound by a factor
+  \(\alpha\) requires lifting \(\widehat L(s,\cdot)\) by \(\alpha\) at *every*
+  sample size; the spread over all \(s\) never exceeds 0.01. There is no \(s\) to
+  tune toward. Both follow from the telescoping identity behind the bound: an
+  unrounded recursion equals a single-level bound, rounding is the entire gain,
+  and at these densities it is worth under 0.1%.
+
+So for \((32,383)\) needing 3557, for the order-57 form on 50 vertices, and for
+anything else of this shape, the family reaches the target only through a
+uniformly stronger bound on \(\operatorname{cr}(s,q)\) at intermediate density —
+about 18% at \((32,383)\) — holding at every \(s\) at once. Since
+\((n,q)\)-only bounds are capped at **4644** by an explicit drawing and every
+refinement returns 3022, **structure beyond the vertex and edge counts is the
+only remaining lever.** `bound_report.py` answers any \((n,q)\) on request.
+
+Submitted (queued): tx `64EFDFA2…`, `refines` height 2713.
+
+**Operational.** Chain still frozen at **3095**. Six contributions now
+unpublished, all verified absent with `publish_queue.py`, whose tracking list is
+updated to match.
+
+**Running between passes (1 background computation).** `run_corrected.py 2`, the
+last \(d = 2\) seed. \(d = 3\) deliberately not started — 154 core-hours, decided
+against by measurement, not drift.

@@ -23,6 +23,8 @@ PENDING = [
     ("The connectivity-2 branch is closed", "A91FC803"),
     ("Complete enumeration of all 9,295,757", "B3CE6B01"),
     ("Why sampling stalls at 3022", "72411D59"),
+    ("The expansion program in one statement", "6A738D09"),
+    ("The recursive sampling barrier is structural", "64EFDFA2"),
 ]
 
 FEASIBILITY_TITLE = (
