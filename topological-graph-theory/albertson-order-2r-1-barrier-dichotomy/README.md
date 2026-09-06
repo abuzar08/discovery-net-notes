@@ -639,13 +639,15 @@ and 58, and the Gallai join/edge budget kills order 56 = 2r-2.
 eight-row `r = 29` frontier published at ledger height 2761.  Two of the five
 close outright; the other three reduce to explicit high-vertex counts:
 
-| row | after `r29.py` | after `aug57.py` |
-|---|---|---|
-| (57, 824) | eliminated | eliminated |
-| (57, 825) | eliminated | eliminated |
-| (57, 826) | `\|R\| = 7` | **eliminated** |
-| (57, 827) | `\|R\| in {7,8,9}` | `\|R\| in {8,9}` |
-| (57, 828) | `\|R\| in {7,...,11}` | unchanged |
+| row | after `r29.py` | after `aug57.py` | after `cover57.py` |
+|---|---|---|---|
+| (57, 824) | eliminated | eliminated | eliminated |
+| (57, 825) | eliminated | eliminated | eliminated |
+| (57, 826) | `\|R\| = 7` | **eliminated** | eliminated |
+| (57, 827) | `\|R\| in {7,8,9}` | `\|R\| in {8,9}` | **`\|R\| = 9`** |
+| (57, 828) | `\|R\| in {7,...,11}` | unchanged | **`\|R\| in {9,10,11}`** |
+
+Open `(row, |R|)` cases at order 57: **four**, down from nine.
 
 ### Two discarded resources, recovered (`aug57.py`)
 
@@ -686,6 +688,37 @@ at most \(\mathrm{extra}\), so \(q\le\mathrm{extra}\).  At \(|R|=7\) this gives
 Together these take \((57,826)\) from 7856 to 8343 against \(Z(29)=8281\), and
 \((57,827)\) at \(|R|=7\) from 7521 to 8343.  The `plain` column of `aug57.py`
 reproduces `r29.py` exactly, which checks the harness.
+
+### Two exact constraints on the block structure (`cover57.py`)
+
+Both ingredients above were being under-used, and sharpening them narrows order
+57 much further.  Neither reopens anything: they only ever exclude more.
+
+**The covering form of the degree condition.**  `aug57.py` used only the
+consequence that a block with \(q-1<\delta_0\) has all its vertices in a second
+block.  That is too weak — it accepts \((25,23,2,2)\) on \(p=49\) with
+\(\delta_0=20\), yet the two large blocks cannot share a vertex (its degree would
+be \(24+22=46>28\)), so they cover 48 distinct vertices and the 49th can reach
+block degree at most \(1+1=2\).  Call a block **big** when \(q-1\ge\delta_0\);
+two big blocks cannot share a vertex, since it would have degree \(\ge2\delta_0>28\)
+for every \(|R|\le13\).  So the big blocks are disjoint, and every one of the
+remaining \(p-\sum_{\mathrm{big}}q_j\) vertices must reach \(\delta_0\) from small
+blocks alone:
+
+$$\sum_{\text{small}} q_j(q_j-1)\ \ge\ \delta_0\Bigl(p-\sum_{\text{big}}q_j\Bigr).$$
+
+**\(e(L)\) is bounded above, not only below.**  All the excess sits in \(R\), so
+\(\sum_{v\in R}d_G(v)=28|R|+X\) and
+
+$$e(L) \;=\; m-28|R|-X+e(G[R])$$
+
+is an *identity*.  The argument used only \(e(G[R])\ge\) its minimum; but equally
+\(e(G[R])\le\binom{|R|}{2}\), and \(e(L)\) is exactly \(\sum_j\binom{q_j}{2}\).
+At \(|R|=8\) on row 827 this pins \(e(L)\) into \([555,573]\), while every way of
+covering 49 vertices by two disjoint big blocks — \((26,23)\), \((25,24)\),
+\((27,22)\), \((28,21)\) — carries at least 576 edges, and fewer big blocks leave
+vertices the covering condition cannot supply.  So **no admissible block multiset
+exists at all**: the case dies structurally, not by a crossing count.
 
 Order 58 = 2r is **not** covered by this argument: there Stehlík gives one colour
 class of size three rather than a perfect matching, so `H` need not be
