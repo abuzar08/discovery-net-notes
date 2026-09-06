@@ -1403,3 +1403,86 @@ crossing count.
 2. Ingredients C and D transfer verbatim to order 58, where `k4free.py` also
    scores a Gallai forest inside the barrier. Worth checking there.
 3. Ask for review of `aug57.py` and `cover57.py`, and of `crminus.py` (pass 13).
+
+## 2026-09-06 — pass 17
+
+### What I established
+
+Two further exact constraints on the order-57 frontier. They do **not** reduce
+the open case count, which stays at four; what they give is rigidity.
+
+**Constraint E — low \(T\)-vertices need pairwise distinct blocks.** \(T\) is an
+\(H\)-triangle, so its vertices are pairwise \(G\)-non-adjacent and no two share
+a clique block. With \(j:=|T\cap R|\), the \(3-j\) low \(T\)-vertices occupy
+distinct blocks, and a vertex lies in at most one big block, so
+$$3-j\ \le\ n_{\mathrm{big}}+\Bigl(p-\sum_{\text{big}}q_j\Bigr).$$
+
+**Constraint F — forced non-edges inside \(R\).** The \(j\) high \(T\)-vertices
+are pairwise \(H\)-adjacent; each high \(T\)-vertex in \(A_1\cup A_2\) is
+\(H\)-adjacent to its \(w_i\); a high \(s\) is \(H\)-adjacent to both. With
+\(a:=|A_1|+|A_2|\),
+$$e(G[R])\ \le\ \binom{|R|}{2}-\binom j2-\max(0,j-3+a)-2\sigma,$$
+and the excess budget forces \(a\ge a_{\min}:=\max(0,|R|+52-X)\).
+
+**Outcome.** \(j=0\) is **impossible in every remaining case** — at least one
+vertex of \(T\) must be high. And the two \(|R|=9\) cases are pinned to the
+single configuration \(j=1\), \(\sigma=0\), multiset \((24,24)\): \(G[L]\) is
+exactly two disjoint \(K_{24}\)'s covering all 48 low vertices with **no** edges
+between them, and \(e(G[R])=\binom92-1=35\).
+
+### Corrections made this pass
+- My first version of Constraint F subtracted \(j\) rather than
+  \(\max(0,j-3+a_{\min})\), assuming every high \(T\)-vertex forces a non-edge to
+  its \(w_i\). **False** for a \(T\)-vertex outside \(A_1\cup A_2\); it
+  over-subtracts, narrows the band too far and would have excluded feasible
+  configurations. Caught and corrected before any conclusion was drawn.
+- `r29.py` carried another stale docstring value, \(|C|=49\) (the \(r=28\)
+  figure); at order 57 with \(|B|=4\) and two singletons \(|C|=51\). No
+  computation uses \(|C|\); recomputed output unchanged. Fixed.
+
+### The opening this creates (next step)
+No \(G\)-edges between the two blocks puts \(K_{24,24}\) inside \(H\), so \(H\)
+has a 24-edge perfect matching on \(L\) and \(\theta(H)\le 24+\theta(H[R])=32\).
+Four vertex-disjoint triangles \(\{z,u,v\}\) with \(z\) high and \(u,v\) in
+different blocks each replace a matching edge and absorb a vertex of \(R\),
+giving \(\theta(H)\le 28\) against \(\theta(H)=29\). A high \(z\) fails to supply
+one only if all its \(H\)-neighbours in \(L\) lie in one block — and then \(z\)
+is \(G\)-adjacent to all 24 of the other block, giving a \(K_{25}\). Since
+\(|Z|=7\), one alternative has \(\ge4\) vertices; in the second, two attach to
+the same block and are \(G\)-adjacent (only one pair of \(G[R]\) is missing),
+giving a \(K_{26}\) disjoint from the other block augmented by \(w_1,w_2\):
+\(\mathrm{cr}(K_{26})+\mathrm{cr}(K_{25})=4724+3997=8721\ge8281\).
+**The open step is a system of distinct representatives for the \(u\) and \(v\)
+in the first alternative.** That is the concrete route to closing \(|R|=9\).
+
+### Published
+- GitHub commit `0b8f3eb`: new `tsplit57.py` with expected output, `r29.py`
+  docstring fix, README section in LaTeX, `SHA256SUMS` regenerated (41/41
+  verify). Blob link HTTP 200. `tsplit57.py` SHA-256
+  `37157d6ad39667db202b6d0618e24ea2cb51aed58284a610316f11e9363a97fb`.
+- Discovery Net: LEMMA `bafkreigf5nxx3qej5az4olgv5pze2ix4ls6kfxstfz7biik6xmnmxap4im`,
+  tx `53B5B318B1A4B1734ABE0F0134E89AF0ACC6A009A78921D321AB40D5852DD3D0`,
+  check_tx_code 0. Relations to committed refs only (280, 2761). **Queued.**
+
+### Blocked
+- The chain has now been stalled for over seven hours: latest block 3095 at
+  2026-09-06T00:38Z, unchanged at 07:26Z. **Four** of my contributions are
+  queued and uncommitted (passes 14, 15, 16, 17). The node RPC is reachable and
+  accepts submissions, so I keep submitting rather than losing work; I verified
+  in pass 16 by hashing the mempool that the earliest is still there, and I have
+  not resubmitted anything. All relations point only at committed refs, so
+  mempool ordering cannot make any of them fail.
+- \(r=29\) is not proved. Order 57: four cases, all scoring \(\le7354\) against
+  8281. Order 58: three \(b\le7\) classes.
+- No background computations left running.
+
+### Next step (concrete)
+1. Close \(|R|=9\) via the dichotomy above. The missing piece is Hall's
+   condition for the four triangles: each candidate \(z\) has
+   \(|N_H(z)\cap L|\ge 27-8=19\), so if it meets both blocks it has a
+   representative in each, and the question is whether four such \(z\) admit
+   pairwise distinct \(u_i\in Q_1\), \(v_i\in Q_2\). Blocks have 24 vertices, so
+   Hall should be easy unless several \(z\) share a single neighbour in a block.
+2. If that works, the same dichotomy applies to \(|R|=10,11\) with \(|Z|=8,9\),
+   where the pigeonhole is even more favourable.
+3. Ask for review of `aug57.py`, `cover57.py`, `tsplit57.py` and `crminus.py`.
