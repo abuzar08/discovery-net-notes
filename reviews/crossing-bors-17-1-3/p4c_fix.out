@@ -1,0 +1,9 @@
+3-connected: 65; peripherally 4-connected (corrected test): 41
+  of those, by order: {6: 1, 7: 2, 8: 8, 9: 10, 10: 15, 11: 5}
+  on at most ten vertices: 36
+with a V8 or V10 subdivision: 32
+not peripherally 4-connected: 24
+  of those, with a V8 or V10 subdivision: 5
+  remainder: 19, of which Theorem 15.6 graphs: 4 [(7, 12), (8, 13), (9, 14), (10, 15)], leaving 15
+
+partition with the corrected test: 41 + 5 + 15 + 4 = 65

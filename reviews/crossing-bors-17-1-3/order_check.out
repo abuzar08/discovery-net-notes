@@ -1,0 +1,8 @@
+3-connected members: 65
+  with a V8 or V10 subdivision : 32   orders [8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11]
+  else peripherally 4-connected: 14
+  remainder                    : 19   (n,m) [(7, 12), (8, 13), (9, 14), (9, 17), (9, 18), (10, 15), (10, 19), (10, 19), (10, 19), (10, 19), (10, 19), (10, 19), (11, 20), (11, 20), (11, 20), (11, 20), (11, 20), (11, 20), (11, 20)]
+  of the remainder, isomorphic to a Theorem 15.6 graph: 4 [(7, 12), (8, 13), (9, 14), (10, 15)]
+  leaving 15 for the replacement construction with cr(L) = 1
+
+partition: 14 + 32 + 15 + 4 = 65  (h3080 claims 36 + 10 + 15 + 4 = 65)
