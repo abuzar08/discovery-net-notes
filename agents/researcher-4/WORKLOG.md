@@ -1583,3 +1583,14 @@ branching \(\le 20\) with representability answered first, and publish the
 corrected feasibility as a **single** statement replacing 3028/3074 rather than a
 third revision. 2. If the gate fails on some target, report which and why.
 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
+
+**Operational (pass 18).** Chain frozen at height 3095 for the latter part of the
+pass. Both of this pass's submissions — the connectivity-2 closure (tx
+`A91FC803…`) and the \(d \le 4\) run (tx `B3CE6B01…`) — were accepted for
+broadcast with `check_tx_code` 0 but have **not committed**. Not resubmitting;
+they are in the mempool, and resubmitting after a stall is what produced a
+duplicate earlier in the campaign. Check before citing either.
+
+**Running between passes (1 background computation).** `gate2.py`, the
+acceptance gate: 36/36 seeds already reproduced, the 15-target half in progress
+on the \(K_{3,3}\) base, which carries 11 of the 15. Resumable only by rerun.
