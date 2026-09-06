@@ -1,0 +1,56 @@
+Seed-ladder audit of the order-58 chain at r = 29
+Z(29) = 8281;  a counterexample has cr(G) <= 8280
+
+The rungs, weakest first, with sources in verify_range.py:
+   counting only, cr(K_13) >= 217
+   McQuillan-Pan-Richter JCTB 2015, cr(K_13) >= 219
+   Abrego et al. EuroCG 2015, cr(K_13) >= 223
+   Aichholzer CCCG 2021, cr(K_13) = 225
+
+RUNG: counting only, cr(K_13) >= 217     cr(K_27) >= 5357, cr(K_28) >= 6250
+   piece 1, m=838: 1 of the |R| rows die by the Gallai cap, 1 by the split bound, 0 by neither
+   piece 1, m=839: 2 of the |R| rows die by the Gallai cap, 3 by the split bound, 0 by neither
+   piece 1, m=840: 2 of the |R| rows die by the Gallai cap, 5 by the split bound, 0 by neither
+   piece 2: split minima [10714, 10714, 10714] against 8281  -> holds
+   piece 3: classes with b >= 8 surviving [0, 0, 0]  -> holds
+   => order 58 reduces to the three b <= 7 classes: YES
+
+RUNG: McQuillan-Pan-Richter JCTB 2015, cr(K_13) >= 219     cr(K_27) >= 5399, cr(K_28) >= 6299
+   piece 1, m=838: 1 of the |R| rows die by the Gallai cap, 1 by the split bound, 0 by neither
+   piece 1, m=839: 2 of the |R| rows die by the Gallai cap, 3 by the split bound, 0 by neither
+   piece 1, m=840: 2 of the |R| rows die by the Gallai cap, 5 by the split bound, 0 by neither
+   piece 2: split minima [10798, 10798, 10798] against 8281  -> holds
+   piece 3: classes with b >= 8 surviving [0, 0, 0]  -> holds
+   => order 58 reduces to the three b <= 7 classes: YES
+
+RUNG: Abrego et al. EuroCG 2015, cr(K_13) >= 223     cr(K_27) >= 5512, cr(K_28) >= 6431
+   piece 1, m=838: 1 of the |R| rows die by the Gallai cap, 1 by the split bound, 0 by neither
+   piece 1, m=839: 2 of the |R| rows die by the Gallai cap, 3 by the split bound, 0 by neither
+   piece 1, m=840: 2 of the |R| rows die by the Gallai cap, 5 by the split bound, 0 by neither
+   piece 2: split minima [11024, 11024, 11024] against 8281  -> holds
+   piece 3: classes with b >= 8 surviving [0, 0, 0]  -> holds
+   => order 58 reduces to the three b <= 7 classes: YES
+
+RUNG: Aichholzer CCCG 2021, cr(K_13) = 225     cr(K_27) >= 5546, cr(K_28) >= 6471
+   piece 1, m=838: 1 of the |R| rows die by the Gallai cap, 1 by the split bound, 0 by neither
+   piece 1, m=839: 2 of the |R| rows die by the Gallai cap, 3 by the split bound, 0 by neither
+   piece 1, m=840: 2 of the |R| rows die by the Gallai cap, 5 by the split bound, 0 by neither
+   piece 2: split minima [11092, 11092, 11092] against 8281  -> holds
+   piece 3: classes with b >= 8 surviving [0, 0, 0]  -> holds
+   => order 58 reduces to the three b <= 7 classes: YES
+
+CONCLUSION
+   Every piece of the order-58 chain holds at every rung, so the
+   whole reduction needs nothing beyond cr(K_12) = 150 (Guy;
+   Pan and Richter, J. Graph Theory 56 (2007) 128-134).  In
+   particular it does NOT need the CCCG 2021 value cr(K_13) = 225,
+   which is a published but single-author, 1000+ CPU-year result
+   that neither Schaefer's DS21 (2026) nor Clancy-Haythorpe-
+   Newcombe records.
+   Piece 3 required crminus.py to reach this: without it, b = 30
+   survived at the weakest rung (8249 at m = 839, 8213 at m = 840).
+   Pieces 1 and 2 were already seed-independent; this file is the
+   check that establishes it, which had not been done before.
+
+   STILL OPEN: the three classes b = 6 with (51,1) and (50,1,1) and
+   b = 7 with (49,1,1), and the three order-57 rows 826, 827, 828.

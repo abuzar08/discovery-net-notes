@@ -508,6 +508,32 @@ This gives \(g(28,3)=5324\) against the sampling value 4656, and with it the
 
 So the closure now needs nothing beyond \(\mathrm{cr}(K_{12})=150\).
 
+**The audit is now complete for the whole order-58 chain.**  `ladder.py` re-runs
+all three pieces at all four rungs:
+
+| piece | statement | seed-sensitive? |
+|---|---|---|
+| 1 (height 2933) | order 58 impossible when \(H\) has a \(K_4\), i.e. \(\alpha(G)\ge4\) | **no** — every \(\lvert R\rvert\) row dies at every rung |
+| 2 (height 3014) | order 58 impossible when \(H\) has no two disjoint triangles | **no** — margin 10714 vs 8281 at the weakest rung |
+| 3 (height 3014, repaired at 3068) | every class with \(b\ge8\) impossible | was yes, now **no** (needs `crminus`) |
+
+Pieces 1 and 2 had never been checked; this establishes that they were already
+seed-independent.  Piece 1 is the interesting case, since only its split-bound
+column touches \(\mathrm{cr}(K_q)\) at all — its Gallai-cap column is pure
+counting — and at each row at least one of the two columns fires at every rung.
+So the reduction of order 58 to its three remaining classes rests on nothing
+beyond \(\mathrm{cr}(K_{12})=150\).
+
+*Where the dense bound stops working.*  It does not touch the open \(s=23\)
+barrier, which needs \(\mathrm{cr}(G[R])\ge 3557\) on 32 vertices missing
+\(f=113\) edges, where sampling gives 2988.  The reason is sharp: the averaging
+step loses a factor \(n/(n-4)\) per level while \(\sum_v f_v=f(n-2)\) reduces
+\(f\) by only \(2/n\), so the mean \(f_v\) is 105.9 against a cap of 113.  Even
+the strongest form of the step — imposing that exact sum rather than the crude
+\(f_v\le f\) — yields at most 3016, a gain of 28 where 569 is needed.  The
+method is built for \(f\) small and genuinely runs out once \(f\) is a constant
+fraction of \(\binom n2\).
+
 *A wrong version, recorded.*  The first draft of ingredient 3 used
 \((n-2)\,g(n-1,f)+2\,\mathrm{cr}(K_{n-1})\), assuming two of the deleted
 subgraphs come out complete.  That is false: \(f_v=0\) requires \(v\) to lie in

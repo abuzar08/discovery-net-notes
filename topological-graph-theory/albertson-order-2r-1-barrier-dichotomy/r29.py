@@ -13,22 +13,22 @@ conclusion is conditional on them.
 
 --------------------------------------------------------------------------
 A graph with chi >= 28 contains a 28-critical subgraph, whose crossing number is
-no larger, so it suffices to treat 28-critical G with cr(G) < cr(K_28).  Such a G
-has no subdivision of K_28, since cr(TK_28) = cr(K_28).  Cranston's order bounds
+no larger, so it suffices to treat 29-critical G with cr(G) < cr(K_29).  Such a G
+has no subdivision of K_29, since cr(TK_29) = cr(K_29).  Cranston's order bounds
 are stated for a MINIMUM counterexample, so fix G of minimum order among the
-28-critical counterexamples; ruling out every order rules out all of them.
+29-critical counterexamples; ruling out every order rules out all of them.
 
 PART A -- the orders left open.  (At r = 29 the join/edge-budget argument does
 not close everything: orders 57 = 2r-1 and 58 = 2r survive, matching the eight-row
 frontier published at ledger height 2761.)
-  Orders <= r+4 = 32 carry a TK_r (Cranston Lemma C); orders 35..49 and >= 79 are
+  Orders <= r+4 = 33 carry a TK_r (Cranston Lemma C).  Further orders are
   excluded by Cranston (his bands 1.228r <= n <= 1.768r and n >= 2.82r, tested
   here as the exact integer inequalities 250n >= 307r, 125n <= 221r, 50n >= 141r);
   every remaining order whose edge floor exceeds its recursive-sampling ceiling is
-  excluded here.  That leaves 33, 34, 50..55.
-  For n <= 2r-2 = 54 the complement is disconnected (Gallai; Sadhu Lemma 2.8),
+  excluded here.  `open_orders()` reports exactly what survives at r = 29.
+  For n <= 2r-2 = 56 the complement is disconnected (Gallai; Sadhu Lemma 2.8),
   so V(G) splits into the components V_1..V_t of the complement, distinct parts
-  complete to each other, G[V_i] r_i-critical, sum r_i = 28, |V_i| >= 2 r_i - 1
+  complete to each other, G[V_i] r_i-critical, sum r_i = 29, |V_i| >= 2 r_i - 1
   (Gallai, applicable since complement(G_i) is that component).  A part with
   r_i = 2 would be K_2, whose complement is disconnected, so every part has
   r_i = 1 with v_i = 1, or r_i >= 3 with v_i >= 2 r_i - 1.
@@ -39,14 +39,15 @@ frontier published at ledger height 2761.)
       path vertices stay inside their part).  So some G_j has none, and Cranston
       Lemma E applies to it.  Parts with r_j <= 3 always have a TK_{r_j} (K_1;
       a 3-critical graph is an odd cycle, which is a TK_3), so r_j >= 4.
-  No decomposition of any n <= 54 survives, so n = 55 = 2r-1 and m in {768,769}.
+  No decomposition of any n <= 56 survives, so orders 57 = 2r-1 and 58 = 2r are
+  the ones that reach PART B, matching the eight-row frontier of height 2761.
 
 PART B -- the rows at n = 2r-1 = 57.  Rows 824 and 825 are eliminated outright;
 826, 827 and 828 are reduced to the listed high-vertex counts.  Order 58 = 2r is
 NOT covered: there Stehlik gives one colour class of size three rather than a
 perfect matching, so H need not be factor-critical and none of this applies.
   At n = 2r-1 the complement H is factor-critical (Stehlik 2003) with
-  theta(H) = 28, hence no conformal triangle.  The barrier classification leaves
+  theta(H) = 29, hence no conformal triangle.  The barrier classification leaves
   one configuration: B = T u {s} with T a triangle of H, and
   H - B = C u {w1} u {w2} with |C| = 49 and N_H(wi) inside B.
   Non-domination (no vertex of N_H(w) dominates the rest of N_H(w)) gives
@@ -72,7 +73,7 @@ import verify_range as V
 RCHI = 29
 N = 2 * RCHI - 1                 # 57
 ROWS = (824, 825, 826, 827, 828)   # the order-57 rows of the height-2761 frontier
-DEG = RCHI - 1                   # low-vertex degree 27
+DEG = RCHI - 1                   # low-vertex degree r-1 = 28
 Z = V.Z(RCHI)
 _L = R.build(79, rounds=3)
 
