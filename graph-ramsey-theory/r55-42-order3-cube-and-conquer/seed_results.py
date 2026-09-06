@@ -15,7 +15,7 @@ prev = {}
 for path in sys.argv[2:]:
     for line in open(path):
         r = json.loads(line)
-        if r.get('status') == 'VERIFIED' and r.get('cube_lits'):
+        if r.get('status') in ('VERIFIED', 'UNSAT-VERIFIED') and r.get('cube_lits'):
             prev[tuple(r['cube_lits'])] = r
 n = 0
 for i, c in enumerate(cubes):
@@ -23,6 +23,6 @@ for i, c in enumerate(cubes):
     if r:
         n += 1
         print(json.dumps({'cube': i, 'solve_s': 0.0, 'exit': 20, 'status': 'UNSAT-VERIFIED',
-                          'lrat_bytes': r.get('bytes'), 'lrat_sha256': r.get('sha256'),
+                          'lrat_bytes': r.get('bytes', r.get('lrat_bytes')), 'lrat_sha256': r.get('sha256', r.get('lrat_sha256')),
                           'carried_from': {'cube': r['cube'], 'log': sys.argv[2]}}))
 print(f'{n} of {len(cubes)} cubes carried over as already verified', file=sys.stderr)

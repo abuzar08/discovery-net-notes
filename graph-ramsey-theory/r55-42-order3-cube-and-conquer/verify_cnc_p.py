@@ -27,13 +27,14 @@ variables (refine_p.py), pass the refined .icnf together with `--refine map.json
 the checker then verifies that the children of every refined cube are exactly the
 2^m assignments of the m split variables (so the split is a complete case
 distinction), runs checks 2 and 3 on the parent cubes, and replays one certificate
-per child.
+per child. Several rounds of refinement are given as a comma-separated list of maps
+in refinement order; each level is collapsed and checked in turn.
 Long runs whose proofs are too large to keep replay each certificate as it appears
 (sweep_verify.py) and delete it. Pass those sweep logs with `--verified a.jsonl,b.jsonl`:
 a cube whose certificate is no longer on disk is then accepted if some log records a
 VERIFIED replay for exactly its literals, and such cubes are reported separately from
 the ones replayed in this run.
-usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map.json] [--verified logs] [--skip-lrat] [--skip-complete]
+usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map1.json[,map2.json...]] [--verified logs] [--skip-lrat] [--skip-complete]
 Exit status 0 iff everything checked passed."""
 import sys, os, json, itertools, hashlib, lzma
 from multiprocessing import Pool
@@ -223,6 +224,34 @@ def check_cube(args):
         return i, f'LRAT error: {e}'
     return i, 'VERIFIED' if ok else 'no empty clause'
 
+def collapse(cubes, rmap, level):
+    """Check one refinement level and return the cube list it was built from."""
+    sv = rmap['split_vars']; recs = rmap['cubes']
+    assert len(recs) == len(cubes), f'refinement map {level} does not match the cube file'
+    par = {}
+    for c, rec in zip(cubes, recs):
+        i, add = rec['parent'], rec['added']
+        if add:
+            assert add == c[len(c) - len(add):], 'child does not end in its added literals'
+        base = c[:len(c) - len(add)] if add else c
+        par.setdefault(i, {'cube': base, 'added': set()})
+        assert par[i]['cube'] == base, f'inconsistent parent cube {i} at level {level}'
+        if add:
+            assert sorted(map(abs, add)) == sorted(sv), f'child of cube {i} splits on the wrong variables'
+            par[i]['added'].add(tuple(add))
+    assert sorted(par) == list(range(len(par))), 'parent indices are not 0..n-1'
+    full = {tuple(s * v for s, v in zip(signs, sv)) for signs in itertools.product((1, -1), repeat=len(sv))}
+    nref = 0
+    for i in sorted(par):
+        a = par[i]['added']
+        if a:
+            assert a == full, f'cube {i}: children are not the complete 2^{len(sv)} split'
+            nref += 1
+        assert not (set(map(abs, par[i]['cube'])) & set(sv)), f'cube {i} already fixed a split variable'
+    out = [par[i]['cube'] for i in sorted(par)]
+    print(f'refinement level {level}: {len(out)} cubes, {nref} of them split completely on {len(sv)} variables {sv} into {len(cubes)} subcubes')
+    return out
+
 def main():
     argv = sys.argv[1:]; jobs = 4
     if '--jobs' in argv:
@@ -237,9 +266,11 @@ def main():
                     prev[tuple(r['cube_lits'])] = r.get('sha256')
         del argv[i:i + 2]
         print(f'{len(prev)} cubes recorded VERIFIED by earlier replay sweeps')
-    refine = None
+    refine = []
     if '--refine' in argv:
-        i = argv.index('--refine'); refine = json.load(open(argv[i + 1])); del argv[i:i + 2]
+        i = argv.index('--refine')
+        refine = [json.load(open(m)) for m in argv[i + 1].split(',')]   # in refinement order
+        del argv[i:i + 2]
     flags = {a for a in argv if a.startswith('--')}; args = [a for a in argv if not a.startswith('--')]
     f, p, k, L = map(int, args[:4]); icnf, cnfpath, manpath, certdir = args[4:8]
     assert f + p * k == N
@@ -258,32 +289,12 @@ def main():
     print(f'formula 1^{f} {p}^{k}: {len(base)} orbit + {len(extra)} redundant + {len(lex)} lex-leader + {len(S)} residual clauses, {nvfile} variables ({nvo} orbit variables); matches {os.path.basename(cnfpath)} (sha256 {sha256(cnfpath)})')
     # 2./3. cubes
     cubes = [list(map(int, l.split()[1:-1])) for l in open(icnf) if l.startswith('a ')]
-    if refine is None:
+    if not refine:
         parents = cubes
     else:
-        sv = refine['split_vars']; recs = refine['cubes']
-        assert len(recs) == len(cubes), 'refinement map does not match the cube file'
-        par = {}
-        for c, rec in zip(cubes, recs):
-            i, add = rec['parent'], rec['added']
-            assert add == c[len(c) - len(add):] if add else True, 'child does not end in its added literals'
-            base = c[:len(c) - len(add)] if add else c
-            par.setdefault(i, {'cube': base, 'added': set()})
-            assert par[i]['cube'] == base, f'inconsistent parent cube {i}'
-            if add:
-                assert sorted(map(abs, add)) == sorted(sv), f'child of cube {i} splits on the wrong variables'
-                par[i]['added'].add(tuple(add))
-        assert sorted(par) == list(range(len(par))), 'parent indices are not 0..n-1'
-        full = {tuple(s * v for s, v in zip(signs, sv)) for signs in itertools.product((1, -1), repeat=len(sv))}
-        nref = 0
-        for i in sorted(par):
-            a = par[i]['added']
-            if a:
-                assert a == full, f'cube {i}: children are not the complete 2^{len(sv)} split'
-                nref += 1
-            assert not (set(map(abs, par[i]['cube'])) & set(sv)), f'cube {i} already fixed a split variable'
-        parents = [par[i]['cube'] for i in sorted(par)]
-        print(f'refinement: {len(parents)} cubes, {nref} of them split completely on {len(sv)} variables {sv} into {len(cubes)} subcubes')
+        parents = cubes
+        for level, rmap in reversed(list(enumerate(refine))):
+            parents = collapse(parents, rmap, level + 1)
     dec = [decode(c, var, f, p, L) for c in parents]
     assert len(set(dec)) == len(parents), 'duplicate cubes'
     G = group(p, L)

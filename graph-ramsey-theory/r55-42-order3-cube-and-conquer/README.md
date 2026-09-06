@@ -122,8 +122,9 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
 - `refine_p.py` — replaces a cube the solver could not refute in the time limit by
   the \(2^{m}\) assignments of the \(m\) orbit variables of the first free cycle (a complete
   case split: sound with no group argument), writing a refinement map; the checker
-  verifies with `--refine map.json` that every refined cube's children are exactly
-  those \(2^{m}\) assignments. Added after the \(1^{15} 3^{9}\) run, which needed no refinement
+  verifies with `--refine map1.json,map2.json` that every refined cube's children are
+  exactly those \(2^{m}\) assignments, collapsing one refinement level at a time when
+  a cube had to be split more than once. Added after the \(1^{15} 3^{9}\) run, which needed no refinement
   (`logs/verify_full.log` was produced by the checker at commit dc22364, which
   differs from the current one only by this option).
 - `verify_cnc_p.py` — independent checker; it now carries its own `check_lrat`,
