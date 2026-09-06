@@ -1,0 +1,24 @@
+K5: n=5 m=10 cr class <=1
+   edge 0-1: digon <=1, digonal path of 2 <=1, of 3 <=1   SAME
+   edge 0-2: digon <=1, digonal path of 2 <=1, of 3 <=1   SAME
+   edge 0-3: digon <=1, digonal path of 2 <=1, of 3 <=1   SAME
+K33: n=6 m=9 cr class <=1
+   edge 0-3: digon <=1, digonal path of 2 <=1, of 3 <=1   SAME
+   edge 0-4: digon <=1, digonal path of 2 <=1, of 3 <=1   SAME
+   edge 0-5: digon <=1, digonal path of 2 <=1, of 3 <=1   SAME
+K6: n=6 m=15 cr class >=3
+   edge 0-1: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+   edge 0-2: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+   edge 0-3: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+Petersen: n=10 m=15 cr class =2
+   edge 0-1: digon =2, digonal path of 2 =2, of 3 =2   SAME
+   edge 0-4: digon =2, digonal path of 2 =2, of 3 =2   SAME
+   edge 0-5: digon =2, digonal path of 2 =2, of 3 =2   SAME
+C3xC3: n=9 m=18 cr class >=3
+   edge 0-3: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+   edge 0-6: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+   edge 0-1: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+K7-e: n=7 m=20 cr class >=3
+   edge 0-2: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+   edge 0-3: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME
+   edge 0-4: digon >=3, digonal path of 2 >=3, of 3 >=3   SAME

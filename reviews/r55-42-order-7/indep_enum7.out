@@ -1,0 +1,5 @@
+level 2: 8192 labelled objects, 3378 of them (5,5)-good, 42 orbits under my group
+   published level2.json: 42 representatives; each lies in a distinct one of my orbits: True
+
+level 3: published list has 19741 representatives; 30-bit objects, 1073741824 labelled in total
+   800 random good labelled objects: 800 met the list exactly once, 0 did not

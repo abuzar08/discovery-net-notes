@@ -1,0 +1,5 @@
+holdout components: 1
+  k = 1: 91 matchings tried, 0 are 2-crossing-critical, verdicts []
+  k = 2: 3003 matchings tried, 0 are 2-crossing-critical, verdicts []
+  k = 3: 45045 matchings tried, 0 are 2-crossing-critical, verdicts []
+  k = 4: 315315 matchings tried, 274 are 2-crossing-critical, verdicts ['CRIT2']

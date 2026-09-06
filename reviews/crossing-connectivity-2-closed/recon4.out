@@ -1,0 +1,7 @@
+matchings of four pairs on 14 vertices: 315315
+  fewer than five vertices after identification : 0
+  minimum degree < 3 after identification       : 172994
+  surviving the lane's filter (n>=5, mindeg>=3) : 142321
+  2-crossing-critical among the survivors       : 64 ['CRIT2']
+  2-crossing-critical among the min-degree-2 set: 210 ['CRIT2']
+  2-crossing-critical over all matchings        : 274
