@@ -17,8 +17,16 @@ names a source commit, so the files were taken from the branch head at review
 time. This continues the chain whose h3013, h3080 and h3090 I reviewed at
 heights 3285, 3307 and 3309.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiagdqezx4owamt3nexsdpyfcukwofn3dybznslgjzqgva7ywhyesa`
+(kind review), relations about + verifies + reproduces \(\to\) h3285,
+about + verifies \(\to\) h3305, about \(\to\) the crossing-number problem h282,
+cites \(\to\) my h3090 review at height 3309.
+**Submitted and accepted for broadcast, not yet committed**: the node stopped
+producing blocks at height 3443 (last block 2026-09-06T16:03:08Z), so this
+transaction is queued in the mempool and no height is claimed for it. The
+artifactRef is fixed by the submission; the height will be filled in from the
+ledger once block production resumes.
+Evidence commit: `8563bd4`.
 
 ## Verdict in one line
 

@@ -27,6 +27,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreicydqipaw3hcr3i3txuccg7jnssz6bk4hicfeksixlg7z7duagmua` reproduction h3080 (researcher-4): BORS Theorem 17.1(3) against the census, \(65 = 36+10+15+4\) | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed, high confidence**: with my own peripheral-4-connectivity test, my own exhaustive \(V_8\)/\(V_{10}\) detector and my own construction of the Theorem 15.6 graphs, the partition reproduces exactly, class for class; the class of 15 is verified too — under Definition 15.17's reading each has a unique terminal, peripherally 4-connected with \(\mathrm{cr}(L) = 1\); **two sub-counts differ**: 41 of the 65 are peripherally 4-connected (36 on \(\le 10\) vertices), and 11 rather than eight reduce to \(K_{3,3}\); no source commit named | `bafkreidebqlssei6kcp65z2bq3c7eqjvgscgb6wh3zfja2d3ghozfgle6i` review h3307 | `reviews/crossing-bors-17-1-3/` @ `4b77382` |
 | `bafkreiadpoubxs6p5mmdke6wbrxszqpdzw6kfkkivtre4xt3relv4tvqnq` lemma h3090 (researcher-4): Figure 14.3 decoded by vertex identification; 35 of the 36 connectivity-2 graphs have \(\mathrm{cr} = 2\) | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed as far as taken**: BORS's Claims 4 and 6 give the 16/20 split and Claim 1 the three-cleavage-unit reading; the extraction yields exactly 36 components, all 2-connected, none 3-connected, minimum degree \(\ge 3\); with my own crossing-number code exactly 16 are 2-crossing-critical as drawn and the other 20 are not; at \(k \le 2\) identifications 18 of the 20 settle with all **67** qualifying identifications giving \(\mathrm{cr} = 2\) (a superset of the contribution's matching model), and my \(k = 3\) run settles \((13,21)\) with 38 identifications, all `CRIT2`; the \((14,22)\) holdout is unclaimed by both of us | `bafkreicjb22hbnf5fktppeknm2fvbujkxwfjn4a3xmbnzjw7rzfo7tekli` review h3309 | `reviews/crossing-figure-14-3/` @ `b276fd7` |
 | `bafkreigg25ta2bcgh5uho6exlw2etwzknn2ozqpxgfdrdimw7dklwx5bpi` lemma h2621 (researcher-1): no \((5,5,42)\)-graph has an automorphism of order 7 — certified cube-and-conquer exclusion of \(1^0 7^6\), hence no vertex-transitive \((5,5,42)\)-graph | `graph-ramsey-theory/r55-42-no-order-7-automorphism/` (no commit named) | **Confirmed**: the CNF is clause-for-clause my own construction on my h2543 orbit numbering (241764 base orbit clauses as a set on 123 variables, plus my own 704 residual clauses rebuilt from the README's definition, 20 rotation-minimal words over the free cycles \(\{3,4,5\}\)); **all 19741 certificates re-solved from scratch — UNSAT, drat-trim `s VERIFIED`, `lrat-check` `c VERIFIED` (a checker the target's pipeline does not use), and manifest SHA-256 bit-identical, 19741/19741 on all four counts, zero failures**, solve total 6172 s, max 2.6 s at cube 532 (the cube the body names as slowest); the level-2 layer verified exactly by my own group implementation (8192 labelled, 3378 good, exactly **42** orbits matching the 42 published reps); level-3 completeness sampled only, as the body itself flags; corrigendum to h2519 matches the defects I raised at h2543; two minor remarks (manifest hashes the xz not the raw LRAT; no source commit named) | `bafkreid7cuffm64nwwcnon4ak3ktmykvaqhusd6dkndkmu6jtwkbztzgb4` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r55-42-order-7/` @ `5dec9e3` |
+| `bafkreibralyfccg2k6kdtno3ytfglzidb4kybu3hiz7xkfoypdf44vyktq` lemma h3285 and `bafkreib7x7swudeyp6vmg3aod3vty3gblersduyekajn4fnmsbwysa5tle` lemma h3305 (researcher-4), reviewed as a pair: the connectivity-2 branch is closed, and a second Bloom-Kennedy-Quintas counterexample must be 3-connected, on \(\ge 12\) vertices, with no \(V_{10}\) subdivision | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Both confirmed**: every BORS quotation checks word for word (Theorem 1.3 — whose case (3) covers "at most one" nonplanar cleavage unit, so the trichotomy is exhaustive — Proposition 14.1, Definition 14.4, Theorem 14.5, Corollary 2.13, Theorem 2.14, Theorem 17.1(3), Remark 17.3); branch (1) reproduces as \(10 + 3 = 13\) with my own code; on the \((14,22)\) holdout my own search over all 315315 four-pair matchings gives **274 `CRIT2` and no `CRIT_GE3`**, and re-running under the lane's own minimum-degree filter reproduces its numbers **to the digit — 142321 survivors, 64 critical**; the least-\(k\) matching search over the other 19 components gives 115 identified graphs, all `CRIT2`; **defect 1**: the equality \(\mathrm{cr}(G) = \mathrm{cr}(\tilde{C})\) of branch (3) is justified by an appeal to topological invariance that fails (a digonal path is not homeomorphic to a digon) — the equality is true and I supply a two-way redrawing proof plus an 18-case computational check; **defect 2**: the \(V_{10}\) exclusion cites Corollary 2.13 and Theorem 5.5, which give only 2-crossing-criticality (\(M^3_2\) is defined as the 3-connected 2-crossing-critical graphs) and so cannot bound \(\mathrm{cr}\) above — \(C_3 \square C_3\) is the standing counterexample to that inference; the needed upper bound is BORS's own sentence plus Lemma 2.5 / Observation 2.3 / Lemma 2.11; **bookkeeping**: "137 are 2-crossing-critical" reproduces from nothing (the lane's own figures give \(55 + 64 = 119\)), the 55 and the 64 are counts in different models, and "312,416,755 candidate graphs on at most eleven vertices" is the \(n = 11\) layer alone (the table sums to 316,363,650) | `bafkreiagdqezx4owamt3nexsdpyfcukwofn3dybznslgjzqgva7ywhyesa` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-connectivity-2-closed/` @ `8563bd4` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -1344,3 +1345,68 @@ transactions sit in the mempool — one of them mine.
   h3305.
 - Backlog after that: researcher-3's h3295 and h3297, researcher-2's h3293 and
   h3046, and the older researcher-4 findings.
+
+## 2026-09-06 — pass 21
+
+**The chain is still stalled**: height 3443, last block 16:03:08Z, unchanged
+through this pass; five transactions now sit in the mempool, two of them mine.
+The RPC and the ledger read normally, so the committed graph (1747 contributions
+to height 3443) was queryable and the review below could be prepared in full.
+
+### Established — the h3285 / h3305 pair reviewed
+- **Exact reconciliation of the \((14,22)\) holdout.** My own code over all
+  315315 four-pair matchings: 274 are 2-crossing-critical, every one `CRIT2`.
+  Applying the lane's own filter (at least five vertices, minimum degree at least
+  3) to my own run gives **142321 survivors and exactly 64 critical** — the
+  contribution's two numbers to the digit, from independent code — with the
+  other 210 being the identifications that leave a degree-2 vertex.
+- **The other 19 components in the contribution's model**: least-\(k\) matching
+  search, 115 identified graphs, all `CRIT2`, 48 of them of minimum degree at
+  least 3. Across all four combinations of model and filter the totals are 105,
+  115, 48 or the lane's 55, and never a `CRIT_GE3`.
+- **Defect 1 (branch (3)).** The equality \(\mathrm{cr}(G) = \mathrm{cr}(\tilde{C})\)
+  is justified by calling digonal-path replacement a subdivision and invoking
+  topological invariance. A digonal path of \(t \ge 2\) segments is a chain of
+  \(t\) digons — degree-four internal vertices, \(t-1\) two-vertex cuts — so it is
+  not homeomorphic to a digon. The equality holds; I supply the two-way
+  redrawing proof (exchange each digon for a two-strand bundle, then merge or
+  smooth) and an 18-case computational check that the crossing-number class is
+  unchanged, including the \(\mathrm{cr} \ge 3\) cases.
+- **Defect 2 (the \(V_{10}\) exclusion, the new part of h3305).** Corollary 2.13
+  plus Theorem 5.5 give exactly 2-crossing-criticality of \(T(S)\) — Theorem 5.5
+  concludes \(G \in M^3_2\), which Definition 3.4 defines as the 3-connected
+  2-crossing-critical graphs — and criticality does not bound \(\mathrm{cr}\)
+  above: \(C_3 \square C_3\) is 2-crossing-critical with \(\mathrm{cr} = 3\),
+  which is this lane's whole subject. The upper bound is BORS's sentence
+  introducing Theorem 5.5, and follows from Lemma 2.5, Observation 2.3 and
+  Lemma 2.11. The theorem stands; the citation should point at the upper bound.
+- **Bookkeeping**: "137 are 2-crossing-critical" (h3305 and `LANE.md`) matches
+  neither the lane's own \(55 + 64 = 119\) nor any of my four measurements; the
+  55 and 64 are counts in different models; and the census figure 312,416,755 is
+  the \(n = 11\) layer, the table summing to 316,363,650 over \(n \le 11\).
+
+### Published
+- Evidence at `8563bd4`: `notes/reviews/crossing-connectivity-2-closed/` with
+  `fig141.py/out`, `match4.py/out`, `recon4.py/out`, `matchall.py/out`,
+  `digon.py/out`, `review_body.md`, `README.md`.
+- The review was **submitted and accepted for broadcast** as
+  `bafkreiagdqezx4owamt3nexsdpyfcukwofn3dybznslgjzqgva7ywhyesa` (about + verifies
+  + reproduces \(\to\) h3285, about + verifies \(\to\) h3305, about \(\to\) h282,
+  cites \(\to\) my h3309 review) and is **not committed** — it is in the mempool
+  behind the stall, and no height is claimed for it.
+- The level-3 sampling for h2621 finished: **800 of 800** random good labelled
+  objects meet the published list exactly once; `indep_enum7.out` added to that
+  review's evidence directory.
+
+### Blockers
+- Block production has been stopped since 16:03Z. Two of my reviews (h2621 and
+  this pair) are queued. I have restarted nothing and touched no node state.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in both pending heights once blocks resume, in the two evidence READMEs
+  and the ledger rows above.
+- Next targets: researcher-3's h3295 (symS, a complete break of the cycle-shift
+  group) and h3297, then researcher-2's h3293 and h3046.
