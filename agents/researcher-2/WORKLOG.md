@@ -1225,3 +1225,96 @@ byte-for-byte unchanged. Corrected.
    A gain needs the block-to-\(B\) incidence controlled across disjoint blocks.
 3. Ask for review of `crminus.py` (the averaging step is the load-bearing new
    argument and I got one version of it wrong) and of `ladder.py`.
+
+## 2026-09-06 — pass 15
+
+### What I established
+
+**Order-57 row \((57,826)\) is eliminated and row \((57,827)\) narrows to
+\(|R|\in\{8,9\}\).** The order-57 frontier goes from three open rows to two.
+`min_split` was discarding two resources; `aug57.py` recovers both. Its `plain`
+column reproduces `r29.py` exactly, which checks the harness.
+
+**Ingredient A — augment one block by \(w_1,w_2\).** Distinct blocks are
+*edge*-disjoint and a crossing between edges of different blocks is counted in
+neither, so \(\sum_i\mathrm{cr}(Q_i)\le\mathrm{cr}(G)\) with no vertex-disjointness
+needed — which also makes the old "order \(\ge15\)" restriction unnecessary (it
+changes no number, since the minimiser never uses small blocks, but it licenses
+the next step). Since \(N_H(w_i)\subseteq B\), each \(w_i\) is \(G\)-adjacent to
+every vertex of \(C\) and \(w_1w_2\in E(G)\), so with \(\beta_j:=|Q_j\cap B|\),
+\((Q_j\cap C)\cup\{w_1,w_2\}\) is a clique of order \(q_j-\beta_j+2\) whose edges
+lie in \(Q_j\) or at \(w_1,w_2\) — hence in no other block. \(T\) is an
+\(H\)-triangle so a \(G\)-clique holds at most one \(T\)-vertex, and a \(B\)-vertex
+in two blocks of order \(\ge22\) would be a low cut vertex of degree \(\ge43>28\);
+so \(\beta_j\le2\), at most one \(\beta_j=2\), and \(\sum_j\beta_j\le4\).
+
+**Ingredient B — every low vertex needs block degree.** A low vertex has
+\(d_G(v)=28\) *exactly* and its \(L\)-neighbours are exactly the union of its
+blocks minus itself, so \(\sum_{\text{blocks}\ni v}(|Q|-1)\ge 28-|R|=:\delta_0\).
+Hence \(L\) has **no isolated vertex** (it would need 28 neighbours inside \(R\)),
+so \(\mathrm{extra}:=\sum_j q_j-p\ge0\); and any block with \(q-1<\delta_0\)
+consists entirely of cut vertices, of which there are at most \(\mathrm{extra}\),
+so \(q\le\mathrm{extra}\). At \(|R|=7\), \(\delta_0=21\), which kills the
+connector-block minimisers such as \((26,23,3)\).
+
+| row | \(|R|\) | \(e(L)\ge\) | plain | \(+w_1,w_2\) | \(+\)degree | verdict |
+|---|---|---|---|---|---|---|
+| 826 | 7 | 582 | 7856 | 8343 | 8343 | impossible |
+| 827 | 7 | 581 | 7521 | 8081 | 8343 | impossible |
+| 827 | 8 | 555 | 6714 | 7354 | 7354 | survives |
+| 828 | 7 | 580 | 7521 | 8081 | 8081 | survives |
+
+against \(Z(29)=8281\).
+
+### Negative results this pass
+- Block-additivity alone (dropping the "order \(\ge15\)" filter) gains **nothing**
+  numerically: the minimiser never uses small blocks, since they are inefficient
+  at producing edges. It is a simplification of the justification, not a
+  strengthening.
+- Splitting \(w_1\) and \(w_2\) across two different blocks (one each) is never
+  better than putting both on one block. Confirmed computationally; no gain.
+
+### Corrections made this pass
+- My first `adversary_gain` brute-forced \(3^k\) over all blocks, which explodes
+  on multisets with many small blocks and hung the run. Replaced by an exact
+  threshold computation: for a target gain \(g\), block \(j\) needs \(\beta_j\) at
+  least the least \(b\) with \(\mathrm{cr}(K_{q_j-b+2})-\mathrm{cr}(K_{q_j})\le g\),
+  so feasibility is a linear scan. Same value, no blow-up.
+- My first version of Ingredient B checked only the small-block condition and
+  forgot that a vertex in *no* block is also impossible. That let minimisers like
+  \((26,23)\) on 50 vertices through, which leave a vertex isolated in \(L\).
+  Added \(\mathrm{extra}\ge0\).
+
+### Published
+- GitHub commit `ab6e051`: new `aug57.py` with expected output, README r=29
+  section rewritten in LaTeX, `SHA256SUMS` regenerated (37/37 verify). Blob link
+  HTTP 200. `aug57.py` SHA-256
+  `11ff0bc261bc8c957dbf913c6ac3207307ca76cb6e7f0b0017caf43855979988`.
+- Discovery Net: **NOT PUBLISHED — the node is down.** See blocked.
+
+### Blocked — operational
+- The Discovery Net node RPC at `http://127.0.0.1:26657` is **unreachable** as of
+  2026-09-06T04:52Z (`error: CometBFT RPC could not be reached`). Before that the
+  chain had been stalled at height 3095 since 2026-09-06T00:38Z. So this pass's
+  contribution could not be submitted at all, and pass 14's contribution
+  (`bafkreid5rciyqzspzls5xmufbr5jh33rnmaoscfefqzfvuegs56glw3y6u`, tx
+  `1CC9879AFB20AE5E992224F5DDAFF40266CD8FEF4F6C2B5A1B95E678FB6CF28E`) is still
+  uncommitted — it was accepted for broadcast into a mempool that has since gone
+  away, so it may need resubmitting once the node returns. Check first, then
+  resubmit only if it is genuinely absent.
+- The GitHub artifact is published and self-contained, so nothing is lost.
+- \(r=29\) is not proved. Order 57: rows 827 (\(|R|\in\{8,9\}\)) and 828
+  (\(|R|\in\{7,\dots,11\}\)). Order 58: three \(b\le7\) classes.
+- No background computations left running.
+
+### Next step (concrete)
+1. **Submit the pass-14 and pass-15 contributions once the node is back**, in that
+   order, checking first whether pass 14's is already committed.
+2. Row \((57,827)\) at \(|R|=8\) is now the nearest target: 7354 against 8281,
+   short by 927. Its minimiser is \((25,23,2,2)\) on 49 vertices with 555 edges.
+   At \(|R|=8\), \(\delta_0=20\), so blocks of order \(\ge21\) only — the degree
+   filter is weaker there and is what lets \((25,23)\) survive. Sharpening
+   \(e(L)\) via a better `eGR_min(8)` would raise the forced edge count and could
+   force \((26,23)\) instead, worth about 700.
+3. Ask for review of `aug57.py` (Ingredients A and B are both new and I got one
+   version of B wrong), and of `crminus.py` from pass 13.
