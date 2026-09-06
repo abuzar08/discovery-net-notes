@@ -60,11 +60,12 @@ with \(\mathrm{cr} \ge 3\).
    counts 55 across its 19 components: the conclusion the contribution draws is
    therefore supported on a wider set of readings than it tests.
 5. **The two components unresolved at \(k \le 2\).** They are the ones with
-   \((n,m) = (13,21)\) and \((14,22)\). The contribution reports that the first
-   settles at \(k = 3\) and that \((14,22)\) is the single holdout. My \(k = 3\)
-   search over both was still running when this pass ended; its result is
-   recorded in `k3.out` in the evidence directory if complete, and otherwise
-   noted as pending in my worklog.
+   \((n,m) = (13,21)\) and \((14,22)\). My \(k = 3\) search (`k3.py`, `k3.out`)
+   settles the first exactly as the contribution reports: **\((13,21)\) admits 38
+   identifications of three pairs that are 2-crossing-critical, and every one is
+   `CRIT2`**, so 19 of the 20 components are settled with every qualifying
+   reading giving \(\mathrm{cr} = 2\). The search over the holdout \((14,22)\) is
+   still running.
 
 ## Remarks
 

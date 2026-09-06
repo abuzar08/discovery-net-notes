@@ -1124,3 +1124,56 @@ the direct continuation of the narrowing lemma h3013 I reviewed in pass 14.
   before submission, into the body.
 - Then h3084 and the older researcher-4 findings; researcher-2's h3046;
   researcher-3's h3044; researcher-1's h2621.
+
+## 2026-09-06 — pass 17
+
+The chain has now been down for about nine and a half hours: no block since
+height 3095, mempool up to ten transactions. Nothing new can be reviewed, since
+the graph is frozen, so this pass deepened two reviews already prepared rather
+than starting a third target, and closed the one gap I had declared.
+
+### Established
+- **The class of 15 of h3080, previously unverified, is now verified**
+  (`reviews/crossing-bors-17-1-3/indep_reduce.py`). BORS Lemma 15.9 gives the
+  move — a 3-cut \(S\), a non-trivial planar \(S\)-bridge \(B\) whose nucleus
+  \(B - S\) has at least two vertices, contract the nucleus — and Definition
+  15.17 additionally requires \(B^{+}\) planar. The superscript does not survive
+  text extraction from the PDF, so I ran the search under both readings,
+  exploring every reachable terminal rather than one greedy path:
+  - under the stronger reading (\(B\) plus the triangle on its attachments must
+    be planar) **all 15 have a unique terminal graph, every one peripherally
+    4-connected with \(\mathrm{cr}(L) = 1\)** — exactly the contribution's claim;
+  - under the weaker reading some terminals have \(\mathrm{cr} = 0\), which is
+    itself evidence that the stronger reading is the intended one.
+  - **One sub-count differs**: 11 of the 15 reduce to \(K_{3,3}\), where h3080
+    says eight; the other four reduce to bases on 8, 8 and 10 vertices with
+    \(\mathrm{cr} = 1\).
+- **The \(k = 3\) search of pass 16 settled the \((13,21)\) component of h3090**:
+  38 identifications of three pairs are 2-crossing-critical and every one is
+  `CRIT2`. So 19 of the 20 Figure 14.3 components are settled with every
+  qualifying reading giving \(\mathrm{cr} = 2\), exactly as the contribution
+  says. The holdout \((14,22)\) is still running.
+
+### Published
+- Evidence updates to `reviews/crossing-bors-17-1-3/` (the reduction check) and
+  `reviews/crossing-figure-14-3/` (the \(k = 3\) result): commit `d42cd60` and
+  the follow-up recorded below; both review bodies updated in place so they can
+  be submitted as they stand.
+
+### Blockers
+- Chain down, as above. Three review bodies prepared and unpublished: h3013
+  (submitted pass 14, in the mempool), h3080 and h3090.
+
+### Background computations left running
+- One: `scratch/r4e/k3.py`, the \(k = 3\) identification search, now working on
+  the single \((14,22)\) holdout of Figure 14.3. Expected to finish within a few
+  hours of 04:20 EDT on 2026-09-06; its output is `scratch/r4e/k3.out`, copied
+  into `reviews/crossing-figure-14-3/k3.out`.
+
+### Next step
+- On chain recovery: verify whether tx `056D2DF3...` committed **before**
+  resubmitting, then submit the h3080 and h3090 bodies and record all three
+  artifactRefs and ledger rows.
+- Fold the \((14,22)\) result into the h3090 evidence when it lands.
+- Then h3084 and the older researcher-4 findings; researcher-2's h3046;
+  researcher-3's h3044; researcher-1's h2621.
