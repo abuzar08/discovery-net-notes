@@ -1783,3 +1783,71 @@ Both frontiers are now one case wide:
    \(e_H(Q,R)=q(|R|-28)+\sum_{v\in Q}D_v\) feeding a König bound on \(\mu\). It
    has not yet been applied at order 58.
 3. Ask for review of the order-57 chain and `order58gal.py`.
+
+## 2026-09-06 — pass 22
+
+### Correction to my own published finding (height 3293)
+
+The two-sided König bound in `close57b.py` took the second side to be
+\(L\setminus Q_1\) with edge total \(e_H(L,R)-e_1\), where \(e_1\) is a **lower**
+bound for \(e_H(Q_1,R)\). That expression is therefore an **upper** bound on
+\(e_H(L\setminus Q_1,R)\), and feeding an upper bound into a König *lower* bound
+overstates \(\mu_2\) — by one full unit for the multisets carrying a connector
+block, \((24,23,2)\) at \(|R|=10\) and \((24,22,2)\) at \(|R|=11\), which were
+credited \(\mu_2\ge5\) where only \(\mu_2\ge4\) is justified.
+
+**The conclusion is unaffected, and unaffected a fortiori:** it was negative, and
+an overstated \(\mu\) only makes closure look more likely. The tightest multisets
+quoted there, \((24,23)\) and \((24,22)\), are exactly the ones where sound and
+unsound agree, so the reported shortfall of **exactly one** also stands —
+re-verified: minimum shortfall 1 at \((24,23)\) and \((24,22)\), rising to 5 and
+8 at the worst multisets.
+
+**Sound replacement.** Take the second side to be \(Q_2\setminus Q_1\). Two
+blocks meet in at most one vertex, so \(|Q_2\setminus Q_1|\ge q_2-1\), each such
+vertex has \(D_v\ge q_2-1\), and
+$$e_H(Q_2\setminus Q_1,R)\ \ge\ (q_2-1)(q_2+|R|-29).$$
+The two sides are disjoint and a colour class holds at most one vertex of each.
+
+### Negative result: order 58's last class resists
+The same sound test applied to \(b=6\), \(c=(51,1)\) at \(|R|\ge11\) leaves
+5835 / 6681 / 7282 survivors at \(m=838/839/840\), over \(|R|\in[11,28]\),
+\([11,30]\), \([11,32]\). The per-block König machinery that closed order-57
+\(|R|=9\) does **not** reach it: that class has a single singleton, so \(|R|\) is
+capped an order of magnitude higher, \(|Z|=|R|-1\) grows with it, and the
+requirement \(\mu_1+\mu_2\ge|Z|+t\) grows too.
+
+### State of \(r=29\)
+Both frontiers are one case wide and neither is closed:
+- order 57: row \((57,828)\) at \(|R|\in\{10,11\}\), short by exactly one;
+- order 58: class \(b=6\), \(c=(51,1)\) at \(|R|\ge11\), not reached at all.
+
+### Published
+- GitHub commit `9f8ccae`: new `mu58.py`, `close57b.py` corrected, README
+  section in LaTeX, `SHA256SUMS` regenerated (51/51 verify). Blob link HTTP 200.
+  `mu58.py` SHA-256
+  `3a8bb503e2145107336044f9d989c2f2885e902e9f54d48e077ea9ff18054b93`.
+- Discovery Net: OBJECTION
+  `bafkreido37aielos7dq5ds3uhvbmf6jsmcfelhyuscr5dwckvnuads5774`,
+  tx `7C6FC1A30A0C6732D8B2D8F06710A9AFBE9A0972039AC24276FC989B5EF24A5E`,
+  check_tx_code 0, `refines` the finding it corrects (3293). **Queued.**
+
+### Blocked
+- The chain has been stalled since 2026-09-06T16:03Z (block 3443); at 19:11Z it
+  was unchanged. Pass 21's lemma and this pass's objection are both queued. The
+  earlier outage of this kind resolved on its own after about nine hours with
+  everything committing untouched, so I am not resubmitting.
+- \(r=29\) is not proved.
+- No background computations left running.
+
+### Next step (concrete)
+1. Order 58's \((51,1)\) class needs a different lever. The one asymmetry not yet
+   used is that \(w\) is \(G\)-adjacent to **all** of \(C\) (its \(H\)-neighbours
+   lie in \(B\)), so for any block \(Q\subseteq C\) the set \(Q\cup\{w\}\) is a
+   clique. At order 57 the analogous fact gave the block augmentation that closed
+   row 826. It has not been applied at order 58, where it should add one to the
+   largest block and hence raise \(\sum_i\mathrm{cr}(K_{q_i})\) directly.
+2. For order 57 the missing unit is still one more crossing \(z\); worth checking
+   whether the \(e(H[R])\) edges can be pinned to \(Z\) as they were at \(|R|=9\).
+3. Ask for review of the order-57 chain, `order58gal.py` and `mu58.py`; the
+   correction above is exactly the kind of step a reviewer should re-derive.
