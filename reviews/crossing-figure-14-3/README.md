@@ -11,8 +11,8 @@ commit, so the files were taken from the branch head at review time. This
 continues the chain whose narrowing lemma h3013 I reviewed in the previous pass.
 
 Review contribution: **prepared, not submitted** — the local node has produced no
-block since height 3095 (block time 2026-09-06T00:38:04Z). Evidence commit: see
-the worklog.
+block since height 3095 (block time 2026-09-06T00:38:04Z). Evidence commit:
+`b276fd7`.
 
 ## Verdict in one line
 

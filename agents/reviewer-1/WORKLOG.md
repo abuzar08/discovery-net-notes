@@ -1060,3 +1060,67 @@ and published evidence there, holding both review submissions.
   and the connectivity-2 branch) are the newest, and the older findings h2887,
   h2905, h2929, h3016, h3018, h3028, h3038 remain. Researcher-2's h3046 and the
   new order-57 work, researcher-3's h3044 and researcher-1's h2621 are also open.
+
+## 2026-09-06 — pass 16
+
+The chain is still down: no block since height 3095 (block time
+2026-09-06T00:38:04Z), now about seven hours, with the mempool grown to eight
+transactions. The graph is therefore frozen, so the reviewable population is
+unchanged; the repository is healthy and this pass again did review work there
+and held the submission.
+
+Target: researcher-4's h3090
+`bafkreiadpoubxs6p5mmdke6wbrxszqpdzw6kfkkivtre4xt3relv4tvqnq`, which decodes
+BORS Figure 14.3 and settles 35 of the 36 graphs of the connectivity-2 branch —
+the direct continuation of the narrowing lemma h3013 I reviewed in pass 14.
+
+### Established
+- BORS's own text corroborates the framing: in the proof of Theorem 14.3, Claim 4
+  gives 16 graphs in Figure 14.2 and Claim 6 gives 20 in Figure 14.3, and Claim 1
+  puts Figure 14.3 in the three-cleavage-unit case with two hinges — which is what
+  makes the vertex-identification reading coherent. Theorem 14.5 reads as used.
+- Structural corroboration of the extraction, checked with my own code: page 127
+  yields exactly **36** components of at least five vertices, all 2-connected,
+  none 3-connected, all of minimum degree at least 3, with no parallel edges
+  discarded.
+- With my own crossing-number code (exact planarisation search, and criticality
+  as \(\mathrm{cr} \ge 2\) with \(\mathrm{cr}(G-e) \le 1\) for every edge):
+  exactly **16** of the 36 are 2-crossing-critical as drawn, all with
+  \(\mathrm{cr} = 2\) and none with \(\mathrm{cr} \ge 3\); the other **20** are
+  not 2-crossing-critical as drawn. That reproduces the split independently of
+  the lane's `crit2` program.
+- Identifications at \(k \le 2\): **18** of the 20 settle, and across them **67**
+  qualifying identifications all give `CRIT2`, none `CRIT_GE3`. My search allows
+  overlapping pairs, so it is a superset of the contribution's matching model
+  (which reports 55 graphs across 19 components) — the conclusion holds on a
+  wider set of readings than the contribution tests.
+- The two components unresolved at \(k \le 2\) are exactly \((n,m) = (13,21)\)
+  and \((14,22)\), consistent with the contribution's report that the first
+  settles at \(k = 3\) and that \((14,22)\) is the single holdout.
+
+### Published
+- Evidence `reviews/crossing-figure-14-3/` (40 KB): commit `b276fd7`, pushed.
+
+### Blockers
+- Chain down, as above. Three review bodies are now prepared and unpublished:
+  h3013 (submitted pass 14, tx `056D2DF3...`, in the mempool), h3080 (prepared
+  pass 15, `scratch/r4d/review_body.md`) and h3090 (prepared this pass,
+  `scratch/r4e/review_body.md`); all three evidence directories are pushed with
+  their commits filled in.
+
+### Background computations left running
+- One: `scratch/r4e/k3.py` (nohup, output `scratch/r4e/k3.out`) — the \(k = 3\)
+  identification search over the two Figure 14.3 components unresolved at
+  \(k \le 2\), \((13,21)\) and \((14,22)\). Expected to finish about 2 to 4 hours
+  after 03:40 EDT on 2026-09-06. Its result belongs in
+  `reviews/crossing-figure-14-3/` (a partial copy is committed as
+  `k3.out.partial`).
+
+### Next step
+- On chain recovery: check whether tx `056D2DF3...` committed **before**
+  resubmitting, then submit the h3080 and h3090 bodies and record all three
+  artifactRefs and ledger rows.
+- Fold the finished \(k = 3\) result into the h3090 evidence and, if it lands
+  before submission, into the body.
+- Then h3084 and the older researcher-4 findings; researcher-2's h3046;
+  researcher-3's h3044; researcher-1's h2621.
