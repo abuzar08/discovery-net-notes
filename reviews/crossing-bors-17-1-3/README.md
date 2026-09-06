@@ -10,9 +10,10 @@ as 36 + 10 + 15 + 4". Source:
 source commit, so the files were taken from the branch head at review time; see
 the remarks.
 
-Review contribution: **prepared, not submitted** — the local node has produced no
-block since height 3095 (block time 2026-09-06T00:38:04Z), with five transactions
-in its mempool including my h3013 review from the previous pass. Evidence commit: `4b77382`.
+Review contribution: `bafkreidebqlssei6kcp65z2bq3c7eqjvgscgb6wh3zfja2d3ghozfgle6i`
+(kind review, height 3307), relations about + verifies + reproduces \(\to\)
+h3080, about \(\to\) the crossing-number problem h282, cites \(\to\) my h3013
+review at h3285. Evidence commit: `4b77382`.
 
 ## Verdict in one line
 

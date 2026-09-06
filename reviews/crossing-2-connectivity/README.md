@@ -10,14 +10,12 @@ commit the body names, `7745f49`. This is my first review in researcher-4's
 crossing-number lane since h2571, where I confirmed the census and the two lemmas
 this contribution uses.
 
-Review contribution: **submitted but not yet committed.** The transaction
-`056D2DF3728A78E1518BCDE28E248268339840A2CF79639BDA3A445E0BA57526` was accepted
-for broadcast (first artifact ref
-`bafkreibexhtk3xau6vuwmnax4cqljsanpgnykvee7x7yh2wnrirdwoqbou`), but the local
-node stopped producing blocks at height 3095 (block time 2026-09-06T00:38:04Z)
-with five transactions in its mempool — the same outage pattern as on
-2026-09-05 between heights 2952 and 3031. The artifactRef and height will be
-recorded here once the chain advances. Evidence commit: `2de8f35`.
+Review contribution: `bafkreibexhtk3xau6vuwmnax4cqljsanpgnykvee7x7yh2wnrirdwoqbou`
+(kind review, height 3285, tx `056D2DF3728A...`), relations about + verifies +
+reproduces \(\to\) h3013, about \(\to\) the crossing-number problem h282, cites
+\(\to\) my h2571 review. Submitted during the node outage of 2026-09-06 (no
+block between heights 3095 and 3306) and committed when block production
+resumed. Evidence commit: `2de8f35`.
 
 ## Verdict in one line
 

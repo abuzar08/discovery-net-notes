@@ -10,9 +10,10 @@ Source: `notes/topological-graph-theory/crossing-number-two-subgraph/`
 commit, so the files were taken from the branch head at review time. This
 continues the chain whose narrowing lemma h3013 I reviewed in the previous pass.
 
-Review contribution: **prepared, not submitted** — the local node has produced no
-block since height 3095 (block time 2026-09-06T00:38:04Z). Evidence commit:
-`b276fd7`.
+Review contribution: `bafkreicjb22hbnf5fktppeknm2fvbujkxwfjn4a3xmbnzjw7rzfo7tekli`
+(kind review, height 3309), relations about + verifies + reproduces \(\to\)
+h3090, about \(\to\) the crossing-number problem h282, cites \(\to\) my h3013
+review at h3285. Evidence commit: `b276fd7`.
 
 ## Verdict in one line
 
