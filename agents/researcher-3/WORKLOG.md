@@ -9,6 +9,111 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-05 — pass 11 (new lane: build the lever; Theorem 7)
+
+### Mandate
+principal-1 reassigned the lane: my own h3044 named a better target than
+anything on `CANDIDATES.md` — **build the missing symmetry lever for
+fixed-point-free semiregular actions**, prototyping both the \(S_k\)
+lex-leader and the \(\mathbb{Z}_p^{*}\) multiplier and choosing by
+measurement; non-negotiables were a written soundness argument, an exhaustive
+small-case check over *all* assignments, and an explicit exhaustive check of
+composition order with everything else applied.
+
+### The lever is a third thing neither of us named
+Both routes in the directions were the wrong place to look. For a
+fixed-point-free semiregular action the largest available symmetry is the
+group of **independent per-cycle rotations** \(\Phi_b: v_{j,i} \mapsto
+v_{j,i+b_j}\), which centralises \(\sigma\), fixes every internal and
+fixed-vertex orbit, and carries cross orbit \((j,j',d)\) to
+\((j,j',d+b_{j'}-b_j)\). Modulo the diagonal it is
+\(\mathbb{Z}_p^{\,k-1}\), of order \(p^{\,k-1}\) — and it acts
+*precisely* on the cross-cycle block I identified last pass as the governing
+parameter. `symS` breaks it **completely** by making each
+\(y^{(j)}\) lex-greatest among its \(p\) rotations, which works because
+each \(b_j\) is fixed by its own \((0,j)\) block and the \(k-1\)
+choices do not interfere.
+
+Cost on \(1^0 7^5\): \(864\) clauses on \(237208\) (\(+0.36\%\)) to
+break \(7^4 = 2401\).
+
+### Theorem 7 (certified)
+**For \(36 \le n \le 39\), no \((4,6,n)\)-graph has an automorphism of
+prime order \(p \ge 5\), except possibly of cycle type
+\(1^{\,n-35}5^7\).** Four of the eight survivors eliminated; one of
+Theorem 6's two exception clauses discharged.
+
+| \(1^0 7^5\) | published encoding | with `symS` |
+|---|---|---|
+| verdict | none in \(3600\) s, \(2111\) MB | **UNSAT in \(600\) s**, \(354\) MB |
+
+Trust boundary honoured: drat-trim `s VERIFIED` (\(880\) s, \(0\) RAT
+lemmas in core), then `verify.py` replayed the \(511\) MB LRAT to the empty
+clause at step \(3233859\) against a formula it regenerated from
+\((n,s,t,f,p,k)\) alone. `--profile` unused, so the certificate is
+self-contained. Hashes in the README; proof too large to commit.
+
+### The composition check earned its keep
+**`symS + symC + symM` is unsound** — \(64\) of \(512\) assignments
+uncovered at \(f=0,p=5,k=2\) — although every *pair* among the three is
+sound. Isolated: the culprit is `symC + symM` alone (\(2304\) uncovered at
+\(p=7\)), because \(\mu_u\) sends internal difference \(d \mapsto \pm
+ud\) and so permutes the very codes `symC` sorts by. `symS` is not
+implicated. This is exactly the trap a soundness argument alone would have
+walked into, and it is why the principal's non-negotiable was right.
+
+### Two corrections to my own claims
+1. h3044's "out of reach for this pipeline" (for the two \(n=35\) instances
+   and \(p \in \{2,3\}\)) was **too strong**: one instance has now fallen
+   to a method built inside that same pipeline. The README passage is
+   corrected in place, not left standing.
+2. Mid-pass I asserted `symS` is vacuous for involutions. **False**, and I
+   caught it before it was published: at \(p = 2\) the internal block is
+   empty so `symC` says nothing, but each cross block still has two orbits and
+   the shift group is \(\mathbb{Z}_2^{\,k-1}\) — \(2^{17} = 131072\) on
+   \(1^0 2^{18}\), broken by \(102\) clauses on \(1003833\). Verified
+   sound at \(p=2\) exhaustively. That makes the \(p=2\) frontier worth
+   re-testing, and a run is in flight.
+
+### Published
+- GitHub `698b74af` (the lever and its test suite) and
+  `4d0851c` (Theorem 7 and the corrections).
+- Discovery Net: **submitted, NOT committed.** `lemma`
+  `bafkreibe34dqei3elax5rkr4huvsifayqfcqamcxcibrftdh4pa4oswihq`, tx
+  `885A4518EE265DEBEA6C38026401E68B30BD76A7620B652E511DC19641F8D259`,
+  `accepted_for_broadcast: true`, relations `about` h2639, `refines` h3014,
+  `refines` h3044, `cites` h2879.
+
+### Operational failure (chain stalled)
+The chain is **frozen at height 3095**, last block 00:38:04Z, with two
+transactions in the mempool — mine. Same failure mode as the 2952 stall two
+passes ago. Per the standing rule I have **not resubmitted** and do not claim
+the lemma is on the graph; the refs and tx hash are recorded above so the next
+pass can check commitment before doing anything else. Everything published to
+GitHub is unaffected.
+
+### Left running (two computations, as permitted)
+- \(1^0 5^7\) escalation, two arms at a \(5400\) s cap: `symS` alone and
+  `symS` with the generator-only \(S_k\) lex-leader. Started 20:11,
+  **ending by \(\approx\) 21:41 local**; results to
+  `scratch/r46/escalate_results.txt`.
+- \(1^0 2^{18}\) with `symS`, \(1800\) s cap, started 20:56, **ending by
+  \(\approx\) 21:26 local**; results appended to `scratch/r46/p2_results.txt`.
+
+Scratch \(9.2\) GB.
+
+### Next step
+1. Check whether the chain advanced past 3095 and whether
+   `bafkreibe34dqei…` committed — **before** resubmitting anything.
+2. Read the three runs above. If \(1^0 5^7\) falls, Theorem 6 becomes
+   unconditional and \(R(4,6)\) is closed at \(p \ge 5\) completely; if
+   \(1^0 2^{18}\) falls, the \(p = 2\) frontier opens and the lane is not
+   terminal at all.
+3. If \(1^0 5^7\) resists both arms, run cube-and-conquer *with* `symS`
+   (`cubes.py` now takes the flags) — with the shift group broken the
+   per-cube proofs should be far smaller than the \(2.1\) MB measured
+   without it.
+
 ## 2026-09-05 — pass 10 (both \(n=35\) instances resist; lane frontier stated once)
 
 *Notation: this entry follows the LaTeX requirement. Entries below it predate
