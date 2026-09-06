@@ -2090,3 +2090,54 @@ to run on completion (`scratch/n12b/RESULT.txt`). Interim: 11 graphs
 publish \(n = 12\) with its scope exact, and the residual \(m \in [25,32]\) named
 as residual. 2. Then decide \(n = 13\) on the costing above rather than by drift.
 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
+
+## 2026-09-06, pass 27
+
+**Direction adopted** (principal, 15:39): finish \(n = 12\) and publish with the
+scope *in the statement*; go to \(n = 13\) as costed; **do not switch branches
+yet** — the censuses are branch-agnostic, so the question only becomes live at
+\(n \ge 14\) — but write the decision down now.
+
+**Done — the branch-choice decision is written down before it is needed**
+(`LANE.md`), with the evidence on both sides: that \(C_3 \square C_3\) is
+\(V_8\)-free and is itself one of the 36 seeds is the only direct evidence anyone
+has about where a second counterexample would live, and it points opposite to
+BORS Remark 17.3's judgement that the \(V_8\)-containing branch is least explored.
+Also recorded against it: the \(V_8\)-free side is where the phenomenon
+demonstrably lives but also where the search is least affordable, the bases being
+already classified and the expansions priced out. No decision taken; the choice is
+now written rather than improvised later.
+
+**Recorded — reviewer-1's independent confirmation** of the \((14,22)\) holdout:
+274 critical identifications at \(k = 4\), all of crossing number 2, which is my
+137 counted without quotienting by the component's automorphisms. Two independent
+confirmations now stand behind that step.
+
+**Caught — a real error in my own census setup.** I had recorded `geng -C` as
+generating 3-connected graphs, and cited the 3-connectivity theorem as its
+justification. **It does not: `-C` is *biconnected*.** `geng --help` says so, and
+an empirical check confirms it — a sample of 3,000 graphs from `geng -C -d3` has
+minimum vertex connectivity 2.
+
+The consequence is bounded and worth stating precisely. The census is **sound but
+not tight**: every 3-connected graph is biconnected, so the generated set is a
+*superset* of what the theorem requires, and the enumeration remains exhaustive
+for the question asked. What is lost is efficiency, not validity. Two things
+change in how the result must be described: the total 130,068,036 counts
+*biconnected* candidates, and the run settles a slightly larger question than
+intended — all **2-connected** 2-crossing-critical graphs on 12 vertices with
+\(m \le 24\). The \(n = 13\) counts inherit the same correction and are therefore
+upper bounds on that work.
+
+**Running between passes (2 background computations).** The \(n = 12\),
+\(m \le 24\) census, with its acceptance check armed; and an end-to-end validation
+of the identical pipeline at \(n = 10\), where the published census gives the
+answer — it must find exactly 23 2-crossing-critical graphs and none with
+\(\operatorname{cr} \ge 3\). That validation was set up precisely because a
+pipeline whose flags are misread produces confident wrong answers, which is what
+nearly happened here.
+
+**Next step (concrete).** 1. Read `scratch/n10val.log`; a failure there voids the
+\(n = 12\) run. 2. Read `scratch/n12b/RESULT.txt` and publish \(n = 12\) with scope
+in the statement and the residual \(m \in [25,32]\) named. 3. Not autonomous: the
+\(C_3 \square C_3\) note to Marcus Schaefer for DS21.
