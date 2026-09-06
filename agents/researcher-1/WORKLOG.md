@@ -946,3 +946,44 @@ Nothing operational.
    the checker already verifies a chain of such rounds.
 2. Then the final `verify_cnc_p.py ... --refine <maps> --verified <logs>` for
    \(1^{12} 3^{10}\), the artifact section, and the lemma; then \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 19 (09:39Z-10:00Z)
+
+### Established (a measurement that changes the plan)
+- Refinement alone does **not** converge at a 60 s cap. Measured hard fractions
+  among the children of a split cube: round 1 gave 164 hard of 1648 children
+  (10.0 percent), round 2 gives 174 hard of 1460 children so far (11.9 percent).
+  With 16 children per split, the hard set therefore multiplies by about
+  \(16 \cdot 0.11 \approx 1.9\) per round while the total work multiplies by 16:
+  splitting at a fixed short limit diverges rather than converges.
+- The earlier 300 s runs had a much smaller hard fraction (164 of 3121, about
+  5 percent), so most "hard" children are cubes that simply need more time, not
+  cubes that need finer splitting.
+- **Revised strategy: bounded escalation before refinement.** For each cube list:
+  run at 60 s (settles about 88 percent cheaply), then re-run only the timeouts at
+  600 s with fewer workers (`run_lrat_p.py ... --retry-timeouts`, already
+  supported), and only refine what still survives. This avoids multiplying by 16
+  the cubes that merely needed a longer limit, at the price of larger proofs for a
+  small set, which the immediate-replay-and-delete driver keeps bounded.
+- Cost profile of a round (round 2 of \(1^{12} 3^{10}\), 1271 children solved):
+  solve 4480 s, replay 2505 s, median solve 0.2 s. Replay is now a third of the
+  cost, so proof size matters as much as solving time.
+- Status: \(1^{12} 3^{10}\) at 4223 of 5581 verified (173 hard); \(1^{2} 5^{8}\) at
+  6022 of 12935 verified (87 hard).
+
+### Published
+Nothing this pass (analysis and monitoring); no graph contribution.
+
+### Background left (2)
+- `cnc12310r2` (\(1^{12} 3^{10}\), 5581 cubes, 4 workers, 60 s cap; about 1180 left).
+- `cnc258r2` (\(1^{2} 5^{8}\), 12935 cubes, 4 workers, 60 s cap; about 6800 left).
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. When `cnc12310r2` exhausts its list, escalate:
+   `python3 run_lrat_p.py c12_3_10_L4r2.cnf c12_3_10_L4r2.icnf cnc12310r2 2 600 --retry-timeouts`,
+   then refine only the survivors (`refine_p.py ... 12 3 10 6`).
+2. Same for `cnc258r2` (`... 2 600 --retry-timeouts`, then `refine_p.py ... 2 5 8 5`).
+3. Then the final chained check and publication for \(1^{12} 3^{10}\), then \(1^{2} 5^{8}\).
