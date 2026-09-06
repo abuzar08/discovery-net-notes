@@ -777,3 +777,50 @@ Nothing operational.
    children (`refine_p.py ... 12 3 10 5`), seed, run, sweep, then the full
    `verify_cnc_p.py ... --refine ... --verified ...` and publish \(1^{12} 3^{10}\).
 2. Then the same for \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 15 (06:25Z-07:00Z)
+
+### Established
+- **The pipeline was rebuilt around native LRAT, removing its dominant cost.**
+  Measurement of a stalled worker showed the real bottleneck: for one
+  \(1^{2} 5^{8}\) child, CaDiCaL needed 73 s and drat-trim was still running after
+  80 minutes on the resulting proof. CaDiCaL 3.0.1 can emit LRAT itself
+  (`--lrat=true --no-binary`): the same child then takes 84 s to solve and its
+  368 MB proof replays in 23 s under my independent checker. New driver
+  `run_lrat_p.py` (published, commit 30e04a0) solves, replays immediately with
+  `verify_cnc_p.check_lrat`, records size and SHA-256, and deletes the proof, so
+  drat-trim and xz are gone from the loop and disk stays bounded. The verification
+  chain is not weakened: what is checked is still an LRAT replay to the empty
+  clause against the formula regenerated from its definition by independent code.
+- **Driver robustness**: the old driver died five hours ago on
+  `FileNotFoundError: cnc12310r/c1244.lrat` (a proof file killed mid-write when I
+  stopped its predecessor), because one failing cube aborted the whole pool. The
+  new driver catches per-cube exceptions and records them as `ERROR` records.
+- Host observation: between 01:20Z and 06:25Z the machine made almost no progress
+  (one worker had 5:51 of CPU in 83 minutes of wall time), so the host was asleep
+  or heavily throttled for most of that window; the surviving run advanced only
+  from 1782 to 2130 cubes.
+- Status: refined \(1^{12} 3^{10}\) at 1663 of 3121, refined \(1^{2} 5^{8}\) at 2172
+  of 5061, 12 hard children each. The old xz certificates are being swept and
+  deleted in the background.
+
+### Published
+Commit 30e04a0 (`run_lrat_p.py` and its README entry). No graph contribution
+(neither type finished).
+
+### Background left (2)
+- `cnc12310r` with the new driver (pid 67635, 4 workers, 300 s cap).
+- `cnc258r` with the new driver (pid 67636, 4 workers, 300 s cap).
+A short sweep of the leftover xz certificates from the old driver runs is also
+running; it ends by itself within the hour.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Let both runs finish under the new driver, sweeping nothing further (the driver
+   replays and deletes each proof itself).
+2. Refine the hard children once more (`refine_p.py ... 12 3 10 5` and
+   `... 2 5 8 4`), then the full `verify_cnc_p.py ... --refine ... --verified ...`
+   with the run's own `results.jsonl` as the verified log, and publish
+   \(1^{12} 3^{10}\) followed by \(1^{2} 5^{8}\).
