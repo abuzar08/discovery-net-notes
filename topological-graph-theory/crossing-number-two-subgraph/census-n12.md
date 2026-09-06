@@ -64,6 +64,29 @@ that is where a counterexample would sit: every census member with \(n \ge 9\) h
 That third check is the one that caught the `res/mod` error before, and it is the
 reason the total is computed independently rather than taken from the shards.
 
+## The pipeline is validated end to end, against ground truth
+
+Reading a flag wrongly produces confident wrong answers, so the exact pipeline —
+same `geng` flags, same `crit2` binary — was run at \(n = 10\), where the
+published census already gives the answer (`validate_pipeline.sh`).
+
+The \(n = 10\) census splits by vertex connectivity as
+$$\{0 : 1,\ 1 : 2,\ 2 : 6,\ 3 : 23\},$$
+so 29 of its 32 members are 2-connected. The pipeline read 3,869,868 graphs and
+found **exactly 29** 2-crossing-critical and **none** with
+\(\operatorname{cr} \ge 3\). Both match.
+
+Two things follow. The pipeline is correct end to end on a case with an
+independent answer; and the count landing on 29 rather than 23 is a second,
+independent confirmation that `-C` is biconnected — the run agrees with the
+2-connected total and not the 3-connected one.
+
+A third observation, useful for the scope: the 2-connected members at \(n = 10\)
+have \(m \in [15,20]\), and \(2n = 20\). Together with \(n = 11\), whose members
+reach \(m = 22 = 2n\), the cap \(m \le 2n\) is *exact* at both orders checked. That
+is why \(m \le 24\) is the chosen scope at \(n = 12\) — still not a theorem, but
+not arbitrary either.
+
 ## Status
 
 Running. Interim: 10 graphs found 2-crossing-critical, **none with
