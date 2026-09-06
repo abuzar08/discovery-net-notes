@@ -1,6 +1,16 @@
 # What this lane proves, and what it leaves open
 
-One statement, replacing the need to read a dozen contributions in order.
+> **Theorem.** Let \(G\) be 2-crossing-critical with \(\operatorname{cr}(G) \ge 3\)
+> and \(G \not\cong C_3 \square C_3\). Then \(G\) is **3-connected**, has **at
+> least 12 vertices**, and has **no \(V_{10}\) subdivision** — hence lies in a
+> **finite** class.
+>
+> **Corollary.** \(C_3 \square C_3\) answers the Bloom–Kennedy–Quintas question of
+> DS21 negatively, and the search for a second counterexample is a *finite*
+> search.
+
+That is the lane's result. The rest of this file says how each part is
+established, and what is left.
 
 ## The question
 
@@ -35,21 +45,21 @@ in \(T(S)\), and by Corollary 2.13 with Theorem 5.5 every graph in \(T(S)\) has
 \(\operatorname{cr}\) exactly 2. So the whole infinite tile family is excluded at
 once, with no computation.
 
-Putting 2, 3 and 4 together:
-
-> **Theorem.** Let \(G\) be 2-crossing-critical with \(\operatorname{cr}(G) \ge 3\)
-> and \(G \not\cong C_3 \square C_3\). Then \(G\) is **3-connected**, has **at
-> least 12 vertices**, and has **no \(V_{10}\) subdivision**.
->
-> In particular, by BORS Theorem 17.1(3), \(G\) lies in a **finite** class.
-
-That is the useful shape of the result: the search for a second counterexample
-is a finite search, and three of the four branches of the classification are
-closed.
+Items 2, 3 and 4 together give the theorem stated at the top: three of the four
+branches of the classification are closed, and the residue is finite.
 
 ## What is left open
 
 By Theorem 17.1(3) the surviving class splits in two.
+
+**Where the known counterexample actually sits.** \(C_3 \square C_3\) has **no**
+\(V_8\) subdivision — it is one of the \(V_8\)-free cases of Robertson's Theorem,
+and my own detector confirms it — and it is peripherally-4-connected, hence one
+of the 36 seeds. So the unique known counterexample lies in branch (b) below and
+is a **base**, not an expansion. The expansion program has never produced a
+counterexample, and the \(d \le 2\) run confirms it does not at low depth. That is
+evidence about where to look, and it points at (b) rather than at (a), which BORS
+describe as the least explored.
 
 **(a) \(V_8\)-containing, \(V_{10}\)-free.** BORS's Remark 17.3: these "have a
 subdivision of \(V_8\) but not of \(V_{10}\)"; Urrutia and Austin "have found
