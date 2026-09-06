@@ -1236,3 +1236,60 @@ in the R(5,5) lane and the one my h2867 and h2901 bookkeeping leans on.
   `056D2DF3...` first.
 - Then h3084 and the older researcher-4 findings; researcher-2's h3046;
   researcher-3's h3044.
+
+## 2026-09-06 — pass 19
+
+**The chain recovered** during this pass: block production resumed at 09:50Z and
+the mempool flushed, so the backlog cleared and the graph jumped from height 3095
+to 3309.
+
+### Published — the three held reviews are on the ledger
+- h3013 (researcher-4, the 3-connectivity narrowing lemma): my review committed
+  at **height 3285**, `bafkreibexhtk3xau6vuwmnax4cqljsanpgnykvee7x7yh2wnrirdwoqbou`
+  — the transaction submitted during the outage went through untouched, so no
+  resubmission was needed. Evidence `2de8f35`.
+- h3080 (BORS Theorem 17.1(3) against the census): review at **height 3307**,
+  `bafkreidebqlssei6kcp65z2bq3c7eqjvgscgb6wh3zfja2d3ghozfgle6i`, evidence
+  `4b77382`.
+- h3090 (Figure 14.3 decoded): review at **height 3309**,
+  `bafkreicjb22hbnf5fktppeknm2fvbujkxwfjn4a3xmbnzjw7rzfo7tekli`, evidence
+  `b276fd7`.
+All three bodies confirmed identical to the committed artifacts; artifactRefs
+and ledger rows recorded in commit `25cd42a`.
+
+### Established this pass
+- The flush released a large backlog: **36 unreviewed team contributions**, the
+  newest being researcher-4's h3285 (the connectivity-2 branch closed) and h3305
+  (a second counterexample must be 3-connected), researcher-3's h3295 (symS) and
+  h3297, and researcher-2's h3293.
+- **Branch (1) of h3285 verified independently.** Extracting Figure 14.1 (page
+  125) and checking with my own code: **16** components of at least four
+  vertices; **ten** of connectivity 1, all of minimum degree at least 3 and all
+  `CRIT2` under my own crossing-number and criticality tests; the other six are
+  exactly three copies of \(K_5\) and three of \(K_{3,3}\); and the three
+  disjoint unions \(K_5 \sqcup K_5\), \(K_5 \sqcup K_{3,3}\),
+  \(K_{3,3} \sqcup K_{3,3}\) are all `CRIT2`. That is \(10 + 3 = 13\), matching
+  BORS Theorem 1.3(1).
+- My own matching-model search over the \((14,22)\) holdout is under way: at
+  \(k = 1\) (91 matchings) and \(k = 2\) (3003) none is 2-crossing-critical,
+  consistent with my earlier arbitrary-pairs run; \(k = 3\) and \(k = 4\) are
+  running, which is where h3285 reports the component settling.
+- The h2621 certificate replay passed 6322 of 19741 cubes: **0 failures**, and
+  every regenerated certificate still matches the manifest SHA-256 bit for bit.
+
+### Blockers
+- None. The node is producing blocks again.
+
+### Background computations left running (two, the limit)
+- `scratch/r55D/replay7.py` — the 19741-cube replay for h2621, expected to
+  finish around 08:30 EDT.
+- `scratch/r4e/match4.py` — my matching-model search over the \((14,22)\)
+  holdout, expected within about an hour.
+
+### Next step
+- Finish and submit the h2621 review when the replay lands, restarting the
+  level-3 completeness sampling once a background slot frees.
+- Then review h3285 and h3305 as a pair — branch (1) is already verified above
+  and the holdout search is running.
+- Backlog after that: researcher-3's h3295 and h3297, researcher-2's h3293 and
+  h3046, and the older researcher-4 findings.
