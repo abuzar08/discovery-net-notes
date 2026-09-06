@@ -66,12 +66,30 @@ graphs and Claim 6 says Figure 14.3 holds 20.
   reported `CRIT2`, never `CRIT_GE3`. So all 16 have
   \(\operatorname{cr} = 2\) exactly, and **none is a second counterexample**.
 * **The 20 of Figure 14.3** do not verify as drawn. Those are the graphs with
-  three cleavage units, the third being a 3- or 4-cycle. Doubling any single edge
-  does not repair any of them, so the gap is a drawing convention in Figure 14.3
-  that I have not decoded — most likely virtual edges of the cleavage-unit
-  decomposition rather than edges of \(G\). **I make no claim about their
-  crossing numbers.**
+  three cleavage units, the third being a 3- or 4-cycle.
 
+### Decoding Figure 14.3
+
+Three repairs were tried. Doubling any one, two or three edges repairs none of
+the 20. Deleting any one, two or three edges, subject to keeping minimum degree
+3, repairs none of them either. **Identifying vertex pairs repairs 19 of the
+20.** That is the expected convention: a figure of a cleavage-unit decomposition
+draws each hinge vertex once per unit containing it, so \(G\) is recovered by
+identifying the repeated copies, and with three cleavage units there are two
+hinges — which is exactly the observed pattern of one or two identifications,
+occasionally three.
+
+The resulting claim is deliberately independent of which identification the
+figure intends. For each drawn component, take the least \(k\) for which some
+identification of \(k\) pairs yields a 2-crossing-critical graph, and record the
+verdicts of **every** identification of \(k\) pairs that does so:
+
+$$\text{55 such graphs in total, all reported } \texttt{CRIT2}, \text{ none } \texttt{CRIT\_GE3}.$$
+
+So whichever identification of at most three pairs Figure 14.3 denotes, the
+graph it denotes has \(\operatorname{cr} = 2\). One component, on \(n = 14\),
+\(m = 22\), admits no such identification at \(k \le 3\) and is **unresolved**;
+no claim is made about it.
 
 ## What survives independently of the figure
 
@@ -88,6 +106,10 @@ branch of Theorem 1.3 it lies in. This does not depend on reading any figure.
 **From Figure 14.2, verified.** Its 16 graphs extract cleanly and every one is
 reported `CRIT2` and never `CRIT_GE3`, so each has \(\operatorname{cr} = 2\).
 
+**From Figure 14.3, verified for 19 of 20.** Every identification of at most
+three vertex pairs that yields a 2-crossing-critical graph yields one of
+\(\operatorname{cr} = 2\); 55 such graphs, none `CRIT_GE3`.
+
 Combining: a second counterexample is 3-connected, or lies in the
 non-3-connected branch on at least 12 vertices, where the one-non-planar-
 cleavage-unit case reduces to the 3-connected case by Theorem 14.5 and the
@@ -97,12 +119,14 @@ now settled. Closing it needs Figure 14.3's convention, on 20 explicit graphs.
 
 ## Where this leaves the lemma
 
-The lemma improves from "3-connected or one of 36" to **"3-connected or one of
-the 20 graphs of Figure 14.3, on at least 12 vertices"**: the 16 of Figure 14.2
-have \(\operatorname{cr} = 2\), the one-non-planar-cleavage-unit branch reduces
-to the 3-connected case by Theorem 14.5, and the census forces at least 12
-vertices. Decoding Figure 14.3's convention is what remains, and it is a bounded
-task on 20 explicit graphs.
+The lemma improves from "3-connected or one of 36" to **"3-connected, or the
+single unresolved graph of Figure 14.3"**. Of the 36: the 16 of Figure 14.2 have
+\(\operatorname{cr} = 2\) directly; 19 of Figure 14.3's 20 have
+\(\operatorname{cr} = 2\) under every identification of at most three pairs that
+makes them 2-crossing-critical; the one-non-planar-cleavage-unit branch reduces
+to the 3-connected case by Theorem 14.5; and the census independently forces any
+second counterexample to have at least 12 vertices. What remains is one drawn
+component on 14 vertices and 22 edges.
 
 ## Sources
 
