@@ -726,6 +726,54 @@ close outright; the other three reduce to explicit high-vertex counts:
 Open `(row, |R|)` cases at order 57: **two**, down from nine; and only **one**
 row remains.
 
+### Not every colour class is a pair (`singleton.py`)
+
+Every absorption above was costed as if it needed a class \(\{u,v\}\) with
+\(u\in Q_1\) and \(v\) outside, so that \(z\) had to be \(H\)-adjacent to **both**.
+That is too pessimistic.
+
+\(\chi(G[L])=q_1\), the largest block order, so in any proper \(q_1\)-colouring
+the \(q_1\) vertices of \(Q_1\) get distinct colours and **every class contains
+exactly one vertex of \(Q_1\)**.  The other \(\lvert L\rvert-q_1\) vertices are
+distributed among those same \(q_1\) classes.  By Constraint C the vertices that
+are not cut vertices lie in the big blocks, which are pairwise disjoint, so an
+independent set of \(G[L]\) has at most \(k_{\mathrm{eff}}\) vertices, one per big
+block.  A class therefore holds at most \(k_{\mathrm{eff}}-1\) non-\(Q_1\)
+vertices, and
+
+$$s \;:=\; q_1-\Bigl\lceil\tfrac{\lvert L\rvert-q_1}{k_{\mathrm{eff}}-1}\Bigr\rceil$$
+
+classes can be left as **singletons** \(\{u\}\).  With \(k_{\mathrm{eff}}=2\) this
+is \(s=2q_1-\lvert L\rvert\), and the packing is realisable: a vertex outside
+\(Q_1\) is \(G\)-non-adjacent to every vertex of \(Q_1\) except itself, so the
+pairing is a free matching and any \(2q_1-\lvert L\rvert\) vertices of \(Q_1\)
+may be left unpaired.
+
+Absorbing \(z\) into \(\{u\}\) needs only \(z\sim_H u\) — **one** matching edge,
+not two — and the colouring is chosen after seeing the graph, so the singletons
+can be placed wherever we like.  The requirement becomes
+
+$$\mu_1\ \ge\ t \qquad\text{and}\qquad \mu_1+\mu_2\ \ge\ \lvert Z\rvert+\max(0,\,t-s),$$
+
+weaker than before by \(s\).
+
+*What it buys.*  At order 57 it closes most of the surviving multisets — all but
+one at \(\lvert R\rvert=11\) — leaving row \((57,828)\) with just four
+\((\lvert R\rvert,\text{multiset})\) combinations:
+
+| \(\lvert R\rvert\) | multiset | \(t\) | \(s\) | verdict |
+|---|---|---|---|---|
+| 10 | \((24,23)\) | 2 | 1 | closes |
+| 10 | \((24,23,2)\), \((25,22)\), \((25,22,2)\) | 3–6 | 1–3 | survive |
+| 11 | \((23,23)\), \((23,23,2)\), \((24,22)\), \((24,22,2)\), \((25,21)\), \((25,21,2)\) | 1–4 | 0–4 | **all close** |
+| 11 | \((26,20)\) | 9 | 6 | survives |
+
+*What it does not.*  Order 58's class \(b=6\), \(c=(51,1)\) still keeps
+5713 / 6561 / 7165 survivors at the three rows — the improvement is real but
+small there, since \(s=\lvert R\rvert-10\) is tiny while \(t\) grows with
+\(\chi(G[L])\).
+
+
 ### Two discarded resources, recovered (`aug57.py`)
 
 `min_split` scores only the clique blocks of the Gallai forest \(L\) induced by

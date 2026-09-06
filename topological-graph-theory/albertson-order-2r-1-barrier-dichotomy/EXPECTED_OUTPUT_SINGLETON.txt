@@ -1,0 +1,29 @@
+Singleton colour classes at both r = 29 frontiers
+Z(29) = 8281
+
+PART 1   order 57, row (57,828)
+   |R| = 10, |L| = 47, |Z| = 8, delta_0 = 18, 4 multisets
+      (24, 23)       chi=24 t=2 s=1  mu1>=5 sum>=9  ->  closes
+      (24, 23, 2)    chi=24 t=3 s=1  mu1>=5 sum>=9  ->  SURVIVES
+      (25, 22)       chi=25 t=5 s=3  mu1>=6 sum>=9  ->  SURVIVES
+      (25, 22, 2)    chi=25 t=6 s=3  mu1>=6 sum>=9  ->  SURVIVES
+   |R| = 11, |L| = 46, |Z| = 9, delta_0 = 17, 7 multisets
+      (23, 23)       chi=23 t=1 s=0  mu1>=5 sum>=10  ->  closes
+      (23, 23, 2)    chi=23 t=1 s=0  mu1>=5 sum>=10  ->  closes
+      (24, 22)       chi=24 t=2 s=2  mu1>=6 sum>=10  ->  closes
+      (24, 22, 2)    chi=24 t=2 s=2  mu1>=6 sum>=10  ->  closes
+      (25, 21)       chi=25 t=3 s=4  mu1>=7 sum>=10  ->  closes
+      (25, 21, 2)    chi=25 t=4 s=4  mu1>=7 sum>=10  ->  closes
+      (26, 20)       chi=26 t=9 s=6  mu1>=8 sum>=10  ->  SURVIVES
+   order 57 survivors after this: 4  [(10, (24, 23, 2)), (10, (25, 22)), (10, (25, 22, 2)), (11, (26, 20))]
+
+PART 2   order 58, class b = 6, c = (51,1)
+   m = 838 : 5713 survivors at |R| in 11..28
+   m = 839 : 6561 survivors at |R| in 11..30
+   m = 840 : 7165 survivors at |R| in 11..32
+
+CONCLUSION
+   The singleton-class observation weakens the requirement by s and
+   closes most of the order-57 multisets, but neither frontier is
+   closed: order 57 keeps the combinations listed above and order 58
+   keeps its class.
