@@ -12,10 +12,29 @@ geng -C -d3 -q 12 18:24 RES/3 | crit2_r4
 
 | flag | constraint | justification |
 | --- | --- | --- |
-| `-C` | 3-connected | **theorem** — a second counterexample must be 3-connected (height 3305) |
+| `-C` | **2-connected**, not 3-connected | see the correction below |
 | `-d3` | \(\delta(G) \ge 3\) | **theorem** — BORS 17.1(1); a 2-crossing-critical graph of minimum degree 2 is a subdivision of a smaller one, and those are covered by the \(n \le 11\) census |
 | `18:` | \(m \ge 18\) | forced by \(\delta \ge 3\) on 12 vertices |
 | `:24` | \(m \le 24\) | **stated scope, not a theorem** — see below |
+
+**Correction: `geng -C` is biconnected, not 3-connected.** I initially recorded
+`-C` as giving 3-connected graphs. It does not — `geng --help` says "only write
+biconnected graphs", and an empirical check confirms it: a sample of 3,000 graphs
+from `geng -C -d3` has minimum vertex connectivity 2, not 3.
+
+The census is therefore **sound but not tight**. Every 3-connected graph is
+biconnected, so the generated set is a *superset* of what the theorem requires and
+the enumeration remains exhaustive for the question asked — a second
+counterexample is 3-connected (height 3305), hence certainly biconnected, hence
+certainly generated. What is lost is only efficiency: the run covers more graphs
+than it needs to, and the totals quoted here count biconnected candidates rather
+than 3-connected ones.
+
+Two consequences to keep straight. The stated total 130,068,036 is a count of
+biconnected candidates. And the run incidentally settles a slightly larger
+question than intended: all *2-connected* 2-crossing-critical graphs on 12
+vertices with \(m \le 24\), not merely the 3-connected ones. Neither affects
+validity; both affect what the result should be said to cover.
 
 **The edge cap is scope, not proof.** Criticality forces only
 \(m \le 3n-4 = 32\), since \(\operatorname{cr}(G-e) \le 1\) gives
@@ -65,7 +84,9 @@ is the opposite of the expansion program, where acceptance was 16.7% and then, o
 the corrected construction, 99.6% — there the fraction was the whole story, here
 it is not, and saying so is the point of checking rather than assuming.
 
-**Counts, measured.** Minimum degree 3 forces \(m \ge 20\):
+**Counts, measured** (biconnected, per the correction above — the 3-connected
+counts are smaller, so these are upper bounds on the work). Minimum degree 3
+forces \(m \ge 20\):
 
 $$m \in [20,22]:\ 1{,}722{,}465, \qquad m \in [23,24]:\ 139{,}561{,}811,$$
 
