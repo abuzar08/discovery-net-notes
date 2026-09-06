@@ -247,7 +247,34 @@ Breaking the \(S_m\) relabelling symmetry of \(M\) — order \(19! \approx
 verified, but did not move the boundary: the \(n = 42\) instance failed to
 solve in \(420\) s both with and without it.
 
-**Verdict.** Unconditional neighbourhood gluing in this form is feasible to
+Two further constraints were added and also failed to move it. The first
+encoding omitted the degree window entirely, which was a real omission, and
+there is a genuinely new local bound to go with it:
+
+**Lemma 2.** In a \((5,5,n)\)-graph, for \(u \in N(v)\) the set
+\(N(u) \cap M(v)\) induces no \(K_4\) (it lies inside \(N(u)\), which is
+\(K_4\)-free) and has independence at most \(3\) (it lies inside
+\(M(v)\)). So it is a \((4,4)\)-graph and
+$$c_u := |N(u) \cap M(v)| \;\le\; R(4,4) - 1 = 17 .$$
+
+With \(d_G(u) = 1 + d_H(u) + c_u\) this pins \(c_u\) to an interval, and
+\(w \in M\) gets the joint constraint \(n-25 \le r_w + d_M(w) \le 24\).
+The cardinality encodings are Sinz sequential counters, unit-tested by solver
+against every input pattern at ten sizes, and the resulting clauses were
+checked to accept the true assignment of a real \((5,5,42)\)-graph at three
+vertices (observed \(\max c_u = 12\), comfortably inside the bound).
+
+**They made it slower.** At \(n = 36\) the instance went from \(101\) s to
+\(298\) s, because the counters take the variable count from \(671\) to
+\(29351\). The honest reading is *not* that the degree window is useless —
+it is that in this encoding its cost exceeds its pruning, and the window is
+loose at \(n = 36\) (\(11 \le d \le 24\)) precisely where the instance is
+still solvable, while at \(n = 42\)–\(45\), where it would be tight,
+nothing solves either way. A cheaper encoding might change the balance;
+that was not pursued because the boundary would have to move by six orders to
+matter.
+
+**Verdict.** Unconditional neighbourhood gluing is feasible to
 about \(n = 36\) and breaks down well below the \(n = 43\)–\(45\) range
 where it would be needed. Reported as a costed negative so the route is not
 re-attempted blind. What it does *not* rule out: a formulation that never

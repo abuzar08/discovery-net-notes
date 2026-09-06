@@ -208,3 +208,85 @@ def symM_clauses(d, m, first_aux):
                     cls.append(tuple(sorted(c)))
             prev = e
     return cls, aux - first_aux
+
+
+def seq_atmost(lits, k, nxt):
+    """Sinz sequential counter for  sum(lits) <= k.  Returns (clauses, nxt)."""
+    n = len(lits)
+    if k >= n:
+        return [], nxt
+    if k == 0:
+        return [(-x,) for x in lits], nxt
+    s = [[0] * k for _ in range(n)]
+    for i in range(n):
+        for j in range(k):
+            s[i][j] = nxt
+            nxt += 1
+    cls = [(-lits[0], s[0][0])]
+    cls += [(-s[0][j],) for j in range(1, k)]
+    for i in range(1, n):
+        cls.append((-lits[i], s[i][0]))
+        cls.append((-s[i - 1][0], s[i][0]))
+        for j in range(1, k):
+            cls.append((-lits[i], -s[i - 1][j - 1], s[i][j]))
+            cls.append((-s[i - 1][j], s[i][j]))
+        cls.append((-lits[i], -s[i - 1][k - 1]))
+    return cls, nxt
+
+
+def seq_atleast(lits, k, nxt):
+    """sum(lits) >= k  <=>  sum(1-lits) <= len-k."""
+    return seq_atmost([-x for x in lits], len(lits) - k, nxt)
+
+
+def degree_clauses(H_adj, d, m, n, nxt):
+    """Degree window and the K_4-free co-neighbourhood bound.
+
+    (a) Every vertex of a (5,5,n)-graph has n-25 <= deg <= 24.
+        For u in N:  deg(u) = 1 + d_H(u) + c_u  with d_H(u) fixed, so
+        c_u is pinned to an interval.
+        For w in M:  deg(w) = r_w + d_M(w), a joint constraint on the
+        bipartite column and M's own row.
+
+    (b) NEW.  For u in N, the set N(u) cap M induces no K_4 (it lies inside
+        N(u), which is K_4-free) and has independence at most 3 (it lies
+        inside M, and alpha(G[M]) <= 3).  So it is a (4,4)-graph and
+
+            c_u = |N(u) cap M|  <=  R(4,4) - 1 = 17.
+
+    None of this was in the first encoding, which is why that encoding was
+    weaker than the problem actually is.
+    """
+    def xv(i, j):
+        return i * m + j + 1
+
+    ypos = {}
+    p = d * m + 1
+    import itertools as it
+    for a, b in it.combinations(range(m), 2):
+        ypos[(a, b)] = p
+        p += 1
+
+    def yv(a, b):
+        return ypos[(a, b)] if a < b else ypos[(b, a)]
+
+    cls = []
+    lo_deg, hi_deg = n - 25, 24
+    for i in range(d):
+        dh = bin(H_adj[i]).count("1")
+        row = [xv(i, j) for j in range(m)]
+        hi = min(m, 17, hi_deg - 1 - dh)          # (a) upper and (b)
+        lo = max(0, lo_deg - 1 - dh)
+        if hi < lo:
+            return None, nxt                       # infeasible outright
+        c, nxt = seq_atmost(row, hi, nxt)
+        cls += c
+        c, nxt = seq_atleast(row, lo, nxt)
+        cls += c
+    for j in range(m):
+        row = [xv(i, j) for i in range(d)] + [yv(j, a) for a in range(m) if a != j]
+        c, nxt = seq_atmost(row, hi_deg, nxt)
+        cls += c
+        c, nxt = seq_atleast(row, lo_deg, nxt)
+        cls += c
+    return cls, nxt
