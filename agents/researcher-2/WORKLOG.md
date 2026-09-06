@@ -1715,3 +1715,71 @@ the obstruction is not "one more clever clique".
    as they were at \(|R|=9\).
 3. Ask for review of the order-57 chain (`aug57.py`, `cover57.py`,
    `tsplit57.py`, `hall57.py`, `close57.py`, `close57b.py`) and `crminus.py`.
+
+## 2026-09-06 — pass 21
+
+### What I established
+
+**Order 58 at \(r=29\) reduces from three classes to ONE.** The low-vertex
+machinery built for order 57 is *barrier-independent* — it needs only that \(G\)
+is 29-critical, Gallai's low-vertex theorem, and \(\theta(H)=\chi(G)=29\) — and
+had never been applied at order 58. Transferring it eliminates two of the three
+remaining classes.
+
+| class | \(|R|\le\) | verdict |
+|---|---|---|
+| \(b=6\), \((50,1,1)\) | 4 / 6 / 8 | **eliminated** at all three rows |
+| \(b=7\), \((49,1,1)\) | 6 / 8 / 10 | **eliminated** at all three rows |
+| \(b=6\), \((51,1)\) | 28 / 30 / 32 | survives, now needs \(|R|\ge11\) |
+
+**The lever is that \(|R|\) is capped, and twice as hard with two singletons.**
+A singleton component \(\{w\}\) of \(H-B\) has \(d_H(w)\le b-2\), so
+\(x_w\ge r+2-b=31-b\); with \(W\) singletons and every other high vertex carrying
+at least one unit of excess,
+$$|R|\ \le\ W + X - W(31-b).$$
+For the two classes with \(W=2\) this caps \(|R|\) at 4 to 10, forcing
+\(|L|\ge48\) and hence a large \(e(L)\) inside a band of width only
+\(\binom{|R|}{2}\le45\). Every Gallai multiset in that band either has blocks so
+large that \(\sum_i\mathrm{cr}(K_{q_i})\ge Z(29)=8281\), or is rejected by the
+covering constraint. The surviving class has only **one** singleton, so the
+bound applies once and caps \(|R|\) an order of magnitude higher — which is the
+honest reason the method reaches two classes and not the third.
+
+### State of \(r=29\) after this pass
+Both frontiers are now one case wide:
+- Order 57: row \((57,828)\) at \(|R|\in\{10,11\}\), short by one unit of \(\mu\).
+- Order 58: class \(b=6\), \(c=(51,1)\) at \(|R|\ge11\).
+
+### Published
+- GitHub commit `d5b0268`: new `order58gal.py` with expected output, README
+  section in LaTeX, `SHA256SUMS` regenerated (49/49 verify). Blob link HTTP 200.
+  `order58gal.py` SHA-256
+  `b2fd74501a47551c6f38e7e98ab12e2ab5948c38d48aff6314ded739b75b2d7a`.
+- Discovery Net: LEMMA `bafkreibj46rfm35nbz5fgc6asww4tdry7xt2kejj2mnki6t6cjcnoa7jq4`,
+  tx `32B51CC182399D30B8119E45EBCAA22ED628136E8F39BCD74CEED8072340E3E8`,
+  check_tx_code 0. Relations: `about` conjecture; `refines` the \(b\ge8\) closure
+  (3014); `cites` the order-57 finding (3293). Graph re-queried at height 3443
+  before submitting. **Queued — see blocked.**
+- Earlier backlog: all six contributions from passes 14--19 committed at heights
+  3284--3285, and pass 20's finding at 3293.
+
+### Blocked
+- The chain has stalled again: last block 3443 at 2026-09-06T16:03Z, still 3443
+  at 18:40Z, with 3 transactions in the mempool including mine. Same pattern as
+  the earlier outage, which resolved on its own after about nine hours with
+  everything committing untouched. Not resubmitting.
+- \(r=29\) is not proved.
+- No background computations left running.
+
+### Next step (concrete)
+1. The two surviving cases now look structurally similar: both have a single
+   large Gallai block plus a smaller one, with \(|R|\) around 10--11. It is worth
+   asking whether the order-57 argument for \((57,828)\) and the order-58 one for
+   \((51,1)\) can be run as a **single** lemma over \(n\in\{57,58\}\), since the
+   low-vertex identities are identical and only \(|L|=n-|R|\) differs.
+2. For order 58's \((51,1)\): \(|R|\ge11\) is new, and the crossing bound at the
+   surviving multisets is only about 6154. The unused resource there is the same
+   one that closed order-57 \(|R|=9\) — the per-block count
+   \(e_H(Q,R)=q(|R|-28)+\sum_{v\in Q}D_v\) feeding a König bound on \(\mu\). It
+   has not yet been applied at order 58.
+3. Ask for review of the order-57 chain and `order58gal.py`.
