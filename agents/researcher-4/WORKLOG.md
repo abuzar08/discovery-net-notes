@@ -1594,3 +1594,80 @@ duplicate earlier in the campaign. Check before citing either.
 **Running between passes (1 background computation).** `gate2.py`, the
 acceptance gate: 36/36 seeds already reproduced, the 15-target half in progress
 on the \(K_{3,3}\) base, which carries 11 of the 15. Resumable only by rerun.
+
+## 2026-09-05, pass 19
+
+**Direction.** The principal's report (21:30) redirects me, after finishing what
+was in flight, to a self-contained crossing-number question:
+\(\operatorname{cr}(G) \ge 3557\) for every 32-vertex graph with 383 edges.
+Adopted as the pass's main work.
+
+**Established — the crossing bound question, answered as far as the sampling
+family goes.**
+
+* The incumbent is better than quoted: \(L(32,383) = 3022\), not 2988. The gap
+  to the target is 535.
+* **Ceiling.** Any bound reading only \((n,q)\) is at most
+  \(\min\{\operatorname{cr}(G)\}\) over the family, and one drawing caps it. A
+  2-page local search reaches exactly \(Z(32) = 12600\) for \(K_{32}\); deleting
+  113 edges and re-optimising leaves an explicit 383-edge drawing with **4644**
+  crossings. So 3557 is *not* excluded, and the incumbent sits at 65% of the
+  ceiling. (\(K_{8,8,8,8}\) minus an edge, which has exactly 383 edges, is far
+  worse at 7074.)
+* **Second moments gain exactly zero**, for a structural reason: the envelope's
+  hull vertices bracketing the mean are only 2 apart in \(q\), so the
+  Jensen-optimal mixture already matches the admissible minimum second moment to
+  a relative \(2\times10^{-5}\). Jensen is not the lossy step.
+* **Bounds on \(\operatorname{cr}(K_n)\) do not propagate.** Adding
+  \(\operatorname{cr}(K_n)\ge 0.8594\,Z(n)\) as a base lifts \(L(32,496)\) from
+  8336 to 10979 and leaves \(L(32,383)\) **unchanged**.
+* **No sample size is better placed**: the required improvement factor is in
+  \([1.1772, 1.1787]\) at *every* \(s\). The recursion is scale-free here.
+* At every scale the requirement stays below that scale's own ceiling, so this
+  is not an impossibility — the route needs a uniformly \(\approx 18\%\)
+  stronger intermediate-density bound, simultaneously at every \(s\). That is
+  the real open problem behind the frontier.
+
+Published: tx `72411D59…`, `refines` height 2713 (queued, chain stalled).
+
+**Established — the \(d \le 4\) run must be regenerated, and I was wrong to
+defend it.** The principal judged its counts void; I argued they were exact facts
+about a scoped subspace. The corrected attachment model settles it against me:
+on a \(d = 4\) seed, **none of 42 comparable assignments gives the same graph**,
+and the corrected expansions are much smaller (e.g. \((29,52)\) where the old
+model gave \((43,68)\)). The old run enumerated different graphs entirely, not a
+subspace. It must be regenerated.
+
+**Established — re-costing, correcting two of my own published numbers.**
+
+* Branching is **107 placements per degree-3 vertex** (configuration together
+  with orientation, up to terminal automorphisms). Theorem 17.1(3)'s "at most
+  twenty" is the count *for a fixed type*; the type is itself a choice, so 20 is
+  not the search branching. This refines the correction I made at height 3074.
+* **Representability at height 3074 was an artifact of the wrong construction.**
+  I published 16.7% decidable at \(d=4\), 2.3% at \(d=5\), **0%** at \(d=6\), and
+  concluded the program was blocked by the tester. Under the corrected model it
+  is 99.6% at \(d=4\), 65.6% at \(d=5\) and 41.3% at \(d=6\). The binding
+  constraint is search size, not the tester — the opposite of what I published.
+* Valid assignments: \(8.4\times10^{7}\) for a \(d=4\) seed, \(1.1\times10^{10}\)
+  at \(d=5\), \(5.2\times10^{11}\) at \(d=6\). So \(d\le4\) is feasible,
+  \(d=5\) borderline, \(d=6\) out.
+
+**Gate status (unchanged, still not passed).** Seeds 36/36. Targets: one verified
+(the \((9,18)\) graph over \(K_{3,3}\)). The brute-force gate blew up — 4h57m,
+still on the first of five bases — and was stopped. It needs restructuring
+around each target's order and size, as `focus.py` does.
+
+**Operational.** Chain frozen at height **3095** across this pass and the last.
+Three of my contributions are pending: `A91FC803…` (connectivity-2 closure),
+`B3CE6B01…` (the \(d\le4\) run) and `72411D59…` (the crossing bound analysis).
+Not resubmitting any of them.
+
+**Corrections owed when the chain returns.** (1) Height 3074's representability
+figures and its "the tester cannot perform \(d\le6\)" conclusion are wrong.
+(2) The pending \(d\le4\) contribution describes the uncorrected construction and
+needs a scope correction or retraction.
+
+**Next step (concrete).** 1. File the two corrections above the moment the chain
+advances. 2. Restructure the gate around per-target order and size and complete
+it. 3. Not autonomous: the \(C_3\square C_3\) note to Marcus Schaefer for DS21.
