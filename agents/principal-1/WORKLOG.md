@@ -330,3 +330,25 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 12)
 - Did the \(1^0 7^5\) certificate replay, and is symS a lemma with the composition negative published? Did r1's \(1^{12}3^{10}\) land — the checkpoint is due, and if not I want the obstruction named. Did r4 gate the repaired program on the 19? Did r2 finish the bare-seed audit of 2933 and the no-two-disjoint-triangles closure? Watch for reviews of 3046, r4's eight-item block, and 2711 Part A.
+
+## 2026-09-06 01:35Z — pass 12 (window 00:30Z–01:35Z)
+
+### Operational
+- **Second chain stall in six hours, same signature.** No block since height 3095 at 00:38:04Z; consensus frozen at 3096/0/step 4 since 00:38:08Z; `n_peers` 0; five txs queued. First outage was 2952 \(\to\) 3031 (2 h 45 m, self-resolving). Recurring, not incidental — flagged to the orchestrator as a standing infrastructure problem. Every agent detected it and none resubmitted.
+- Queued and uncommitted: r3's Theorem 7, r2's ladder audit, reviewer-1's h3013 review, r4's Figure 14.3 refinement.
+
+### Established
+- r3: **Theorem 7 certified** — `symS` refutes \(1^0 7^5\) (drat-trim `s VERIFIED`, 880 s, 0 RAT lemmas in core; own checker replayed the 511 MB LRAT to the empty clause at step 3233859 against a formula regenerated from \((n,s,t,f,p,k)\) alone). Four of eight survivors eliminated; one exception clause discharged. **And `symS` is NOT vacuous at \(p=2\)** — it breaks \(2^{17}\) on \(1^0 2^{18}\) for 102 clauses, verified sound exhaustively, so h2879's involution frontier was measured without the one lever that applies there. The \(p=2\) frontier — where all 37 known \((4,6,35)\)-graphs' symmetry lives — is live again. Third premature "finished" call on this lane (mine at pass 6, r3's h3044, r3's own mid-pass assertion).
+- r2: **the order-58 reduction at \(r=29\) is unconditional** — `ladder.py` re-ran all three pieces at all four rungs (217/219/223/225); pieces 1 (2933) and 2 (3014) were never seed-sensitive, piece 3 repaired at 3068. Rests on nothing beyond \(\mathrm{cr}(K_{12})=150\). Sharp negative: `crminus` tops out at 3016 against the 3557 needed for \(s=23\) (gain 28, need 569) with the exact arithmetic of why. Three corrections caught before publishing.
+- **r2's strategic finding:** both open Albertson frontiers reduce to one self-contained sub-problem — a crossing lower bound at intermediate density beating integer-aware sampling (77% of \(K_{32}\); 425 more on a 50-vertex Gallai forest). The team owns the bound to beat (r4's 2713).
+- r4 (strongest window): verified BORS Theorem 17.1(3) exactly at \(n \le 11\), \(65 = 36+10+15+4\) with no residue (3080); connectivity-2 branch nearly closed via Theorem 14.5 and the Figure 14.3 vertex-identification convention — over all 55 identifications at the least workable \(k\), all CRIT2, none CRIT_GE3 (3084). **The lemma improves to "3-connected, or one specific graph."** My Širáň-additivity suggestion was wrong (Leaños-Salazar settles 2-*edge*-cuts, not 2-*vertex*-cuts) and r4 said so.
+- reviewer-1: reviewed h3013, re-derived case (1) in full, checked BORS Thm 1.3 word-for-word against the 176-page source, and **re-confirmed \(\mathrm{cr}(C_3 \square C_3) \ge 3\) by its own exact planarisation search**, independent of the census program. Two independent confirmations now under the whole topological lane.
+- r1: fourth window without a theorem; **checkpoint discharged** — obstruction named concretely (host contention, load 22-29 on 15 cores; hard tail needing a second refinement level) plus a real fix (the driver was re-attempting known-hard cubes at full limit on every resume).
+
+### Report
+- `scratch/reports/20260906T013500Z.md`. **Rank change as promised: r3 to 2, r4 to 3** — close call, basis recorded (r4's window and cumulative are at least as large; tiebreak is transferability, since `symS` moves two other lanes).
+- Directions: researcher-3 — publish Theorem 7 and `symS` as a lemma in its own right with the `symC+symM` negative; **then \(p=2\) first**, treating h2879 as void rather than a baseline; keep \(1^0 5^7\) on cube-and-conquer reporting per-cube proof sizes; offer `symS` to researcher-1 by citation. researcher-4 — settle or abandon the \(n=14, m=22\) holdout; publish \(d \le 4\) stating whether the pre-correction enumeration survives the repaired scoping; **then take the dense crossing bound** (\(\mathrm{cr} \ge 3557\) on 32 vertices missing 113 edges) as its own problem — not Albertson machinery, and it is the author of the sampling bound to beat.
+- Recorded for the orchestrator: R(5,5) is limited by host contention, not by r1; r1 should adopt `symS` by citation once it commits.
+
+### Next step (pass 13)
+- Did the chain recover and did the four queued items commit without duplication? Did r3 run \(p=2\) with `symS` and what did it measure? Did r4 close the holdout and publish \(d \le 4\) cleanly? Did r2 or r4 start on the dense crossing bound? Did \(1^{12}3^{10}\) land for r1, and did it pick up `symS`?
