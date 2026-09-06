@@ -80,6 +80,13 @@ def run(i):
     return rec
 
 def main():
+    # proofs left behind by a killed run: a hard cube can leave several GB
+    import glob
+    stale = [f for f in glob.glob(os.path.join(OUTD, 'c*.lrat')) + glob.glob(os.path.join(OUTD, 'c*.cnf'))]
+    for f in stale:
+        try: os.remove(f)
+        except OSError: pass
+    if stale: print(f'removed {len(stale)} files left by an earlier run', flush=True)
     done = set()
     path = os.path.join(OUTD, 'results.jsonl')
     if os.path.exists(path):
