@@ -987,3 +987,47 @@ Nothing operational.
    then refine only the survivors (`refine_p.py ... 12 3 10 6`).
 2. Same for `cnc258r2` (`... 2 600 --retry-timeouts`, then `refine_p.py ... 2 5 8 5`).
 3. Then the final chained check and publication for \(1^{12} 3^{10}\), then \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 20 (18:28Z-19:00Z)
+
+### Established
+- Both second-round runs finished their lists during the long gap since the last
+  pass (the host was idle or asleep for most of nine hours): \(1^{12} 3^{10}\) at
+  5339 of 5581 cubes verified, \(1^{2} 5^{8}\) at 12666 of 12935, leaving 242 and
+  269 cubes over the 60 s cap.
+- **Escalation started** as planned in pass 19: both runs were restarted with
+  `--retry-timeouts` at a 600 s cap and three workers each, so only the hard cubes
+  are re-attempted. In the first twenty minutes it settled 6 of 242 and 17 of 269.
+- **Splitting heuristic tested and confirmed.** On the first hard cube of the
+  \(1^{12} 3^{10}\) run (cube 434), splitting into 16 children with a 15 s cap:
+  the next-cycle variables (one code bit of cycle 6 and its three cross variables
+  to cycle 0) settle **13 of 16** children in 51 s in total, while splitting on
+  fixed-vertex profile variables \(x(0, c_{60}), x(0, c_{70}), x(1, c_{60}), x(1, c_{70})\)
+  settles **1 of 16** and costs 232 s. The current choice in `refine_p.py` is
+  therefore the right one, and refinement does work on the hard cubes: only about
+  one child in five stays hard, which matches the 10 to 12 percent measured over
+  whole rounds. The pass-19 conclusion stands as stated: refinement alone at a
+  fixed short cap multiplies work faster than it removes hard cubes, so escalation
+  first and refinement second is the better order.
+
+### Published
+Nothing this pass (measurements and long-running computation); no graph
+contribution, since neither type is closed.
+
+### Background left (2)
+- `cnc12310r2` escalation (\(1^{12} 3^{10}\), 242 hard cubes, pid 5799, 3 workers,
+  600 s cap): at the observed rate a few hours.
+- `cnc258r2` escalation (\(1^{2} 5^{8}\), 269 hard cubes, pid 5800, 3 workers, 600 s cap).
+Scratch about 8 GB; the hard cubes write large proofs, which the driver replays
+and deletes one at a time.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. When the escalations finish, refine the survivors on the next free cycle
+   (`refine_p.py ... 12 3 10 6` and `... 2 5 8 5`), carry survivors with
+   `seed_results.py`, and run at 60 s again; repeat escalation if needed.
+2. Then the final chained check
+   (`verify_cnc_p.py ... --refine <maps in order> --verified <all logs>`),
+   the artifact section and the lemma for \(1^{12} 3^{10}\), then \(1^{2} 5^{8}\).
