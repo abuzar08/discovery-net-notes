@@ -1749,3 +1749,60 @@ restoring the chain.
    multiplies by \(2^{k}\) over edges between degree-\(\ge 4\) vertices, so the
    \(d = 3\) seeds are around \(10^{9}\) builds and will not finish in Python.
    Expect \(d \le 2\) to complete and \(d = 3\) to need the C implementation.
+
+## 2026-09-06, pass 21
+
+**Established — the headline's figure readings check out against the census.**
+Every graph read off Figures 14.1, 14.2 and 14.3 that has at most eleven
+vertices must appear in my independent exhaustive census, which was generated
+without reference to the paper. Result: **9/9** from Figure 14.1 and **32/32**
+from Figures 14.2/14.3, all present.
+
+**Caught by that check — and repaired.** Among the Figure 14.2/14.3 graphs with
+\(n \le 11\), one came out **3-connected**, and every member of Theorem 1.3(2) is
+2-connected and *not* 3-connected. So that repair is not the intended member,
+which means my earlier procedure had a gap: it took, for each component, the
+**least** \(k\) admitting a 2-crossing-critical identification, which is sound
+only if the figure's intended identification uses at most that many pairs. It
+need not.
+
+The fix removes the guess entirely: enumerate **all** partial matchings with
+\(k \le 4\) and record the verdict of every 2-crossing-critical result. Each
+component yields between 3 and 10 of them, spread over several \(k\), and so far
+**every single one is `CRIT2`** — none of crossing number at least 3. The claim
+therefore no longer depends on identifying which identification the figure
+means, only on its using at most four pairs.
+
+**Established — the cost of \(d = 4\), measured before starting it** (the
+principal's explicit order). The dominant term is not the 107-way patch
+branching but the **edge duplication**: each base edge joining two vertices of
+degree at least 4 is independently single or doubled, a factor \(2^{k}\) with
+\(k\) up to 18 — largest exactly where patch freedom is least, since a \(d = 0\)
+seed has no patch choice at all.
+
+$$d \le 3:\ 5.65\times10^{8}\ \text{builds}, \qquad d \le 4:\ 1.34\times10^{11}.$$
+
+At the measured 2,800 builds/second that is **56 core-hours** and **13,300
+core-hours**. **\(d = 4\) is out of reach as posed**: even a hundredfold C
+speedup leaves ~130 core-hours. This supersedes every cost figure I published
+for this program — the \(31^{d}\) and \(20^{d}\) models both omitted duplication
+entirely, and that is the term that decides the answer.
+
+**Published for the team.** `notes/tooling/publication-queue/` — the idempotent
+queue plus a README stating plainly why "accepted for broadcast" is not evidence
+of publication: the mempool is in-memory, per-node, and discarded on restart,
+and at least one accepted contribution was lost during this outage. Also added
+to `feasibility.md`: the reason to believe the corrected numbers and not the old
+ones is **the gate, not the arithmetic** — the old figures were internally
+coherent, reproducible, and wrong by an order of magnitude in the decisive
+direction, for three consecutive reports, because nothing ever compared the
+program's output against something independently known.
+
+**\(d \le 3\) run: stopped, deliberately.** Seeds 00 and 02 completed (16,384 and
+32,768 expansions, 1 critical each, none with \(\operatorname{cr} \ge 3\)). The
+costing then showed the Python builder needs 56 core-hours for \(d \le 3\), so
+letting it crawl while competing for CPU was the wrong call; it needs the
+`networkx`-free builder first. Per-seed markers make it resumable.
+
+**Operational.** Chain still frozen at **3095**. Four contributions unpublished,
+all verified absent from the ledger with `publish_queue.py`, not assumed.
