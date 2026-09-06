@@ -9,6 +9,90 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-06 — pass 17 (took the mandate's remaining option: certified \(R(4,5)\))
+
+### Chain: down all pass, still not resubmitting
+Frozen at **3443** since 16:03:08Z — over **six hours**. Pass-14 `lemma`
+`bafkreicgpqb2vyw2qtelysclrfyt6f2rljwzybt3a6f2wgotwgobtb75oy` still
+uncommitted, **not resubmitted**. Four passes of work now queued behind the
+outage.
+
+### Method change, with the evidence for it
+Last pass I reported that every attack on the \(n = 44/45\) reduction was
+measured out. So this pass I took the mandate's remaining untried option — a
+**certified reproduction of a published computational step** — and picked the
+one that matters most: \(R(4,5) = 25\). It is the load-bearing input for the
+degree window \(n-25 \le d(v) \le 24\) in *every* \(R(5,5)\) argument on
+this graph, mine and researcher-1's and the fleet's, and all of us cite it
+without checking it.
+
+Choosing it was not a guess: my own pass-15 measurement put the gluing
+feasibility boundary near \(n \approx 36\), and this problem is at
+\(n = 25\).
+
+### The decomposition
+For a \((4,5,25)\)-graph and any vertex \(v\): \(G[N(v)]\) is a
+\((3,5)\)-graph so \(d \le R(3,5)-1 = 13\), and \(G[V\setminus N[v]]\)
+is a \((4,4)\)-graph so \(24-d \le R(4,4)-1 = 17\), giving
+\(7 \le d \le 13\). Both sides range over complete published catalogues,
+and fixing both leaves only the \(d \times m\) bipartite edges unknown.
+
+### Certified
+| \(d\) | \(m\) | instances | vars | result |
+|---|---|---|---|---|
+| 7 | 17 | \(71 \times 1 = 71\) | 119 | **all refuted**, 56 s |
+| 8 | 16 | \(179 \times 2 = 358\) | 128 | **all refuted**, 418 s |
+
+All \(429\) refutations **verified by drat-trim**, hashes recorded. Encoder
+validated against ground truth: a \((4,5,24)\)-graph *does* exist, so its
+own gluing instances must be satisfiable — **48 vertex instances across two
+real \((4,5,24)\)-graphs, zero clauses violated**. All \(971\)
+\((3,5,d)\)-graphs re-verified with my own decoder and checker, counts
+matching McKay exactly.
+
+**Honesty note, stated up front in the artifact:** \(R(4,5) = 25\) is known,
+so every statement about \((4,5,25)\)-graphs is **vacuously true** and this
+is **not new mathematics**. The value is that the \(429\) pieces are
+checkable line by line.
+
+### The cost of finishing, measured — and it is decisive
+| \(d\) | 7 | 8 | 9 | 10 | 11 | 12 | 13 |
+|---|---|---|---|---|---|---|---|
+| instances | 71 | 358 | 185,600 | 40,945,408 | 124,344,255 | 17,389,992 | 546,356 |
+
+Total **\(183{,}412{,}040\)**. Measured throughput including proof
+generation and drat-trim verification: \(0.95\) instances/s on six workers
+(a \(600\)-instance random sample at \(d=9\), all refuted). So \(d=9\)
+alone is \(\approx 54\) hours and the whole decomposition
+\(\approx 5.4\times10^4\) hours — about **six years**.
+
+**Verdict: this decomposition cannot produce a certified \(R(4,5) \le 25\).**
+The blocker is not instance difficulty — each is a \(119\)–\(200\) variable
+problem refuted in about a second — but the \((4,4,m)\) catalogue sizes in
+the middle of the degree range, peaking at \(1.4\) million. Leaving
+\(G[M]\) free instead is far worse: none of \(d = 7,10,11,12,13\) decided
+in \(120\)–\(300\) s that way, against about a second with \(M\) fixed.
+
+### Published
+- GitHub `36cedf9` — `graph-ramsey-theory/r45-25-certified-gluing/`.
+- Discovery Net: nothing, chain down. Four items now pending.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first. When it returns, publish the backlog as **two** contributions,
+   not five: the \(n=44/45\) reduction with its verified constants (passes
+   14–16), and this \(R(4,5)\) reproduction with its cost verdict.
+2. The remaining honest options for this seat, given three measured-out
+   routes, are (a) a smarter decomposition for \(R(4,5)\) following
+   McKay–Radziszowski's actual method rather than pair enumeration, or (b)
+   back to \(n = 44/45\) with an argument for \(\beta(24) \le 125\). I
+   lean (b) because the target there is now exactly quantified
+   (\(15913\) graphs) and (a) is a large reimplementation.
+3. principal-1: the pass-19 reassessment now has three passes of evidence
+   behind it.
+
 ## 2026-09-06 — pass 16 (the lane measured out; Lemma 2 and a sharper target)
 
 ### Chain: down all pass, still not resubmitting
