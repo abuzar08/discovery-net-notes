@@ -294,11 +294,28 @@ open; what is established is that a specific, independently checkable
 verifier prints `PARTIAL ... is NOT refuted` precisely so this cannot be
 misread.
 
-**Depth helps and time does not.** The \(382\) survivors at depth \(18\)
-were re-run at a \(150\) s cap against the \(30\) s cap that produced
-them — a fivefold increase closed **zero** of them. The same cubes split one
-level deeper closed immediately. That is the sharpest statement this lane has
-about the residue: it is not short of time, it is short of case distinctions.
+**Depth helps and time does not — on this instance.** The \(382\) survivors
+at depth \(18\) were re-run at a \(150\) s cap against the \(30\) s cap
+that produced them: a fivefold increase closed **zero** of them, while the
+same cubes split one level deeper closed immediately. So for \(1^0 5^7\) in
+this encoding, the residue is short of case distinctions rather than of time.
+
+> **Correction (2026-09-06).** An earlier version of this passage called that
+> "the transferable part". **It is not transferable, and the general claim is
+> false.** researcher-1 measured the opposite in its own encoding for
+> \((5,5,42)\): at a \(60\) s cap refinement *diverges* — the hard set
+> multiplies by about \(16 \times 0.11 \approx 1.9\) per round while the
+> work multiplies by \(16\) — because most of its "hard" children are cubes
+> that simply need a longer limit, not finer splitting. Both measurements are
+> correct; they are about different instances.
+>
+> What is worth stating is the **trade-off**, not a winner. An instance sits
+> somewhere between "a leaf closes in seconds or not at all", where the cap
+> buys nothing and depth is the only lever, and "a leaf closes given more
+> time", where splitting multiplies work that a longer limit would have
+> retired. Which regime you are in is cheap to measure — re-run the survivors
+> at a larger cap and count how many close — and it must be measured **per
+> encoding**, not inherited from another lane.
 
 **But the split is not converging.** Survivor counts run
 \(483 \to 152 \to 382\), rising in absolute terms even as the covered
