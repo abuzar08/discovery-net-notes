@@ -1386,3 +1386,90 @@ principal — it invalidates opportunity-queue item 4 as scoped, and no amount o
 core-hours fixes it. 2. When `run 4` finishes, publish the coverage as partial
 completion of Remark 17.2 with exact skipped counts. 3. Not autonomous: the
 C₃□C₃ note to Schaefer for DS21 (raised six times).
+
+## 2026-09-05, pass 17
+
+*(New entries use LaTeX per the notation rule. Earlier entries in this file are
+left as written rather than mass-rewritten.)*
+
+**Adopted the principal's direction** (three tasks: finish and publish the
+\(d \le 4\) run with exact counts; cost a larger tester before building it;
+settle additivity over 2-cuts). Task 2's answer turned out to be "premature, and
+here is why", which is recorded below.
+
+**Established — the expansion program was scoped wrong, and the census proves
+it.** Cross-checking against my own exhaustive census (88 graphs on
+\(n \le 11\), 65 of them 3-connected) is decisive because every patch adds at
+least zero vertices and only one adds zero, so all expansions with
+\(n \le 11\) are enumerable over all 36 seeds. There are 224 of them; exactly 36
+are 2-crossing-critical and all 36 are the seeds themselves. That left 29
+3-connected census members unreproduced against a theorem allowing four
+exceptions. All 19 that survive a \(V_8\)/\(V_{10}\) containment test are
+**non-peripherally-4-connected** — exactly the graphs the replacement
+construction exists to produce.
+
+Reading Section 15.7 and Lemma 15.27 gives three omitted ingredients: the base
+need only have \(\operatorname{cr}(L) = 1\); edge duplication on edges between
+degree-\(\ge 4\) vertices is part of the construction; and the type choices are
+globally constrained by \(x \in T_v \iff v \in T_x\). **This also corrects my own
+height-3028 claim**: Lemma 15.27 chooses a configuration *within the class of the
+vertex's type*, so the branching is at most \(\max(20,3,5,2,1) = 20\), which is
+what Theorem 17.1(3)'s "at most twenty patches" means. The number 31 is a total
+across classes, not a branching factor, and the count does not factor over
+vertices at all.
+
+**Established — Theorem 17.1(3) verified exactly at \(n \le 11\).** Planar
+3-reductions (Definition 15.17) resolve the 19 completely: 15 reduce to a
+peripherally-4-connected base with \(\operatorname{cr}(L) = 1\) (eight to
+\(K_{3,3}\)), and 4 admit no planar 3-reduction and have
+\((n,m) = (7,12),(8,13),(9,14),(10,15)\) — verified to be exactly Theorem 15.6's
+four graphs by constructing \(K^{*}_{3,4}\) from Definition 15.2 and contracting
+subsets of the matching \(M\). So
+$$65 = 36 + 10 + 15 + 4$$
+exactly, with no residue. The same computation is what falsified my scoping.
+
+**Established — the connectivity-2 branch, partially.** Additivity is the wrong
+tool: Leaños–Salazar settles 2-**edge**-cuts, not the 2-**vertex**-cuts the
+cleavage-unit decomposition needs. BORS Theorem 14.5 closes the branch instead —
+a 2-connected non-3-connected 2-crossing-critical graph with one non-planar
+cleavage unit is recovered from a 3-connected 2-crossing-critical \(\tilde{C}\)
+by replacing digons with digonal paths, which is subdivision in parallel, so
+\(\operatorname{cr}(G) = \operatorname{cr}(\tilde{C})\). Extracting Figures 14.2
+and 14.3 (page index 127) gives **exactly 36 components**, all 2-connected, none
+3-connected, minimum degree \(\ge 3\). The checker splits them **16/20**, exactly
+matching Claim 4 ("16 graphs in Figure 14.2") and Claim 6 ("20 graphs in Figure
+14.3"). All 16 of Figure 14.2 are `CRIT2`, never `CRIT_GE3`, so each has
+\(\operatorname{cr} = 2\) and none is a second counterexample. The 20 of
+Figure 14.3 do not verify as drawn and doubling any single edge repairs none, so
+a drawing convention there is undecoded; **no claim is made about their crossing
+numbers**. The lemma improves from "3-connected or one of 36" to "3-connected or
+one of the 20 graphs of Figure 14.3".
+
+**Published.** Height **3074**: the scoping correction, `refines` height 3028.
+Submitted (tx `1BC7CEDB…`, `check_tx_code` 0): the exact verification
+\(65 = 36+10+15+4\), `depends_on` 3074. Repo commits `638bc3a` (correction,
+`bors-expansion-scoping.md`, `census_crosscheck.py`, `vsub2.py`), `f3a0ed1`
+(verification, `reduce_p4c.py`), plus `connectivity-2-case.md` this pass.
+`figure-15-1.md` and `remark-17-2-feasibility.md` were corrected and converted to
+LaTeX where edited.
+
+**Answer to the principal's task 2.** Costing a larger criticality tester is
+premature and I did not commit the compute. The graph sizes that matter are set
+by the corrected construction — bases with \(\operatorname{cr}(L) = 1\), edge
+duplication, constrained types — not by the program I measured, whose cost model
+rested on \(31^d\). Re-scoping first, then costing, is the right order.
+
+**Running between passes (1 background computation).** `expand_run.py run 4`,
+pid 59113, single core, 15 of 17 seeds done; roughly 25 minutes left. Every seed
+so far reports exactly one 2-crossing-critical expansion, namely the seed itself,
+and no expansion with \(\operatorname{cr} \ge 3\); seed 20 is
+\(C_3 \square C_3\), reported `CRIT_GE3` as it must be. The result is now
+*explained* rather than merely observed: with \(\operatorname{cr}(L) \ge 2\)
+already, enlarging \(L\) only makes some edge inessential.
+
+**Next step (concrete).** 1. Publish the finished \(d \le 4\) run with exact
+per-seed decidable and skipped counts, framed as what it is — the degenerate
+branch of the construction. 2. Decode Figure 14.3's convention and settle the
+remaining 20, which would give a flat "3-connected" narrowing lemma. 3. Not
+autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21, now the
+seventh time raised.
