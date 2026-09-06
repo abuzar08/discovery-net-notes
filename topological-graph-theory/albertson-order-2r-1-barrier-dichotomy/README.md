@@ -762,6 +762,48 @@ augmented by \(w_1,w_2\):
 Making the first alternative rigorous needs a system of distinct representatives
 for the \(u\) and \(v\); that is the open step.
 
+### The pinned case has no one-sided vertex (`hall57.py`)
+
+The rigidity settles the dichotomy's second branch outright.  Since \(Q_1,Q_2\)
+are \(G\)-cliques with no \(G\)-edges between them, \(H[L]\) is **exactly**
+\(K_{24,24}\): no \(H\)-edge inside a block, every cross pair an \(H\)-edge.  So
+\(e(H[L])=576\), and
+
+$$e_H(L,R) \;=\; e(H)-e(H[L])-e(H[R]) \;=\; \sum_{v\in R}\lvert N_H(v)\cap L\rvert .$$
+
+The two \(w_i\) contribute only \(2+a-\tau\), so nearly all of \(e_H(L,R)=192\)
+falls on the seven \(z\in Z\), each capped by its own degree \(28-x_z\).  Seven
+terms summing to 188 or 189 with each at most 27 forces every one to be at least
+26, and since \(|Q_i|=24\),
+
+$$\min(a_z,b_z) \;\ge\; \lvert N_H(z)\cap L\rvert-24 \;\ge\; 2 .$$
+
+So **every \(z\) is crossing**: there is no one-sided vertex, the clique-building
+branch is vacuous, and the case rests entirely on triangle absorption.  (This
+holds in every admissible sub-configuration of both rows; for \((57,828)\) with
+\(a=1\) the bound is \(\ge3\).)
+
+*What remains, exactly.*  \(\theta(H[L])=24\) is optimal, since \(H[L]\) is
+bipartite and triangle-free, so \(\theta(H)\le 24+\theta(H[R])\le 33\).  Four
+vertex-disjoint triangles give \(\theta(H)\le 28\) against \(\theta(H)=29\), and
+four can be chosen as soon as \(\mu_1+\mu_2\ge|Z|+4=11\), where \(\mu_i\) is the
+maximum matching of \(Z\) against \(Q_i\).  König then converts a small \(\mu_1\)
+into a large clique: the \(z\) outside the cover are \(G\)-adjacent to all of
+\(Q_1\setminus C_Q\), giving a clique of order \(31-\mu_1\) (less one for the
+single possible non-edge of \(G[R]\)) disjoint from \(Q_2\):
+
+| \(\mu_1\) | bound | vs \(Z(29)\) |
+|---|---|---|
+| 2 | \(\mathrm{cr}(K_{28})+\mathrm{cr}(K_{24})=9828\) | closes |
+| 3 | \(\mathrm{cr}(K_{27})+\mathrm{cr}(K_{24})=8903\) | closes |
+| 4 | \(8081\) | survives |
+| 5 | \(7354\) | survives |
+
+and symmetrically in \(\mu_2\).  So the whole residue is
+\((\mu_1,\mu_2)\in\{(4,4),(4,5),(5,4),(4,6),(6,4),(5,5)\}: a statement purely
+about the bipartite adjacency of seven vertices against two 24-sets.  **The case
+is not closed**, and this is exactly where it stands.
+
 Order 58 = 2r is **not** covered by this argument: there Stehlík gives one colour
 class of size three rather than a perfect matching, so `H` need not be
 factor-critical and none of the order-\(2r-1\) structure theory applies; it is

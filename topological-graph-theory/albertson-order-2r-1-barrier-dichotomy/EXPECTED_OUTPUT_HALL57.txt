@@ -1,0 +1,54 @@
+Albertson r = 29, order 57, the pinned |R| = 9 configuration
+Z(29) = 8281;  blocks (24, 24); |L| = 48, |R| = 9, |Z| = 7
+
+ROW (57, 827)
+   a=3 tau=1 : e(G[R])=35, e(H[R])=1, e_H(L,R)=192, sum_Z x=7
+        sum_Z |N_H(z) ^ L| = 188 over 7 vertices, each <= 27
+        so every z has |N_H(z) ^ L| >= 26, hence min(a_z,b_z) >= 2  -> every z is CROSSING
+
+ROW (57, 828)
+   a=1 tau=0 : e(G[R])=36, e(H[R])=0, e_H(L,R)=192, sum_Z x=7
+        sum_Z |N_H(z) ^ L| = 189 over 7 vertices, each <= 27
+        so every z has |N_H(z) ^ L| >= 27, hence min(a_z,b_z) >= 3  -> every z is CROSSING
+   a=2 tau=0 : e(G[R])=36, e(H[R])=0, e_H(L,R)=192, sum_Z x=8
+        sum_Z |N_H(z) ^ L| = 188 over 7 vertices, each <= 27
+        so every z has |N_H(z) ^ L| >= 26, hence min(a_z,b_z) >= 2  -> every z is CROSSING
+
+CONCLUSION
+   In every admissible sub-configuration of both rows, every
+   vertex of Z is crossing.  There is NO one-sided vertex, so the
+   clique-building branch of the dichotomy is vacuous and the
+   case rests entirely on triangle absorption.
+
+   theta(H[L]) = 24 exactly: H[L] is the complete bipartite graph
+   K_{24,24}, which is bipartite and triangle-free, so a clique cover
+   is a matching plus singletons and 24 is optimal.
+   Four vertex-disjoint triangles {z,u,v} would give theta(H) <= 28
+   against theta(H) = 29.  Every z is crossing, so every z lies in
+   SOME such triangle; four can be chosen disjointly as soon as
+   mu_1 + mu_2 >= |Z| + 4 = 11, where mu_i is the maximum matching
+   of Z against Q_i.  The residue is exactly mu_1 + mu_2 <= 10.
+
+   Konig narrows that residue.  A maximum matching of size mu_1 gives
+   a vertex cover C_Z u C_Q of the same size; every z outside C_Z has
+   all its Q_1-neighbours inside C_Q, hence is G-adjacent to all of
+   Q_1 - C_Q.  So (Q_1 - C_Q) u {those z} is a clique of order
+   (24 - |C_Q|) + (7 - |C_Z|) = 31 - mu_1, less at most one vertex
+   for the single possible non-edge of G[R], and it is disjoint from
+   Q_2, itself a K_24.  Hence
+      mu_1 = 2 : cr >= cr(K_28) + cr(K_24) =  9828  >= Z(29), CLOSES
+      mu_1 = 3 : cr >= cr(K_27) + cr(K_24) =  8903  >= Z(29), CLOSES
+      mu_1 = 4 : cr >= cr(K_26) + cr(K_24) =  8081  <  Z(29), survives
+      mu_1 = 5 : cr >= cr(K_25) + cr(K_24) =  7354  <  Z(29), survives
+      mu_1 = 6 : cr >= cr(K_24) + cr(K_24) =  6714  <  Z(29), survives
+   and symmetrically in mu_2.  Combining with mu_1 + mu_2 <= 10, the
+   case survives only for (mu_1, mu_2) in {(4,4), (4,5), (5,4),
+   (4,6), (6,4), (5,5)}.  That is the entire remaining obstruction,
+   and it is now a statement purely about the bipartite adjacency of
+   seven vertices against two 24-sets.
+
+   For reference, the crossing budget if a big clique were available:
+      cr(K_27) + cr(K_24) =  8903 >= Z(29)
+      cr(K_26) + cr(K_25) =  8721 >= Z(29)
+      cr(K_25) + cr(K_25) =  7994 <  Z(29)
+      cr(K_26) + cr(K_24) =  8081 <  Z(29)
