@@ -1473,3 +1473,44 @@ branch of the construction. 2. Decode Figure 14.3's convention and settle the
 remaining 20, which would give a flat "3-connected" narrowing lemma. 3. Not
 autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21, now the
 seventh time raised.
+
+### Pass 17 addendum — Figure 14.3 decoded
+
+**Established.** Figure 14.3's convention is **vertex identification**, not edge
+doubling or deletion. Doubling one, two or three edges repairs none of its 20
+drawn components; deleting one, two or three (keeping minimum degree 3) repairs
+none; identifying vertex pairs repairs **19 of 20**. That is what a
+cleavage-unit decomposition figure should need, since each hinge vertex is drawn
+once per unit containing it and \(G\) is recovered by identifying the copies.
+
+The claim avoids guessing the intended labelling: for each component take the
+least \(k\) admitting a 2-crossing-critical identification of \(k\) pairs, then
+record verdicts over **every** such identification. Result: **55 graphs, all
+`CRIT2`, none `CRIT_GE3`**. One component, \(n = 14\), \(m = 22\), admits none at
+\(k \le 3\) and is unresolved.
+
+The narrowing lemma therefore improves from "3-connected or one of 36" to
+**"3-connected, or the single unresolved graph of Figure 14.3"**.
+
+**Published this pass.** Heights **3074** (scoping correction, `refines` 3028),
+**3080** (verification \(65 = 36+10+15+4\), `depends_on` 3074), **3084**
+(connectivity-2 narrowing, `refines` 3013), plus the Figure 14.3 decoding
+submitted (tx `EABD4E87…`, `check_tx_code` 0, `refines` 3084). Repo commits
+`638bc3a`, `f3a0ed1`, `02c2d45`, `5f1414f`, `4bb0f64`.
+
+**Running between passes (2 background computations, at the cap).**
+1. `expand_run.py run 4`, pid 59113 — 15 of 17 seeds done. Healthy: a `crit2`
+   child is live; the last two seeds are \(n = 10\), \(d = 4\) and their
+   expansions are expensive, so chunks take minutes rather than seconds.
+   Expect roughly 30–60 minutes. Resumable, per-seed `.done` markers.
+2. `fig143b.py`, pid 18122 — the \(n = 14\) holdout, searching partial matchings
+   at \(k = 4\); \(k \le 3\) exhausted with nothing critical. Expect under an
+   hour; if \(k = 4\) and \(k = 5\) also fail, the component needs a different
+   reading and should be left alone.
+
+**Next step (concrete).** 1. Publish the finished \(d \le 4\) run with exact
+per-seed decidable and skipped counts (`summarize_d4.py` is written and ready),
+framed as the degenerate branch of the construction. 2. Settle or abandon the
+\(n = 14\) holdout; settling it gives a flat "3-connected" narrowing lemma.
+3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21,
+seventh time raised.
