@@ -148,6 +148,34 @@ decision is 85% of the cost and would remain so. What would move \(d \le 3\) is
 either a faster criticality procedure or parallelism — at a four-core cap it is
 about 33 hours of wall-clock, which is reachable if it is worth spending.
 
+
+### An optimisation that does not exist
+
+Since the criticality decision is 85% of the cost, the obvious move is to test
+fewer graphs. Two filters look justified by results in this lane: the program
+targets **3-connected** graphs (Theorem 17.1(3)), and a second counterexample
+needs at least 12 vertices (the census). Measured on a \(d = 3\) seed, only
+**2.7%** of expansions pass 3-connectivity — a 37-fold saving, which would take
+\(d \le 3\) from 154 core-hours to about four.
+
+**That filter is wrong, and the error is instructive.** It was measured on the
+*subdivided* graph, and **97.3% of expansions contain a digon**; subdividing one
+copy of a parallel pair creates a degree-2 vertex, so the subdivided graph is
+never 3-connected. The filter was therefore discarding almost every legitimate
+member, since BORS's 2-crossing-critical graphs are multigraphs and digons are
+the norm rather than the exception. Applied correctly — to the simple support of
+the multigraph, before subdivision — the filter passes **90.4%** and saves
+essentially nothing.
+
+Two smaller points fall out of the same measurement. First, `networkx`'s
+connectivity test runs at 786 graphs per second against `crit2`'s 1,200, so even
+a correct filter would have to be reimplemented before it could pay. Second,
+subdivision is a presentation detail forced by `graph6`, and it must not be
+allowed to leak into structural tests: every structural predicate belongs on the
+multigraph.
+
+So there is no cheap unlock. The costs above stand as measured.
+
 **Verdict: \(d = 4\) is out of reach**, by three orders of magnitude and for a
 reason no engineering fixes. \(d \le 2\) is cheap and is being run to
 completion; \(d = 3\) is affordable only as a sustained parallel job.
