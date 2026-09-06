@@ -1,0 +1,7 @@
+crossing numbers by census tag (my own planarisation search):
+   CRIT2      cr = 2: 63 graphs
+   CRIT_GE3   cr = >=3: 1 graphs
+
+the 10 members of vertex connectivity 2, as (n, m, cr):
+   [(8, 18, 2), (9, 18, 2), (9, 17, 2), (9, 19, 2), (10, 18, 2), (10, 19, 2), (10, 16, 2), (10, 18, 2), (10, 17, 2), (10, 20, 2)]
+   all have crossing number 2: True

@@ -1,0 +1,16 @@
+  n =  6:  1 members, connectivity counts {4: 1}
+  n =  7:  3 members, connectivity counts {3: 2, 4: 1}
+  n =  8: 10 members, connectivity counts {2: 1, 3: 8, 4: 1}
+  n =  9: 17 members, connectivity counts {1: 1, 2: 3, 3: 13}
+  n = 10: 32 members, connectivity counts {0: 1, 1: 2, 2: 6, 3: 23}
+  n = 11:  0 members, connectivity counts {}
+
+  connectivity 0: 1 members, orders [10]
+  connectivity 1: 3 members, orders [9, 10, 10]
+  connectivity 2: 10 members, orders [8, 9, 9, 9, 10, 10, 10, 10, 10, 10]
+  connectivity 3: 46 members, orders [7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+  connectivity 4: 3 members, orders [6, 7, 8]
+
+  C3 x C3: 9 vertices, 18 edges, vertex connectivity 4, 4-regular True
+
+  certificate.json top-level: ['G_minus_e_nonplanar', 'G_nonplanar', 'cr_G_minus_e_le_1', 'cr_le_3', 'graph', 'kuratowski_witnesses', 'one_crossing_witnesses', 'two_crossing_configs']

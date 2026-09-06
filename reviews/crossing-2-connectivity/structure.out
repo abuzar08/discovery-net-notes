@@ -1,0 +1,26 @@
+controls on the subdivision test
+   [ok ] V8 in V8: True
+   [ok ] V8 in K8: True
+   [ok ] V8 in K5: False
+   [ok ] V8 in a one-edge subdivision of V8: True
+   [ok ] V8 in C8: False
+   [ok ] V10 in V10: True
+   [ok ] V10 in K10: True
+
+placement of the 64 census members
+    26  3-connected, no V8 subdivision  [BORS (iv), determined]
+    24  3-connected, V8 but no V10  [BORS (iii), finite]
+    14  not 3-connected  [BORS (ii)]
+
+by order
+   n =  6:  1 members,  1 3-connected,  0 with a V8 subdivision, 0 with V10
+   n =  7:  3 members,  3 3-connected,  0 with a V8 subdivision, 0 with V10
+   n =  8: 10 members,  9 3-connected,  4 with a V8 subdivision, 0 with V10
+   n =  9: 18 members, 14 3-connected,  9 with a V8 subdivision, 0 with V10
+   n = 10: 32 members, 23 3-connected, 11 with a V8 subdivision, 0 with V10
+
+C3 [] C3 itself: connectivity 4, V8 subdivision False, V10 subdivision False (only 9 vertices)
+   => the unique counterexample lies in BORS class (iv).  NOTE: the
+      BORS abstract says they 'determine' that class, but their
+      Remark 17.2 says Section 15.7 gives a METHOD and 'it would be
+      desirable for this program to be completed'.  See census.md.
