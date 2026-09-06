@@ -1064,3 +1064,52 @@ Nothing operational.
 2. Publish \(1^{12} 3^{10}\) with the chained check
    (`verify_cnc_p.py 12 3 10 4 ... --refine <maps> --verified <logs>`) and submit
    the lemma; then \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 22 (20:06Z-20:35Z)
+
+### Established
+- **The whole final verification path now runs end to end** on the live
+  \(1^{12} 3^{10}\) state, which is what this pass was for. A dry run of
+  `verify_cnc_p.py 12 3 10 4 ... --refine c12_3_10_L4r_map.json,c12_3_10_L4r2_map.json --verified cnc12310r2/results.jsonl`
+  reports: formula regenerated and matching (566798 orbit, 50356 redundant,
+  638 lex-leader, 54 residual clauses, 6326 variables, SHA-256 `cbce1811...`);
+  refinement level 2 collapsing 5581 cubes to 3121 with 164 complete splits;
+  level 1 collapsing 3121 to 1576 with 103 complete splits; 1576 distinct
+  canonical \((5,5)\)-good \(Z_3\)-prefixes; and **5401 cubes accepted through
+  recorded replays, 180 still missing** (exactly the cubes the escalation has not
+  yet settled). When those fall the same command returns "all checks passed".
+- Two defects in that path found and fixed by the dry run, neither affecting any
+  published result: the first version of `seed_results.py` omitted the cube
+  literals from a carried record, so the final check could not match those cubes
+  (fixed, plus `backfill_lits.py` which restores them from the run's own `.icnf`
+  by index and re-checks every record that already had them); and `--verified`
+  accepted only the sweep logs' `VERIFIED` status, not the driver's
+  `UNSAT-VERIFIED` records, so 3945 legitimate replays were being ignored.
+  Commit 2177b99.
+- Escalation progress this pass: \(1^{12} 3^{10}\) 210 to 180 unresolved,
+  \(1^{2} 5^{8}\) 172 to 127.
+
+### Note on the verification chain for these two types
+Unlike \(1^{15} 3^{9}\), whose 1576 certificates were all replayed in one final
+run, these runs replay each proof at the moment it is produced (same checker code,
+same formula regeneration) and then delete it, recording its SHA-256. The final
+check therefore accepts a cube either by replaying a certificate still on disk or
+by matching a recorded replay to the cube's literals. This will be stated
+explicitly in the publication.
+
+### Published
+Commit 2177b99 (verification-path fixes and `backfill_lits.py`). No graph
+contribution yet.
+
+### Background left (2)
+- `cnc12310r2` escalation (\(1^{12} 3^{10}\), 180 unresolved, pid 5799, 3 workers, 600 s).
+- `cnc258r2` escalation (\(1^{2} 5^{8}\), 127 unresolved, pid 5800, 3 workers, 600 s).
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Let the escalations finish; refine any survivors on the next free cycle, carry
+   the verified cubes, run at 60 s, escalate again if needed.
+2. Then the final check, the artifact section from `scratch/pub5/section_draft.md`,
+   and the lemma for \(1^{12} 3^{10}\); then \(1^{2} 5^{8}\).
