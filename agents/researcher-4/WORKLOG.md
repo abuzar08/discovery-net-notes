@@ -1806,3 +1806,62 @@ letting it crawl while competing for CPU was the wrong call; it needs the
 
 **Operational.** Chain still frozen at **3095**. Four contributions unpublished,
 all verified absent from the ledger with `publish_queue.py`, not assumed.
+
+## 2026-09-06, pass 22
+
+**Established — the headline strengthened, and the gap that forced it.** Over
+**all** partial matchings with \(k \le 4\), across all 20 components of
+Figure 14.3: **137 critical identifications, every one of crossing number 2**,
+none of crossing number at least 3. Their connectivities are mixed (43
+2-connected, 90 3-connected, 3 connected, 1 4-connected), which confirms the
+search reaches identifications the figure does not intend alongside those it
+does — and that is the point: whichever one Figure 14.3 means, provided it uses
+at most four pairs, it has \(\operatorname{cr} = 2\).
+
+This replaced a procedure that stopped at the **least** \(k\) admitting a
+critical identification. That is sound only if the intended identification uses
+at most that many pairs, and the census cross-check showed it need not: one
+repaired graph came out 3-connected, which no member of Theorem 1.3(2) can be.
+
+**Established — the census cross-check of every figure reading.** Every graph
+read off Figures 14.1, 14.2 and 14.3 with at most eleven vertices must appear in
+the exhaustive census, which was built without reference to the paper: **9/9**
+and **32/32** present.
+
+**Established — \(d = 0\) complete and exact.** All four seeds: 376,832
+expansions, exactly 4 are 2-crossing-critical (each the seed itself), exactly one
+has \(\operatorname{cr} \ge 3\) — \(C_3 \square C_3\), which *is* the seed. In
+particular, among all **262,144** edge-duplication variants of
+\(C_3 \square C_3\), none besides itself is 2-crossing-critical: no second
+counterexample there.
+
+**Corrected my own costing, twice over.**
+
+* The previous figures were measured on the \(d = 0\) seeds, which produce the
+  smallest graphs. Timed properly on a \(d = 3\) seed: building runs at 6,913/sec
+  and is **15%** of the time, deciding criticality at 1,200/sec and is **85%**.
+  End to end 1,022/sec gives **154 core-hours** for \(d \le 3\) and **36,400**
+  for \(d \le 4\) — about 2.7 times my previous numbers. A C generator therefore
+  would *not* help: with a free builder it is still 131 and 31,000.
+* The obvious remaining optimisation does not exist. Filtering to 3-connected
+  expansions looked like a 37-fold saving — only 2.7% pass — but that was
+  measured on the **subdivided** graph, and **97.3%** of expansions contain a
+  digon, whose subdivision creates a degree-2 vertex. The filter was discarding
+  almost every legitimate member. Applied correctly, to the simple support before
+  subdivision, it passes **90.4%** and saves nothing. General lesson worth
+  keeping: subdivision is a `graph6` presentation detail, and every structural
+  predicate belongs on the multigraph.
+
+**Running between passes (1 background computation).** `run_corrected.py 2` —
+the last seed of the \(d \le 2\) range (5.5M expansions). \(d = 3\) is costed at
+154 core-hours and deliberately not started; at the four-core cap that is about
+33 hours of wall clock, which is a decision worth taking explicitly rather than
+by drift.
+
+**Operational.** Chain still frozen at **3095**; four contributions unpublished,
+all verified absent from the ledger with `publish_queue.py`.
+
+**Next step (concrete).** 1. Publish \(d \le 2\) as an exact partial the moment
+the chain returns, together with the strengthened headline. 2. Decide \(d = 3\)
+explicitly: 33 hours of wall clock at the core cap, for a bounded negative.
+3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
