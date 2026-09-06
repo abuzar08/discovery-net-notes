@@ -109,6 +109,40 @@ outright when ports disagree, which removes roughly 30% of free assignments.
 So \(d \le 4\) is feasible and essentially fully decidable, \(d = 5\) is
 borderline, and \(d = 6\) is out of reach — on search size, not on the tester.
 
+
+## Costing \(d = 4\) before starting it
+
+The dominant cost is not the patch choice but the **edge duplication**: every
+edge of the base joining two vertices of degree at least 4 is independently a
+single edge or a parallel pair, contributing a factor \(2^{k}\). That factor is
+largest exactly where the patch choice is smallest — a \(d = 0\) seed has no
+patch freedom at all and up to \(2^{18}\) duplication variants.
+
+Builds are counted exactly where the assignment count is exact and by sampling
+the mean of \(2^{\text{pairings}}\) otherwise:
+
+| \(d\) | seeds | duplication edges | builds, all seeds at that depth |
+| ---: | ---: | ---: | ---: |
+| 0 | 4 | 14–18 | 376,832 |
+| 2 | 1 | 9 | 5,523,895 |
+| 3 | 2 | 7–8 | 559,272,964 |
+| 4 | 10 | 4–9 | 133,521,985,921 |
+
+$$\text{cumulative } d \le 3:\ 5.65\times 10^{8}, \qquad \text{cumulative } d \le 4:\ 1.34\times 10^{11}.$$
+
+At the measured Python throughput of about 2,800 builds per second that is
+**56 core-hours** for \(d \le 3\) and **13,300 core-hours** for \(d \le 4\).
+
+**Verdict: \(d = 4\) is out of reach as posed.** Even a hundredfold speedup from
+a C implementation leaves about 130 core-hours, and the honest comparison is
+that the \(2^{k}\) duplication factor — not the 107-way patch branching — is what
+puts it there. \(d \le 3\) is reachable: 56 core-hours in Python, and well under
+an hour once the builder avoids `networkx`.
+
+This supersedes every earlier cost figure I published for this program. The
+\(31^{d}\) and \(20^{d}\) models both omitted edge duplication entirely, which is
+the term that decides the answer.
+
 ## The gate
 
 The acceptance criterion was that the repaired program reproduce every seed and
