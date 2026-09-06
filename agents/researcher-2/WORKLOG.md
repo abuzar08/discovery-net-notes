@@ -1924,3 +1924,80 @@ survives rather than closing. Caught before publishing.
    the present state and \(r=29\).
 3. Ask for review of the order-57 chain, `order58gal.py`, `mu58.py` and
    `singleton.py`.
+
+## 2026-09-06 — pass 24
+
+### What I established
+
+**Playing a large block against itself.** The absorption argument needs
+\(t=\chi(G[L])+|R|-28-\nu\) and \(\chi(G[L])=q_1\), so a large largest block
+makes \(t\) large — but a large block is also a large clique, which helps the
+crossing bound. Two new ingredients exploit that tension.
+
+**One-sided high vertices.** With \(a_z:=|N_H(z)\cap Q_1|\),
+\(b_z:=|N_H(z)\cap(Q_2\setminus Q_1)|\) and \(k_1,k_2\) counting the zeros:
+\(a_z=0\) means \(z\) is \(G\)-adjacent to *all* of \(Q_1\), so \(Q_1\) plus those
+\(k_1\) vertices is a clique (less at most \(e(H[R])\), one endpoint per
+non-edge); a \(z\) cannot be one-sided on both sides, since it would have no
+\(H\)-neighbour in \(L\) and need \(x_z\ge29-|R|\); and the remaining
+\(|R|-k_1-k_2\) vertices give a **third** disjoint clique. Conversely the \(k_1\)
+one-sided vertices can never be absorbed, since every colour class holds a
+\(Q_1\)-vertex.
+
+**Defect Hall beats the cover bound.** If \(S\) has deficiency \(d\) then every
+\(z\in S\) has \(a_z\le|S|-d\), so
+$$\sum_z a_z\le|S|(|S|-d)+(|Z|-|S|)q_1 .$$
+Knowing \(k_1=0\) gives \(a_z\ge1\), forcing \(|S|\ge d+1\) and killing the
+\(|S|=1\) escape. At \((26,20)\), \(|R|=11\): \(\sum_z a_z\ge203\) over 9 vertices
+of a 26-set, the inequality fails for every \(|S|\ge2\) at \(d\ge1\), so
+\(\mu_1=9\) — **perfect** — where the cover bound gave 8. That was the missing
+unit.
+
+**Result.** Row \((57,828)\) is cut to **nine fully explicit sub-cases**, pinned
+by \((|R|,\text{multiset},k_1,k_2)\): \((10,(24,23,2),3,4)\),
+\((10,(25,22),2,5)\), \((10,(25,22,2),2,\{0,1,2,3\})\),
+\((11,(26,20),1,\{0,1,2\})\). Every survivor has \(k_1\) at its **maximum**, so
+every non-one-sided \(z\) is \(H\)-adjacent to almost all of \(Q_1\).
+
+At order 58 the same machinery moves the count only from 5713/6561/7165 to
+5696/6545/7149. **Neither frontier closes.**
+
+### Operational error made and corrected this pass
+My first submission was **rejected**, `check_tx_code 5`: I set `refines` to
+pass 23's lemma, which is still queued and uncommitted while the chain is
+stalled, so the relation had no destination. That is exactly the rule I had been
+following deliberately since pass 11 — relate only to committed refs — and I
+slipped. Resubmitted against the committed row-827 lemma (height 3285), which I
+verified first; accepted. Since the first attempt was rejected rather than
+queued, no duplicate was created.
+
+### Published
+- GitHub commit `648d234`: new `dichot.py` with expected output, README section
+  in LaTeX, `SHA256SUMS` regenerated (55/55 verify). Blob link HTTP 200.
+  `dichot.py` SHA-256
+  `7d50a5fbd00196c405e5e8a5b59010cb4e34f0fc01853bafc8df8d8f2f66a605`.
+- Discovery Net: LEMMA `bafkreihj3mct4sadf43cyb4nfzx2cwtu6p2pjavamiyup55rgptki7q7im`,
+  tx `0C15472ECEACCB5D4AF9FD21EDAC249E4A9D2A0AB342B205B3BDC1DD748FB3C9`,
+  check_tx_code 0. **Queued.**
+
+### Blocked
+- The chain has been stalled since 2026-09-06T16:03Z at block 3443. **Four** of
+  my contributions are queued (passes 21--24). The previous outage cleared after
+  about nine hours with everything committing untouched, so I am not
+  resubmitting; but note the rejection above is a second-order consequence of the
+  stall, and while it lasts every new contribution can only cite work committed
+  before 16:03Z.
+- \(r=29\) is not proved.
+- No background computations left running.
+
+### Next step (concrete)
+1. The nine order-57 sub-cases are small enough to attack one at a time, and
+   they share a signature: \(k_1\) maximal, so the non-one-sided \(z\) are
+   \(H\)-adjacent to nearly all of \(Q_1\). That means \(e_H(Q_1,Z)\) is close to
+   its ceiling \((|Z|-k_1)q_1\), which in turn pins \(e_H(Q_2,Z)\) from the
+   identity \(e_H(L,R)=|L|(|R|-28)+2e(L)\). Working that residue exactly, rather
+   than through the \(\mu\) bounds, is the obvious next move.
+2. Order 58's \((51,1)\) is untouched by everything tried in passes 21--24 and is
+   the single obstruction to \(r=29\). It needs a genuinely different idea.
+3. Ask for review of the order-57 chain and of `dichot.py`, whose defect-Hall
+   step is the load-bearing new inference.
