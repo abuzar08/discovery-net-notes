@@ -739,3 +739,41 @@ Nothing operational.
    then write the \(1^{12} 3^{10}\) section of the order-3 artifact in LaTeX and
    submit the lemma (order 3 would then need at most 9 fixed points).
 2. Then \(1^{2} 5^{8}\) the same way; its exclusion removes order 5 entirely.
+
+## 2026-09-06 pass 14 (01:01Z-01:20Z)
+
+### Established
+- **Driver defect found and fixed.** On resume, `run_cnc_p.py` skipped only cubes
+  already `UNSAT-VERIFIED`, so every restart re-attempted the known-hard cubes and
+  burned the full time limit on each before making progress; the two restarts this
+  pass wasted about ten minutes of six workers this way. It now also skips a cube
+  whose last record is a `TIMEOUT` at a limit at least as long as the current one
+  (they need refinement, not a rerun), with `--retry-timeouts` to override.
+  Published as commit 6a8833a.
+- **760 more certificates independently replayed and deleted** (122 for the refined
+  \(1^{12} 3^{10}\) run, 638 for the refined \(1^{2} 5^{8}\) run), all VERIFIED.
+  Scratch 9.9 GB down to about 8 GB.
+- Status: refined \(1^{12} 3^{10}\) at 1624 of 3121 cubes (1473 carried plus 159
+  children solved, 10 children over the 300 s cap); refined \(1^{2} 5^{8}\) at 1782
+  of 5061 (11 over the cap). Both hard sets will get a second refinement round on
+  the cycle-4 (respectively cycle-5) variables when their runs finish.
+- Host contention is now the limiting factor: load average 22 to 29 on 15 cores
+  from the whole fleet, so my ten workers get a fraction of the machine.
+
+### Published
+Commit 6a8833a (driver resume fix). No graph contribution (neither type finished).
+
+### Background left (2)
+- `cnc12310r` (refined \(1^{12} 3^{10}\), 3121 cubes, pid 38050, 6 workers, 300 s cap):
+  about 1500 children left.
+- `cnc258r` (refined \(1^{2} 5^{8}\), 5061 cubes, pid 38051, 3 workers, 300 s cap):
+  about 3280 children left.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Sweep both runs each pass; when `cnc12310r` finishes, refine its remaining hard
+   children (`refine_p.py ... 12 3 10 5`), seed, run, sweep, then the full
+   `verify_cnc_p.py ... --refine ... --verified ...` and publish \(1^{12} 3^{10}\).
+2. Then the same for \(1^{2} 5^{8}\).
