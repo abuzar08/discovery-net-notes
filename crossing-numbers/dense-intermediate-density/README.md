@@ -87,6 +87,57 @@ re-tuning, or adding moments to the sampling argument, and the dense-graph
 literature's strong point — bounds on \(\operatorname{cr}(K_n)\) — is exactly the
 information that fails to propagate there.
 
+
+## The answer is general, not particular to this instance
+
+The three refinements above were measured at \((32,383)\). The same two
+diagnostics were then run across nine instances spanning \(n = 32, 40, 50\) and
+densities from \(q/\binom{n}{2} \approx 0.6\) to \(0.94\), each against a target
+15% above its own incumbent:
+
+| \(n\) | \(q\) | \(L(n,q)\) | hull gap at the mean | required factor, over all \(s\) |
+| ---: | ---: | ---: | ---: | ---: |
+| 32 | 383 | 3,022 | 1–6 | 1.1501 – 1.1573 |
+| 32 | 420 | 4,261 | 1–4 | 1.1500 – 1.1594 |
+| 32 | 460 | 6,076 | 1–4 | 1.1499 – 1.1549 |
+| 40 | 600 | 7,575 | 2–5 | 1.1500 – 1.1538 |
+| 40 | 700 | 13,578 | 0–7 | 1.1500 – 1.1533 |
+| 40 | 760 | 18,994 | 0–4 | 1.1500 – 1.1522 |
+| 50 | 900 | 16,077 | 2–7 | 1.1500 – 1.1528 |
+| 50 | 1,050 | 28,583 | 0–3 | 1.1500 – 1.1520 |
+| 50 | 1,150 | 40,899 | 1–4 | 1.1500 – 1.1517 |
+
+Two things hold everywhere.
+
+**Jensen is never the lossy step.** The hull vertices of the lower convex
+envelope bracketing the mean are between 0 and 7 apart in \(q\), against values
+of \(q\) in the hundreds. The envelope is linear at the scale of the mean, so the
+Jensen-optimal mixture is already concentrated, and refinements that add moment
+information — second or higher — have nothing to bite on. This is why the
+second-moment dual certificate returns the published value exactly.
+
+**The recursion is scale-free.** To lift the final bound by a factor \(\alpha\)
+one must lift \(\widehat L(s,\cdot)\) by \(\alpha\) at *every* sample size: the
+spread of the required factor across all \(s\) never exceeds 0.01. No sample size
+is better placed than any other, so there is no \(s\) to tune toward.
+
+The reason is the telescoping identity behind the bound itself
+(height 2713): the binomial factors satisfy
+$$\frac{\binom{n}{s_1}\binom{s_1}{s_2}}{\binom{n-4}{s_1-4}\binom{s_1-4}{s_2-4}} \;=\; \frac{\binom{n}{s_2}}{\binom{n-4}{s_2-4}},$$
+so an unrounded recursion equals a single-level bound at any intermediate size.
+Rounding at each level is the entire gain, and at these densities it is worth
+under 0.1% — every sample size returns the same bound to within a few units.
+
+**Consequence for the frontier.** The answer does not depend on which instance is
+asked. For \((32,383)\) needing 3557, for the order-57 form on 50 vertices, or
+for anything else of this shape, the sampling family reaches the target only
+through a uniformly stronger lower bound on \(\operatorname{cr}(s,q)\) at
+intermediate density, holding at every \(s\) at once. Re-weighting, re-tuning,
+adding moments, and importing bounds on \(\operatorname{cr}(K_n)\) have all been
+measured and all return the incumbent. `bound_report.py` will produce the
+incumbent, the ceiling and the required factor for any \((n,q)\) on request, so
+the next instance can be answered without redoing this.
+
 ## Files
 
 | file | what |
@@ -96,3 +147,4 @@ information that fails to propagate there.
 | `moment_bound.py` | the second-moment dual certificate; gain zero |
 | `improved.py` | \(\operatorname{cr}(K_n)\) bases added to the recursion |
 | `scale_ceiling.py` | required value against the ceiling at each sample size |
+| `bound_report.py` | incumbent, ceiling and required factor for any \((n,q)\) |
