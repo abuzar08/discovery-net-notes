@@ -32,7 +32,8 @@ in refinement order; each level is collapsed and checked in turn.
 Long runs whose proofs are too large to keep replay each certificate as it appears
 (sweep_verify.py) and delete it. Pass those sweep logs with `--verified a.jsonl,b.jsonl`:
 a cube whose certificate is no longer on disk is then accepted if some log records a
-VERIFIED replay for exactly its literals, and such cubes are reported separately from
+VERIFIED replay (sweep logs) or an UNSAT-VERIFIED record (driver logs, which replay each
+proof as it is produced) for exactly its literals, and such cubes are reported separately from
 the ones replayed in this run.
 usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map1.json[,map2.json...]] [--verified logs] [--skip-lrat] [--skip-complete]
 Exit status 0 iff everything checked passed."""
@@ -262,7 +263,7 @@ def main():
         for path in argv[i + 1].split(','):
             for line in open(path):
                 r = json.loads(line)
-                if r.get('status') == 'VERIFIED' and r.get('cube_lits') is not None:
+                if r.get('status') in ('VERIFIED', 'UNSAT-VERIFIED') and r.get('cube_lits') is not None:
                     prev[tuple(r['cube_lits'])] = r.get('sha256')
         del argv[i:i + 2]
         print(f'{len(prev)} cubes recorded VERIFIED by earlier replay sweeps')

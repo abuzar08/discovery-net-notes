@@ -115,6 +115,9 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
   replayed certificate), so that a long run need not keep tens of GB of proofs;
   steps 1 to 3 are then run once over the whole cube set. Not needed for \(1^{15} 3^{9}\),
   whose certificates were all replayed in one pass (`logs/verify_full.log`).
+- `backfill_lits.py` — adds the cube literals to old records that lack them, taking
+  them from the run's own `.icnf` by index and checking every record that already
+  has them; needed because the first version of `seed_results.py` omitted them.
 - `seed_results.py` — after a refinement, carries the cubes that survived unchanged
   (same literals) over to the new run's `results.jsonl` with their old certificate
   hash, so they are neither re-solved nor lost; the final check accepts them through

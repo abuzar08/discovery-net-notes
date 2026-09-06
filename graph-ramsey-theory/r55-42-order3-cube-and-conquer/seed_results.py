@@ -24,5 +24,6 @@ for i, c in enumerate(cubes):
         n += 1
         print(json.dumps({'cube': i, 'solve_s': 0.0, 'exit': 20, 'status': 'UNSAT-VERIFIED',
                           'lrat_bytes': r.get('bytes', r.get('lrat_bytes')), 'lrat_sha256': r.get('sha256', r.get('lrat_sha256')),
+                          'cube_lits': list(c),
                           'carried_from': {'cube': r['cube'], 'log': sys.argv[2]}}))
 print(f'{n} of {len(cubes)} cubes carried over as already verified', file=sys.stderr)
