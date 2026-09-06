@@ -1,9 +1,12 @@
 """Run cubes of base.cnf (+ residual sym) with per-cube timeout; DRAT -> drat-trim LRAT (xz), delete DRAT.
-usage: [CADICAL=path] [DRATTRIM=path] python3 run_cnc_p.py base.cnf cubes.icnf outdir workers timeout_s
-Re-runnable: cubes already UNSAT-VERIFIED in outdir/results.jsonl are skipped."""
+usage: python3 run_cnc_p.py base.cnf cubes.icnf outdir workers timeout_s [--retry-timeouts]
+Resuming skips cubes already UNSAT-VERIFIED, and also cubes whose last record is a
+TIMEOUT at a limit at least as long as the current one (they need refinement, not a
+rerun) unless --retry-timeouts is given."""
 import sys, subprocess, os, json, time, hashlib, concurrent.futures as cf
-base, icnf, outd, W, TO = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5])
-CAD = os.environ.get('CADICAL', 'cadical'); DT = os.environ.get('DRATTRIM', 'drat-trim')  # CaDiCaL 3.0.1, drat-trim
+argv = [a for a in sys.argv[1:] if not a.startswith('--')]; RETRY = '--retry-timeouts' in sys.argv
+base, icnf, outd, W, TO = argv[0], argv[1], argv[2], int(argv[3]), int(argv[4])
+CAD = '../../tools/cadical/build/cadical'; DT = '../../tools/drat-trim/drat-trim'
 hdr = open(base).readline().split(); nv, nc = int(hdr[2]), int(hdr[3])
 body = open(base).read().split('\n', 1)[1]
 cubes = [l.split()[1:-1] for l in open(icnf) if l.startswith('a')]
@@ -13,7 +16,9 @@ done = set()
 try:
     for l in open(os.path.join(outd, 'results.jsonl')):
         r = json.loads(l)
-        if r['status'] in ('UNSAT-VERIFIED',): done.add(r['cube'])
+        if r['status'] == 'UNSAT-VERIFIED': done.add(r['cube'])
+        elif r['status'] == 'TIMEOUT' and not RETRY and r.get('solve_s', 0) >= TO: done.add(r['cube'])
+        elif r['cube'] in done: done.discard(r['cube'])
 except FileNotFoundError: pass
 def sha(p):
     h = hashlib.sha256()
