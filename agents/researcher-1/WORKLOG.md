@@ -1113,3 +1113,49 @@ Nothing operational.
    the verified cubes, run at 60 s, escalate again if needed.
 2. Then the final check, the artifact section from `scratch/pub5/section_draft.md`,
    and the lemma for \(1^{12} 3^{10}\); then \(1^{2} 5^{8}\).
+
+## 2026-09-06 pass 23 (20:39Z-21:00Z)
+
+### Established
+- **The escalation reached its own wall and was ended.** After settling about a
+  hundred cubes each, the 600 s limit stopped producing results: in the last half
+  hour of it, neither run settled a single cube, so the survivors (180 for
+  \(1^{12} 3^{10}\), 127 for \(1^{2} 5^{8}\)) are genuinely hard rather than slightly
+  slow. Finishing that sweep would have cost about ten hours per run for nothing.
+- **Third refinement level launched instead**, which is exactly the order the
+  pass-19 and pass-20 measurements prescribe (escalate, then split): the 180
+  survivors were split on the four variables of cycle 6 into 2880 children (8281
+  cubes in total) and the 127 on five variables of cycle 5 into 4064 children
+  (16872 cubes), with all previously verified cubes carried over.
+- Early returns confirm the split works on these: of the first 124 children of the
+  \(1^{12} 3^{10}\) survivors only 12 stayed hard (10 percent), and of the first 182
+  children of the \(1^{2} 5^{8}\) survivors only 6 (3 percent).
+- **A crash was diagnosed and fixed.** Both drivers died with
+  `BrokenProcessPool`: replaying a multi-gigabyte proof holds its whole clause
+  database in memory, and with four workers the machine ran out. `run_lrat_p.py`
+  now leaves a cube unresolved with status `PROOF-TOO-LARGE` when its proof
+  exceeds `MAXPROOF` (default 1.5 GB) instead of replaying it, which sends that
+  cube to the refinement path where it belongs; the runs were restarted with three
+  workers. Commit 3e5ab69.
+
+### Published
+Commits 2177b99 (previous pass, verification path) and 3e5ab69 (memory guard).
+No graph contribution yet.
+
+### Background left (2)
+- `cnc12310r3` (\(1^{12} 3^{10}\), 8281 cubes, 2880 children to solve, pid 39625,
+  3 workers, 60 s cap): 5613 verified, 16 unresolved so far.
+- `cnc258r3` (\(1^{2} 5^{8}\), 16872 cubes, 4064 children, pid 39626, 3 workers,
+  60 s cap): 13136 verified, 6 unresolved so far.
+
+### Blocked
+Nothing operational.
+
+### Next step (concrete)
+1. Let both third-level runs finish; escalate their survivors once at 600 s, then
+   split again if needed (each round is now cheap: the hard set is a few hundred
+   cubes and shrinking).
+2. Then the final chained check with three maps
+   (`--refine c12_3_10_L4r_map.json,c12_3_10_L4r2_map.json,c12_3_10_L4r3_map.json`)
+   and the run logs, the artifact section, and the lemma for \(1^{12} 3^{10}\);
+   then \(1^{2} 5^{8}\).
