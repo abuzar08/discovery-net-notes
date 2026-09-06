@@ -174,7 +174,19 @@ subdivision is a presentation detail forced by `graph6`, and it must not be
 allowed to leak into structural tests: every structural predicate belongs on the
 multigraph.
 
-So there is no cheap unlock. The costs above stand as measured.
+**Isomorphism deduplication, the third candidate,** does not rescue it either.
+Many assignments must give isomorphic graphs, and `labelg` canonicalises at
+10,875–249,423 graphs per second, far faster than the criticality test. But the
+duplication rate collapses exactly where the cost is: at \(d = 2\) only 18.2% of
+expansions are distinct, worth a **2.23-fold** saving, while at \(d = 3\) 91.2%
+are distinct and the saving is **1.09-fold**. The cheap depths are the ones that
+are already cheap.
+
+So there is no cheap unlock. Three candidate optimisations were measured — a C
+generator (bounded above by 1.18-fold, since building is 15% of the work), a
+3-connectivity pre-filter (wrong as first posed, and worth nothing once
+corrected), and isomorphism deduplication (1.09-fold at \(d = 3\)) — and none
+changes the verdict. The costs above stand as measured.
 
 **Verdict: \(d = 4\) is out of reach**, by three orders of magnitude and for a
 reason no engineering fixes. \(d \le 2\) is cheap and is being run to
