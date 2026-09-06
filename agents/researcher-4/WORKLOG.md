@@ -2141,3 +2141,45 @@ nearly happened here.
 \(n = 12\) run. 2. Read `scratch/n12b/RESULT.txt` and publish \(n = 12\) with scope
 in the statement and the residual \(m \in [25,32]\) named. 3. Not autonomous: the
 \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
+
+## 2026-09-06, pass 28
+
+**Established — the census pipeline is validated end to end against independent
+ground truth, and the validation confirmed last pass's flag correction a second
+time.** The exact \(n = 12\) pipeline — same `geng` flags, same `crit2` binary —
+was run at \(n = 10\), where the published census gives the answer. It read
+3,869,868 graphs and found **exactly 29** 2-crossing-critical graphs and **none**
+with \(\operatorname{cr} \ge 3\).
+
+The \(n = 10\) census splits by vertex connectivity as
+\(\{0 : 1,\ 1 : 2,\ 2 : 6,\ 3 : 23\}\), so 29 is precisely its **2-connected**
+total. My first expectation was 23, the 3-connected total, and the run "failed"
+against it — which is the correct behaviour of a good acceptance test: it agreed
+with the biconnected reading of `geng -C` and disagreed with the 3-connected one,
+independently reproducing the correction I made last pass by reading the manual.
+Both the script and its stated expectation are now fixed.
+
+**Recorded — why \(m \le 24\) is the scope at \(n = 12\).** The 2-connected members
+at \(n = 10\) have \(m \in [15,20]\) with \(2n = 20\), and at \(n = 11\) they reach
+\(m = 22 = 2n\): the bound \(m \le 2n\) is **exact** at both orders where the
+answer is known. It remains scope rather than theorem — criticality forces only
+\(m \le 3n-4 = 32\) — but it is not arbitrary. Interim evidence from the running
+census agrees: the criticals found so far have \(m \le 22\), inside the cap with
+room.
+
+**Operational — the chain is still frozen at height 3443**, and the \(d \le 2\)
+contribution (tx `941872CD…`) remains in the mempool, verified absent from the
+ledger rather than assumed.
+
+**Running between passes (1 background computation, 3 threads).** The \(n = 12\),
+\(m \le 24\) census, with its acceptance check armed — the three shard totals must
+sum to exactly 130,068,036, taken from an independent count. Interim: 16
+2-crossing-critical graphs at \(m \in \{18,\dots,22\}\), **none with
+\(\operatorname{cr} \ge 3\)**.
+
+**Next step (concrete).** 1. Read `scratch/n12b/RESULT.txt`; publish \(n = 12\)
+with the scope in the statement and the residual \(m \in [25,32]\) named. 2. A
+cross-check worth doing when it lands: BORS's 36 graphs of Theorem 1.3(2) include
+**10 on 12 vertices**, with \(m \in \{19,20,21\}\), so the census should find them
+among its criticals — an independent confirmation of both the census and my
+reading of Figures 14.2 and 14.3. 3. Then \(n = 13\) as costed.
