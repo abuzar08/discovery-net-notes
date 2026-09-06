@@ -13,8 +13,10 @@ This contribution responds to the finding in my review at h3064, so this review
 checks a repair of a defect I reported: I have taken care to verify the repair
 with my own implementation of the new bound rather than with theirs.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreidcv3nqzchthg7dnihn44u6tjexdg6buj2tqcstrg24ce3njqfisq`
+(kind review, height 3092, tx `AC02F395A4CE...`), relations about + verifies +
+reproduces \(\to\) h3068, about \(\to\) the Albertson conjecture h280, cites
+\(\to\) my h3064 review. Evidence commit: `94f2ca1`.
 
 ## Verdict in one line
 

@@ -22,6 +22,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreie7shglpkgwdvhgm3uvgln3nm4o7khittzzodzmomdxiagnt34nxm` lemma h2903 (researcher-2): Barat-Toth Corollaries 5, 7, 11 read directly; the \(r=27\) chain drops Sadhu Thm 1.3 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` @ `1a62616` | **Confirmed, high confidence**: I downloaded the published EJC PDF — all three quotations match word for word, including wording that differs from the arXiv preprint; both reproductions exact; my own floors reproduce the whole \(r=28\) Corollary-5 table and the \(r=27\) survivors \(n=52, m \in [701,702]\) and \(n=53, m=713\); the "one part only" join correction is right; verified that every ceiling in the lane rests on the Buengener-Kaufmann/Sadhu inequality, as the contribution says | `bafkreietb7k44ejh2rli63vfv3ccgk6usex6namvjcz3nju7fvh5bgs5fi` review h3036 | `reviews/albertson-deps-barat-toth/` @ `83c41d6` |
 | `bafkreie36wu3i5u2h7ojvbkv5vin7fxyiez7p4atvo5njjb43qop4kwqrq` lemma h3014 (researcher-3): Theorem 6 — no \((4,6,n)\)-graph, \(36 \le n \le 39\), has an automorphism of prime order \(p \ge 5\) except possibly \(1^{n-35}5^7\) or \(1^{n-35}7^5\); reduction to 35 vertices; symC | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `62ccb60` | **Confirmed, high confidence**: the four new \(p=7\) CNFs are clause-for-clause my own construction and their stored certificates are **byte-identical to the proofs I generated myself at h2947**, `lrat-check` verified; bookkeeping partitions all 221 prime types (56+34+8+123) and the eight survivors all have \(pk=35\), \(f=n-35\); the reduction is correct; the catalog remark reproduces (37 graphs, \(|\mathrm{Aut}| \in \{1,2,4\}\)); symC sound over all \(\tau \in S_k\) and exhaustively on four shapes; **remark**: combining symC with symF at \(f>0\) needs the order "cycles first, fixed vertices second", which the source does not state (verified exhaustively that it then works) | `bafkreigx5swo2d3sx43wv5h7dk7g2nuv272nuoatjrskxvwlfyb3zntlae` review h3048 | `reviews/r46-theorem6-p5-p7/` @ `4aec9f3` |
 | `bafkreiafu3krb262eyahjjcr7ctiei5vqluq2wqri5vqxrcb26hjfgfpe4` and `bafkreid3lqitm4jq6nyraxj7aswy7v2dyu3s3klfdipqmcxrmm2n6plagu`, two lemmas at h3014 (researcher-2): Albertson order 58 at \(r=29\) impossible when \(H\) has no two disjoint triangles; Gallai blocks close every \(b \ge 8\) class of the last branch | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` @ `2c8b8d5` and `bb36e51` | **Both confirmed as computed**: programs reproduce exactly, hashes match, the Cauchy-Schwarz chain and Claims 2, 3 and the \(\ge\)-threshold remark all check by hand, and the \(\mathrm{maxgallai}\) closed form agrees exactly with my own block-tree DP; **finding**: the \(b \ge 8\) closure depends on \(\mathrm{cr}(K_{13}) = 225\) and \(\mathrm{cr}(K_{14}) = 315\) (CCCG 2021), which neither body lists — with the conservative seeding this lane advertises elsewhere, the \(b = 30\) class survives at \(m = 839\) (8249) and \(m = 840\) (8213) against \(Z(29) = 8281\); second defect: the prose calls \(Y = 52\) (30 low vertices, 377 edges, \(K_{28}\)) the minimiser, but the critical configuration is \(Y = 48\) (26 low, \(\ge 265\) edges, \(K_{24}\)), which is what yields the published 8354/8317/8281 | `bafkreib4hpbpuk3cjlojku46wh4ebf6ngyw243mjfaojbwncbkluuktzh4` review h3064 | `reviews/albertson-order-58-branch/` @ `89dbd51` |
+| `bafkreifj6xsnly76ikx6rftbo3fnyywodatuuxlfcmoutscrwbl754gsny` lemma h3068 (researcher-2): scope correction of the order-58 \(b \ge 8\) closure (the defect I reported at h3064) and its repair by a new bound \(g(n,f)\) for \(K_n\) minus \(f\) edges | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` @ `5edeb38` | **Confirmed on every count**: reproductions exact and hashes match; the scope correction states my finding exactly, with my numbers; all three ingredients of \(g\) re-derived (vertex cover, sampling, vertex-deletion averaging) and my own implementation reproduces every published value; my own controls show \(g\) tight and not over-claiming where the truth is known (\(g(6,1) = 2 = \mathrm{cr}(K_6 - e)\), \(g(7,1) = 6 = \mathrm{cr}(K_7 - e)\)); **the repair verified with MY \(g\) and MY \(\mathrm{cr}(K_q)\) seeded only at \(\mathrm{cr}(K_{12}) = 150\)**: zero \(b \ge 8\) classes survive, tightest split bound \(8954/8917/8881\) against \(Z(29) = 8281\) where before it was \(8286/8249/8213\); literature statements verified, including that Clancy-Haythorpe-Newcombe v5 (Dec 2021, after CCCG 2021) still records \(\mathrm{cr}(K_{13})\) only as \(223\) or \(225\); two housekeeping remarks | `bafkreidcv3nqzchthg7dnihn44u6tjexdg6buj2tqcstrg24ce3njqfisq` review h3092 | `reviews/albertson-crminus-repair/` @ `94f2ca1` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -869,3 +870,69 @@ chain (h3046, the newest, is an explicitly negative result resting on them).
   h2887, h2905, h2929 — eight unreviewed items in a lane I last reviewed at
   h2571; the census and figure-extraction claims there are checkable.
 - Researcher-3's h3044 and researcher-1's h2621 remain.
+
+## 2026-09-05 — pass 13
+
+Graph at height 3082 at the start of the pass. Researcher-2 had published h3068,
+a scope correction and repair responding to the finding in my h3064 review, so
+that was the target: a repair of a defect I reported has to be checked with my
+own tools, not theirs.
+
+### Established
+- Reproduction exact: `crminus.py`, `k4free.py`, `descent.py` at `5edeb38` give
+  empty diffs against their expected outputs (66 s, 71 s, 89 s) and hash to the
+  values in the body.
+- The scope correction is faithful: its table for the unrepaired closure
+  (\(8286, 8249, 8213\) against \(Z(29) = 8281\)) is exactly what I computed at
+  h3064, and the diagnosis matches what I found.
+- The new bound \(g(n,f)\) for \(K_n\) minus \(f\) edges is sound. Its three
+  ingredients — deleting a vertex cover of the missing edges, the sampling bound,
+  and vertex-deletion averaging using that a crossing in a good drawing has four
+  distinct vertices and survives \(n-4\) of the \(n\) deletions — all check by
+  hand, and my own implementation, written from the statement, reproduces every
+  published value including \(g(28,3) = 5324\) and the \(\mathrm{cr}(K_{28})\)
+  ladder \(6250, 6299, 6431, 6471\).
+- My own controls beyond the file's: \(g\) never exceeds the truth where the
+  truth is known, and is tight there — \(g(6,1) = 2 = \mathrm{cr}(K_6 - e)\),
+  \(g(7,1) = 6 = \mathrm{cr}(K_7 - e)\), \(g(5,1) = 0\) — besides
+  \(g \le Z(n)\), monotonicity in \(f\) and \(g(n,0) = \mathrm{cr}(K_n)\) over
+  \(5 \le n \le 60\), \(0 \le f \le 40\).
+- **The repair holds under my own inputs.** Re-running their classifier with both
+  crossing-number inputs replaced by mine (my \(g\); my recursion seeded only at
+  \(\mathrm{cr}(K_{12}) = 150\), so \(\mathrm{cr}(K_{13}) \ge 217\) is pure
+  counting): zero \(b \ge 8\) classes survive at all three rows, with the tightest
+  \(b = 30\) split bound at \(8954, 8917, 8881\) against \(Z(29) = 8281\) — a
+  margin of about \(600\) where before the repair it was \(0\) to \(73\).
+- Side effect reproduced: the \(s = 22\) barrier of the \((51,1)\) class rises
+  from \(7354\) to \(7929\); \(s = 23\) and \(s = 0\) unchanged; order 58 open.
+- Literature verified: Aichholzer CCCG 2021, 72-77 (single-author);
+  McQuillan-Pan-Richter JCTB 115 (2015) 224-235 giving
+  \(\mathrm{cr}(K_{13}) \in \{217,\dots,225\}\) with \(217\) ruled out, and
+  Abrego et al. 2015 ruling out \(219, 221\) — the \(223\) rung. The negative
+  claim is right and not merely chronological: Clancy-Haythorpe-Newcombe
+  (arXiv:1901.05155) is at v5 of 8 December 2021, after CCCG 2021, and still
+  records \(\mathrm{cr}(K_{13})\) as "either 223 or 225".
+- The self-recorded wrong version of the averaging step is indeed wrong for the
+  stated reason; recording it was right.
+
+### Published
+- Evidence `reviews/albertson-crminus-repair/` (32 KB): commit `94f2ca1`.
+- Review `bafkreidcv3nqzchthg7dnihn44u6tjexdg6buj2tqcstrg24ce3njqfisq` (kind
+  review, height 3092, tx `AC02F395A4CE...`): about + verifies + reproduces
+  \(\to\) h3068, about \(\to\) the conjecture h280, cites \(\to\) my h3064
+  review. Body confirmed identical to the committed artifact.
+
+### Blockers
+- None.
+
+### Background computations left running
+- None. `scratch/` is about 640 MB.
+
+### Next step
+- Researcher-4's crossing-number lane is now the whole backlog: 13 unreviewed
+  items (h3080 reproduction of BORS Theorem 17.1(3), lemma h3013, findings h3016,
+  h3018, h3028, h3038, h2887, h2905, h2929 and older), untouched since my h2571
+  review. Start with h3013 (a lemma with a census behind it) or h3080.
+- Remaining elsewhere: researcher-2's h3046 (negative, rests on the pair I
+  reviewed at h3064 and whose numbers h3068 has now partly superseded),
+  researcher-3's h3044, researcher-1's h2621.
