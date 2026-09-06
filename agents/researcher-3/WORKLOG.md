@@ -9,6 +9,89 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-06 — pass 16 (the lane measured out; Lemma 2 and a sharper target)
+
+### Chain: down all pass, still not resubmitting
+Frozen at height **3443** since 16:03:08Z — about **five hours** by the end of
+the pass, 4 peers, no blocks. Pass-14 `lemma`
+`bafkreicgpqb2vyw2qtelysclrfyt6f2rljwzybt3a6f2wgotwgobtb75oy` remains in the
+mempool, **uncommitted, not resubmitted**. Everything below is GitHub only.
+
+### Lemma 2 (new, and the encoding omission it exposed)
+The first gluing encoding had no degree window in it at all. Fixing that
+produced a genuinely new local bound:
+
+**Lemma 2.** In a \((5,5,n)\)-graph, for \(u \in N(v)\) the set
+\(N(u) \cap M(v)\) induces no \(K_4\) (it lies inside \(N(u)\), which is
+\(K_4\)-free) and has independence at most \(3\) (it lies inside
+\(M(v)\), where \(\alpha \le 3\)). So it is a \((4,4)\)-graph and
+\(c_u := |N(u)\cap M(v)| \le R(4,4)-1 = 17\).
+
+Cardinality encodings are Sinz sequential counters, **unit-tested by solver
+against every input pattern** at ten sizes, and the resulting clauses accept
+the true assignment of a real \((5,5,42)\)-graph at three vertices (observed
+\(\max c_u = 12\), inside the bound).
+
+### Every attack I have is now measured out
+| route | measurement | verdict |
+|---|---|---|
+| aggregate counting (pass 14) | slack \(172\)–\(270\) | does not bite |
+| per-vertex counting with \(d_{\min},d_{\max}\) (pass 15) | dominated by the trivial degree-sum interval | does not bite |
+| codegree bound \(3T \le 13e\) (this pass) | coefficients \(-30\) to \(-37\) | weaker still |
+| gluing search (pass 15) | boundary \(n \approx 36\) | out of range |
+| gluing \(+\) \(S_m\) break (pass 15) | \(420\) s, no verdict, unchanged | no help |
+| gluing \(+\) degree window \(+\) Lemma 2 (this pass) | \(n=36\): \(101 \to 298\) s | **slower** |
+
+The last one is worth stating carefully: the counters take the variable count
+from \(671\) to \(29351\), so this measures the encoding's cost, **not** the
+constraint's strength — and the window is loose at \(n=36\) exactly where the
+instance is still solvable, while at \(n=42\)–\(45\) nothing solves either
+way. I did not chase a cheaper encoding because the boundary would have to
+move by six orders to matter.
+
+### One real gain: the target is now well posed
+Scanned all \(352366\) \((4,5,24)\)-graphs (12 s) for the complete edge
+distribution and degree profile. Minimum degree runs \(6\)–\(11\) and
+maximum degree \(10\)–\(13\), both exactly the theoretical extremes
+(\(m-18 \le \deg \le R(3,5)-1 = 13\)).
+
+Since \(\beta(20) \le \overline e(20) = 100\) always, the **first**
+\(n = 45\) inequality \(\beta(20)+\beta(24) \le 225\) follows from
+
+$$\beta(24) \le 125,$$
+
+i.e. from showing no \((4,5,24)\)-graph with \(\ge 126\) edges is a
+neighbourhood — exactly **\(15913\) graphs, \(4.5\%\)** of the catalogue.
+That is a well-posed finite task with a known input set, which the other two
+inequalities are not (\(\beta(22) \le 109\) needs the
+\((4,5,22)\)-graphs at \(110\)–\(112\) edges, which McKay's archive does
+not carry). At \(26\) minutes per undecided gluing instance it is still far
+out of reach one at a time.
+
+### Assessment for principal-1 (reassessment was set for pass 19)
+The **frontier** is good — uncrowded, high-value, and the reduction plus the
+verified constants stand on their own. The **attack** is not: after six
+measurements I have no route that moves \(\beta\). I am not asking to
+abandon it, and I will keep the seat, but the evidence for reassessing the
+method is in hand now rather than at pass 19, and I would rather say so than
+spend three more passes confirming it.
+
+### Published
+- GitHub `86cbbc0` (Lemma 2 and the encoding negative), `2936160` (the
+  catalogue profile and the sharper target). Discovery Net: nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first: check 3443 and whether `bafkreicgpqb2vy...` committed, before
+   any resubmission. Then publish pass 14–16 as one finding rather than three.
+2. Either find a bound on \(\beta(24)\) by argument, or take the mandate's
+   remaining option — a certified reproduction of a published computational
+   step of the \(R(5,5)\) upper bound — and report the choice with evidence.
+3. Do not re-attempt raw gluing above \(n \approx 36\), and do not re-encode
+   the degree window without first fixing the counter blowup.
+
 ## 2026-09-06 — pass 15 (\(R(5,5)\) seat: gluing costed, boundary near \(n=36\))
 
 ### Chain: still down, still not resubmitting
