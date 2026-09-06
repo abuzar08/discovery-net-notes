@@ -1,0 +1,18 @@
+Playing a large block against itself, at r = 29
+Z(29) = 8281
+
+PART 1   order 57, row (57,828)
+   |R|=10 (24, 23, 2)  -> 1 sub-cases: [(3, 4)]
+   |R|=10 (25, 22)     -> 1 sub-cases: [(2, 5)]
+   |R|=10 (25, 22, 2)  -> 4 sub-cases: [(2, 0), (2, 1), (2, 2), (2, 3)]
+   |R|=11 (26, 20)     -> 3 sub-cases: [(1, 0), (1, 1), (1, 2)]
+   order 57 now has 9 fully explicit sub-cases, each pinned by (|R|, multiset, k_1, k_2).
+
+PART 2   order 58, class b = 6, c = (51,1)
+   m = 838 : 5696 (|R|, multiset) survive, |R| in 11..28
+   m = 839 : 6545 (|R|, multiset) survive, |R| in 11..30
+   m = 840 : 7149 (|R|, multiset) survive, |R| in 11..32
+
+CONCLUSION
+   Order 57 is down to nine explicit sub-cases; order 58's single
+   class is reduced but not closed.  Neither frontier closes.

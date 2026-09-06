@@ -726,6 +726,63 @@ close outright; the other three reduce to explicit high-vertex counts:
 Open `(row, |R|)` cases at order 57: **two**, down from nine; and only **one**
 row remains.
 
+
+### Playing a large block against itself (`dichot.py`)
+
+The absorption argument needs \(t=\chi(G[L])+\lvert R\rvert-28-\nu\) absorptions,
+and \(\chi(G[L])=q_1\), so a **large** largest block makes \(t\) large and the
+argument harder.  But a large block is also a large clique of \(G\), which makes
+the crossing bound easier.  Nothing above played those against each other.
+
+**One-sided high vertices.**  For \(z\in Z\) write \(a_z:=\lvert N_H(z)\cap
+Q_1\rvert\) and \(b_z:=\lvert N_H(z)\cap(Q_2\setminus Q_1)\rvert\), and let
+\(k_1,k_2\) count the \(z\) with \(a_z=0\), resp. \(b_z=0\).  Then \(a_z=0\) means
+\(z\) is \(G\)-adjacent to *every* vertex of \(Q_1\), so \(Q_1\) together with
+those \(k_1\) vertices is a clique — less at most \(e(H[R])\) of them, since a
+set of \(k_1\) vertices of \(R\) spans at most \(e(H[R])\) non-edges and dropping
+one endpoint of each leaves a clique.  A \(z\) cannot be one-sided on both sides:
+it would have no \(H\)-neighbour in \(L\) at all, forcing \(x_z\ge29-\lvert
+R\rvert\), which the excess budget forbids.  The remaining
+\(\lvert R\rvert-k_1-k_2\) vertices of \(R\) give a **third** disjoint clique.
+Conversely the \(k_1\) one-sided vertices can never be absorbed — every colour
+class contains a vertex of \(Q_1\) — so at most \(\lvert Z\rvert-k_1\)
+absorptions exist.
+
+**Defect Hall beats the cover bound.**  If a set \(S\) of \(z\) has deficiency
+\(d=\lvert S\rvert-\lvert N(S)\rvert\ge1\) then every \(z\in S\) has
+\(N(z)\subseteq N(S)\), so \(a_z\le\lvert S\rvert-d\) and
+
+$$\sum_z a_z \;\le\; \lvert S\rvert\bigl(\lvert S\rvert-d\bigr)+\bigl(\lvert Z\rvert-\lvert S\rvert\bigr)q_1 .$$
+
+If no \(\lvert S\rvert\) makes that at least the known lower bound, deficiency
+\(d\) is impossible, so \(\mu_1\ge\lvert Z\rvert-d_{\max}\).  Knowing \(k_1=0\)
+supplies \(a_z\ge1\) for every \(z\), which forces \(\lvert S\rvert\ge d+1\) and
+rules out the \(\lvert S\rvert=1\) escape.  At \((26,20)\) with \(\lvert
+R\rvert=11\) this is decisive: \(\sum_z a_z\ge203\) over \(\lvert Z\rvert=9\)
+vertices of a 26-set, and the inequality fails for every \(\lvert S\rvert\ge2\)
+at \(d\ge1\), so with \(k_1=0\) the matching is **perfect**, \(\mu_1=9\), where
+the cover bound gave only 8.
+
+**Result.**  Row \((57,828)\) is cut to **nine fully explicit sub-cases**, each
+pinned by \((\lvert R\rvert,\text{multiset},k_1,k_2)\):
+
+| \(\lvert R\rvert\) | multiset | surviving \((k_1,k_2)\) |
+|---|---|---|
+| 10 | \((24,23,2)\) | \((3,4)\) |
+| 10 | \((25,22)\) | \((2,5)\) |
+| 10 | \((25,22,2)\) | \((2,0),(2,1),(2,2),(2,3)\) |
+| 11 | \((26,20)\) | \((1,0),(1,1),(1,2)\) |
+
+Every survivor has \(k_1\) at its **maximum**, which pins the structure hard:
+there \(\sum_z a_z\) is within a few of \((\lvert Z\rvert-k_1)q_1\), so every
+\(z\) that is not one-sided is \(H\)-adjacent to almost all of \(Q_1\) and
+\(G\)-adjacent to only a handful of it.
+
+At order 58 the same machinery reduces the surviving \((\lvert
+R\rvert,\text{multiset})\) count only from 5713/6561/7165 to 5696/6545/7149.
+**Neither frontier closes.**
+
+
 ### Not every colour class is a pair (`singleton.py`)
 
 Every absorption above was costed as if it needed a class \(\{u,v\}\) with
