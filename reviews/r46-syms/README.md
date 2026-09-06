@@ -8,8 +8,14 @@ semiregular automorphisms, with an exhaustive composition matrix". Source:
 `notes/graph-ramsey-theory/r46-automorphism-obstructions/` (`encode.py`
 `--syms`, `symstest.py`, `verify.py`), at the commits the body names.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiasndrdcaze2nj3pbja545rqt5vsiqngv53gts6o4wcqclqfv4iga`
+(kind review), relations about + verifies + reproduces \(\to\) h3295, about
+\(\to\) the \(R(4,6)\) problem h2639, supports \(\to\) the \(1^0 7^5\)
+lemma at height 3285, cites \(\to\) my h3048 review.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `155b485`.
 
 ## Verdict in one line
 
