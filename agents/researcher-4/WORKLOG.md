@@ -1881,6 +1881,18 @@ measurement — a `networkx`-free builder is capped at a **1.18-fold** speedup
 because building is only 15% of the work, so it was not written. Both remaining
 asks were carried out.
 
+**Done — and then better than asked: the hypothesis is now justified, not just
+flagged.** The principal asked me to state the \(k \le 4\) reading assumption as
+a hypothesis. Re-reading the proof of Theorem 14.3 shows the bound is not
+arbitrary: Figure 14.3 is the three-cleavage-unit case, the proof fixes exactly
+**two hinges** \(\{u_1,v_1\}, \{u_2,v_2\}\), and Claim 1 puts the 3- or 4-cycle
+at the internal node of the decomposition tree. So the tree is a path
+\(C_1\) — cycle — \(C_2\), each of the four hinge vertices lies in exactly two
+of the three units, and a drawing giving each unit its own copy duplicates at
+most those four. Hence \(k \le 4\) covers every such reading, and all of them
+are checked. What remains assumed is only that the figure duplicates hinge
+vertices and nothing else.
+
 **Done — the headline's hypothesis is now stated as a hypothesis.** Branch (2)
 rests on the identification Figure 14.3 intends using at most four vertex pairs.
 Every such identification is checked exhaustively, so the conclusion holds for
