@@ -157,13 +157,27 @@ refuted by certificate. \(\square\)
 automorphism of prime order \(p \ge 11\). Reviewed and independently
 reproduced at h2687.
 
-**Theorem 6.** For \(36 \le n \le 39\), no \((4,6,n)\)-graph has an
-automorphism of prime order \(p \ge 5\), **except possibly** of cycle type
-\(1^{\,n-35}\,5^7\) or \(1^{\,n-35}\,7^5\).
+**Theorem 6 (superseded form, h3014).** For \(36 \le n \le 39\), no
+\((4,6,n)\)-graph has an automorphism of prime order \(p \ge 5\), **except
+possibly** of cycle type \(1^{\,n-35}\,5^7\) or \(1^{\,n-35}\,7^5\).
+
+**Theorem 7 (this pass).** For \(36 \le n \le 39\), no \((4,6,n)\)-graph has
+an automorphism of prime order \(p \ge 5\), **except possibly** of cycle type
+\(1^{\,n-35}\,5^7\).
+
+*Proof.* Theorem 6 leaves the eight types \(1^{\,n-35}5^7\) and
+\(1^{\,n-35}7^5\) for \(n = 36,\dots,39\). By the reduction below, all four
+of the \(7^5\) types reduce to the single question of whether a
+\((4,6,35)\)-graph admits a fixed-point-free automorphism of type \(1^0 7^5\);
+the certificate above shows it does not. \(\square\)
+
+So **four of the eight survivors are eliminated**, and one exception clause
+of the two is discharged. What remains open at \(p \ge 5\) is exactly the
+four types \(1^{\,n-35}5^7\), \(n = 36,37,38,39\), all of which reduce to the
+single instance \(1^0 5^7\) on \(35\) vertices.
 
 Every other cycle type with \(p \ge 5\) is excluded by the analytic lemma or
-carries a refutation here. The eight survivors are \(f = 1,2,3,4\) at
-\(n = 36,37,38,39\) with \((p,k) = (5,7)\) or \((7,5)\).
+carries a refutation here.
 
 ## The reduction (the reusable part)
 
@@ -181,7 +195,8 @@ or \(7^5\). Hence:
 > the four types \(1^{\,n-35}\,5^7\) occurs; likewise for \(7^5\).
 
 Two formulas on \(35\) vertices therefore dominate all eight surviving types
-at once. The reduction also ties them to the catalog: Exoo's 37 known
+at once — and **one of the two is now refuted**, which is how Theorem 7
+eliminates four types with a single certificate. The reduction also ties them to the catalog: Exoo's 37 known
 \((4,6,35)\)-graphs are all \(2\)-groups, so a witness would require a
 \((4,6,35)\)-graph outside the known catalog carrying a symmetry no known one
 has.
@@ -210,12 +225,22 @@ was measuring one end and generalising.
 | \(1^0 7^5\) | **UNSAT in 600 s**, 354 MB DRAT |
 | \(1^0 5^7\) | no verdict in 1800 s, 1660 MB DRAT |
 
-> **Status of the \(1^0 7^5\) refutation.** CaDiCaL reported UNSAT; by this
-> directory's own trust boundary that is *not yet a proof*. The claim becomes
-> a certificate only once drat-trim has checked the DRAT and `verify.py` has
-> replayed the resulting LRAT against an independently regenerated formula.
-> Until that is recorded here with a hash, **Theorem 6 keeps both exception
-> clauses** and nothing below is restated.
+**The \(1^0 7^5\) refutation is certified**, not merely solver-reported:
+
+- drat-trim: `s VERIFIED`, \(880\) s, \(2165526\) of \(2995787\) lemmas in
+  core, **\(0\) RAT lemmas in core** (this checker rejects RAT);
+- `verify.py lower 35 4 6 0 7 5 ... --symf --symc --syms`: regenerated the
+  formula from \((n,s,t,f,p,k)\) alone, matched the DIMACS clause set, and
+  replayed to the **empty clause at LRAT step 3233859** in \(51\) s.
+
+| file | bytes | SHA-256 |
+|---|---|---|
+| `S_7_5.cnf` | 10148993 | `0958ccd5474b6a4419d126038d1ab2aa152590a3f747f1e7993ec91f94481b73` |
+| `S_7_5.drat` | 372104318 | `201205c7db74ed1ab7ba4d53e12c9be8ab6d821497e81199c0742c3a12d66787` |
+| `S_7_5.lrat` | 535875584 | `0cd98557be8cbf1faeb4e657359edab5eaa07d76a7987d148454ecc1ffc36645` |
+
+The LRAT is far too large to commit; it is recorded by hash with the exact
+commands that reproduce it, as with the other oversized proofs in this lane.
 
 So the lever is decisive on one instance and not (yet) on the other. On
 \(1^0 7^5\) it converts "no verdict in 3600 s" into a refutation in 600 s —
@@ -324,10 +349,39 @@ incompatible ways, and `symS` is not implicated. **Use `symF + symC + symS`,
 or `symF + symS + symM`, but never all four.** This is exactly the trap that
 a soundness argument alone would have walked into.
 
+Sound combinations, all verified exhaustively: `symS+symC`, `symS+symF`,
+`symS+symC+symF`, `symS+symM`, `symS+symK`, `symK+symM`, `symK` alone,
+`symM` alone. The one failure found is any combination containing both
+`symC` and `symM`.
+
+### Why this should transfer outside \((4,6)\)
+
+`symS` is **independent of \(f\)**. It constrains cross-cycle orbits and
+never looks at a fixed vertex, so — unlike `symF`, which is vacuous at
+\(f = 0\) — its strength is governed by \(k\) alone and it is undiminished
+exactly where `symF` gives nothing. The two are complementary rather than
+competing, and Q4 confirms they compose.
+
+The group it breaks, \(p^{\,k-1}\), on the types left open in the
+\(R(5,5)\) lane at \(n = 42\) (researcher-1, h2519/h2621/h2689/h2873):
+
+| open type there | group `symS` would break |
+|---|---|
+| \(1^0 7^6\) | \(7^5 = 16807\) |
+| \(1^f 5^k\), \(k = 4,\dots,8\) | up to \(5^7 = 78125\) |
+| \(1^f 3^k\), \(k = 7,\dots,14\) | up to \(3^{13} = 1594323\) |
+
+Those are the low-\(f\), many-cycle types where `symF` is weakest, so the
+lever is offered there by citation rather than applied here: the \(R(5,5)\)
+lane belongs to researcher-1, and running its instances from this directory
+would duplicate a mandated agent's work rather than help it. The
+construction is generic in \((s,t,n,f,p,k)\) and needs no change to be used.
+
 ## The honest frontier, quantified once
 
-After Theorem 6 the lane's frontier is \(p \in \{2,3\}\) at low \(f\). This
-is stated once, with numbers, rather than re-estimated:
+After Theorem 7 the lane's remaining \(p \ge 5\) question is the single
+instance \(1^0 5^7\); beyond that the frontier is \(p \in \{2,3\}\) at low
+\(f\). This is stated once, with numbers, rather than re-estimated:
 
 - There are \(74\) involution types \(1^f 2^k\) across \(36 \le n \le 39\),
   with \(324\) to \(704\) orbit variables and about \(1.00 \times 10^6\)
@@ -344,12 +398,29 @@ is stated once, with numbers, rather than re-estimated:
   \(1^0 13^3\) at 64 cubes.
 
 **What would be needed.** A method that acts on the cross-block structure of
-a semiregular action with \(f = 0\) — orderly generation over the
-\((\text{internal}, \text{cross})\) connection-set data modulo
-\(S_k \times \mathbb{Z}_p^{*}\), or a lex-leader for that combined group.
-Absent such a method, \(p \in \{2,3\}\) is out of reach for this pipeline,
-and so are the two \(n = 35\) instances. This is the same diagnosis in both
-places, which is why it is stated once.
+a semiregular action with \(f = 0\).  `symS` is now exactly such a method,
+and it settled \(1^0 7^5\); the earlier claim that \(p \in \{2,3\}\) and
+both \(n = 35\) instances were "out of reach for this pipeline" was therefore
+**too strong, and this passage is corrected rather than left standing**.  What
+is accurate now:
+
+- \(1^0 7^5\): closed by `symS`.
+- \(1^0 5^7\): still open; `symS` did not close it in \(1800\) s, and two
+  \(5400\) s arms (`symS`, and `symS` with the generator-only \(S_k\)
+  lex-leader) were run to test it further.
+- \(p = 2\): `symS` applies here too, and is **not** vacuous.  At \(p = 2\)
+  the internal block is empty (\((p-1)/2 = 0\)), so `symC` has nothing to say
+  — but each cross block still has \(p = 2\) orbits and the shift group is
+  \(\mathbb{Z}_2^{\,k-1}\).  On \(1^0 2^{18}\) that is
+  \(2^{17} = 131072\), broken by \(102\) added clauses on a formula of
+  \(1003833\).  Soundness at \(p = 2\) is verified exhaustively along with
+  the rest (`symstest.py`, cases \(1^0 2^3\), \(1^0 2^4\), \(1^2 2^3\)).
+  The \(p \in \{2,3\}\) numbers above stand as measurements; the *inference*
+  that no method reaches them does not, and is withdrawn.
+
+The general lesson is the one this lane keeps relearning: a measured
+obstruction is evidence about a configuration, not about every configuration
+reachable from it.
 
 ## Method
 

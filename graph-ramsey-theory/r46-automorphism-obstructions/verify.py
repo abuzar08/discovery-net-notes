@@ -348,7 +348,11 @@ def cmd_cubes(a):
     import os
     n, s, t, f, p, k = (int(x) for x in a[:6])
     d, D = a[6], int(a[7])
-    nvar, base = regenerate(n, s, t, f, p, k)
+    nvar, base = regenerate(n, s, t, f, p, k,
+                            profile="--profile" in a,
+                            symf="--symf" in a,
+                            symc="--symc" in a,
+                            syms="--syms" in a)
     want_cubes = {tuple((i + 1) if b else -(i + 1) for i, b in enumerate(sg))
                   for sg in it.product((True, False), repeat=D)}
     seen = set()

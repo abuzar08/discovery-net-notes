@@ -8,7 +8,12 @@ those D variables, so if all 2^D cubes are unsatisfiable the base formula is.
 verify.py's `cubes` subcommand re-checks that the stored cubes are exactly
 all 2^D patterns, once each, and replays every one.
 
-    python3 cubes.py N S T F P K D OUTDIR [JOBS] [TIMEOUT]
+    python3 cubes.py N S T F P K D OUTDIR [JOBS] [TIMEOUT] [--symf --symc --syms --symkg]
+
+The split is on orbit variables 1..D; symmetry-breaking clauses only ever add
+AUXILIARY variables above the orbit block, so the cubes are the same either
+way.  Soundness still needs no extra lemma beyond the soundness of whichever
+breakers are enabled: the 2^D cubes cover every total assignment.
 """
 
 import itertools
@@ -58,7 +63,12 @@ def main():
     jobs = int(sys.argv[9]) if len(sys.argv) > 9 else 3
     timeout = int(sys.argv[10]) if len(sys.argv) > 10 else 3600
     os.makedirs(outdir, exist_ok=True)
-    nvar, base = encode.build(n, s, t, f, p, k)
+    flags = sys.argv[11:]
+    nvar, base = encode.build(n, s, t, f, p, k,
+                              symf="--symf" in flags,
+                              symc="--symc" in flags,
+                              syms="--syms" in flags,
+                              symkg="--symkg" in flags)
     base = [list(c) for c in base]
     print(f"n={n} type 1^{f} {p}^{k}: vars={nvar} clauses={len(base)}; "
           f"splitting on 1..{D} -> {2**D} cubes", flush=True)
