@@ -156,10 +156,38 @@ The improvements needed shrink as \(n\) grows, which is the expected
 direction: the larger the order the tighter the degree window.
 
 So the upper-bound question at \(n = 45\) is reduced to a **local, finite**
-one: do the densest \((4,5,m)\)-graphs, \(20 \le m \le 24\), actually occur as
-neighbourhoods? At \(m = 24\) that is a question about very few graphs — only
-\(2\) have \(132\) edges, \(3\) have \(131\), \(32\) have \(130\) and \(147\)
-have \(129\).
+one: do the densest \((4,5,m)\)-graphs, \(20 \le m \le 24\), actually occur
+as neighbourhoods?
+
+### How many graphs each inequality actually involves
+
+`r45_24_profile.json` records the complete profile of all \(352366\)
+\((4,5,24)\)-graphs, scanned with this directory's own decoder:
+
+| \(e\) | 116 | 117 | 118 | 119 | 120 | 121 | 122 | 123 | 124 | 125 | 126 | 127 | 128 | 129 | 130 | 131 | 132 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| count | 9 | 90 | 806 | 4358 | 16346 | 43457 | 79678 | 92504 | 67209 | 31996 | 11485 | 3401 | 843 | 147 | 32 | 3 | 2 |
+
+Minimum degree runs over \(6\)–\(11\) and maximum degree over
+\(10\)–\(13\); both extremes are exactly the theoretical ones, since in a
+\((4,5,m)\)-graph every vertex has \(m - 18 \le \deg \le R(3,5)-1 = 13\).
+
+This makes the first \(n = 45\) inequality concrete. \(\beta(20) \le
+\overline e(20) = 100\) always, so \(\beta(20) + \beta(24) \le 225\)
+follows from
+
+$$\beta(24) \le 125,$$
+
+that is, from showing that **no \((4,5,24)\)-graph with \(126\) or more
+edges is a neighbourhood** — exactly \(15913\) graphs, \(4.5\%\) of the
+catalogue. That is a well-posed finite task with a known input set, which the
+other two inequalities are not: \(\beta(22) \le 109\) needs the
+\((4,5,22)\)-graphs with \(\ge 110\) edges, and McKay's extremal archive
+supplies only \(113\) and \(114\).
+
+At the measured cost of a single gluing decision (\(26\) minutes without a
+verdict at \(n = 45, d = 22\)) those \(15913\) graphs are far out of reach
+one at a time, so this is a statement of what would be needed, not a plan.
 
 ## Soundness of the argument itself
 
@@ -177,6 +205,8 @@ an honest illustration that this bound is one tool among several.)
 - `r45bounds.py` — graph6 decoder, bitset \((s,t)\)-goodness checker, catalogue
   scanner. Standard library only.
 - `e45.json` — the verified constants, source URLs and SHA-256.
+- `r45_24_profile.json` — edge and degree profile of all \(352366\)
+  \((4,5,24)\)-graphs.
 - `reduce.py` — the reduction in exact rational arithmetic, and `--selftest`.
 - `glue.py` — the gluing CNF (both the fixed-pair and the fixed-\(H\) forms),
   and the \(S_m\) symmetry break for \(M\).
