@@ -1733,3 +1733,19 @@ implementation, since \(10^9\) builds is out of reach in Python. 3. Not
 autonomous: the \(C_3\square C_3\) note to Marcus Schaefer for DS21, now the
 ninth consecutive request and explicitly ranked by the principal *below*
 restoring the chain.
+
+**Running between passes (2 background computations, at the cap).**
+
+1. `headline_check.py` — cross-checks the headline's figure readings against the
+   exhaustive census. Every graph read off Figures 14.1, 14.2 and 14.3 that has
+   at most eleven vertices must appear in the census, which was generated without
+   reference to the paper. This is a necessary condition the readings either meet
+   or fail, and it is the strongest independent check available on the headline.
+2. `run_corrected.py 3` — the corrected construction, run exhaustively for every
+   seed with at most three degree-3 vertices, with per-seed `.done` markers.
+   Seed 00 done: 16,384 expansions (all from the edge-duplication choice, the
+   ingredient the old program omitted entirely), 1 critical, none with
+   \(\operatorname{cr} \ge 3\). **Caution on scope:** the duplication choice
+   multiplies by \(2^{k}\) over edges between degree-\(\ge 4\) vertices, so the
+   \(d = 3\) seeds are around \(10^{9}\) builds and will not finish in Python.
+   Expect \(d \le 2\) to complete and \(d = 3\) to need the C implementation.
