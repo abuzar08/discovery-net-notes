@@ -60,6 +60,18 @@ total before the Koenig bound.  A single unit moved between c_1 and c_2 can cost
 a whole unit of mu, so every split has to be checked.
 
 ==============================================================================
+A SOUNDNESS CORRECTION.  An earlier version of this file took the second side to
+be L - Q_1 with edge total e_H(L,R) - e1.  Since e1 is a LOWER bound for
+e_H(Q_1,R), that expression is an UPPER bound on e_H(L - Q_1, R), and feeding an
+upper bound into a Koenig lower bound overstates mu_2 -- by one full unit for the
+multisets carrying a connector block, (24,23,2) at |R| = 10 and (24,22,2) at
+|R| = 11.  The conclusion was unaffected, and unaffected a fortiori, since it was
+negative and an overstated mu only makes closure look more likely; and the
+tightest multisets quoted, (24,23) and (24,22), are ones where the sound and
+unsound values agree, so "short by exactly one" also stands.  The version below
+uses the sound bound: second side Q_2 - Q_1, of size at least q_2 - 1, with edge
+total at least (q_2 - 1)(q_2 + |R| - 29).
+
 RESULT, REPORTED NEGATIVELY.  The enumeration below runs every admissible block
 multiset -- not just the crossing-minimiser -- and every (a, j, sigma) with every
 split of c.  Row (57, 828) does NOT close at |R| = 10 or 11.
@@ -159,11 +171,18 @@ def main():
             tneed = maxq + RSZ - 28 - nu
             if tneed <= 0:
                 continue                       # already contradictory
-            # safe per-block lower bounds: D_v >= q-1 inside its own block, and
-            # cut-vertex extras only raise these, so ignoring them is
-            # conservative.  Q_1 is the largest block; L - Q_1 gets the rest.
-            e1 = maxq * (RSZ - DEG) + maxq * (maxq - 1)
-            e2 = eHLR - (maxq * (RSZ - DEG) + maxq * (maxq - 1))
+            # Sound two-sided bound.  e1 is a lower bound for e_H(Q_1,R).  The
+            # SECOND side must also be lower-bounded, so it cannot be taken as
+            # e_H(L,R) - e1: that is an UPPER bound on e_H(L - Q_1, R), and
+            # feeding an upper bound into a Koenig lower bound overstates mu_2.
+            # Instead take the side to be Q_2 - Q_1.  Two blocks meet in at most
+            # one vertex, so |Q_2 - Q_1| >= q_2 - 1 and each such vertex has
+            # D_v >= q_2 - 1, giving the lower bound below.  Q_1 and Q_2 - Q_1
+            # are disjoint, and a colour class holds at most one vertex of each.
+            q2 = mult[1] if len(mult) > 1 else 1
+            e1 = maxq * (maxq + RSZ - 29)
+            e2 = (q2 - 1) * (q2 + RSZ - 29)
+            side2 = max(q2 - 1, 1)
             bad = []
             for a in range(amin, 4):
                 for j in range(1, 4):
@@ -174,7 +193,7 @@ def main():
                             continue
                         for c1 in range(0, c + 1):
                             mu1 = koenig_min_mu(e1 - c1, maxq, NZ)
-                            mu2 = koenig_min_mu(e2 - (c - c1), NL - maxq, NZ)
+                            mu2 = koenig_min_mu(e2 - (c - c1), side2, NZ)
                             if mu1 + mu2 < NZ + tneed:
                                 bad.append((a, j, sig, c1, c - c1, mu1, mu2))
             if bad:

@@ -1,0 +1,20 @@
+A sound two-sided Koenig bound at r = 29
+
+PART 1   order 57, row (57,828): the corrected numbers
+   |R| = 10 : 4 multisets, none closes; largest shortfall 5 at (25, 22, 2)
+   |R| = 11 : 7 multisets, none closes; largest shortfall 8 at (26, 20)
+   (unchanged from close57b.py, which was safe a fortiori)
+
+PART 2   order 58, class b = 6, c = (51,1), the last order-58 case
+   m = 838 : |R| in [11, 28], 5835 survivors at |R| in 11..28
+        |R|=11 (24, 23) t>=3
+        |R|=11 (24, 23, 2) t>=4
+        |R|=11 (25, 22) t>=6
+   m = 839 : |R| in [11, 30], 6681 survivors at |R| in 11..30
+        |R|=11 (24, 23) t>=4
+        |R|=11 (24, 23, 2) t>=5
+        |R|=11 (25, 22) t>=7
+   m = 840 : |R| in [11, 32], 7282 survivors at |R| in 11..32
+        |R|=11 (24, 23) t>=5
+        |R|=11 (24, 23, 2) t>=6
+        |R|=11 (25, 22) t>=8

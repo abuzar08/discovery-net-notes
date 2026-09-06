@@ -669,6 +669,46 @@ The surviving class has only **one** singleton, so the excess bound applies once
 instead of twice and caps \(\lvert R\rvert\) an order of magnitude higher; that
 is exactly why the forcing is far weaker there.
 
+### A soundness correction, and order 58's last class resists (`mu58.py`)
+
+**The correction.**  The two-sided König bound above took the second side to be
+\(L\setminus Q_1\) with edge total \(e_H(L,R)-e_1\), where \(e_1\) is a lower
+bound for \(e_H(Q_1,R)\).  But then
+
+$$e_H(L,R)-e_1 \;\ge\; e_H(L,R)-e_H(Q_1,R) \;=\; e_H(L\setminus Q_1,R),$$
+
+so that expression is an **upper** bound on the second side's edge total, and
+feeding an upper bound into a König *lower* bound overstates \(\mu_2\).  It does,
+by one full unit, for the multisets carrying a connector block: \((24,23,2)\) at
+\(\lvert R\rvert=10\) and \((24,22,2)\) at \(\lvert R\rvert=11\) were credited
+\(\mu_2\ge5\) where only \(\mu_2\ge4\) is justified.
+
+The conclusion is unaffected, and unaffected *a fortiori*: it was negative, and
+an overstated \(\mu\) only makes closure look more likely.  The tightest
+multisets quoted, \((24,23)\) and \((24,22)\), are ones where the sound and
+unsound values agree, so the reported shortfall of exactly one also stands —
+re-verified under the corrected bound.
+
+The sound version takes the second side to be \(Q_2\setminus Q_1\).  Two blocks
+of a graph meet in at most one vertex, so \(\lvert Q_2\setminus Q_1\rvert\ge
+q_2-1\), every vertex of it has \(D_v\ge q_2-1\), and
+
+$$e_H(Q_2\setminus Q_1,\,R)\;\ge\;(q_2-1)\bigl(q_2+\lvert R\rvert-29\bigr).$$
+
+\(Q_1\) and \(Q_2\setminus Q_1\) are disjoint, and a colour class of \(G[L]\)
+holds at most one vertex of each, which is exactly what an absorption needs.
+
+**Order 58's last class resists.**  Applying the same sound test to
+\(b=6\), \(c=(51,1)\) at \(\lvert R\rvert\ge11\) leaves thousands of
+\((\lvert R\rvert,\text{multiset})\) survivors at every row — 5835 at \(m=838\),
+6681 at \(m=839\), 7282 at \(m=840\), spread over \(\lvert R\rvert\in[11,28]\),
+\([11,30]\), \([11,32]\).  The per-block König machinery that closed order-57
+\(\lvert R\rvert=9\) does **not** reach it.  The reason is the same one that made
+this class survive pass 21: it has a single singleton, so \(\lvert R\rvert\) is
+capped an order of magnitude higher and \(\lvert Z\rvert=\lvert R\rvert-1\) grows
+with it, while the requirement \(\mu_1+\mu_2\ge\lvert Z\rvert+t\) grows too.
+
+
 ## r = 29 (partial)
 
 `r29.py` applies the same order-`2r-1` machinery to the five order-57 rows of the
