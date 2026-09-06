@@ -839,6 +839,42 @@ four to avoid \(t^*\), so the \(H[R]\)-edge survives) and \(t=5\) for
 **So both \(\lvert R\rvert=9\) cases are impossible.  Row \((57,827)\) is
 eliminated, and row \((57,828)\) reduces to \(\lvert R\rvert\in\{10,11\}\).**
 
+### The last row does not follow (`close57b.py`)
+
+The same machinery applied to \((57,828)\) at \(\lvert R\rvert=10,11\) falls
+short, and the enumeration says by exactly how much.
+
+The per-block identity generalises cleanly: every low vertex has
+\(\lvert N_H(v)\cap R\rvert=\lvert R\rvert-28+D_v\) with
+\(D_v:=\sum_{\text{blocks}\ni v}(\lvert Q\rvert-1)\), so
+
+$$e_H(Q,R) \;=\; q(\lvert R\rvert-28)+\sum_{v\in Q}D_v \;\ge\; q\bigl(q+\lvert R\rvert-29\bigr).$$
+
+This matters: the crude aggregate bound
+\(\sum_z a_z\ge e_H(L,R)-\lvert Z\rvert\lvert L\setminus Q_1\rvert\) gives 26
+where the per-block truth is 145.
+
+The contradiction now needs \(t+\nu\ge\chi(G[L])+\lvert R\rvert-28\) absorptions,
+and \(t\) of them exist once \(\mu_1+\mu_2\ge\lvert Z\rvert+t\).  Running **every**
+admissible multiset — not just the crossing-minimiser — and every
+\((a,j,\sigma)\) with every split of
+\(c:=\sum_i\lvert N_H(w_i)\cap L\rvert\):
+
+| \(\lvert R\rvert\) | tightest multiset | \(\chi(G[L])\) | \(t\) needed | \(\mu_1+\mu_2\ge\) | needed | short by |
+|---|---|---|---|---|---|---|
+| 10 | \((24,23)\) | 24 | 2 | 9 | 10 | **1** |
+| 11 | \((24,22)\) | 24 | 2 | 10 | 11 | **1** |
+| 10 | \((25,22)\) | 25 | 5 | 9 | 13 | 4 |
+| 11 | \((25,21)\) | 25 | 3 | 10 | 12 | 2 |
+
+So the row stays open, short by exactly one unit of \(\mu\) in the tightest
+cases.  The reason is structural, not arithmetic: at \(\lvert R\rvert=9\) the two
+blocks *partitioned* \(L\) and every \(z\) was forced to be crossing, which is
+what drove \(\mu_1,\mu_2\ge6\).  Here \(\lvert Z\rvert\) is larger, \(\lvert
+L\rvert\) smaller, and neither is forced.  A block of order 25 is *worse*, not
+better, because \(\chi(G[L])=25\) raises the absorptions needed faster than the
+larger block raises \(\mu_1\).
+
 Order 58 = 2r is **not** covered by this argument: there Stehlík gives one colour
 class of size three rather than a perfect matching, so `H` need not be
 factor-critical and none of the order-\(2r-1\) structure theory applies; it is
