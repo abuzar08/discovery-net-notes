@@ -90,6 +90,36 @@ class sizes \(20, 3, 5, 2, 1\) stand, the artifact and its standard-library
 checker stand, and "at most twenty patches" is now explained: 20 is the size of
 the largest class, \((3,3)\).
 
+
+## The positive half: Theorem 17.1(3) verified exactly at \(n \le 11\)
+
+The same machinery that exposed the scoping error also closes the account. Each
+of the 19 was reduced by planar 3-reductions (Definition 15.17: contract the
+nucleus of an \(S\)-bridge \(B\) at a 3-cut \(S\), with \(B^{+}\) planar and
+3-connectivity preserved) until no reduction applies; `reduce_p4c.py`.
+
+* **15** reduce to a peripherally-4-connected base with
+  \(\operatorname{cr}(L) = 1\) — precisely the bases my program excluded. Eight
+  of them reduce to \(K_{3,3}\).
+* **4** admit no planar 3-reduction at all, and have
+  \((n,m) = (7,12), (8,13), (9,14), (10,15)\): consecutive contractions of a
+  single graph. They are **exactly the four graphs of Theorem 15.6**, verified
+  by constructing \(K^{*}_{3,4}\) from Definition 15.2 (two copies of
+  \(K_{2,3}\) with their 3-sides joined by a perfect matching \(M\), giving
+  \(n = 10\), \(m = 15\)) and checking that contracting the subsets of \(M\)
+  yields exactly four graphs up to isomorphism, that contracting all of \(M\)
+  gives \(K_{3,4}\), and that the four residual census graphs are isomorphic to
+  them.
+
+So the 65 3-connected members of the census account exactly:
+
+$$65 \;=\; \underbrace{36}_{\text{the bases themselves}} \;+\; \underbrace{10}_{V_8 \text{ or } V_{10}} \;+\; \underbrace{15}_{\operatorname{cr}(L)=1 \text{ base}} \;+\; \underbrace{4}_{\text{Theorem 15.6}}$$
+
+This is a complete verification of Theorem 17.1(3)'s classification against an
+independent exhaustive census, in the whole range where ground truth exists —
+and the same computation shows exactly which ingredient my program was missing,
+since all 15 of the reducible ones need a base of crossing number 1.
+
 ## Consequence for the program
 
 The program as I scoped it — expand the 36 two-crossing-critical seeds under
@@ -106,3 +136,4 @@ are set by the corrected construction, not by the one I measured.
 | --- | --- |
 | `census_crosscheck.py` | enumerates all expansions with \(n \le 11\) over all 36 seeds and compares against the census |
 | `vsub2.py` | \(V_8\) and \(V_{10}\) topological containment, with the ground-truth sanity checks |
+| `reduce_p4c.py` | planar 3-reductions to a peripherally-4-connected base, and the base's crossing number |
