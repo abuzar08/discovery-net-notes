@@ -97,7 +97,18 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
 ## Files
 
 - `cnc_p.py` — cubes (`.icnf`) and residual clauses \((S)\) from `levelL_pP.json`.
-- `run_cnc_p.py` — driver (CaDiCaL, then drat-trim, then LRAT, then xz), writes `results.jsonl`.
+- `run_cnc_p.py` — driver used for the \(1^{15} 3^{9}\) result (CaDiCaL, then drat-trim,
+  then LRAT, then xz), writes `results.jsonl`.
+- `run_lrat_p.py` — later driver: CaDiCaL 3.0.1 writes LRAT itself
+  (`--lrat=true --no-binary`), the proof is replayed immediately by the independent
+  checker and then deleted, its SHA-256 staying in the record. This removes the
+  drat-trim and xz stages, which measurement showed to dominate: for one
+  \(1^{2} 5^{8}\) child, 73 s of solving was followed by a drat-trim still running
+  after 80 minutes, whereas native LRAT took 84 s to solve and 23 s to replay
+  (368 MB of proof). The verification chain is unchanged in strength: what is
+  checked is still an LRAT replay to the empty clause against the formula
+  regenerated from its definition, by code independent of the solver; drat-trim
+  simply no longer sits between the two.
 - `manifest_p.py` — `results.jsonl` to `manifest.json`.
 - `sweep_verify.py` — step 4 alone, run incrementally on the certificates currently
   on disk (appending each verdict and hash to `verified.jsonl` and deleting the
