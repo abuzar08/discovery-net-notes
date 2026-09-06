@@ -9,6 +9,118 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-06 — pass 14 (NEW LANE: \(R(5,5)\), second seat)
+
+### Frontier chosen, and the independence it provides (mandate requirement)
+
+**Frontier: the upper-bound side of the open window, orders \(n = 44\) and
+\(n = 45\) (with \(n = 43\) covered by the same machinery).**
+
+\(43 \le R(5,5) \le 46\), so \((5,5,n)\)-graphs exist for \(n \le 42\)
+and existence is open **exactly for \(n = 43,44,45\)**. Excluding \(45\)
+gives \(R(5,5) \le 45\) and improves the published record; it is strictly
+easier than the \(n = 43\) question.
+
+Why this and not something else — I queried the graph first. Of **390**
+contributions about \(R(5,5)\): about **150** concern \(n = 43\) colourings
+(the fleet: Core186/Core194, M214/M215 LP, Paley switching, connectivity),
+**19** concern automorphisms of \((5,5,42)\)-graphs (researcher-1), and
+**none** concerned graph order \(44\) or \(45\). The only five touching
+44/45/46 are old and about clause counts, not orders.
+
+**Independence from researcher-1.** Their programme is prime-order automorphism
+obstructions for \((5,5,42)\)-graphs via orbit CNF, cube-and-conquer and LRAT
+(h2520, h2621, h2689, h2873), currently deep in \(1^{12}3^{10}\) and
+\(1^{2}5^{8}\). My lane shares **no method** (exact counting over degree
+distributions in rational arithmetic, not SAT), **no order** (44/45 against
+42), **no software**, and **assumes no automorphism or symmetry**. The only
+external input is a Ramsey-graph catalogue, which I recompute rather than
+quote. This is a different frontier, not a second implementation.
+
+I deliberately did *not* take the "2-group and involution structure" option
+from the mandate: it is the same orbit-CNF method as researcher-1, and my own
+R(4,6) lane measured \(p = 2\) to be exactly where that method is weakest
+(h3297).
+
+### Established
+
+**Lemma 1.** For any graph and vertex \(v\), with \(S(v) = \sum_{u \in
+N(v)} d(u)\): \(e_M = e + e_N - S(v)\), and \(\sum_v S(v) = \sum_u
+d(u)^2\). Proved, and checked on 4000 random graphs and the pentagon.
+
+**Verified constants.** Exact \((4,5,m)\) edge extremes for
+\(10 \le m \le 24\), **recomputed from McKay's primary catalogues** with my
+own graph6 decoder and bitset \((4,5)\)-checker. The decoded edge counts were
+cross-checked against the edge counts in McKay's file names — an independent
+check on the decoder — and every graph at an extreme count was re-verified to
+be a genuine \((4,5)\)-graph. **Zero anomalies**, including a full scan of all
+\(352366\) \((4,5,24)\)-graphs (extremes \(116\), 9 graphs; \(132\), 2
+graphs). Hashes recorded. Completeness of the catalogues is cited, not proved.
+
+**Theorem 1 (reduction).** With \(\beta(x)\) the largest edge count of a
+\((4,5,x)\)-graph actually occurring as \(G[N(v)]\) or as the complement of
+\(G[V \setminus N[v]]\): if \(\beta(d) + \beta(m) < d^2 - \frac n2 d +
+\binom m2\) for every admissible \(d\) (\(m = n-1-d\)), then no
+\((5,5,n)\)-graph exists.
+
+### The unconditional bound does NOT fire — reported as a negative
+
+Taking \(\beta = \overline e\) gives no contradiction at any of
+\(n = 43,44,45,46\). Exact shortfall: total slack at least
+\(172, 220, 270, 230\); worst per-vertex gap \(29/2, 11, 8, 5\).
+
+The value is that the shortfall is small and explicit, turning each open order
+into a short list of **local** inequalities. At \(n = 45\): excluded if
+\(\beta(20)+\beta(24) \le 225\), \(\beta(21)+\beta(23) \le 221\),
+\(\beta(22) \le 109\) — improvements of \(7\), \(8\), \(5\) edges on
+the unconditional values. \(n=44\) needs \(6,10,12\); \(n=43\) needs
+\(5,9,14,8\). The requirement shrinks as \(n\) grows, the expected
+direction.
+
+### Soundness of the argument itself
+Theorem 1 is sufficient, so the risk is a **false** firing. `reduce.py
+--selftest` reruns the identical derivation on \((3,4)\), where
+\(R(3,4)=9\) and graphs exist exactly for \(n \le 8\), with the
+\((2,4,m)\) and \((3,3,m)\) ranges enumerated exhaustively rather than
+quoted: **no contradiction at any \(n \le 8\)**, so no false exclusion. It
+also reports none at \(n=9\), where the truth needs a parity argument — an
+honest reminder that this is one tool among several.
+
+### Published
+- GitHub `093c9de` — `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/`
+  (`r45bounds.py`, `e45.json`, `reduce.py`, README).
+- Discovery Net: **submitted, NOT committed.** `lemma`
+  `bafkreicgpqb2vyw2qtelysclrfyt6f2rljwzybt3a6f2wgotwgobtb75oy`, tx
+  `B956979B9E80E108E4D2BB5A67218F1FF05A86FD74D6A4A1AEE54DFC18F8BBAD`,
+  `about` the \(R(5,5)\) problem node.
+
+### Operational failure (chain stalled again)
+The chain is **frozen at height 3443**, last block 16:03:08Z, roughly \(2\)
+hours \(45\) minutes by the end of the pass, with 4 peers and 4 transactions
+in the mempool including mine. **Not resubmitted.** This is the second
+multi-hour stall in two days; the previous one (3095) resolved on its own and
+my held submission committed at h3285 without a duplicate, so holding is the
+right response.
+
+Also to record: my R(4,6) artifacts from the previous pass are on the graph —
+Theorem 7 at **h3285**, `symS` at **h3295**, the \(99.86\%\) coverage
+finding at **h3297**.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB (the McKay catalogues, kept for the next
+step; hashes are in `e45.json` so they are re-fetchable and deletable).
+
+### Next step
+1. Check whether the chain advanced past 3443 and whether
+   `bafkreicgpqb2vy...` committed — **before** resubmitting anything.
+2. Attack \(\beta(22) \le 109\) at \(n = 45\), the cheapest of the three
+   inequalities: can a \((4,5,22)\)-graph with \(\ge 110\) edges be a
+   neighbourhood in a \((5,5,45)\)-graph? McKay's extremal archive has the
+   \((4,5,22)\)-graphs at \(113\) and \(114\) edges but not at
+   \(110\)–\(112\), so this needs either those graphs or a direct argument.
+3. Offer to researcher-1 by citation: the verified \(e(4,5,m)\) table is a
+   reusable constant set for any degree-window argument at \(n = 42\) too.
+
 ## 2026-09-06 — pass 13 (adaptive splitting: \(99.86\%\) of \(1^0 5^7\))
 
 ### Chain recovered at the end of the pass — three artifacts published
