@@ -220,10 +220,41 @@ was measuring one end and generalising.
 
 **With `symS`** (`symF + symC + symS`, same solver, same machine):
 
-| instance | outcome |
-|---|---|
-| \(1^0 7^5\) | **UNSAT in 600 s**, 354 MB DRAT |
-| \(1^0 5^7\) | no verdict in 1800 s, 1660 MB DRAT |
+| instance | method | outcome |
+|---|---|---|
+| \(1^0 7^5\) | single refutation | **UNSAT in 600 s**, 354 MB DRAT |
+| \(1^0 5^7\) | single refutation, 1800 s | no verdict, 1660 MB DRAT |
+| \(1^0 5^7\) | single refutation, 5400 s | no verdict, 5328 MB DRAT |
+| \(1^0 5^7\) | `symS` + generator-only \(S_k\), 5400 s | no verdict, 4094 MB DRAT |
+
+So \(1^0 5^7\) was pushed to \(5400\) s on two different symmetry
+configurations and resisted both.  Adding the \(S_k\) generators lowered the
+proof-production rate (\(43\) MB/min against \(56\)) without producing a
+verdict, so it is not simply a matter of more time on this route.
+
+Cube-and-conquer with `symS`, same \(D = 10\) split as the baseline, so the
+counts are directly comparable:
+
+| \(1^0 5^7\), \(D = 10\) | cubes cleared quickly | per-cube proof |
+|---|---|---|
+| without `symS` | \(259\) of \(1024\) | mean \(2.1\) MB |
+| with `symS` | \(541\) of \(1024\) | median \(2.1\) MB, mean \(4.1\) MB, max \(565\) MB |
+
+`symS` **roughly doubles** the fraction of the split that falls easily, and
+the median cube proof is unchanged — but the hard core survives it, and the
+run plateaus rather than finishing.  Extrapolating the mean gives
+\(\approx 4.1\) GB for a complete \(D = 10\) certificate, and the residual
+\(483\) cubes would need on the order of \(13\) core-hours at the
+\(400\) s per-cube cap even if every one of them then succeeded.  So the
+lever moves this instance substantially without closing it, and a deeper
+split, not more time at \(D = 10\), is the next thing to try.
+
+One cube in \(1024\) had drat-trim fail under load and verify immediately
+when re-run in isolation ("UNSAT via unit propagation on the input
+instance"). That is transient rather than mathematical; `cubes.py` now
+retries once, and `verify.py cubes` independently requires all \(2^D\) sign
+patterns to be present and replayable, so a dropped cube cannot pass
+unnoticed.
 
 **The \(1^0 7^5\) refutation is certified**, not merely solver-reported:
 
@@ -415,8 +446,17 @@ is accurate now:
   \(2^{17} = 131072\), broken by \(102\) added clauses on a formula of
   \(1003833\).  Soundness at \(p = 2\) is verified exhaustively along with
   the rest (`symstest.py`, cases \(1^0 2^3\), \(1^0 2^4\), \(1^2 2^3\)).
-  The \(p \in \{2,3\}\) numbers above stand as measurements; the *inference*
-  that no method reaches them does not, and is withdrawn.
+
+  **But it does not close the involution type.**  Measured directly on
+  \(1^0 2^{18}\) at \(n = 36\): no verdict in \(1800\) s with `symS`,
+  \(2946\) MB of DRAT, against no verdict in \(1500\) s and \(2837\) MB
+  without it — a slightly *lower* proof-production rate (\(98\) MB/min
+  against \(113\)) and no refutation either way.  So breaking
+  \(2^{17}\) is not what \(p = 2\) is waiting for, and the honest reading
+  is that `symS` is applicable and sound at \(p = 2\) without being the
+  lever that opens it.  The \(p \in \{2,3\}\) numbers above stand as
+  measurements; the *inference* that no method reaches them is still
+  withdrawn, but nothing here replaces it with a method that does.
 
 The general lesson is the one this lane keeps relearning: a measured
 obstruction is evidence about a configuration, not about every configuration

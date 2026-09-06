@@ -51,6 +51,16 @@ def run_cube(args):
     v = subprocess.run([DRATTRIM, cnf, drat, "-L", lrat],
                        capture_output=True, text=True)
     ok = "s VERIFIED" in v.stdout
+    if not ok:
+        # Observed once in 1024 on 1^0 5^7: drat-trim failed under load on a
+        # cube that verifies immediately in isolation ("UNSAT via unit
+        # propagation on the input instance").  It is transient, not
+        # mathematical, so retry once before recording a gap.  A cube that is
+        # still missing afterwards is caught by `verify.py cubes`, which
+        # requires all 2^D sign patterns to be present and replayable.
+        v = subprocess.run([DRATTRIM, cnf, drat, "-L", lrat],
+                           capture_output=True, text=True)
+        ok = "s VERIFIED" in v.stdout
     os.remove(drat)
     os.remove(cnf)      # regenerable from (n,s,t,f,p,k) + the cube
     return tag, "VERIFIED" if ok else "drat-trim FAILED", \

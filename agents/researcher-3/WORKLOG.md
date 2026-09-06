@@ -9,6 +9,92 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-06 — pass 12 (the residue measured at every end; chain down all pass)
+
+### Chain: operational failure, no publication
+The chain has been **frozen at height 3095 since 00:38:04Z** — roughly six
+hours by the end of this pass. My pass-11 `lemma`
+`bafkreibe34dqei3elax5rkr4huvsifayqfcqamcxcibrftdh4pa4oswihq` (Theorem 7,
+tx `885A4518...`) is still in the mempool and **has not committed**. Checked
+at the start of the pass and again at the end; **not resubmitted**, per the
+standing rule. Nothing published to Discovery Net this pass. GitHub is
+unaffected and everything below is pushed there.
+
+### \(1^0 5^7\) resists on every axis now
+The one instance left at \(p \ge 5\) after Theorem 7 was driven on all
+three axes — configuration, time, and method:
+
+| configuration | budget | outcome |
+|---|---|---|
+| `symF+symC` (published) | \(3600\) s | no verdict, \(2501\) MB |
+| `symF+symC+symS` | \(1800\) s | no verdict, \(1660\) MB |
+| `symF+symC+symS` | \(5400\) s | no verdict, \(5328\) MB |
+| `symF+symS+`generator \(S_k\) | \(5400\) s | no verdict, \(4094\) MB |
+| `symF+symC+symS`, cubes \(D=10\) | plateau | \(541\) of \(1024\) |
+
+The cube figure is the informative one: without `symS` the same split cleared
+\(259\) of \(1024\), so **the lever roughly doubles the easy fraction**
+while leaving a hard core of \(483\) cubes. Median per-cube proof is
+unchanged at \(2.1\) MB; the mean is \(4.1\) MB because one cube needed
+\(565\) MB. A complete \(D=10\) certificate extrapolates to
+\(\approx 4.1\) GB and \(\approx 13\) core-hours for the residue. The
+conclusion is that **a deeper split, not more time at \(D=10\)**, is the
+next thing to try — and that is a concrete, costed next step rather than
+another "out of reach".
+
+### \(p = 2\): a clean negative, against my own expectation
+Last pass I found `symS` sound and non-vacuous at \(p = 2\) (it breaks
+\(2^{17} = 131072\) on \(1^0 2^{18}\) for \(102\) clauses) and said that
+made the involution frontier worth re-testing. It was worth testing, and the
+answer is no:
+
+| \(1^0 2^{18}\), \(n = 36\) | verdict | DRAT |
+|---|---|---|
+| without `symS` | none in \(1500\) s | \(2837\) MB (\(113\) MB/min) |
+| with `symS` | none in \(1800\) s | \(2946\) MB (\(98\) MB/min) |
+
+Slightly *lower* proof-production rate, no refutation either way. Breaking
+\(2^{17}\) is not what \(p = 2\) is waiting for. The README says this
+plainly rather than leaving last pass's optimistic framing standing.
+
+### A transient caught and fenced
+One cube of \(1024\) reported `drat-trim FAILED`. Re-run in isolation it
+verified instantly — "UNSAT via unit propagation on the input instance",
+\(3\) of \(334991\) clauses in core. So it was load-related, not
+mathematical. `cubes.py` now retries once before recording a gap; and
+`verify.py cubes` already required all \(2^D\) sign patterns to be present
+and replayable, so a silently dropped cube could not have passed
+verification. Worth recording because "solver said UNSAT, checker said no"
+is exactly the shape of a real bug, and this one was not.
+
+Also refreshed the stale `encode.py`/`verify.py`/`cubes.py` copies in
+`scratch/r46`, which were from 17:10 and predated `symS` — a live hazard,
+since anything run from that directory would have tested the wrong code.
+
+### Published
+- GitHub: this worklog and the README updates recording the \(5^7\)
+  escalation, the cube measurement, the \(p = 2\) negative, and the
+  `cubes.py` retry.
+- Discovery Net: **nothing** — chain down. Theorem 7 remains submitted and
+  uncommitted.
+
+### Left running
+**Nothing.** All background computation stopped and verified stopped; scratch
+trimmed from \(15\) GB to \(5.3\) GB. The \(544\) cube LRATs from the
+\(D=10\) run are kept (\(2.2\) GB) because a resumed or deeper run reuses
+them.
+
+### Next step
+1. Check whether the chain advanced past 3095 and whether
+   `bafkreibe34dqei...` committed — **before** resubmitting anything. If the
+   chain is still down, report it again and do no ledger work.
+2. \(1^0 5^7\) at a deeper split (\(D = 14\) or \(16\)) with `symS`,
+   reusing the \(D = 10\) LRATs where the prefixes match; this is the only
+   route measured to move the instance rather than assumed to.
+3. If that plateaus too, the lane is terminal at \(p \ge 5\) with exactly
+   one named open instance, and `CANDIDATES.md` (cages) is the principal's
+   stated fallback at this checkpoint.
+
 ## 2026-09-05 — pass 11 (new lane: build the lever; Theorem 7)
 
 ### Mandate
