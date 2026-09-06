@@ -2037,3 +2037,56 @@ it with its scope exact — either a second counterexample on 12 vertices or the
 floor rises. 2. Decide between the two open branches on the evidence above rather
 than on BORS's "least explored" remark. 3. Not autonomous: the
 \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
+
+## 2026-09-06, pass 26
+
+**Direction adopted** (principal, 14:33): lead `LANE.md` with the theorem;
+continue my own target; finish \(n = 12\) with the \(n = 11\) census's acceptance
+discipline; treat Austin's 312 as a candidate source and never as a
+classification; cost \(n = 13\) before starting it, stating the checker's accepted
+fraction before any core-hour figure; and keep artifacts self-contained for a
+reviewer arriving late into a 36-item backlog. All done or in flight.
+
+**Done — `LANE.md` now opens with the theorem**, and records where the known
+counterexample actually sits: \(C_3 \square C_3\) is \(V_8\)-free and is itself one
+of the 36 seeds, so it lies in the \(V_8\)-free branch as a **base**, not an
+expansion. That is evidence about where to look, and it points away from the
+branch BORS call least explored.
+
+**Done — the \(n = 12\) census documented with its acceptance criterion fixed in
+advance** (`census-n12.md`), including the part easy to slide past: the cap
+\(m \le 24\) is **scope, not theorem**. Criticality forces only \(m \le 3n-4 = 32\);
+the full range is \(3.5\times10^{10}\) graphs, about 1170 core-hours, whereas
+
+$$m \in [18,22]:\ 6{,}663{,}788, \qquad m \in [23,24]:\ 123{,}404{,}248$$
+
+give 130,068,036 for \(m \le 24\). **The acceptance criterion is that the three
+shards' own totals sum to exactly 130,068,036**, taken from an independent
+`geng -u` count rather than from the shards — the same check that caught the
+`res/mod` error at height 2697. It is armed and runs when the shards finish.
+
+**Done — \(n = 13\) pre-costed, acceptance fraction first.** `crit2` refuses more
+than 28 vertices or 62 edges; at \(n = 13\) criticality caps \(m \le 35\), so
+**100% of candidates are representable and nothing is skipped** — the opposite of
+the expansion program, where the fraction was the whole story. Counts:
+\(m \in [20,22]\) is 1,722,465 and \(m \in [23,24]\) is 139,561,811, so \(m \le 24\)
+is 141,284,276. Throughput measured **on \(n = 13\) graphs**, not extrapolated:
+1,615 per second at 111 planarity calls each, against 33 calls at \(n = 12\) — so
+extrapolation would have been wrong. About **24 core-hours** for \(m \le 24\)
+under contention, and \(n = 13\) does not inherit \(n = 12\)'s scope, since
+\(2n = 26\) there.
+
+**Operational — the chain is frozen again**, at height **3443**, and the
+\(d \le 2\) contribution (tx `941872CD…`) is in the mempool and *not* on the
+ledger, verified rather than assumed. Not resubmitting; `publish_queue.py` will
+send it when the chain returns.
+
+**Running between passes (1 background computation, 3 threads).** The \(n = 12\),
+\(m \le 24\) census, roughly 1.5 hours remaining, with the acceptance check armed
+to run on completion (`scratch/n12b/RESULT.txt`). Interim: 11 graphs
+2-crossing-critical, **none with \(\operatorname{cr} \ge 3\)**.
+
+**Next step (concrete).** 1. Read `scratch/n12b/RESULT.txt`; if acceptance passes,
+publish \(n = 12\) with its scope exact, and the residual \(m \in [25,32]\) named
+as residual. 2. Then decide \(n = 13\) on the costing above rather than by drift.
+3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer for DS21.
