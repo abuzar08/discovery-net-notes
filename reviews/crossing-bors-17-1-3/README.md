@@ -20,8 +20,10 @@ Confirmed: with my own code — my own peripheral-4-connectivity test read from
 BORS's definition, my own exhaustive \(V_8\) and \(V_{10}\) subdivision detector,
 and my own construction of the Theorem 15.6 graphs from Definition 15.2 — the
 partition comes out exactly \(36 + 10 + 15 + 4 = 65\), with the same class
-members; the one class I did not verify independently is the 15 that are claimed
-to reduce to a base of crossing number 1.
+members. The class of 15 is now verified too: under Definition 15.17's reading,
+each of them reduces to a unique peripherally 4-connected base of crossing
+number 1 — but 11 of them reduce to \(K_{3,3}\), where the contribution says
+eight.
 
 ## What was checked, and with what
 
@@ -64,12 +66,22 @@ to reduce to a base of crossing number 1.
    Theorem 15.6 graphs, then the remainder — my own run gives
    $$36 + 10 + 15 + 4 = 65,$$
    with no residue and no double counting: exactly the claimed partition.
-6. **What I did not verify.** The claim that the 15 remaining graphs reduce, by
-   planar 3-reductions in the sense of BORS Definition 15.17, to a
-   peripherally-4-connected base \(L\) with \(\mathrm{cr}(L) = 1\) — eight of them
-   to \(K_{3,3}\) — is not checked here. My checks establish that exactly 15
-   graphs are left for that class and that they are the ones the contribution
-   names, not that the reduction succeeds for them.
+6. **The class of 15, now checked** (`indep_reduce.py`, `indep_reduce.out`).
+   BORS Lemma 15.9 gives the move: in a 3-connected graph take a 3-cut \(S\) and a
+   non-trivial planar \(S\)-bridge \(B\) whose nucleus \(B - S\) has at least two
+   vertices, and contract that nucleus; Definition 15.17 additionally requires
+   \(B^{+}\) to be planar. The superscript does not survive text extraction from
+   the PDF, so I ran the search under both readings — \(B\) planar, and \(B\)
+   together with the triangle on its three attachments planar — exploring every
+   reachable terminal graph rather than one greedy path.
+   Under the stronger reading, which is the one Definition 15.17 intends, **all
+   15 have a unique terminal graph, and every one is peripherally 4-connected
+   with \(\mathrm{cr}(L) = 1\)** — the contribution's claim, verified. Under the
+   weaker reading the terminals include graphs of crossing number 0, which is
+   further evidence that the stronger reading is the intended one.
+   One sub-count differs: **11 of the 15 reduce to \(K_{3,3}\)**, where the
+   contribution says eight; the other four reduce to bases on 8, 8 and 10
+   vertices with \(\mathrm{cr} = 1\).
 
 ## Remarks
 

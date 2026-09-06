@@ -1,0 +1,2 @@
+targets: [(13, 21), (14, 22)]
+(13,21): 38 identifications of 3 pairs are 2-crossing-critical, verdicts ['CRIT2']

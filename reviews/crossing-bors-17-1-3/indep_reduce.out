@@ -1,0 +1,45 @@
+  of those, by order: {6: 1, 7: 2, 8: 8, 9: 10, 10: 15, 11: 5}
+  on at most ten vertices: 36
+with a V8 or V10 subdivision: 32
+not peripherally 4-connected: 24
+  of those, with a V8 or V10 subdivision: 5
+  remainder: 19, of which Theorem 15.6 graphs: 4 [(7, 12), (8, 13), (9, 14), (10, 15)], leaving 15
+
+partition with the corrected test: 41 + 5 + 15 + 4 = 65
+the class of 15: (n,m) [(9, 17), (9, 18), (10, 19), (10, 19), (10, 19), (10, 19), (10, 19), (10, 19), (11, 20), (11, 20), (11, 20), (11, 20), (11, 20), (11, 20), (11, 20)]
+
+reading (b): B plus the triangle on its attachments must be planar
+   (9,18): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (9,17): 1 terminal graph(s), (n,m,cr,p4c) [(8, 15, 1, True)]
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(8, 15, 1, True)]
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(10, 18, 1, True)]
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(8, 14, 1, True)]
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   graphs whose every terminal is peripherally 4-connected with cr = 1: 15 of 15; reducing to K_{3,3}: 11
+
+reading (a): B itself must be planar
+   (9,18): 2 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 1, True)]  <- K_{3,3}
+   (9,17): 1 terminal graph(s), (n,m,cr,p4c) [(8, 15, 1, True)]
+   (10,19): 3 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 1, True), (6, 9, 0, True)]  <- K_{3,3}
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (10,19): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   (10,19): 3 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 1, True), (6, 9, 0, True)]  <- K_{3,3}
+   (10,19): 2 terminal graph(s), (n,m,cr,p4c) [(6, 9, 0, True), (5, 8, 0, True)]
+   (10,19): 3 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 0, True), (6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 2 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 0, True)]
+   (11,20): 3 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 0, True), (6, 9, 1, True)]  <- K_{3,3}
+   (11,20): 2 terminal graph(s), (n,m,cr,p4c) [(6, 9, 0, True), (8, 14, 1, True)]
+   (11,20): 3 terminal graph(s), (n,m,cr,p4c) [(5, 8, 0, True), (6, 9, 1, True), (8, 12, 0, True)]  <- K_{3,3}
+   (11,20): 3 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True), (5, 8, 0, True), (6, 9, 0, True)]  <- K_{3,3}
+   (11,20): 3 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True), (5, 8, 0, True), (6, 9, 0, True)]  <- K_{3,3}
+   (11,20): 1 terminal graph(s), (n,m,cr,p4c) [(6, 9, 1, True)]  <- K_{3,3}
+   graphs whose every terminal is peripherally 4-connected with cr = 1: 4 of 15; reducing to K_{3,3}: 11
