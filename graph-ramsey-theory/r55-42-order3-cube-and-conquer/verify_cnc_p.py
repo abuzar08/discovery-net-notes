@@ -41,7 +41,58 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 for d in (os.path.join(HERE, '..', 'r55-42-prime-order-automorphisms'), os.path.join(HERE, '..'), os.path.join(HERE, '..', '..', '..', 'notes', 'graph-ramsey-theory', 'r55-42-prime-order-automorphisms')):
     if os.path.exists(os.path.join(d, 'verify.py')): sys.path.insert(0, d); break
-from verify import read_dimacs, check_lrat, sha256
+from verify import read_dimacs, check_lrat as check_lrat_strict, sha256
+
+def check_lrat(cls, path):
+    """LRAT check that also accepts hints which are already satisfied.
+
+    verify.check_lrat (cited pass-1 artifact) requires every hint clause to be
+    unit or falsified, which is what drat-trim emits. CaDiCaL's own LRAT
+    (--lrat=true) sometimes lists a hint whose clause is already satisfied at
+    that point: the literal it would propagate was propagated earlier by another
+    clause. Skipping such a hint is sound -- it adds no propagation, and the
+    lemma is still accepted only if the hints that do propagate lead to a
+    conflict -- so this variant skips them and is otherwise identical.
+    """
+    import lzma as _lzma
+    db = {i + 1: c for i, c in enumerate(cls)}
+    opener = _lzma.open if path.endswith('.xz') else open
+    empty = False
+    with opener(path, 'rt') as fh:
+        for line in fh:
+            parts = line.split()
+            if not parts: continue
+            cid = int(parts[0])
+            if parts[1] == 'd':
+                for t in parts[2:]:
+                    t = int(t)
+                    if t == 0: break
+                    db.pop(t, None)
+                continue
+            z = parts.index('0')
+            lemma = [int(x) for x in parts[1:z]]
+            hints = [int(x) for x in parts[z + 1:]]
+            assert hints[-1] == 0
+            assign = {-l for l in lemma}
+            conflict = False
+            for h in hints[:-1]:
+                if h < 0:
+                    raise ValueError(f'RAT hint in lemma {cid}; only RUP supported')
+                c = db[h]
+                if any(l in assign for l in c):
+                    continue                      # already satisfied: no propagation
+                unassigned = [l for l in c if -l not in assign]
+                if not unassigned:
+                    conflict = True; break
+                if len(unassigned) == 1:
+                    assign.add(unassigned[0])
+                else:
+                    raise ValueError(f'hint {h} neither unit nor falsified in lemma {cid}')
+            if not conflict:
+                raise ValueError(f'no conflict for lemma {cid}')
+            db[cid] = lemma
+            if not lemma: empty = True
+    return empty
 from verify_hybrid import regenerate, orbit_var
 from verify_symF import lex_clauses
 

@@ -126,7 +126,17 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
   those \(2^{m}\) assignments. Added after the \(1^{15} 3^{9}\) run, which needed no refinement
   (`logs/verify_full.log` was produced by the checker at commit dc22364, which
   differs from the current one only by this option).
-- `verify_cnc_p.py` — independent checker (imports `verify.py`, `verify_hybrid.py`
+- `verify_cnc_p.py` — independent checker; it now carries its own `check_lrat`,
+  which differs from `verify.check_lrat` of the cited pass-1 artifact in one
+  point: a hint whose clause is already satisfied at that point is skipped
+  instead of rejected. CaDiCaL's own LRAT emits such hints occasionally (17 of
+  the 3121 cubes of the \(1^{12} 3^{10}\) run), where the literal the clause would
+  propagate had already been propagated by an earlier hint; drat-trim's LRAT
+  never did. Skipping adds no propagation, so a lemma is still accepted only if
+  the hints that do propagate produce a conflict. Negative controls: flipping one
+  literal of a lemma is rejected (`hint ... neither unit nor falsified`), and
+  removing the final empty clause makes the check return false.
+  Original checker (imports `verify.py`, `verify_hybrid.py`
   from `../r55-42-prime-order-automorphisms` and `verify_symF.py` from
   `../r55-42-fixed-vertex-lex-leader`).
 - `zpenum.py` — orderly generation of canonical \(Z_p\)-good graphs (for \(p = 3\) the codes are \(I_3\) and \(K_3\)).
