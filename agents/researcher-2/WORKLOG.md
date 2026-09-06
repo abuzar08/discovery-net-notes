@@ -1486,3 +1486,84 @@ in the first alternative.** That is the concrete route to closing \(|R|=9\).
 2. If that works, the same dichotomy applies to \(|R|=10,11\) with \(|Z|=8,9\),
    where the pigeonhole is even more favourable.
 3. Ask for review of `aug57.py`, `cover57.py`, `tsplit57.py` and `crminus.py`.
+
+## 2026-09-06 — pass 18
+
+### What I established
+
+**In the pinned order-57 \(|R|=9\) configuration, every vertex of \(Z\) is
+crossing.** One branch of the triangle-absorption dichotomy is therefore
+vacuous, and the whole remaining obstruction is localised to a single matching
+statement.
+
+Since \(Q_1,Q_2\) are \(G\)-cliques with no \(G\)-edges between them, \(H[L]\) is
+**exactly** \(K_{24,24}\), so \(e(H[L])=576\) and
+\(e_H(L,R)=e(H)-576-e(H[R])=192\). The two \(w_i\) contribute only
+\(2+a-\tau\), so 188 or 189 falls on the seven \(z\in Z\), each capped by its own
+degree \(28-x_z\le27\). Seven terms summing to 188 with each \(\le27\) force
+every one to be \(\ge 188-6\cdot27=26\), and \(|Q_i|=24\), so
+$$\min(a_z,b_z)\ \ge\ |N_H(z)\cap L|-24\ \ge\ 2 .$$
+No one-sided vertex exists, in **every** admissible sub-configuration of both
+rows (for \((57,828)\) with \(a=1\) the bound is \(\ge3\)).
+
+**What remains, exactly.** \(H[L]\) is bipartite and triangle-free so
+\(\theta(H[L])=24\) is optimal and \(\theta(H)\le24+\theta(H[R])\le33\); four
+vertex-disjoint triangles give \(\theta(H)\le28\) against \(\theta(H)=29\), and
+four exist as soon as \(\mu_1+\mu_2\ge|Z|+4=11\). König turns a small \(\mu_1\)
+into a clique of order \(31-\mu_1\) disjoint from \(Q_2\):
+
+| \(\mu_1\) | bound | vs 8281 |
+|---|---|---|
+| 2 | 9828 | closes |
+| 3 | 8903 | closes |
+| 4 | 8081 | survives |
+| 5 | 7354 | survives |
+
+So the entire residue is
+\((\mu_1,\mu_2)\in\{(4,4),(4,5),(5,4),(4,6),(6,4),(5,5)\}\) — a statement purely
+about the bipartite adjacency of seven vertices against two 24-sets.
+
+### Negative results this pass (recorded so they are not retried)
+- The clique-building branch I sketched in pass 17 is **vacuous**: there are no
+  one-sided vertices, so the \(K_{25}\)/\(K_{26}\) constructions it relied on do
+  not arise. My pass-17 next-step plan was therefore aimed at a branch that does
+  not exist; the accounting above replaces it.
+- I worked the worst cases by hand: Hall failure on a 4-subset yields only
+  \(\mathrm{cr}(K_{25})+\mathrm{cr}(K_{25})=7994\) or
+  \(\mathrm{cr}(K_{26})+\mathrm{cr}(K_{24})=8081\), both short of 8281. Adding
+  \(w_1,w_2\) to a block costs the \(\beta\) barrier vertices it contains and
+  does not recover the gap. So the margin genuinely sits at 200--300 and needs a
+  new idea, not a sharper version of this one.
+
+### Published
+- GitHub commit `e646b0f`: new `hall57.py` with expected output, README section
+  in LaTeX, `SHA256SUMS` regenerated (43/43 verify). Blob link HTTP 200.
+  `hall57.py` SHA-256
+  `a6f8657acd4552c96c4772681454249b77de5ed2b9f9451a0a55ab25015e7b05`.
+- Discovery Net: LEMMA `bafkreigun4rajjiw35pdkmuofpl73euyzkzjq5oxsob7ktsd4uv76ktwie`,
+  tx `7473315A1B0E4E02B23299F7AC5C0D9F0D311970D7D9BCB3C9D70750F1AB9858`,
+  check_tx_code 0, relations to committed refs only. **Queued.**
+
+### Blocked
+- The chain has been stalled since 2026-09-06T00:38Z (block 3095); at 08:09Z it
+  was unchanged. **Five** of my contributions are now queued and uncommitted
+  (passes 14--18). The RPC accepts submissions, and I verified in pass 16 by
+  hashing the mempool that the earliest is still present; nothing resubmitted.
+  All relations point only at committed refs, so ordering cannot break them.
+- \(r=29\) is not proved. Order 57: four cases. Order 58: three classes.
+- No background computations left running.
+
+### Next step (concrete)
+1. The residue is now a clean finite question: seven vertices \(z\), each with
+   \(a_z,b_z\ge2\) and \(a_z+b_z\ge26\) against two 24-sets, with
+   \(\mu_1,\mu_2\ge4\) and \(\mu_1+\mu_2\le10\). Note \(a_z+b_z\ge26\) with both
+   \(\le24\) forces \(a_z\ge2\) AND \(b_z\ge2\), and six of the seven have
+   \(a_z+b_z=27\) hence \(a_z,b_z\ge3\). With \(a_z\ge3\) for six vertices,
+   \(\mu_1\le5\) would need a 5-element vertex cover, which by König means at
+   least two \(z\) have all three of their \(Q_1\)-neighbours inside a small set
+   — worth pushing, since it is a much stronger degeneracy than \(\mu_1\le3\).
+2. If that fails, the honest read is that order 57 needs a different tool, and
+   effort is better spent on order 58's three classes or on a sharper crossing
+   bound at intermediate density (the shared bottleneck identified in pass 14).
+3. Ask for review of `aug57.py`, `cover57.py`, `tsplit57.py`, `hall57.py` and
+   `crminus.py`.
