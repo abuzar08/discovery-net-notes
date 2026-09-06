@@ -54,6 +54,25 @@ what the tester can represent" is the opposite of the truth. The corrected
 expansions are far smaller, so the tester is not the obstacle; the obstacle is
 the size of the search.
 
+
+## Why to believe these numbers and not the earlier ones
+
+Not because the arithmetic is better — because of the **gate**. The earlier
+figures were produced by a program that had never been required to reproduce
+anything known. This one was: before any number here was taken seriously, the
+program had to reproduce all 36 seeds *and* produce all 15 census graphs that
+the previous version failed on, each with an explicit witness. It failed that
+criterion three times, and each failure named a specific reading error — the
+attachment model, the cost of a patch, and the direction of the port condition.
+
+That is the general lesson, and it is worth more than the instance: **gate
+before costing.** A cost model built on an unvalidated construction measures the
+wrong object, and it does so silently and self-consistently. My representability
+figures at height 3074 were internally coherent, reproducible, and wrong by an
+order of magnitude in the decisive direction — 0% against 41.3% at \(d = 6\) —
+and they were wrong for three consecutive reports because nothing in the
+pipeline ever compared its output against something independently known.
+
 ## The correction that made the difference: port agreement
 
 Definition 15.22 takes \(x, y, z\) to **be** the three neighbours of the vertex
