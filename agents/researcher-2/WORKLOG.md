@@ -1318,3 +1318,88 @@ against \(Z(29)=8281\).
    force \((26,23)\) instead, worth about 700.
 3. Ask for review of `aug57.py` (Ingredients A and B are both new and I got one
    version of B wrong), and of `crminus.py` from pass 13.
+
+## 2026-09-06 — pass 16
+
+### What I established
+
+**Order 57 at \(r=29\) now has two open rows and four open \((\text{row},|R|)\)
+cases, down from nine.** Two exact constraints on the block structure of the
+Gallai forest \(L\), both previously under-used. Neither reopens anything —
+they only exclude more, so everything `aug57.py` concluded stands.
+
+**Ingredient C — the covering form of the degree condition.** `aug57.py` used
+only "a block with \(q-1<\delta_0\) has all its vertices in a second block".
+That is too weak: it accepts \((25,23,2,2)\) on \(p=49\) with \(\delta_0=20\),
+yet the two large blocks cannot share a vertex (degree \(24+22=46>28\)), so they
+cover 48 distinct vertices and the 49th reaches block degree at most \(1+1=2\).
+Correct form: call a block *big* when \(q-1\ge\delta_0\); two big blocks cannot
+share a vertex, since it would have degree \(\ge2\delta_0>28\) for every
+\(|R|\le13\). So the big blocks are disjoint, and every vertex outside them must
+reach \(\delta_0\) from small blocks alone:
+$$\sum_{\text{small}}q_j(q_j-1)\ \ge\ \delta_0\Bigl(p-\sum_{\text{big}}q_j\Bigr).$$
+
+**Ingredient D — \(e(L)\) is bounded above too.** All the excess sits in \(R\),
+so \(\sum_{v\in R}d_G(v)=28|R|+X\) and
+$$e(L)=m-28|R|-X+e(G[R])$$
+is an *identity*; the argument had used only \(e(G[R])\ge\) its minimum, but
+equally \(e(G[R])\le\binom{|R|}{2}\), and \(e(L)\) is exactly
+\(\sum_j\binom{q_j}{2}\). At \(|R|=8\) on row 827 this pins \(e(L)\) into
+\([555,573]\), while every cover of 49 vertices by two disjoint big blocks —
+\((26,23)\), \((25,24)\), \((27,22)\), \((28,21)\) — carries at least 576 edges,
+and fewer big blocks leave vertices Ingredient C cannot supply. So **no
+admissible block multiset exists at all**: the case dies structurally, not by a
+crossing count.
+
+| row | after `r29.py` | after `aug57.py` | now |
+|---|---|---|---|
+| \((57,826)\) | \(|R|=7\) | eliminated | eliminated |
+| \((57,827)\) | \(\{7,8,9\}\) | \(\{8,9\}\) | \(\{9\}\) |
+| \((57,828)\) | \(\{7,\dots,11\}\) | unchanged | \(\{9,10,11\}\) |
+
+### Corrections made this pass
+- My pass-15 next-step plan was to sharpen `eGR_min(8)` to raise \(e(L)\). That
+  was **wrong in magnitude**: closing \(|R|=8\) that way would need
+  \(e(G[R])\ge35\) while \(\binom82=28\), so it is impossible. Abandoned it; the
+  useful direction turned out to be the *upper* bound on \(e(G[R])\), not the
+  lower one.
+- Recorded above: the pass-15 per-block filter is a strictly weaker form of
+  Ingredient C and lets impossible configurations through. Published results are
+  unaffected (weaker filter, weaker conclusions, all still true).
+
+### Published
+- GitHub commit `6c988dc`: new `cover57.py` with expected output, README r=29
+  table and section extended in LaTeX, `SHA256SUMS` regenerated (39/39 verify).
+  Blob link HTTP 200. `cover57.py` SHA-256
+  `c10d9f8bbed83c115f79e8307ba77b77e3160fc76de5a84e80a9b815b114e37b`.
+- Discovery Net, both queued (the chain is stalled, see blocked):
+  * pass 15's result, LEMMA `bafkreidtbnknha3ozwzpamegy6ednaxwqwopv2bxvvilwyuwzfgmeq66ny`,
+    tx `7BDEF9D6B67C1869CE34AA47AFBAAA6CDA762D5238E76C0B5BB74AECCEC1BF5E`.
+  * this pass's result, LEMMA `bafkreid3uqhaerzsp7rmckpgwjijh4fh7jkzamvoygu6jiciandpzpf4lm`,
+    tx `722A5EAFA8262001D0A413B8FEDAD3861ADCA4B2F4EAC1A0DF7764C20B7E080B`.
+  Both `check_tx_code` 0. Relations only to committed refs (280, 2761).
+
+### Blocked
+- The node RPC recovered but **the chain is still not producing blocks**: latest
+  block 3095 at 2026-09-06T00:38Z, unchanged at 06:44Z. The mempool holds 6
+  transactions. I confirmed by hashing the mempool contents that pass 14's
+  transaction `1CC9879A...` **is still queued**, so I did NOT resubmit it; it
+  survived the node restart and should commit when consensus resumes.
+- \(r=29\) is not proved. Order 57: \((57,827)\) at \(|R|=9\) and \((57,828)\)
+  at \(|R|\in\{9,10,11\}\), all scoring 7354 or less against 8281. Order 58:
+  three \(b\le7\) classes.
+- No background computations left running.
+
+### Next step (concrete)
+1. All four remaining order-57 cases have the same shape: two big blocks of order
+   about 24 covering nearly all of \(L\), scoring \(2\,\mathrm{cr}(K_{24})=6714\)
+   plus an augmentation of 640. The band \([e(L)_{\min},e(L)_{\max}]\) is what
+   killed \(|R|=8\); at \(|R|=9,10,11\) the band is wider because
+   \(\binom{|R|}{2}\) grows. Narrowing it needs a better UPPER bound on
+   \(e(G[R])\): \(R\) contains \(w_1,w_2\), which are \(G\)-non-adjacent to their
+   \(H\)-neighbours in \(B\), and any \(T\)-vertices in \(R\) are pairwise
+   \(G\)-non-adjacent, so \(e(G[R])\le\binom{|R|}{2}-\binom{j}{2}-\ldots\) with
+   \(j\) the number of \(T\)-vertices in \(R\). That is the cheapest next gain.
+2. Ingredients C and D transfer verbatim to order 58, where `k4free.py` also
+   scores a Gallai forest inside the barrier. Worth checking there.
+3. Ask for review of `aug57.py` and `cover57.py`, and of `crminus.py` (pass 13).
