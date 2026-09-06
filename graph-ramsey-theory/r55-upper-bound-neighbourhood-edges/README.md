@@ -178,6 +178,8 @@ an honest illustration that this bound is one tool among several.)
   scanner. Standard library only.
 - `e45.json` — the verified constants, source URLs and SHA-256.
 - `reduce.py` — the reduction in exact rational arithmetic, and `--selftest`.
+- `glue.py` — the gluing CNF (both the fixed-pair and the fixed-\(H\) forms),
+  and the \(S_m\) symmetry break for \(M\).
 
 ## Reproduction
 
@@ -191,10 +193,73 @@ python3 reduce.py
 python3 reduce.py --selftest
 ```
 
+## Deciding \(\beta\) by gluing, and where that route stops
+
+The inequalities above ask whether a dense \((4,5,m)\)-graph can actually be
+a neighbourhood. That is a finite question with no symmetry assumption in it,
+so it was worth costing before committing to it.
+
+**The instance is small.** Fix a vertex \(v\) of degree \(d\); then
+\(V = \{v\} \cup N \cup M\) with \(G[N] = H\) a fixed
+\((4,5,d)\)-graph, and the unknowns are the edges inside \(M\) and between
+\(N\) and \(M\). Two clause families vanish for free: a \(K_5\) through
+\(v\) needs a \(K_4\) in \(N\), impossible as \(H\) is \(K_4\)-free;
+and an independent \(5\)-set through \(v\) needs an independent
+\(4\)-set in \(M\), which is added explicitly since \(G[M]\) is unknown.
+At \(n = 45\), \(d = 22\) this is \(715\) variables and \(816233\)
+clauses, generated in three seconds (`glue.py`).
+
+**The encoder is validated against ground truth.** Taking a real
+\((5,5,42)\)-graph (McKay's `r55_42some.g6`, SHA-256 `067902e8...`, the same
+hash researcher-1 recorded independently), extracting \(H\) at two different
+vertices, and testing the graph's own bipartite and internal assignment
+against every generated clause gives **zero violations** in both cases. The
+\(S_m\) symmetry break below was checked the same way: relabelling \(M\) so
+its bipartite columns are lex-sorted leaves the true solution satisfying every
+original clause and every symmetry clause.
+
+**But it does not scale to where it is needed.** Solve times on instances that
+are *known satisfiable* — built from induced subgraphs of a real
+\((5,5,42)\)-graph, so a witness provably exists — with the \(S_m\)
+symmetry break included:
+
+| \(n\) | \(d\) | \(m\) | variables | clauses | result |
+|---|---|---|---|---|---|
+| 20 | 13 | 6 | 153 | 3345 | SAT, \(< 1\) s |
+| 24 | 15 | 8 | 246 | 11522 | SAT, \(< 1\) s |
+| 28 | 15 | 12 | 400 | 47871 | SAT, \(< 1\) s |
+| 32 | 18 | 13 | 516 | 90443 | SAT, \(< 1\) s |
+| 36 | 20 | 15 | 671 | 178652 | SAT, \(101\) s |
+| 40 | 21 | 18 | 871 | 369825 | no verdict in \(120\) s |
+| 42 | 22 | 19 | 967 | 487775 | no verdict in \(120\) s |
+
+**The boundary is near \(n = 36\)**, and it is sharp: under a second at
+\(n = 32\), \(101\) s at \(n = 36\), nothing at \(n = 40\). Two
+qualifications, both in the unfavourable direction: these are the *easy*
+direction (a satisfying assignment exists and only has to be found), whereas
+excluding a neighbourhood needs UNSAT, which is typically far harder; and the
+\(n = 45\), \(d = 22\) instance with \(H\) the densest
+\((4,5,22)\)-graph ran \(26\) minutes without a verdict. So \(n \approx
+36\) is an **upper** estimate of the boundary.
+
+Breaking the \(S_m\) relabelling symmetry of \(M\) — order \(19! \approx
+10^{17}\) at \(n = 42\) — by sorting the bipartite columns is sound and was
+verified, but did not move the boundary: the \(n = 42\) instance failed to
+solve in \(420\) s both with and without it.
+
+**Verdict.** Unconditional neighbourhood gluing in this form is feasible to
+about \(n = 36\) and breaks down well below the \(n = 43\)–\(45\) range
+where it would be needed. Reported as a costed negative so the route is not
+re-attempted blind. What it does *not* rule out: a formulation that never
+builds \(M\) explicitly, or one that decides many \(H\) at once rather
+than one instance per catalogued neighbourhood — the catalogue count is the
+other binding constraint, since \(31109\) \((4,5,22)\)-graphs have \(113\)
+or \(114\) edges alone.
+
 ## Next
 
-Decide \(\beta(22) \le 109\) at \(n = 45\), the cheapest of the three
-inequalities: it asks whether a \((4,5,22)\)-graph with \(110\) or more edges
-can be a neighbourhood in a \((5,5,45)\)-graph. McKay's extremal archive
-supplies the \((4,5,22)\)-graphs at \(113\) and \(114\) edges but not at
-\(110\)–\(112\), so this needs either those graphs or a direct argument.
+Decide \(\beta(22) \le 109\) at \(n = 45\) by an argument rather than a
+search, since the search is now measured to be out of range. McKay's extremal
+archive also supplies the \((4,5,22)\)-graphs at \(113\) and \(114\)
+edges but not at \(110\)–\(112\), so a search-based route would need those
+graphs as well.
