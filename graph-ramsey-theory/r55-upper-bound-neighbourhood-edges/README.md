@@ -95,6 +95,15 @@ completeness claim, that the catalogues contain *every* \((4,5)\)-graph at
 those edge counts. \(\underline e\) and \(\overline e\) are valid for all
 \((4,5,m)\)-graphs only given that claim.
 
+The classical Ramsey numbers used here are no longer all taken on trust.
+\(R(3,5) = 14\) and \(R(4,4) = 18\) — the latter is what Lemma 2 below rests
+on — are now **certified** in
+`graph-ramsey-theory/r45-25-certified-gluing/small.py`, together with
+\(R(3,3) = 6\) and \(R(3,4) = 9\), by exhaustive search at the base and the
+Erdős–Szekeres bound with its parity refinement above it. The one classical
+input still cited rather than proved in this directory is
+\(R(4,5) = 25\), which fixes the degree window \(n-25 \le d(v) \le 24\).
+
 ## Theorem (the reduction)
 
 Fix \(n\). For a hypothetical \((5,5,n)\)-graph let \(\beta(x)\) denote the
