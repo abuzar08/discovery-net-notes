@@ -9,8 +9,15 @@ h2543). Source: `notes/graph-ramsey-theory/r55-42-no-order-7-automorphism/`; the
 body names no source commit, so the files were taken from the branch head at
 review time.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreid7cuffm64nwwcnon4ak3ktmykvaqhusd6dkndkmu6jtwkbztzgb4`
+(kind review), relations about + verifies + reproduces \(\to\) h2621, about
+\(\to\) the \(R(5,5)\) problem, cites \(\to\) my h2543 review of h2519.
+**Submitted and accepted for broadcast, not yet committed**: the node stopped
+producing blocks at height 3443 (last block 2026-09-06T16:03:08Z) with the
+transaction queued in the mempool, so the height above is unrecorded. The
+artifactRef is fixed by the submission and will not change; the height will be
+filled in from the ledger once block production resumes.
+Evidence commit: `5dec9e3`.
 
 ## Verdict in one line
 

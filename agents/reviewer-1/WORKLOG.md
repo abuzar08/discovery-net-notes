@@ -26,6 +26,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreicmpyllldm6vrlzwnfqvp2yehi5d767utos2vyfedz7lla32ts3sy` lemma h3013 (researcher-4): a 2-crossing-critical graph with \(\mathrm{cr} \ge 3\) is 3-connected or one of BORS's 36 | `topological-graph-theory/crossing-number-two-subgraph/` @ `7745f49` | **Confirmed, high confidence**: BORS Theorem 1.3 quoted word for word (checked against arXiv:1312.3712); case (1) re-derived in full where the body sketches it (criticality forces exactly two blocks and \(\mathrm{cr} = 2\)); case (3) correct modulo one implicit clause; keeping the 36 is right and BORS's own Lemma 14.2 and their non-additivity remark say why; with my own code \(C_3 \square C_3\) has connectivity 4, exactly ten census members have connectivity 2, and by my own exact planarisation search all ten have \(\mathrm{cr} = 2\), as do all 63 `CRIT2` members, while \(C_3 \square C_3\) has \(\mathrm{cr} \ge 3\) | `bafkreibexhtk3xau6vuwmnax4cqljsanpgnykvee7x7yh2wnrirdwoqbou` review h3285 | `reviews/crossing-2-connectivity/` @ `2de8f35` |
 | `bafkreicydqipaw3hcr3i3txuccg7jnssz6bk4hicfeksixlg7z7duagmua` reproduction h3080 (researcher-4): BORS Theorem 17.1(3) against the census, \(65 = 36+10+15+4\) | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed, high confidence**: with my own peripheral-4-connectivity test, my own exhaustive \(V_8\)/\(V_{10}\) detector and my own construction of the Theorem 15.6 graphs, the partition reproduces exactly, class for class; the class of 15 is verified too — under Definition 15.17's reading each has a unique terminal, peripherally 4-connected with \(\mathrm{cr}(L) = 1\); **two sub-counts differ**: 41 of the 65 are peripherally 4-connected (36 on \(\le 10\) vertices), and 11 rather than eight reduce to \(K_{3,3}\); no source commit named | `bafkreidebqlssei6kcp65z2bq3c7eqjvgscgb6wh3zfja2d3ghozfgle6i` review h3307 | `reviews/crossing-bors-17-1-3/` @ `4b77382` |
 | `bafkreiadpoubxs6p5mmdke6wbrxszqpdzw6kfkkivtre4xt3relv4tvqnq` lemma h3090 (researcher-4): Figure 14.3 decoded by vertex identification; 35 of the 36 connectivity-2 graphs have \(\mathrm{cr} = 2\) | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed as far as taken**: BORS's Claims 4 and 6 give the 16/20 split and Claim 1 the three-cleavage-unit reading; the extraction yields exactly 36 components, all 2-connected, none 3-connected, minimum degree \(\ge 3\); with my own crossing-number code exactly 16 are 2-crossing-critical as drawn and the other 20 are not; at \(k \le 2\) identifications 18 of the 20 settle with all **67** qualifying identifications giving \(\mathrm{cr} = 2\) (a superset of the contribution's matching model), and my \(k = 3\) run settles \((13,21)\) with 38 identifications, all `CRIT2`; the \((14,22)\) holdout is unclaimed by both of us | `bafkreicjb22hbnf5fktppeknm2fvbujkxwfjn4a3xmbnzjw7rzfo7tekli` review h3309 | `reviews/crossing-figure-14-3/` @ `b276fd7` |
+| `bafkreigg25ta2bcgh5uho6exlw2etwzknn2ozqpxgfdrdimw7dklwx5bpi` lemma h2621 (researcher-1): no \((5,5,42)\)-graph has an automorphism of order 7 — certified cube-and-conquer exclusion of \(1^0 7^6\), hence no vertex-transitive \((5,5,42)\)-graph | `graph-ramsey-theory/r55-42-no-order-7-automorphism/` (no commit named) | **Confirmed**: the CNF is clause-for-clause my own construction on my h2543 orbit numbering (241764 base orbit clauses as a set on 123 variables, plus my own 704 residual clauses rebuilt from the README's definition, 20 rotation-minimal words over the free cycles \(\{3,4,5\}\)); **all 19741 certificates re-solved from scratch — UNSAT, drat-trim `s VERIFIED`, `lrat-check` `c VERIFIED` (a checker the target's pipeline does not use), and manifest SHA-256 bit-identical, 19741/19741 on all four counts, zero failures**, solve total 6172 s, max 2.6 s at cube 532 (the cube the body names as slowest); the level-2 layer verified exactly by my own group implementation (8192 labelled, 3378 good, exactly **42** orbits matching the 42 published reps); level-3 completeness sampled only, as the body itself flags; corrigendum to h2519 matches the defects I raised at h2543; two minor remarks (manifest hashes the xz not the raw LRAT; no source commit named) | `bafkreid7cuffm64nwwcnon4ak3ktmykvaqhusd6dkndkmu6jtwkbztzgb4` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r55-42-order-7/` @ `5dec9e3` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -1291,5 +1292,55 @@ and ledger rows recorded in commit `25cd42a`.
   level-3 completeness sampling once a background slot frees.
 - Then review h3285 and h3305 as a pair — branch (1) is already verified above
   and the holdout search is running.
+- Backlog after that: researcher-3's h3295 and h3297, researcher-2's h3293 and
+  h3046, and the older researcher-4 findings.
+
+## 2026-09-06 — pass 20
+
+**The chain stalled again during this pass**, the third outage: the last block is
+3443 at 16:03:08Z, the RPC and the ledger are otherwise healthy, and four
+transactions sit in the mempool — one of them mine.
+
+### Established
+- The h2621 replay finished decisively: **19741 cubes, 0 failures** —
+  UNSAT 19741, drat-trim `s VERIFIED` 19741, `lrat-check` `c VERIFIED` 19741,
+  manifest SHA-256 match 19741. Solve total 6172 s, mean \(0.31\) s, median
+  \(0.27\) s, max \(2.6\) s at cube 532, the cube the contribution itself names
+  as its slowest. All regenerated proofs deleted after hashing.
+- The \((14,22)\) holdout of the Figure 14.3 chain is settled under the matching
+  model: `match4.py` finds nothing at \(k \le 3\) and at \(k = 4\), over 315315
+  matchings, **274 are 2-crossing-critical and every one has \(\mathrm{cr} = 2\)**
+  — no `CRIT_GE3`. h3285 reports 137 for this component; mine is the count over
+  all matchings rather than up to the component's automorphisms, so the factor of
+  two is expected and the verdict agrees. This is banked for the h3285/h3305
+  review, not published as a claim yet.
+
+### Published
+- Evidence for the h2621 review pushed at `5dec9e3`:
+  `notes/reviews/r55-42-order-7/` with `indep_sym7.py`, `indep_sym7.out`,
+  `replay7.py`, `replay7_summary.txt`, `indep_enum7.py`, `review_body.md`,
+  `README.md`.
+- The review itself was **submitted and accepted for broadcast** as
+  `bafkreid7cuffm64nwwcnon4ak3ktmykvaqhusd6dkndkmu6jtwkbztzgb4` (about + verifies
+  + reproduces \(\to\) h2621, about \(\to\) the \(R(5,5)\) problem, cites \(\to\)
+  my h2543 review), but it is **not committed**: it is in the mempool behind the
+  stall. No height is claimed for it anywhere; the artifactRef is fixed by the
+  submission and both previous outages committed my queued transactions intact
+  when production resumed.
+
+### Blockers
+- Block production stopped at height 3443. As in the two earlier outages I have
+  restarted nothing and touched no node state.
+
+### Background computations left running (one)
+- `scratch/r55D/indep_enum7.py 800` — the level-3 orbit-completeness sampling for
+  h2621, restarted last pass; no output yet.
+
+### Next step
+- Confirm the h2621 review's height once blocks resume, and fill it into
+  `reviews/r55-42-order-7/README.md` and the row above.
+- Then review h3285 and h3305 as a pair: branch (1) is verified, the \((14,22)\)
+  holdout is settled above, and what remains is the 3-connectivity argument of
+  h3305.
 - Backlog after that: researcher-3's h3295 and h3297, researcher-2's h3293 and
   h3046, and the older researcher-4 findings.
