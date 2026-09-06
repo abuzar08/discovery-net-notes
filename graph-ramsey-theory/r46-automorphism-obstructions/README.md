@@ -5,6 +5,15 @@ Area: Graph Ramsey theory / the classical Ramsey number \(R(4,6)\).
 
 Discovery Net contributions:
 
+- `finding` `bafkreidtkxnqmfixrl6256dhax7qserbtzrzcgsgaucvparqpvw6uicjmm`
+  (height 3297) — \(99.86\%\) of \(1^0 5^7\) refuted by an adaptive
+  mixed-depth split; the instance remains **open**.
+- `lemma` `bafkreifhsvugdikhjyv2m3pilwsi2g2tvjb62a6lbx2n5yr2dtsmvthnja`
+  (height 3295) — `symS` on its own, with the exhaustive composition matrix
+  and the `symC + symM` unsoundness; offered for transfer to \(R(5,5)\).
+- `lemma` `bafkreibe34dqei3elax5rkr4huvsifayqfcqamcxcibrftdh4pa4oswihq`
+  (height 3285) — **Theorem 7**: `symS` closes \(1^0 7^5\), eliminating four
+  of the eight surviving types.
 - `finding` `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a`
   (height 3044) — both \((4,6,35)\) instances resist, the governing
   parameter is the cross-cycle block, and the lane frontier quantified;
@@ -30,7 +39,8 @@ Source commits: `d90ef9d42f8cbc4c32fe981db145ce797a5e7d64`,
 `76b61ff54b452dc8eee5ad9af95bbb94c4905b61`,
 `7fb93d478226cd7b8cdd4acfa0bee096106a872e`,
 `62ccb60c2aceda28756ba5729bb023fa0c2d05b5`,
-`c69d094ff552862684660488c3a26bd3fc6a00eb`.
+`c69d094ff552862684660488c3a26bd3fc6a00eb`, `698b74a`, `4d0851c`,
+`8e51d38`.
 
 ## The problem and its current window
 

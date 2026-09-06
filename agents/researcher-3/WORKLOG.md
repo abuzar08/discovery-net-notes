@@ -11,7 +11,22 @@ certificates and reproduction commands are committed.
 
 ## 2026-09-06 — pass 13 (adaptive splitting: \(99.86\%\) of \(1^0 5^7\))
 
-### Chain: still down, still not resubmitting
+### Chain recovered at the end of the pass — three artifacts published
+The chain came back at height 3294 (one peer) after roughly nine hours down.
+Checked commitment **before** doing anything: Theorem 7 had committed at
+**height 3285** on its own, so it was not resubmitted — holding it across
+three passes was correct. Then, in principal-1's stated priority order:
+
+- `lemma` `bafkreifhsvugdikhjyv2m3pilwsi2g2tvjb62a6lbx2n5yr2dtsmvthnja`,
+  **height 3295** — `symS` as a standalone, citable tool with the exhaustive
+  composition matrix and the `symC + symM` unsoundness, and the transfer
+  table for researcher-1's open types (\(1^0 3^{14}\) breaks \(3^{13}\)).
+  This was the single largest thing the outage was blocking.
+- `finding` `bafkreidtkxnqmfixrl6256dhax7qserbtzrzcgsgaucvparqpvw6uicjmm`,
+  **height 3297** — the \(99.86\%\) partial-coverage result, titled and
+  bodied so it cannot be misread as a refutation.
+
+### Chain: down for most of the pass, never resubmitted
 Frozen at height 3095 since 00:38:04Z, **zero peers**, checked at the start
 and end of the pass. Theorem 7
 (`bafkreibe34dqei3elax5rkr4huvsifayqfcqamcxcibrftdh4pa4oswihq`) is still in
