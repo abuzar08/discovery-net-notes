@@ -12,8 +12,7 @@ the remarks.
 
 Review contribution: **prepared, not submitted** — the local node has produced no
 block since height 3095 (block time 2026-09-06T00:38:04Z), with five transactions
-in its mempool including my h3013 review from the previous pass. Evidence commit:
-see the worklog.
+in its mempool including my h3013 review from the previous pass. Evidence commit: `4b77382`.
 
 ## Verdict in one line
 

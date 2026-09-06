@@ -998,3 +998,65 @@ BORS's 36").
   of BORS Theorem 17.1(3), with its \(65 = 36+10+15+4\) partition) is the
   strongest remaining item, and the BORS PDF and my census tooling from this pass
   carry over directly. After that h3090 and h3084, then the older findings.
+
+## 2026-09-06 — pass 15
+
+The chain is still down: no block since height 3095 (block time
+2026-09-06T00:38:04Z), about six hours, with the same five transactions in the
+mempool, including my h3013 review from pass 14. Diagnosis for the orchestrator,
+read-only: all three node containers (`discovery-node-local-cometbft-1`,
+`-application-1`, `-rpc-1`) are **up and reported healthy**, the RPC answers, and
+the ledger file's last write is 20:38 — so consensus has stalled inside a running
+node rather than a container having died. I did not touch it. The repository is
+healthy and the researchers are still committing, so this pass did review work
+and published evidence there, holding both review submissions.
+
+### Established — h3080 (researcher-4), BORS Theorem 17.1(3) against the census
+- Census totals reproduce: 88 members (87 `CRIT2`, one `CRIT_GE3`), **65**
+  3-connected, exactly as claimed.
+- Peripheral 4-connectivity: my first implementation of BORS's definition was too
+  strict — it rejected any 3-cut leaving more than two components, but three
+  singleton components are permitted, since every split of three singletons has a
+  side that is a single vertex. The lane's own `seeds.py` reads the definition
+  correctly. With the corrected test **41** of the 65 are peripherally
+  4-connected, of which exactly **36 are on at most ten vertices** — BORS's seed
+  range, and the contribution's 36 bases.
+- My own exhaustive \(V_8\)/\(V_{10}\) subdivision detector (cubic branch
+  vertices, at most \(n-k\) subdivision vertices, subgraph monomorphism), with six
+  controls passing including \(C_3 \square C_3 \not\supseteq V_8\): 32 of the 65
+  contain one, and of the 29 that are not bases exactly **10** do — five
+  peripherally 4-connected but on eleven vertices, five not.
+- The four Theorem 15.6 graphs, built by my own code from Definition 15.2 (two
+  \(K_{2,3}\) joined by a perfect matching \(M\), contracting subsets of \(M\)):
+  exactly four up to isomorphism with \((n,m) = (7,12), (8,13), (9,14), (10,15)\),
+  contracting all of \(M\) returning \(K_{3,4}\); exactly four census members are
+  isomorphic to them.
+- **The partition reproduces exactly**: \(36 + 10 + 15 + 4 = 65\), no residue, no
+  double counting.
+- Not verified: that the remaining 15 reduce by planar 3-reductions to a base with
+  \(\mathrm{cr}(L) = 1\). My checks fix the size and membership of that class
+  only.
+- Remarks for the source: the "36 are peripherally-4-connected" count needs its
+  \(\le 10\) vertex qualifier (a reader reproducing it gets 41); and the
+  contribution names no source commit SHA, unlike others in this lane.
+
+### Published
+- Evidence `reviews/crossing-bors-17-1-3/` (52 KB): commit `4b77382`, pushed.
+
+### Blockers
+- Chain down, as above. Two review bodies are now prepared and unpublished:
+  h3013 (submitted in pass 14, tx `056D2DF3...`, still in the mempool) and h3080
+  (prepared this pass, deliberately not submitted while the chain is dead; body
+  at `scratch/r4d/review_body.md`, evidence commit already filled in).
+
+### Background computations left running
+- None. `scratch/` is about 650 MB.
+
+### Next step
+- When the chain advances: check whether tx `056D2DF3...` committed **before**
+  resubmitting anything, then submit the h3080 body and record both artifactRefs
+  and ledger rows.
+- Then continue in researcher-4's lane: h3090 and h3084 (the Figure 14.3 decoding
+  and the connectivity-2 branch) are the newest, and the older findings h2887,
+  h2905, h2929, h3016, h3018, h3028, h3038 remain. Researcher-2's h3046 and the
+  new order-57 work, researcher-3's h3044 and researcher-1's h2621 are also open.
