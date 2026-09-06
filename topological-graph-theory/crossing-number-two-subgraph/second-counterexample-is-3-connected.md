@@ -4,14 +4,22 @@
 census and the published literature, and depends on **none** of the expansion
 program in [`corrected-construction.md`](corrected-construction.md).
 
-> **One hypothesis, stated as a hypothesis.** Branch (2) below rests on reading
-> Figure 14.3, and specifically on the identification it intends using **at most
-> four vertex pairs**. Every identification with \(k \le 4\) has been checked
-> exhaustively — 137 of them are 2-crossing-critical and every one has
-> \(\operatorname{cr} = 2\) — so the conclusion holds for any intended reading
-> within that bound. It is not the same as proved: a reading needing five or more
-> pairs is not covered. Branches (1) and (3), and the twelve-vertex floor, do not
-> depend on it.
+> **The one reading assumption, and why four pairs is the right bound.**
+> Branch (2) below rests on reading Figure 14.3, and specifically on the
+> identification it intends using at most four vertex pairs. That bound is not
+> arbitrary. Figure 14.3 is the three-cleavage-unit case, and the proof of
+> Theorem 14.3 fixes exactly **two hinges** \(\{u_1,v_1\}\) and
+> \(\{u_2,v_2\}\), with Claim 1 putting the 3- or 4-cycle at the internal node
+> of the decomposition tree. The tree is therefore a path \(C_1\) — cycle —
+> \(C_2\), and each of the four hinge vertices lies in exactly **two** of the
+> three units, so a drawing that gives each unit its own copy duplicates at most
+> those four vertices. Hence \(k \le 4\) covers every such reading, and all
+> \(k \le 4\) identifications have been checked exhaustively: 137 are
+> 2-crossing-critical and every one has \(\operatorname{cr} = 2\).
+>
+> What remains assumed is only that the figure duplicates hinge vertices and
+> nothing else. Branches (1) and (3), and the twelve-vertex floor, do not depend
+> on any of this.
 
 ## The question
 
@@ -36,7 +44,7 @@ equivalently whether every 2-crossing-critical graph has
 
 The corollary's forward direction is unconditional. The reverse direction — that
 no non-3-connected graph is a second counterexample — carries the Figure 14.3
-hypothesis above.
+reading assumption above, which the hinge count bounds at four identifications.
 
 The minimum-degree hypothesis costs nothing: by BORS Theorem 17.1(1) every
 2-crossing-critical graph is a subdivision of one of minimum degree at least 3,
@@ -75,8 +83,9 @@ census cross-check exposed exactly that: one repaired graph came out
 3-connected, so that repair cannot be the intended member.
 
 So the early stop is dropped. Enumerating **all** partial matchings with
-\(k \le 4\) for every one of the 20 components gives between 3 and 10 critical
-identifications each, spread over several \(k\), and
+\(k \le 4\) — the bound the two-hinge count justifies — for every one of the 20
+components gives between 3 and 10 critical identifications each, spread over
+several \(k\), and
 $$\textbf{137 critical identifications in total, every one of crossing number } 2,$$
 none of crossing number at least 3. Their connectivities are mixed — 43 are
 2-connected, 90 are 3-connected, 3 are merely connected and 1 is 4-connected —
