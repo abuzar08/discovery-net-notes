@@ -1851,3 +1851,76 @@ Both frontiers are one case wide and neither is closed:
    whether the \(e(H[R])\) edges can be pinned to \(Z\) as they were at \(|R|=9\).
 3. Ask for review of the order-57 chain, `order58gal.py` and `mu58.py`; the
    correction above is exactly the kind of step a reviewer should re-derive.
+
+## 2026-09-06 — pass 23
+
+### What I established
+
+**Singleton colour classes halve the cost of an absorption.** Every absorption in
+the \(r=29\) endgame had been costed as if it needed a class \(\{u,v\}\) with
+\(u\in Q_1\) and \(v\) outside, so \(z\) had to be \(H\)-adjacent to **both**.
+That is too pessimistic.
+
+\(\chi(G[L])=q_1\), so in any proper \(q_1\)-colouring every class holds exactly
+one \(Q_1\)-vertex and the other \(|L|-q_1\) vertices spread over those same
+\(q_1\) classes. By Constraint C the non-cut vertices lie in the big blocks,
+which are pairwise disjoint, so an independent set has at most
+\(k_{\mathrm{eff}}\) vertices and a class holds at most \(k_{\mathrm{eff}}-1\)
+non-\(Q_1\) vertices. Hence
+$$s:=q_1-\left\lceil\frac{|L|-q_1}{k_{\mathrm{eff}}-1}\right\rceil$$
+classes can be left as singletons \(\{u\}\); for \(k_{\mathrm{eff}}=2\),
+\(s=2q_1-|L|\), realisable because a vertex outside \(Q_1\) is \(G\)-non-adjacent
+to every \(Q_1\)-vertex but itself. Absorbing \(z\) into \(\{u\}\) needs only
+\(z\sim_H u\) — one matching edge — and the colouring is chosen after seeing the
+graph. So the requirement becomes
+$$\mu_1\ge t\quad\text{and}\quad \mu_1+\mu_2\ge|Z|+\max(0,t-s),$$
+weaker by \(s\).
+
+**Order 57.** Row \((57,828)\) drops from eleven admissible
+\((|R|,\text{multiset})\) combinations to **four**: \((10,(24,23,2))\),
+\((10,(25,22))\), \((10,(25,22,2))\), \((11,(26,20))\). All but \((26,20)\) close
+at \(|R|=11\).
+
+**Order 58.** Class \(b=6\), \(c=(51,1)\) goes 5835/6681/7282 to 5713/6561/7165
+survivors — real but small, because \(s=|R|-10\) is tiny while
+\(t=\chi(G[L])+|R|-28-\nu\) grows with the largest block.
+
+### Correction made this pass
+My first version of \(s\) used \(k_{\mathrm{eff}}=\) the total number of blocks,
+giving \(s=12\) and \(s=14\) for the three-block multisets — badly wrong. The
+small blocks consist entirely of **cut** vertices by Constraint C, so they add no
+independent-set slot; only the pairwise-disjoint big blocks count. With the
+corrected \(k_{\mathrm{eff}}\), \((24,23,2)\) has \(s=1\), not 12, and it
+survives rather than closing. Caught before publishing.
+
+### Published
+- GitHub commit `cc845a1`: new `singleton.py` with expected output, README
+  section in LaTeX, `SHA256SUMS` regenerated (53/53 verify). Blob link HTTP 200.
+  `singleton.py` SHA-256
+  `38ae99e9ba096526ef20a2255ecfb139fe9e939c65fd939781f50b6f1455ea5c`.
+- Discovery Net: LEMMA `bafkreif7x4v3cwq2fbzdnqvidsvixy7aglc66uulfyhlentcrvhcdoxy3y`,
+  tx `A141400D3CCE6EB9000C2C094FF314D3B7CAF0FFBE99F1963B72DF70A40754BD`,
+  check_tx_code 0, `refines` the row-827 elimination (3285). **Queued.**
+
+### Blocked
+- The chain has been stalled since 2026-09-06T16:03Z at block 3443. Three of my
+  contributions are queued (passes 21, 22, 23). The previous outage of this kind
+  cleared itself after about nine hours with everything committing untouched, so
+  I am not resubmitting.
+- \(r=29\) is not proved; neither frontier closes.
+- No background computations left running.
+
+### Next step (concrete)
+1. The four surviving order-57 combinations are now few enough to attack
+   individually. Three of them have \(\chi(G[L])=25\) or 26, where \(t\) is large
+   (5, 6, 9) precisely because the largest block is big — but a big block is also
+   a big clique, so the crossing bound should be re-examined there jointly with
+   the augmentation by \(w_1,w_2\). \((26,20)\) at \(|R|=11\) has
+   \(\mathrm{cr}(K_{26})+\mathrm{cr}(K_{20})=6254\); with the two \(w\)'s
+   attached it is still short, but the combination of a large \(t\) and a large
+   clique has not been exploited in one argument.
+2. Order 58's \((51,1)\) resists every tool tried so far; the honest read is that
+   it needs a genuinely different idea, and it is the single obstruction between
+   the present state and \(r=29\).
+3. Ask for review of the order-57 chain, `order58gal.py`, `mu58.py` and
+   `singleton.py`.
