@@ -1,0 +1,14 @@
+(a) symS at p = 2, completeness of the break
+  f=0 p=2 k=3: 9 orbits, induced group order 4 (p^(k-1) = 4), uncovered 0, survivors 288 of 512
+  f=0 p=2 k=4: 16 orbits, induced group order 8 (p^(k-1) = 8), uncovered 0, survivors 27648 of 65536
+  f=1 p=2 k=3: 12 orbits, induced group order 4 (p^(k-1) = 4), uncovered 0, survivors 2304 of 4096
+(b) does symK subsume symC?
+  f=0 p=3 k=2: witness 10000 satisfies symK but not symC (internal codes [[1], [0]])
+  f=0 p=5 k=2: witness 010000000 satisfies symK but not symC (internal codes [[0, 1], [0, 0]])
+  f=0 p=3 k=3: witness 100000000000 satisfies symK but not symC (internal codes [[1], [0], [0]])
+(c) arithmetic
+  1^0 7^5: 24 lex chains x 36 clauses = 864; group broken p^(k-1) = 2401
+  1^0 2^18: 17 lex chains x 6 clauses = 102; group broken p^(k-1) = 131072
+  transfer table p=7 k=6: p^(k-1) = 16807
+  transfer table p=5 k=8: p^(k-1) = 78125
+  transfer table p=3 k=14: p^(k-1) = 1594323

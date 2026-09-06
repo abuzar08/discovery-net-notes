@@ -1,0 +1,3 @@
+85 orbit variables, 237160 base clauses, 544 breaking clauses (symC True), built in 2 s
+CaDiCaL: UNSAT in 314 s; proof 149 MB
+drat-trim: s VERIFIED in 954 s

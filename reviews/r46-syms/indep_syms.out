@@ -1,0 +1,19 @@
+=== 1-4: the shift group, its action and what it preserves
+  f=0 p=3 k=2 (s,t)=(3,3): 5 orbits; commutes True; well defined on orbits True; claimed orbit formula True; induced group order 3 (p^(k-1) = 3); goodness preserved True
+  f=0 p=5 k=2 (s,t)=(4,6): 9 orbits; commutes True; well defined on orbits True; claimed orbit formula True; induced group order 5 (p^(k-1) = 5); goodness preserved True
+  f=0 p=3 k=3 (s,t)=(3,4): 12 orbits; commutes True; well defined on orbits True; claimed orbit formula True; induced group order 9 (p^(k-1) = 9); goodness preserved True
+  f=1 p=3 k=2 (s,t)=(3,4): 7 orbits; commutes True; well defined on orbits True; claimed orbit formula True; induced group order 3 (p^(k-1) = 3); goodness preserved True
+  f=2 p=3 k=2 (s,t)=(3,4): 10 orbits; commutes True; well defined on orbits True; claimed orbit formula True; induced group order 3 (p^(k-1) = 3); goodness preserved True
+  f=0 p=7 k=2 (s,t)=(4,6): 13 orbits; commutes True; well defined on orbits True; claimed orbit formula True; induced group order 7 (p^(k-1) = 7); goodness preserved True
+=== 5: completeness of symS as a break of the shift group
+  f=0 p=3 k=2: 32 assignments, 0 with no symS image (0 = complete break), 16 survive symS
+  f=0 p=5 k=2: 512 assignments, 0 with no symS image (0 = complete break), 128 survive symS
+  f=0 p=3 k=3: 4096 assignments, 0 with no symS image (0 = complete break), 1024 survive symS
+  f=1 p=3 k=2: 128 assignments, 0 with no symS image (0 = complete break), 64 survive symS
+  f=0 p=7 k=2: 8192 assignments, 0 with no symS image (0 = complete break), 1280 survive symS
+  f=0 p=3 k=4: 4194304 assignments, 0 with no symS image (0 = complete break), 524288 survive symS
+=== 6: the lane's symS CNF against my predicate
+  f=0 p=3 k=2: 32 assignments, 24 clauses, 4 auxiliaries, mismatches 0
+  f=0 p=5 k=2: 512 assignments, 96 clauses, 16 auxiliaries, mismatches 0
+  f=1 p=3 k=2: 128 assignments, 24 clauses, 4 auxiliaries, mismatches 0
+  f=0 p=3 k=3: 4096 assignments, 48 clauses, 8 auxiliaries, mismatches 0

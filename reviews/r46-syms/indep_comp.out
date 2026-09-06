@@ -1,0 +1,85 @@
+f=0 p=3 k=2: 5 orbit variables, 32 assignments, symmetry group of order 12
+  12 orbits under the group
+  symS                   survivors     16  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC                   survivors     24  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK                   survivors     20  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symM                   survivors     24  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC              survivors     12  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symM              survivors     16  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symK              survivors     12  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK+symM              survivors     18  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symM              survivors     18  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symK              survivors     12  orbits with no survivor     4  assignments uncovered     16  *** UNSOUND ***
+
+f=0 p=5 k=2: 9 orbit variables, 512 assignments, symmetry group of order 40
+  48 orbits under the group
+  symS                   survivors    128  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC                   survivors    320  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK                   survivors    272  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symM                   survivors    168  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC              survivors     80  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symM              survivors     74  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symK              survivors     80  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK+symM              survivors    116  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symM              survivors     96  orbits with no survivor     6  assignments uncovered     64  *** UNSOUND ***
+  symC+symK              survivors     80  orbits with no survivor    28  assignments uncovered    384  *** UNSOUND ***
+
+f=0 p=7 k=2: 13 orbit variables, 8192 assignments, symmetry group of order 84
+  228 orbits under the group
+  symS                   survivors   1280  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC                   survivors   4608  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK                   survivors   4160  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symM                   survivors   1552  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC              survivors    720  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symM              survivors    480  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symK              survivors    720  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK+symM              survivors   1092  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symM              survivors    660  orbits with no survivor    54  assignments uncovered   2304  *** UNSOUND ***
+  symC+symK              survivors    576  orbits with no survivor   172  assignments uncovered   7168  *** UNSOUND ***
+
+f=0 p=3 k=3: 12 orbit variables, 4096 assignments, symmetry group of order 108
+  140 orbits under the group
+  symS                   survivors   1024  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC                   survivors   2048  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK                   survivors    752  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symM                   survivors   2304  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC              survivors    512  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symM              survivors    880  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symK              survivors    246  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK+symM              survivors    538  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symM              survivors   1152  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symK              survivors    208  orbits with no survivor    92  assignments uncovered   3072  *** UNSOUND ***
+
+f=2 p=3 k=2: 10 orbit variables, 1024 assignments, symmetry group of order 24
+  192 orbits under the group
+  symS                   survivors    512  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC                   survivors    768  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK                   survivors    544  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symM                   survivors    768  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symF                   survivors    640  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC              survivors    384  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symF              survivors    320  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC+symF         survivors    240  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symM              survivors    512  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symK              survivors    288  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK+symM              survivors    432  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symM              survivors    576  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symF              survivors    480  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symK              survivors    384  orbits with no survivor    48  assignments uncovered    288  *** UNSOUND ***
+
+f=3 p=3 k=2: 14 orbit variables, 16384 assignments, symmetry group of order 72
+  1072 orbits under the group
+  symS                   survivors   8192  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC                   survivors  12288  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK                   survivors   8448  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symM                   survivors  12288  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symF                   survivors   3840  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC              survivors   6144  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symF              survivors   1920  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symC+symF         survivors   1440  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symM              survivors   8192  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symS+symK              survivors   4352  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symK+symM              survivors   6528  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symM              survivors   9216  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symF              survivors   2880  orbits with no survivor     0  assignments uncovered      0  SOUND
+  symC+symK              survivors   6144  orbits with no survivor   224  assignments uncovered   3456  *** UNSOUND ***
