@@ -1464,3 +1464,50 @@ Scratch 4.5 GB.
    same for \(1^{6} 3^{12}\).
 3. Consider implementing a faster canonical \(Z_p\)-prefix enumeration at level 5,
    which would replace blind splitting and cut the subproblem count per level.
+
+## 2026-09-07 pass 31 (15:31Z-15:50Z)
+
+### Established: a faster canonical form, and the decision to go deeper
+- Wrote `scratch/sym/zp/zpenum_fast.py`, an orderly generator whose canonical form
+  does not enumerate the equivariant group. Instead of minimising over all
+  \(2(p-1)\,k!\,p^{k}\) elements (38880 already for \(p = 3\), \(k = 5\)), it
+  minimises over the \(2(p-1)kp\) choices of (complementation, multiplier, which
+  cycle becomes cycle 0, its rotation) and then fixes the rest greedily: each other
+  cycle's rotation minimises its word to cycle 0, the cycles are sorted by
+  (code, that word), and ties are resolved by permuting only inside tied blocks.
+  This is exact — it minimises over the same group.
+- Validated: it agrees with the brute-force `zpenum.canon` on 300 random inputs,
+  and reproduces the known class counts \(1, 5, 47, 1576\) for one to four cycles.
+- Why this matters. The blind refinement splits a cube on four variables of the
+  next cycle, whereas a canonical level-5 prefix fixes a whole further cycle
+  (13 variables) while removing the symmetric duplicates a blind split creates. For
+  the fixed-point-poor types this should be worth much more than another blind
+  level: after one blind level \(1^{9} 3^{11}\) still has 3497 hard cubes of 16891.
+- I therefore stopped the \(1^{9} 3^{11}\) escalation, which was settling about a
+  third of its hard cubes at roughly 32 hours of three-worker time, and started the
+  level-5 enumeration in its place (estimated 2 to 3 hours).
+- Completeness of a level-5 cube set will not be checkable by the brute-force count
+  used at level 4 (that would need \(2^{5} \cdot 8^{10} \approx 3.4 \cdot 10^{10}\)
+  labelled graphs). The sound replacement, and what I will implement in the
+  checker, is: the level-4 set is complete by the existing exact count, every good
+  five-cycle graph loses a cycle to a good four-cycle graph, so re-generating all
+  good extensions of the level-4 representatives with independent code and checking
+  that each one's canonical form lies in the level-5 set is a complete check.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, now over 23 hours).
+
+### Published
+Worklog only.
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (level-5 canonical \(Z_3\)-prefixes, pid 59549): 2 to 3 h.
+- `cnc6312r` (\(1^{6} 3^{12}\), 25216 cubes, 3 workers, 20 s cap): 13870 attempted,
+  10587 verified, 3283 hard. Scratch 5.4 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. When the level-5 classes are enumerated, build level-5 cube sets for
+   \(1^{9} 3^{11}\) and the remaining types and compare the hard fraction against
+   the current level-4-plus-blind-split state; adopt whichever is cheaper.
+3. Extend `verify_cnc_p.py` with the level-5 completeness check described above.
