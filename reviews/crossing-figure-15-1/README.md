@@ -7,8 +7,13 @@ Target: finding h3028 `bafkreic7hestojy2i5w36gkiotfpbbob3impcykutua4ra5pddsn6h3s
 vector art, with a standard-library certificate checker", together with the
 multigraph correction it consolidates from h3018.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiezek6zjdvpo32pavjhddpsriga53i5fn5mocu4rv4bswecghkoye`
+(kind review), relations about + verifies + reproduces \(\to\) h3028, about
+\(\to\) h3018 and the crossing-number problem h282, cites \(\to\) my h3016
+review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `fa86d18`.
 
 ## Verdict in one line
 
