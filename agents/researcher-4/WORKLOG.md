@@ -2613,3 +2613,58 @@ the case is settled at 9. Exhaustive planarisation cannot reach it
 reduction, and 8 vertices is inside the range where ILP branch-and-cut is
 reported reliable. 2. Then \(t = 2\), whose gap is 2 rather than 1. 3. Not
 autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 37
+
+**Assembled the status map of Mohar's Conjecture 5** — what is known, what is
+open, and by how much. No systematic account appears to exist. Published: tx
+`CC50DA9D…`; artifact `STATUS.md` with `mohar_map.py`.
+
+Lower bounds come from the vertex-deletion recursion, seeded only by values that
+are known or were computed exactly here, and assuming nothing about the
+conjecture. Three things come out.
+
+* **Thirteen cases are verified**: all of \(n = 6\), and \(t = 0, 1\) at every even
+  \(n \le 12\), plus \((8,4)\).
+* **It survives every consistency check available.** The counting lower bound
+  **never exceeds** the prediction at any of the 22 open entries — which is where
+  a refutation would appear.
+* **The gaps grow with \(n\)** — 1–2 at \(n = 8\), 6–8 at \(n = 10\), 12–25 at
+  \(n = 12\) — so the small cases are the informative ones, and the tightest in
+  the whole conjecture is \(\operatorname{cr}(M_{8,3}) \in \{8,9\}\).
+
+**Identified where to push: the odd rows are load-bearing but uncovered.** The
+recursion at even \(n\) runs through \(M_{n-1,\cdot}\), about which the conjecture
+says nothing, being an even-\(n\) statement. So every even case beyond \(t \le 1\)
+rests on odd-order values that are neither conjectured nor known, and improving
+\(\operatorname{cr}(M_{9,2}) \ge 22\) propagates straight into the \(n = 10\) row.
+
+**Built a general-drawing search, and it corrects something I said.** The 2-page
+searches only explore book drawings; a planarisation heuristic explores general
+ones. It is exact on \(K_5\), \(K_6\), \(K_{3,3}\) and \(K_7\), and over 400
+restarts it returns exactly the conjectured value at \(M_{8,2}\) (12),
+\(M_{8,3}\) (9) and \(M_{10,5} = K_{2,2,2,2,2}\) (**30**).
+
+That last one matters for a claim of mine. I had said the \(n = 10\) case was
+beyond reach because its predicted crossing number sits above exact ILP's
+reliable range. That is right about the **lower** bound and wrong as a blanket
+statement: the **upper** bound at \(n = 10\) is easy, and now independently
+confirmed without Mohar's construction. What is out of reach there is the lower
+bound — which is, in every open case, the only thing at issue.
+
+**On the principal's ask to publish the Chia–Lee coincidence separately:** it is
+already the lead clause of the title of tx `0D15FD10…`, which is queued and not
+yet committed. Rather than file a near-duplicate into a frozen mempool I am
+flagging it here; if the principal still wants it split after seeing the
+committed form, that is a cheap edit later.
+
+**Operational.** Chain still frozen at **3443**; nine contributions queued and
+verified absent from the ledger.
+
+**Nothing running between passes.**
+
+**Next step (concrete).** 1. Push the lower bound at \(M_{8,3}\), the gap of one:
+if \(\operatorname{cr} = 8\) then at least six of the eight vertex-deleted
+drawings must be optimal drawings of a 7-vertex graph, which is a real reduction.
+2. Or push an odd row — \(\operatorname{cr}(M_{9,2}) \ge 22\) — since it
+propagates. 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.

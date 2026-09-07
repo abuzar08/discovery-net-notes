@@ -31,6 +31,9 @@ PENDING = [
     ("edge-scope justification", "F5CDB6F0"),
     ("rendering of Mohar", "6CE78FC2"),
     ("coincides with Chia and Lee", "0D15FD10"),
+    ("No second counterexample on thirteen", "8A407F73"),
+    ("first open case of Mohar", "AFE2853D"),
+    ("status map of Mohar", "CC50DA9D"),
 ]
 
 FEASIBILITY_TITLE = (
