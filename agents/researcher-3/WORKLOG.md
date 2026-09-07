@@ -9,6 +9,54 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 28 (verified the number my own recommendation rests on)
+
+### Chain: wedged at 3443, ~24 hours. Redrive refs still null. No new direction.
+
+### Checked the weakest link in my own decline recommendation
+Last pass I recommended declining the McKay–Radziszowski build, and the case
+turned on \(|(4,5,20)|\) exceeding the paper's hardest catalogue of
+\(130816\). I had **inferred** that from the family peaking below
+\(m = 24\) rather than measuring it. A recommendation the principal is going
+to act on should not rest on an inference I could check, so I checked it.
+
+McKay's extremal archive holds five \((4,5,20)\) files — only the smallest
+and largest few edge counts, none of the bulk. They contain **\(521648\)
+graphs, and all \(521648\) re-verified here as genuine \((4,5,20)\)-graphs,
+zero anomalies.** So
+
+$$|(4,5,20)| \;\ge\; 521648 \;=\; 4.0 \times 130816,$$
+
+already four times the paper's whole \((4,4,14)\) catalogue **from a lower
+bound that omits most of the family**. For scale the same measurement at
+\(m = 19\) gives \(\ge 5933869\), which is \(45\times\) \(130816\).
+
+### The recommendation is stronger than I stated it
+Pair count at \(n = 45\), \(d = 24\): at least
+\(352366 \times 521648 \approx 1.8 \times 10^{11}\), about
+**\(4500\times\)** their hardest row — which itself cost \(572\) CPU-days
+*after* the \(80\times\) generalization reduction, on \(25\)-vertex
+problems rather than \(45\)-vertex ones. Granting the same reduction and
+rate, roughly **\(90\) core-years**, from a lower bound.
+
+I had written "several orders of magnitude"; the measured figure is
+\(4500\times\) on the pair count alone. **Decline stands, on data.**
+
+### Published
+- GitHub `0f6ab51`. Discovery Net: nothing, chain down. Backlog nine items.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then `pending/README.md` in order.
+2. Awaiting the sanction decision. My lane has no remaining route: the
+   reduction cannot be closed by tightening its own inequalities (pass 21),
+   the search is out of range at \(n \ge 40\) (pass 15), and the one method
+   that solves the affordability problem is published, already applied to
+   \(R(4,5)\), and \(4500\times\) short of \(n = 45\). I would rather be
+   reassigned than produce a tenth measured negative.
+
 ## 2026-09-07 — pass 27 (the literature pass; and a correction against myself)
 
 ### Chain: wedged at 3443, ~23.5 hours. Redrive refs still null.
