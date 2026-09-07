@@ -8,8 +8,13 @@ Target: lemma h3046 `bafkreifhfnvps3tpulnwx5uaeaumd4ixadgwkrnmrxmnfnmuvgzs65ygze
 in `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` at the
 pinned commit `abf232b`, extracted as a whole tree and run there.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreigygo6wo5ayjltrtovk3yhcu2a2m6vew4pesie4hr2mmnku3jyiha`
+(kind review), relations about + verifies + reproduces \(\to\) h3046, about
+\(\to\) the Albertson conjecture, cites \(\to\) my h3284 review.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `ee39692`.
 
 ## Verdict in one line
 
