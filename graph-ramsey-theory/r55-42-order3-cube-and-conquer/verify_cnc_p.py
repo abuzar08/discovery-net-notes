@@ -35,7 +35,7 @@ a cube whose certificate is no longer on disk is then accepted if some log recor
 VERIFIED replay (sweep logs) or an UNSAT-VERIFIED record (driver logs, which replay each
 proof as it is produced) for exactly its literals, and such cubes are reported separately from
 the ones replayed in this run.
-usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map1.json[,map2.json...]] [--verified logs] [--skip-lrat] [--skip-complete]
+usage: python3 verify_cnc_p.py f p k L cubes.icnf formula.cnf manifest.json certdir [--jobs N] [--refine map1.json[,map2.json...]] [--complete-from levelL-1.json] [--verified logs] [--skip-lrat] [--skip-complete]
 Exit status 0 iff everything checked passed."""
 import sys, os, json, itertools, hashlib, lzma
 from multiprocessing import Pool
@@ -211,6 +211,37 @@ def raw_sha256(path):
         for b in iter(lambda: fh.read(1 << 20), b''): h.update(b)
     return h.hexdigest()
 
+def count_extensions(args):
+    """number of (5,5)-good extensions of a canonical (L-1)-cycle prefix by one cycle."""
+    codes, words = args; p = _G['p']; L = len(codes); FULL = (1 << p) - 1; H = (p - 1) // 2
+    n = 0
+    for s in range(1 << H):
+        for ws in itertools.product(range(FULL + 1), repeat=L):
+            if good(adjacency(codes + (s,), words + tuple(ws), p)): n += 1
+    return n
+
+def labelled_count_from_previous(prev_reps, p, jobs):
+    """Number of labelled (5,5)-good Z_p-graphs on L cycles, computed from the
+    verified canonical set on L-1 cycles: each labelled L-cycle graph restricts to
+    a labelled (L-1)-cycle graph lying in exactly one orbit, so
+
+        N_L = sum over classes R of |orbit(R)| * (good extensions of R).
+
+    This replaces the brute force over all 2^L * 2^(p C(L,2)) labelled graphs, which
+    is out of reach from L = 5 on."""
+    L1 = len(prev_reps[0][0])
+    G = group(p, L1)
+    with Pool(jobs, initializer=_init_kw, initargs=({'p': p, 'group': G},)) as pool:
+        stabs = {}
+        for i, canonical, stab, gd in pool.imap_unordered(canon_stab, [(i, tuple(r[0]), tuple(r[1])) for i, r in enumerate(prev_reps)], chunksize=8):
+            assert canonical and gd, f'previous-level rep {i} is not canonical or not good'
+            stabs[i] = stab
+        exts = list(pool.imap(count_extensions, [(tuple(r[0]), tuple(r[1])) for r in prev_reps], chunksize=8))
+    total = sum(len(G) // stabs[i] * exts[i] for i in range(len(prev_reps)))
+    print(f'labelled count from the {len(prev_reps)} classes on {L1} cycles: '
+          f'{total} labelled (5,5)-good Z_{p}-graphs on {L1 + 1} cycles')
+    return total
+
 def check_cube(args):
     i, cube = args
     path = os.path.join(_G['certdir'], f'c{i}.lrat.xz')
@@ -257,6 +288,9 @@ def main():
     argv = sys.argv[1:]; jobs = 4
     if '--jobs' in argv:
         i = argv.index('--jobs'); jobs = int(argv[i + 1]); del argv[i:i + 2]
+    prevreps = None
+    if '--complete-from' in argv:
+        i = argv.index('--complete-from'); prevreps = json.load(open(argv[i + 1])); del argv[i:i + 2]
     prev = {}
     if '--verified' in argv:
         i = argv.index('--verified')
@@ -306,11 +340,18 @@ def main():
             if not gd: print(f'cube {i}: not (5,5)-good'); bad += 1
             assert len(G) % stab == 0; orbit_sum += len(G) // stab
         print(f'cubes: {len(parents)} distinct canonical (5,5)-good Z_{p}-graphs on {L} cycles ({bad} failures); group order {len(G)}; sum of orbit sizes {orbit_sum}')
-        if '--skip-complete' not in flags:
+        if '--skip-complete' not in flags and prevreps is not None:
+            total = None
+        elif '--skip-complete' not in flags:
             code_tuples = list(itertools.product(range(1 << H), repeat=L))
             total = sum(pool.imap_unordered(count_good, code_tuples))
             print(f'completeness: {total} labelled (5,5)-good Z_{p}-graphs on {L} cycles', '== sum of orbit sizes' if total == orbit_sum else f'!= {orbit_sum} FAILURE')
             if total != orbit_sum: bad += 1
+    if prevreps is not None and '--skip-complete' not in flags:
+        total = labelled_count_from_previous(prevreps, p, jobs)
+        print('completeness:', total, f'labelled (5,5)-good Z_{p}-graphs on {L} cycles',
+              '== sum of orbit sizes' if total == orbit_sum else f'!= {orbit_sum} FAILURE')
+        if total != orbit_sum: bad += 1
     # 4. certificates
     if '--skip-lrat' in flags:
         print('RESULT:', 'all checks passed (no certificates checked)' if bad == 0 else 'FAILURES'); sys.exit(0 if bad == 0 else 1)

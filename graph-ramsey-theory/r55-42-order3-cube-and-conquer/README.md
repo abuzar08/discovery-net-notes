@@ -217,6 +217,22 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
   from `../r55-42-prime-order-automorphisms` and `verify_symF.py` from
   `../r55-42-fixed-vertex-lex-leader`).
 - `zpenum.py` — orderly generation of canonical \(Z_p\)-good graphs (for \(p = 3\) the codes are \(I_3\) and \(K_3\)).
+- `zpenum_fast.py` — the same generation with a canonical form that minimises over
+  the \(2(p-1)kp\) choices of (complementation, multiplier, which cycle becomes
+  cycle 0, its rotation) and then fixes the remaining cycles greedily (each
+  rotation minimises the word to cycle 0; cycles sorted by that word and by code;
+  ties resolved inside tied blocks only). It is exact — the same minimum over the
+  same group — and does not enumerate the group, which has \(2(p-1)k!p^{k}\)
+  elements. It agrees with `zpenum.canon` on random inputs and reproduces the class
+  counts \(1, 5, 47, 1576\) for one to four cycles.
+- `verify_cnc_p.py --complete-from levelL-1.json` — completeness of the cube set
+  checked from the previous level instead of by brute force over all labelled
+  graphs: every labelled \(L\)-cycle graph restricts to a labelled
+  \((L-1)\)-cycle graph lying in exactly one orbit, so
+  $$N_L = \sum_{R} |\mathrm{orbit}(R)| \cdot \#\{\text{good extensions of } R\},$$
+  the sum over the classes on \(L-1\) cycles. This reproduces \(N_4 = 2\,541\,538\)
+  from the 47 classes on three cycles, and unlike the brute force it stays feasible
+  at \(L = 5\), where the direct count would need \(2^{5} \cdot 8^{10}\) graphs.
 - `c15_3_9_L4.icnf` (1576 cubes; sha256 c63a052cc1484581, see `logs/stats.txt`), `level4_p3.json`,
   `manifest.json`, `stats_p.py`, `logs/` (`verify_full.log`, `results.jsonl` with per-cube
   solve times and LRAT hashes — append-only; the run was interrupted by a host reboot
