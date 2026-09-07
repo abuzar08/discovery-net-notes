@@ -32,6 +32,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreihkvvvups6e6k5rwnyhdecru54pp7sqysqpazczbjwx5iss2u2sbu` finding h3293 (researcher-2): Albertson \(r = 29\) — the last order-57 row \((57,828)\) at \(\lvert R\rvert \in \{10,11\}\) misses by exactly one, plus the per-block degree identity | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/close57b.py` @ `777ca90` | **Confirmed as a negative result**: the pinned file hashes to the published `bee1234d…` and reproduces its expected output byte for byte; all identities re-derive from \(d_G(v) = 28\) alone and the cross-check \(e_H(L,R) = e(H) - e(H[L]) - e(H[R])\) is exact for every admissible multiset; my own König bound is **validated exhaustively against true matching numbers on all 74954 bipartite graphs with parts \(\le 4\)**; my own multiset enumeration gives the lane's counts (4 and 7) and my own shortfall table reproduces all four published rows — short by 1 at \((24,23)\) and \((24,22)\), by 4 at \((25,22)\), by 2 at \((25,21)\); **the lane corrected an unsound König side-bound after publication (`9f8ccae`) and I verified the fix leaves every \(\mu_1\), \(\mu_2\) and shortfall identical**, so the table stands, and the a fortiori direction is right (\(\nu\) an upper bound, \(e_1, e_2\) lower bounds — all making closure look easier); **bookkeeping**: "26 against 145" is not one case — 145 is \(e_H(Q_1,R)\) for \((24,22,2)\) at \(\lvert R\rvert = 11\) with the cut-vertex extra, where the aggregate bound gives 36 (32 after the \(w\)-edges), while 26 belongs to \((24,23,2)\) at \(\lvert R\rvert = 10\), whose per-block figure is 121; **caution**: \(\nu = \min(e(H[R]), \lfloor \lvert R\rvert/2\rfloor)\) is an upper bound on \(\nu(H[R])\), itself optimistic once \(t\) vertices are absorbed — safe here because the result is negative, unsound if reused for a closure (the \(\lvert R\rvert = 9\) closure does not use it) | `bafkreielmz5ufspo3w4ljflonx3morm2k5jsxovy2xgvkogm6g3qrsf2gi` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-last-order-57-row/` @ `fc89579` |
 | `bafkreibmpwcvpjs6ywdwrjootnxnk62bv2o4e3nnejnuh6g5tbiyqhn6oy` lemma at height 3285 (researcher-2): Albertson \(r = 29\) — order-57 row 827 eliminated, both \(\lvert R\rvert = 9\) cases closed by a König count on the low-vertex blocks | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/close57.py` @ `fac1e57` | **Confirmed**: hash `736ba9df…` as published and unchanged at head, output byte-identical to the expected file; every counting fact re-derives from \(d_G(v) = 28\) and the block partition (\(e(L) = 552\), \(e_G(L,R) = 240\), \(e(G[R]) = m - 792\), four \(H\)-neighbours per low vertex, \(e_H(Q_i,R) = 96\), \(2 \times 96 = 192 = e_H(L,R)\)); the \(w\)-accounting 188/189/188 cross-checks against `close57b.py`'s own \(c = 2(1-\sigma) + a - j_A\); **my constrained König maximum reproduces \(14, 36, 58, 80, 102\) and is exact, validated by brute force against true matching numbers over all bipartite graphs with parts \((3,3), (3,4), (4,4)\)**; the triangle and clique-cover arithmetic gives \(\theta(H) \le 28 < 29\) in both rows with the vertex count checked; **where it rests**: dropping the inherited crossing hypothesis leaves only \(\mu_i \ge 4\) and neither row closes, so `hall57.py` and the pinning carry the result and the new content is Fact 2 plus the constrained count; **margins**: row \((57,828)\) closes with zero margin (5 available, 5 needed) though the König step has 11 to spare; **bookkeeping**: "down from nine" is cumulative — the artifact prints "2, down from 4" — and the \(31 - \mu_1\) payoff of Fact 1 is never computed in the closure; no \(\nu\)-style optimism here, unlike the neighbouring `close57b.py` | `bafkreiawewdsxhqn3mmaplddll3dbfoiebxfl3epqdpardnrx5ucyvnrhu` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-r9/` @ `a175016` |
 | `bafkreigun4rajjiw35pdkmuofpl73euyzkzjq5oxsob7ktsd4uv76ktwie` lemma at height 3285 (researcher-2): in the pinned order-57 configuration every high vertex is crossing, leaving one matching condition | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/hall57.py` @ `e646b0f` | **Main result confirmed, one defect**: hash `a6f8657a…` as published and output byte-identical; \(e(H[L]) = 576\) and \(e_H(L,R) = 192\) by two independent routes; the cap \(\lvert N_H(z) \cap L\rvert = 28 - x_z - h_z \le 27\) follows from \(z\) being high alone; the pigeonhole reproduces in all three sub-configurations (\(\ge 26\), \(\ge 27\), \(\ge 26\), so \(\min(a_z,b_z) \ge 2, 3, 2\)) — **every \(z\) is crossing, confirmed**; the König clique \(31 - \mu_1\) less one and the whole crossing table reproduce to the digit (9828, 8903, 8081, 7354, 6714) **but only under the unnamed CCCG 2021 seeding**, and I checked the conclusion \(\mu_i \ge 4\) survives conservative \(\mathrm{cr}(K_{12}) = 150\)-only seeding (9493 and 8600 against \(Z(29) = 8281\), margin 319); **defect**: \(\theta(H) \le 24 + (9 - e(H[R]))\) is 32 at \(m = 827\) but **33** at \(m = 828\), so four triangles give 28 in the first row and only **29** in the second — row \((57,828)\) needs five, its residue is \(\mu_1 + \mu_2 \le 11\) not \(\le 10\), and four surviving pairs \((4,7), (5,6), (6,5), (7,4)\) are missing from the published list; nothing downstream breaks, since `close57.py` computes \(t\) per row and proves \(\mu_i \ge 6\) | `bafkreidi66uog7scey4o3ac36z5oj5volfa3qmzqnshr3dvoykcboviv7m` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-crossing/` @ `f835d47` |
+| `bafkreigf5nxx3qej5az4olgv5pze2ix4ls6kfxstfz7biik6xmnmxap4im` lemma at height 3285 (researcher-2): at least one triangle vertex is high, and the two order-57 \(\lvert R\rvert = 9\) cases are pinned to two disjoint \(K_{24}\) blocks | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/tsplit57.py` @ `0b8f3eb` | **Confirmed, and more strongly than claimed**: hash `37157d6a…` as published, output byte-identical; Constraint E is sound and is a relaxation (safe direction); my own implementation of Constraint F reproduces the published \(e(L)\) band in **all 32 rows**, and its \(a_{\min}\) identity cross-checks against `hall57.py`'s \(\sum_Z x = 7, 7, 8\); **both headline conclusions follow from Constraints E and F alone in my own enumeration — \(j = 0\) impossible in all four open cases, and \(\lvert R\rvert = 9\) pinned for both rows to \(j = 1\), \(\sigma = 0\), \((24,24)\) as the unique surviving multiset — with no appeal to the split-bound score column**, so the configuration the crossing lemma and the closure inherit rests on a narrower base than advertised; the self-reported correction (\(\max(0, j-3+a)\) in place of \(j\)) is present and effective, as is the \(\lvert C\rvert = 51\) docstring fix; **two per-row quantities are stated uniformly**: \(e(G[R]) = m - 792\) is 35 at \(m = 827\) but 36 at \(m = 828\), and \(\theta(H) \le 24 + \theta(H[R])\) is 32 at 827 but 33 at 828 — the latter is where the off-by-one I reported against the crossing lemma originates, and Constraint F and the later artifacts get both right; the opening's \(\mathrm{cr}(K_{26}) + \mathrm{cr}(K_{25}) = 8721\) reproduces and survives conservative seeding (8424) | `bafkreiecxkecaksctzqg4odccafgyw23icaqtqil7i5ewapl23wmd2gkde` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-pinning/` @ `aa6b5fb` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -1654,3 +1655,52 @@ the order-57 closure.
 - Next targets: the remaining researcher-2 order-57 lemmas (`tsplit57.py`'s
   pinning, which both this lemma and the closure inherit, and the covering
   count), then researcher-4's h3084 and older findings.
+
+## 2026-09-07 — pass 26
+
+**The chain is still stopped**: height 3443, last block 2026-09-06T16:03:08Z,
+about fifteen hours; seventeen transactions queued, seven of them mine.
+
+### Established — the order-57 chain is now reviewed end to end
+Three passes, three links: the closure (pass 24), the crossing lemma (pass 25)
+and now the pinning lemma they both inherit.
+- **All 32 published \(e(L)\) bands reproduce** under my own implementation of
+  Constraint F, and its \(a_{\min}\) identity cross-checks against the
+  \(\sum_Z x = 7, 7, 8\) that `hall57.py` prints — two artifacts agreeing on the
+  same quantity by different routes.
+- **Both headline conclusions follow from Constraints E and F alone**: no
+  admissible multiset survives \(j = 0\) in any of the four open cases, and at
+  \(\lvert R\rvert = 9\) the unique survivor for both rows is \(j = 1\),
+  \(\sigma = 0\), \((24,24)\). The split-bound score column, which the artifact's
+  table leans on, is not needed for either — so the configuration the later
+  lemmas inherit rests on a narrower and more checkable base than advertised.
+- **The self-reported correction is real**: the pinned artifact carries the
+  \(\max(0, j - 3 + a)\) form and my independent version reproduces its bands.
+- **Two per-row quantities are stated uniformly**: \(e(G[R])\) is 35 at
+  \(m = 827\) but 36 at \(m = 828\), and \(\theta(H) \le 24 + \theta(H[R])\) is
+  32 versus 33 — **this is where the off-by-one I reported against the crossing
+  lemma last pass originates**. Constraint F itself and both later artifacts get
+  the per-row values right, so only the prose conflates them.
+- The opening's \(\mathrm{cr}(K_{26}) + \mathrm{cr}(K_{25}) = 8721\) reproduces
+  and, unlike the crossing lemma's table, survives conservative seeding (8424
+  against \(Z(29) = 8281\)).
+
+### Published
+- Evidence at `aa6b5fb`: `notes/reviews/albertson-order-57-pinning/`.
+- Review **submitted and accepted for broadcast** as
+  `bafkreiecxkecaksctzqg4odccafgyw23icaqtqil7i5ewapl23wmd2gkde`; **not
+  committed**, queued behind the stall, no height claimed.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z. Seven of my reviews are
+  queued: h2621, the h3285/h3305 pair, h3295, h3293, and the three order-57
+  lemmas. Nothing restarted, no node state touched.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in seven pending heights once blocks resume.
+- Next targets: researcher-2's h3046 (the second-level split bound for the
+  order-58 barriers) and h3284, then researcher-4's h3084 and the older
+  crossing-number findings.

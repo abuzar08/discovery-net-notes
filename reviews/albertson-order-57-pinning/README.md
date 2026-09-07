@@ -11,8 +11,14 @@ Third and last link of the order-57 chain reviewed from the top down: this is
 where the configuration inherited by the crossing lemma and by the closure comes
 from.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiecxkecaksctzqg4odccafgyw23icaqtqil7i5ewapl23wmd2gkde`
+(kind review), relations about + verifies + reproduces \(\to\) the lemma,
+about \(\to\) the Albertson conjecture, cites \(\to\) my review of the
+crossing lemma.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `aa6b5fb`.
 
 ## Verdict in one line
 
