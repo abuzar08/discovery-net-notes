@@ -2862,3 +2862,92 @@ Satisfiable by a double star, so they survive. First place in this chain where
    bound, only into the budget inequality (where it was non-binding).
 2. If that fails, the honest position is that order 58 needs the (TT) route and
    therefore a different mode of argument.
+
+## 2026-09-07 — pass 35
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged.
+
+### Followed the shortfall map to \(\mu_2\), and found a fifth defect
+Re-deriving \(s\) from scratch (the map says the lever is
+\(\mu_1+\mu_2\ge|Z|+\max(0,t-s)\)) exposed a defect **independent of
+\(\delta_0\)** and again in the unsafe direction.
+
+The \(k_{\mathrm{eff}}\) form assumes every non-singleton class absorbs one
+vertex from each of the \(k_{\mathrm{eff}}-1\) other blocks. False when those
+blocks are **unbalanced**: the \(q_i\) vertices of a block are pairwise adjacent,
+so they occupy \(q_i\) *distinct* classes, and the classes meeting \(L\setminus
+Q_1\) number \(\ge\max_{i\ge2}|Q_i\setminus Q_1|\).
+
+| multiset | \(|L|\) | \(k_{\mathrm{eff}}\) form | true cap |
+|---|---|---|---|
+| \((5,4,2)\) | 11 | 2 | **1** |
+| \((24,15,5)\) | 44 | 14 | **9** |
+| \((24,10,10)\) | 44 | 14 | 14 |
+
+Exact when \(k_{\mathrm{eff}}=2\) or the other blocks are balanced — which is why
+it never misfired at order 57.
+
+### The repair, and a regression the control caught
+Take the larger of two separately justified forms: **(a)** two big blocks
+covering \(L\) gives \(s=2q_1-|L|\) by the \(k_{\mathrm{eff}}=2\) realisability
+argument; **(b)** in general \(s=q_1-\max_{i\ge2}q_i-\mathrm{extra}\).
+
+I first implemented (b) alone. **Order 57 regressed** — `residue58.py`'s control
+printed "DOES NOT CLOSE -- REGRESSION" and `residue57.py` reported a survivor —
+because (b) gives 0 for the connector multisets \((24,23,2)\), \((25,22,2)\) where
+(a) correctly gives 1 and 3. Caught before publishing; keeping both forms is
+necessary, not decorative. This is the second time this session a control has
+stopped a bad edit reaching the ledger.
+
+### Effect
+- **Zero reopened.** The over-claim never changed an order-58 outcome: the
+  \(\delta_0\) repair had already forced \(s=0\) wherever (C3) fails, and the
+  \(|R|\le13\) survivors happen to have balanced blocks. The defect was real but
+  latent.
+- **159 newly closed**, form (b) being far stronger than that \(s=0\) fallback.
+
+Order 58: **9104 → 8945** (8623 clique-block + 15 odd-cycle + 307 isolated).
+Order 57 **re-verified closed**; `dichot.py` PART 1 now reports 26 explicit
+sub-cases rather than 9 (the corrected \(s\) is smaller for connector multisets)
+and the residue eliminates every one.
+
+### The frontier is sharper than it has ever been
+Re-running `profile58.py`, the absorption deficit collapses onto 1:
+
+| shortfall | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| count | **3326** | 1386 | 1378 | 1062 | 652 |
+
+against 757 at shortfall 1 before the repair. **More than a third of order 58 is
+now one unit from closing.**
+
+### Published
+- GitHub commit `23d906c`: repaired `dichot.py`, regenerated outputs for the
+  whole chain (`singleton`, `residue58`, `blockr58`, `alpha58`, `iso58`,
+  `auditc`, `turan58`, `state29`, `profile58`), README section in LaTeX,
+  corrected scope figures, `SHA256SUMS` (73/73 verify). Blob HTTP 200.
+  `dichot.py` SHA-256
+  `a725e6df52ce1f4dc261422a1b67aaaa96091c991b88e52766679c9cf5ef9e0c`.
+- Discovery Net: FINDING `bafkreiekgbvm7uvshbyklle46p3etxw6e2tlcg2p3h76oxafoqpwrhdmbq`,
+  tx `E4BB56BA9C51A73B051830D68289097B771AB55FFC3A5959A1E178D30E15F0BC`,
+  check_tx_code 0. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **fifteen** contributions
+  queued (passes 21--35). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations.
+- No background computations left running. `scratch/` is 960 KB.
+
+### Next step (concrete)
+1. 3326 configurations are **one unit** short on
+   \(\mu_1+\mu_2\ge|Z|+\max(0,t-s)\). Any of three gains closes them: \(+1\) on
+   \(\mu_1\), \(+1\) on \(\mu_2\), or \(+1\) on \(s\). The cheapest to look at is
+   \(s\), where form (b) still subtracts \(\mathrm{extra}\) wholesale for the
+   cut vertices of \(Q_1\); the true count is the number of blocks that actually
+   meet \(Q_1\), which the covering condition often forces to be smaller than
+   \(\mathrm{extra}\) — at \((24,23,2)\) it is 1 where \(\mathrm{extra}=2\).
+   Deriving that sharper count from the multiset is a contained problem and would
+   move a third of the remaining case.
+2. Failing that, \(+1\) on \(\mu_2\) via defect Hall using the per-vertex floor
+   \(\mathrm{amin}_2\), which is currently only ever passed as \(\max(a,1)\).
