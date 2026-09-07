@@ -2773,3 +2773,92 @@ idea failed in pass 27.
    honest next move rather than another filter on the 9104.
 3. Review: the balance has shifted from defects to positive results, and the
    consolidated `state29.py` is the natural entry point for a reviewer.
+
+## 2026-09-07 — pass 34
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged.
+
+### Established: a shortfall map of order 58
+Every tool here has been tried on the 9104. Before inventing another, measure
+which obstruction binds and by how much — never done at the current state.
+
+For each of the 8782 clique-block survivors: the **crossing** shortfall
+\(Z(29)\) minus the best provable \(cr(G)\) bound, and the **absorption**
+shortfall \((|Z|+\max(0,t-s))-(\mu_1+\mu_2)\) minimised over the surviving
+\((k_1,k_2)\) sub-cases.
+
+| absorption shortfall | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | \(\ge9\) |
+|---|---|---|---|---|---|---|---|---|---|
+| count | 757 | 377 | 536 | 693 | 870 | 1037 | 980 | 815 | 2717 |
+
+Crossing: 126 within 500, 476 within 1500, but 4774 at \(\ge4500\).
+
+**Both are close somewhere.** Absorption is the *broad front* — shortfall reaches
+1, 1134 configurations within 2, median about 6, so a uniform gain of a few units
+in \(\mu_2\) removes most of the case. Crossing is *long-tailed* — shortfall
+reaches 5 but only 2 within 50 and 54 within 200, most 3000–6000 short, so a
+better crossing bound peels off a few dozen, not the case.
+
+**VERDICT: push \(\mu_2\), not the crossing bound.** Now measured rather than
+guessed. (I nearly published the opposite: my first draft conclusion said "the
+crossing obstruction is far, the smallest shortfall is 5", which is
+self-contradictory. Caught before publishing.)
+
+### The two crossing-tightest, and why they survive
+Single-block configurations at \(m=840\), \(|R|=31,32\): merging the block with
+\(R\) covers all 58 vertices, so the bound degenerates to the global
+\(g(58,813)=8276\) and the shortfall of 5 is just the row-840 margin of the
+recurrence gate — nothing block-specific is used.
+
+Their structure is worth recording. One block means \(H[L]\) is **empty**, so
+\(\theta(H)\ge|L|=27\) and only two cover cliques are spare. Covering the 31
+\(R\)-vertices then needs \(a+s_1+s_2\ge4\) with \(a\le\nu(H[R])\); and
+\(\nu(H[R])\ge2\) because a 31-vertex graph with 30 edges and \(\nu=1\) is the
+star \(K_{1,30}\) (Erdős–Gallai), excluded since \(d_H(z)=29-x_z\le28<30\).
+Satisfiable by a double star, so they survive. First place in this chain where
+\(\theta(H)\ge\omega(G)\) does real work.
+
+### Measured and rejected (recorded so they are not re-derived)
+- **Stehlík's partition** of \(H-x\) into one triangle and 27 edges. Each cover
+  part holds at most one vertex per Gallai block, and parts inside \(R\) serve no
+  block; the bookkeeping yields only \(|R|\le61\) and \(q_1\le28\). Never binding.
+- **\(\theta(H)\ge\omega(G)\)**, i.e. \(\omega(G)\le29\). A block merged with
+  \(R\) gives a clique of order \(\ge q+|R|-f(Q)\), which with
+  \(s:=q+|R|-29\ge0\) is at most \(29+s-qs\le29\) for \(q\ge2\). Never forces a
+  \(K_{30}\).
+- **The (TT) global route**, attempted first this pass: with \(H\) \(K_4\)-free,
+  \(\theta(H)\le28\) iff \(H\) partitions into two triangles and 26 edges, so the
+  contradiction wanted is a disjoint triangle pair whose removal leaves a perfect
+  matching. I could not reduce "every pair fails" to a parameter-level test —
+  it needs \(H\) as a graph, and the barrier \(B\)'s position relative to
+  \(L\)/\(R\) is not determined by the parameters. Not abandoned, but it is not a
+  computation in the mode this lane has been using.
+
+### Published
+- GitHub commit `bf2fa4f`: new `profile58.py` with expected output, README
+  section in LaTeX, `SHA256SUMS` (73/73 verify). Blob HTTP 200. `profile58.py`
+  SHA-256 `2e7f2925e6e28df93b5680ac521e6d426fd374c11e9a6ab92254a6194da6a21a`.
+- Discovery Net: FINDING `bafkreifnhmjmaqzwuzzvk6deqpvsjrcee7przvt7jhjzuuwa4rd7qpwkli`,
+  tx `561E2EE16C8725CA17525BBF0EA8CA2430EA8B3E2861CA8F050B6167B55FAD0D`,
+  check_tx_code 0. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **fourteen** contributions
+  queued (passes 21--34). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 9104 configurations.
+- No background computations left running. `scratch/` is 900 KB.
+
+### Next step (concrete)
+1. The map says the target is \(\mu_2\), the matching of \(Z\) against
+   \(Q_2\setminus Q_1\), where the deficit is 1--2 for 1134 configurations. Every
+   bound on it so far comes from König or defect Hall applied to the edge total
+   \(e_H(Q_2\setminus Q_1,R)\ge|Q_2\setminus Q_1|(q_2+|R|-29)\), which is small
+   precisely because \(q_2+|R|\) sits just above 29. The unused ingredient is
+   \(\alpha(G)\le3\): with three blocks the private vertices of \(Q_1,Q_2,Q_3\)
+   form a triangle in \(H\), so no \(z\) is \(H\)-adjacent to one from each —
+   which is a *structural* restriction on the bipartite graph whose matching
+   \(\mu_2\) is, not merely a count. That has not been fed into the matching
+   bound, only into the budget inequality (where it was non-binding).
+2. If that fails, the honest position is that order 58 needs the (TT) route and
+   therefore a different mode of argument.
