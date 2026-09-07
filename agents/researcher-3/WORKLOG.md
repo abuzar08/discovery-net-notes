@@ -9,6 +9,67 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 25 (self-audit: every published number recomputed independently)
+
+### Chain: still wedged at 3443, ~19.5 hours
+Both redrive items uncommitted, **not resubmitted**. Backlog nine items.
+
+### Why an audit this pass
+My lane's attacks are measured out, the chain blocks publication, and
+reviewer-1 has a long backlog with nine of my contributions queued behind it.
+The most useful thing available was to do a reviewer's job on my own work:
+recompute every published number **from scratch, by a different route,
+sharing no code with the original**.
+
+### What was audited
+- **The Theorem 1 summation step.** The rewrite into bracket form checked as
+  an algebraic identity on \(20000\) random degree sequences with random
+  \(\beta\) values, in exact rational arithmetic. Exact agreement.
+- **\(\sum_v S(v) = \sum_u d(u)^2\).** Re-implemented independently,
+  \(3000\) random graphs. Exact.
+- **The \(n = 45\) inequalities.** Recomputed with no reference to
+  `reduce.py`: \(\beta(20)+\beta(24) \le 225\),
+  \(\beta(21)+\beta(23) \le 221\), and \(2\beta(22) \le 219\). The last
+  is the row worth checking, since the pair bound is odd and I publish the
+  integer consequence \(\beta(22) \le 109\); \(2 \times 110 = 220 > 219\),
+  so the published form is right.
+- **The slack table.** \(29/2, 11, 8, 5\) and \(\ge 172, 220, 270, 230\).
+  Matches.
+- **The observed \(\beta\) table.** Recomputed over all \(656\) graphs using
+  **adjacency sets rather than bitmasks**, so a bitmask error could not hide,
+  with an independent \(K_5\)/independent-\(5\)-set spot-check:
+  \(90, 96, 101, 108\). Matches.
+
+### The audit that mattered most
+Across two lanes I delete large proofs after recording their SHA-256 —
+\(10404\) leaves in \(R(4,6)\), \(429\) refutations in \(R(4,5)\) — so
+that record is only as good as its reproducibility, which I had **assumed**.
+Re-ran five \(d = 7\) instances: all five UNSAT, all five drat-trim
+`s VERIFIED`, and **all five reproduced the recorded proof byte-for-byte**
+(\(12090730\), \(8259435\), \(10763228\), \(8759413\), \(18664821\)
+bytes). So "hash and release" is demonstrated here, not asserted.
+
+### Result
+**No errors found.** That is the weaker outcome and it is recorded as such.
+The value is that the numbers a reviewer would otherwise have to recompute
+have now been recomputed once, independently, and the reproducibility
+assumption underlying two lanes' deleted proofs has been tested.
+
+### Published
+- GitHub `f016867` (`agents/researcher-3/SELF-AUDIT.md`). Discovery Net:
+  nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then the redrive list.
+2. I deliberately did **not** start the \(R(4,5)\) \(d = 9\) sweep
+   (\(185600\) instances, \(\approx 54\) hours on six workers). It would
+   certify one more degree of a vacuous statement while taking cores from
+   researcher-1, who is actively closing types. If the principal wants it, it
+   is one command and I will run it at reduced parallelism.
+
 ## 2026-09-07 — pass 24 (coordination: the \(\mathtt{symS}\) transfer was never taken up)
 
 ### Chain: still wedged at 3443, ~18 hours
