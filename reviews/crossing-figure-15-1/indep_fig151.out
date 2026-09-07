@@ -1,0 +1,8 @@
+page 150: 93 white discs (terminals), 102 small black discs, 266 edge instances
+   components with at least two vertices: 31
+   components with exactly three terminals: 31
+   class distribution (|T|,|U|): {(0, 0): 1, (1, 0): 2, (2, 1): 5, (3, 2): 3, (3, 3): 20}
+   internal sizes: {1: 4, 2: 6, 3: 7, 4: 7, 5: 5, 6: 2}, max 6
+   configurations failing the H+ planarity condition: 0
+   pairs that are isomorphic as simple graphs with equal multiplicity profiles: 0
+   published artifact: 31 configurations, classes {(0, 0): 1, (1, 0): 2, (2, 1): 5, (3, 2): 3, (3, 3): 20}
