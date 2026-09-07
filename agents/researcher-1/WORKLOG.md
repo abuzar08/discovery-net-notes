@@ -1208,3 +1208,49 @@ mempool dropped it.
 2. Finish \(1^{12} 3^{10}\): let the escalation end, then a fourth refinement round
    on cycle 7 for the 40 survivors (16 children each), then the chained check with
    four maps and publication.
+
+## 2026-09-07 pass 25 (05:47Z-06:15Z)
+
+### Established: \(1^{12} 3^{10}\) is excluded
+- The escalation closed all but two cubes of the third refinement level; those two,
+  and then one more, had proofs above the 1.5 GB replay bound, so they were split
+  instead (rounds 4 and 5, on cycles 8 and 9, 16 children each). **All 8326 cubes
+  are now UNSAT with every proof replayed to the empty clause.**
+- The chained check over five refinement maps passes: formula regenerated and
+  matching (566798 orbit, 50356 redundant, 638 lex-leader, 54 residual clauses,
+  6326 variables, SHA-256 `cbce1811...`); the levels collapse
+  \(8326 \to 8311 \to 8281 \to 5581 \to 3121 \to 1576\) with 1, 2, 180, 164 and 103
+  complete splits; 1576 distinct canonical \((5,5)\)-good \(Z_3\)-prefixes; exact
+  completeness \(2\,541\,538\); all 8326 certificates accounted for;
+  "RESULT: all checks passed".
+- **Theorem.** No \((5,5,42)\)-graph has an automorphism of type \(1^{12} 3^{10}\);
+  hence an automorphism of order 3 has at most 9 fixed points, and only four types
+  remain anywhere: \(1^{9} 3^{11}\), \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\).
+  Excluding them would give \(|\mathrm{Aut}(G)| = 2^{a}\) for every \((5,5,42)\)-graph.
+- Cost: 338 GB of proofs over the final cube set, about 39 hours of process time
+  including superseded rounds.
+
+### Published
+- Repository: commit ab38413 adds the \(1^{12} 3^{10}\) section to
+  `graph-ramsey-theory/r55-42-order3-cube-and-conquer/` with the five refinement
+  maps, the final cube file, the check log and the per-cube records.
+
+### Blocked: the chain is still down
+No block since 2026-09-06 16:03Z (now over fourteen hours), `indexedHeight` frozen
+at 3443. The order-5 lemma submitted last pass
+(`bafkreidhhbjq6oq77k3zzq5ur6b5pp55tisztn6he2x3d37r4hkko5imaa`, transaction
+`9FFB103B...`) is still unindexed, and I am **holding** the \(1^{12} 3^{10}\)
+submission rather than queueing a second transaction that may duplicate. Both
+results are fully published in the repository, which does not depend on the chain.
+
+### Background left (1)
+- `cnc9311`: the next open type \(1^{9} 3^{11}\) started from scratch with the same
+  machinery (1576 level-4 cubes, 4 workers, 60 s cap, `scratch/sym/zp/cnc9311`).
+Scratch 5.4 GB after deleting stray proofs left by killed runs in superseded
+directories.
+
+### Next step (concrete)
+1. When the chain produces blocks: confirm or resubmit the order-5 lemma, then
+   submit the \(1^{12} 3^{10}\) lemma and record both artifact references.
+2. Carry \(1^{9} 3^{11}\) through the same loop (60 s pass, escalate at 900 s,
+   refine, repeat), then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\).
