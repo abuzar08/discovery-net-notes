@@ -1,0 +1,11 @@
+8326 cubes recorded VERIFIED by earlier replay sweeps
+formula 1^12 3^10: 566798 orbit + 50356 redundant + 638 lex-leader + 54 residual clauses, 6326 variables (331 orbit variables); matches c12_3_10_L4r5.cnf (sha256 cbce181124b40c05b199b02f044fe957ba57bbceda2fbdd3885b507e9d607b57)
+refinement level 5: 8311 cubes, 1 of them split completely on 4 variables [327, 209, 210, 211] into 8326 subcubes
+refinement level 4: 8281 cubes, 2 of them split completely on 4 variables [320, 206, 207, 208] into 8311 subcubes
+refinement level 3: 5581 cubes, 180 of them split completely on 4 variables [310, 203, 204, 205] into 8281 subcubes
+refinement level 2: 3121 cubes, 164 of them split completely on 4 variables [297, 200, 201, 202] into 5581 subcubes
+refinement level 1: 1576 cubes, 103 of them split completely on 4 variables [281, 197, 198, 199] into 3121 subcubes
+cubes: 1576 distinct canonical (5,5)-good Z_3-graphs on 4 cycles (0 failures); group order 2592; sum of orbit sizes 2541538
+completeness: 2541538 labelled (5,5)-good Z_3-graphs on 4 cycles == sum of orbit sizes
+certificates: 8326 VERIFIED earlier
+RESULT: all checks passed

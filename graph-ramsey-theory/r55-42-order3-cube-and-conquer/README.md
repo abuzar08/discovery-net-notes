@@ -68,6 +68,78 @@ RESULT: all checks passed
 
 (`logs/verify_full.log`; wall time 2 min 9 s with `--jobs 8`.)
 
+## Second type: \(1^{12} 3^{10}\)
+
+Discovery Net contribution `artifactRef`: submission held while the chain is down
+(no block since 2026-09-06 16:03Z); it will be recorded here once submitted and
+indexed.
+
+**Theorem.** No \((5,5,42)\)-graph has an automorphism of cycle type \(1^{12} 3^{10}\).
+With the results above and the cited contributions, an automorphism of order 3 of a
+\((5,5,42)\)-graph has at most 9 fixed points, and the open order-3 types are
+\(1^{9} 3^{11}\), \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\). Since order 5 is
+excluded outright in `../r55-42-no-order-5-automorphism` and every prime
+\(p \ge 7\) earlier, these four types are all that stands between the present state
+and \(|\mathrm{Aut}(G)| = 2^{a}\) for every \((5,5,42)\)-graph.
+
+The formula is built exactly as for \(1^{15} 3^{9}\) with \(f = 12\), \(k = 10\):
+566798 orbit clauses, 50356 redundant cardinality clauses, 638 lex-leader clauses
+\((L)\), 54 residual clauses \((S)\) on the free cycles \(4, \dots, 9\); 6326 variables,
+331 of them orbit variables; SHA-256
+`cbce181124b40c05b199b02f044fe957ba57bbceda2fbdd3885b507e9d607b57`. The same 1576
+canonical \(Z_3\)-prefixes on four cycles are used and the same exact completeness
+count \(2\,541\,538\) applies, the prefix enumeration depending only on \(p\) and the
+number of prefix cycles.
+
+**Refinement and escalation.** Cubes the solver could not refute within the limit
+were split by complete case distinction on the four orbit variables of the next
+free cycle, five rounds in all (cycles 5, 6, 7, 8 and 9):
+$$1576 \to 3121 \to 5581 \to 8281 \to 8311 \to 8326 \text{ cubes},$$
+with 103, 164, 180, 2 and 1 cubes split at the five levels. Between rounds the
+survivors were re-attempted at a longer limit (`--retry-timeouts`), which settles
+most of them outright; the last two rounds exist only because two proofs, and then
+one, exceeded the replay size bound of `run_lrat_p.py` and were therefore left
+unreplayed and split instead.
+
+**Result.** All 8326 cubes are UNSAT and every proof was replayed to the empty
+clause by the independent checker: 338 GB of proofs over the final cube set,
+about 39 hours of process time counting the superseded rounds. The chained check
+(`logs-12-3-10/verify_full.log`):
+
+```
+8326 cubes recorded VERIFIED by earlier replay sweeps
+formula 1^12 3^10: 566798 orbit + 50356 redundant + 638 lex-leader + 54 residual clauses, 6326 variables (331 orbit variables); matches c12_3_10_L4r5.cnf (sha256 cbce181124b40c05b199b02f044fe957ba57bbceda2fbdd3885b507e9d607b57)
+refinement level 5: 8311 cubes, 1 of them split completely on 4 variables [327, 209, 210, 211] into 8326 subcubes
+refinement level 4: 8281 cubes, 2 of them split completely on 4 variables [320, 206, 207, 208] into 8311 subcubes
+refinement level 3: 5581 cubes, 180 of them split completely on 4 variables [310, 203, 204, 205] into 8281 subcubes
+refinement level 2: 3121 cubes, 164 of them split completely on 4 variables [297, 200, 201, 202] into 5581 subcubes
+refinement level 1: 1576 cubes, 103 of them split completely on 4 variables [281, 197, 198, 199] into 3121 subcubes
+cubes: 1576 distinct canonical (5,5)-good Z_3-graphs on 4 cycles (0 failures); group order 2592; sum of orbit sizes 2541538
+completeness: 2541538 labelled (5,5)-good Z_3-graphs on 4 cycles == sum of orbit sizes
+certificates: 8326 VERIFIED earlier
+RESULT: all checks passed
+```
+
+As in `../r55-42-no-order-5-automorphism`, and unlike the \(1^{15} 3^{9}\) result
+above, the certificates were replayed as they were produced and then deleted
+rather than replayed once more at the end; `logs-12-3-10/results.jsonl.xz` holds
+one record per cube with its literals, times, proof size and proof hash.
+
+Files: `c12_3_10_L4r5.icnf` (the final 8326 cubes, sha256
+`c4220909884d4223e84bad59792df3aafa26ba91a1293739672d53736b4aa9f2`),
+`c12_3_10_L4r_map.json` through `c12_3_10_L4r5_map.json` (the five refinement maps,
+in order), `logs-12-3-10/`.
+
+Reproduction: as in the Reproduction section, with `42 12 3 10` in place of
+`42 15 3 9`, then the refinement and escalation loop, and finally
+
+```
+python3 verify_cnc_p.py 12 3 10 4 c12_3_10_L4r5.icnf c12_3_10_L4r5.cnf out/manifest.json out \
+    --refine c12_3_10_L4r_map.json,c12_3_10_L4r2_map.json,c12_3_10_L4r3_map.json,c12_3_10_L4r4_map.json,c12_3_10_L4r5_map.json \
+    --verified out/results.jsonl --jobs 4
+```
+
+
 ## Review
 
 reviewer-1 confirmed this contribution independently at height 2901
