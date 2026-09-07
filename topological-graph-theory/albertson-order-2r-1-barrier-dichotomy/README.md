@@ -1478,13 +1478,58 @@ they are possible and were never enumerated.  \(\alpha(G[L])\le3\) bounds the ga
 sharply, since \(\alpha(C_q)=(q-1)/2\) makes \(C_9\) and longer impossible
 outright and permits at most one odd-cycle block beside at most one other block.
 
+### Turán on \(H[R]\), and the odd-cycle gap closed (`turan58.py`)
+
+Two more consequences of the same branch hypothesis, \(H\) \(K_4\)-free.
+
+**A Turán cap that was never applied to \(R\).**  Every induced subgraph of a
+\(K_4\)-free graph is \(K_4\)-free, in particular \(H[R]\), so Turán's theorem
+gives exactly
+
+$$e(H[R]) \;\le\; \left\lfloor \lvert R\rvert^{2}/3 \right\rfloor .$$
+
+This directory already applies that cap to the components of \(H-B\); it was
+never applied to the high set, which is a different vertex set.  Equivalently it
+is a **floor** on \(e(L)\), through \(e(L)=m-28\lvert R\rvert-X+e(G[R])\):
+
+$$e(L) \;\ge\; m-28\lvert R\rvert-X+\binom{\lvert R\rvert}{2}-\left\lfloor \lvert R\rvert^{2}/3\right\rfloor,$$
+
+which at \(\lvert R\rvert=28\) on row 838 reads \(e(L)\ge119\) where the
+enumeration used \(e(L)\ge2\).  Sparse-\(R\) configurations are precisely the ones
+that resisted every crossing bound, and this is what limits how sparse \(R\) may
+be.  It removes **444** of the 9226 survivors.
+
+**The odd-cycle gap, closed.**  Gallai allows a block to be an odd cycle, and
+every enumeration here drops them.  Two facts now bound the gap to something
+finite and small:
+
+- Constraint C — a cycle vertex has \(D_v=2\) and needs \(D_v\ge\delta_0\), so an
+  odd-cycle block requires \(\lvert R\rvert\ge26\);
+- \(\alpha(G)\le3\) — since \(\alpha(C_q)=(q-1)/2\) and the cycle's vertices are
+  non-adjacent to the private vertices of other blocks, \(q\le7\).  \(C_9\) and
+  longer are impossible outright; a \(C_7\) leaves room for no other block and a
+  \(C_5\) for at most one.
+
+Enumerating that range gives **15** surviving configurations across the three
+rows, every one a \(C_5\) beside a single large clique block:
+
+| row | \(\lvert R\rvert\) | cycle | other block | \(e(H[R])\) |
+|---|---|---|---|---|
+| \((58,838)\) | 26 | \(C_5\) | \((27)\) | 27 |
+| \((58,838)\) | 27 | \(C_5\) | \((26)\) | 51 |
+| \((58,838)\) | 28 | \(C_5\) | \((25)\) | 75 |
+
+**State of order 58.**  \(8782+15=8797\) configurations without an isolated low
+vertex, together with 307 carrying one — all 307 checked against the Turán cap
+and satisfying it — for **9104** in all, against 103292 three passes ago.
+\(r=29\) is not proved.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: after both audits and the independence bound, 9226
-configurations without an isolated low vertex together with 307 carrying one,
-9533 in all.  Nothing here bears on `r >= 30`.
+is **not** closed: 8797 configurations without an isolated low vertex together
+with 307 carrying one, 9104 in all.  Nothing here bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -1493,6 +1538,8 @@ configurations without an isolated low vertex together with 307 carrying one,
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `turan58.py` | the Turan cap on H[R], and the odd-cycle gap closed |
+| `EXPECTED_OUTPUT_TURAN58.txt` | its expected output |
 | `alpha58.py` | alpha(G) <= 3 applied to the Gallai blocks |
 | `EXPECTED_OUTPUT_ALPHA58.txt` | its expected output |
 | `auditc.py` | the Constraint C audit and its two repairs |
@@ -1518,6 +1565,7 @@ configurations without an isolated low vertex together with 307 carrying one,
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 auditc.py       | diff -u EXPECTED_OUTPUT_AUDITC.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 iso58.py        | diff -u EXPECTED_OUTPUT_ISO58.txt -
