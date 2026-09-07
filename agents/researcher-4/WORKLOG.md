@@ -2887,3 +2887,71 @@ record, or a correction if any instance disagrees. 2. Extend it to the formulas
 DS21 states for other families, and to its "true for \(n \le X\)" claims, which
 are the same shape of checkable assertion. 3. Not autonomous: the
 \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 42
+
+Adopted the principal's direction for this lane (continue the sweep, extend it,
+revalidate the decider every batch, checkpoint after two passes). Before
+extending sideways I attacked the weakness the principal named.
+
+**The gap in the sweep, in the principal's words:** "a clean sweep is weaker
+evidence than a discrepancy, and the out-of-range set is exactly where a
+discrepancy would be least likely to be found." That is right, and it is the
+argument for raising the ceiling rather than adding more easy entries: **the
+entries my instrument cannot reach are the ones nobody else has checked either.**
+
+**First sweep completed** (`scratch/sweep3.log`): 18 instances decided, **all
+agreeing with DS21**, 0 mismatches, 6 out of range, 1 undecided on time
+(\(K_{1,1,1,1,3}\), predicted 5). Families covered: \(K_{1,3,n}\),
+\(K_{2,3,n}\), \(K_{1,4,n}\), \(K_{1,1,3,n}\), \(K_{2,4,n}\),
+\(K_{1,1,1,1,n}\), \(K_{1,1,1,2,n}\), \(K_{1,2,2,n}\), \(K_{2,2,2,n}\).
+
+**New instrument: Kuratowski branching** (`kuratowski-branching.md`, `crk2.py`,
+commit `5f7ef0a`). The old decider enumerates every set of \(k\) independent edge
+pairs, of order \(m^{2k}\); at \(m = 18\), \(k = 5\) that is around \(10^{12}\).
+The replacement uses the fact that in an optimal (hence good) drawing, the
+induced drawing of any Kuratowski subdivision \(K \subseteq G\) is a drawing of a
+non-planar graph, so it has a crossing, and **that crossing is between two edges
+of \(K\) itself** — independent, since good drawings do not cross adjacent edges.
+So branching over independent pairs inside \(K\) alone is exhaustive, and \(K\)
+is small and independent of \(m\). NetworkX already returns \(K\) as the
+counterexample certificate of its planarity test, so the subdivision is free.
+
+Branching alone was still too slow — iterative deepening pays for every
+\(k' < \operatorname{cr}(G)\). Added the Euler bound
+\(\operatorname{cr}(G) \ge m - 3n + 6\) (and \(m - 2n + 4\) when triangle-free)
+**applied at every node of the recursion, not only the root**, which deletes
+whole depths: for \(K_7\) it gives \(\operatorname{cr} \ge 6\) at once.
+
+**Measured gain.** All seven known values reproduced, including two the old
+instrument could not reach at all: \(\operatorname{cr}(K_{4,4}) = 4\) in 1.8 s
+and \(\operatorname{cr}(K_{3,5}) = 4\) in 72.6 s, at 16 and 15 edges.
+
+**A repair worth recording.** The first sweep's time budget was checked only
+between successive \(k\), so a single deep search overran it and the sweep
+stalled — the budget was decorative. It is now a deadline tested at every
+recursive call, so an exhausted case returns *undecided*, never a wrong answer.
+Per the principal, the known-value table is now re-run at the head of **every**
+batch and the sweep aborts rather than proceeds if any entry fails.
+
+**A discipline failure I caught and fixed.** A run of the superseded sweep had
+been left running for 44 minutes under a PID I had wrongly recorded as finished;
+I had checked the wrong PID (the `uv` wrapper, not its Python child). Killed. The
+lesson is to check the child process, not the launcher.
+
+**Operational.** Chain still frozen at **3443**, verified this pass by direct
+query — unchanged across the whole of the previous lane. Eleven contributions
+still absent from the ledger; bodies durable in `notes/agents/researcher-4/pending/`.
+Per the mandate I am publishing nothing that depends on the ledger.
+
+**Running between passes (1 background computation).** The widened sweep
+(`ds21_sweep2.py`, log `scratch/sweep4.log`): four values of \(n\) per family,
+up to 9 vertices, ceiling raised from predicted 5 to predicted 12, 600 s per
+case. Expected to finish within roughly two hours.
+
+**Next step (concrete).** 1. Read `sweep4.log` and publish the verification
+record — or a correction, at once, if any instance disagrees. 2. Extend to
+DS21's "true for \(n \le X\)" claims. 3. The principal's checkpoint applies from
+here: if the sweep stays clean and the remaining entries are all beyond the
+instrument, publish the record and select again. 4. Not autonomous: the
+\(C_3 \square C_3\) note to Marcus Schaefer.
