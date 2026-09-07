@@ -1,0 +1,101 @@
+How far is order 58 from closing?  A shortfall map at r = 29
+Z(29) = 8281
+
+SURVIVORS MEASURED: 8782 (clique-block configurations)
+
+CROSSING SHORTFALL  Z - best provable cr lower bound, in buckets of 500
+   [    0,   500) :   126
+   [  500,  1000) :   207
+   [ 1000,  1500) :   143
+   [ 1500,  2000) :   267
+   [ 2000,  2500) :   325
+   [ 2500,  3000) :   430
+   [ 3000,  3500) :   579
+   [ 3500,  4000) :   909
+   [ 4000,  4500) :  1022
+   [ 4500,  5000) :  1536
+   [ 5000,  5500) :  1816
+   [ 5500,  6000) :  1230
+   [ 6000,  6500) :   192
+
+ABSORPTION SHORTFALL  (|Z| + max(0,t-s)) - (mu_1 + mu_2), exact
+     1 :   757
+     2 :   377
+     3 :   536
+     4 :   693
+     5 :   870
+     6 :  1037
+     7 :   980
+     8 :   815
+     9 :   834
+    10 :   693
+    11 :   446
+    12 :   313
+    13 :   181
+    14 :   122
+    15 :    64
+    16 :    36
+    17 :    20
+    18 :     7
+    23 :     1
+
+THE MINIMUM OF THE TWO, per configuration
+     1 :   757
+     2 :   377
+     3 :   536
+     4 :   693
+     5 :   872
+     6 :  1037
+     7 :   980
+     8 :   815
+     9 :   834
+    10 :   693
+    11 :   446
+    12 :   313
+
+THE TIGHTEST TEN BY THE MINIMUM OF THE TWO
+   m=840 |R|=17 (25, 17)               e(H[R])=  8  crossing short    61, absorption short  1
+   m=840 |R|=18 (25, 16)               e(H[R])= 13  crossing short    61, absorption short  1
+   m=839 |R|=17 (25, 17)               e(H[R])=  9  crossing short    96, absorption short  1
+   m=839 |R|=18 (25, 16)               e(H[R])= 14  crossing short    96, absorption short  1
+   m=838 |R|=16 (25, 18)               e(H[R])=  5  crossing short   131, absorption short  1
+   m=838 |R|=17 (25, 17)               e(H[R])= 10  crossing short   131, absorption short  1
+   m=838 |R|=18 (25, 16)               e(H[R])= 15  crossing short   131, absorption short  1
+   m=840 |R|=11 (24, 23)               e(H[R])=  2  crossing short   701, absorption short  1
+   m=840 |R|=14 (24, 20, 2)            e(H[R])= 16  crossing short   701, absorption short  1
+   m=840 |R|=15 (24, 19, 2)            e(H[R])= 21  crossing short   701, absorption short  1
+
+THE TIGHTEST TEN BY CROSSING ALONE
+   m=840 |R|=31 (27,)                  e(H[R])= 30  crossing short     5
+   m=840 |R|=32 (26,)                  e(H[R])= 59  crossing short     5
+   m=840 |R|=17 (25, 17)               e(H[R])=  8  crossing short    61
+   m=840 |R|=18 (25, 16)               e(H[R])= 13  crossing short    61
+   m=840 |R|=19 (25, 15)               e(H[R])= 18  crossing short    61
+   m=840 |R|=20 (25, 14)               e(H[R])= 23  crossing short    61
+   m=840 |R|=16 (25, 18)               e(H[R])=  3  crossing short    61
+   m=840 |R|=21 (25, 13)               e(H[R])= 28  crossing short    61
+   m=840 |R|=22 (25, 12)               e(H[R])= 33  crossing short    61
+   m=840 |R|=23 (25, 11)               e(H[R])= 38  crossing short    61
+
+CONCLUSION
+   BOTH obstructions are close somewhere, which is the useful fact.
+
+   Absorption: the shortfall reaches 1, and 1134 of the 8782
+   configurations sit within 2 of closing on it.  It is the broad
+   front -- the median shortfall is about 6 -- so a uniform gain of a
+   few units in mu_2 would remove most of the case at once.
+
+   Crossing: the shortfall reaches 5, with 2 configurations within
+   50 and 54 within 200 of Z(29) = 8281.  But the distribution is very
+   long-tailed: most sit 3000 to 6000 short.  So a better crossing
+   bound would peel off a few dozen configurations, not the case.
+
+   The two crossing-tightest are single-block configurations at
+   m = 840, |R| = 31 and 32, where merging the block with R covers
+   ALL 58 vertices, so the bound degenerates to the global
+   g(58, 813) = 8276 and the shortfall of 5 is just the row-840
+   margin of the deletion-recurrence gate.  Nothing block-specific
+   is being used there, which is why they are extreme.
+
+   VERDICT: push mu_2, not the crossing bound.  That is what closed
+   order 57, and it is now measured rather than guessed.

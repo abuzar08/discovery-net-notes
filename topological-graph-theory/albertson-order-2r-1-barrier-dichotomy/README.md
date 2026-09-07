@@ -1575,6 +1575,56 @@ seed ladder, so the order-58 gate is seed-independent.
 > 27761, 103292 and 9533 in earlier contributions are superseded; the standing
 > figure is 9104.
 
+### How far is order 58 from closing?  (`profile58.py`)
+
+Every tool here has been tried on the remaining configurations.  Before inventing
+another it is worth knowing **which** obstruction is binding and **by how much**.
+That had never been measured at the current state.
+
+Two obstructions, measured separately for each of the 8782 clique-block
+survivors: the **crossing** shortfall \(Z(29)\) minus the best provable lower
+bound for \(cr(G)\), and the **absorption** shortfall
+\(\bigl(\lvert Z\rvert+\max(0,t-s)\bigr)-(\mu_1+\mu_2)\), minimised over the
+surviving \((k_1,k_2)\) sub-cases since the adversary picks the best one.
+
+| absorption shortfall | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | \(\ge9\) |
+|---|---|---|---|---|---|---|---|---|---|
+| count | 757 | 377 | 536 | 693 | 870 | 1037 | 980 | 815 | 2717 |
+
+| crossing shortfall | \(<500\) | \(<1500\) | \(<3000\) | \(<4500\) | \(\ge4500\) |
+|---|---|---|---|---|---|
+| count | 126 | 476 | 1498 | 3509 | 4774 |
+
+**Both obstructions are close somewhere**, which is the useful fact.
+
+*Absorption* is the broad front: the shortfall reaches **1**, 1134 configurations
+sit within 2 of closing, and the median is about 6.  A uniform gain of a few
+units in \(\mu_2\) would remove most of the case at once.
+
+*Crossing* is long-tailed: the shortfall reaches **5**, but only 2 configurations
+lie within 50 and 54 within 200, while most sit 3000–6000 short.  A better
+crossing bound peels off a few dozen configurations, not the case.
+
+The two crossing-tightest are single-block configurations at \(m=840\),
+\(\lvert R\rvert=31\) and 32.  There merging the block with \(R\) covers **all 58
+vertices**, so the bound degenerates to the global \(g(58,813)=8276\) and the
+shortfall of 5 is just the row-840 margin of the deletion-recurrence gate —
+nothing block-specific is used, which is why they are extreme.  They also have
+\(H[L]\) empty, so \(\theta(H)\ge\lvert L\rvert=27\) and only two cliques of the
+cover are spare; the covering count then needs \(a+s_1+s_2\ge4\) with \(a\le
+\nu(H[R])\), and \(\nu(H[R])\ge2\) because \(\Delta(H[R])\le28\) rules out the
+extremal star.  That is satisfiable — a double star does it — so they survive.
+
+> **Verdict: push \(\mu_2\), not the crossing bound.**  That is what closed order
+> 57, and it is now measured rather than guessed.
+
+**Measured and rejected.**  Stehlík's partition of \(H-x\) into one triangle and
+27 edges yields, after the block bookkeeping, only \(\lvert R\rvert\le61\) and
+\(q_1\le28\) — never binding at these parameters.  And \(\theta(H)\ge\omega(G)\)
+gives \(\omega(G)\le29\), but a block merged with \(R\) yields a clique of order
+at most \(29+s-qs\le29\) for \(s=q+\lvert R\rvert-29\ge0\), so that never bites
+either.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1589,6 +1639,8 @@ with 307 carrying one, 9104 in all.  Nothing here bears on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `profile58.py` | the shortfall map: which obstruction is binding, and by how much |
+| `EXPECTED_OUTPUT_PROFILE58.txt` | its expected output |
 | `state29.py` | **the state of r = 29, recomputed end to end** |
 | `EXPECTED_OUTPUT_STATE29.txt` | its expected output |
 | `turan58.py` | the Turan cap on H[R], and the odd-cycle gap closed |
@@ -1618,6 +1670,7 @@ with 307 carrying one, 9104 in all.  Nothing here bears on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 profile58.py    | diff -u EXPECTED_OUTPUT_PROFILE58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -
