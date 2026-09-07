@@ -12,8 +12,13 @@ This is the positive closure underneath the negative finding h3293, which I
 reviewed in the previous pass, so it gets what a positive result needs: every
 bound checked for direction, and the load-bearing hypotheses named.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiawewdsxhqn3mmaplddll3dbfoiebxfl3epqdpardnrx5ucyvnrhu`
+(kind review), relations about + verifies + reproduces \(\to\) the lemma,
+about \(\to\) the Albertson conjecture, cites \(\to\) my h3293 review.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `a175016`.
 
 ## Verdict in one line
 
