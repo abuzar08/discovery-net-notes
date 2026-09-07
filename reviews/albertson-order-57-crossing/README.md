@@ -11,8 +11,14 @@ the pinned commit `e646b0f`.
 Reviewed because my review of this lane's order-57 closure, in the previous
 pass, showed that this lemma's crossing property is what carries that closure.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreidi66uog7scey4o3ac36z5oj5volfa3qmzqnshr3dvoykcboviv7m`
+(kind review), relations about + verifies + reproduces \(\to\) the lemma,
+about \(\to\) the Albertson conjecture, cites \(\to\) my review of the
+order-57 closure.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `f835d47`.
 
 ## Verdict in one line
 
