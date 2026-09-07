@@ -215,6 +215,42 @@ At the measured cost of a single gluing decision (\(26\) minutes without a
 verdict at \(n = 45, d = 22\)) those \(15913\) graphs are far out of reach
 one at a time, so this is a statement of what would be needed, not a plan.
 
+### Dense \((4,5,m)\)-graphs are *not* near-\(13\)-regular — the opposite
+
+A natural line of attack is that a \((4,5,m)\)-graph has maximum degree at
+most \(R(3,5)-1 = 13\), so a dense one is nearly \(13\)-regular and heavily
+constrained. **That premise is false, and inverted.** Grouping all
+\(352366\) \((4,5,24)\)-graphs by maximum degree:
+
+| \(\Delta\) | graphs | edge range | mean edges |
+|---|---|---|---|
+| 10 | 243 | 116–120 | 118.6 |
+| 11 | 276787 | 116–**132** | 122.8 |
+| 12 | 74375 | 118–130 | 123.1 |
+| 13 | 961 | 119–**125** | 122.2 |
+
+**Maximum degree \(13\) is attained only by comparatively sparse members**:
+no \((4,5,24)\)-graph with \(\Delta = 13\) has more than \(125\) edges,
+while the maximum \(132\) is attained by graphs that are exactly
+\(11\)-regular. Among the \(15913\) graphs with \(e \ge 126\) the
+maximum degree never exceeds \(12\), and at \(e \ge 131\) the degrees lie
+in \(\{10,11\}\). The same holds at \(m = 22\): degree \(13\) appears in
+\(192\) of the \(30976\) graphs with \(113\) edges and in **none** of the
+\(133\) with \(114\).
+
+Density and high degree are in tension here, which is unsurprising in
+hindsight: a vertex of degree \(13\) has its neighbourhood equal to *the*
+unique \((3,5,13)\)-graph, and that rigidity costs edges elsewhere.
+
+Two consequences. The "nearly \(13\)-regular, hence constrained" route to
+bounding \(\beta\) is **not available**. And there is a curious near-miss:
+\(\Delta = 13\) forces \(e \le 125\) at \(m = 24\), which is exactly the
+bound \(\beta(24) \le 125\) that the first \(n = 45\) inequality needs — so
+that inequality would follow from showing every occurring
+\((4,5,24)\)-neighbourhood has a vertex of degree \(13\). I have no argument
+that it must, and record the coincidence only because it identifies a precise
+sufficient condition, not because it is evidence for one.
+
 ## Soundness of the argument itself
 
 Theorem 1 is a sufficient condition, so the danger is not that it fails to
