@@ -1,0 +1,37 @@
+EDGE COUNTS, two routes to e_H(L,R)
+   m = 827: e(L) = 552, e(H[L]) = 576 = 24 x 24, e(G[R]) = 35, e(H[R]) = 1, e_H(L,R) = 192 (complement count) = 192 (degree identity)
+   m = 828: e(L) = 552, e(H[L]) = 576 = 24 x 24, e(G[R]) = 36, e(H[R]) = 0, e_H(L,R) = 192 (complement count) = 192 (degree identity)
+
+THE CAP AND THE PIGEONHOLE
+   for a high z, d_G(z) = 28 + x_z with x_z >= 1, and
+   |N_H(z) ^ L| = 48 - (d_G(z) - (8 - h_z)) = 28 - x_z - h_z <= 27
+   m = 827, a = 3, tau = 1: w-contribution 4, sum over Z = 188, so each |N_H(z) ^ L| >= 188 - 6*27 = 26, hence min(a_z,b_z) >= 2
+   m = 828, a = 1, tau = 0: w-contribution 3, sum over Z = 189, so each |N_H(z) ^ L| >= 189 - 6*27 = 27, hence min(a_z,b_z) >= 3
+   m = 828, a = 2, tau = 0: w-contribution 4, sum over Z = 188, so each |N_H(z) ^ L| >= 188 - 6*27 = 26, hence min(a_z,b_z) >= 2
+
+THETA ARITHMETIC, PER ROW  (t vertex-disjoint triangles)
+   m = 827: theta(H) <= 24 + (9 - e(H[R])) = 32; each triangle saves one, so theta <= 32 - t, and t = 4 is the least that gives <= 28 < 29
+        t = 4 gives 28 — CONTRADICTION; the residue to rule out is mu_1 + mu_2 <= 10
+   m = 828: theta(H) <= 24 + (9 - e(H[R])) = 33; each triangle saves one, so theta <= 33 - t, and t = 5 is the least that gives <= 28 < 29
+        t = 4 gives 29 — NO contradiction; the residue to rule out is mu_1 + mu_2 <= 11
+
+THE CROSSING-NUMBER TABLE
+   lane seeding (CCCG 2021: cr(K13)=225, cr(K14)=315): cr(K24) >= 3357, cr(K28) >= 6471
+      mu_1 = 2: clique K_28 disjoint from a K_24  ->  cr >= 6471 + 3357 = 9828  CLOSES (Z(29) = 8281)
+      mu_1 = 3: clique K_27 disjoint from a K_24  ->  cr >= 5546 + 3357 = 8903  CLOSES (Z(29) = 8281)
+      mu_1 = 4: clique K_26 disjoint from a K_24  ->  cr >= 4724 + 3357 = 8081  survives (Z(29) = 8281)
+      mu_1 = 5: clique K_25 disjoint from a K_24  ->  cr >= 3997 + 3357 = 7354  survives (Z(29) = 8281)
+      mu_1 = 6: clique K_24 disjoint from a K_24  ->  cr >= 3357 + 3357 = 6714  survives (Z(29) = 8281)
+      mu_1 = 7: clique K_23 disjoint from a K_24  ->  cr >= 2797 + 3357 = 6154  survives (Z(29) = 8281)
+   conservative seeding (cr(K12)=150 only): cr(K24) >= 3243, cr(K28) >= 6250
+      mu_1 = 2: clique K_28 disjoint from a K_24  ->  cr >= 6250 + 3243 = 9493  CLOSES (Z(29) = 8281)
+      mu_1 = 3: clique K_27 disjoint from a K_24  ->  cr >= 5357 + 3243 = 8600  CLOSES (Z(29) = 8281)
+      mu_1 = 4: clique K_26 disjoint from a K_24  ->  cr >= 4563 + 3243 = 7806  survives (Z(29) = 8281)
+      mu_1 = 5: clique K_25 disjoint from a K_24  ->  cr >= 3861 + 3243 = 7104  survives (Z(29) = 8281)
+      mu_1 = 6: clique K_24 disjoint from a K_24  ->  cr >= 3243 + 3243 = 6486  survives (Z(29) = 8281)
+      mu_1 = 7: clique K_23 disjoint from a K_24  ->  cr >= 2702 + 3243 = 5945  survives (Z(29) = 8281)
+
+SURVIVING (mu_1, mu_2) PAIRS, per row
+   the table forces mu_i >= 4
+   m = 827: t = 4 needed, residue mu_1 + mu_2 <= 10, surviving pairs [(4, 4), (4, 5), (4, 6), (5, 4), (5, 5), (6, 4)]
+   m = 828: t = 5 needed, residue mu_1 + mu_2 <= 11, surviving pairs [(4, 4), (4, 5), (4, 6), (4, 7), (5, 4), (5, 5), (5, 6), (6, 4), (6, 5), (7, 4)]
