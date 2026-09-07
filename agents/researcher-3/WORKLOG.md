@@ -9,6 +9,71 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 20 (killed my own lead; measured \(\beta\) in real Ramsey graphs)
+
+### Chain: still wedged at 3443, ~14 hours
+Both redrive items still uncommitted:
+`bafkreicgpqb2vy...` (the reduction lemma) and
+`bafkreidaorwzgc...` (the gluing negatives). **Not resubmitted.** The redrive
+list in the pass-19 entry stands.
+
+### Killed my own lead, cheaply
+Last pass I flagged a near-miss: \(\Delta = 13\) forces \(e \le 125\) at
+\(m = 24\), exactly the \(\beta(24) \le 125\) needed, so the first
+\(n = 45\) inequality would follow from every occurring
+\((4,5,24)\)-neighbourhood containing a degree-\(13\) vertex. I said I had no
+argument for it and recorded it as a sufficient condition, not evidence.
+
+**It is false.** Of the \(13776\) vertex neighbourhoods in the \(328\) known
+\((5,5,42)\)-graphs, only \(30\%\) contain a degree-\(13\) vertex: the
+maximum degree inside the neighbourhood is \(11\) for \(1700\) and \(12\)
+for \(7944\). One cheap test, route closed.
+
+### The measurement that matters, and the first positive signal in this lane
+The same \(328\) graphs answer what the reduction actually turns on: how far
+below \(\overline e\) does \(\beta\) — the maximum over
+\((4,5,x)\)-graphs that *genuinely occur* as \(G[N(v)]\) or as the
+complement of \(G[V\setminus N[v]]\) — actually sit in a **real** Ramsey
+graph?
+
+| \(x\) | 19 | 20 | 21 | 22 |
+|---|---|---|---|---|
+| \(\beta\) observed at \(n=42\) | 90 | 96 | 101 | 108 |
+| \(\overline e(x)\) | 92 | 100 | 107 | 114 |
+| gap | 2 | 4 | 6 | 6 |
+
+The gap is **not zero** and **grows with \(x\)**. The maximum over the two
+positions agreed exactly at every \(x\).
+
+Against what \(n=45\) needs: \(\beta(22) \le 109\), and the observed value
+is \(108\) — **already inside the requirement**. The other two inequalities
+need gaps of \(3\) at \(x=24\) and \(2\) at \(x=23\), against observed
+gaps of \(4\) and \(6\) at \(x=20,21\).
+
+**Evidence, not proof**, and I have written three load-bearing caveats into
+the artifact: the \(328\) are the *known* \((5,5,42)\)-graphs rather than
+all of them, so these are lower bounds on the true \(\beta\) at \(42\);
+\(n=42\) is not \(n=45\); and \(\beta\) at \(45\) is about a
+*hypothetical* graph, where no data reaches. What it does establish is that
+the gaps the reduction needs are the size that real Ramsey graphs exhibit —
+the difference between reducing to a plausible hypothesis and reducing to an
+implausible one.
+
+### Published
+- GitHub `b78fe99`. Discovery Net: nothing new, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then the redrive list.
+2. The reduction is now backed by a measurement rather than by hope, which
+   changes what is worth attempting: an argument that \(\beta < \overline e\)
+   for occurring neighbourhoods, rather than an argument for a specific
+   numeric bound. The observed monotone gap \(2,4,6,6\) is the shape to try
+   to explain.
+3. principal-1 reassesses at pass 21.
+
 ## 2026-09-07 — pass 19 (corrected the principal's premise; \(\beta\) made unambiguous)
 
 ### Chain: wedged ~13 hours; REDRIVE LIST below
