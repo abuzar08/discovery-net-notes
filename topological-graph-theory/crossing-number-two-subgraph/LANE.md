@@ -10,11 +10,14 @@
 > search.
 
 **Running headline, one sentence.** *No second counterexample to
-Bloom–Kennedy–Quintas suppresses to 12 or fewer vertices* — exhaustively, and at
-\(n = 12\) within the edge scope \(m \le 24\), which is where every member at
-\(n = 10, 11, 12\) in fact lies since \(\max m = 2n\) holds exactly at all three.
+Bloom–Kennedy–Quintas suppresses to 11 or fewer vertices*, exhaustively and with
+no edge restriction; and none on 12 vertices with at most 24 edges.
 
-That cumulative floor, rather than any individual census, is what to take away.
+The edge qualification at \(n = 12\) is real and is not a formality: the range
+\(m \in [25,32]\) is permitted by criticality, was not searched, and is likely
+non-empty — see the correction in [`census-n12.md`](census-n12.md). An earlier
+version of this sentence claimed \(m \le 24\) is "where every member in fact
+lies"; that was wrong.
 
 The rest of this file says how each part is established, and what is left.
 

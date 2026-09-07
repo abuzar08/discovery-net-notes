@@ -45,10 +45,8 @@ validity; both affect what the result should be said to cover.
 $$m \in [18,22]:\ 6{,}663{,}788, \qquad m \in [23,24]:\ 123{,}404{,}248,$$
 
 so \(m \le 24\) is 130,068,036 candidates — comparable to the \(n = 11\) census
-and about four core-hours — while \(m \ge 25\) explodes. The cap is chosen because
-that is where a counterexample would sit: every census member with \(n \ge 9\) has
-\(m \le 2n\), and \(C_3 \square C_3\) itself has \(m = 2n\). **The residual
-\(m \in [25,32]\) is not covered and is reported as residual.**
+and about four core-hours — while \(m \ge 25\) explodes. **The residual \(m \in [25,32]\) is not covered, and the reason for choosing the
+cap was weaker than I first stated — see the correction below.**
 
 ## Acceptance criterion, fixed before the run finishes
 
@@ -90,11 +88,33 @@ independent answer; and the count landing on 29 rather than 23 is a second,
 independent confirmation that `-C` is biconnected — the run agrees with the
 2-connected total and not the 3-connected one.
 
-A third observation, useful for the scope: the 2-connected members at \(n = 10\)
-have \(m \in [15,20]\), and \(2n = 20\). Together with \(n = 11\), whose members
-reach \(m = 22 = 2n\), the cap \(m \le 2n\) is *exact* at both orders checked. That
-is why \(m \le 24\) is the chosen scope at \(n = 12\) — still not a theorem, but
-not arbitrary either.
+### Correction: the \(m \le 2n\) justification does not hold
+
+I justified the cap by claiming \(\max m = 2n\) "exactly" at \(n = 10, 11, 12\).
+Checking it properly across every order shows otherwise. Maximum \(m\) among the
+2-connected members:
+
+| \(n\) | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| \(\max m\) | 14 | 15 | 18 | 19 | 20 | 20 | 24\* |
+| \(2n\) | 12 | 14 | 16 | 18 | 20 | 22 | 24 |
+
+\(\max m\) **exceeds** \(2n\) at \(n = 6, 7, 8, 9\); it equals \(2n\) at \(n = 10\)
+with zero margin; it is strictly below only at \(n = 11\). And the \(n = 12\) entry
+is marked with an asterisk because **it is the cap itself** — the run stopped at
+24, so finding the maximum at 24 is circular and is not evidence about anything.
+
+Worse, the distribution at \(n = 12\) does not taper toward the cap. By edge count
+the members run \(4, 2, 2, 4, 9, 0, 2\) at \(m = 18,19,20,21,22,23,24\): nine at
+22, **none at 23**, then **two at 24**. A binding cap is exactly what that looks
+like.
+
+**So the honest position is that \(m \in [25,32]\) is likely non-empty**, the
+result below is a genuinely partial one, and the cap was a computational
+necessity rather than a well-founded scope. What the ratio does show is a
+monotone decline in \(\max m / n\) — 2.33, 2.14, 2.25, 2.11, 2.00, 1.82 over
+\(n = 6 \ldots 11\) — which makes \(m \le 2n\) plausible at \(n \ge 12\) but leaves
+it a conjecture with one zero-margin data point against it.
 
 ## Second acceptance criterion: the census must independently find BORS's members
 

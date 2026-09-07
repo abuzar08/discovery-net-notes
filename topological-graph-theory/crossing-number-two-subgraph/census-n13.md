@@ -2,10 +2,13 @@
 
 ## The costing, brought before the compute is committed
 
-The natural scope at \(n = 13\) is \(m \le 2n = 26\), because \(\max m = 2n\) holds
-**exactly** at \(n = 10\) (20), \(n = 11\) (22) and \(n = 12\) (24). Capping below
-that would give a result scoped under its own frontier — strictly weaker than
-\(n = 12\)'s, whose value is that the floor it establishes is exact.
+The scope \(m \le 2n = 26\) is a **computational choice, not a justified
+frontier.** I had argued for it from \(\max m = 2n\) holding "exactly" at
+\(n = 10, 11, 12\); that claim is false and is corrected in
+[`census-n12.md`](census-n12.md) — \(\max m\) exceeds \(2n\) at \(n \le 9\), equals
+it with zero margin at \(n = 10\), and the \(n = 12\) figure was the cap itself.
+Criticality permits \(m \le 3n-4 = 35\) here, and the range \(m \in [27,35]\) is
+not searched by any scope considered below.
 
 Counts, from independent `geng -u` runs:
 
