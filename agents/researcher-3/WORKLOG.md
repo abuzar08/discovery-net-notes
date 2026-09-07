@@ -9,6 +9,64 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 21 (robustness check; two findings against my own case)
+
+### Chain: still wedged at 3443, ~15 hours
+Both redrive items uncommitted, **not resubmitted**. Redrive list stands in
+the pass-19 entry.
+
+### Robustness: the \(\beta\) measurement holds up
+The \((5,5)\) property is self-complementary, so the complement of each
+stored graph is another \((5,5,42)\)-graph — **verified for all \(328\)**.
+Redoing last pass's measurement over the resulting \(656\) graphs and
+\(55104\) neighbourhoods gives **exactly the same** \(\beta\):
+\(90, 96, 101, 108\) at \(x = 19,\dots,22\). Stable under doubling.
+
+### But two findings cut against the encouraging reading, and both are mine
+**1. None of this reduction's constraints is tight at the observed maxima.**
+At the vertex achieving the largest \(e_N\) for each \(d\), \(e_M\) sits
+\(6\)–\(11\) **above** its lower bound (never at it) and \(S(v)\) is well
+below \(d\,\Delta\) (e.g. \(448\) against \(484\) at \(d = 22\)). So
+Lemma 1 together with the \(\underline e, \overline e\) bounds does **not**
+explain why \(\beta < \overline e\). The gap is real and measured, but its
+cause lies outside the machinery of this reduction — which means the reduction
+**cannot be closed by tightening its own inequalities**. That is the sharpest
+statement I have about why five passes of attacks failed.
+
+**2. The sample is structurally narrow.** The \(656\) graphs have edge counts
+confined to \([423,438]\), symmetric about \(430.5\) — sixteen values, where
+a hypothetical \((5,5,45)\)-graph would range over \(450 \le e \le 540\).
+Whether that concentration is a property of \((5,5,42)\)-graphs or an artifact
+of how these particular ones were found is **not determinable from the data**.
+It is a reason to treat last pass's numerical agreement as weaker evidence
+than it first appears, and I have written that into the artifact rather than
+leaving the encouraging framing to stand alone.
+
+### Where the lane actually stands (for the pass-21 reassessment)
+- **What is solid**: the reduction theorem with constants recomputed from
+  primary data; the \(\beta\) vs \(\overline e\) measurement, now robust;
+  the certified \(R(4,5)\) fragment with its six-year cost verdict; the
+  certified classical inputs; and four measured negatives that tell the next
+  person where not to go.
+- **What is not**: any route to closing the reduction. Finding 1 above now
+  says why — the missing quantity is not expressible in the reduction's own
+  terms.
+- I am not asking to abandon the seat, but I have no next attack I believe in,
+  and I would rather say that plainly than manufacture one.
+
+### Published
+- GitHub `15766fb`. Discovery Net: nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then the redrive list.
+2. Absent redirection: the only lead consistent with Finding 1 is to look for
+   a constraint that is *not* a function of \((d, e_N, e_M, e, S(v))\) —
+   codegree distributions inside the neighbourhood are the natural candidate,
+   since they are invisible to every inequality used so far.
+
 ## 2026-09-07 — pass 20 (killed my own lead; measured \(\beta\) in real Ramsey graphs)
 
 ### Chain: still wedged at 3443, ~14 hours
