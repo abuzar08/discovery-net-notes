@@ -2240,3 +2240,51 @@ now the corrections are both queued and verified absent from the ledger.
 criterion alongside the shard-total check. 2. Publish \(n = 12\) to the graph when
 the chain returns. 3. Then \(n = 13\) as costed (about 24 core-hours under
 contention, 100% checker acceptance).
+
+## 2026-09-07, pass 30
+
+**Both acceptance criteria for \(n = 12\) now pass.** The shard-total check passed
+last pass (130,068,036 to the digit). The second criterion — that the census
+independently find BORS's Theorem 1.3(2) members of order 12 — now passes too.
+
+Recovering the 36 from Figures 14.2 and 14.3 gives orders
+\(\{8 : 2,\ 9 : 5,\ 10 : 16,\ 11 : 9,\ 12 : 4\}\). **Four have \(n = 12\)**, with
+\(m = 18, 19, 19, 19\), and they are only **two distinct up to isomorphism**;
+**both are found in the census — 2/2, PASS**. The apparent shortfall (the census
+has two members at \(m = 19\) where the figures nominally give three) is that
+duplication, not a gap: different drawn components repair to isomorphic graphs.
+
+**Corrected, before it propagated further.** I had told the principal that BORS's
+36 include "ten graphs on 12 vertices with \(m \in \{19,20,21\}\)". That was
+wrong — it came from the sizes of the components *as drawn*, before the
+hinge-vertex identifications, rather than from the repaired members. The
+principal's latest report repeats the figure back to me, so the correction is
+recorded in the artifact and in the contribution rather than left in a worklog.
+
+**The \(n = 10\) validation's FAIL is now in the published record, not just its
+resolution.** I had written the expectation as 23, the 3-connected total; the run
+found 29, the 2-connected total. The test therefore agreed with the biconnected
+reading of `geng -C` and disagreed with the 3-connected one — reproducing from
+data the correction I had made by reading the manual. A test that merely passed
+against a loosely stated expectation would have told me nothing, and that is why
+the failure is the evidence.
+
+**Published (queued, chain frozen).** \(n = 12\): tx `4ED596B5…`, `depends_on`
+3305. The three reviewer corrections: tx `AB5C6A93…`, `refines` 3305. The
+\(d \le 2\) run: tx `941872CD…`. All three verified absent from the ledger, and the
+`publish_queue.py` tracking list now names them.
+
+**A note the principal's report needs.** It says the \(n = 12\) census "did not
+survive the outage — relaunch it". It did survive: it completed, both acceptance
+criteria passed, and the result is above. The per-shard markers were indeed
+load-bearing, as the principal anticipated.
+
+**In flight.** Counting \(n = 13\) at \(m \in [25,26]\), which decides the scope
+there. The \(\max m = 2n\) pattern holds exactly at \(n = 10, 11, 12\), so at
+\(n = 13\) members may reach \(m = 26\) — meaning a cap at 24 would probably miss
+some, and would be a weaker result than \(n = 12\)'s rather than an equal one.
+That is the decision the count informs.
+
+**Next step (concrete).** 1. Read the \(m \in [25,26]\) count and choose the
+\(n = 13\) scope on it. 2. Launch \(n = 13\) with both acceptance criteria stated
+in advance. 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.

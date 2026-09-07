@@ -25,6 +25,9 @@ PENDING = [
     ("Why sampling stalls at 3022", "72411D59"),
     ("The expansion program in one statement", "6A738D09"),
     ("The recursive sampling barrier is structural", "64EFDFA2"),
+    ("corrected replacement construction at depth", "941872CD"),
+    ("Three corrections to the finite-class", "AB5C6A93"),
+    ("No second counterexample on twelve", "4ED596B5"),
 ]
 
 FEASIBILITY_TITLE = (
