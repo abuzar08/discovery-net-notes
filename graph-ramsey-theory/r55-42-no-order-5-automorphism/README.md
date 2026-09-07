@@ -48,6 +48,12 @@ Completeness of the 256 cubes is checked exactly by the orbit-stabiliser count:
 the number of labelled \((5,5)\)-good \(Z_5\)-graphs on three cycles, \(185\,848\),
 equals
 $$\sum_{\text{cubes } C} \frac{1200}{|\mathrm{Stab}(C)|}.$$
+That number is obtained in two independent ways, and they agree: by brute force
+over all \(4^{3} \cdot 32^{3} = 2\,097\,152\) labelled graphs, and from the
+seven classes on two cycles through
+$$N_3 = \sum_{R} |\mathrm{orbit}(R)| \cdot \#\{\text{good extensions of } R\}$$
+(`verify_cnc_p.py --complete-from level2_p5.json`; the second route is the one
+that stays feasible at higher levels).
 
 Refinement: a cube the solver could not refute within the time limit was replaced
 by the \(2^{5}\) assignments of five of its next free cycle's orbit variables (a
