@@ -243,13 +243,52 @@ hindsight: a vertex of degree \(13\) has its neighbourhood equal to *the*
 unique \((3,5,13)\)-graph, and that rigidity costs edges elsewhere.
 
 Two consequences. The "nearly \(13\)-regular, hence constrained" route to
-bounding \(\beta\) is **not available**. And there is a curious near-miss:
+bounding \(\beta\) is **not available**. And there was a near-miss:
 \(\Delta = 13\) forces \(e \le 125\) at \(m = 24\), which is exactly the
-bound \(\beta(24) \le 125\) that the first \(n = 45\) inequality needs — so
+bound \(\beta(24) \le 125\) that the first \(n = 45\) inequality needs, so
 that inequality would follow from showing every occurring
-\((4,5,24)\)-neighbourhood has a vertex of degree \(13\). I have no argument
-that it must, and record the coincidence only because it identifies a precise
-sufficient condition, not because it is evidence for one.
+\((4,5,24)\)-neighbourhood has a vertex of degree \(13\).
+
+**That sufficient condition is false.** Tested on the \(13776\) vertex
+neighbourhoods of the \(328\) known \((5,5,42)\)-graphs, only \(30\%\)
+contain a degree-\(13\) vertex; the maximum degree inside the neighbourhood
+is \(11\) for \(1700\) of them and \(12\) for \(7944\). So the route is
+closed, and it was closed cheaply by testing it rather than pursuing it.
+
+### How far below \(\overline e\) does \(\beta\) actually sit?
+
+The same \(328\) graphs answer the question the reduction really turns on.
+For each order \(x\), taking the maximum edge count over
+\((4,5,x)\)-graphs that genuinely occur — as \(G[N(v)]\) or as the
+complement of \(G[V\setminus N[v]]\), which is exactly the \(\beta\) of
+Theorem 1 — in a **real** Ramsey graph:
+
+| \(x\) | 19 | 20 | 21 | 22 |
+|---|---|---|---|---|
+| \(\beta\) observed at \(n = 42\) | 90 | 96 | 101 | 108 |
+| \(\overline e(x)\) | 92 | 100 | 107 | 114 |
+| gap | 2 | 4 | 6 | 6 |
+
+Two things stand out. The gap is **not zero** — occurring neighbourhoods are
+genuinely sparser than the densest catalogued ones — and it **grows with
+\(x\)**. The maximum over the two positions agreed exactly at every \(x\).
+
+Against what \(n = 45\) needs: \(\beta(22) \le 109\), and the observed
+value at \(n = 42\) is \(108\) — **already inside the requirement**. The
+other two need gaps of \(3\) at \(x = 24\) and \(2\) at \(x = 23\)
+(given the observed \(\beta(20), \beta(21)\)), against observed gaps of
+\(4\) and \(6\) at \(x = 20, 21\).
+
+**This is evidence, not a proof, and three caveats are load-bearing.** The
+\(328\) graphs are the *known* \((5,5,42)\)-graphs, not all of them, so the
+observed values are lower bounds on the true \(\beta\) at \(n = 42\).
+\(n = 42\) is not \(n = 45\); the degree window is tighter at \(45\), which
+should push \(\beta\) down further, but that direction is argued, not
+established. And \(\beta\) at \(n = 45\) is a statement about a
+*hypothetical* graph, where no data can reach. What the measurement does
+establish is that the required gaps are of the size that real Ramsey graphs
+actually exhibit — which is the difference between a reduction to a plausible
+hypothesis and a reduction to an implausible one.
 
 ## Soundness of the argument itself
 
@@ -269,6 +308,8 @@ an honest illustration that this bound is one tool among several.)
 - `e45.json` — the verified constants, source URLs and SHA-256.
 - `r45_24_profile.json` — edge and degree profile of all \(352366\)
   \((4,5,24)\)-graphs.
+- `beta_observed_42.json` — \(\beta\) measured in the \(328\) known
+  \((5,5,42)\)-graphs, against \(\overline e\).
 - `reduce.py` — the reduction in exact rational arithmetic, and `--selftest`.
 - `glue.py` — the gluing CNF (both the fixed-pair and the fixed-\(H\) forms),
   and the \(S_m\) symmetry break for \(M\).
