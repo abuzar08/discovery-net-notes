@@ -1,0 +1,51 @@
+The residue without the partition hypothesis, at r = 29
+Z(29) = 8281;  low means d_G = 28
+
+CONTROL   order 57, row (57,828), through the GENERAL residue
+   |R|=10 (24, 23)       thr=(5,4)  ->  IMPOSSIBLE
+   |R|=10 (24, 23, 2)    thr=(5,3)  ->  IMPOSSIBLE
+   |R|=10 (25, 22)       thr=(6,3)  ->  IMPOSSIBLE
+   |R|=10 (25, 22, 2)    thr=(6,2)  ->  IMPOSSIBLE
+   |R|=11 (23, 23)       thr=(5,5)  ->  IMPOSSIBLE
+   |R|=11 (23, 23, 2)    thr=(5,4)  ->  IMPOSSIBLE
+   |R|=11 (24, 22)       thr=(6,4)  ->  IMPOSSIBLE
+   |R|=11 (24, 22, 2)    thr=(6,3)  ->  IMPOSSIBLE
+   |R|=11 (25, 21)       thr=(7,3)  ->  IMPOSSIBLE
+   |R|=11 (25, 21, 2)    thr=(7,2)  ->  IMPOSSIBLE
+   |R|=11 (26, 20)       thr=(8,2)  ->  IMPOSSIBLE
+   order 57 STILL CLOSES under the general form
+
+ORDER 58, class b = 6, c = (51,1): the last case at r = 29
+   The excess budget is the whole difference from order 57.  The
+   class has ONE singleton component w, so Sx := sum_{z in Z} x_z =
+   X - x_w <= X - 25, which is 27, 29, 31 on the three rows, against
+   Sx <= 9 at order 57 where there were TWO singletons.
+
+   m = 838 (X = 52, Sx <= 27, |R| <= 28): 5688 of 50885 (|R|, multiset) survive, |R| in 11..28
+        regime |R| <= 16 :   7      regime |R| >= 17 : 5681
+   m = 839 (X = 54, Sx <= 29, |R| <= 30): 6538 of 59563 (|R|, multiset) survive, |R| in 11..30
+        regime |R| <= 16 :   7      regime |R| >= 17 : 6531
+   m = 840 (X = 56, Sx <= 31, |R| <= 32): 7142 of 65237 (|R|, multiset) survive, |R| in 11..32
+        regime |R| <= 16 :   6      regime |R| >= 17 : 7136
+
+   THE SMALL-|R| REGIME is fully explicit: 203 sub-cases, each pinned
+   by (m, |R|, multiset, k_1, k_2).  Shortfall of mu_1 + mu_2 against
+   the requirement |Z| + max(0, t - s), as a histogram:
+        short by 1 : 139 sub-cases
+        short by 2 : 64 sub-cases
+   The deficit sits entirely in mu_2.  There e_H(Q_2 - Q_1, R) is
+   only |Q_2 - Q_1| (q_2 + |R| - 29), which is 30 or so against a
+   |Z| of 10 to 15, so Koenig can force only two or three edges of a
+   matching, while mu_1 is already at or one below its maximum |Z|.
+   The residue cannot repair it: thr_2 = 28 - |L| + |Q_2 - Q_1| is 1
+   or 2 in these cases, so it yields b_z >= 1 - c_z, which is vacuous.
+
+CONCLUSION
+   The general residue reproduces the order-57 closure with the
+   partition hypothesis REMOVED, and it does not close order 58:
+   19368 (|R|, multiset) combinations survive.  Reported as a
+   negative result.  The route is exhausted for a quantified
+   reason -- the budget Sx <= X - 25 is three times the order-57
+   value because this class has one singleton component, not two
+   -- so the next attempt on order 58 should not be a sharper
+   residue but a new bound on the SECOND matching mu_2.

@@ -1106,10 +1106,78 @@ factor-critical and none of the order-\(2r-1\) structure theory applies; it is
 handled separately above.  This does not prove Albertson's conjecture for
 `r = 29`.
 
+### The residue never needed the partition, and it does not reach order 58 (`residue58.py`)
+
+The closure above was **stated** for the case where the two big blocks partition
+\(L\), and guarded in code by an explicit `len(big) != 2 or sum(big) != NL`
+check.  At order 58 that guard almost never passes: \(\lvert R\rvert\) runs up
+to 32, so \(\delta_0=28-\lvert R\rvert\) falls to zero, every block counts as
+big, and the hypothesis is unavailable.
+
+**The hypothesis was never needed.**  \(Q_1\) is a subset of \(L\), so
+\(N_H(z)\cap L\) omits at most \(\lvert L\rvert-q_1\) vertices outside \(Q_1\)
+— no structure assumed, only \(\lvert Q_1\rvert=q_1\) — and therefore
+
+$$a_z \;\ge\; \lvert N_H(z)\cap L\rvert-\bigl(\lvert L\rvert-q_1\bigr) \;=\; \mathrm{thr}_1-c_z,
+\qquad \mathrm{thr}_1:=28-\lvert L\rvert+q_1,\quad c_z:=x_z+\lvert N_H(z)\cap R\rvert,$$
+
+and symmetrically \(b_z\ge \mathrm{thr}_2-c_z\) with
+\(\mathrm{thr}_2:=28-\lvert L\rvert+\lvert Q_2\setminus Q_1\rvert\).  When the
+blocks do partition \(L\) this is exactly the identity above, since then
+\(\lvert L\rvert=q_1+q_2\) gives \(\mathrm{thr}_1=28-q_2\).  The control in
+`residue58.py` reruns order 57 through the general form and **reproduces the
+closure**, so the published result stands with one hypothesis fewer.
+
+The general form also yields a **per-vertex floor**, not merely a cap on how many
+\(a_z\) vanish: among the \(Za:=\lvert Z\rvert-k_1\) vertices with \(a_z\ge1\) a
+single one can absorb only what the others leave, so
+\(a_z\ge \mathrm{thr}_1-\bigl(Ba-\text{others}\bigr)=:\mathrm{amin}_1\).  That
+floor feeds the defect-Hall bound, which until now was called with
+\(\mathrm{amin}=1\) in every case.
+
+Two further sharpenings, both sound and both previously left on the table.  The
+singleton \(w\) has \(d_H(w)\le b-2\), so its deduction is a **split**
+\(c_{w,1}+c_{w,2}\le c_w\) across the two edge totals, not \(c_w\) subtracted
+from each; and when the block orders sum to \(\lvert L\rvert\) the blocks are
+pairwise disjoint, so \(\lvert Q_2\setminus Q_1\rvert=q_2\) rather than
+\(q_2-1\).
+
+**On order 58 this fails, and it is reported as a negative.**  Of 175 685
+admissible \((\lvert R\rvert,\text{multiset})\) combinations across the three
+rows, 19 368 survive.  The reason is a single quantity.  The class \(c=(51,1)\)
+has **one** singleton component, so
+
+$$Sx \;=\; \sum_{z\in Z}x_z \;=\; X-x_w \;\le\; X-25 \;\in\; \{27,29,31\},$$
+
+against \(Sx\le9\) at order 57, where there were two singletons.  The residue's
+whole force is that \(c_z\) is paid from that budget; at three times the size it
+buys almost nothing.
+
+| row | \(X\) | \(Sx\le\) | \(\lvert R\rvert\le\) | survivors | \(\lvert R\rvert\le16\) | \(\lvert R\rvert\ge17\) |
+|---|---|---|---|---|---|---|
+| \((58,838)\) | 52 | 27 | 28 | 5688 | 7 | 5681 |
+| \((58,839)\) | 54 | 29 | 30 | 6538 | 7 | 6531 |
+| \((58,840)\) | 56 | 31 | 32 | 7142 | 6 | 7136 |
+
+The small-\(\lvert R\rvert\) regime is fully explicit: **203 sub-cases**, each
+pinned by \((m,\lvert R\rvert,\text{multiset},k_1,k_2)\), of which 139 are short
+by exactly one and 64 by two.  The deficit sits **entirely in
+\(\mu_2\)**.  There \(e_H(Q_2\setminus Q_1,R)\ge\lvert Q_2\setminus Q_1\rvert
+(q_2+\lvert R\rvert-29)\) is only about 30 against a \(\lvert Z\rvert\) of 10 to
+15, so König forces just two or three matching edges, while \(\mu_1\) is already
+at or one below its maximum \(\lvert Z\rvert\).  The residue cannot repair that:
+in these cases \(\mathrm{thr}_2\) is 1 or 2, so it gives \(b_z\ge1-c_z\), which
+is vacuous.
+
+> The next attempt on order 58 should therefore not be a sharper residue.  It
+> needs a genuinely new lower bound on the **second** matching \(\mu_2\), or a
+> route that avoids the two-sided absorption entirely.
+
 ## What this does not do
 
-For `r = 29` see the partial section above: two of the five order-57 rows close,
-and order 58 is untouched.  Nothing here bears on `r >= 30`.
+For `r = 29` see the partial section above: order 57 is closed, and order 58 is
+reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
+is **not** closed.  Nothing here bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -1118,6 +1186,8 @@ and order 58 is untouched.  Nothing here bears on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `residue58.py` | the residue without the partition hypothesis; order 58 resists |
+| `EXPECTED_OUTPUT_RESIDUE58.txt` | its expected output |
 | `deps.py` | the dependency reduction and the Corollary 5 simplification |
 | `order2r.py` | the order-2r non-domination lemma and order 58 at r = 29 |
 | `gallai.py`, `gallai_split.py` | the redundant routes for `\|R\| = 2..6` |
@@ -1133,6 +1203,7 @@ and order 58 is untouched.  Nothing here bears on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 residue58.py    | diff -u EXPECTED_OUTPUT_RESIDUE58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 deps.py         | diff -u EXPECTED_OUTPUT_DEPS.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 order2r.py      | diff -u EXPECTED_OUTPUT_ORDER2R.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 gallai.py       | diff -u EXPECTED_OUTPUT_GALLAI.txt -
