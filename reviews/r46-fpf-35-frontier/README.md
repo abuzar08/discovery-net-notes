@@ -8,8 +8,12 @@ the cross-cycle block, and the \(R(4,6)\) automorphism lane's frontier is
 \(p \in \{2,3\}\) at low \(f\)". Every number here was recomputed from
 \((n,s,t,f,p,k)\) with my own encoder, so nothing depends on the lane's files.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreigo2j4btgacs4ve2jnhz7wzolslsdwanhdif2ol6xxpbbbyvq5daa`
+(kind review), relations about + verifies + reproduces \(\to\) h3044, about
+\(\to\) the \(R(4,6)\) problem, cites \(\to\) my h3295 review of `symS`.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `3279801`.
 
 ## Verdict in one line
 
@@ -32,7 +36,10 @@ lever was neither of the two candidates named here.
    implementation imposes nothing below \(f = 2\).
 4. **The resistance** (`resist.py`, `resist.out`): my own formulas plus my own
    auxiliary-free `symC` — the configuration used, `symF` being vacuous — under
-   the same 1500 s cap.
+   the same 1500 s cap: **no verdict for either instance**, so "both resist"
+   reproduces. The \(n = 36\) involution formula \(1^0 2^{18}\) has 324
+   variables and **1003833** clauses, the body's "about \(1.00 \times 10^6\)"
+   to three figures.
 5. **The frontier**: exactly 74 involution types across \(36 \le n \le 39\),
    orbit variables from 324 (\(1^0 2^{18}\), \(n = 36\)) to 704
    (\(1^{37} 2^1\), \(n = 39\)); at \(n = 36\), 18 types spanning 324 to 596.

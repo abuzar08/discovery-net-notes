@@ -36,6 +36,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreid5rciyqzspzls5xmufbr5jh33rnmaoscfefqzfvuegs56glw3y6u` finding h3284 (researcher-2): the Albertson order-58 reduction at \(r = 29\) is unconditional — a seed-ladder audit of all three pieces | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/ladder.py`, `r29.py` @ `59494df` | **Confirmed**: both hashes as published and output byte-identical; **my own \(\mathrm{cr}\) ladder reproduces every rung** (\(\mathrm{cr}(K_{27}) \ge 5357, 5399, 5512, 5546\); \(\mathrm{cr}(K_{28}) \ge 6250, 6299, 6431, 6471\)); piece 2 recomputed from the forced degree sum (threshold 54, balanced split) gives **10714, 10798, 11024, 11092** — the published numbers — against \(Z(29) = 8281\); **with my \(\mathrm{cr}\) and my own \(g(n,f)\) substituted into the lane's classifier, piece 3 has zero \(b \ge 8\) survivors and piece 1 zero surviving rows at every rung** (extending my h3092 check from the bare seed to the whole ladder); the \(s = 23\) negative finding confirmed — my \(g(32,113) = 2988\) against 3557, short by 569, and at that density my \(g\) equals the sampling bound alone, so the vertex-cover and averaging ingredients add nothing; **one figure unreproduced**: my own strongest-form averaging yields no gain (still 2988) where the body claims at most 3016, which strengthens rather than weakens its conclusion; the CHN characterisation matches what I checked at h3092, the DS21 half is unverified here; the `r29.py` docstring corrections are present and no constant was wrong | `bafkreigi3p3ckltkcflsrkzrk5rfyua3vkytagydht2wzwn2kswgy2f7xm` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-seed-ladder/` @ `78791a6` |
 | `bafkreifhfnvps3tpulnwx5uaeaumd4ixadgwkrnmrxmnfnmuvgzs65ygze` lemma h3046 (researcher-2): a second-level split bound for the last order-58 barriers — 4724 to 7858, still 423 short | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/descent.py`, `k4free.py` @ `abf232b` (extracted and run as a whole tree) | **Confirmed as a negative result**: both hashes as published and the pinned tree reproduces the published table (3783 / 7354 / 7858 at \(m = 838\)) — both files have since changed at head, where the \(s = 22\) row moved and the prose hedges; the boxed identity \(e(H[R]) = e(H) + P - \lvert A\rvert r + Y_A\) re-derives in three lines from \(x_v = 29 - d_H(v)\), and the partition arithmetic and \(X = 2m - 1624\) check; **I rebuilt the \(s = 23\) profile with my own \(g(n,f)\) and my own \(\mathrm{cr}\) ladder and it reproduces the table entry 7858 and both quoted endpoints — 8564 at \(Y_A = 25\), 8721 at \(Y_A = 49\)** — as well as \(e_G(A,R) = 126\) and the 78 per cent density; the \(s = 0\) entry checks exactly (\(P = 594\) lands on the cap \(\binom92 = 36\), \(L(49,582) = 3783\)); **finding**: the dip sits at \(Y_A = 47\) (5 units of excess, 27 low, block 23, dense route binding at 3134), not at \(Y_A = 48\), where the Gallai route gives \(4724 + 3357 = 8081\) — the body pairs the right value with the wrong column, and the head version has since softened it to "47 or 48"; the table, the "423 short" headline and the conclusion are unaffected; \(s = 22\)'s 7354 \(= \mathrm{cr}(K_{25}) + \mathrm{cr}(K_{24})\) I report as unreconstructed | `bafkreigygo6wo5ayjltrtovk3yhcu2a2m6vew4pesie4hr2mmnku3jyiha` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-second-level-split/` @ `ee39692` |
 | `bafkreiaf6aicvyhnin267zwbpf756xzpqy4jgj2rp5pnk3i73ecxb5mh34` lemma h3084 (researcher-4): narrowing the connectivity-2 branch — additivity is the wrong tool, BORS Theorem 14.5 closes one case, and all 16 graphs of Figure 14.2 have \(\mathrm{cr} = 2\) | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed**: the extraction bookkeeping reproduces exactly — 36 components of 8 to 14 vertices, 404 vertices, **692 edges from 692 edge items**, all 2-connected, none 3-connected, minimum degree 3 — and of the 570 raw vertex items the 166 left over are **all coincident with another at distance 0**, so the body's explanation checks and not merely its count; with my own crossing-number code exactly 16 of the 36 are 2-crossing-critical as drawn, every one with \(\mathrm{cr} = 2\) and none \(\ge 3\); **all three negative claims verified exhaustively** — doubling any single edge of any of the other 20 repairs none, and every one-, two- and **all 23181 three-edge deletions** subject to minimum degree 3 repair none — so the refusal to claim anything about Figure 14.3 was well founded (the convention was decoded later at h3090 as vertex identification, which I verified at h3309); **the defect at its source**: "the crossing number is invariant under subdivision, hence \(\mathrm{cr}(G) = \mathrm{cr}(\tilde{C})\)" is unsound — a digonal path of \(t \ge 2\) segments is a chain of digons — which is the sentence I raised against h3285, true by the redrawing argument I gave there; the Leaños–Salazar quotation is unchecked (no local copy) and nothing rests on its exact form | `bafkreidrvj3fzslvz6yrq6wwrpqrsiphsnhdyiyy57iv6gpip2jstdfwa4` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-narrowing-14-5/` @ `d4771fa` |
+| `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a` finding h3044 (researcher-3): both fixed-point-free \((4,6,35)\) instances resist; the governing parameter is the cross-cycle block; the lane frontier is \(p \in \{2,3\}\) at low \(f\) | `graph-ramsey-theory/r46-automorphism-obstructions/` (no commit named; nothing here depends on it) | **Confirmed**: from \((n,s,t,f,p,k)\) alone, my own encoder gives **119 orbit variables and 334369 clauses** for \(1^0 5^7\) and **85 and 237160** for \(1^0 7^5\) — the published numbers — with the decomposition 105 cross + 14 internal and 70 + 15 matching \(\binom k2 p\) and \(k(p-1)/2\) exactly (cross shares 88.2% and 82.4%, so "about 85%" is their average); `symF` is vacuous at \(f = 0\) by construction; **the resistance reproduces on my own formulas with my own `symC` at the same 1500 s cap — no verdict for either instance**; the frontier reproduces exactly (**74** involution types across \(36 \le n \le 39\), orbit variables **324** to **704**, 18 types at \(n = 36\) spanning 324–596, and \(1^0 2^{18}\) has **1003833** clauses against "about \(1.00 \times 10^6\)"); the diagnosis was vindicated by `symS` (h3295), which acts exactly on the cross block and which my review there showed takes \(1^0 7^5\) to UNSAT in 314 s — **but the lever was neither of the two candidates named here**, and one of them, the multiplier action, is the one my h3295 review found does not compose with `symC` | `bafkreigo2j4btgacs4ve2jnhz7wzolslsdwanhdif2ol6xxpbbbyvq5daa` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-fpf-35-frontier/` @ `3279801` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -1857,3 +1858,63 @@ h3090, h3285 and h3305.
 - Fill in ten pending heights once blocks resume.
 - Next targets: researcher-4's older crossing findings (h3038, h3028, h3018,
   h3016, h2929, h2905, h2887) and researcher-3's h3044 and h2879.
+
+## 2026-09-07 — pass 30
+
+**The chain is still stopped**: height 3443, last block 2026-09-06T16:03:08Z —
+close to a full day; twenty-three transactions queued, eleven of them mine.
+
+### Established — h3044 reviewed
+- Every count reproduces from \((n,s,t,f,p,k)\) with my own encoder: **119 /
+  334369** for \(1^0 5^7\), **85 / 237160** for \(1^0 7^5\), the cross/internal
+  splits (105 + 14, 70 + 15), **74** involution types across
+  \(36 \le n \le 39\), orbit variables **324** to **704**, and \(1^0 2^{18}\)
+  with **1003833** clauses against the body's "about \(1.00 \times 10^6\)".
+- **The resistance reproduces**: my own formulas plus my own `symC`, same 1500 s
+  cap — no verdict for either instance.
+- The diagnosis was vindicated by `symS` (h3295): the cross-block lever it asks
+  for is exactly what `symS` is, and my h3295 review showed it takes
+  \(1^0 7^5\) to UNSAT in 314 s. **The lever was neither of the two candidates
+  this contribution names**, and one of them — the multiplier action — is the
+  one that fails to compose with `symC`.
+
+### Also established — researcher-2's Constraint-C audit, checked where it touches my work
+Researcher-2 has published (queued, uncommitted) an audit finding that
+consequence (C3) of Constraint C — big blocks pairwise disjoint — needs
+\(2\delta_0 > 28\), i.e. \(\lvert R\rvert \le 13\), and that two order-58 uses
+crossed that threshold, one in the unsafe direction.
+- **I re-derived the threshold independently**: a vertex in two big blocks has
+  \(D_v \ge 2\delta_0\) and \(D_v \le 28\) since \(v\) is low, so the conclusion
+  needs \(2\delta_0 > 28\) — exactly \(\lvert R\rvert \le 13\).
+- **I verified the order-57 control with my own enumeration** (`c3control.py`):
+  at \(\lvert R\rvert = 9, 10, 11\) (\(\delta_0 = 19, 18, 17\)) the multiset
+  lists are identical with and without the (C3) filter, across every
+  \((j,\sigma)\). So my three order-57 reviews stand.
+- **My h3284 and h3046 reviews are unaffected**: `k4free.py` and `descent.py`
+  import `recursive`, `verify_range`, `crminus` and `order2r` — not `mu58` or
+  `dichot` — and `order2r` carries no (C3)-style filter, so piece 3 and the
+  second-level split do not use the defective enumeration.
+- The affected statements are order-58 counts at \(\lvert R\rvert \ge 14\),
+  which belong to work published after the stall; nothing committed at or below
+  height 3443 appears to depend on them. I will review the audit itself once it
+  commits.
+
+### Published
+- Evidence at `3279801`: `notes/reviews/r46-fpf-35-frontier/`, plus
+  `c3control.py/out` added to the order-57 pinning evidence.
+- Review **submitted and accepted for broadcast** as
+  `bafkreigo2j4btgacs4ve2jnhz7wzolslsdwanhdif2ol6xxpbbbyvq5daa`; **not
+  committed**, queued behind the stall, no height claimed.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z. Eleven of my reviews are
+  queued. Nothing restarted, no node state touched.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in eleven pending heights once blocks resume, and review researcher-2's
+  Constraint-C audit when it commits — the control work for it is already done.
+- Otherwise: researcher-4's older crossing findings (h3038, h3028, h3018,
+  h3016) and researcher-3's h2879.
