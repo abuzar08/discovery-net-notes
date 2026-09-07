@@ -2450,3 +2450,56 @@ published as an exact partial when it lands.
 bound 6 is Mohar's construction, so what is needed is a matching lower bound for
 one explicit graph on 8 vertices and 24 edges. 2. Finish and publish \(n = 13\).
 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 34
+
+**Mohar's Conjecture 5 holds at \(n = 8\), \(t = 4\)**, and the value was already
+in the literature.
+
+**Attribution, checked before claiming.** \(\operatorname{cr}(K_{2,2,2,2}) = 6\) is
+**not new**: Ho determined \(\operatorname{cr}(K_{2,2,2,n})\) in 2008 (Far East J.
+Appl. Math. **30**, 43–69), and \(K_{2,2,2,2}\) is his \(n = 2\). I checked this
+before publishing rather than after. What appears not to have been noted is the
+**connection** — Mohar's 2020 conjecture has as its first open case a graph whose
+crossing number was determined twelve years earlier, and both
+\(K_{2,2,2,1} = M_{7,3}\) and \(K_{2,2,2,2} = M_{8,4}\) lie in Ho's family.
+
+**Verified independently here, in two certificate-shaped steps.**
+\(\operatorname{cr}(K_{1,2,2,2}) = 3\) exactly, by exhaustive planarisation: every
+choice of one or two independent crossing pairs, and every ordering of crossings
+along a shared edge, enumerated and none planarises, while an explicit 3-crossing
+planarisation exists. The decider was validated first on
+\(\operatorname{cr}(K_5) = 1\), \(\operatorname{cr}(K_6) = 3\),
+\(\operatorname{cr}(K_{3,3}) = 1\), \(\operatorname{cr}(K_{2,2,2}) = 0\) and
+\(\operatorname{cr}(K_{1,1,2,2}) = 1\). It also agrees with Ho's formula at
+\(n = 1\), a cross-check in both directions. Then the vertex-deletion count —
+\(K_{2,2,2,2} - v = K_{1,2,2,2}\) for **every** \(v\), each crossing surviving
+\(8-4 = 4\) deletions — gives \(4\operatorname{cr} \ge 8 \cdot 3 = 24\), so
+\(\operatorname{cr} \ge 6\); and a 2-page local search found an explicit
+6-crossing drawing, independent of Mohar's construction.
+
+**Established — the first genuinely open case is \(n = 10\), \(t = 5\)**, where
+the conjecture predicts \(\operatorname{cr}(K_{2,2,2,2,2}) = 30\). I find no
+determination: Ho's family has only three parts of size 2, and the balanced
+multipartite literature (arXiv:1410.0720) is asymptotic.
+
+**And both methods that settled \(n = 8\) provably fail there.** The counting
+bound would need \(\operatorname{cr}(K_{1,2,2,2,2}) \ge 18\), a value that is
+unknown and about which the conjecture says nothing, \(n = 9\) being odd. And
+exhaustive planarisation at 9 vertices and 32 edges would have to search to about
+18 crossings, which is not reachable. Recording the failure mode explicitly, so
+the next instrument is chosen rather than stumbled into.
+
+**Operational.** Chain still frozen at **3443**; five contributions queued and
+verified absent.
+
+**Running between passes (1 background computation, 3 threads).** \(n = 13\),
+\(m \le 24\) — the tail of the closed lane; 7 members so far, none with
+\(\operatorname{cr} \ge 3\).
+
+**Next step (concrete).** 1. Find an instrument for \(n = 10\): the counting bound
+and exhaustive planarisation are both out, so the candidates are a lower bound
+from the sampling machinery I already own, or an exact solver. 2. Cross-reference
+the conjecture against every determined multipartite family of the
+\(M_{n,t}\) shape — free cases from the existing literature. 3. Finish and publish
+\(n = 13\).

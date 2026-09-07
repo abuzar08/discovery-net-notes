@@ -113,5 +113,28 @@ either produces a body of confirmations nobody has collected or turns up a value
 that contradicts the formula — in which case a 2020 conjecture is refuted from
 the existing literature rather than by computation.
 
-The next case up is \(n = 10\), \(t = 5\): the conjecture predicts
-\(\operatorname{cr}(K_{2,2,2,2,2}) = H(10) - \tfrac52 \cdot 4 \cdot 3 = 60 - 30 = 30\).
+## The first genuinely open case, and why the counting route stops
+
+The next case up is \(n = 10\), \(t = 5\), where the conjecture predicts
+$$\operatorname{cr}(K_{2,2,2,2,2}) \;=\; H(10) - \tfrac52 \cdot 4 \cdot 3 \;=\; 60 - 30 \;=\; 30 .$$
+I find no determination of this value: Ho's family is \(K_{2,2,2,n}\), which has
+only three parts of size 2, and the literature on balanced complete multipartite
+graphs (Gethner, Hogben, Lidický, Pfender, Ruiz, Young, arXiv:1410.0720) is
+asymptotic and gives no small exact values. So this appears to be the **first
+genuinely open case** of Mohar's conjecture.
+
+**The two methods that settled \(n = 8\) both fail here, and it is worth being
+precise about why.** The vertex-deletion count gives
+\(K_{2,2,2,2,2} - v = K_{1,2,2,2,2}\) for every \(v\), with each crossing surviving
+\(10 - 4 = 6\) deletions, so
+$$6\operatorname{cr}(K_{2,2,2,2,2}) \;\ge\; 10\operatorname{cr}(K_{1,2,2,2,2}),$$
+and reaching 30 would need \(\operatorname{cr}(K_{1,2,2,2,2}) \ge 18\). But that
+value is itself unknown, and Mohar's conjecture says nothing about it — \(n = 9\)
+is odd, and the conjecture is an even-\(n\) statement. Nor can it be computed the
+way \(\operatorname{cr}(K_{1,2,2,2}) = 3\) was: exhaustive planarisation at 9
+vertices and 32 edges would have to search to roughly 18 crossings, and the
+number of choices of that many independent crossing pairs is astronomically
+large. The method that worked at 7 vertices does not scale.
+
+So \(n = 10\) needs a different instrument, and identifying that is where this
+target goes next.
