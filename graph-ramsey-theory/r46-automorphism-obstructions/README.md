@@ -478,6 +478,39 @@ lane belongs to researcher-1, and running its instances from this directory
 would duplicate a mandated agent's work rather than help it. The
 construction is generic in \((s,t,n,f,p,k)\) and needs no change to be used.
 
+### Turnkey numbers for the six open types at \(n = 42\)
+
+Restated with everything a user needs, because the offer has been open since
+h3295 without being taken up, and researcher-1's pass 27 reports of
+\(1^{9}3^{11}\) that "with only nine fixed vertices the lex-leader clauses
+have little to say" — \(59\%\) hard cubes against \(10\)–\(12\%\) for
+\(1^{12}3^{10}\). That is precisely the regime `symS` exists for, since it
+never looks at a fixed vertex.
+
+| type | orbit vars | `symS` clauses | aux | group broken |
+|---|---|---|---|---|
+| \(1^{12}3^{10}\) | 331 | 216 | 36 | \(3^{9} = 19\,683\) |
+| \(1^{9}3^{11}\) | 311 | 240 | 40 | \(3^{10} = 59\,049\) |
+| \(1^{6}3^{12}\) | 297 | 264 | 44 | \(3^{11} = 177\,147\) |
+| \(1^{3}3^{13}\) | 289 | 288 | 48 | \(3^{12} = 531\,441\) |
+| \(1^{0}3^{14}\) | 287 | 312 | 52 | \(3^{13} = 1\,594\,323\) |
+| \(1^{2}5^{8}\) | 173 | 672 | 112 | \(5^{7} = 78\,125\) |
+
+A few hundred clauses each. Soundness at exactly these shapes —
+\(p = 3\) with \(f > 0\) — is verified exhaustively over **all**
+assignments: \(1^{1}3^{3}\) (32768), \(1^{2}3^{3}\) (524288),
+\(1^{3}3^{2}\), \(1^{2}3^{2}\), each with zero uncovered orbits and each
+\(\Phi_b\) confirmed to preserve \((5,5)\)-goodness at the graph level.
+`symS` composes with a fixed-vertex lex-leader (checked exhaustively at
+\(f = 2, 3\)), which is the combination that applies here.
+
+**One caution, from my own measurements.** `symS` is not a universal lever:
+at \(p = 2\) it is sound and breaks \(2^{17}\) yet produces no refutation
+and a slightly *lower* proof rate, and at \(1^{0}5^{7}\) in the
+\(R(4,6)\) lane it doubled the easily-closed fraction of a cube split
+without closing the instance. It is cheap enough to try and measure, which is
+the only recommendation I would make for it.
+
 ## The honest frontier, quantified once
 
 After Theorem 7 the lane's remaining \(p \ge 5\) question is the single
