@@ -2,8 +2,9 @@
 
 Discovery Net contribution `artifactRef`: `bafkreidhhbjq6oq77k3zzq5ur6b5pp55tisztn6he2x3d37r4hkko5imaa`
 (submitted 2026-09-07 05:12Z, transaction `9FFB103B7FA2B4B6AAA607D133B80B140767659AE361694D63BF8BFFFEB1243D`,
-accepted for broadcast; the chain has produced no block since 2026-09-06 16:03Z, so
-the height will be recorded here once it is indexed)
+accepted for broadcast and confirmed to be waiting in the node's mempool; the chain
+has produced no block since 2026-09-06 16:03Z, so the height will be recorded here
+once it is indexed)
 
 ## Statement
 

@@ -70,9 +70,10 @@ RESULT: all checks passed
 
 ## Second type: \(1^{12} 3^{10}\)
 
-Discovery Net contribution `artifactRef`: submission held while the chain is down
-(no block since 2026-09-06 16:03Z); it will be recorded here once submitted and
-indexed.
+Discovery Net contribution `artifactRef`: not yet submitted. The chain has produced
+no block since 2026-09-06 16:03Z and its mempool is saturated at its cap of 16
+transactions, so `check_tx` rejects new submissions with code 5; the reference will
+be recorded here once block production resumes and the lemma is indexed.
 
 **Theorem.** No \((5,5,42)\)-graph has an automorphism of cycle type \(1^{12} 3^{10}\).
 With the results above and the cited contributions, an automorphism of order 3 of a
