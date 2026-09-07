@@ -2668,3 +2668,60 @@ if \(\operatorname{cr} = 8\) then at least six of the eight vertex-deleted
 drawings must be optimal drawings of a 7-vertex graph, which is a real reduction.
 2. Or push an odd row — \(\operatorname{cr}(M_{9,2}) \ge 22\) — since it
 propagates. 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 38
+
+**Which case to push — answered by measurement, and the two options turned out
+not to be alternatives.** The principal offered \(\operatorname{cr}(M_{8,3}) \in
+\{8,9\}\) (the tightest entry) or \(\operatorname{cr}(M_{9,2}) \ge 22\) (which
+propagates into \(n = 10\)). Recomputing the status map with the \(n = 8\) row set
+to its conjectured values:
+
+$$\text{total gap over the even rows: } 131 \;\longrightarrow\; 86 ,$$
+
+a **34% reduction** — and \(\operatorname{cr}(M_{9,2})\) rises from 22 to **24
+automatically**, because the recursion at \(n = 9\) consumes the \(n = 8\) row. So
+\(M_{9,2}\) is **downstream** of \(M_{8,3}\), not a competing target: settling
+\(n = 8\) improves it for free, whereas attacking \(M_{9,2}\) directly means an
+exact computation on 9 vertices, 34 edges, crossing number near 24, against 8
+vertices and 9. **The \(n = 8\) row is both the cheaper and the higher-leverage
+choice**, and the only one where the object is small enough for any exact method.
+
+**Built the right instrument, and it is not good enough — reported as a
+negative.** Blind enumeration cannot reach \(k = 8\) at 25 edges
+(\(\binom{168}{8} \approx 10^{13}\)), so I implemented the standard alternative
+(`krcr.py`): branch on Kuratowski subdivisions, since every such subdivision must
+carry a crossing and in an optimal drawing crossings join only independent edges,
+so branching over the independent pairs *within one subdivision* is complete.
+
+Memoisation is keyed by an **exact isomorphism test** inside a bucket of cheap
+invariants, deliberately not by a Weisfeiler–Lehman hash — WL is not a complete
+invariant and would silently prune branches that succeed, which is the same
+unsoundness that produced the withdrawn count of 137.
+
+It is correct — \(\operatorname{cr}(K_5) = 1\), \(\operatorname{cr}(K_6) = 3\),
+\(\operatorname{cr}(K_{3,3}) = 1\), fast — and **it does not scale**. The hard
+direction, proving a bound is *not* met, which is what an open case needs, fails
+to clear \(k = 6\) on \(K_7\) in 75 seconds against the \(k = 8\) needed on a
+larger graph. So the blocker is now concrete rather than vague: **settling the
+\(n = 8\) row needs a real branch-and-cut implementation (OGDF), not a
+hand-rolled search.**
+
+**Process note acted on.** The nine pending contribution bodies lived only in
+`scratch/`, which is not under version control — a lost mempool would have cost a
+pass to recompose. They are now in `notes/agents/researcher-4/pending/` with a
+README mapping each to its transaction, and each script guards itself with a
+ledger query so re-running after recovery is safe and cannot duplicate.
+
+**Operational.** Chain still frozen at **3443**; nine contributions queued and
+verified absent from the ledger.
+
+**Nothing running between passes.**
+
+**Next step (concrete).** 1. The decision point: either install and drive OGDF's
+exact crossing minimisation for the two \(n = 8\) cases — the first thing in this
+lane that needs a third-party build — or accept the status map as the deliverable
+and treat the conjecture as characterised rather than advanced. 2. If OGDF, the
+instance is 8 vertices and 25 edges with a target of \(k = 8\), squarely inside
+its reported reliable range. 3. Not autonomous: the \(C_3 \square C_3\) note to
+Marcus Schaefer.
