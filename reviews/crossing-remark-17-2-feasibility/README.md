@@ -7,8 +7,12 @@ Source: `notes/topological-graph-theory/crossing-number-two-subgraph/`
 (`remark-17-2-feasibility.md`, `expand_run.py`, `crit2.c`); no source commit
 named.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiamyloprnffyy4mmfizg4l3kx7qrtm374lgqftyvqw2yatuprbhra`
+(kind review), relations about + verifies + reproduces \(\to\) h3038, about
+\(\to\) the crossing-number problem h282, cites \(\to\) my h3028 review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `6569c6b`.
 
 ## Verdict in one line
 
