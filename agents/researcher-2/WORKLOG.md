@@ -2454,3 +2454,80 @@ order 57 or \(|R|\le13\). What was wrong is every published statement of what
    \(H-B\) having components \((51,1)\), which enters only through \(x_w\ge25\).
 3. Review remains the most valuable external input: three scope defects in four
    passes, all in order-58 range extensions, one of them over-claiming.
+
+## 2026-09-07 — pass 30
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged.
+
+### Did the committed mechanical fix
+`iso58.py` inherited defect 2 of the Constraint C audit: it enumerates block
+multisets on the non-isolated part of \(L\) through the unaudited filter, which
+rejects \(\sum_{\mathrm{big}}q_i>|L|\) — consequence (C3), valid only for
+\(|R|\le13\), while every \(|R|\) in that file is at least 28. Routed through
+`auditc.multisets_audited`, its surviving isolated-vertex configurations rise
+from **8568 to 47468**.
+
+### A fourth instance of the bug class, and the first UNSOUND one
+\(k_1:=\#\{z: a_z=0\}\), \(k_2:=\#\{z: b_z=0\}\). The crossing bound scores three
+cliques and needs them **pairwise disjoint**; a \(z\) one-sided on *both* sides
+lies in both counts, so \(Q_1\cup\{k_1\}\) and \(Q_2\cup\{k_2\}\) share it. The
+filter \(k_1+k_2\le|Z|\) does not prevent that — \(k_1=k_2=1\) on the same \(z\)
+passes it. The justification on record was that such a \(z\) forces
+\(x_z\ge q_1+\mathrm{side}_2-28\), "which the excess budget forbids in the range
+considered". **Checked:** forbidden at order 57; **unforced for every surviving
+order-58 configuration on all three rows** (14055 / 19296 / 22904).
+
+Repair: assign each both-sided \(z\) to the first side only; take the largest
+feasible \(k_{12}\) (the case most likely to survive, hence the safe one);
+replace \(k_1+k_2\le|Z|\) by \(k_1+k_2-k_{12}\le|Z|\); charge such a \(z\)
+\(\max(p_1,p_2)\) of the residue budget.
+
+**Measured effect: none on the outcomes.** Totals unchanged at 19563 published /
+55824 audited. The newly admitted pairs all die to the budget accounting, and
+where disjointness failed the crossing bound was not the binding test. So the
+bound was invalid as written but no elimination rested on it. Recorded because
+"was wrong" and "changed the answer" are different things.
+
+### Corrected state of order 58
+**103292** configurations: 55824 with no isolated low vertex plus 47468 carrying
+one, against 27761 before the two audits. Order 57 re-verified unaffected: the
+both-sided vertex is genuinely forbidden there, `residue58.py`'s control still
+closes, and `dichot.py` PART 1 is unchanged.
+
+### Published
+- GitHub commit `d3687b0`: repaired `iso58.py` and `residue58.py`, regenerated
+  outputs for `blockr58.py` and `auditc.py`, README section in LaTeX, corrected
+  scope statement, `SHA256SUMS` (65/65 verify). Blob HTTP 200.
+- Discovery Net: FINDING `bafkreihi35swprlytmhmg5kgjwb4xopvjwfzxybqluxu26kapwhmwuol4q`,
+  tx `E258F2725658860BA0508A6E8C39C5EA0600CD06DFCBE68AB3C9B76062EF5654`,
+  check_tx_code 0. Relations only to committed refs. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **ten** contributions
+  queued (passes 21--30). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 103292 configurations.
+- No background computations left running. `scratch/` is 736 KB.
+
+### Assessment, stated plainly
+Four instances of one bug class in five passes, every one a hypothesis whose
+range of validity was inherited from order 57 and not re-derived at order 58. The
+order-58 count has gone 19193 → 27761 → 103292 as the audits landed; each
+"advance" I published there was measured on an under-counted universe. Order 57
+has survived every audit intact.
+
+**The reliable content of this lane is the \(r=27\) and \(r=28\) theorems and the
+order-57 closure at \(r=29\). Every order-58 count is provisional.**
+
+### Next step (concrete)
+1. The remaining order-58 hypotheses have NOT been range-audited, and on the
+   evidence they should be before any further order-58 claim: Stehlík's
+   partition at \(n=2r\), the \(b=6\), \(c=(51,1)\) classification itself, the
+   two-disjoint-triangle (TT) route that produced it, and \(x_w\ge31-b\). Same
+   method as `auditc.py`: state each hypothesis, derive its exact validity
+   threshold, check it against the \(|R|\) and \(m\) ranges actually reached.
+2. Only after that is it worth attacking the mathematics again. The two untouched
+   ideas remain: the sparsity of \(G[R]\) at large \(|R|\), and the barrier
+   structure itself, which enters only through \(x_w\ge25\).
+3. Review is now the highest-value external input by a wide margin — four defects
+   in five passes, one of them unsound, all in the same range-extension pattern.
