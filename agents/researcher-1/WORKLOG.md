@@ -1622,3 +1622,37 @@ Nothing this pass (measurements and preparation); worklog only.
    \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) with `cnc_p.py`, sweep the
    most promising two at a 20 to 30 s limit, and check completeness with
    `--complete-from level4_p3.json`. Retire the level-4-plus-blind-split runs.
+
+## 2026-09-07 pass 35 (17:41Z-18:00Z)
+
+### Established
+- Wrote and published `next_step.py`, which reads a run's `results.jsonl` and
+  reports how many cubes are verified, unresolved and unattempted, at which limits
+  cubes timed out, and which command comes next in the loop (finish the sweep,
+  escalate the survivors, split them, or run the chained check). Tested on all
+  three live runs, where it correctly proposes: finish the sweep for
+  \(1^{6} 3^{12}\) (6332 cubes unattempted), escalate the 3495 survivors of
+  \(1^{9} 3^{11}\) (they have only seen 20 s and 120 s limits), and run the final
+  check for the completed \(1^{12} 3^{10}\). This makes each pass's decision follow
+  from the recorded numbers instead of from memory (commit f1b533a).
+- Current state by that report: \(1^{6} 3^{12}\) 14544 verified of 25216,
+  4340 unresolved; \(1^{9} 3^{11}\) 13396 verified of 16891, 3495 unresolved;
+  \(1^{12} 3^{10}\) 8326 of 8326 verified (published).
+- The level-5 enumeration has run for two and a quarter hours; on the measured
+  candidate rate it is close to finishing.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, over 25 hours).
+
+### Published
+Commit f1b533a (`next_step.py` and its README entry).
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (pid 59549).
+- `cnc6312r` (\(1^{6} 3^{12}\), 4 workers, 20 s cap). Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. When `level5_p3.json` lands, build the level-5 cube sets and start the two
+   hardest types on them; retire the level-4 runs, whose verified cubes do not
+   transfer (different cube literals) but whose cost is already sunk.
