@@ -1245,11 +1245,71 @@ The \(\lvert R\rvert\ge17\) regime is untouched, because there \(e(H[R])\) reach
 near-complete piece loses more than the second piece gains; the optimum is
 always \(j=1\).
 
+### A completeness gap at \(\lvert R\rvert\ge28\), found and repaired (`iso58.py`)
+
+**This corrects the scope of every order-58 survivor count above, including the
+one in the previous section.**
+
+Every block-multiset enumeration in this directory requires the Gallai blocks of
+\(G[L]\) to **cover** \(L\) — the filter is `sum(mult) >= |L|`, and no block of
+order 1 is ever emitted.  The justification is Constraint C: a low vertex needs
+\(D_v\ge28-\lvert R\rvert=:\delta_0\), so when \(\delta_0\ge1\) it lies in a block
+of order at least two and no vertex of \(L\) is isolated in \(G[L]\).
+
+That justification **fails when \(\delta_0\le0\)**.  At order \(2r-1=57\) it never
+applied, since \(\lvert R\rvert\le11\) there gives \(\delta_0\ge17\).  At order 58
+it does: the excess budget allows \(\lvert R\rvert\le X-24\), which is 28, 30 and
+32 on the three rows, and \(\delta_0\le0\) exactly when \(\lvert R\rvert\ge28\).
+So the published order-58 enumeration is complete for \(\lvert R\rvert\le27\) and
+was **incomplete** for \(\lvert R\rvert\ge28\).
+
+**Direction of the error.**  Excluding cases makes a survivor count too small,
+never too large, so nothing previously reported as eliminated becomes alive
+again, and the small-\(\lvert R\rvert\) results are untouched — they live at
+\(\lvert R\rvert=11\), well inside the complete range.  What was wrong is the
+claim that the listed survivors were *all* of them.
+
+**What an isolated low vertex forces.**  If \(v\in L\) has \(D_v=0\) then \(v\)
+has no \(G\)-neighbour in \(L\), so all 28 of them lie in \(R\), forcing
+\(\lvert R\rvert\ge28\), and the per-block identity gives
+\(\lvert N_H(v)\cap R\rvert=\lvert R\rvert-28\).  All such vertices go in at
+once: they are pairwise non-adjacent in \(G\), costing \(\binom{\mathrm{iso}}{2}\)
+further missing edges, but that is far cheaper than leaving them out because
+\(g\) grows superlinearly in the number of vertices.  So
+
+$$cr(G)\;\ge\;g\Bigl(\lvert R\rvert+\mathrm{iso},\;e(H[R])+\tbinom{\mathrm{iso}}{2}+\mathrm{iso}\,(\lvert R\rvert-28)\Bigr)+\sum_i cr(K_{q_i}),$$
+
+the blocks being vertex-disjoint from \(R\cup\mathrm{Iso}\).  This does **not**
+close the range by itself: \(g(29,0)=7507\) is below \(Z(29)=8281\), so the
+near-clique alone is not a contradiction.  It is one only when the missing count
+is zero — then \(K_{29}\subseteq G\) outright and \(cr(G)\ge cr(K_{29})\) with no
+numbers at all — which needs \(\lvert R\rvert=28\) and \(e(H[R])=0\), and that
+happens exactly once in the whole enumeration.
+
+**Result.**  Running the missing configurations through the near-clique bound,
+the block-plus-\(R\) bound and the clique-cover/absorption battery:
+
+| row | \(\lvert R\rvert\) | configurations | survive |
+|---|---|---|---|
+| \((58,838)\) | 28 | 20075 | 1136 |
+| \((58,839)\) | 28, 29, 30 | 20076, 15673, 12120 | 1136, 1139, 782 |
+| \((58,840)\) | 28, 29, 30, 31, 32 | 20076, 15673, 12120, 9373, 7168 | 1136, 1139, 782, 783, 535 |
+
+**8568** survive.  They are a genuine addition to the open set, not a
+re-derivation of it.  The corrected statement of what is open at order 58 is
+therefore: 19193 configurations without an isolated low vertex, **together with**
+these 8568, for 27761 in all.
+
+The degenerate tail — fewer than two vertices left for blocks, so \(G[L]\) has no
+block and \(\chi(G[L])=1\) — is checked explicitly rather than dropped, and every
+case of it dies to the clique cover.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed.  Nothing here bears on `r >= 30`.
+is **not** closed: 19193 configurations without an isolated low vertex together
+with 8568 carrying one, 27761 in all.  Nothing here bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -1258,6 +1318,8 @@ is **not** closed.  Nothing here bears on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `iso58.py` | the `\|R\| >= 28` completeness gap: isolated low vertices |
+| `EXPECTED_OUTPUT_ISO58.txt` | its expected output |
 | `blockr58.py` | a Gallai block plus the high set as a near-complete graph |
 | `EXPECTED_OUTPUT_BLOCKR58.txt` | its expected output |
 | `residue58.py` | the residue without the partition hypothesis; order 58 resists |
@@ -1277,6 +1339,7 @@ is **not** closed.  Nothing here bears on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 iso58.py        | diff -u EXPECTED_OUTPUT_ISO58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 blockr58.py     | diff -u EXPECTED_OUTPUT_BLOCKR58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 residue58.py    | diff -u EXPECTED_OUTPUT_RESIDUE58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 deps.py         | diff -u EXPECTED_OUTPUT_DEPS.txt -
