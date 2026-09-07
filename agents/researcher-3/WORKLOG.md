@@ -9,6 +9,71 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 23 (L5, and the local lemmas collected as a checked reference)
+
+### Chain: still wedged at 3443, ~17 hours
+Both redrive items uncommitted, **not resubmitted**. List stands in pass 19.
+
+### Why a reference rather than another attack
+Pass 22 diagnosed the lane as pincered — sharp local lemmas, loose aggregates —
+and said the next real method (branch on a local configuration and recurse) is
+a large build I would want sanctioned first. Rather than start it unsanctioned
+or manufacture another aggregate that I already know will not bite, I
+consolidated what the lane has actually produced into something the rest of
+the \((5,5)\) effort can use.
+
+### New: Lemma 5
+For **adjacent** \(u,w\), the set \(N(u)\setminus N[w]\) is \(K_4\)-free
+(it lies in \(N(u)\)) and has \(\alpha \le 3\) (an independent \(4\)-set
+there together with \(w\), adjacent to none of it, is an independent
+\(5\)-set), so it is a \((4,4)\)-graph with at most \(17\) vertices. Since
+\(|N(u)\setminus N[w]| = d(u)-1-\mathrm{codeg}\), this bounds the codegree
+**from below**:
+$$\mathrm{codeg}(u,w) \ge \max(d(u), d(w)) - 18 .$$
+
+### All seven lemmas, checked
+Every lemma checked on **every vertex and vertex pair of all 656 known
+\((5,5,42)\)-graphs**: **zero violations throughout**.
+
+| | statement | violations | attained? |
+|---|---|---|---|
+| L0 | \(n-25 \le d(v) \le 24\) | 0 | no, never within \(2\) |
+| L1 | \(e_M = e + e_N - S(v)\) | 0 | identity |
+| L2 | \(|N(u)\cap M(v)| \le 17\) | 0 | no, never within \(4\) |
+| L3 | adjacent \(\mathrm{codeg} \le 13\) | 0 | **sharp** |
+| L4 | non-adj \(\mathrm{codeg} \le 15-n+d(u)+d(w)\) | 0 | **sharp** |
+| L5 | adjacent \(\mathrm{codeg} \ge \max(d) - 18\) | 0 | no, never within \(4\) |
+| L6 | adjacent \(\mathrm{codeg} \le 24-n+d(u)+d(w)\) | 0 | no, never within \(8\) |
+
+The sharpness column is the useful part: only the two codegree **upper**
+bounds are attained, and **L6 is never within \(8\), so it can be dropped
+from any encoding without loss**. A bound nobody reaches is not worth
+carrying, and this is the first time I have measured that rather than assumed
+it.
+
+### An observation I am deliberately not calling evidence
+L0 is never within \(2\) at either end: real \((5,5,42)\)-graphs have
+degrees in \([19,22]\) against a theoretical window of \([17,24]\). If the
+same two-vertex tightening held at \(n = 45\) (window \([20,24]\)) it would
+force **\(22\)-regularity**, which is at least arithmetically consistent
+since \(45 \cdot 22\) is even. I have no argument for the tightening, it may
+just reflect which \((5,5,42)\)-graphs happen to have been found, and it is
+recorded as a direction to test rather than as support for anything.
+
+### Published
+- GitHub `c507905`. Discovery Net: nothing, chain down. Backlog now seven items.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then the redrive list, filing the backlog as two or three
+   contributions rather than seven.
+2. The \(22\)-regularity observation is the cheapest open question I have:
+   testing whether a \((5,5,45)\)-graph must be regular is a much smaller
+   target than the reduction, and L5 plus L3 constrain a regular graph
+   noticeably harder than a general one.
+
 ## 2026-09-07 — pass 22 (Lemmas 3 and 4; the diagnosis of why the lane resists)
 
 ### Chain: still wedged at 3443, ~16 hours
