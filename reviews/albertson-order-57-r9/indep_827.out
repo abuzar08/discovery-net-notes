@@ -1,0 +1,36 @@
+FACTS, from d_G(v) = 28 and the block partition
+   m = 827: e(L) = 552, e_G(L,R) = 240, e(G[R]) = 35 of 36, e(H[R]) = 1; every low vertex has 4 H-neighbours in R, so e_H(Q_i,R) = 96 and e_H(L,R) = 192 = 2 x 96
+   m = 828: e(L) = 552, e_G(L,R) = 240, e(G[R]) = 36 of 36, e(H[R]) = 0; every low vertex has 4 H-neighbours in R, so e_H(Q_i,R) = 96 and e_H(L,R) = 192 = 2 x 96
+
+THE w-CONTRIBUTION, cross-checked against the (a, j, sigma) formula
+   a=3 j=1 sigma=0: c = 2(1-sigma) + a - j_A = 4, so sum_z |N_H(z) ^ L| = 192 - 4 = 188 (matches the artifact)  ->  sum_z a_z >= 94 per side, worst case 92
+   a=1 j=1 sigma=0: c = 2(1-sigma) + a - j_A = 3, so sum_z |N_H(z) ^ L| = 192 - 3 = 189 (matches the artifact)  ->  sum_z a_z >= ? per side, worst case 93
+   a=2 j=1 sigma=0: c = 2(1-sigma) + a - j_A = 4, so sum_z |N_H(z) ^ L| = 192 - 4 = 188 (matches the artifact)  ->  sum_z a_z >= 94 per side, worst case 92
+
+THE CONSTRAINED KOENIG MAXIMUM (mine)
+   k = 2: max sum_z a_z <= 14
+   k = 3: max sum_z a_z <= 36
+   k = 4: max sum_z a_z <= 58
+   k = 5: max sum_z a_z <= 80
+   k = 6: max sum_z a_z <= 102
+   k = 7: max sum_z a_z <= 168
+   k = 8: max sum_z a_z <= 168
+   least k whose covers can carry 92 edges: 6  ->  mu_1, mu_2 >= 6
+
+WITHOUT THE CROSSING HYPOTHESIS (a_z >= 2 dropped)
+   k = 2: max sum_z a_z <= 48
+   k = 3: max sum_z a_z <= 72
+   k = 4: max sum_z a_z <= 96
+   k = 5: max sum_z a_z <= 120
+   k = 6: max sum_z a_z <= 144
+   least k without the hypothesis: 4 — so the closure really does rest on every z being crossing
+
+BRUTE-FORCE VALIDATION of the constrained maximum, small analogues
+   |Z|=3, |Q|=3: (k, true max, my bound) [(2, 6, 6), (3, 9, 9)]  sound
+   |Z|=3, |Q|=4: (k, true max, my bound) [(2, 6, 6), (3, 12, 12)]  sound
+   |Z|=4, |Q|=4: (k, true max, my bound) [(2, 8, 8), (3, 12, 12), (4, 16, 16)]  sound
+
+SATURATION, TRIANGLES AND THE CLIQUE COVER
+   mu_1 + mu_2 >= 12, so at least 5 vertices of Z are saturated on both sides
+   m = 827: t = 4 triangles cover t vertices of Z and 2t of L; H[L] leaves K_{20,20}, covered by 20 cliques; R keeps 5 vertices with 1 H-edge(s), so theta(H) <= 4 + 20 + 4 = 28  < 29 = chi(G): IMPOSSIBLE   [5 candidates available, 4 needed]
+   m = 828: t = 5 triangles cover t vertices of Z and 2t of L; H[L] leaves K_{19,19}, covered by 19 cliques; R keeps 4 vertices with 0 H-edge(s), so theta(H) <= 5 + 19 + 4 = 28  < 29 = chi(G): IMPOSSIBLE   [5 candidates available, 5 needed]
