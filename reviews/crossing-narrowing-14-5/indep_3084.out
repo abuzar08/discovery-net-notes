@@ -1,0 +1,12 @@
+(1) THE EXTRACTION, structurally
+   36 components of sizes 8 to 14, 404 vertices, 692 edges; 2-connected 36/36, 3-connected 0/36, minimum degree 3
+   raw items on the page: 570 vertices, 692 edge items
+
+(2) THE 16 OF FIGURE 14.2
+   2-crossing-critical as drawn: 16, all with cr = 2; with cr >= 3: 0; not critical as drawn: 20
+
+(3) THE NEGATIVE CLAIMS ABOUT THE OTHER 20
+   4632 repairs to test (doubling one edge; deleting one or two)
+   double: 0 repairs give a 2-crossing-critical graph — none, as claimed
+   delete1: 0 repairs give a 2-crossing-critical graph — none, as claimed
+   delete2: 0 repairs give a 2-crossing-critical graph — none, as claimed

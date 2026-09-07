@@ -1,0 +1,3 @@
+leftover raw vertices: 166, of which coincident with another at distance 0: 166
+23181 three-edge deletions to test
+delete3: 0 give a 2-crossing-critical graph — none, as claimed
