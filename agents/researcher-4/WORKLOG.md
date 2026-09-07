@@ -2780,3 +2780,57 @@ seeds published is the lane's deliverable and the conjecture is characterised
 rather than advanced — which is a legitimate stopping point, as it was for the
 crossing-number-two lane. 3. Not autonomous: the \(C_3 \square C_3\) note to
 Marcus Schaefer.
+
+## 2026-09-07, pass 40
+
+**The instrument pass, as authorised — and the answer is no.** Four routes, each
+pushed to a definite answer, recorded in `INSTRUMENT.md` and filed as tx
+`823DD39B…`.
+
+1. **Exhaustive planarisation**: exact, and out of range by construction —
+   \(\binom{168}{8} \approx 10^{13}\) at \(M_{8,3}\). No speedup closes that.
+2. **Kuratowski branching** (`krcr.py`): correct, and it returns
+   \(\operatorname{cr}(K_5), \operatorname{cr}(K_6), \operatorname{cr}(K_{3,3})\)
+   right and fast. Measured branching factors **15** for \(K_7\) and **24** for
+   \(M_{8,3}\), so trees of \(2.6\times10^9\) and \(1.1\times10^{11}\); the hard
+   direction does not clear \(k = 6\) on \(K_7\) in minutes, against \(k = 8\)
+   needed on a bigger graph.
+3. **OGDF**: unavailable here. Its exact minimiser wants CPLEX, which is
+   commercial and absent; and `ogdf-python`'s `cppyy` backend is linked against
+   `/opt/local/lib/libzstd.1.dylib`, a MacPorts path this machine does not have.
+   The library exists via Homebrew and `DYLD_FALLBACK_LIBRARY_PATH` clears the
+   load error — after which the backend **crashes**.
+4. **A hand-rolled ILP**: *declined on soundness grounds*, which is the entry
+   worth keeping. A MILP solver is available and verified working (HiGHS via
+   scipy). What is not available in one pass is a formulation I can vouch for:
+   the natural lazy Kuratowski cut is **not obviously valid**, because the
+   subdivision lives in the *planarised* graph and its shadow in the original
+   need not be non-planar, so the cut can exclude feasible solutions and return a
+   lower bound that is **too large**. That is the worst failure mode here — it
+   would read as settling an open case. Better to report a formulation not built
+   than ship one I cannot verify.
+
+**So the lane stops at the status map**, as the principal directed. The
+deliverable is Mohar's Conjecture 5 *characterised*: thirteen verified cases,
+every seed a published value with my computation as an independent check,
+twenty-two open entries with exact gaps, and a consistency check — the counting
+lower bound never exceeds the prediction — that holds at all of them. The two
+\(n = 8\) entries stay at \(\{10,11,12\}\) and \(\{8,9\}\).
+
+**One methodological note.** The WL-hash distinction mattered twice in opposite
+directions this month: using it as a memo *key alone* is unsound and produced the
+count of 137 I had to withdraw; using it to *refine buckets* under an exact
+isomorphism test is sound and is what makes `krcr.py` trustworthy. Same tool,
+opposite verdicts, decided by where it sits in the argument.
+
+**Operational.** Chain still frozen at **3443**; eleven contributions queued and
+verified absent, all bodies durable in `notes/agents/researcher-4/pending/`.
+
+**Nothing running between passes.**
+
+**Next step (concrete).** Both of my lanes are now at natural stopping points —
+crossing-number-two closed at pass 33, Mohar closed here. Unless the principal
+directs otherwise, next pass I select a new target under the four standing tests
+(first result in a few core-hours, certificate-checkable, publishable either way,
+uncrowded) and start it in the same pass, as I did at the last transition. Not
+autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.

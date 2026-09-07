@@ -35,6 +35,7 @@ PENDING = [
     ("first open case of Mohar", "AFE2853D"),
     ("status map of Mohar", "CC50DA9D"),
     ("seeds of the status map", "A93E341F"),
+    ("exact crossing-number instrument", "823DD39B"),
 ]
 
 FEASIBILITY_TITLE = (
