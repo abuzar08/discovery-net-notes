@@ -1427,13 +1427,64 @@ vertex, together with \(47468\) carrying one: **103292** in all, against the
 > theorems and the order-57 closure at \(r=29\); every order-58 count should be
 > read as provisional.
 
+### \(\alpha(G)\le3\) was already proved, and never used on the blocks (`alpha58.py`)
+
+The audits of the last two passes were prompted by hypotheses applied outside
+their range.  This one is the opposite mistake: a hypothesis **proved and
+reviewed** in the order-\(2r\) lemma, and then used for only a fraction of what
+it gives.
+
+The surviving order-58 branch is exactly *"\(H\) is \(K_4\)-free and \(H\) has two
+vertex-disjoint triangles"*.  "\(H\) is \(K_4\)-free" is \(\omega(H)\le3\), which
+is \(\alpha(G)\le3\).  That was used for a Turán cap on the components of
+\(H-B\), and for the sharpening \(x_w\ge r+2-b\).  It was never applied to
+\(G[L]\), where it is far stronger.
+
+**Why it bites.**  \(\alpha\) is monotone under induced subgraphs, so
+\(\alpha(G[L])\le3\).  By Gallai the blocks of \(G[L]\) are cliques or odd
+cycles, and adjacency in such a graph means *sharing a block*.  So the **private**
+vertices — those lying in exactly one block — of distinct blocks are pairwise
+non-adjacent, and an isolated vertex is non-adjacent to everything.  Taking one
+private vertex per block plus every isolated vertex gives an independent set:
+
+$$\alpha(G[L]) \;\ge\; \#\{\text{blocks with a private vertex}\}+\#\text{isolated}.$$
+
+A block has no private vertex only when all \(q\) of its vertices are cut
+vertices, consuming \(q\) of the \(\mathrm{extra}=\sum_i q_i-\lvert
+L_{\text{blocks}}\rvert\) incidences, so
+\(\alpha(G[L])\ge(\#\text{blocks}-\mathrm{maxk})+\mathrm{iso}\) with
+\(\mathrm{maxk}\) the largest number of blocks whose orders sum to at most
+\(\mathrm{extra}\).
+
+**What it does.**
+
+| | before | after |
+|---|---|---|
+| no isolated low vertex | 55824 | **9226** |
+| with an isolated low vertex | 47468 | **307** |
+| total | 103292 | **9533** |
+
+Every surviving isolated-vertex configuration has \(\mathrm{iso}=1\) or 2, against
+the 26 the previous enumeration allowed — \(\alpha(G[L])\ge\mathrm{iso}\) caps it
+at 3 immediately.  This is a reduction of more than ten-fold, and the first
+movement in the closing direction for several passes.  It is **not** a closure.
+
+**A recorded gap, not repaired.**  Gallai allows a block to be an odd cycle, and
+the enumeration in this directory silently drops those — the recursion spends
+vertices on a cycle without recording it, so the multiset then fails the covering
+filter.  Constraint C excludes odd cycles for \(\lvert R\rvert\le25\) (a cycle
+vertex has \(D_v=2\) and needs \(D_v\ge\delta_0\)); for \(\lvert R\rvert\ge26\)
+they are possible and were never enumerated.  \(\alpha(G[L])\le3\) bounds the gap
+sharply, since \(\alpha(C_q)=(q-1)/2\) makes \(C_9\) and longer impossible
+outright and permits at most one odd-cycle block beside at most one other block.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: after both audits, 55824 configurations without an isolated
-low vertex together with 47468 carrying one, 103292 in all.  Nothing here bears
-on `r >= 30`.
+is **not** closed: after both audits and the independence bound, 9226
+configurations without an isolated low vertex together with 307 carrying one,
+9533 in all.  Nothing here bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -1442,6 +1493,8 @@ on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `alpha58.py` | alpha(G) <= 3 applied to the Gallai blocks |
+| `EXPECTED_OUTPUT_ALPHA58.txt` | its expected output |
 | `auditc.py` | the Constraint C audit and its two repairs |
 | `EXPECTED_OUTPUT_AUDITC.txt` | its expected output |
 | `iso58.py` | the `\|R\| >= 28` completeness gap: isolated low vertices |
@@ -1465,6 +1518,7 @@ on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 auditc.py       | diff -u EXPECTED_OUTPUT_AUDITC.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 iso58.py        | diff -u EXPECTED_OUTPUT_ISO58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 blockr58.py     | diff -u EXPECTED_OUTPUT_BLOCKR58.txt -

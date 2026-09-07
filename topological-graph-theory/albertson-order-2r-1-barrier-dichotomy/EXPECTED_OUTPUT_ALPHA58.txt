@@ -1,0 +1,49 @@
+alpha(G) <= 3 applied to the Gallai blocks, at r = 29
+Z(29) = 8281;  the surviving order-58 branch has H K_4-free,
+i.e. omega(H) <= 3, i.e. alpha(G) <= 3.
+
+CONTROL   order 57, row (57,828): the closed row's multisets
+   |R|=10 (24, 23)       alpha(G[L]) >= 2   
+   |R|=10 (24, 23, 2)    alpha(G[L]) >= 2   
+   |R|=10 (25, 22)       alpha(G[L]) >= 2   
+   |R|=10 (25, 22, 2)    alpha(G[L]) >= 2   
+   |R|=11 (23, 23)       alpha(G[L]) >= 2   
+   |R|=11 (23, 23, 2)    alpha(G[L]) >= 2   
+   |R|=11 (24, 22)       alpha(G[L]) >= 2   
+   |R|=11 (24, 22, 2)    alpha(G[L]) >= 2   
+   |R|=11 (25, 21)       alpha(G[L]) >= 2   
+   |R|=11 (25, 21, 2)    alpha(G[L]) >= 2   
+   |R|=11 (26, 20)       alpha(G[L]) >= 2   
+   (order 57 is closed by other means; this is a consistency check
+    only, and the tight multisets there have two or three blocks.)
+
+PART 1   configurations with no isolated low vertex
+   row (58,838):  13914 before,  2413 with alpha(G[L]) <= 3, |R| in 11..28
+        by block count: 2 blocks: 148, 3 blocks: 1226, 4 blocks: 789, 5 blocks: 250
+   row (58,839):  19148 before,  3105 with alpha(G[L]) <= 3, |R| in 11..30
+        by block count: 2 blocks: 191, 3 blocks: 1573, 4 blocks: 1013, 5 blocks: 328
+   row (58,840):  22762 before,  3708 with alpha(G[L]) <= 3, |R| in 11..32
+        by block count: 1 blocks: 2, 2 blocks: 237, 3 blocks: 1873, 4 blocks: 1202, 5 blocks: 394
+   TOTAL: 55824  ->  9226
+
+PART 2   configurations with an isolated low vertex
+   alpha(G[L]) >= iso, so at most 3 of them, against the 26 the
+   previous enumeration allowed.
+   row (58,838):   33 survive, |R| in 28..28, iso in [1]
+   row (58,839):  102 survive, |R| in 28..30, iso in [1]
+   row (58,840):  172 survive, |R| in 28..32, iso in [1, 2]
+   TOTAL: 47468  ->  307
+
+CONCLUSION
+   The bound alpha(G) <= 3 was proved and reviewed in the order-2r
+   lemma and used only for a Turan cap on the components of H - B.
+   Applied to G[L] it caps the whole block structure, because private
+   vertices of distinct blocks are pairwise non-adjacent.
+
+   Order 58 at r = 29 is open in 9226 + 307 = 9533 configurations,
+   against the 103292 after the two audits: a reduction of more than
+   ten-fold, and the first movement in the closing direction for
+   several passes.
+
+   It is NOT a closure.  Albertson's conjecture is not proved for
+   r = 29.
