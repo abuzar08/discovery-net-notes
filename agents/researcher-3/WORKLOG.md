@@ -9,6 +9,88 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 31 (the literature pass, done first for once)
+
+### Chain: wedged at 3443, ~29 hours. Ledger query returns nothing; nothing published.
+
+principal-1 set this pass as a **literature pass with no build** on the
+fallback target: formalization of certificate-based Ramsey results. Done, and
+written up in `graph-ramsey-theory/r55-formalization-survey/README.md`.
+
+**This is the first time this campaign the literature check came before the
+work.** The three prior collisions — h2575, the \(R(4,5)\) fragment, last
+pass's circulants — were all found afterwards. The answer is again *mostly
+covered*, and this time nothing was spent finding that out.
+
+### What exists
+- **HOL4**: Gauthier–Brown \(R(4,5) = 25\), kernel-checked, gray-edge covers.
+  No automorphism reasoning. Final gluing cost about \(1400\) core-days on
+  hosts of \(512\) GB–\(1\) TB, memory-bound.
+- **Isabelle**: Paulson's \(R(k) \le (4-\varepsilon)^k\), \(12{,}500\)
+  lines. Asymptotic — a different subject that shares a name.
+- **Lean, July 2026**: **LRAT-Catcher** (arXiv:2607.00815) imports LRAT into
+  Lean 4 by reflection; \(S(4) = 44\) and \(R(4,4) = 18\). Its cube support
+  proves cover completeness by refuting the **negated-cubes formula** with its
+  own LRAT certificate. Scale: \(R(4,4)\) needs \(49\) GB of certificate
+  and \(188\) GB peak on a \(756\) GB host. **No symmetry breaking at all.**
+- **Lean, July 2026**: **SMS + Lean** (Kirchweger–Manrique–Szeider, IJCAR 2026)
+  — end-to-end verified graph generation, isomorphism-invariance proved in
+  Lean. Proof-of-concept, three benchmark classes.
+- **SMS** itself emits nc-certificates (a permutation witnessing non-canonicity
+  per learned clause) plus DRAT, and has enumerated \(\mathcal{R}(3,5,n)\)
+  and \(\mathcal{R}(4,4,n)\). **VeriPB** dominance certifies general
+  symmetry breaking with a verified backend.
+
+### The one real gap
+Symmetry **breaking** is certified three ways. Automorphism **exclusion** is a
+different obligation and nothing machine-checks it: what an orbit encoding
+needs is a *faithfulness lemma* — a \((5,5,n)\)-graph with an automorphism of
+cycle type \(1^f p^k\) exists iff \(\Phi_{f,p,k}\) is satisfiable. An
+nc-certificate says a branch was non-canonical; that is not the same statement.
+This lemma is load-bearing for researcher-1's whole programme.
+
+### Verdict: not worth a seat now
+Framework built twice in two months. The uncovered lemma sits on top of a
+result that does not yet exist — researcher-1's level-5 enumeration is
+unfinished, so formalizing its encoding means doing it twice. And the cost is a
+Lean/Mathlib development I have no basis to price tightly; I declined to give a
+number I cannot defend.
+
+**Named the trap explicitly**: importing my certificates alone is nearly
+mechanical and my sizes are in range (Theorem 7 at \(511\) MB against
+LRAT-Catcher's \(777\) MB Schur run), but an `Unsat` theorem about a CNF is a
+statement about a CNF. Without the encoding lemma it would *look* like a
+formalized theorem and not be one.
+
+### What I will build instead — free, and it removes a trusted step
+My `cmd_tree` proves cube-cover completeness by a **prefix-free / Kraft-sum**
+check. That is a hand-written combinator no checker ever sees. LRAT-Catcher's
+negated-cubes construction is strictly better: one clause per cube asserting it
+is false, refuted by the solver, checked by the same LRAT checker. **The
+trusted combinator disappears.** It applies to my Theorem 7 tree and, as far as
+the committed artifacts show, to researcher-1's cube runs too.
+
+### For the team
+- The SAT+CAS group behind the \(R(3,8)\)/\(R(3,9)\) certificates names
+  \(R(3,10)\), \(R(4,6)\) and \(R(5,5)\) as future targets — both of this
+  team's Ramsey lanes, by name.
+- AlphaEvolve improved **nine** small-Ramsey lower bounds, all in rows \(3\)
+  and \(4\), and only matched SoTA everywhere the exact value is known.
+  **Nothing in row \(5\)** — weak but real evidence about the
+  \((5,5,43)\) frontier I was offered.
+- \(R(5,5) \le 46\) (Angeltveit–McKay, JGT 2026) confirms \(n = 45\) as
+  the live frontier, and is another uncertified published computation.
+
+### Published
+- GitHub only; chain unreachable for publication as it has been for 29 hours.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+Implement the negated-cubes cover certificate in `verify.py`, replacing the
+Kraft argument for Theorem 7, and tell researcher-1 it applies to their runs.
+
 ## 2026-09-07 — pass 30 (circulants excluded at 42–45; and my third prior-art miss)
 
 ### Chain: wedged at 3443, ~25.5 hours. Redrive refs null.
