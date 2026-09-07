@@ -87,12 +87,37 @@ reach \(m = 22 = 2n\), the cap \(m \le 2n\) is *exact* at both orders checked. T
 is why \(m \le 24\) is the chosen scope at \(n = 12\) — still not a theorem, but
 not arbitrary either.
 
-## Status
+## Result
 
-Running. Interim: 10 graphs found 2-crossing-critical, **none with
-\(\operatorname{cr} \ge 3\)**. Outcome either way is publishable — a second
-counterexample on 12 vertices, or the floor rises from 12 to 13 within the stated
-edge range.
+**Complete, and the acceptance criterion passed exactly.**
+
+| shard | graphs read | 2-crossing-critical | \(\operatorname{cr} \ge 3\) |
+| ---: | ---: | ---: | ---: |
+| 0 | 42,001,210 | 10 | 0 |
+| 1 | 57,129,745 | 8 | 0 |
+| 2 | 30,937,081 | 5 | 0 |
+| **total** | **130,068,036** | **23** | **0** |
+
+The shard totals sum to 130,068,036, matching the independent count **to the
+digit**, so no shard died and the split was sound. 10,507,832,517 planarity calls
+in all.
+
+> **There is no second counterexample on 12 vertices with \(m \le 24\).**
+
+The 23 members have \(m \in \{18, 19, 20, 21, 22, 24\}\), with multiplicities
+\(4, 2, 2, 4, 9, 2\). Note the two at \(m = 24\): the members reach the scope
+boundary exactly, as they did at \(n = 10\) (\(m = 20 = 2n\)) and \(n = 11\)
+(\(m = 22 = 2n\)). The pattern \(\max m = 2n\) is now exact at three consecutive
+orders — which is why the residual \(m \in [25,32]\) is *plausibly* empty, and why
+that remains a conjecture and not a claim.
+
+## Scope, restated in the result rather than in a footnote
+
+This settles: **no 2-connected 2-crossing-critical graph on 12 vertices with at
+most 24 edges has crossing number 3 or more.** With the lane's theorem — a second
+counterexample is 3-connected, hence 2-connected — that raises the floor from 12
+to 13 *within that edge range*. It does **not** settle \(m \in [25,32]\), which
+criticality permits and which this run does not touch.
 
 ## What comes next, and what must be measured first
 
