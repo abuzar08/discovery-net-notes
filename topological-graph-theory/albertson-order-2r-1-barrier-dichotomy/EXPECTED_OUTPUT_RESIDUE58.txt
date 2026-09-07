@@ -23,16 +23,16 @@ ORDER 58, class b = 6, c = (51,1): the last case at r = 29
 
    m = 838 (X = 52, Sx <= 27, |R| <= 28): 5688 of 50885 (|R|, multiset) survive, |R| in 11..28
         regime |R| <= 16 :   7      regime |R| >= 17 : 5681
-   m = 839 (X = 54, Sx <= 29, |R| <= 30): 6538 of 59563 (|R|, multiset) survive, |R| in 11..30
-        regime |R| <= 16 :   7      regime |R| >= 17 : 6531
-   m = 840 (X = 56, Sx <= 31, |R| <= 32): 7142 of 65237 (|R|, multiset) survive, |R| in 11..32
-        regime |R| <= 16 :   6      regime |R| >= 17 : 7136
+   m = 839 (X = 54, Sx <= 29, |R| <= 30): 6537 of 59563 (|R|, multiset) survive, |R| in 11..30
+        regime |R| <= 16 :   7      regime |R| >= 17 : 6530
+   m = 840 (X = 56, Sx <= 31, |R| <= 32): 7140 of 65237 (|R|, multiset) survive, |R| in 11..32
+        regime |R| <= 16 :   5      regime |R| >= 17 : 7135
 
-   THE SMALL-|R| REGIME is fully explicit: 203 sub-cases, each pinned
+   THE SMALL-|R| REGIME is fully explicit: 173 sub-cases, each pinned
    by (m, |R|, multiset, k_1, k_2).  Shortfall of mu_1 + mu_2 against
    the requirement |Z| + max(0, t - s), as a histogram:
-        short by 1 : 139 sub-cases
-        short by 2 : 64 sub-cases
+        short by 1 : 116 sub-cases
+        short by 2 : 57 sub-cases
    The deficit sits entirely in mu_2.  There e_H(Q_2 - Q_1, R) is
    only |Q_2 - Q_1| (q_2 + |R| - 29), which is 30 or so against a
    |Z| of 10 to 15, so Koenig can force only two or three edges of a
@@ -43,7 +43,7 @@ ORDER 58, class b = 6, c = (51,1): the last case at r = 29
 CONCLUSION
    The general residue reproduces the order-57 closure with the
    partition hypothesis REMOVED, and it does not close order 58:
-   19368 (|R|, multiset) combinations survive.  Reported as a
+   19365 (|R|, multiset) combinations survive.  Reported as a
    negative result.  The route is exhausted for a quantified
    reason -- the budget Sx <= X - 25 is three times the order-57
    value because this class has one singleton component, not two

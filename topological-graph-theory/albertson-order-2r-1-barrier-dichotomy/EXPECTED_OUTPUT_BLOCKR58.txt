@@ -1,0 +1,39 @@
+A Gallai block and the high set are almost complete, at r = 29
+Z(29) = 8281;  low means d_G = 28
+
+CONTROL   order 57, row (57,828): the bound on the already-closed row
+   |R|=10 (24, 23)       e(H[R])= 4  block+R bound   7569   -
+   |R|=10 (24, 23, 2)    e(H[R])= 3  block+R bound   7569   -
+   |R|=10 (25, 22)       e(H[R])= 2  block+R bound   8492   kills
+   |R|=10 (25, 22, 2)    e(H[R])= 1  block+R bound   8492   kills
+   |R|=11 (23, 23)       e(H[R])= 9  block+R bound   6777   -
+   |R|=11 (23, 23, 2)    e(H[R])= 8  block+R bound   6777   -
+   |R|=11 (24, 22)       e(H[R])= 8  block+R bound   7569   -
+   |R|=11 (24, 22, 2)    e(H[R])= 7  block+R bound   7569   -
+   |R|=11 (25, 21)       e(H[R])= 5  block+R bound   8492   kills
+   |R|=11 (25, 21, 2)    e(H[R])= 4  block+R bound   8492   kills
+   |R|=11 (26, 20)       e(H[R])= 0  block+R bound   9647   kills
+   soundness (every merged bound <= Z of its own order): PASS
+
+ORDER 58, class b = 6, c = (51,1)
+   Applied to the configurations that survive residue58.py.
+   m = 838 : 5688 survivors of residue58; block+R kills 57, 5631 remain (|R| <= 16: 1, |R| >= 17: 5630), |R| in 11..28
+   m = 839 : 6537 survivors of residue58; block+R kills 59, 6478 remain (|R| <= 16: 2, |R| >= 17: 6476), |R| in 11..30
+   m = 840 : 7140 survivors of residue58; block+R kills 56, 7084 remain (|R| <= 16: 2, |R| >= 17: 7082), |R| in 11..32
+
+   THE SMALL-|R| REGIME is now 5 configurations:
+      m=838 |R|=11 (24, 23, 2)      e(H[R])=3  bound   7510, short 771
+      m=839 |R|=11 (24, 23)         e(H[R])=3  bound   7545, short 736
+      m=839 |R|=11 (24, 23, 2)      e(H[R])=2  bound   7545, short 736
+      m=840 |R|=11 (24, 23)         e(H[R])=2  bound   7580, short 701
+      m=840 |R|=11 (24, 23, 2)      e(H[R])=1  bound   7580, short 701
+
+CONCLUSION
+   Merging one Gallai block with the whole high set, and scoring the
+   result as a near-complete graph, is strictly stronger than the
+   three-clique split wherever the second block is small.  It kills
+   172 of the 19365 configurations that survive the residue.
+   The small-|R| regime falls from 20 configurations to 5.
+   It does NOT close order 58: the |R| >= 17 regime is untouched,
+   because there e(H[R]) reaches 268 and dominates f(Q).  Order 58
+   at r = 29 remains open, and r = 29 is not proved.

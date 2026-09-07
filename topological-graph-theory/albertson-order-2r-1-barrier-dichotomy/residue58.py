@@ -21,25 +21,33 @@ Let Q_1 be a largest block of G[L] and Q_2 a second largest, and for z in Z put
 
         a_z := |N_H(z) ^ Q_1| ,      b_z := |N_H(z) ^ (Q_2 - Q_1)| .
 
-Every vertex of L is low, d_G = 28 exactly, so d_H(z) = 28 - x_z for z in R and
+Every vertex of L is low, d_G = 28 exactly, and a high vertex z has
+d_H(z) = (n - 1) - 28 - x_z, so with dh := n - 29 (28 at order 57, 29 at order
+58)
 
-        |N_H(z) ^ L|  =  (28 - x_z) - |N_H(z) ^ R| .
+        |N_H(z) ^ L|  =  (dh - x_z) - |N_H(z) ^ R| .
 
 Now Q_1 is a subset of L, so N_H(z) ^ L omits at most |L| - q_1 vertices outside
 Q_1 -- no structure assumed, only |Q_1| = q_1 -- and therefore
 
         a_z  >=  |N_H(z) ^ L| - (|L| - q_1)  =  thr_1 - c_z ,
 
-        thr_1 := 28 - |L| + q_1 ,        c_z := x_z + |N_H(z) ^ R| .
+        thr_1 := dh - |L| + q_1 ,        c_z := x_z + |N_H(z) ^ R| .
 
 Two blocks of a graph meet in at most one vertex, so |Q_2 - Q_1| >= q_2 - 1 and
 symmetrically
 
-        b_z  >=  thr_2 - c_z ,           thr_2 := 28 - |L| + q_2 - 1 .
+        b_z  >=  thr_2 - c_z ,           thr_2 := dh - |L| + |Q_2 - Q_1| .
 
 When the two blocks do partition L this is exactly the identity of residue57.py:
-there |L| = q_1 + q_2, so thr_1 = 28 - q_2 and thr_2 = 28 - q_1 - 1.  The
-control below reruns order 57 through the general form and reproduces closure.
+there dh = 28 and |L| = q_1 + q_2, so thr_1 = 28 - q_2.  The control below
+reruns order 57 through the general form and reproduces closure.
+
+A CORRECTION TO THE FIRST VERSION OF THIS FILE, which hardcoded dh = 28 at both
+orders and so used order-58 thresholds one too small each.  A smaller threshold
+rules out fewer configurations, so the order-58 survivor counts it reported were
+OVER-counts and the negative conclusion held a fortiori; the counts below are
+the corrected ones.  Order 57, where dh = 28 is correct, is unaffected.
 
 ==============================================================================
 WHAT MAKES IT BITE: c_z IS PAID OUT OF A FIXED BUDGET.
@@ -54,7 +62,7 @@ most two neighbours in each of the two disjoint triangles, so d_H(w) <= b - 2 = 
 and x_w = 29 - d_H(w) >= 25.  Hence Sx = X - x_w <= X - 25, which is 27, 29, 31
 on the three rows -- against Sx <= 9 at order 57.  The budget is therefore much
 larger here, exactly as expected, and the question is whether |Z| and thr_1 grow
-faster.  They do, at the top of the |R| range: thr_1 = q_1 + |R| - 30 at order 58
+faster.  They do, at the top of the |R| range: thr_1 = q_1 + |R| - 29 at order 58
 grows with |R| while the budget does not.
 
 THREE CONSEQUENCES, all used below.
@@ -109,9 +117,18 @@ def second_side(NL, mult):
     return max(q2 - 1, 1)
 
 
-def thresholds(NL, mult):
-    """thr_1, thr_2 of the general residue."""
-    return DEG - NL + mult[0], DEG - NL + second_side(NL, mult)
+def thresholds(nn, NL, mult):
+    """thr_1, thr_2 of the general residue, on a graph of order nn.
+
+    A CORRECTION.  The high-vertex degree in H is d_H(z) = (nn - 1) - d_G(z)
+    = (nn - 1 - 28) - x_z, which is 28 - x_z at order 57 but 29 - x_z at order
+    58.  The first version of this file hardcoded 28 at both orders, making the
+    order-58 thresholds one too small each.  That is conservative -- a smaller
+    threshold rules out fewer configurations -- so every order-58 number it
+    reported was an over-count of the survivors, and the negative conclusion
+    held a fortiori; but it was not tight, and the count is corrected here."""
+    dh = nn - 1 - DEG
+    return dh - NL + mult[0], dh - NL + second_side(NL, mult)
 
 
 def residue(NZ, budget, thr1, thr2, k1, k2):
@@ -169,7 +186,7 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
     s = D.singletons(NL, mult, d0)
     e1 = q1 * (q1 + RSZ - 29)
     e2 = side2 * (q2 + RSZ - 29)
-    thr1, thr2 = thresholds(NL, mult)
+    thr1, thr2 = thresholds(nn, NL, mult)
     budget = sx_max + 2 * eHR
     bad = []
     for k1 in range(0, NZ + 1):
@@ -230,7 +247,7 @@ def control_order57():
             bad = survivors(N57, M, RSZ, mult, eL, 2, 5, sx)
             if bad is None:
                 continue
-            thr1, thr2 = thresholds(NL, mult)
+            thr1, thr2 = thresholds(N57, NL, mult)
             print("   |R|=%2d %-14s thr=(%d,%d)  ->  %s"
                   % (RSZ, str(mult), thr1, thr2,
                      "IMPOSSIBLE" if not bad else
