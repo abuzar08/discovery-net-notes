@@ -555,3 +555,30 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step (pass 21)
 - Whether the application container was restarted and ten contributions drained. Whether r3 published the negatives and what the \(\beta(24)\) argument looks like. Whether r4 repointed the \(V_{10}\) citation and relaunched the census. Whether r1's third round closed \(1^{12}3^{10}\). r2's four order-57 combinations and the (51,1) class.
+
+## 2026-09-07 06:15Z — pass 21 (window 05:10Z–06:15Z)
+
+### Three corrections of mine
+1. I said r4's \(n=12\) census "did not survive the outage" and told it to relaunch. **It survived and completed** — I inferred death from absent processes when the run had finished. r4 corrected me.
+2. **The \(\beta\) handle I gave r3 was false and inverted.** I said dense \((4,5,m)\)-graphs are nearly 13-regular hence constrained. Grouping all 352,366 \((4,5,24)\)-graphs by \(\Delta\): \(\Delta=13\) occurs in only 961 graphs at 119–125 edges, the maximum 132 is attained by **exactly 11-regular** graphs, and among the 15,913 with \(e\ge126\) the maximum degree never exceeds 12. A degree-13 vertex forces its neighbourhood to be *the* unique \((3,5,13)\)-graph and that rigidity costs edges. r3 checked before building, so it cost nothing.
+3. I repeated r4's "ten graphs on 12 vertices with \(m\in\{19,20,21\}\)" in two reports; it was wrong (component sizes *as drawn*, before hinge identification). r4 says my repeating its own number back to it is what surfaced the error.
+
+### Established
+- **r1: two theorems after eleven windows without.** \(1^2 5^8\) excluded \(\Rightarrow\) **no \((5,5,42)\)-graph has an automorphism of order 5**; with all \(p \ge 7\) gone, \(|\mathrm{Aut}(G)| = 2^a 3^b\). Then \(1^{12}3^{10}\) excluded \(\Rightarrow\) order 3 has at most 9 fixed points and **exactly four types remain** (\(1^9 3^{11}, 1^6 3^{12}, 1^3 3^{13}, 1^0 3^{14}\)); excluding them gives \(|\mathrm{Aut}(G)| = 2^a\). Evidence: 16,872 and 8,326 cubes all replayed to the empty clause; chained checks over three and five refinement levels; completeness counts 185,848 and 2,541,538 matching; 341 GB and 338 GB of proofs. **The last two refinement rounds exist only because a proof exceeded the replay size bound and was split rather than trusted unreplayed.**
+- **r2: order 57 at \(r=29\) is CLOSED** — all five rows. The residue argument: the big blocks are disjoint and cover \(L\), so \(a_z+b_z=(28-x_z)-|N_H(z)\cap R|\), and \(a_z=0\) forces \(x_z+|N_H(z)\cap R| \ge 28-q_2\), which is expensive. At \((26,20), |R|=11\) it forces \(k_1=k_2=0\). **\(r=29\) now stands at: \(\le 56\) impossible, 57 closed, 58 one class (\(b=6\), \(c=(51,1)\), \(|R|\ge11\)).**
+- **r4: \(n=12\) closed, both acceptance criteria pass** — shard totals 130,068,036 to the digit, and the BORS cross-check 2/2 (four members have \(n=12\) at \(m=18,19,19,19\), only two distinct up to isomorphism, both found; the apparent shortfall was that duplication). No second counterexample on 12 vertices with \(m \le 24\). The \(n=10\) validation **FAIL** is now published as evidence, not just its resolution.
+- **r3: killed its own lead in one test, then found the lane's first positive signal.** The near-miss (\(\Delta=13 \Rightarrow e \le 125\) at \(m=24\)) would need every occurring neighbourhood to contain a degree-13 vertex — false: only 30% of the 13,776 neighbourhoods in the 328 known \((5,5,42)\)-graphs do. From the same data, \(\beta\) vs \(\overline e\) gaps at \(x=19..22\) are **2, 4, 6, 6** — not zero and growing, with the two positions agreeing exactly at every \(x\). \(\beta(22)\) observed 108 against the requirement \(\le 109\). Three caveats stated (328 are the *known* graphs; \(n=42 \ne 45\); the target is hypothetical).
+- reviewer-1: showed its constrained König maximum **exact**, not merely valid, by brute force over all admissible bipartite graphs; and quantified where r2's order-57 closure rests — drop the inherited crossing hypothesis and **neither row closes**; row (57,828) closes with **zero margin**.
+
+### Operational
+- **Chain wedged 14 h; mempool 9 \(\to\) 15.** Diagnosis unchanged and unacted three passes: **restart `discovery-node-local-application-1`**. ~17 finished contributions held (r2 five, reviewer-1 five, r4 three, r3 two, r1 one submitted + one deliberately held).
+
+### Report
+- `scratch/reports/20260907T061500Z.md`. **Rank change: researcher-1 to 2** (r2 1, r1 2, r4 3, r3 4) — at pass 19 I said its next report would carry the lemma or a specific obstruction; it carried two, one eliminating an entire prime order, with four earlier results already reviewed. r4 and r3 effectively tied at 3/4; noted separately that r4's DS21 counterexample remains the campaign's single most important individual result.
+- Directions: researcher-3 — take its own reframing, **argue \(\beta < \overline e\) for occurring neighbourhoods at all** and explain the gap shape 2,4,6,6; the mechanism to try is its own inversion (extremal graphs are extremal because rigid, and an occurring neighbourhood must be simultaneously compatible with the complement of the non-neighbourhood and with the bipartite edges Lemma 1 counts); keep the three caveats and use the unexploited hint that the two positions agree exactly. researcher-4 — **let the count decide \(n=13\)'s scope and take the full range**; if members reach \(m=26\) do \(m\le26\) rather than capping at 24, since an \(n=13\) result scoped below its own frontier is strictly weaker than \(n=12\)'s; bring the number first if it costs materially more than ~24 core-hours; then state the lane's running headline as one sentence with the edge scope in it.
+
+### Blocked
+- The chain. \(C_3 \square C_3\) note to Schaefer: seventeenth request.
+
+### Next step (pass 22)
+- Whether the application container was restarted and seventeen contributions drained without duplication. r2's residue argument at order 58's \((51,1)\) — the only obstruction to \(r=29\). r1's \(1^9 3^{11}\). r3's argument for a \(\beta\)-gap. r4's \(n=13\) scope decision.
