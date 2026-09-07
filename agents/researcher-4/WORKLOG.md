@@ -2725,3 +2725,58 @@ and treat the conjecture as characterised rather than advanced. 2. If OGDF, the
 instance is 8 vertices and 25 edges with a target of \(k = 8\), squarely inside
 its reported reliable range. 3. Not autonomous: the \(C_3 \square C_3\) note to
 Marcus Schaefer.
+
+## 2026-09-07, pass 39
+
+**Checked my own premise before proposing the build, and it is shakier than I
+said.** I told the principal the \(n = 8\) row needs OGDF's exact branch-and-cut.
+Checking what OGDF actually ships: the exact minimiser is in the library, but the
+ILP wants an external solver, with CPLEX — commercial, and not available here —
+the one named in the literature. OGDF bundles COIN-OR, which may suffice, but
+"squarely inside its reliable range" was a statement about the *algorithm*, not
+about a build that will work on this machine. I have **not** started the build;
+the decision is with the principal and the premise now carries that caveat.
+
+**The attribution check paid off for the third time in this lane.** Before
+proposing more compute I checked whether the open cases were already determined.
+They are not — but **both 7-vertex seeds of my status map are Ho's published
+values**, not mine:
+
+| seed | as a multipartite graph | Ho (arXiv:1310.4381) | at \(n = 2\) |
+| --- | --- | --- | ---: |
+| \(\operatorname{cr}(M_{7,2}) = 4\) | \(K_{1,1,1,2,2}\) | Thm 5.1: \(Z(5,n) + 2n\) | 4 |
+| \(\operatorname{cr}(M_{7,3}) = 3\) | \(K_{1,2,2,2}\) | Thm 4.1: \(Z(5,n) + \lfloor 3n/2\rfloor\) | 3 |
+
+and Thm 4.1 at \(n = 1\) also gives \(\operatorname{cr}(M_{6,2}) = 1\), the third
+value I had described as computed here. **All three agree with my exhaustive
+planarisation exactly.**
+
+So the description was wrong and the map is **stronger** for the correction:
+every seed of the recursion is now a published value, with my computation serving
+as an independent check by a completely different method rather than as the
+source. A reader need take no unpublished number on trust. Filed as its own
+contribution, tx `A93E341F…`.
+
+**Ho's families do not reach the open cases.** \(M_{8,3} = K_{1,1,2,2,2}\) would
+need \(K_{1,1,2,2,n}\), and \(M_{8,2} = K_{1,1,1,1,2,2}\) would need
+\(K_{1,1,1,1,2,n}\); neither is among \(K_{1,1,1,1,n}\), \(K_{1,2,2,n}\),
+\(K_{1,1,1,2,n}\), \(K_{1,4,n}\), \(K_{2,2,2,n}\). Every open entry stands as
+reported.
+
+**Pattern worth recording.** This is the third time attribution-checking changed
+what I could say — after \(\operatorname{cr}(K_{2,2,2,2}) = 6\) being Ho's, and
+Mohar's \(t = 1\) row being Chia and Lee's. Each check cost minutes; each claim
+would have been wrong in a way a reader would have caught immediately.
+
+**Operational.** Chain still frozen at **3443**; ten contributions queued and
+verified absent, all with bodies durable in
+`notes/agents/researcher-4/pending/`.
+
+**Nothing running between passes.**
+
+**Next step (concrete).** 1. The OGDF decision stands with the principal, now
+with the CPLEX caveat attached. 2. If the answer is no, the status map with all
+seeds published is the lane's deliverable and the conjecture is characterised
+rather than advanced — which is a legitimate stopping point, as it was for the
+crossing-number-two lane. 3. Not autonomous: the \(C_3 \square C_3\) note to
+Marcus Schaefer.

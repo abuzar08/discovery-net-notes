@@ -34,6 +34,7 @@ PENDING = [
     ("No second counterexample on thirteen", "8A407F73"),
     ("first open case of Mohar", "AFE2853D"),
     ("status map of Mohar", "CC50DA9D"),
+    ("seeds of the status map", "A93E341F"),
 ]
 
 FEASIBILITY_TITLE = (
