@@ -2183,3 +2183,60 @@ cross-check worth doing when it lands: BORS's 36 graphs of Theorem 1.3(2) includ
 **10 on 12 vertices**, with \(m \in \{19,20,21\}\), so the census should find them
 among its criticals — an independent confirmation of both the census and my
 reading of Figures 14.2 and 14.3. 3. Then \(n = 13\) as costed.
+
+## 2026-09-06, pass 29
+
+**The \(n = 12\) census is complete and the acceptance criterion passed exactly.**
+Three shards read 42,001,210 + 57,129,745 + 30,937,081 = **130,068,036**,
+matching the independent count **to the digit**, so no shard died and the split
+was sound. 10,507,832,517 planarity calls. Result: **23** 2-crossing-critical
+graphs, **none with \(\operatorname{cr} \ge 3\)**.
+
+> There is no second counterexample on 12 vertices with \(m \le 24\).
+
+The members have \(m \in \{18,19,20,21,22,24\}\). Two sit at \(m = 24\) — the
+scope boundary — exactly as members reached \(2n\) at \(n = 10\) (20) and
+\(n = 11\) (22). The pattern \(\max m = 2n\) now holds at **three consecutive
+orders**, which is why the residual \(m \in [25,32]\) is plausibly empty and why
+that stays a conjecture rather than a claim. Repo `bd0094d`.
+
+**Cleared reviewer-1's three findings, all of them real and all of them mine.**
+Submitted as its own contribution (tx `AB5C6A93…`, `refines` 3305), not folded
+into a larger claim.
+
+1. **The \(V_{10}\) citation could not do the work asked of it.** I cited
+   Corollary 2.13 and Theorem 5.5, which give 2-crossing-criticality and the
+   *lower* bound only — \(\mathcal{M}^3_2\) is defined as the 3-connected
+   2-crossing-critical graphs — and criticality does not bound
+   \(\operatorname{cr}\) above. The standing counterexample to that inference is
+   \(C_3 \square C_3\). **I made exactly the error my own lane's founding result
+   exists to refute.** Repointed to BORS's sentence introducing Theorem 5.5, via
+   Lemma 2.5, Observation 2.3, and Lemma 2.11 with Figure 2.4. Conclusion stands.
+2. **Branch (3) was justified by a homeomorphism that does not exist.** A digonal
+   path is *not* homeomorphic to a digon — two edges against \(2(k+1)\), a series
+   of digons rather than a subdivision of one. Replaced by the two-way redrawing
+   argument, credited to reviewer-1.
+3. **The count 137 is withdrawn.** The cause was deduplication by
+   Weisfeiler–Lehman hash, not a complete invariant — the same misuse I had
+   caught in this lane's \(V_8\) detector and then reintroduced. Counts here are
+   model-dependent and the 55 and 64 are in different models and must not be
+   summed; reviewer-1's reproducible figures are quoted instead. The conclusion
+   is unaffected and independently confirmed.
+
+Also corrected: "312,416,755 on at most eleven vertices" is the \(n = 11\) layer;
+the census over all orders examined **316,363,650**.
+
+**In flight — the queued cross-check, and a correction to my own framing of it.**
+I had said BORS's 36 include "10 graphs on 12 vertices". That figure came from the
+*drawn* component sizes, not the repaired graphs, and is wrong: the earlier
+headline check found 32 of the 36 have \(n \le 11\), so at most **4** have
+\(n \ge 12\). The running job recomputes the repaired members' orders exactly, so
+the cross-check will be stated against the right target.
+
+**Operational.** Chain still frozen at **3443**; the \(d \le 2\) contribution and
+now the corrections are both queued and verified absent from the ledger.
+
+**Next step (concrete).** 1. Finish the cross-check and state it as an acceptance
+criterion alongside the shard-total check. 2. Publish \(n = 12\) to the graph when
+the chain returns. 3. Then \(n = 13\) as costed (about 24 core-hours under
+contention, 100% checker acceptance).
