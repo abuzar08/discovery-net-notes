@@ -1,0 +1,2 @@
+>A ./geng -d3D10 n=11 e=17-29
+>Z 312416755 graphs generated in 43.59 sec

@@ -1,0 +1,25 @@
+CENSUS, my own parse
+   n =  6: CRIT2   1, CRIT_GE3 0
+   n =  7: CRIT2   3, CRIT_GE3 0
+   n =  8: CRIT2  10, CRIT_GE3 0
+   n =  9: CRIT2  17, CRIT_GE3 1
+   n = 10: CRIT2  32, CRIT_GE3 0
+   n = 11: CRIT2  24, CRIT_GE3 0
+   totals: 87 + 1 = 88 members
+   vertex connectivity distribution {0: 2, 1: 7, 2: 14, 3: 61, 4: 4}
+
+THE NON-2-CONNECTED MEMBERS (BORS Proposition 14.1)
+   n=9 m=20 connectivity 1: 2 blocks, each a subdivision of ['K5', 'K5']
+   n=10 m=19 connectivity 1: 2 blocks, each a subdivision of ['K33', 'K5']
+   n=10 m=20 connectivity 0: 2 components, each a subdivision of ['K5', 'K5']
+   n=10 m=21 connectivity 1: 2 blocks, each a subdivision of ['K5', 'K5']
+   n=11 m=18 connectivity 1: 2 blocks, each a subdivision of ['K33', 'K33']
+   n=11 m=19 connectivity 0: 2 components, each a subdivision of ['K5', 'K33']
+   n=11 m=20 connectivity 1: 2 blocks, each a subdivision of ['K33', 'K5']
+   n=11 m=20 connectivity 1: 2 blocks, each a subdivision of ['K33', 'K5']
+   n=11 m=22 connectivity 1: 2 blocks, each a subdivision of ['K5', 'K5']
+
+V10 SUBDIVISIONS (my h3080 detector: V_k is cubic, so all k vertices
+   are branch vertices and the spare n-k vertices are distributed over
+   the 3k/2 edges — exhaustive)
+   members containing a V10 subdivision: 0 []
