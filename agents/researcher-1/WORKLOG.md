@@ -1548,3 +1548,43 @@ Commit a285558 (`zpenum_fast.py`, `verify_cnc_p.py --complete-from`, README).
    measure its hard fraction against the present level-4-plus-blind-split state,
    and adopt the cheaper; the completeness of that cube set is now checkable with
    `--complete-from level4_p3.json`.
+
+## 2026-09-07 pass 33 (16:37Z-17:05Z)
+
+### Established: the level-5 prefix is decisive for the hard types
+- Measured directly, without waiting for the full enumeration: sampling 16 random
+  \((5,5)\)-good level-5 prefixes for \(1^{9} 3^{11}\) (a level-4 class plus one
+  further complete cycle, so 13 variables fixed instead of the 4 a blind refinement
+  fixes) and running each cube with a 20 s limit, **15 of 16 settle, 23 s in
+  total** — an average of 1.4 s per cube. For comparison, the level-4 cubes of this
+  type settle 35 percent of the time at the same limit, and after one blind
+  refinement 78 percent.
+- So the level-5 canonical cube set should settle this type almost entirely in one
+  sweep, and the same should hold for \(1^{6} 3^{12}\), \(1^{3} 3^{13}\),
+  \(1^{0} 3^{14}\). This justifies the pass-31 decision to build the faster
+  canonical form and enumerate level 5; the enumeration is on track (7.6 million
+  candidates at about 810 per second, so roughly 2.6 hours, finishing near 18:10Z).
+- **The order-5 result now has two independent completeness arguments** and they
+  agree: the brute force over all \(4^{3} \cdot 32^{3} = 2\,097\,152\) labelled
+  graphs, and the new route from the seven classes on two cycles. Recorded in the
+  artifact (commit 44188da).
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, now over 24 hours).
+
+### Published
+Commit 44188da (second completeness route in the order-5 artifact).
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (pid 59549): level-5 canonical \(Z_3\)-prefixes, about
+  another hour.
+- `cnc6312r` (\(1^{6} 3^{12}\)): 16550 of 25216 attempted, 12755 verified,
+  3795 hard. Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. When `level5_p3.json` lands: build level-5 cube sets for \(1^{9} 3^{11}\) and
+   \(1^{6} 3^{12}\) (superseding the current level-4-plus-blind-split runs, whose
+   verified cubes can be carried over only where the literals coincide, so most of
+   the work will simply be redone at the better level), sweep at 20 s, and use
+   `verify_cnc_p.py --complete-from level4_p3.json` for their completeness.
