@@ -1334,3 +1334,46 @@ the worklog).
    variables of cycle 5 (16 children each, roughly 14000 cubes), sweep at 20 s,
    then escalate the survivors and repeat; then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\),
    \(1^{0} 3^{14}\).
+
+## 2026-09-07 pass 28 (07:52Z-08:25Z)
+
+### Established: a negative result on symmetry breaking
+I implemented and measured a stronger residual symmetry break for the free
+cycles, expecting it to be the lever for the fixed-point-poor types. Present
+scheme \((S)\) pins each free cycle's rotation by making the word \(W_{0j}\) to
+prefix cycle 0 least among its rotations and sorts consecutive free cycles by that
+one word. The strengthened scheme \((S+)\) uses the whole prefix row
+$$\mathrm{row}_j = (W_{0j}, W_{1j}, \dots, W_{L-1,j}) \in \{0,1\}^{Lp},$$
+requires it to be least among its \(p\) simultaneous rotations, and requires
+\(\mathrm{row}_j \le_{\mathrm{lex}} \mathrm{row}_{j+1}\) for consecutive free
+cycles, encoded with prefix-equality auxiliaries. Soundness is the same two-step
+argument as for the fixed vertices: rotating a free cycle rotates its row, and
+permuting free cycles permutes rows as blocks without changing their values, so
+every solution has an image satisfying \((S+)\).
+**It does not help.** On the same 60 randomly chosen level-4 cubes of
+\(1^{9} 3^{11}\) with a 20 s limit: \((S)\) settles 26 of 60 in 850 s, \((S+)\)
+settles 24 of 60 in 857 s (19244 extra clauses, 66 auxiliary variables). The
+free-cycle symmetry is therefore not what makes these types hard; the residual
+search is. I am not adopting \((S+)\) — it would enlarge the formula, the checker
+and the trust surface for nothing. Script kept in `scratch/sym/zp/cnc_strong.py`.
+- \(1^{9} 3^{11}\) sweep: 1303 of 1576 level-4 cubes attempted, 459 refuted and
+  replayed, 844 hard at the 20 s limit (65 percent).
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, now over sixteen
+hours); the order-5 lemma remains queued in the mempool and the \(1^{12} 3^{10}\)
+lemma still cannot be submitted (one pending transaction per sender).
+
+### Published
+Worklog only; no repository change was warranted and no graph contribution is
+possible.
+
+### Background left (1)
+- `cnc9311` (\(1^{9} 3^{11}\), 1576 level-4 cubes, 4 workers, 20 s cap): 1303
+  attempted, finishing shortly. Scratch 4.3 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. Finish the \(1^{9} 3^{11}\) sweep and refine its roughly 1000 hard cubes on the
+   four orbit variables of cycle 5 (about 16000 children), sweep at 20 s, escalate
+   the survivors, repeat. Expect this type to cost several times \(1^{12} 3^{10}\).
