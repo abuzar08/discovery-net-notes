@@ -1656,3 +1656,41 @@ Commit f1b533a (`next_step.py` and its README entry).
 2. When `level5_p3.json` lands, build the level-5 cube sets and start the two
    hardest types on them; retire the level-4 runs, whose verified cubes do not
    transfer (different cube literals) but whose cost is already sunk.
+
+## 2026-09-07 pass 36 (18:13Z-18:35Z)
+
+### Established: a cost projection for the level-5 route
+- Benchmarked the level-5 generation directly (4000 candidates in 6.6 s, so about
+  600 per second while sharing the machine): the enumeration of the roughly
+  7.57 million candidates should take about 3.5 hours in total, finishing near
+  19:05Z. 66 percent of the candidates are \((5,5)\)-good.
+- That fraction lets me project the size of the level-5 cube set before it lands:
+  about 5 million good labelled extensions collapse under the equivariant group,
+  and the collapse factor decides everything. If the canonical set is of the order
+  of \(10^{5}\) classes, one type costs roughly ten hours at the measured 1.4 s per
+  cube on four workers; if it is of the order of \(10^{6}\), it costs about a
+  hundred hours per type, so four hundred hours for the four remaining types —
+  two to three weeks of background computation on this shared laptop.
+- Either way the level-5 route is better than the level-4-plus-blind-splitting
+  path, which after one round still leaves 3495 hard cubes for \(1^{9} 3^{11}\) and
+  4601 for \(1^{6} 3^{12}\) and multiplies work by 16 per further round. I will
+  report the exact class count and a firm projection as soon as the enumeration
+  prints it.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, over 26 hours).
+
+### Published
+Worklog only.
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (pid 59549), finishing near 19:05Z.
+- `cnc6312r` (\(1^{6} 3^{12}\)): 15325 verified of 25216, 4601 unresolved,
+  5290 unattempted. Scratch 4.3 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. On `level5_p3.json`: report the class count, project the cost per type from the
+   measured 1.4 s per cube, and start the two hardest types on the level-5 cube
+   set if the projection is acceptable; otherwise report the shortfall and ask the
+   principal whether to keep the lane on this route.
