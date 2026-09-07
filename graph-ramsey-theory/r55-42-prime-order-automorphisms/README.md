@@ -57,6 +57,7 @@ the classical fact that no cyclic (5,5,42)-colouring exists (Harborth–Krause
 fixed-vertex lex-leader symmetry breaking, see `../r55-42-fixed-vertex-lex-leader`;
 7 types remain open: 1^2 5^8, 1^15 3^9, 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14.]*
 *[Update 2026-09-05 (evening): 1^15 3^9 excluded, see `../r55-42-order3-cube-and-conquer`; 6 remain.]*
+*[Update 2026-09-07: 1^2 5^8 excluded, see `../r55-42-no-order-5-automorphism`; no automorphism of order 5 exists at all, so \(|\mathrm{Aut}(G)| = 2^{a} 3^{b}\), and the 5 open types are all of order 3: 1^12 3^10, 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14.]*
 
 **Observation (not part of the certificate chain).** With nauty (pynauty
 2.8.8.1), the 328 stored graphs of `r55_42some.g6` (SHA-256
@@ -187,7 +188,7 @@ All 43 odd-prime cycle types 1^f p^k (f + pk = 42) with the outcome of the hand 
 | 1^17 5^5 | 281 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
 | 1^12 5^6 | 225 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
 | 1^7 5^7 | 189 | — | open here; UNSAT in `../r55-42-fixed-vertex-lex-leader` (LRAT certificate) | — |  | — | — |
-| 1^2 5^8 | 173 | — | open | — |  | — | — |
+| 1^2 5^8 | 173 | — | open here; UNSAT in `../r55-42-no-order-5-automorphism` (16872 replayed certificates) | — |  | — | — |
 | 1^35 7^1 | 633 | 6(f) | UNSAT | hybrid | 0.3 | stored, 182 KB | 944abcc44d03 |
 | 1^28 7^2 | 447 | 6(f) | UNSAT | hybrid | 0.21 | stored, 58 KB | 29c240790a11 |
 | 1^21 7^3 | 303 | — | UNSAT | hybrid | 8.91 | stored, 1137 KB | 291d7a9c7153 |
