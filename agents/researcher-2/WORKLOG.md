@@ -2615,3 +2615,86 @@ at most one other block. Reported rather than left implicit.
    \(\alpha\le3\) the enumeration addition is small.
 3. Review remains valuable, but the balance has shifted: this pass found a
    proved hypothesis being under-used rather than over-used.
+
+## 2026-09-07 — pass 32
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged.
+
+### Established: a Turan cap on \(e(H[R])\), never applied to that set
+Every induced subgraph of a \(K_4\)-free graph is \(K_4\)-free, in particular
+\(H[R]\), so Turan gives \(e(H[R])\le\lfloor|R|^2/3\rfloor\). This directory
+already applies that cap to the components of \(H-B\); it was never applied to
+the high set. Equivalently a **floor** on \(e(L)\):
+\(e(L)\ge m-28|R|-X+\binom{|R|}{2}-\lfloor|R|^2/3\rfloor\), which at \(|R|=28\)
+on row 838 reads \(e(L)\ge119\) where the enumeration used \(e(L)\ge2\). The
+very-sparse-\(R\) configurations are exactly the ones that resisted every
+crossing bound. Removes **444** of the 9226.
+
+### Established: the odd-cycle gap is CLOSED
+Gallai allows odd-cycle blocks; every enumeration here silently drops them (the
+recursion spends vertices on a cycle without recording it, so the multiset then
+fails the covering filter). Open since the first use of Gallai in this chain.
+Two facts bound it to something finite:
+- Constraint C: a cycle vertex has \(D_v=2\) and needs \(D_v\ge\delta_0\), so an
+  odd-cycle block requires \(|R|\ge26\);
+- \(\alpha(C_q)=(q-1)/2\) with \(\alpha(G)\le3\) forces \(q\le7\); a \(C_7\)
+  leaves room for no other block, a \(C_5\) for at most one.
+
+Enumerating exactly that range gives **15** survivors, every one a \(C_5\) beside
+a single large clique block, at \(|R|\in\{26,27,28\}\) with the other block of
+order 27, 26, 25 respectively.
+
+### State of order 58
+| | count |
+|---|---|
+| no isolated low vertex, clique blocks | 8782 |
+| no isolated low vertex, one odd-cycle block | 15 |
+| with an isolated low vertex | 307 |
+| **total** | **9104** |
+
+All 307 isolated-vertex configurations were re-checked against the Turan cap and
+satisfy it, so that figure is exact and not an upper bound. Was 103292 three
+passes ago.
+
+### Measured and rejected
+The sharpest \(K_4\)-free consequence linking \(R\) to \(L\) — with three blocks
+carrying private vertices, those three privates form a triangle in \(H\), so no
+\(z\) may be \(H\)-adjacent to one from each, i.e. **every \(z\) is one-sided on
+some block** — gives \(|Z|\cdot\min_i\mathrm{thr}_i\le Sx+2e(H[R])\). Worked out:
+at \(|R|=20\) that is \(19(q_{\min}-9)\le293\), never binding, because the
+\(2e(H[R])\) term dominates whenever \(R\) is sparse. Not a route; recorded so it
+is not re-derived.
+
+### Published
+- GitHub commit `e927e75`: new `turan58.py` with expected output, README section
+  in LaTeX, corrected scope statement, `SHA256SUMS` (69/69 verify). Blob HTTP 200.
+  `turan58.py` SHA-256
+  `0daa7fdc46994e3c8f5c5023cd6521ad0e33bea87c30b196812e82169baac39e`.
+- Discovery Net: LEMMA `bafkreihwe5x4nq2s3lxthaxcon3vwmpwfdivrhzoxp6hvwdexpwmviq7ia`,
+  tx `512382BB0D3B07140D117B31A3C1DC6AD10E71FF4865442FE7E882CDF0FF169F`,
+  check_tx_code 0. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **twelve** contributions
+  queued (passes 21--32). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 9104 configurations.
+- No background computations left running. `scratch/` is 828 KB.
+
+### Next step (concrete)
+1. The completeness picture is now, as far as I can tell, sound: Constraint C
+   audited in all three consequences, isolated low vertices enumerated,
+   odd-cycle blocks enumerated, the both-sided vertex handled, the \(x_w\) bound
+   verified as a \(K_4\)-free sharpening valid in this branch. I do not currently
+   know of a remaining hypothesis applied outside its range.
+2. The mathematics has one clear unexploited direction left. \(\theta(H)=29\)
+   with \(H\) \(K_4\)-free means every clique of the cover has \(\le3\) vertices,
+   so a cover into 28 parts exists **iff** \(H\) has a partition into two
+   triangles and 26 edges (or 3 triangles, 24 edges, 1 singleton). The
+   contradiction we want is therefore exactly: *find two disjoint triangles
+   \(T_1,T_2\) with \(H-T_1-T_2\) having a perfect matching.* The branch
+   hypothesis says this fails for the single barrier \(B=T_1\cup T_2\), but \(H\)
+   is \(K_4\)-free with 815 edges on 58 vertices and has very many triangles;
+   the condition must fail for **every** disjoint pair. That is a strong global
+   condition and nothing in the chain uses more than one pair.
+3. Review remains valuable, now for the positive results rather than the defects.
