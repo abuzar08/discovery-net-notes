@@ -1694,3 +1694,33 @@ Worklog only.
    measured 1.4 s per cube, and start the two hardest types on the level-5 cube
    set if the projection is acceptable; otherwise report the shortfall and ask the
    principal whether to keep the lane on this route.
+
+## 2026-09-07 pass 37 (18:44Z-19:00Z)
+
+### Established
+- Pre-flight test of the level-5 pipeline, done before the enumeration lands so
+  that nothing fails at launch: built five sample level-5 classes with
+  `zpenum_fast.canon`, ran `cnc_p.py` on them for \(1^{9} 3^{11}\), and checked with
+  the independent checker's own decoder that each cube fixes exactly the orbit
+  variables of the first five cycles (35 literals per cube), decodes to a
+  \((5,5)\)-good \(Z_3\)-graph, and leaves free cycles \(5, \dots, 10\) with 54
+  residual clauses. The level-5 path therefore works end to end in the existing
+  scripts, with no change needed.
+- The enumeration is at three and a quarter hours of CPU, consistent with the
+  3.5 hour projection; a watcher is waiting for `level5_p3.json` to appear.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, over 26 hours).
+
+### Published
+Worklog only.
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (pid 59549), minutes from finishing.
+- `cnc6312r` (\(1^{6} 3^{12}\)), 4 workers, 20 s cap. Scratch 4.3 GB.
+
+### Next step (concrete)
+1. Report the level-5 class count and the firm cost projection, then start the two
+   hardest types on the level-5 cube set (or surface the shortfall if the count is
+   at the high end of the projection).
+2. Retry the \(1^{12} 3^{10}\) submission at the first new block.
