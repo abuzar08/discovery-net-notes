@@ -371,6 +371,44 @@ loosely (\(450 \le e \le 540\)). Whether that concentration is a property of
 cannot tell from the data. It is a reason to treat the observed \(\beta\) as
 weaker evidence than the raw agreement of the numbers suggests.
 
+## The local lemmas, collected and checked (`local.py`)
+
+Everything this directory derives about the local structure of a
+\((5,5,n)\)-graph, in one place, each obtained by applying a Ramsey number to
+an induced piece, and each checked on **every vertex or vertex pair of all
+\(656\) known \((5,5,42)\)-graphs** (the \(328\) stored ones and their
+complements, since the \((5,5)\) property is self-complementary).
+
+| | statement | source | violations | attained? |
+|---|---|---|---|---|
+| L0 | \(n-25 \le d(v) \le 24\) | \(N(v)\) is \((4,5)\), \(M(v)\) is \((5,4)\) | 0 | no, never within \(2\) |
+| L1 | \(e_M = e + e_N - S(v)\) | counting | 0 | identity |
+| L2 | \(|N(u)\cap M(v)| \le 17\), \(u \in N(v)\) | \((4,4)\)-graph | 0 | no, never within \(4\) |
+| L3 | \(\mathrm{codeg}(u,w) \le 13\), \(uw \in E\) | \((3,5)\)-graph | 0 | **YES — sharp** |
+| L4 | \(\mathrm{codeg}(u,w) \le 15-n+d(u)+d(w)\), \(uw \notin E\) | \((5,3)\)-graph | 0 | **YES — sharp** |
+| L5 | \(\mathrm{codeg}(u,w) \ge \max(d(u),d(w)) - 18\), \(uw \in E\) | \((4,4)\)-graph | 0 | no, never within \(4\) |
+| L6 | \(\mathrm{codeg}(u,w) \le 24-n+d(u)+d(w)\), \(uw \in E\) | \((5,4)\)-graph | 0 | no, never within \(8\) |
+
+**L5** is new here: for adjacent \(u,w\), the set \(N(u)\setminus N[w]\) is
+\(K_4\)-free (it lies in \(N(u)\)) and has \(\alpha \le 3\) (an
+independent \(4\)-set there together with \(w\), which is adjacent to none
+of it, would be an independent \(5\)-set), so it is a \((4,4)\)-graph with
+at most \(17\) vertices; since \(|N(u)\setminus N[w]| = d(u)-1-\mathrm{codeg}\),
+the codegree is bounded **below**.
+
+The sharpness column is the point of the table. Only the two codegree upper
+bounds L3 and L4 are attained; L6 is never within \(8\) and can be dropped
+from any encoding without loss. A bound nobody reaches is not worth carrying.
+
+**An observation, not a theorem.** L0 is never within \(2\) at either end:
+real \((5,5,42)\)-graphs have degrees in \([19,22]\), while the theoretical
+window is \([17,24]\). If a two-vertex tightening held at \(n = 45\), where
+the window is \([20,24]\), it would force degrees into \([22,22]\) — a
+\(22\)-regular graph on \(45\) vertices, which is at least arithmetically
+consistent (\(45 \cdot 22\) is even). I have no argument for the
+tightening and it may simply reflect which \((5,5,42)\)-graphs happen to have
+been found; it is recorded as a direction someone might test, not as evidence.
+
 ## Soundness of the argument itself
 
 Theorem 1 is a sufficient condition, so the danger is not that it fails to
@@ -394,6 +432,8 @@ an honest illustration that this bound is one tool among several.)
 - `reduce.py` — the reduction in exact rational arithmetic, and `--selftest`.
 - `glue.py` — the gluing CNF (both the fixed-pair and the fixed-\(H\) forms),
   and the \(S_m\) symmetry break for \(M\).
+- `local.py` — all seven local lemmas, checked on every vertex and vertex
+  pair of the \(656\) known \((5,5,42)\)-graphs, with sharpness reported.
 
 ## Reproduction
 
