@@ -1,0 +1,9 @@
+16872 cubes recorded VERIFIED by earlier replay sweeps
+formula 1^2 5^8: 339368 orbit + 20928 redundant + 22 lex-leader + 232 residual clauses, 2426 variables (173 orbit variables); matches c2_5_8_L3r3.cnf (sha256 0b47e92e573989d7406e26d8b261edd7665937912d213eb8e9423099492b7845)
+refinement level 3: 12935 cubes, 127 of them split completely on 5 variables [153, 154, 40, 41, 42] into 16872 subcubes
+refinement level 2: 5061 cubes, 254 of them split completely on 5 variables [136, 137, 35, 36, 37] into 12935 subcubes
+refinement level 1: 256 cubes, 155 of them split completely on 5 variables [114, 115, 30, 31, 32] into 5061 subcubes
+cubes: 256 distinct canonical (5,5)-good Z_5-graphs on 3 cycles (0 failures); group order 1200; sum of orbit sizes 185848
+completeness: 185848 labelled (5,5)-good Z_5-graphs on 3 cycles == sum of orbit sizes
+certificates: 16872 VERIFIED earlier
+RESULT: all checks passed
