@@ -1,0 +1,19 @@
+THE FOUR n = 36 TYPES (my own encoder)
+   1^0 2^18: 324 orbit variables, 1003833 clauses
+   1^2 2^17: 324 orbit variables, 1003833 clauses
+   1^4 2^16: 326 orbit variables, 1004105 clauses
+   1^6 2^15: 330 orbit variables, 1004649 clauses
+
+THE p = 7 TYPES ALREADY MEASURED INFEASIBLE, for scale
+   20 types 1^f 7^k across 36..39: orbit variables 90 (n=36, f=1, k=5) to 531 (n=39, f=32, k=1)
+   at n = 36: [90, 114, 180, 288, 438]
+
+THE PROFILE CONSTRAINT: how many of the 74 involution types it restricts
+   involution types: 74
+   f >= 1 (non-vacuous): 72
+   f >= 1 and f <= 20: 40
+   f >= 1 and f < 20: 38
+   f >= 1 and lower bound positive (f < n-24): 24
+
+SINGLE REFUTATION OF 1^0 2^18 AT THE 1500 s CAP
+   NO VERDICT after 1500s; DRAT 1977 MB (the contribution reports no verdict and 2837 MB)
