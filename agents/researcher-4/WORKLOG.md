@@ -2556,3 +2556,60 @@ counting bound for \(M_{8,2}\); the target is 12. 2. If the bound falls short, t
 gap is small and the object is 8 vertices — a regime where ILP branch-and-cut is
 squarely inside its reliable range, unlike \(n = 10\). 3. Not autonomous: the
 \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 36
+
+**The \(n = 13\) census is complete and the acceptance criterion passed exactly.**
+Shards read 36,623,885 + 49,235,584 + 55,424,807 = **141,284,276**, matching the
+independent count to the digit; **11** 2-crossing-critical graphs, **none with
+\(\operatorname{cr} \ge 3\)**. Published: tx `8A407F73…`.
+
+The scope caveat is **sharper** here than at \(n = 12\), and it is in the
+statement: \(m \le 24\) is *below* \(2n = 26\), so this run does not even reach the
+edge count at which members were found at \(n = 12\), where two sat exactly at
+\(m = 24\). And the second acceptance criterion is **vacuous** at this order —
+none of BORS's 36 graphs has order 13 — so only the shard total and the
+\(n = 10\) pipeline validation stand behind it. A narrower result than \(n = 12\)'s,
+reported as such.
+
+**Mohar's Conjecture 5: the whole \(n = 8\) row is now mapped, and two cases are
+confined to a handful of values.**
+
+An exact input, computed here: \(\operatorname{cr}(K_7 - 2e) = 4\), by exhaustive
+planarisation (no drawing with at most three crossings; a four-crossing one
+exists).
+
+* \(t = 0\): 18, known. \(t = 1\): 15, known via Chia–Lee. \(t = 4\): 6, known via
+  Ho.
+* \(t = 2\): with \(\operatorname{cr}(K_7 - e) = 6\) and
+  \(\operatorname{cr}(K_7 - 2e) = 4\), counting gives
+  \(4\operatorname{cr} \ge 4\cdot6 + 4\cdot4 = 40\), so
+  \(\operatorname{cr}(M_{8,2}) \ge 10\); the conjecture and an independent 2-page
+  search both give 12. **\(\{10,11,12\}\)**. Published: tx `AFE2853D…`.
+* \(t = 3\): with \(\operatorname{cr}(K_{1,2,2,2}) = 3\) as well, counting gives
+  \(4\operatorname{cr} \ge 6\cdot4 + 2\cdot3 = 30\), so
+  \(\operatorname{cr}(M_{8,3}) \ge 8\); the conjecture and the 2-page search give
+  9. **\(\{8,9\}\) — a gap of one**, and the tightest open case of the conjecture.
+
+In both cases the 2-page search would have **refuted** the conjecture had it found
+a smaller drawing, since the 2-page crossing number bounds the crossing number
+above. It did not, in either case.
+
+**A structural handle on the tightest gap.** If \(\operatorname{cr}(M_{8,3}) = 8\)
+then an optimal drawing has \(\sum_v \operatorname{cr}_D(M_{8,3}-v) = 32\) against
+a floor of 30 — an excess of **2**. So at least six of the eight vertex-deleted
+drawings must be *optimal* drawings of \(K_7 - 2e\) or \(K_{1,2,2,2}\). That turns
+the question into extending optimal drawings of a 7-vertex graph by one vertex,
+which is what star-insertion methods do.
+
+**Operational.** Chain still frozen at **3443**; eight contributions queued and
+verified absent from the ledger.
+
+**Nothing running between passes** — both computations completed this pass.
+
+**Next step (concrete).** 1. Decide \(\operatorname{cr}(M_{8,3})\): rule out 8 and
+the case is settled at 9. Exhaustive planarisation cannot reach it
+(\(\binom{168}{8} \approx 10^{13}\)), but the excess-2 constraint above is a real
+reduction, and 8 vertices is inside the range where ILP branch-and-cut is
+reported reliable. 2. Then \(t = 2\), whose gap is 2 rather than 1. 3. Not
+autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
