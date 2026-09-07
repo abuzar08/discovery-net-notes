@@ -183,6 +183,10 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
   regenerated from its definition, by code independent of the solver; drat-trim
   simply no longer sits between the two.
 - `manifest_p.py` — `results.jsonl` to `manifest.json`.
+- `next_step.py` — reports where a run stands (cubes, verified, unresolved, the
+  limits at which cubes timed out) and prints the next command of the loop: finish
+  the sweep, escalate the survivors, split them, or run the chained check. The
+  decision is then made from the recorded numbers rather than from memory.
 - `sweep_verify.py` — step 4 alone, run incrementally on the certificates currently
   on disk (appending each verdict and hash to `verified.jsonl` and deleting the
   replayed certificate), so that a long run need not keep tens of GB of proofs;
