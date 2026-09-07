@@ -2,35 +2,35 @@ Isolated low vertices at order 58: the range delta_0 <= 0
 Z(29) = 8281;  an isolated low vertex needs |R| >= 28
 
 ROW (58,838):  X = 52, |R| <= 28, so delta_0 <= 0 for |R| in [28,28]
-   |R| = 28 (delta_0 =   0, |L| = 30):  20073 configurations with an isolated low vertex; 0 killed by a forced K_29, 1136 survive
-        weakest: iso=7 (15, 2, 2, 2, 2) e(H[R])=271 bound 1820, short 6461
+   |R| = 28 (delta_0 =   0, |L| = 30): 149144 configurations with an isolated low vertex; 0 killed by a forced K_29, 6386 survive
+        weakest: iso=1 (15, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=261 bound 1778, short 6503
 
 ROW (58,839):  X = 54, |R| <= 30, so delta_0 <= 0 for |R| in [28,30]
-   |R| = 28 (delta_0 =   0, |L| = 30):  20074 configurations with an isolated low vertex; 0 killed by a forced K_29, 1136 survive
-        weakest: iso=7 (15, 2, 2, 2, 2) e(H[R])=270 bound 1834, short 6447
-   |R| = 29 (delta_0 =  -1, |L| = 29):  15673 configurations with an isolated low vertex; 0 killed by a forced K_29, 1139 survive
-        weakest: iso=7 (14, 2, 2, 2, 2) e(H[R])=284 bound 1834, short 6447
-   |R| = 30 (delta_0 =  -2, |L| = 28):  12120 configurations with an isolated low vertex; 0 killed by a forced K_29, 782 survive
-        weakest: iso=8 (14, 2, 2, 2) e(H[R])=286 bound 2123, short 6158
+   |R| = 28 (delta_0 =   0, |L| = 30): 149145 configurations with an isolated low vertex; 1 killed by a forced K_29, 6386 survive
+        weakest: iso=1 (15, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=260 bound 1792, short 6489
+   |R| = 29 (delta_0 =  -1, |L| = 29): 113666 configurations with an isolated low vertex; 0 killed by a forced K_29, 6393 survive
+        weakest: iso=1 (14, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=274 bound 1792, short 6489
+   |R| = 30 (delta_0 =  -2, |L| = 28):  86151 configurations with an isolated low vertex; 0 killed by a forced K_29, 4247 survive
+        weakest: iso=1 (14, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=276 bound 2091, short 6190
 
 ROW (58,840):  X = 56, |R| <= 32, so delta_0 <= 0 for |R| in [28,32]
-   |R| = 28 (delta_0 =   0, |L| = 30):  20076 configurations with an isolated low vertex; 1 killed by a forced K_29, 1136 survive
-        weakest: iso=7 (15, 2, 2, 2, 2) e(H[R])=269 bound 1849, short 6432
-   |R| = 29 (delta_0 =  -1, |L| = 29):  15673 configurations with an isolated low vertex; 0 killed by a forced K_29, 1139 survive
-        weakest: iso=7 (14, 2, 2, 2, 2) e(H[R])=283 bound 1849, short 6432
-   |R| = 30 (delta_0 =  -2, |L| = 28):  12120 configurations with an isolated low vertex; 0 killed by a forced K_29, 782 survive
-        weakest: iso=8 (14, 2, 2, 2) e(H[R])=285 bound 2138, short 6143
-   |R| = 31 (delta_0 =  -3, |L| = 27):   9373 configurations with an isolated low vertex; 0 killed by a forced K_29, 783 survive
-        weakest: iso=8 (13, 2, 2, 2) e(H[R])=300 bound 2138, short 6143
-   |R| = 32 (delta_0 =  -4, |L| = 26):   7168 configurations with an isolated low vertex; 0 killed by a forced K_29, 535 survive
-        weakest: iso=7 (13, 2, 2, 2) e(H[R])=303 bound 2466, short 5815
+   |R| = 28 (delta_0 =   0, |L| = 30): 149146 configurations with an isolated low vertex; 1 killed by a forced K_29, 6386 survive
+        weakest: iso=1 (15, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=259 bound 1806, short 6475
+   |R| = 29 (delta_0 =  -1, |L| = 29): 113666 configurations with an isolated low vertex; 0 killed by a forced K_29, 6393 survive
+        weakest: iso=1 (14, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=273 bound 1806, short 6475
+   |R| = 30 (delta_0 =  -2, |L| = 28):  86151 configurations with an isolated low vertex; 0 killed by a forced K_29, 4247 survive
+        weakest: iso=1 (14, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=275 bound 2107, short 6174
+   |R| = 31 (delta_0 =  -3, |L| = 27):  64953 configurations with an isolated low vertex; 0 killed by a forced K_29, 4248 survive
+        weakest: iso=1 (13, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=290 bound 2107, short 6174
+   |R| = 32 (delta_0 =  -4, |L| = 26):  48669 configurations with an isolated low vertex; 0 killed by a forced K_29, 2782 survive
+        weakest: iso=1 (13, 2, 2, 2, 2, 2, 2, 2, 2, 2 e(H[R])=294 bound 2432, short 5849
 
 CONCLUSION
    The published order-58 enumeration is COMPLETE for |R| <= 27,
    where Constraint C forbids an isolated low vertex, and was
    INCOMPLETE for |R| >= 28.  The missing configurations are
    enumerated above.
-   8568 of them survive, so they are a genuine addition to the
+   47468 of them survive, so they are a genuine addition to the
    open set: order 58 at r = 29 is open in the configurations
    previously listed TOGETHER WITH these.  Reported, not hidden.
 

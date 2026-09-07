@@ -49,6 +49,15 @@ missing count is zero, since then K_29 is a subgraph of G outright and
 cr(G) >= cr(K_29) with no numbers at all; that needs |R| = 28 and e(H[R]) = 0.
 
 ==============================================================================
+DEFECT 2 OF THE CONSTRAINT C AUDIT APPLIES HERE TOO.  This file enumerates the
+block multisets on the NON-isolated part of L, and it did so through
+mu58.multisets, which rejects sum(big) > |L| -- consequence (C3), valid only for
+|R| <= 13.  Every |R| in this file is at least 28, where (C3) is maximally false,
+so the counts below were themselves under-counts.  The enumeration now goes
+through auditc.multisets_audited, which applies each Constraint C filter only in
+the range where it is justified.
+
+==============================================================================
 THE TEST.  For every row, every |R| >= 28, every number iso >= 1 of isolated low
 vertices and every block multiset on the remaining |L| - iso vertices, take the
 maximum of the near-clique bound above and the block-plus-R bound of blockr58,
@@ -58,7 +67,7 @@ Exact integer arithmetic; no floating-point value enters any comparison.
 """
 import verify_range as V
 import crminus as C
-import mu58 as MU
+import auditc as AC
 import blockr58 as BR
 import residue58 as R58
 from order2r import RCHI, Z
@@ -139,7 +148,7 @@ def run():
                 NB = NL - iso              # vertices actually inside blocks
                 if NB < 2:
                     break
-                for mult, eL in MU.multisets(NB, max(base, 0),
+                for mult, eL in AC.multisets_audited(NB, max(base, 0),
                                              base + RSZ * (RSZ - 1) // 2,
                                              d0, r):
                     eGR = eL - base

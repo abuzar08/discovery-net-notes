@@ -137,9 +137,14 @@ def residue(NZ, budget, thr1, thr2, k1, k2):
     Returns None if the pair is already impossible, otherwise
     (amin1, amin2, Sa_res, Sb_res)."""
     p1, p2 = max(thr1, 1), max(thr2, 1)
-    if k1 + k2 > NZ:
+    # k12 counts the z that are one-sided on BOTH; they are members of both
+    # counts, so k_1 + k_2 - k12 <= |Z| rather than k_1 + k_2 <= |Z|.  Such a z
+    # satisfies both conditions at once, so it pays max(p1,p2) of the budget.
+    k12 = max(0, k1 + k2 - NZ)
+    if k12 > min(k1, k2):
         return None
-    if k1 * p1 + k2 * p2 + (NZ - k1 - k2) > budget:
+    if ((k1 - k12) * p1 + (k2 - k12) * p2 + k12 * max(p1, p2)
+            + (NZ - k1 - k2 + k12) > budget):
         return None                       # (i) the budget cannot pay for it
 
     # For each side: the group with a positive count has n_side vertices, the
@@ -190,7 +195,7 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
     budget = sx_max + 2 * eHR
     bad = []
     for k1 in range(0, NZ + 1):
-        for k2 in range(0, NZ + 1 - k1):
+        for k2 in range(0, NZ + 1):
             res = residue(NZ, budget, thr1, thr2, k1, k2)
             if res is None:
                 continue                   # impossible by the budget alone
@@ -198,9 +203,16 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
             Za, Zb = NZ - k1, NZ - k2
             if amin1 > q1 or amin2 > side2:
                 continue                   # floor exceeds the block, impossible
+            # A SOUNDNESS CORRECTION.  The three cliques scored below must be
+            # VERTEX-DISJOINT.  A z one-sided on both sides belongs to both
+            # counts, so scoring Q_1 + k_1 and Q_2 + k_2 separately would use it
+            # twice.  Each such z is assigned to the first side only, and the
+            # worst case for us -- the one most likely to survive -- is the
+            # largest feasible number of them, so that is the one taken.
+            k12 = min(k1, k2)
             c1 = max(0, k1 - eHR)
-            c2 = max(0, k2 - eHR)
-            rest = max(0, RSZ - k1 - k2 - eHR)
+            c2 = max(0, (k2 - k12) - eHR)
+            rest = max(0, RSZ - (k1 + k2 - k12) - eHR)
             cross = crK(q1 + c1) + crK(q2 + c2) + crK(rest)
             if cross >= Z:
                 continue

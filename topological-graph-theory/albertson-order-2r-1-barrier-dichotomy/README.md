@@ -1373,13 +1373,67 @@ were wrongly eliminated:
 > eliminated.  What was wrong is every published statement of what *remains* at
 > order 58 with \(\lvert R\rvert\ge14\).
 
+### Audit, part two: the both-sided vertex, and an unsound bound
+
+Two further items of the same kind as the Constraint C audit, one of them the
+first **unsound** one found.
+
+**`iso58.py` inherited defect 2.**  It enumerates block multisets on the
+non-isolated part of \(L\), and did so through the unaudited filter, which
+rejects \(\sum_{\text{big}}q_i>\lvert L\rvert\) — consequence (C3), valid only for
+\(\lvert R\rvert\le13\).  Every \(\lvert R\rvert\) in that file is at least 28,
+where (C3) is maximally false.  Routed through the audited enumeration, its count
+of surviving isolated-vertex configurations rises from **8568 to 47468**.
+
+**A fourth instance, and this one was unsound.**  Write \(k_1\) for the number of
+\(z\in Z\) with \(a_z=0\) and \(k_2\) for those with \(b_z=0\).  The crossing
+bound scores three cliques,
+
+$$cr(K_{q_1+c_1})+cr(K_{q_2+c_2})+cr(K_{\mathrm{rest}}),$$
+
+which requires the three vertex sets to be **pairwise disjoint**.  A \(z\) that is
+one-sided on *both* sides lies in both counts, so \(Q_1\cup\{k_1\}\) and
+\(Q_2\cup\{k_2\}\) share it and the bound is invalid.  The code excluded this
+only through the filter \(k_1+k_2\le\lvert Z\rvert\), which does not prevent it —
+\(k_1=k_2=1\) with the same \(z\) passes that filter.  The justification offered
+for ruling such a \(z\) out was that it would force \(x_z\ge q_1+\lvert
+Q_2\setminus Q_1\rvert-28\), "which the excess budget forbids in the range
+considered".  Checked: at order 57 it is forbidden, but at order 58 it is
+**unforced for every surviving configuration on all three rows**.
+
+The repair assigns every both-sided \(z\) to the first side only, takes the
+largest feasible number of them (the case most likely to survive, hence the safe
+one), replaces \(k_1+k_2\le\lvert Z\rvert\) by \(k_1+k_2-k_{12}\le\lvert
+Z\rvert\), and charges such a \(z\) \(\max(p_1,p_2)\) of the residue budget since
+it satisfies both conditions at once.
+
+**Measured effect: none on the outcomes.**  The totals are unchanged at 19563 on
+the published enumeration and 55824 on the audited one.  The pairs newly admitted
+by dropping the filter all die to the budget accounting, and for the pairs where
+the disjointness failed the crossing bound was not the binding test.  So the
+bound was invalid as written but no elimination actually rested on it — reported
+because the distinction between "was wrong" and "changed the answer" is worth
+keeping, not because it moved a number.
+
+**Corrected state of order 58.**  \(55824\) configurations with no isolated low
+vertex, together with \(47468\) carrying one: **103292** in all, against the
+27761 stated two sections ago.
+
+> Four instances of one bug class in five passes, every one of them a hypothesis
+> whose range of validity was inherited from order 57 and not re-derived at order
+> 58.  Order 57 has been re-verified under each audit and is unaffected in every
+> case: \(\delta_0\ge17\) there, its enumeration is identical, and its closure
+> stands.  The reliable content of this directory is the \(r=27\) and \(r=28\)
+> theorems and the order-57 closure at \(r=29\); every order-58 count should be
+> read as provisional.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: after the Constraint C audit, 55824 configurations without an
-isolated low vertex together with those of `iso58.py` carrying one.  Nothing here
-bears on `r >= 30`.
+is **not** closed: after both audits, 55824 configurations without an isolated
+low vertex together with 47468 carrying one, 103292 in all.  Nothing here bears
+on `r >= 30`.
 
 ## Files and reproduction
 
