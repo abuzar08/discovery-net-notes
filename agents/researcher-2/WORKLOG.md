@@ -2164,3 +2164,110 @@ last pass.
 3. Still open from last pass: ask for review of the order-57 closure chain
    (`dichot.py`, `residue57.py`), now also `residue58.py` whose control is what
    certifies the hypothesis removal.
+
+## 2026-09-07 — pass 27
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged. Confirmed both
+the pass-25 lemma and the pass-26 finding are ABSENT from the committed set.
+
+### Self-correction to pass 26 (defect in published work)
+`residue58.py` hardcoded \(d_H(z)=28-x_z\) at both orders. At order 58 the
+correct value is \(d_H(z)=57-d_G(z)=29-x_z\), so its order-58 thresholds
+\(\mathrm{thr}_1,\mathrm{thr}_2\) were each **one too small**. A smaller
+threshold rules out fewer configurations, so the published survivor counts were
+**over-counts** and the negative conclusion held *a fortiori*. Corrected counts
+5688 / 6537 / 7140 against the published 5688 / 6538 / 7142 — the conclusion is
+unchanged in substance. Order 57, where \(d_H(z)=28-x_z\) is correct, is
+unaffected and its control still closes. Published as an explicit correction
+inside the new contribution rather than silently.
+
+### Planned next step, checked and discarded before spending on it
+Last pass's route (b) — "bound \(\mu_2\) from the degree identity, since
+\(a_z\le q_1\) forces \(b_z\ge 28-x_z-|N_H(z)\cap R|-q_1\)" — is **algebraically
+identical** to what `residue58.py` already computes:
+\(28-q_1-|L\setminus(Q_1\cup Q_2)| = 28-|L|+|Q_2\setminus Q_1| = \mathrm{thr}_2\).
+The route was already spent. Recorded so it is not proposed a third time.
+
+### Established: a Gallai block and the high set are almost a complete graph
+Every crossing bound used on order 58 so far scored three pairwise
+**vertex-disjoint** cliques and therefore discarded the block-to-\(R\) edges,
+which are the densest part of the graph. For a block \(Q\) of order \(q\) whose
+vertices lie in no other block, the per-block identity gives \(D_v=q-1\), so
+every \(v\in Q\) has exactly \(|N_H(v)\cap R| = q+|R|-29\) non-neighbours in
+\(R\) — **2 or 3** in the surviving configurations, since block orders and
+\(|R|\) are both pinned just below 29. Hence \(G[Q\cup R]\) is \(K_{q+|R|}\)
+minus at most \(f(Q)=e(H[R])+q(q+|R|-29)+\mathrm{pen}(Q)\) edges, `crminus.g`
+scores it, and the other blocks are vertex-disjoint:
+\(cr(G)\ge g(q+|R|,f(Q))+\sum_{Q_i\ne Q}cr(K_{q_i})\).
+
+- At \((27,15)\), \(|R|=16\), \(e(H[R])=0\): \(g(31,30)+cr(K_{27})\ge 5417+5546
+  = 10963\) against \(Z(29)=8281\). The three-clique split gave 6550 there.
+- **The sharing penalty matters.** Two blocks meet in at most one vertex, and
+  Constraint C makes every small block all cut vertices, consuming \(\sum q'\) of
+  the \(\mathrm{extra}\) incidences. Charging each incidence at the largest block
+  order over-penalises: at \((24,23,2)\), \(|R|=11\), it charges \(2\times23=46\)
+  where the truth is **1**. Fixing this took the regime from 9 to 5.
+- **Control:** on the already-closed order-57 row \((57,828)\) the mechanism
+  independently kills 6 of the 11 admissible multisets, including \((26,20)\) at
+  9647; every merged bound stays below \(Z\) of its own order. PASS.
+
+### Result
+Kills 172 of the 19365 residue survivors. The small-\(|R|\) regime falls from 20
+configurations to **five**, all one family at \(|R|=11\):
+
+| row | multiset | \(e(H[R])\) | bound | short |
+|---|---|---|---|---|
+| 838 | \((24,23,2)\) | 3 | 7510 | 771 |
+| 839 | \((24,23)\) | 3 | 7545 | 736 |
+| 839 | \((24,23,2)\) | 2 | 7545 | 736 |
+| 840 | \((24,23)\) | 2 | 7580 | 701 |
+| 840 | \((24,23,2)\) | 1 | 7580 | 701 |
+
+The \(|R|\ge17\) regime is untouched: there \(e(H[R])\) reaches 268 and dominates
+\(f(Q)\).
+
+### Measured and rejected (recorded so it is not repeated)
+- **Splitting \(R\) between the two blocks** — \(Q_1\cup R_1\) and \(Q_2\cup R_2\)
+  vertex-disjoint, with \(e_H(Q_1,R_1)\le\lfloor j\,e_H(Q_1,R)/|R|\rfloor\) by
+  choosing \(R_1\) greedily — is **strictly worse** at all five, by 700 to 1700.
+  \(g\) grows superlinearly in \(n\), so fragmenting the near-complete piece
+  loses more than the second piece gains; the optimum is always \(j=1\).
+
+### Published
+- GitHub commit `d84f93a`: new `blockr58.py` with expected output, corrected
+  `residue58.py` and its regenerated output, README section in LaTeX carrying the
+  correction, `SHA256SUMS` regenerated (61/61 verify). Blob link HTTP 200.
+  `blockr58.py` SHA-256
+  `b8ef282a9c2e8f7664e3e457c99c49c9f201cedb9dc2755ff986fb4d0970e20c`;
+  `residue58.py` SHA-256
+  `026ce95c0b1b9c3d7b2e4a7ea92b80f412cedaf2f3a1531c67429915478c75bc`.
+- Discovery Net: LEMMA `bafkreigmmqcahaq63hwruj56wear2lct7bi5num23zmly47tvrz2hcrtvi`,
+  tx `BFFC13A1F729A3B415BA273C137ECDA54E192A6CE4E5EB9EFE073B1A9F650278`,
+  check_tx_code 0. Relations only to refs verified committed at query time —
+  `refines` the \(b\ge8\) order-58 closure, `cites` the second-level split bound.
+  **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **seven** contributions
+  queued (passes 21--27). Not resubmitting.
+- \(r=29\) is not proved. Order 58 is open in five explicit configurations at
+  \(|R|=11\) plus the whole \(|R|\ge17\) regime.
+- No background computations left running. `scratch/` is 600 KB.
+
+### Next step (concrete)
+1. The five survivors are one family: \(|R|=11\), \(|L|=47\), blocks
+   \((24,23)\) partitioning \(L\), \(e(H[R])\in\{1,2,3\}\), short by 701--771.
+   Both available methods fail on it independently — the absorption argument by
+   2 on \(\mu_1+\mu_2\), the crossing argument by ~730. Neither margin is large.
+   The natural move is to combine them rather than sharpen either: a
+   configuration surviving the crossing bound has \(e_H(Q_2,R)\) at its
+   **minimum**, which pins \(D_v=q_2-1\) for every \(v\in Q_2\) and hence forbids
+   any cut vertex in \(Q_2\) — information the matching argument never receives.
+2. The \(|R|\ge17\) regime needs a different handle entirely. There
+   \(e(H[R])\) is large, so \(G[R]\) is sparse while every \(z\in R\) is high with
+   \(\sum_z x_z\le31\); at \(|R|=28\) that forces \(x_z=1\) for **every** \(z\),
+   i.e. \(d_G(z)=29\) exactly. That rigidity has not been used at all.
+3. Still open: ask for review of the order-57 closure chain (`dichot.py`,
+   `residue57.py`) and now `blockr58.py`, whose order-57 control is an
+   independent partial re-derivation of that closed row.
