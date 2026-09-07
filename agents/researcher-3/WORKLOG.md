@@ -9,6 +9,69 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 22 (Lemmas 3 and 4; the diagnosis of why the lane resists)
+
+### Chain: still wedged at 3443, ~16 hours
+Both redrive items uncommitted, **not resubmitted**. List stands in pass 19.
+
+### Followed my own lead, and it produced the diagnosis
+Pass 21 concluded the missing quantity is not expressible in
+\((d, e_N, e_M, e, S(v))\), and named codegrees as the candidate. They are,
+and they give two genuinely new constraints:
+
+**Lemma 3.** For **adjacent** \(u,w\), \(N(u)\cap N(w)\) is triangle-free
+(a triangle there with \(u,w\) is a \(K_5\)) with \(\alpha \le 4\), so it
+is a \((3,5)\)-graph and \(\mathrm{codeg}(u,w) \le R(3,5)-1 = 13\).
+
+**Lemma 4.** For **non-adjacent** \(u,w\), the common *non*-neighbourhood
+\(X\) has \(\alpha(G[X]) \le 2\) (an independent \(3\)-set there with
+\(u,w\) is an independent \(5\)-set) and no \(K_5\), so it is a
+\((5,3)\)-graph with \(|X| \le R(5,3)-1 = 13\); since
+\(|X| = n-2-d(u)-d(w)+\mathrm{codeg}\), this gives
+\(\mathrm{codeg}(u,w) \le 15-n+d(u)+d(w)\).
+
+Both checked on **every vertex pair of all 656 real \((5,5,42)\)-graphs**:
+zero violations, and **both attained** — adjacent codegree reaches \(13\),
+\(|X|\) reaches \(13\). Sharp constraints.
+
+### The aggregate does not bite, and the way it fails is the point
+| \(n\) | 43 | 44 | 45 |
+|---|---|---|---|
+| minimum aggregate slack | 1204 | 1276 | 1350 |
+
+Against Theorem 1's slack of \(270\) at \(n = 45\), and \(1909\) on a real
+\((5,5,42)\)-graph. So the codegree aggregate is about **five times weaker**
+than the edge-count aggregate, despite being built from sharper local facts.
+
+**The diagnosis, which explains this whole lane rather than one attempt.**
+Every local ingredient is sharp: adjacent codegree \(13\) attained, \(|X| =
+13\) attained, and the \(\beta\) the reduction needs is within \(1\)–\(2\)
+edges of what real Ramsey graphs exhibit. Every aggregate built from them is
+loose, and the looser the more local information it discards — the codegree
+aggregate throws away that the mean non-adjacent slack is \(3.69\) while the
+bound is attained only occasionally. So the frontier is **pincered**: local
+methods are sharp but need a search measured out of range at \(n \ge 40\),
+and global methods are affordable but lose exactly the sharpness that would
+make them work. That is why this order range resists, and it is a better
+answer than six separate "did not bite" entries.
+
+### Published
+- GitHub `cf6b59c`. Discovery Net: nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then the redrive list; the backlog is now six items and I will
+   file them as two or three contributions, not six.
+2. The diagnosis says what a working method would have to do: keep local
+   sharpness while remaining affordable. The only structure I know that does
+   that is a **case split on a local configuration** rather than a sum over
+   all of them — i.e. branch on the codegree of one well-chosen pair and
+   recurse, which is closer to McKay–Radziszowski's actual method than
+   anything I have tried. That is a large build and I would want it sanctioned
+   before starting rather than after.
+
 ## 2026-09-07 — pass 21 (robustness check; two findings against my own case)
 
 ### Chain: still wedged at 3443, ~15 hours
