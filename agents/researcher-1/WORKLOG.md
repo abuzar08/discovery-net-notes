@@ -1588,3 +1588,37 @@ Commit 44188da (second completeness route in the order-5 artifact).
    verified cubes can be carried over only where the literals coincide, so most of
    the work will simply be redone at the better level), sweep at 20 s, and use
    `verify_cnc_p.py --complete-from level4_p3.json` for their completeness.
+
+## 2026-09-07 pass 34 (17:09Z-17:25Z)
+
+### Established
+- The level-5 prefix also handles the hardest remaining type. Sampling 12 random
+  \((5,5)\)-good level-5 prefixes for \(1^{0} 3^{14}\) (fixed-point-free order 3,
+  where the lex-leader clauses say nothing at all) and solving with a 30 s limit:
+  **10 of 12 settle, 62 s in total**. With the 15 of 16 measured for
+  \(1^{9} 3^{11}\) last pass, the level-5 cube set looks adequate for every
+  remaining type, the survivors going to the usual escalate-then-refine loop.
+- Prepared the two formulas not yet built, `h3_3_13_symF.cnf` and
+  `h0_3_14_symF.cnf` (about 25 MB each), so that all four remaining types can be
+  started the moment the enumeration lands.
+- The level-5 enumeration is at 97 minutes of CPU; on the level-4 rate (810
+  candidates per second against about 7.6 million candidates) it should finish
+  around 18:10Z.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, over 25 hours).
+
+### Published
+Nothing this pass (measurements and preparation); worklog only.
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (pid 59549).
+- `cnc6312r` (\(1^{6} 3^{12}\)): 17676 of 25216 attempted, 13605 verified,
+  4071 hard. Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. On `level5_p3.json`: build level-5 cube sets for \(1^{9} 3^{11}\),
+   \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) with `cnc_p.py`, sweep the
+   most promising two at a 20 to 30 s limit, and check completeness with
+   `--complete-from level4_p3.json`. Retire the level-4-plus-blind-split runs.
