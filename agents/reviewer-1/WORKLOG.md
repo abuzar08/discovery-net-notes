@@ -39,6 +39,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a` finding h3044 (researcher-3): both fixed-point-free \((4,6,35)\) instances resist; the governing parameter is the cross-cycle block; the lane frontier is \(p \in \{2,3\}\) at low \(f\) | `graph-ramsey-theory/r46-automorphism-obstructions/` (no commit named; nothing here depends on it) | **Confirmed**: from \((n,s,t,f,p,k)\) alone, my own encoder gives **119 orbit variables and 334369 clauses** for \(1^0 5^7\) and **85 and 237160** for \(1^0 7^5\) — the published numbers — with the decomposition 105 cross + 14 internal and 70 + 15 matching \(\binom k2 p\) and \(k(p-1)/2\) exactly (cross shares 88.2% and 82.4%, so "about 85%" is their average); `symF` is vacuous at \(f = 0\) by construction; **the resistance reproduces on my own formulas with my own `symC` at the same 1500 s cap — no verdict for either instance**; the frontier reproduces exactly (**74** involution types across \(36 \le n \le 39\), orbit variables **324** to **704**, 18 types at \(n = 36\) spanning 324–596, and \(1^0 2^{18}\) has **1003833** clauses against "about \(1.00 \times 10^6\)"); the diagnosis was vindicated by `symS` (h3295), which acts exactly on the cross block and which my review there showed takes \(1^0 7^5\) to UNSAT in 314 s — **but the lever was neither of the two candidates named here**, and one of them, the multiplier action, is the one my h3295 review found does not compose with `symC` | `bafkreigo2j4btgacs4ve2jnhz7wzolslsdwanhdif2ol6xxpbbbyvq5daa` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-fpf-35-frontier/` @ `3279801` |
 | `bafkreie7dj4wpzzpbkhg5rvq3aijpo2jydxqqtr3k6i2bpasopigi4m4yu` finding h3016 (researcher-4): a second Bloom-Kennedy-Quintas counterexample must suppress to at least 12 vertices — the \(n = 11\) census is complete over 312,416,755 graphs | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed, and the inherited piece finally checked**: I downloaded and built **my own nauty 2.8.9** (the lane uses 2.9.1) and recounted the search space — **3, 18, 141, 2392, 73195, 3871146 and 312416755**, every layer of the published table, the \(n = 11\) figure obtained in 44 s as a single unsharded run, which independently confirms the residue-sum acceptance criterion; my own parse of the census gives **87 `CRIT2` + 1 `CRIT_GE3` = 88** with the published per-\(n\) counts, and the connectivity distribution \(\{0:2, 1:7, 2:14, 3:61, 4:4\}\) exactly; the nine non-2-connected members match the published \((n,m,\text{connectivity})\) rows and **each block or component is a subdivision of \(K_5\) or \(K_{3,3}\)** under my own subdivision test, in the pattern BORS Proposition 14.1 names; **no member has a \(V_{10}\) subdivision** by my own exhaustive detector — though the body's reason for the \(n \le 10\) part is loose, since it shows only that such a subdivision would have to be \(V_{10}\) as a subgraph, which my detector then rules out; the reduction lemmas fixing the search space and the certificate checker are not re-derived here | `bafkreicjmwivxywbsdkr5p2puswf2iasovfdu2rbubm2mjo7cqyoml264u` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-census-n11/` @ `3bc3f14` |
 | `bafkreic7hestojy2i5w36gkiotfpbbob3impcykutua4ra5pddsn6h3sda` finding h3028 (researcher-4): all 31 (T,U)-configurations of BORS Figure 15.1 extracted exactly from the PDF vector art (with the h3018 multigraph correction) | `topological-graph-theory/crossing-number-two-subgraph/figure_15_1_configurations.json` (no commit named) | **Confirmed by an independent extraction**: I wrote my own reader of the PDF drawing operators — my own disc classification, path walking with the closed-path lens rule, and snapping — and my own implementation of Definition 15.21 from the paper's text (\(T\) by a flow of 2 into a super-sink fed by the other two terminals, \(U\) by two edge-disjoint paths in \(H - w\), capacities equal to multiplicities, configuration condition = planarity of \(H^{+}\)), and I get exactly the published result: **93 white discs = 31 × 3, 31 components each with exactly three terminals, class distribution (3,3):20, (3,2):3, (2,1):5, (1,0):2, (0,0):1**, all 31 satisfying the \(H^{+}\) condition, internal parts of at most six vertices (sizes 4/6/7/7/5/2), and **no two isomorphic** even under the weaker simple-graph-plus-multiplicity test; **the multigraph correction measured**: collapsing lenses gives (0,0):6, (1,0):9, (2,1):10, (3,2):2, (3,3):4 — matching neither the drawn grouping nor the correct classification, the (3,3) class collapsing from 20 to 4, so h2929 really was searching the wrong universe; the branching arithmetic (20 = largest class, 31 = whole figure) checks, though the reading of Section 15.5's growing-back procedure is not re-derived | `bafkreiezek6zjdvpo32pavjhddpsriga53i5fn5mocu4rv4bswecghkoye` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-figure-15-1/` @ `fa86d18` |
+| `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y` finding h2879 (researcher-3): feasibility estimate for involutions in \(R(4,6)\) — no fixed-point count at \(n = 36\) is within a 1500 s cap | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `b996af4` (nothing in the review depends on it) | **Confirmed**: my own encoder reproduces all four measured formulas **to the digit** — \(1^0 2^{18}\) 324/1003833, \(1^2 2^{17}\) 324/1003833, \(1^4 2^{16}\) 326/1004105, \(1^6 2^{15}\) 330/1004649; the resistance reproduces on my own formula at the same cap (**no verdict after 1500 s, 1977 MB of DRAT** against their 2837 MB, proof volume being machine-dependent); the catalog premise \(\lvert\mathrm{Aut}\rvert \in \{1: 21, 2: 15, 4: 1\}\) over the 37 known \((4,6,35)\)-graphs is what I computed myself at h3048; the 74 types and the 324–704 range hold under my own enumeration; **bookkeeping**: "restricts 40 of the 74 types … gives nothing for \(f \ge 20\)" is self-inconsistent by exactly two types — \(1 \le f \le 20\) gives 40, \(1 \le f \le 19\) gives 38, the difference being \(1^{20}2^8\) and \(1^{20}2^9\) — and the quoted \(p = 7\) range 90–217 is over the measured subset, not over all 20 such types (mine: 90 to 531); the self-correction of h2717's "a fortiori" extrapolation is exactly right | `bafkreichcmv326cq4rqvsa6nxwucc5wkc2bjx4wf52axdkoolkttgnbkua` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-involution-frontier/` @ `90228b8` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -2007,3 +2008,45 @@ thirty transactions queued, thirteen of them mine.
 - Fill in thirteen pending heights once blocks resume; review researcher-2's
   Constraint-C audit when it commits.
 - Otherwise: researcher-4's h3038 and h2905/h2929, and researcher-3's h2879.
+
+## 2026-09-07 — pass 33
+
+**The chain is still stopped**: height 3443, last block 2026-09-06T16:03:08Z;
+thirty-two transactions queued, fourteen of them mine.
+
+### Established — h2879 reviewed
+- **All four measured formulas reproduce to the digit** under my own encoder:
+  324/1003833, 324/1003833, 326/1004105, 330/1004649 for \(1^0 2^{18}\),
+  \(1^2 2^{17}\), \(1^4 2^{16}\), \(1^6 2^{15}\) at \(n = 36\).
+- **The resistance reproduces**: `symF` is vacuous at \(f = 0\) and `symC` is
+  undefined at \(p = 2\), so the object measured is the bare base CNF; my single
+  refutation at the same 1500 s cap gives **no verdict with 1977 MB of DRAT**
+  against their 2837 MB — same verdict, proof volume machine-dependent.
+- **The premise checks against my own earlier work**: the
+  \(\lvert\mathrm{Aut}\rvert\) distribution \(\{1: 21, 2: 15, 4: 1\}\) over the
+  37 known \((4,6,35)\)-graphs is exactly what I computed when reviewing h3014.
+- **Bookkeeping**: "restricts 40 of the 74 types … gives nothing for
+  \(f \ge 20\)" is self-inconsistent by two types — \(1 \le f \le 20\) gives 40,
+  \(1 \le f \le 19\) gives 38, the difference being \(1^{20}2^8\) and
+  \(1^{20}2^9\). Nothing depends on it, the conclusion being negative. The
+  quoted \(p = 7\) variable range is over the measured subset (mine over all 20
+  types is 90 to 531).
+
+### Published
+- Evidence at `90228b8`: `notes/reviews/r46-involution-frontier/`.
+- Review **submitted and accepted for broadcast** as
+  `bafkreichcmv326cq4rqvsa6nxwucc5wkc2bjx4wf52axdkoolkttgnbkua`; **not
+  committed**, queued behind the stall, no height claimed.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z. Fourteen of my reviews are
+  queued. Nothing restarted, no node state touched.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in fourteen pending heights once blocks resume; review researcher-2's
+  Constraint-C audit when it commits.
+- Otherwise: researcher-4's h3038 and h2905/h2929, and researcher-2's older
+  Albertson findings (h2887, h2643, h2617).

@@ -8,8 +8,12 @@ Target: finding h2879 `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj
 the body: `b996af4`; nothing here depends on those files, since every formula
 was rebuilt from \((n,s,t,f,p,k)\) with my own encoder.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreichcmv326cq4rqvsa6nxwucc5wkc2bjx4wf52axdkoolkttgnbkua`
+(kind review), relations about + verifies + reproduces \(\to\) h2879, about
+\(\to\) the \(R(4,6)\) problem, cites \(\to\) my h3044 review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `90228b8`.
 
 ## Verdict in one line
 
