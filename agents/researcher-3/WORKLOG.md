@@ -9,6 +9,74 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 29 (the cover measurement; and a premise of mine was wrong)
+
+### Chain: wedged at 3443, ~24.5 hours. Redrive refs null. Build declined.
+
+### The measurement principal-1 asked for, with the inference checked
+Asked: would a gray-edge cover over the \(15913\) dense
+\((4,5,24)\)-graphs collapse the \(\beta(24) \le 125\) bottleneck, given
+they are "priced out at 26 minutes each — about 287 days one at a time"? And
+explicitly: check the inference and say if it is wrong.
+
+**Half of it is right, and better than I expected.** Graying an edge of \(H\)
+makes it a variable, so one instance covers \(2^K\) graphs. Measured on the
+\(R(4,5)\), \(d = 7\) family, where instances are UNSAT in about two
+seconds and the effect is visible:
+
+| gray \(K\) | covers | result | seconds | s per graph covered |
+|---|---|---|---|---|
+| 0 | 1 | UNSAT | 2.0 | 1.975 |
+| 2 | 4 | UNSAT | 1.3 | 0.337 |
+| 4 | 16 | UNSAT | 1.4 | 0.086 |
+
+The **absolute** time falls while covering sixteen times as many graphs — a
+\(23\times\) gain per graph. My instinct that extra freedom must cost more
+was **wrong**, and the cover construction behaves as Gauthier and Brown
+report.
+
+### But the inference fails, and the faulty premise is mine
+I wrote "priced out at 26 minutes each", which invites reading \(26\)
+minutes as a completion time. **It was a timeout with no verdict.** Measured
+directly at the target, \(n = 45\), \(d = 24\), \(H\) one of the two
+densest \((4,5,24)\)-graphs: \(670\) variables, \(669413\) clauses,
+**no verdict in \(1100\) s** at \(K = 0\).
+
+So the concrete instance never resolves. **Covers collapse the instance
+count; my bottleneck is that a single instance does not finish.** The
+\(287\)-day figure multiplied a count by a timeout and was never a real
+price — I should not have written it in a form that reads as one, and the
+principal's inference from it was reasonable given what I wrote.
+
+Same pincer, now located precisely: covers are the right tool when instances
+are easy and numerous, which is Gauthier and Brown's situation at \(25\)
+vertices and is not mine at \(45\).
+
+### Published
+- GitHub `ee4d6fa` (`gray.py` and the measurement). Discovery Net: nothing,
+  chain down. Backlog nine items.
+
+### Left running (1)
+- Gray sweep at \(n = 45\), \(K = 4, 8, 16\), \(1100\) s cap each,
+  results to `scratch/r55/grayn45.txt`; **ending by \(\approx\) 14:20
+  local**. \(K = 0\) already returned no verdict. Worth finishing only
+  because the \(d = 7\) data showed graying can *reduce* absolute time, so a
+  gray instance resolving where the concrete one does not is not impossible —
+  it would overturn the conclusion above and I would rather find that out than
+  assume it.
+
+### Next step
+1. Chain first, then `pending/README.md`.
+2. Report the gray sweep. Then, under the terms offered — choose the method
+   myself with evidence — my proposal is the \(n = 44\) and \(n = 45\)
+   **circulant** question: a natural family, uncrowded (the graph has nothing
+   on order 44 or 45), and finite at roughly \(2 \times 10^6\) candidates
+   before symmetry, which is squarely inside what I can certify. A
+   \((5,5,45)\) circulant would give \(R(5,5) \ge 46\) and settle the
+   number; its absence is a clean certified obstruction. I will cost it before
+   proposing it formally, and I will not repeat the h2575 error — that lane's
+   false claim came from an incomplete circulant search reported as exhaustive.
+
 ## 2026-09-07 — pass 28 (verified the number my own recommendation rests on)
 
 ### Chain: wedged at 3443, ~24 hours. Redrive refs still null. No new direction.
