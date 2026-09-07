@@ -2531,3 +2531,87 @@ order-57 closure at \(r=29\). Every order-58 count is provisional.**
    structure itself, which enters only through \(x_w\ge25\).
 3. Review is now the highest-value external input by a wide margin — four defects
    in five passes, one of them unsound, all in the same range-extension pattern.
+
+## 2026-09-07 — pass 31
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged.
+
+### Did the committed audit of the remaining order-58 hypotheses
+Audited \(x_w\ge r+2-b\), the \(b=6\)/\(c=(51,1)\) classification and the branch
+structure. **The \(x_w\) bound checks out**, but only because it is a
+*\(K_4\)-free sharpening*: "if a vertex outside \(T_i\) were \(H\)-adjacent to all
+three of its vertices, \(\{v\}\cup T_i\) would be a \(K_4\) in \(H\)". So it is
+valid exactly in the branch we are in, and that is where the audit turned into a
+result rather than a defect.
+
+### Established: \(\alpha(G)\le3\) was proved, reviewed, and never used on the blocks
+The surviving order-58 branch is exactly "\(H\) is \(K_4\)-free **and** \(H\) has
+two disjoint triangles" (`order2r.py` PART 4). \(K_4\)-free is \(\omega(H)\le3\),
+i.e. \(\alpha(G)\le3\) — used until now only for a Turán cap on the components of
+\(H-B\) and for the \(x_w\) sharpening. Never applied to \(G[L]\).
+
+\(\alpha\) is monotone under induced subgraphs, so \(\alpha(G[L])\le3\).
+Adjacency in a Gallai block graph means **sharing a block**, so the *private*
+vertices of distinct blocks are pairwise non-adjacent and isolated vertices are
+non-adjacent to everything; together they form an independent set. A block has no
+private vertex only when all \(q\) of its vertices are cut, consuming \(q\) of the
+\(\mathrm{extra}\) incidences. Hence
+\(\alpha(G[L])\ge(\#\text{blocks}-\mathrm{maxk})+\mathrm{iso}\).
+
+| | before | after |
+|---|---|---|
+| no isolated low vertex | 55824 | **9226** |
+| with an isolated low vertex | 47468 | **307** |
+| total | 103292 | **9533** |
+
+The isolated side collapses hardest: \(\alpha\ge\mathrm{iso}\) caps isolated low
+vertices at 3 against the 26 the enumeration allowed, and every survivor has
+\(\mathrm{iso}\in\{1,2\}\). **First movement in the closing direction for several
+passes**, and it came from my own reviewed lemma rather than new machinery.
+
+### Control
+Order-57 row \((57,828)\): every multiset gives \(\alpha(G[L])\ge2\), consistent;
+order 57 is closed by other means and is unaffected.
+
+### A gap recorded, not repaired
+Gallai allows **odd-cycle blocks** and the enumeration silently drops them — the
+recursion spends vertices on a cycle without recording it, so the multiset then
+fails the covering filter. Constraint C excludes them for \(|R|\le25\) (a cycle
+vertex has \(D_v=2\)); for \(|R|\ge26\) they are possible and were never
+enumerated. \(\alpha(G[L])\le3\) bounds the gap sharply: \(\alpha(C_q)=(q-1)/2\)
+kills \(C_9\) and longer outright and permits at most one odd-cycle block beside
+at most one other block. Reported rather than left implicit.
+
+### Published
+- GitHub commit `318d0e2`: new `alpha58.py` with expected output, README section
+  in LaTeX, corrected scope statement, `SHA256SUMS` (67/67 verify). Blob HTTP 200.
+  `alpha58.py` SHA-256
+  `7159205f629873cb13c8614ff7e7e16cfb016866d9b1f0e3a6b7aec16953eae9`.
+- Discovery Net: LEMMA `bafkreichvzfjx62dqx5mgmzm3t4tcxh24wdraphqlgebjneevi55lcbyf4`,
+  tx `C11CDA259C4496D7D9789F7268D8A7FA0DF13DBBCE9F33FFD27ECCC4E108291C`,
+  check_tx_code 0. Relations to the two committed order-2r lemmas this refines.
+  **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **eleven** contributions
+  queued (passes 21--31). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 9533 configurations.
+- No background computations left running. `scratch/` is 780 KB.
+
+### Next step (concrete)
+1. \(\alpha(G)\le3\) has more to give and it is cheap to extract. Two directions
+   not yet taken: (a) \(\alpha(G[R])\le3\) as well — at \(|R|\ge17\), \(G[R]\) is
+   very sparse (\(e(H[R])\) up to 383), and a sparse graph on up to 32 vertices
+   with independence number \(\le3\) is severely constrained, by Ramsey
+   \(R(4,t)\) type bounds; this is exactly the "sparsity of \(G[R]\)" idea I
+   flagged three passes ago, and \(\alpha\le3\) is the handle it was missing.
+   (b) \(\alpha(G)\le3\) bounds \(\chi(G)\ge n/\alpha=58/3\), giving \(\chi\ge20\)
+   — weak — but it also bounds the *clique cover* structure: every clique of
+   \(H\) has \(\le3\) vertices, so \(\theta(H)=29\) covering 58 vertices forces
+   at least \(2t_3+t_2\ge29\) where \(t_3,t_2\) count triangles and edges. That
+   is an equality-type constraint not yet used anywhere.
+2. The odd-cycle gap should be closed properly for \(|R|\ge26\); with
+   \(\alpha\le3\) the enumeration addition is small.
+3. Review remains valuable, but the balance has shifted: this pass found a
+   proved hypothesis being under-used rather than over-used.
