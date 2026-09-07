@@ -207,6 +207,30 @@ So \(\operatorname{cr}(M_{8,2}) \in \{10, 11, 12\}\) with the conjecture asserti
 12. **This is the first open case of Mohar's Conjecture 5 and it is now confined
 to three values.**
 
+## The tightest open case: \(\operatorname{cr}(M_{8,3}) \in \{8,9\}\)
+
+The same counting is sharper one row down. \(M_{8,3} = K_8\) minus a 3-matching
+has six covered vertices and two uncovered. Deleting a covered vertex leaves
+\(M_{7,2} = K_7 - 2e\), crossing number 4; deleting an uncovered one leaves
+\(M_{7,3} = K_{1,2,2,2}\), crossing number 3. Both are exact, computed here. So
+$$4\operatorname{cr}(M_{8,3}) \;\ge\; 6 \cdot 4 + 2 \cdot 3 \;=\; 30,
+\qquad \operatorname{cr}(M_{8,3}) \;\ge\; \lceil 7.5 \rceil = 8 ,$$
+while the conjecture asserts 9 and a 2-page search finds 9 and nothing smaller.
+**So \(\operatorname{cr}(M_{8,3}) \in \{8,9\}\): a gap of one.**
+
+Ruling out 8 would settle this case. The whole \(n = 8\) row of Mohar's
+conjecture then stands as: \(t = 0\) and \(t = 1\) known (18 and 15), \(t = 4\)
+known (6), \(t = 2\) in \(\{10,11,12\}\), \(t = 3\) in \(\{8,9\}\).
+
+**A structural handle on the gap.** If \(\operatorname{cr}(M_{8,3}) = 8\) then in an
+optimal drawing \(D\) the deletions satisfy
+\(\sum_v \operatorname{cr}_D(M_{8,3}-v) = 4 \cdot 8 = 32\), against a floor of 30 —
+an excess of only **2**. So at least six of the eight vertex-deleted drawings must
+be *optimal* drawings of \(K_7 - 2e\) or of \(K_{1,2,2,2}\). That is a strong
+constraint, and it turns the question into one about extending optimal drawings of
+a 7-vertex graph by a single vertex — the shape that star-insertion methods
+address.
+
 Two notes on what will and will not close it. Exhaustive planarisation cannot:
 at 26 edges there are 181 independent pairs, and reaching 11 crossings would mean
 enumerating \(\binom{181}{11} \approx 10^{17}\) choices. But the object is **8
