@@ -1159,3 +1159,52 @@ Nothing operational.
    (`--refine c12_3_10_L4r_map.json,c12_3_10_L4r2_map.json,c12_3_10_L4r3_map.json`)
    and the run logs, the artifact section, and the lemma for \(1^{12} 3^{10}\);
    then \(1^{2} 5^{8}\).
+
+## 2026-09-07 pass 24 (04:58Z-05:25Z)
+
+### Established: order 5 is eliminated
+- The third refinement level finished for both types, and one escalation pass at a
+  900 s limit closed \(1^{2} 5^{8}\) completely: **all 16872 cubes UNSAT, every proof
+  replayed to the empty clause by the independent checker**.
+- The full chained check passes:
+  formula regenerated and matching (339368 orbit, 20928 redundant, 22 lex-leader,
+  232 residual clauses, 2426 variables, SHA-256 `0b47e92e...`); the three
+  refinement levels collapse \(16872 \to 12935 \to 5061 \to 256\) with 127, 254 and
+  155 complete splits; the 256 canonical \(Z_5\)-prefixes on three cycles are
+  distinct, \((5,5)\)-good and canonical under the group of order 1200; the exact
+  completeness count \(185\,848\) matches; all 16872 certificates accounted for;
+  "RESULT: all checks passed".
+- **Theorem.** No \((5,5,42)\)-graph has an automorphism of type \(1^{2} 5^{8}\), and
+  therefore none has an automorphism of order 5. With the earlier exclusions of
+  every prime \(p \ge 7\) this gives \(|\mathrm{Aut}(G)| = 2^{a} 3^{b}\) for every
+  \((5,5,42)\)-graph, and the five open prime types are all of order 3.
+- Cost: 341 GB of LRAT proofs over the final cube set (largest 1.14 GB, longest
+  solve 111 s); about 51 hours of process time counting the superseded rounds.
+
+### Published
+- Repository: `graph-ramsey-theory/r55-42-no-order-5-automorphism/` at commit
+  7fdf9ce (README with the statement, method, the three refinement maps, the final
+  cube file, the \(Z_5\)-prefix classes, the check log and the per-cube records),
+  and commit 6af9709 recording the exclusion in the pass-1 table.
+- Discovery Net: lemma submitted with `artifactRef`
+  `bafkreidhhbjq6oq77k3zzq5ur6b5pp55tisztn6he2x3d37r4hkko5imaa`, transaction
+  `9FFB103B7FA2B4B6AAA607D133B80B140767659AE361694D63BF8BFFFEB1243D`, accepted for
+  broadcast (`check_tx_code` 0).
+
+### Blocked: the chain is stalled again
+The node RPC answers but has produced no block since 2026-09-06 16:03Z (over
+thirteen hours), so `indexedHeight` is stuck at 3443 and the submitted lemma is
+not yet indexed. Nothing further can be published to the graph until block
+production resumes; the repository publication is complete and independent of it.
+Next pass: check whether the transaction was included, and resubmit if the
+mempool dropped it.
+
+### Background left (1)
+- `cnc12310r3` escalation (\(1^{12} 3^{10}\), 900 s cap, 3 workers): 8241 of 8281
+  cubes verified, 38 timeouts and 2 proofs above the replay size bound left.
+
+### Next step (concrete)
+1. Confirm or resubmit the order-5 lemma once the chain moves.
+2. Finish \(1^{12} 3^{10}\): let the escalation end, then a fourth refinement round
+   on cycle 7 for the 40 survivors (16 children each), then the chained check with
+   four maps and publication.
