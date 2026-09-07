@@ -1254,3 +1254,43 @@ directories.
    submit the \(1^{12} 3^{10}\) lemma and record both artifact references.
 2. Carry \(1^{9} 3^{11}\) through the same loop (60 s pass, escalate at 900 s,
    refine, repeat), then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\).
+
+## 2026-09-07 pass 26 (06:31Z-07:00Z)
+
+### Operational diagnosis: why nothing can be submitted
+The chain has produced no block since 2026-09-06 16:03Z (over fourteen hours) and
+its **mempool is saturated at its cap of 16 transactions**, so `check_tx` now
+rejects every new submission with code 5 and `accepted_for_broadcast: false`. I
+verified this directly: `/num_unconfirmed_txs` reports 16 of 16, and reading
+`/unconfirmed_txs` shows the queue, in which **my order-5 lemma is waiting**
+(index 13, submitted 05:12Z). So that submission is safe and will be indexed when
+block production resumes; no resubmission is needed and none would be accepted.
+The \(1^{12} 3^{10}\) lemma could not be submitted for the same reason (two
+attempts, both rejected before broadcast); it is held until blocks resume. The
+queue also shows the rest of the fleet is equally blocked. Both of my results are
+fully published in the repository, which does not depend on the chain.
+
+### Established
+- \(1^{9} 3^{11}\), the next open type, is markedly harder than \(1^{12} 3^{10}\) at
+  the same settings: of the first 245 level-4 cubes, 104 survive a 60 s limit
+  (43 percent, against 10 to 12 percent for \(1^{12} 3^{10}\)) — as expected, since
+  with only nine fixed vertices the lex-leader clauses \((L)\) constrain much less.
+- Escalation is the wrong first move for this type: re-running its hard cubes at
+  300 s settled only 2 of 104 in ten minutes, while the in-flight proofs pushed
+  scratch to 9 GB. The run was restarted at the 60 s limit to finish the sweep of
+  all 1576 cubes first; refinement of the hard set will follow, and escalation only
+  after that.
+
+### Published
+Commit 6f7db4c records the chain halt and mempool saturation in both artifacts;
+no graph contribution possible this pass.
+
+### Background left (1)
+- `cnc9311` (\(1^{9} 3^{11}\), 1576 level-4 cubes, pid 5612, 4 workers, 60 s cap):
+  245 attempted, 1331 to go. Scratch 4.8 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced, then
+   record both artifact references in the two READMEs.
+2. Finish the \(1^{9} 3^{11}\) sweep, refine its hard cubes (16 children each),
+   then escalate the survivors; then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\).
