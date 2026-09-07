@@ -9,6 +9,87 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 19 (corrected the principal's premise; \(\beta\) made unambiguous)
+
+### Chain: wedged ~13 hours; REDRIVE LIST below
+Still at **3443**, last block 16:03:08Z, mempool 9. principal-1 reports the
+node is wedged in the commit step and tells the orchestrator the **mempool
+will not survive the restart**, so my queued transactions are expected to be
+**lost** and must be resubmitted — after checking commitment, not instead of
+it.
+
+**REDRIVE LIST (check each `artifact(ref:...)` first; resubmit only if null):**
+1. `lemma` — the \(n=44/45\) neighbourhood-edge reduction.
+   ref `bafkreicgpqb2vyw2qtelysclrfyt6f2rljwzybt3a6f2wgotwgobtb75oy`,
+   tx `B956979B...`. Body: regenerate from
+   `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/README.md`.
+   Relations: `about` the \(R(5,5)\) problem node
+   `bafkreigcklbpc42u6txpn6ttcrpgmwi2myrnn56l5er62orospchi6oezm`.
+2. `finding` — the gluing negatives (principal asked for this explicitly).
+   ref `bafkreidaorwzgcuuzntf47vabsncpcnx7fofc67q4vd6vqxoc6zoer62d4`,
+   tx `7CBC64DF...`. Body saved at `scratch/pending/glue_negative.md`.
+   Relations: `about` the problem node, `cites` h3295.
+3. Not yet submitted: the \(R(4,5)\) reproduction with its six-year cost
+   verdict and the certified classical inputs (pass 17–18), and the
+   degree/density finding below.
+
+### Made \(\beta\) unambiguous (asked for twice — my defect)
+principal-1 asked in two consecutive passes which quantity \(\beta\) denotes,
+and was right that a reader could not tell. Now stated **before** the theorem:
+\(\overline e(x)\) is the catalogue maximum over all \((4,5,x)\)-graphs and
+is known; \(\beta(x)\) is the maximum over those that **actually occur** as
+\(G[N(v)]\) or as the complement of \(G[V\setminus N[v]]\), is unknown, and
+depends on \(n\). Theorem 1 is in terms of \(\beta\); \(\beta = \overline
+e\) is the weakest instantiation and is exactly the row that fails.
+
+### The premise I was given is false, and inverted
+principal-1's direction was that a \((4,5,m)\)-graph has \(\Delta \le
+R(3,5)-1 = 13\), so a dense one is nearly \(13\)-regular and heavily
+constrained. I checked it against the full catalogue before building on it.
+Grouping all \(352366\) \((4,5,24)\)-graphs by maximum degree:
+
+| \(\Delta\) | graphs | edge range | mean |
+|---|---|---|---|
+| 10 | 243 | 116–120 | 118.6 |
+| 11 | 276787 | 116–**132** | 122.8 |
+| 12 | 74375 | 118–130 | 123.1 |
+| 13 | 961 | 119–**125** | 122.2 |
+
+**Degree \(13\) is attained only by comparatively sparse members.** No
+\((4,5,24)\)-graph with \(\Delta = 13\) exceeds \(125\) edges; the maximum
+\(132\) is attained by exactly \(11\)-regular graphs; among the \(15913\)
+with \(e \ge 126\) the maximum degree never exceeds \(12\). Same at
+\(m = 22\): degree \(13\) in \(192\) of \(30976\) at \(e = 113\), and in
+**none** of the \(133\) at \(e = 114\). Density and high degree are in
+tension, which makes sense — a degree-\(13\) vertex has its neighbourhood
+equal to *the* unique \((3,5,13)\)-graph, and that rigidity costs edges.
+
+So the "nearly \(13\)-regular hence constrained" route is **not available**.
+
+**A near-miss I am recording carefully.** \(\Delta = 13\) forces
+\(e \le 125\) at \(m = 24\) — exactly the \(\beta(24) \le 125\) the
+first \(n=45\) inequality needs. So that inequality would follow from showing
+every occurring \((4,5,24)\)-neighbourhood has a vertex of degree \(13\). I
+have **no argument** that it must, and the coincidence is recorded as a
+precise sufficient condition, explicitly **not** as evidence for one.
+
+### Published
+- GitHub `d9ca652` (the \(\beta\) separation), `0ccd965` (the degree/density
+  correction).
+- Discovery Net: one `finding` submitted and queued behind the wedge.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then work the redrive list above in order.
+2. On \(\beta\): the remaining lead is the degree-\(13\) sufficient
+   condition. It is a genuine question — must a dense occurring neighbourhood
+   contain a degree-\(13\) vertex? — and unlike the previous leads it is
+   sharply stated. If it resists an argument I will say so rather than
+   circle.
+3. principal-1 reassesses at pass 21.
+
 ## 2026-09-06 — pass 18 (certified the classical inputs; only \(R(4,5)\) still cited)
 
 ### Chain: down all pass, still not resubmitting
