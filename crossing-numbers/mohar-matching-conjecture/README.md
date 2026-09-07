@@ -62,9 +62,56 @@ So \(n = 6\) is settled completely, in Mohar's favour. The first open case is
 \(n = 8\), where the sharpest instance is \(t = 4\): the conjecture asserts
 $$\operatorname{cr}(K_{2,2,2,2}) = 6 .$$
 
-## Next
+## The first open case is settled — and it was settled in 2008
 
-Decide \(\operatorname{cr}(K_{2,2,2,2})\). The upper bound of 6 is Mohar's
-construction; what is needed is a matching lower bound for one explicit graph on
-8 vertices and 24 edges. That is a bounded, certificate-shaped question of
-exactly the kind this workspace is set up for.
+\(\operatorname{cr}(K_{2,2,2,2}) = 6\), so **Mohar's Conjecture 5 holds at
+\(n = 8\), \(t = 4\)**.
+
+**Attribution first.** The value is *not* new. Ho determined
+\(\operatorname{cr}(K_{2,2,2,n})\) in 2008 (*The crossing number of
+\(K_{2,2,2,n}\)*, Far East J. Appl. Math. **30** (2008) 43–69, cited in DS21),
+and \(K_{2,2,2,2}\) is the case \(n = 2\). What appears not to have been noted is
+the **connection**: Mohar's 2020 conjecture has as its first open case a graph
+whose crossing number had already been determined twelve years earlier. Both
+\(K_{2,2,2,1} = M_{7,3}\) and \(K_{2,2,2,2} = M_{8,4}\) lie in Ho's family.
+
+**Independent verification, computed here.** Two steps, each certificate-shaped.
+
+*Exactly \(\operatorname{cr}(K_{1,2,2,2}) = 3\).* By exhaustive planarisation
+(`crk.py`): no drawing with at most 2 crossings exists — every choice of one or
+two independent crossing pairs, and every ordering of crossings along a shared
+edge, was enumerated and none planarises — while an explicit 3-crossing
+planarisation does exist. The decider reproduces \(\operatorname{cr}(K_5) = 1\),
+\(\operatorname{cr}(K_6) = 3\), \(\operatorname{cr}(K_{3,3}) = 1\),
+\(\operatorname{cr}(K_{2,2,2}) = 0\) and \(\operatorname{cr}(K_{1,1,2,2}) = 1\)
+first. This agrees with Ho's formula at \(n = 1\), which is a cross-check in both
+directions.
+
+*Lower bound 6, by counting over vertex deletions.* Every vertex of
+\(K_{2,2,2,2}\) lies in a part of size 2, so \(K_{2,2,2,2} - v = K_{1,2,2,2}\) for
+**every** \(v\). In an optimal drawing each crossing involves four distinct
+vertices, hence survives in exactly \(8 - 4 = 4\) of the eight vertex-deleted
+drawings, giving
+$$4\operatorname{cr}(K_{2,2,2,2}) \;\ge\; \sum_{v} \operatorname{cr}(K_{2,2,2,2}-v) \;=\; 8 \cdot 3 \;=\; 24,$$
+so \(\operatorname{cr}(K_{2,2,2,2}) \ge 6\).
+
+*Upper bound 6, by an explicit drawing.* A 2-page drawing with exactly 6
+crossings was found by local search, independently of Mohar's construction, which
+also gives 6.
+
+Together: \(\operatorname{cr}(K_{2,2,2,2}) = 6\), matching the conjecture's
+prediction \(H(8) - \tfrac12 \cdot 4 \cdot 3 \cdot 2 = 18 - 12 = 6\).
+
+## Next: cross-reference the conjecture against every determined multipartite family
+
+\(M_{n,t}\) is the complete multipartite graph with \(t\) parts of size 2 and
+\(n - 2t\) of size 1. Several such families have determined crossing numbers in
+the literature — \(K_{1,m,n}\), \(K_{2,2,2,n}\), \(K_{1,1,1,n}\) and the balanced
+cocktail-party graphs among them. **Every determined family that meets that shape
+gives a case of Mohar's conjecture, for free.** Assembling them is cheap, and
+either produces a body of confirmations nobody has collected or turns up a value
+that contradicts the formula — in which case a 2020 conjecture is refuted from
+the existing literature rather than by computation.
+
+The next case up is \(n = 10\), \(t = 5\): the conjecture predicts
+\(\operatorname{cr}(K_{2,2,2,2,2}) = H(10) - \tfrac52 \cdot 4 \cdot 3 = 60 - 30 = 30\).
