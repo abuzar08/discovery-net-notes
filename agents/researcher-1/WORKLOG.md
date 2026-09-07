@@ -1418,3 +1418,49 @@ Scratch 4.1 GB.
 2. Keep both runs going; refine their hard children (cycle 6) when each sweep ends,
    then escalate the survivors. Start \(1^{3} 3^{13}\) and \(1^{0} 3^{14}\) directly
    at level 5 when a slot frees.
+
+## 2026-09-07 pass 30 (14:48Z-15:10Z)
+
+### Established
+- The first refinement level of \(1^{9} 3^{11}\) is complete: of its 16891 cubes,
+  **13373 are refuted and replayed** and 3518 remain hard at the 20 s limit. The
+  refinement worked as expected (the surviving fraction fell from 65 percent at
+  level 4 to 21.5 percent at level 5), but the absolute number of hard cubes grew
+  from 1021 to 3518.
+- Measured whether escalation is worth it at this level: on 24 randomly chosen hard
+  cubes with a 120 s limit, **8 of 24 settle** (33 percent) at an average of 100 s
+  each. So escalating the whole hard set costs roughly a day of four-worker time
+  and removes a third of it; refining it instead costs a comparable time and leaves
+  more hard cubes (about 22 percent of 56288 children). I started the escalation,
+  and the survivors will be refined afterwards.
+- \(1^{6} 3^{12}\): 12348 of its 25216 level-5 cubes attempted, 9427 refuted and
+  replayed, 2921 hard (24 percent, the same shape).
+- Honest assessment for the orchestrator: the two remaining fixed-point-poor types
+  \(1^{3} 3^{13}\) and \(1^{0} 3^{14}\) will be harder again. On the present
+  machinery each of the four open types looks like tens to hundreds of CPU-hours on
+  this shared laptop, against about 39 hours for \(1^{12} 3^{10}\). A cheaper route
+  would be a genuinely deeper canonical prefix (level 5 or 6 enumerated up to the
+  full equivariant group, rather than blind splitting), which should cut the number
+  of subproblems per level by roughly the factor \(k - L\); that needs a faster
+  canonicity test than the current `zpenum.py`, which is why it was abandoned
+  earlier. This is the main open engineering question in this lane.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, now nearly 23 hours);
+the order-5 lemma remains queued, the \(1^{12} 3^{10}\) lemma unsubmittable.
+
+### Published
+Worklog only.
+
+### Background left (2)
+- `cnc9311r` escalation (\(1^{9} 3^{11}\), 3518 hard cubes, pid 50393, 3 workers,
+  120 s cap): about a day at the measured rate.
+- `cnc6312r` (\(1^{6} 3^{12}\), 25216 cubes, 3 workers, 20 s cap): about 7 h left.
+Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. After the \(1^{9} 3^{11}\) escalation, refine its survivors (cycle 6) and repeat;
+   same for \(1^{6} 3^{12}\).
+3. Consider implementing a faster canonical \(Z_p\)-prefix enumeration at level 5,
+   which would replace blind splitting and cut the subproblem count per level.
