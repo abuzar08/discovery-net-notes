@@ -76,15 +76,22 @@ generalization method transfers to my actual target, \((5,5,n)\) at
 \(n = 44, 45\). It does not, by a wide margin:
 
 - Their hardest row pairs \(\mathcal{R}(3,5,10)\) with
-  \(\mathcal{R}(4,4,14)\): \(313 \times 130816\).
+  \(\mathcal{R}(4,4,14)\): \(313 \times 130816 = 4.09 \times 10^7\) problems,
+  costing \(572\) CPU-days *after* the \(80\times\) generalization reduction.
 - The analogue at \(n = 45\), \(d = 24\) pairs \((4,5,24)\)-graphs with
-  \((4,5,20)\)-graphs. \(|(4,5,24)| = 352366\) **on its own** already exceeds
-  \(130816\), and the \((4,5,20)\) count — not published in the sources I have
-  — is larger still, since the family peaks below \(m = 24\).
-- So the pair count is several orders above their \(4 \times 10^7\), each
-  problem is on \(45\) vertices rather than \(25\), and their
-  \(4 \times 10^7\) row cost \(572\) days *after* an \(80\times\) reduction on
-  40-core, 512 GB machines.
+  \((4,5,20)\)-graphs. \(|(4,5,24)| = 352366\) exactly, and for the other side
+  I **measured a lower bound rather than inferring one**: the extremal files
+  alone hold \(521648\) \((4,5,20)\)-graphs, every one re-verified here as
+  genuine. That is already \(4.0\times\) the paper's whole \((4,4,14)\)
+  catalogue, and it omits the bulk of the family, since only the smallest and
+  largest few edge counts are in those files. For scale, the same count at
+  \(m = 19\) is \(\ge 5933869\), which is \(45\times\) \(130816\).
+- So the pair count at \(n = 45\), \(d = 24\) is **at least**
+  \(352366 \times 521648 \approx 1.8 \times 10^{11}\), about \(4500\times\)
+  their hardest row, on problems over \(45\) vertices rather than \(25\).
+  Granting the same \(80\times\) reduction and their per-problem rate, that is
+  on the order of \(3 \times 10^4\) CPU-days — roughly **90 core-years** — and
+  it rests on a lower bound.
 
 **Conclusion.** The method exists, is published, and is still out of range for
 \(n = 45\) by orders of magnitude. Building it here would reimplement a solved
