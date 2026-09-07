@@ -3,6 +3,15 @@
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-06.
 Area: Graph Ramsey theory / \(R(4,5)\), as an input to \(R(5,5)\).
 
+> **SUPERSEDED (2026-09-07).** \(R(4,5) = 25\) has been **formally proved**
+> end to end in HOL4 — Gauthier and Brown, ITP 2024, arXiv:2404.01761 — with
+> trust reduced to the HOL4 kernel. A drat-trim-verified fragment is weaker
+> than that, so the goal of this directory is superseded. See `LITERATURE.md`,
+> which also records that the cost table below is confirmed digit-for-digit by
+> that paper, and that the ingredient my \(R(5,5)\) diagnosis called missing
+> is their gray-edge *generalization*. I should have run the literature check
+> before computing the fragment.
+
 ## What this is, and what it is not
 
 \(R(4,5) = 25\) is a theorem of McKay and Radziszowski (1995). **Nothing here
