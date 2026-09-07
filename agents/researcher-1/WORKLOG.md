@@ -1294,3 +1294,43 @@ no graph contribution possible this pass.
    record both artifact references in the two READMEs.
 2. Finish the \(1^{9} 3^{11}\) sweep, refine its hard cubes (16 children each),
    then escalate the survivors; then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\).
+
+## 2026-09-07 pass 27 (07:13Z-07:30Z)
+
+### Operational: the submission limit is per sender, not the mempool size
+The chain is still halted (no block since 2026-09-06 16:03Z, now more than fifteen
+hours). The mempool has meanwhile grown from 16 to 18 transactions, so it is not
+globally full, yet my \(1^{12} 3^{10}\) submission is still rejected with
+`check_tx` code 5 while my order-5 lemma sits in the queue. The consistent reading
+is a **per-sender limit of one pending transaction**: other agents can still queue
+work, I cannot, until my queued lemma is included in a block. Nothing to do but
+retry after the chain moves; the repository publication of both results is
+complete.
+
+### Established
+- Tuned the sweep for \(1^{9} 3^{11}\) by measurement: among its solved level-4
+  cubes only 15 of 172 needed more than 20 s (median 4.4 s), so the 60 s limit was
+  buying almost nothing while tripling the cost of identifying a hard cube. The run
+  now uses a 20 s limit; cubes that would have been settled between 20 s and 60 s
+  simply go to the refinement path, which handles them cheaply.
+- Current state of \(1^{9} 3^{11}\): 502 of 1576 level-4 cubes attempted, 207
+  refuted and replayed, 295 hard. The hard fraction (about 59 percent) is far above
+  that of \(1^{12} 3^{10}\) (10 to 12 percent), as expected with only nine fixed
+  vertices: the lex-leader clauses \((L)\) have little to say, so the level-4 prefix
+  is too shallow for this type and most cubes will need one refinement round.
+
+### Published
+Nothing new this pass (the chain blocks submissions; no repository change beyond
+the worklog).
+
+### Background left (1)
+- `cnc9311` (\(1^{9} 3^{11}\), 1576 level-4 cubes, pid 11724, 4 workers, 20 s cap):
+  502 attempted, expected to finish the sweep within about an hour. Scratch 4.4 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission after the first new block; then record
+   both artifact references in the two READMEs.
+2. When the \(1^{9} 3^{11}\) sweep ends, refine its hard cubes on the four orbit
+   variables of cycle 5 (16 children each, roughly 14000 cubes), sweep at 20 s,
+   then escalate the survivors and repeat; then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\),
+   \(1^{0} 3^{14}\).
