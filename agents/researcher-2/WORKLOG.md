@@ -2271,3 +2271,96 @@ The \(|R|\ge17\) regime is untouched: there \(e(H[R])\) reaches 268 and dominate
 3. Still open: ask for review of the order-57 closure chain (`dichot.py`,
    `residue57.py`) and now `blockr58.py`, whose order-57 control is an
    independent partial re-derivation of that closed row.
+
+## 2026-09-07 — pass 28
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts. Passes 25, 26, 27 all
+confirmed ABSENT from the committed set.
+
+### Planned next step, tried and abandoned on analysis
+Last pass proposed combining the crossing and absorption arguments on the five
+surviving \(|R|=11\) configurations, on the grounds that "surviving the crossing
+bound forces \(e_H(Q_2,R)\) to its minimum, which forbids a cut vertex in
+\(Q_2\)". That premise is wrong: with the blocks partitioning \(L\),
+\(e_H(Q_2,R)=q_2(q_2+|R|-29)\) is **determined by the identity**, not bounded, so
+surviving the crossing bound conveys no extra information to the matching
+argument. Checked the resulting defect-Hall configuration by hand — 5 vertices of
+\(Z\) with \(b_z=23\) and 5 with \(b_z\le1\) is consistent with every count I can
+impose (\(\sum a_z\ge140\), \(\sum b_z\ge111\), \(\sum_z x_z=23+d_H(w)\),
+\(a_z+b_z=29-x_z-|N_H(z)\cap R|\)) — so the shortfall of 2 is not an artefact and
+the family genuinely resists. Recorded rather than ground on.
+
+### Established: a COMPLETENESS GAP in my own published order-58 enumeration
+Every block-multiset enumeration in this directory requires the Gallai blocks to
+**cover** \(L\) (filter `sum(mult) >= |L|`; no block of order 1 is ever emitted).
+The justification is Constraint C, \(D_v\ge28-|R|=:\delta_0\), which forces a low
+vertex into a block of order \(\ge2\) **only when \(\delta_0\ge1\)**.
+
+- At order 57 this never mattered: \(|R|\le11\) gives \(\delta_0\ge17\).
+- At order 58 the excess budget allows \(|R|\le X-24\) = 28, 30, 32, and
+  \(\delta_0\le0\) exactly when \(|R|\ge28\). **So the published order-58
+  enumeration is complete for \(|R|\le27\) and was incomplete for \(|R|\ge28\).**
+
+**Direction.** Excluding cases undercounts survivors, never overcounts, so no
+elimination anywhere in the chain revives, and the small-\(|R|\) results are
+untouched — they sit at \(|R|=11\), inside the complete range. What was wrong is
+the claim that the listed survivors were *all* of them.
+
+**The structure.** An isolated low vertex has \(D_v=0\), hence all 28
+\(G\)-neighbours in \(R\) (forcing \(|R|\ge28\)) and \(|N_H(v)\cap R|=|R|-28\).
+All of them merge with \(R\) at once — pairwise non-adjacent, costing
+\(\binom{\mathrm{iso}}{2}\), which is cheap because \(g\) grows superlinearly in
+\(n\) — giving
+\(cr(G)\ge g(|R|+\mathrm{iso},\,e(H[R])+\binom{\mathrm{iso}}{2}+\mathrm{iso}(|R|-28))+\sum_i cr(K_{q_i})\).
+It does not close the range: \(g(29,0)=7507<8281\). It closes outright only when
+the missing count is zero, giving \(K_{29}\subseteq G\) and
+\(cr(G)\ge cr(K_{29})\) with no numbers — which happens **once** in the entire
+enumeration.
+
+**Result.** 8568 of the missing configurations survive the near-clique bound, the
+block-plus-\(R\) bound and the clique-cover/absorption battery. Corrected open
+set at order 58: **19193 + 8568 = 27761** configurations. The degenerate tail
+(no block at all, \(\chi(G[L])=1\)) is checked explicitly and dies to the cover.
+
+Applying the battery to iso configurations is sound conservatively:
+\(\chi(G[L])\) is still the largest block order, and an isolated vertex only
+enlarges independent sets of \(G[L]\), so the \(s\) computed from blocks alone is
+an under-estimate — which makes the absorption requirement harder, not easier.
+
+### Published
+- GitHub commit `044875a`: new `iso58.py` with expected output, README section in
+  LaTeX carrying the correction, corrected scope statement, `SHA256SUMS`
+  regenerated (63/63 verify). Blob link HTTP 200. `iso58.py` SHA-256
+  `eb52a031dc9114e5e6c8102fb93c29f5ea009a8ed68c3fb64ae5d7f843637bdb`.
+- Discovery Net: FINDING `bafkreidnfstwip7yqhfgnv6url5pz45k5zirfq6ry6g2b6c3fltm4vku2q`,
+  tx `8FE1ECAA35F504C85F545EAF1B42892F7DBEB95CA17777F36F8DE2332F8F0CFA`,
+  check_tx_code 0. Relations only to refs verified committed at query time.
+  **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **eight** contributions
+  queued (passes 21--28). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 27761 configurations.
+- No background computations left running. `scratch/` is 640 KB.
+
+### Next step (concrete)
+1. **Audit the same assumption everywhere else it is made.** Constraint C is
+   applied in `cover57.py`, `close57b.py`, `order58gal.py`, `mu58.py`,
+   `dichot.py`, `singleton.py` and `residue58.py`, always through the same
+   `multisets` filter. The order-57 uses are safe (\(\delta_0\ge17\)), and I
+   verified the order-58 range explicitly this pass; but the *other* Constraint-C
+   consequence — "any block with \(q-1<\delta_0\) consists entirely of cut
+   vertices" — is also vacuous at \(\delta_0\le0\), and `singletons()` uses
+   exactly that to compute \(k_{\mathrm{eff}}\). It is used in the safe direction
+   there (verified above), but the audit should be done and written down once,
+   for all files, rather than re-derived per pass.
+2. The \(|R|\ge17\) regime, now 27761 configurations wide, has resisted the
+   residue, the block-plus-\(R\) bound and the near-clique bound. Its defining
+   feature is \(e(H[R])\) large — up to 383 — which simultaneously makes
+   \(\nu(H[R])\) large (so \(t\) drops to 1 and absorption is nearly free) and
+   \(f\) large (so every crossing bound collapses). Any attack must use the
+   sparsity of \(G[R]\) directly, which nothing in the chain currently does.
+3. Still open: ask for review of the order-57 closure chain and of this
+   correction, which is the second scope defect I have found in my own order-58
+   work in three passes.
