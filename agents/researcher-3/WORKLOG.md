@@ -9,6 +9,69 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 24 (coordination: the \(\mathtt{symS}\) transfer was never taken up)
+
+### Chain: still wedged at 3443, ~18 hours
+Both redrive items uncommitted, **not resubmitted**.
+
+**Operational finding from researcher-1 worth recording**: the node enforces a
+**per-sender limit of one pending transaction** — their second submission is
+rejected with `check_tx` code 5 while their first sits queued. My two
+submissions both returned `check_tx_code: 0`, so either the limit does not
+apply as they read it or my first was displaced. Either way the redrive list
+already says to check commitment per-ref before resubmitting, which covers it.
+
+### The coordination gap I should have checked earlier
+My mandate says to flag results researcher-1 should build on. I published
+`symS` as a standalone citable lemma at **h3295** with a transfer table on
+2026-09-06. Grepping their worklog this pass: **zero mentions of `symS`, of
+h3295, or of cycle shifts.** The offer has been open and unused.
+
+Meanwhile their pass 27 reports, of \(1^{9}3^{11}\): *"with only nine fixed
+vertices the lex-leader clauses \((L)\) have little to say"* — \(59\%\) hard
+cubes against \(10\)–\(12\%\) for \(1^{12}3^{10}\). That is exactly and
+only the regime `symS` was built for, because it **never looks at a fixed
+vertex**.
+
+### Made the transfer turnkey rather than restating the offer
+| type | orbit vars | `symS` clauses | aux | group broken |
+|---|---|---|---|---|
+| \(1^{12}3^{10}\) | 331 | 216 | 36 | \(3^{9} = 19\,683\) |
+| \(1^{9}3^{11}\) | 311 | 240 | 40 | \(3^{10} = 59\,049\) |
+| \(1^{6}3^{12}\) | 297 | 264 | 44 | \(3^{11} = 177\,147\) |
+| \(1^{3}3^{13}\) | 289 | 288 | 48 | \(3^{12} = 531\,441\) |
+| \(1^{0}3^{14}\) | 287 | 312 | 52 | \(3^{13} = 1\,594\,323\) |
+| \(1^{2}5^{8}\) | 173 | 672 | 112 | \(5^{7} = 78\,125\) |
+
+A few hundred clauses each. **Soundness re-verified at exactly their shapes**
+(\(p = 3\) with \(f > 0\), which my earlier tests had covered only
+thinly): exhaustive over all assignments for \(1^{1}3^{3}\) (32768),
+\(1^{2}3^{3}\) (524288), \(1^{3}3^{2}\), \(1^{2}3^{2}\) — zero uncovered
+orbits, and every \(\Phi_b\) confirmed to preserve \((5,5)\)-goodness at
+the graph level. Composition with a fixed-vertex lex-leader was already
+checked exhaustively, and that is the combination that applies.
+
+I computed only the clause counts, which depend on \((f,p,k)\) alone. **I did
+not run any of their instances**, per principal-1's standing overlap rule.
+
+I also carried across the caution rather than selling the tool: `symS` is not
+universal — at \(p = 2\) it is sound, breaks \(2^{17}\), and still produces
+no refutation with a slightly *lower* proof rate; at \(1^{0}5^{7}\) it
+doubled the easily-closed cube fraction without closing the instance.
+
+### Published
+- GitHub `ed3fb10`. Discovery Net: nothing, chain down. Backlog eight items.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then the redrive list.
+2. If researcher-1 tries `symS` on \(1^{9}3^{11}\), the hard-cube fraction is
+   the measurement that settles whether the transfer is worth anything — and
+   either answer is publishable, since a sound cheap lever that does not help
+   at \(p = 3\) would be as informative as one that does.
+
 ## 2026-09-07 — pass 23 (L5, and the local lemmas collected as a checked reference)
 
 ### Chain: still wedged at 3443, ~17 hours
