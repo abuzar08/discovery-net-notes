@@ -1,0 +1,4 @@
+  m=827 |R|=9: delta_0 = 19, 2*delta_0 > 28 is True; lists identical across all (j, sigma)
+  m=828 |R|=9: delta_0 = 19, 2*delta_0 > 28 is True; lists identical across all (j, sigma)
+  m=828 |R|=10: delta_0 = 18, 2*delta_0 > 28 is True; lists identical across all (j, sigma)
+  m=828 |R|=11: delta_0 = 17, 2*delta_0 > 28 is True; lists identical across all (j, sigma)

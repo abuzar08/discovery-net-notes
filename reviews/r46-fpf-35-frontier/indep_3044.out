@@ -1,0 +1,8 @@
+THE TWO INSTANCES (my own encoder)
+  1^0 5^7: 119 orbit variables, 334369 clauses; by kind {'int': 14, 'cross': 105}; cross C(k,2)p = 105, internal k(p-1)/2 = 14, sum 119; cross share 88.2%
+  1^0 7^5: 85 orbit variables, 237160 clauses; by kind {'int': 15, 'cross': 70}; cross C(k,2)p = 70, internal k(p-1)/2 = 15, sum 85; cross share 82.4%
+
+THE INVOLUTION FRONTIER, 36 <= n <= 39
+  74 types 1^f 2^k in total
+  orbit variables range from 324 (n=36, 1^0 2^18) to 704 (n=39, 1^37 2^1)
+  at n = 36: 18 types, variables 324..596

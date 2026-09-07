@@ -1,0 +1,5 @@
+1^0 7^5: 85 vars, 237160 base + 112 symC clauses, built in 2s
+   single refutation, 1500 s cap: NO VERDICT after 1500s
+1^0 5^7: 119 vars, 334369 base + 36 symC clauses, built in 2s
+   single refutation, 1500 s cap: NO VERDICT after 1500s
+1^0 2^18 at n = 36: 324 orbit variables, 1003833 clauses (built in 3s)
