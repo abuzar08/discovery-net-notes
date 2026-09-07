@@ -106,10 +106,24 @@ input still cited rather than proved in this directory is
 
 ## Theorem (the reduction)
 
-Fix \(n\). For a hypothetical \((5,5,n)\)-graph let \(\beta(x)\) denote the
-largest number of edges of a \((4,5,x)\)-graph that actually occurs in it,
-either as \(G[N(v)]\) or as the complement of \(G[V \setminus N[v]]\).
-Trivially \(\beta(x) \le \overline e(x)\).
+**Two different quantities, kept apart.** This matters for reading every table
+below, so it is stated before the theorem rather than after it.
+
+- \(\overline e(x)\) is the maximum edge count over **all**
+  \((4,5,x)\)-graphs. It is a fact about the catalogue, listed above, and it
+  is known exactly.
+- \(\beta(x)\) is the maximum edge count over those \((4,5,x)\)-graphs that
+  **actually occur in a given hypothetical \((5,5,n)\)-graph**, in one of the
+  two positions \(G[N(v)]\) or the complement of \(G[V\setminus N[v]]\).
+  It is not known, and it depends on \(n\).
+
+Always \(\beta(x) \le \overline e(x)\), and the two coincide only if some
+extremal \((4,5,x)\)-graph really does occur in that position. **Theorem 1 is
+stated in terms of \(\beta\).** Substituting the known \(\overline e\) for
+the unknown \(\beta\) gives the weakest instantiation — that is the
+"unconditional" row below, and it fails. The displayed inequalities are
+therefore *requirements on \(\beta\)*: hypotheses to be established about
+occurring neighbourhoods, not statements about the catalogue.
 
 **Theorem 1.** If for every admissible degree \(d\), with \(m = n-1-d\),
 
@@ -131,8 +145,9 @@ and \(\sum_d n_d = n > 0\), a contradiction. \(\square\)
 
 ## What this gives, unconditionally and conditionally
 
-Taking \(\beta = \overline e\) — the unconditional case — **there is no
-contradiction at any of \(n = 43, 44, 45, 46\)**. This is reported as a
+Substituting the catalogue maximum for the occurrence maximum, i.e. taking
+\(\beta = \overline e\) — the weakest and only unconditional instantiation —
+**there is no contradiction at any of \(n = 43, 44, 45, 46\)**. This is reported as a
 negative rather than buried: the aggregate bound is not strong enough on its
 own. Its exact shortfall is
 
@@ -166,7 +181,9 @@ direction: the larger the order the tighter the degree window.
 
 So the upper-bound question at \(n = 45\) is reduced to a **local, finite**
 one: do the densest \((4,5,m)\)-graphs, \(20 \le m \le 24\), actually occur
-as neighbourhoods?
+as neighbourhoods? That is precisely the gap between \(\beta\) and
+\(\overline e\), and closing it is a statement about occurrence, not about
+the catalogue.
 
 ### How many graphs each inequality actually involves
 
