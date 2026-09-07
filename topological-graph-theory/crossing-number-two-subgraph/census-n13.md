@@ -53,6 +53,31 @@ compute is committed rather than after.
    the \(n = 13\) run therefore rests on the shard-total check and on the pipeline
    validation at \(n = 10\) alone.
 
+## Result: \(m \le 24\) complete, acceptance passed
+
+| shard | graphs read | 2-crossing-critical | \(\operatorname{cr} \ge 3\) |
+| ---: | ---: | ---: | ---: |
+| 0 | 36,623,885 | 4 | 0 |
+| 1 | 49,235,584 | 2 | 0 |
+| 2 | 55,424,807 | 5 | 0 |
+| **total** | **141,284,276** | **11** | **0** |
+
+The shard totals sum to 141,284,276, matching the independent `geng -u` count **to
+the digit**.
+
+> **No second counterexample on 13 vertices with \(m \le 24\).**
+
+The scope caveat is the same one that applies at \(n = 12\), and is if anything
+sharper here: \(m \le 24\) is **below** \(2n = 26\), so this does not even reach the
+edge count where members were found at \(n = 12\). The remaining
+\(m \in [25,35]\) is untouched, and \(m \in [25,26]\) alone is 3,319,303,520 graphs
+(119 core-hours). This is a **narrower** partial result than \(n = 12\)'s, and it
+is reported as such.
+
+Note also that the second acceptance criterion is vacuous here, as recorded
+above: none of BORS's 36 graphs has order 13, so only the shard-total check and
+the \(n = 10\) pipeline validation stand behind this run.
+
 ## Where this leaves the sequence
 
 \(n = 14\) is not reachable. The count grows by roughly a factor of 25 per order

@@ -182,3 +182,35 @@ Chia–Lee, and \(K_7 - 2e\), which is a 7-vertex graph on 19 edges and therefor
 within reach of the exhaustive planarisation that settled
 \(\operatorname{cr}(K_{1,2,2,2}) = 3\). Computing it feeds the counting bound
 directly.
+
+## The first open case, narrowed: \(\operatorname{cr}(M_{8,2}) \in \{10,11,12\}\)
+
+**\(\operatorname{cr}(K_7 - 2e) = 4\), exactly.** By exhaustive planarisation
+(`crk.py`): no drawing with at most 3 crossings exists — every choice of up to
+three independent crossing pairs, with every ordering along shared edges, was
+enumerated — and a 4-crossing planarisation does exist.
+
+**The counting bound.** \(M_{8,2} = K_8\) minus two disjoint edges has four
+vertices covered by the matching and four uncovered. Deleting a covered vertex
+leaves \(K_7 - e\), whose crossing number is 6 by Chia–Lee (true for \(n \le 12\));
+deleting an uncovered vertex leaves \(K_7 - 2e\), which is 4. Each crossing
+survives \(8 - 4 = 4\) deletions, so
+$$4\operatorname{cr}(M_{8,2}) \;\ge\; 4 \cdot 6 + 4 \cdot 4 \;=\; 40,
+\qquad \operatorname{cr}(M_{8,2}) \;\ge\; 10 .$$
+
+**The upper bound is 12**, from Mohar's construction; an independent 2-page local
+search also finds 12 and nothing better. Since the 2-page crossing number is an
+upper bound for the crossing number, a drawing with 11 would have refuted the
+conjecture here — none was found.
+
+So \(\operatorname{cr}(M_{8,2}) \in \{10, 11, 12\}\) with the conjecture asserting
+12. **This is the first open case of Mohar's Conjecture 5 and it is now confined
+to three values.**
+
+Two notes on what will and will not close it. Exhaustive planarisation cannot:
+at 26 edges there are 181 independent pairs, and reaching 11 crossings would mean
+enumerating \(\binom{181}{11} \approx 10^{17}\) choices. But the object is **8
+vertices**, which is squarely inside the range where exact ILP branch-and-cut is
+reported reliable (\(\operatorname{cr} \le 20\) on its benchmark) — unlike the
+\(n = 10\) case, which sits above it. The instrument question therefore has a
+different answer for this case than for the one I first named.
