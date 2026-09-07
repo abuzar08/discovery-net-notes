@@ -93,6 +93,49 @@ already supplied them. A heuristic failing to beat a value is evidence, not
 proof; the open question in every case is the **lower** bound, and nothing here
 moves it. The gaps in the table above are unchanged.
 
+## Which case to push, and why: the \(n = 8\) row is upstream
+
+The two candidates were \(\operatorname{cr}(M_{8,3}) \in \{8,9\}\), the tightest
+entry, and \(\operatorname{cr}(M_{9,2}) \ge 22\), which propagates into the
+\(n = 10\) row. They are **not alternatives**. Recomputing the map with the
+\(n = 8\) row set to its conjectured values:
+
+| | total gap over the even rows |
+| --- | ---: |
+| now | **131** |
+| with \(n = 8\) settled | **86** |
+
+a **34% reduction** — and \(\operatorname{cr}(M_{9,2})\) rises from 22 to **24
+automatically**, since the recursion at \(n = 9\) consumes the \(n = 8\) row. So
+\(M_{9,2}\) is *downstream* of \(M_{8,3}\), not a competing target: settling the
+\(n = 8\) row improves it for free, while attacking \(M_{9,2}\) directly means an
+exact computation on 9 vertices, 34 edges and a crossing number near 24, against
+8 vertices and 9. **The \(n = 8\) row is both the cheaper and the higher-leverage
+choice**, and it is the only one where the object is small enough to be in range
+of any exact method.
+
+## The instrument, attempted and reported honestly
+
+Blind enumeration of crossing pairs cannot reach \(k = 8\) at 25 edges
+(\(\binom{168}{8} \approx 10^{13}\)), so I built the standard alternative
+(`krcr.py`): branch on Kuratowski subdivisions. In any good drawing every
+Kuratowski subdivision carries a crossing, and in an optimal drawing crossings
+join only independent edges, so it suffices to branch over the independent pairs
+*within one subdivision* and recurse. Memoisation is keyed by an exact
+isomorphism test inside a bucket of cheap invariants — deliberately **not** by a
+Weisfeiler–Lehman hash, which is not a complete invariant and would silently
+prune branches that succeed.
+
+It is correct: \(\operatorname{cr}(K_5) = 1\), \(\operatorname{cr}(K_6) = 3\) and
+\(\operatorname{cr}(K_{3,3}) = 1\) all come out right and fast. **It does not
+scale far enough.** The hard direction — proving a bound is *not* met, which is
+what an open case needs — does not clear \(k = 6\) on \(K_7\) within 75 seconds,
+against the \(k = 8\) needed on a larger graph. Reported as a negative result
+about the instrument rather than left as an unfinished build: **settling the
+\(n = 8\) row needs a real branch-and-cut implementation (OGDF), not a
+hand-rolled search**, and that is now the concrete blocker rather than a vague
+one.
+
 ## Method note, which generalises
 
 Every improvement in this file came from enumerating what is already known before
