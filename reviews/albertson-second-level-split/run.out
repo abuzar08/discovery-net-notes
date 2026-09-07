@@ -1,0 +1,65 @@
+Albertson order 58 at r = 29: the three b <= 7 classes
+Z(29) = 8281;  a counterexample has cr(G) <= 8280
+
+PART 1   which classes inherit a usable clique-cover bound
+   b=6 c=(51, 1):    |C|=51, H-C is 7 vertices covered by 3 cliques,
+        theta(H[C]) >= 26, so every packing has 2t + e <= 25;
+        triangle + perfect matching of the rest costs 26  -> FORBIDDEN, transfer usable
+   b=6 c=(50, 1, 1): |C|=50, H-C is 8 vertices covered by 4 cliques,
+        theta(H[C]) >= 25, so every packing has 2t + e <= 25;
+        |C| is even, so C - T is odd and has no perfect
+        matching for trivial reasons  -> no transfer
+   b=7 c=(49, 1, 1): |C|=49, H-C is 9 vertices covered by 5 cliques,
+        theta(H[C]) >= 24, so every packing has 2t + e <= 25;
+        triangle + perfect matching of the rest costs 25  -> allowed, no transfer
+
+PART 2   the (51,1) class: second-level barriers surviving both filters
+   m=838 (X=52): 3 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 52, split bound 3783
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 52, split bound 7929
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 52, split bound 7858
+   m=839 (X=54): 3 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 54, split bound 3761
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 54, split bound 7858
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 54, split bound 7828
+   m=840 (X=56): 3 survive
+        s= 0 :   1 barriers, e.g. sizes (47, 1) costing 48 of 56, split bound 3740
+        s=22 :   1 barriers, e.g. sizes (3, 1, 1)+1^21 costing 48 of 56, split bound 7827
+        s=23 :   1 barriers, e.g. sizes (1, 1, 1)+1^22 costing 25 of 56, split bound 7798
+
+PART 3   why they still survive, and by how little
+   Family A (s = 0, sizes (47,1)).  Here R = T u B is only 9 vertices,
+   so the second-level split has almost nothing to work with: the
+   feasibility cap e(H[R]) <= C(9,2) = 36 forces P up to 594 and A
+   carries the whole bound, L(49, 582).  This is the self-similar
+   descent case -- C shrinks by 4 while theta drops by 2, so the
+   transfer reapplies verbatim on 47 = 2*24 - 1 vertices -- and it is
+   still the furthest from Z.
+   Families B (s = 22) and C (s = 23).  Now R is 31 or 32 vertices and
+   the split is strong: A is a clique K_26 or K_27 of G worth 4724,
+   and R carries at most e(H) + P - |A| r + Y_A H-edges, so G[R] is
+   nearly complete.  The bound is minimised at Y_A = 47 or 48, where
+   the excess left on R is only 4 or 5, so 27 or 28 of its vertices
+   are low and Gallai forces a clique block of order 23 or 24.
+   The profile is a narrow dip in Y_A: it is above Z at both ends
+   and only the middle survives.  Closing it needs a few hundred more,
+   from the e_G(A,R) edges the split discards or from a still sharper
+   crossing bound at high density.
+
+   Kleitman bipartite bound on a 48-vertex split, for reference:
+      cr(K_{24,24}) >=  14572   kills
+      cr(K_{20,28}) >=  13832   kills
+      cr(K_{16,32}) >=  11520   kills
+      cr(K_{14,34}) >=   9900   kills
+      cr(K_{12,36}) >=   8078   survives
+      cr(K_{ 8,40}) >=   4256   survives
+      cr(K_{ 4,44}) >=    756   survives
+      cr(K_{ 1,47}) >=      0   survives
+
+CONCLUSION
+   The second-level split plus the dense-subgraph bound raise the
+   three surviving second-level barriers of the (51,1) class well
+   above cr(K_26) = 4724, to the values listed in PART 2,
+   against Z(29) = 8281.  Two of the three are now within 500, but
+   none is closed, and the (50,1,1) and (49,1,1) classes do not even
+   inherit the transfer.  Order 58 at r = 29 remains open.

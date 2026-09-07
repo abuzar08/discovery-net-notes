@@ -1,0 +1,7 @@
+e(H)= 815 X= 52
+  Y_A=25: e(H[R])=86, e_G(A,R)=103, density=0.827, my g(32,86)=3840, cr(K26)+g=8564, sampling=3840
+  Y_A=47: e(H[R])=108, e_G(A,R)=125, density=0.782, my g(32,108)=3134, cr(K26)+g=7858, sampling=3134
+  Y_A=48: e(H[R])=109, e_G(A,R)=126, density=0.780, my g(32,109)=3104, cr(K26)+g=7828, sampling=3104
+  Y_A=49: e(H[R])=110, e_G(A,R)=127, density=0.778, my g(32,110)=3074, cr(K26)+g=7798, sampling=3074
+  Y_A=52: e(H[R])=113, e_G(A,R)=130, density=0.772, my g(32,113)=2988, cr(K26)+g=7712, sampling=2988
+cr(K24) 3357 cr(K25) 3997 cr(K26) 4724 cr(K27) 5546

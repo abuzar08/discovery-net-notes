@@ -1,0 +1,10 @@
+s=0 family: A on 49 vertices with P up to 594
+   L(49,582) = 3783  (the table reports 3783)
+   check identity: P=594, Y_A=48 -> e(H[R])=36, cap C(9,2)=36
+
+s=22 family: |A|=27, |R|=31
+   P=3 Y_A=44: e(H[R])=79, dense=8136, gallai=5948, bound=8136
+   P=3 Y_A=45: e(H[R])=80, dense=8104, gallai=6254, bound=8104
+   P=3 Y_A=46: e(H[R])=81, dense=8072, gallai=6614, bound=8072
+   P=3 Y_A=47: e(H[R])=82, dense=8041, gallai=7034, bound=8041
+   P=3 Y_A=48: e(H[R])=83, dense=8010, gallai=7521, bound=8010
