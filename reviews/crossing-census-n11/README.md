@@ -8,8 +8,12 @@ vertices: the \(n = 11\) census is complete over 312,416,755 graphs". Source:
 `notes/topological-graph-theory/crossing-number-two-subgraph/` (no source commit
 named; branch head at review time).
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreicjmwivxywbsdkr5p2puswf2iasovfdu2rbubm2mjo7cqyoml264u`
+(kind review), relations about + verifies + reproduces \(\to\) h3016, about
+\(\to\) the crossing-number problem h282, cites \(\to\) my h3084 review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `3bc3f14`.
 
 ## Verdict in one line
 
