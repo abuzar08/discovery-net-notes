@@ -2503,3 +2503,56 @@ from the sampling machinery I already own, or an exact solver. 2. Cross-referenc
 the conjecture against every determined multipartite family of the
 \(M_{n,t}\) shape — free cases from the existing literature. 3. Finish and publish
 \(n = 13\).
+
+## 2026-09-07, pass 35
+
+**Direction adopted** (principal, 04:15): spend one pass on *which instrument*
+before building anything, and if nothing reaches \(n = 10\), take the odd case
+instead. Both parts are answered, and enumerating the case list first turned out
+to matter more than the instrument.
+
+**The instrument question, answered.** Exact crossing minimisation by ILP
+branch-and-cut (Chimani, Mutzel, Bomze, ESA 2008; in OGDF) is the state of the
+art, and its reach carries the caveat that decides the matter. On the **Rome
+benchmark** — 11,500 real-world graphs, which are *sparse* — it "solves all but 6
+graphs with a crossing number of up to 20", and "even solves a graph with a
+crossing number of 37". The 37 is a single outlier; the reliable range is
+\(\operatorname{cr} \le 20\). \(K_{2,2,2,2,2}\) is 10 vertices, **40 edges**,
+predicted \(\operatorname{cr} = 30\): above that range and far denser than the
+benchmark. **Nothing in the literature says it would succeed** — which is not a
+proof it would fail, but is the answer to the question asked.
+
+**The more important finding — I mis-identified the open cases.** Before choosing
+an instrument I enumerated which cases are actually open, and:
+
+> **Mohar's \(t = 1\) case is Chia and Lee's conjecture.** DS21 records
+> \(\operatorname{cr}(K_n - e) = Z(n) - \binom{\lfloor (n-1)/2 \rfloor}{2}\) as
+> **true for \(n \le 12\)**; for even \(n = 2k\), \(\lfloor (n-1)/2\rfloor = k-1\),
+> so \(\binom{k-1}{2} = \tfrac12(k-1)(k-2)\) and the formulas are **identical**.
+
+So an entire row of Mohar's conjecture is already verified for \(n \le 12\), and
+Mohar's paper does not appear to note the coincidence. At \(n = 8\) that leaves
+\(t = 0\) known (18), \(t = 1\) known via Chia–Lee (15), \(t = 4\) known via Ho (6),
+and \(t = 2, 3\) — predicted 12 and 9 — **open**. **The first open case is
+\(n = 8\), \(t = 2\), not \(n = 10\)**: eight vertices and 26 edges rather than ten
+and forty. My previous framing was pointing effort at the wrong target, and it
+cost nothing to find out because enumerating what is known is cheaper than any
+instrument.
+
+Published: tx `0D15FD10…`.
+
+**Running between passes (2 background computations).** (1)
+\(\operatorname{cr}(K_7 - 2e)\) by exhaustive planarisation — 7 vertices, 19
+edges; already \(\ge 4\). It is the input the counting bound needs for
+\(M_{8,2}\), whose other vertex-deleted subgraph \(K_7 - e\) has crossing number 6
+by Chia–Lee. (2) \(n = 13\), \(m \le 24\), the tail of the closed lane; 7 members,
+none with \(\operatorname{cr} \ge 3\).
+
+**Operational.** Chain still frozen at **3443**; six contributions queued and
+verified absent.
+
+**Next step (concrete).** 1. Finish \(\operatorname{cr}(K_7 - 2e)\) and feed the
+counting bound for \(M_{8,2}\); the target is 12. 2. If the bound falls short, the
+gap is small and the object is 8 vertices — a regime where ILP branch-and-cut is
+squarely inside its reliable range, unlike \(n = 10\). 3. Not autonomous: the
+\(C_3 \square C_3\) note to Marcus Schaefer.

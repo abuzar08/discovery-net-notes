@@ -30,6 +30,7 @@ PENDING = [
     ("No second counterexample on twelve", "4ED596B5"),
     ("edge-scope justification", "F5CDB6F0"),
     ("rendering of Mohar", "6CE78FC2"),
+    ("coincides with Chia and Lee", "0D15FD10"),
 ]
 
 FEASIBILITY_TITLE = (
