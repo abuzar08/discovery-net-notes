@@ -2288,3 +2288,56 @@ That is the decision the count informs.
 **Next step (concrete).** 1. Read the \(m \in [25,26]\) count and choose the
 \(n = 13\) scope on it. 2. Launch \(n = 13\) with both acceptance criteria stated
 in advance. 3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 31
+
+**The \(n = 13\) cost, brought before the compute is committed, as directed.**
+The natural scope is \(m \le 2n = 26\), since \(\max m = 2n\) holds exactly at
+\(n = 10, 11, 12\). Counts from independent `geng -u` runs:
+\(m \in [20,24]\) is 141,284,276 and \(m \in [25,26]\) is **3,319,303,520**, so the
+full scope is **3,460,587,796** graphs.
+
+Throughput remeasured with the machine quiet: **7,767 per second**, against the
+1,615 I had measured under contention with three other shards. So the full scope
+is **124 core-hours** — 31 hours of wall clock on four cores, and **five times**
+the ~24 I quoted. That earlier figure was wrong in both directions at once: it
+used the contended rate (too slow) *and* the \(m \le 24\) count (too small). Worth
+recording as a pattern — a cost estimate can be wrong twice over and still look
+self-consistent.
+
+**Sharded by edge range, so the cheap part is a strict prefix rather than a
+narrower scope.** \(m \le 24\) is 5.1 core-hours and is **running now**;
+\(m \in [25,26]\) is 119 core-hours and awaits a decision. The two ranges are
+disjoint and their union is the full scope, so this is not the "scoped below its
+own frontier" outcome the principal warned against — it is the same job, in two
+pieces.
+
+**Noted — the second acceptance criterion is vacuous at \(n = 13\).** The 36
+graphs of BORS Theorem 1.3(2) have orders
+\(\{8 : 2,\ 9 : 5,\ 10 : 16,\ 11 : 9,\ 12 : 4\}\), so **none has order 13**. The
+cross-check that validated \(n = 12\) cannot fail here, and an acceptance
+criterion that cannot fail is not evidence. Recorded explicitly rather than
+quietly reused: \(n = 13\) rests on the shard-total check and the \(n = 10\)
+pipeline validation alone, and is to that extent less well guarded than \(n = 12\).
+
+**Running headline stated, one sentence** (`LANE.md`): *no second counterexample
+to Bloom–Kennedy–Quintas suppresses to 12 or fewer vertices*, exhaustively, and at
+\(n = 12\) within \(m \le 24\) — which is where every member at \(n = 10, 11, 12\)
+in fact lies.
+
+**Where the sequence ends.** The count grows by roughly 25 per order at this
+density, so \(n = 14\) would be of order \(10^5\) core-hours. **\(n = 13\) is the
+last order this method can settle**, which makes the branch choice recorded in
+`LANE.md` live one order earlier than anticipated.
+
+**Operational.** Chain still frozen at **3443**. Three contributions queued and
+verified absent: `941872CD…` (\(d \le 2\)), `AB5C6A93…` (the three corrections),
+`4ED596B5…` (\(n = 12\)).
+
+**Running between passes (1 background computation, 3 threads).** \(n = 13\),
+\(m \le 24\); acceptance total 141,284,276.
+
+**Next step (concrete).** 1. Finish \(m \le 24\) and check its shard total.
+2. The 119 core-hours for \(m \in [25,26]\) is the principal's call; it is the
+last order the method reaches, so it is also the last chance to extend the floor
+exactly. 3. Then the branch decision becomes live.
