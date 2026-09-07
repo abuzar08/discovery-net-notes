@@ -2001,3 +2001,65 @@ queued, no duplicate was created.
    the single obstruction to \(r=29\). It needs a genuinely different idea.
 3. Ask for review of the order-57 chain and of `dichot.py`, whose defect-Hall
    step is the load-bearing new inference.
+
+## 2026-09-06 — pass 25
+
+### ORDER 57 AT \(r=29\) IS CLOSED
+
+All five rows of the frontier, \((57,824)\) through \((57,828)\), are eliminated.
+What remains of \(r=29\) is **order 58 alone**, with the single class \(b=6\),
+\(c=(51,1)\) at \(|R|\ge11\).
+
+**The residue.** The two big blocks are disjoint and, in every admissible
+multiset here, *cover* \(L\) — their orders sum to \(|L|\), the connector block is
+all cut vertices by Constraint C, and two blocks share at most one vertex. So
+\(L=Q_1\sqcup Q_2\) and for every \(z\in Z\)
+$$a_z+b_z=|N_H(z)\cap L|=(28-x_z)-|N_H(z)\cap R| .$$
+A vertex with \(a_z=0\) then has \(b_z\le q_2\), i.e.
+\(x_z+|N_H(z)\cap R|\ge 28-q_2=:\mathrm{thr}_1\) — expensive, since every \(z\) is
+high so \(x_z\ge1\) already and \(\sum_z|N_H(z)\cap R|\le 2e(H[R])\). Hence
+$$k_1(\mathrm{thr}_1-1)\le Sx+2e(H[R])-|Z|,\qquad Sx=X-54+a\le 9 .$$
+
+**Why decisive.** At \((26,20)\), \(|R|=11\): \(Sx=9\), \(|Z|=9\), \(e(H[R])=0\),
+so \(k_1=k_2=0\). Concretely every \(z\) has \(d_H(z)=27\) and no \(H\)-neighbour
+in \(R\), so \(a_z+b_z=27\) with \(b_z\le20\), forcing \(a_z\ge7\) where the
+earlier argument had only \(a_z\ge1\). The surviving \(k_1=1\) sub-cases do not
+exist. At \(|R|=10\) the caps are \(k_1\le1,1,0\) against surviving \(k_1=3,2,2\).
+Every \((k_1,k_2)\) inside the caps was already closed, so the row dies.
+
+### State of \(r=29\)
+- Order 56 and below: impossible (join/edge budget).
+- Order 57: **CLOSED**, all five rows.
+- Order 58: one class, \(b=6\), \(c=(51,1)\), \(|R|\ge11\). Single obstruction.
+
+### Published
+- GitHub commit `19724a0`: new `residue57.py` with expected output, README
+  section in LaTeX, `SHA256SUMS` regenerated (57/57 verify). Blob link HTTP 200.
+  `residue57.py` SHA-256
+  `f621e48a60de7dd3196bc1cf760955f77a285b600b618ae756cf26e3b7d44526`.
+- Discovery Net: LEMMA `bafkreiby3yyat6arjzslah4ctyfbl6iel2l4leqrwv5sz54qbfzzbq5fxy`,
+  tx `5FBECEB69DB98DEB2A217DAAFB89EC5B325F81EFE5D6C393BC477BE5C0B4B6AE`,
+  check_tx_code 0. Relations only to **committed** refs — `refines` the row-827
+  lemma (3285), `cites` the order-57 finding (3293) — both verified committed
+  before submitting, applying the lesson from last pass's rejection. **Queued.**
+
+### Blocked
+- The chain has been stalled since 2026-09-06T16:03Z at block 3443. **Five** of
+  my contributions are queued (passes 21--25). Not resubmitting; the previous
+  outage cleared after about nine hours with everything committing untouched.
+- \(r=29\) is not proved: order 58's single class remains.
+- No background computations left running.
+
+### Next step (concrete)
+1. Order 58, class \(b=6\), \(c=(51,1)\), \(|R|\ge11\), is now the **only**
+   obstruction between the present state and \(r=29\). The residue argument that
+   just closed order 57 has NOT been tried there, and it is the natural next
+   move: at order 58 the same identity reads
+   \(a_z+b_z=(28-x_z)-|N_H(z)\cap R|\) with \(L=Q_1\sqcup Q_2\), and the class has
+   a single \(w\) with \(x_w\ge25\), so \(Sx=X-x_w\le X-25\) is much larger than
+   at order 57 — which is exactly why the caps will be weaker. Whether they are
+   weak enough to matter is a computation, not a guess.
+2. If that fails, the honest summary is that \(r=29\) reduces to one explicit
+   finite class and needs a new idea there.
+3. Ask for review of the order-57 closure chain: `dichot.py` and `residue57.py`
+   carry the two load-bearing new inferences.
