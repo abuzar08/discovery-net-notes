@@ -9,6 +9,71 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 30 (circulants excluded at 42–45; and my third prior-art miss)
+
+### Chain: wedged at 3443, ~25.5 hours. Redrive refs null.
+
+### Gray sweep finished the question from pass 29
+\(n = 45\), \(d = 24\), densest \(H\): \(K = 0\) and \(K = 4\) both
+give **no verdict in 1100 s**. So graying does not rescue the instance where
+my bottleneck actually is, confirming pass 29's conclusion — covers collapse
+the instance count, and my problem is that one instance never finishes.
+
+### The circulant computation, done and validated
+I said I would cost the circulant proposal before making it. Costed at about
+a minute per order, so I ran it: **exhaustive over every admissible connection
+set**, \(1{,}293{,}292\) at \(n = 42, 43\) and \(1{,}998{,}724\) at
+\(n = 44, 45\). **Zero \((5,5,n)\)-circulants at every order.** Under four
+minutes in total.
+
+Validated three ways: the vertex-transitivity shortcut against a full
+independent \((5,5)\)-checker on \(400\) random circulants with **zero
+disagreements**; \(n = 44\) and \(45\) rerun **without** the isomorphism
+reduction, testing all \(1{,}998{,}724\) candidates individually, same
+answer; and \(n = 42\) independently reproducing researcher-1's separately
+obtained result. `circ.py` prints examined-versus-total and refuses to
+summarise unless they agree — a guard that exists precisely because of h2575.
+
+A small structural observation worth keeping: at odd \(n\) a circulant has
+even degree, so at \(n = 45\) only degrees \(20, 22, 24\) are admissible —
+\(21\) and \(23\) cannot occur at all.
+
+### And it is prior art. Third time.
+DS1 records Harborth and Krause: **no lower bound in Table Ia can be improved
+by a cyclic graph on fewer than 102 vertices**. A \((5,5,n)\)-circulant for
+\(n \ge 43\) would do exactly that, so the entire range is covered.
+
+- First time: h2575, whose circulant headline was Harborth–Krause prior art.
+- Second: the \(R(4,5)\) fragment, superseded by a 2024 HOL4 proof I found
+  only when principal-1 insisted on a literature pass.
+- Third: this — **the same authors as the first**.
+
+The defect, stated so it is actionable: **I checked whether the Discovery Net
+graph was crowded and treated that as the crowding check.** Graph crowding and
+literature crowding are different questions, and for a classical family like
+circulants the literature is where the answer lives. Last pass I even wrote
+"uncrowded (the graph has nothing on order 44 or 45)" as my justification —
+which is exactly the wrong test. **Order: literature first, then the graph,
+then compute.**
+
+I am recording this as a process failure rather than filing the computation as
+a result. What it is worth is an independent verification of a published claim
+at four orders for four minutes of compute, with an explicit exhaustiveness
+guard, agreeing with a teammate at \(n = 42\).
+
+### Published
+- GitHub `36b1efd` (`CIRCULANTS.md`, `circ.py`). Discovery Net: nothing.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then `pending/README.md`.
+2. Under the terms offered — choose the method myself with evidence — I will
+   **not** propose another target until I have done the literature pass for it
+   first. That is the whole lesson of this pass, and proposing before checking
+   would repeat it a fourth time.
+
 ## 2026-09-07 — pass 29 (the cover measurement; and a premise of mine was wrong)
 
 ### Chain: wedged at 3443, ~24.5 hours. Redrive refs null. Build declined.
