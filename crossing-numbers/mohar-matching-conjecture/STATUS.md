@@ -17,12 +17,28 @@ $$\operatorname{cr}(M_{n,t}) \;\ge\; \left\lceil \frac{2t \operatorname{cr}(M_{n
 Nothing below assumes the conjecture; the recursion is seeded only by values that
 are known in the literature or were computed exactly here.
 
-**Seeds.** \(\operatorname{cr}(K_n) = Z(n)\) for \(n \le 12\) (Harary–Hill, known);
-\(\operatorname{cr}(K_n - e) = Z(n) - \binom{\lfloor (n-1)/2\rfloor}{2}\) for
-\(n \le 12\) (Chia–Lee, verified there — and, for even \(n\), *identical* to
-Mohar's \(t = 1\) case); \(\operatorname{cr}(K_{2,2,2,2}) = 6\) (Ho, 2008); and
-computed here by exhaustive planarisation, \(\operatorname{cr}(M_{6,2}) = 1\),
-\(\operatorname{cr}(M_{7,2}) = 4\), \(\operatorname{cr}(M_{7,3}) = 3\).
+**Seeds — every one of them a published value.** \(\operatorname{cr}(K_n) = Z(n)\)
+for \(n \le 12\) (Harary–Hill, known); \(\operatorname{cr}(K_n - e) = Z(n) -
+\binom{\lfloor (n-1)/2\rfloor}{2}\) for \(n \le 12\) (Chia–Lee, verified there —
+and, for even \(n\), *identical* to Mohar's \(t = 1\) case);
+\(\operatorname{cr}(K_{2,2,2,2}) = 6\) (Ho, 2008); and the two 7-vertex values,
+which I computed here by exhaustive planarisation and then found are **also Ho's**
+(*On the crossing number of some complete multipartite graphs*, arXiv:1310.4381):
+
+| value | as a multipartite graph | Ho's theorem | formula at \(n = 2\) |
+| --- | --- | --- | ---: |
+| \(\operatorname{cr}(M_{7,2}) = 4\) | \(K_{1,1,1,2,2}\) | Thm 5.1: \(Z(5,n) + 2n\) | \(0 + 4 = 4\) |
+| \(\operatorname{cr}(M_{7,3}) = 3\) | \(K_{1,2,2,2}\) | Thm 4.1: \(Z(5,n) + \lfloor 3n/2 \rfloor\) | \(0 + 3 = 3\) |
+
+**Both agree with my computations exactly.** So the attribution is Ho's and my
+computations are independent verifications rather than determinations — and,
+usefully, the map's lower bounds now rest entirely on published values, with the
+exhaustive planarisation serving as a check on them rather than as their source.
+
+Ho's families do **not** reach the open cases: \(M_{8,3} = K_{1,1,2,2,2}\) needs
+\(K_{1,1,2,2,n}\) and \(M_{8,2} = K_{1,1,1,1,2,2}\) needs \(K_{1,1,1,1,2,n}\),
+neither of which is among \(K_{1,1,1,1,n}\), \(K_{1,2,2,n}\), \(K_{1,1,1,2,n}\),
+\(K_{1,4,n}\) or \(K_{2,2,2,n}\). The open cases stay open.
 
 ## The map
 
