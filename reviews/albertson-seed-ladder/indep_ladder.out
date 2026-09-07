@@ -1,0 +1,22 @@
+(1) THE FOUR RUNGS, my own ladder
+   counting only            cr(K13) >=  217, cr(K24) >= 3243, cr(K27) >= 5357, cr(K28) >= 6250
+   MPR 2015 (219)           cr(K13) >=  219, cr(K24) >= 3268, cr(K27) >= 5399, cr(K28) >= 6299
+   EuroCG 2015 (223)        cr(K13) >=  223, cr(K24) >= 3336, cr(K27) >= 5512, cr(K28) >= 6431
+   CCCG 2021 (225, 315)     cr(K13) >=  225, cr(K24) >= 3357, cr(K27) >= 5546, cr(K28) >= 6471
+
+(2) PIECE 2, from the forced degree sum
+   counting only            thresholds [54, 54, 54], split minima [10714, 10714, 10714] against Z(29) = 8281  holds
+   MPR 2015 (219)           thresholds [54, 54, 54], split minima [10798, 10798, 10798] against Z(29) = 8281  holds
+   EuroCG 2015 (223)        thresholds [54, 54, 54], split minima [11024, 11024, 11024] against Z(29) = 8281  holds
+   CCCG 2021 (225, 315)     thresholds [54, 54, 54], split minima [11092, 11092, 11092] against Z(29) = 8281  holds
+
+(3) PIECE 3 (b >= 8) and (4) PIECE 1, with my cr and my g substituted
+   counting only            piece 3 survivors [0, 0, 0]; piece 1 rows (gallai, split, neither) [(1, 1, 0), (2, 3, 0), (2, 5, 0)]
+   MPR 2015 (219)           piece 3 survivors [0, 0, 0]; piece 1 rows (gallai, split, neither) [(1, 1, 0), (2, 3, 0), (2, 5, 0)]
+   EuroCG 2015 (223)        piece 3 survivors [0, 0, 0]; piece 1 rows (gallai, split, neither) [(1, 1, 0), (2, 3, 0), (2, 5, 0)]
+   CCCG 2021 (225, 315)     piece 3 survivors [0, 0, 0]; piece 1 rows (gallai, split, neither) [(1, 1, 0), (2, 3, 0), (2, 5, 0)]
+
+(5) THE s = 23 BARRIER, where the dense bound stops
+   my g(32,113) = 2988, the sampling bound alone = 2988, needed 3557: short by 569
+   mean f_v = 113 x 30 / 32 = 105.9375 against the cap 113
+   my own strongest-averaging variant gives 2988 (the contribution says at most 3016), still short of 3557
