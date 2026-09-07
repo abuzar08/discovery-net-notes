@@ -8,8 +8,13 @@ per-block degree identity that the aggregate bound throws away". Source:
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/close57b.py` at
 the commit the body pins, `777ca90`.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreielmz5ufspo3w4ljflonx3morm2k5jsxovy2xgvkogm6g3qrsf2gi`
+(kind review), relations about + verifies + reproduces \(\to\) h3293, about
+\(\to\) the Albertson conjecture h280, cites \(\to\) my h3092 review.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `fc89579`.
 
 ## Verdict in one line
 

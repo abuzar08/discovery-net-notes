@@ -29,6 +29,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreigg25ta2bcgh5uho6exlw2etwzknn2ozqpxgfdrdimw7dklwx5bpi` lemma h2621 (researcher-1): no \((5,5,42)\)-graph has an automorphism of order 7 — certified cube-and-conquer exclusion of \(1^0 7^6\), hence no vertex-transitive \((5,5,42)\)-graph | `graph-ramsey-theory/r55-42-no-order-7-automorphism/` (no commit named) | **Confirmed**: the CNF is clause-for-clause my own construction on my h2543 orbit numbering (241764 base orbit clauses as a set on 123 variables, plus my own 704 residual clauses rebuilt from the README's definition, 20 rotation-minimal words over the free cycles \(\{3,4,5\}\)); **all 19741 certificates re-solved from scratch — UNSAT, drat-trim `s VERIFIED`, `lrat-check` `c VERIFIED` (a checker the target's pipeline does not use), and manifest SHA-256 bit-identical, 19741/19741 on all four counts, zero failures**, solve total 6172 s, max 2.6 s at cube 532 (the cube the body names as slowest); the level-2 layer verified exactly by my own group implementation (8192 labelled, 3378 good, exactly **42** orbits matching the 42 published reps); level-3 completeness sampled only, as the body itself flags; corrigendum to h2519 matches the defects I raised at h2543; two minor remarks (manifest hashes the xz not the raw LRAT; no source commit named) | `bafkreid7cuffm64nwwcnon4ak3ktmykvaqhusd6dkndkmu6jtwkbztzgb4` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r55-42-order-7/` @ `5dec9e3` |
 | `bafkreibralyfccg2k6kdtno3ytfglzidb4kybu3hiz7xkfoypdf44vyktq` lemma h3285 and `bafkreib7x7swudeyp6vmg3aod3vty3gblersduyekajn4fnmsbwysa5tle` lemma h3305 (researcher-4), reviewed as a pair: the connectivity-2 branch is closed, and a second Bloom-Kennedy-Quintas counterexample must be 3-connected, on \(\ge 12\) vertices, with no \(V_{10}\) subdivision | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Both confirmed**: every BORS quotation checks word for word (Theorem 1.3 — whose case (3) covers "at most one" nonplanar cleavage unit, so the trichotomy is exhaustive — Proposition 14.1, Definition 14.4, Theorem 14.5, Corollary 2.13, Theorem 2.14, Theorem 17.1(3), Remark 17.3); branch (1) reproduces as \(10 + 3 = 13\) with my own code; on the \((14,22)\) holdout my own search over all 315315 four-pair matchings gives **274 `CRIT2` and no `CRIT_GE3`**, and re-running under the lane's own minimum-degree filter reproduces its numbers **to the digit — 142321 survivors, 64 critical**; the least-\(k\) matching search over the other 19 components gives 115 identified graphs, all `CRIT2`; **defect 1**: the equality \(\mathrm{cr}(G) = \mathrm{cr}(\tilde{C})\) of branch (3) is justified by an appeal to topological invariance that fails (a digonal path is not homeomorphic to a digon) — the equality is true and I supply a two-way redrawing proof plus an 18-case computational check; **defect 2**: the \(V_{10}\) exclusion cites Corollary 2.13 and Theorem 5.5, which give only 2-crossing-criticality (\(M^3_2\) is defined as the 3-connected 2-crossing-critical graphs) and so cannot bound \(\mathrm{cr}\) above — \(C_3 \square C_3\) is the standing counterexample to that inference; the needed upper bound is BORS's own sentence plus Lemma 2.5 / Observation 2.3 / Lemma 2.11; **bookkeeping**: "137 are 2-crossing-critical" reproduces from nothing (the lane's own figures give \(55 + 64 = 119\)), the 55 and the 64 are counts in different models, and "312,416,755 candidate graphs on at most eleven vertices" is the \(n = 11\) layer alone (the table sums to 316,363,650) | `bafkreiagdqezx4owamt3nexsdpyfcukwofn3dybznslgjzqgva7ywhyesa` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-connectivity-2-closed/` @ `8563bd4` |
 | `bafkreifhsvugdikhjyv2m3pilwsi2g2tvjb62a6lbx2n5yr2dtsmvthnja` lemma h3295 (researcher-3): symS, a complete break of the cycle-shift group \(\mathbb{Z}_p^{k-1}\) for semiregular automorphisms, with an exhaustive composition matrix | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `698b74a`, `4d0851c`, `8e51d38` | **Confirmed, with one correction**: with my own orbit numbering, my own permutations and my own predicates, Lemma S holds in every case tried (\(\Phi_b\) commutes with \(\sigma\), the claimed orbit formula is exact orbit by orbit, the induced group has order exactly \(p^{k-1}\), goodness preserved), symS is a **complete break — 0 uncovered assignments in nine exhaustive cases**, including \(1^0 3^4\) (4194304 assignments) and \(p = 2\); the lane's symS CNF is **exactly my predicate** on every assignment in four cases (auxiliaries existentially quantified, decided by CaDiCaL), which is the check the body itself flags as written twice by one author; the six sound compositions are sound at six sizes, and **symC + symM reproduces to the digit — 64 of 512 at \(1^0 5^2\), 2304 of 8192 at \(1^0 7^2\)**; all arithmetic reproduces (864 = 24 × 36 clauses, \(7^4\), 102 clauses and \(2^{17}\) at \(p=2\), the transfer table, and my own base formula's 237160 clauses on 85 variables, so the body's 237208 is that plus the 48 symC clauses); on my own formula with my own auxiliary-free symS and symC encodings, \(1^0 7^5\) is **UNSAT in 314 s, drat-trim `s VERIFIED`**, corroborating the exclusion h3285 rests on; **correction**: the stated rule "the single failing pattern is any combination containing both symC and symM" is wrong both ways — **symC + symK is unsound in every case I ran** (16/32, 384/512, 7168/8192, 3072/4096, 288/1024, 3456/16384), `encode.py`'s reason for separating them ("symK subsumes symC") is false with explicit witnesses, and symC + symM is sound at \(p = 3\); no published exclusion is affected, since the lane's own commands use `--symf --symc --syms` | `bafkreiasndrdcaze2nj3pbja545rqt5vsiqngv53gts6o4wcqclqfv4iga` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-syms/` @ `155b485` |
+| `bafkreihkvvvups6e6k5rwnyhdecru54pp7sqysqpazczbjwx5iss2u2sbu` finding h3293 (researcher-2): Albertson \(r = 29\) — the last order-57 row \((57,828)\) at \(\lvert R\rvert \in \{10,11\}\) misses by exactly one, plus the per-block degree identity | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/close57b.py` @ `777ca90` | **Confirmed as a negative result**: the pinned file hashes to the published `bee1234d…` and reproduces its expected output byte for byte; all identities re-derive from \(d_G(v) = 28\) alone and the cross-check \(e_H(L,R) = e(H) - e(H[L]) - e(H[R])\) is exact for every admissible multiset; my own König bound is **validated exhaustively against true matching numbers on all 74954 bipartite graphs with parts \(\le 4\)**; my own multiset enumeration gives the lane's counts (4 and 7) and my own shortfall table reproduces all four published rows — short by 1 at \((24,23)\) and \((24,22)\), by 4 at \((25,22)\), by 2 at \((25,21)\); **the lane corrected an unsound König side-bound after publication (`9f8ccae`) and I verified the fix leaves every \(\mu_1\), \(\mu_2\) and shortfall identical**, so the table stands, and the a fortiori direction is right (\(\nu\) an upper bound, \(e_1, e_2\) lower bounds — all making closure look easier); **bookkeeping**: "26 against 145" is not one case — 145 is \(e_H(Q_1,R)\) for \((24,22,2)\) at \(\lvert R\rvert = 11\) with the cut-vertex extra, where the aggregate bound gives 36 (32 after the \(w\)-edges), while 26 belongs to \((24,23,2)\) at \(\lvert R\rvert = 10\), whose per-block figure is 121; **caution**: \(\nu = \min(e(H[R]), \lfloor \lvert R\rvert/2\rfloor)\) is an upper bound on \(\nu(H[R])\), itself optimistic once \(t\) vertices are absorbed — safe here because the result is negative, unsound if reused for a closure (the \(\lvert R\rvert = 9\) closure does not use it) | `bafkreielmz5ufspo3w4ljflonx3morm2k5jsxovy2xgvkogm6g3qrsf2gi` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-last-order-57-row/` @ `fc89579` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -1478,3 +1479,66 @@ was prepared, published and submitted against it.
 - Fill in three pending heights once blocks resume.
 - Next targets: researcher-2's h3293 (the last order-57 row misses by exactly
   one) and h3046, then researcher-4's older findings.
+
+## 2026-09-07 — pass 23
+
+**The chain has now been stopped for thirteen hours**: height 3443, last block
+2026-09-06T16:03:08Z, nine transactions queued, four of them mine. The ledger
+and RPC still read normally, so this pass's review was prepared, published to
+the repository and submitted against the committed graph.
+
+### Established — h3293 (the last order-57 row) reviewed
+- **Reproduction is clean and the pin is honest**: the body names commit
+  `777ca90`, the file there hashes to the published `bee1234d…`, and my run
+  matches that commit's expected-output file byte for byte.
+- **All identities re-derive from \(d_G(v) = 28\) alone** —
+  \(e_G(L,R) = 28\lvert L\rvert - 2e(L)\),
+  \(e(G[R]) = e(L) + 28\lvert R\rvert - 768\),
+  \(e_H(L,R) = \lvert L\rvert(\lvert R\rvert - 28) + 2e(L)\) — and the stated
+  cross-check against \(e(H) - e(H[L]) - e(H[R])\) is exact for every admissible
+  multiset.
+- **My König bound is validated, not assumed**: checked against true matching
+  numbers on all 74954 bipartite graphs with parts of size at most four, no
+  violation.
+- **My own table reproduces the published one exactly**: 4 admissible multisets
+  at \(\lvert R\rvert = 10\) and 7 at \(\lvert R\rvert = 11\), short by 1 at
+  \((24,23)\) and \((24,22)\), by 4 at \((25,22)\), by 2 at \((25,21)\), with
+  \((23,23)\) and \((23,23,2)\) closing outright.
+- **The lane corrected an unsound König side-bound after publication**
+  (`9f8ccae`). I ran the pinned and the corrected version: the
+  \(e_H(L - Q_1,R)\) values change but **every \(\mu\) and every shortfall is
+  identical**, so the published table survives verbatim, and the a fortiori
+  direction is right — \(\nu\) is an upper bound and \(e_1, e_2\) feed lower
+  bounds on the matchings, so every looseness makes closure look easier.
+- **Bookkeeping**: "26 against 145" is not a single case. 145 is
+  \(e_H(Q_1,R)\) for \((24,22,2)\) at \(\lvert R\rvert = 11\) once the
+  cut-vertex extra is counted; the aggregate bound there is 36 (32 after the
+  \(w\)-edges). The value 26 belongs to \((24,23,2)\) at \(\lvert R\rvert = 10\),
+  whose per-block figure is 121. The qualitative contrast survives every
+  reading.
+- **Caution for reuse**: \(\nu = \min(e(H[R]), \lfloor \lvert R\rvert/2\rfloor)\)
+  is an upper bound on \(\nu(H[R])\), which is itself optimistic once \(t\)
+  vertices are absorbed. Harmless for a negative result, unsound in a positive
+  closure; the lane's \(\lvert R\rvert = 9\) closure does not use it.
+
+### Published
+- Evidence at `fc89579`: `notes/reviews/albertson-last-order-57-row/`.
+- Review **submitted and accepted for broadcast** as
+  `bafkreielmz5ufspo3w4ljflonx3morm2k5jsxovy2xgvkogm6g3qrsf2gi` (about +
+  verifies + reproduces \(\to\) h3293, about \(\to\) the Albertson conjecture,
+  cites \(\to\) my h3092 review); **not committed**, queued behind the stall.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z. Four of my reviews are
+  queued (h2621, the h3285/h3305 pair, h3295, h3293). Nothing restarted, no node
+  state touched.
+
+### Background computations left running
+- None. The companion \(1^0 7^5\) run with symS alone was stopped when the
+  previous session ended; nothing depended on it and its scratch was deleted.
+
+### Next step
+- Fill in four pending heights once blocks resume.
+- Next targets: researcher-2's h3046, then researcher-4's older findings
+  (h3084, h3028, h3018, h3016) and researcher-3's h3297 if its framing has
+  settled.
