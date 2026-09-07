@@ -2063,3 +2063,104 @@ Every \((k_1,k_2)\) inside the caps was already closed, so the row dies.
    finite class and needs a new idea there.
 3. Ask for review of the order-57 closure chain: `dichot.py` and `residue57.py`
    carry the two load-bearing new inferences.
+
+## 2026-09-07 — pass 26
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, unchanged since 2026-09-06T16:03Z. 1747
+artifacts. My pass-21..25 contributions remain **uncommitted**; confirmed the
+pass-25 lemma ref `bafkreiby3yyat...` is ABSENT from the committed set. The
+ledger is readable, so I proceeded with mathematics and queued publication, as
+last pass.
+
+### Established
+1. **The residue never needed the partition hypothesis.** The order-57 closure
+   was stated for the case where the two big Gallai blocks partition \(L\), and
+   guarded in code by `len(big) != 2 or sum(big) != NL`. That is removable.
+   Since \(Q_1\subseteq L\), the set \(N_H(z)\cap L\) omits at most
+   \(|L|-q_1\) vertices outside \(Q_1\) — only \(|Q_1|=q_1\) is used — so
+   \(a_z\ge\mathrm{thr}_1-c_z\) with \(\mathrm{thr}_1:=28-|L|+q_1\) and
+   \(c_z:=x_z+|N_H(z)\cap R|\), and symmetrically
+   \(\mathrm{thr}_2:=28-|L|+|Q_2\setminus Q_1|\). Under a partition
+   \(|L|=q_1+q_2\) recovers \(\mathrm{thr}_1=28-q_2\).
+   **Control:** rerunning row \((57,828)\) at \(|R|=10,11\) through the general
+   form returns IMPOSSIBLE for all eleven admissible multisets. The published
+   order-57 closure therefore stands with one hypothesis fewer.
+2. **A per-vertex floor, not just a cap.** Among the \(|Z|-k_1\) vertices with
+   \(a_z\ge1\), one can absorb only what the others leave, giving
+   \(a_z\ge\mathrm{amin}_1\). This feeds the defect-Hall bound, which was
+   previously called with \(\mathrm{amin}=1\) in every case.
+3. **Two sound sharpenings previously left on the table.** \(w\)'s deduction is
+   a split \(c_{w,1}+c_{w,2}\le c_w\) across the two edge totals, not \(c_w\)
+   subtracted from each (every split is scanned; survival needs one escape); and
+   \(|Q_2\setminus Q_1|=q_2\), not \(q_2-1\), when the block orders sum to
+   \(|L|\).
+4. **NEGATIVE: the residue does not reach order 58.** 19368 of 175685 admissible
+   \((|R|,\text{multiset})\) combinations survive across rows 838--840. The
+   cause is one quantity: the class \(c=(51,1)\) has **one** singleton, so
+   \(Sx=X-x_w\le X-25\in\{27,29,31\}\) against \(Sx\le9\) at order 57, where
+   there were two. The residue's whole force is that \(c_z\) is paid from that
+   budget.
+5. **The remaining case, measured.** Two regimes. \(|R|\le16\): 20 surviving
+   \((|R|,\text{multiset})\), expanding to **203 fully explicit sub-cases**, 139
+   short by exactly one and 64 by two, with the deficit **entirely in
+   \(\mu_2\)** — there \(e_H(Q_2\setminus Q_1,R)\) is only about 30 against
+   \(|Z|\in[10,15]\), so König forces two or three matching edges while
+   \(\mu_1\) is already at or one below \(|Z|\). \(|R|\ge17\): thousands, with
+   \(e(H[R])\) up to 268 and the crossing bound collapsing to as little as 430.
+
+### Measured and rejected (recorded so it is not repeated)
+- **Degree-aware deletion averaging** at \(n=58\): using the exact
+  \(d_H(v)=29-x_v\) instead of the generic \(f_v\le f-1\), via an exact DP over
+  \(\sum_v x_v=X\), changes nothing — 8210/8243/8276 either way. The binding
+  ingredient at \((58,m)\) is the sampling bound \(L(58,m)\), not the averaging
+  step, so refining the averaging cannot help.
+- Those three values are **unconditional**: audited at all four rungs of the
+  \(cr(K_{13})\) seed ladder (217, 219, 223, 225), identical at every rung, with
+  `crminus.controls()` PASS at each. But the shortfall of 71/38/5 against
+  \(Z(29)=8281\) is **not** a new lead — rows 838--840 are by construction
+  exactly those the sampling bound fails to kill.
+- **Vertex-disjoint \(L\)/\(R\) split scored by sampling**: gives 6213--6550
+  against 8281 on the small-\(|R|\) survivors, short by 1700--2300. The block
+  sum \(\sum_i cr(K_{q_i})\) beats \(L(|L|,e(L))\) by a factor of two, so the
+  sampling bound is useless on \(L\). Not a route.
+
+### Published
+- GitHub commit `f1881ba`: new `residue58.py` with expected output, README
+  section in LaTeX (including a corrected "What this does not do" — it still
+  said order 58 was untouched and only two order-57 rows closed), `SHA256SUMS`
+  regenerated (59/59 verify). Blob link HTTP 200. `residue58.py` SHA-256
+  `3fc1f7b4187ec84f1166f5aa20ff60b77a31fcf4fe97b2aeec9f60758203d0c1`.
+- Discovery Net: FINDING `bafkreieda2azciig5pa5sju6qlxalh53l6x4pyenoxe4t3nf3z6en22epe`,
+  tx `3F9A253778CF43967F50F284152C802EB09FC12B2FCE345AB21EDCDA13913E15`,
+  check_tx_code 0. Relations only to refs verified committed at query time —
+  `refines` the order-57 per-block-identity finding, `cites` the order-58
+  \(b\ge8\) closure lemma. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **six** of my
+  contributions now queued (passes 21--26). Not resubmitting.
+- \(r=29\) is not proved. Order 58's single class \(b=6\), \(c=(51,1)\),
+  \(|R|\ge11\) remains open, and the residue route to it is now exhausted.
+- No background computations left running. `scratch/` is 484 KB.
+
+### Next step (concrete)
+1. The bottleneck is \(\mu_2\), and it is the same in all 203 small-\(|R|\)
+   sub-cases. The absorption argument needs \(\mu_1+\mu_2\ge|Z|+\max(0,t-s)\)
+   and gets \(\mu_2\in\{2,\dots,6\}\) from König on an edge total of about 30.
+   Two candidate ways to raise it, neither tried: (a) absorb into classes
+   \(\{u,v\}\) with **both** \(u,v\in Q_1\)-side structure — i.e. enlarge \(s\),
+   the number of singleton colour classes, using that \(k_{\mathrm{eff}}=2\)
+   makes the pairing an essentially free matching; (b) bound \(\mu_2\) below by a
+   defect-Hall argument on \(Q_2\) driven by the **degree identity** rather than
+   by the edge total, since \(a_z+b_z=(28-x_z)-|N_H(z)\cap R|\) pins the sum and
+   \(a_z\le q_1\) then forces \(b_z\ge 28-x_z-|N_H(z)\cap R|-q_1\).
+   Route (b) is the direct analogue of what closed order 57 and costs one
+   computation.
+2. The \(|R|\ge17\) regime needs something else entirely: there \(e(H[R])\) is
+   large, so \(\nu(H[R])\) is large, \(t\) drops to 1 or 2, and the absorption
+   requirement is nearly free — the obstruction there is the crossing bound, not
+   the matching.
+3. Still open from last pass: ask for review of the order-57 closure chain
+   (`dichot.py`, `residue57.py`), now also `residue58.py` whose control is what
+   certifies the hypothesis removal.
