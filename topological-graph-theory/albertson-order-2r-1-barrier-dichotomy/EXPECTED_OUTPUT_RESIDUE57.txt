@@ -1,0 +1,28 @@
+Order 57 at r = 29: the residue closes row (57,828)
+Z(29) = 8281
+
+X = 60, so Sx := sum_z x_z = X - 54 + a <= 9  (a = |A_1|+|A_2| <= 3)
+
+|R| = 10 : |L| = 47, |Z| = 8, 4 admissible multisets
+      (24, 23)       e(H[R])=4  thr=(5,4)  caps k1<=2 k2<=3 ; dichot survivors none  ->  IMPOSSIBLE
+      (24, 23, 2)    e(H[R])=3  thr=(5,4)  caps k1<=1 k2<=2 ; dichot survivors [(3, 4)]  ->  IMPOSSIBLE
+      (25, 22)       e(H[R])=2  thr=(6,3)  caps k1<=1 k2<=2 ; dichot survivors [(2, 5)]  ->  IMPOSSIBLE
+      (25, 22, 2)    e(H[R])=1  thr=(6,3)  caps k1<=0 k2<=1 ; dichot survivors [(2, 0), (2, 1), (2, 2), (2, 3)]  ->  IMPOSSIBLE
+
+|R| = 11 : |L| = 46, |Z| = 9, 7 admissible multisets
+      (23, 23)       e(H[R])=9  thr=(5,5)  caps k1<=4 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+      (23, 23, 2)    e(H[R])=8  thr=(5,5)  caps k1<=4 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+      (24, 22)       e(H[R])=8  thr=(6,4)  caps k1<=3 k2<=5 ; dichot survivors none  ->  IMPOSSIBLE
+      (24, 22, 2)    e(H[R])=7  thr=(6,4)  caps k1<=2 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+      (25, 21)       e(H[R])=5  thr=(7,3)  caps k1<=1 k2<=5 ; dichot survivors none  ->  IMPOSSIBLE
+      (25, 21, 2)    e(H[R])=4  thr=(7,3)  caps k1<=1 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+      (26, 20)       e(H[R])=0  thr=(8,2)  caps k1<=0 k2<=0 ; dichot survivors [(1, 0), (1, 1), (1, 2)]  ->  IMPOSSIBLE
+
+CONCLUSION
+   Every admissible (|R|, multiset, k_1, k_2) for row (57,828) is
+   impossible, so the row is ELIMINATED.
+
+   ORDER 57 AT r = 29 IS CLOSED: all five rows of the frontier
+   (57,824) ... (57,828) are eliminated.
+   What remains of r = 29 is order 58 alone, and there a single
+   class: b = 6, c = (51,1) with |R| >= 11.

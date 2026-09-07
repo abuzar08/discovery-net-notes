@@ -783,6 +783,50 @@ R\rvert,\text{multiset})\) count only from 5713/6561/7165 to 5696/6545/7149.
 **Neither frontier closes.**
 
 
+
+### The residue closes order 57 (`residue57.py`)
+
+Every survivor above has \(k_1\) at its maximum, and that configuration does not
+exist.
+
+The two big blocks are disjoint and, in every admissible multiset here, **cover**
+\(L\): their orders sum to \(\lvert L\rvert\), the connector block is all cut
+vertices by Constraint C, and two blocks share at most one vertex.  So
+\(L=Q_1\sqcup Q_2\) and for every \(z\in Z\)
+
+$$a_z+b_z \;=\; \lvert N_H(z)\cap L\rvert \;=\; (28-x_z)-\lvert N_H(z)\cap R\rvert .$$
+
+A vertex with \(a_z=0\) therefore has \(b_z=\lvert N_H(z)\cap L\rvert\le q_2\),
+i.e. \(x_z+\lvert N_H(z)\cap R\rvert\ge 28-q_2=:\mathrm{thr}_1\).  That is
+expensive: every \(z\) is high so \(x_z\ge1\) already, and
+\(\sum_z\lvert N_H(z)\cap R\rvert\le 2e(H[R])\).  Writing \(Sx:=\sum_z x_z\),
+
+$$k_1\bigl(\mathrm{thr}_1-1\bigr) \;\le\; Sx+2e(H[R])-\lvert Z\rvert,$$
+
+and symmetrically for \(k_2\).  The excess budget fixes \(Sx\): the two singleton
+components have \(\sum_i d_H(w_i)=2+a\) with \(a\le3\), so \(Sx=X-54+a\le9\).
+
+At \((26,20)\) with \(\lvert R\rvert=11\) the pinning is total — \(Sx=9\),
+\(\lvert Z\rvert=9\), \(e(H[R])=0\), so \(k_1=k_2=0\).  Concretely every \(z\) has
+\(d_H(z)=27\) and no \(H\)-neighbour in \(R\), so \(a_z+b_z=27\) with \(b_z\le20\),
+forcing \(a_z\ge7\) where the earlier argument had only \(a_z\ge1\).  The
+surviving \(k_1=1\) sub-cases simply do not exist.  At \(\lvert R\rvert=10\) the
+caps are \(k_1\le1,1,0\) against surviving \(k_1=3,2,2\).
+
+| \(\lvert R\rvert\) | multiset | \(e(H[R])\) | caps | `dichot` survivors | verdict |
+|---|---|---|---|---|---|
+| 10 | \((24,23)\) | 4 | \(k_1\le2\) | none | impossible |
+| 10 | \((24,23,2)\) | 3 | \(k_1\le1\) | \((3,4)\) | impossible |
+| 10 | \((25,22)\) | 2 | \(k_1\le1\) | \((2,5)\) | impossible |
+| 10 | \((25,22,2)\) | 1 | \(k_1\le0\) | \((2,\ast)\) | impossible |
+| 11 | \((26,20)\) | 0 | \(k_1\le0\) | \((1,\ast)\) | impossible |
+| 11 | the other six | | | none | impossible |
+
+> **Order 57 at \(r=29\) is CLOSED: all five rows \((57,824)\) through
+> \((57,828)\) are eliminated.  What remains of \(r=29\) is order 58 alone, and
+> there a single class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\).**
+
+
 ### Not every colour class is a pair (`singleton.py`)
 
 Every absorption above was costed as if it needed a class \(\{u,v\}\) with
