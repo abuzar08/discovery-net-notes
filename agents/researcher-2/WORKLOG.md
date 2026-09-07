@@ -2698,3 +2698,78 @@ is not re-derived.
    the condition must fail for **every** disjoint pair. That is a strong global
    condition and nothing in the chain uses more than one pair.
 3. Review remains valuable, now for the positive results rather than the defects.
+
+## 2026-09-07 — pass 33
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged since
+2026-09-06T16:03Z. Twelve of my contributions queued.
+
+### Why I consolidated instead of incrementing
+Across those twelve the order-58 open count moved **five times** —
+\(19193\to27761\to103292\to9533\to9104\) — as four scope defects were found and
+repaired and two proved-but-unused hypotheses were applied. Every one of those
+numbers appears in a published contribution. A reader, or a reviewer, cannot tell
+which is the standing claim. Adding a sixth increment would have made that worse.
+
+### Established: `state29.py`, the position recomputed end to end
+No new mathematics; everything recomputed from the published modules with every
+claim **asserted** rather than quoted.
+
+- **Proved:** \(r\le26\) literature; \(r=27\) and \(r=28\) mine, both reviewed.
+- **\(r=29\):** orders \(\le56\) impossible; **order 57 CLOSED** (all five rows);
+  **order 58 OPEN in 9104** — 8782 clique-block, 15 odd-cycle, 307
+  isolated-vertex — in the single class \(b=6\), \(c=(51,1)\).
+- **Hypothesis inventory**, checked programmatically: (C1),(C2) need
+  \(\delta_0\ge1\) hence \(|R|\le27\); **(C3) big blocks pairwise disjoint needs
+  \(2\delta_0>28\) hence \(|R|\le13\)**; (S) exact; (K) \(H\) \(K_4\)-free,
+  (X) \(x_w\ge25\) and (TT) are branch hypotheses valid throughout order 58. The
+  gap between the (C1) and (C3) thresholds is where all four defects lived.
+- **Order 57 re-verified unaffected by every repair:** the audited and published
+  enumerations of row \((57,828)\) are *identical* at \(|R|=10,11\) and all eleven
+  multisets are impossible; \(\delta_0\ge17\) there forbids odd-cycle blocks and
+  isolated low vertices outright.
+- **Controls:** `crminus.g` monotone and \(\le Z(n)\) with \(g(n,0)=cr(K_n)\);
+  \(g(58,f)=8210\) at every \(cr(K_{13})\) seed rung, so the order-58 gate is
+  seed-independent and does not rest on the non-archival 225.
+
+### Measured and rejected (recorded so it is not re-derived)
+The three-block near-clique decomposition. With three blocks carrying private
+vertices, \(K_4\)-freeness forces every \(z\in R\) to be \(G\)-adjacent to all of
+some \(Q_i\), so \(V\) partitions into three near-cliques \(Q_i\cup R_i\), each
+missing only \(e(H[R_i])\) edges, and \(cr(G)\ge\sum_i g(q_i+|R_i|,e(H[R_i]))\).
+The adversary balances the split, giving roughly \(cr(K_{24})+cr(K_{23})+g(13,\cdot)
+\approx 6354\) at \((24,23,2)\) with \(|R|=11\) — **worse** than the two-way
+block-plus-\(R\) bound's 7510 there, because \(g\) grows superlinearly and a
+three-way split fragments more than it gains. Same reason the \(R\)-splitting
+idea failed in pass 27.
+
+### Published
+- GitHub commit `1eb44e9`: new `state29.py` with expected output, README section
+  in LaTeX carrying the inventory and the superseded-counts note, `SHA256SUMS`
+  (71/71 verify). Blob HTTP 200. `state29.py` SHA-256
+  `1a07699b989c3dfab1d52eb3b1254a0f37774bd735927619dd2fd3d03555da32`.
+- Discovery Net: SUMMARY `bafkreih5ur2ppwnibxiljyxaqimlb5o4dnvaqpbxr5eubyd3c4mandmtxe`,
+  tx `0AAE119A0D9D732CA5F1083735D1D1B3E453D1006EE282B9AEEB386851EEBB0C`,
+  check_tx_code 0. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **thirteen** contributions
+  queued (passes 21--33). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 9104 configurations.
+- No background computations left running. `scratch/` is 860 KB.
+
+### Next step (concrete)
+1. The one genuinely unexploited direction remains (TT) used globally rather than
+   for the single barrier. With \(H\) \(K_4\)-free every cover clique has \(\le3\)
+   vertices, so \(\theta(H)\le28\) holds **iff** \(H\) partitions into two
+   triangles and 26 edges; the contradiction wanted is exactly *some* disjoint
+   triangle pair whose removal leaves a perfect matching, and the branch says
+   **every** pair fails. Note \(e(H)=815\) against Mantel's \(\lfloor58^2/4\rfloor
+   =841\), so \(H\) is just below the threshold that would force triangles — it is
+   near-bipartite, and that is a strong structural statement not yet used.
+2. That line needs reasoning about \(H\) as a graph, not parameter enumeration,
+   which is a different mode from everything in this lane so far. It is the
+   honest next move rather than another filter on the 9104.
+3. Review: the balance has shifted from defects to positive results, and the
+   consolidated `state29.py` is the natural entry point for a reviewer.
