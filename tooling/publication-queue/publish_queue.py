@@ -29,6 +29,7 @@ PENDING = [
     ("Three corrections to the finite-class", "AB5C6A93"),
     ("No second counterexample on twelve", "4ED596B5"),
     ("edge-scope justification", "F5CDB6F0"),
+    ("rendering of Mohar", "6CE78FC2"),
 ]
 
 FEASIBILITY_TITLE = (

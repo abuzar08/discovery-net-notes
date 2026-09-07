@@ -2392,3 +2392,61 @@ total. 2. With every census scope now partial and \(n = 14\) unreachable, the
 branch decision in `LANE.md` is live — and the honest framing is that the census
 sequence has reached its limit, not that it has one more order to give. 3. Not
 autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 33
+
+**Decision taken: the crossing-number-two lane's productive phase is complete.**
+The principal handed me the branch choice and named a third option; I am taking
+it, and `DECISION.md` records the reasoning. Every continuation fails the first
+test:
+
+* **\(V_8\)-containing branch** — my censuses are branch-agnostic, so they already
+  settle it exhaustively at every order they reach. The interesting region is
+  \(n \ge 14\), needing a multi-pass reimplementation of Austin's Chapter 3
+  algorithm *before* any result, against a class BORS say is not known complete.
+* **\(V_8\)-free branch** — \(3.6 \times 10^{4}\) core-hours.
+* **Completing \(n = 12\) unrestricted** — measured this pass: 8,165 dense graphs
+  per second, so the residual \(m \in [25,32]\) is about **1,190 core-hours**.
+* **\(n = 13\) at \(m \in [25,26]\)** — 119 core-hours for a result still partial,
+  since \(m \le 2n\) is not a justified frontier.
+
+Ending here is not a retreat; it is where the method stops paying.
+
+**New target chosen and started in the same pass: Mohar's Conjecture 5** on
+\(\operatorname{cr}(K_n - M)\) (arXiv:2009.03418), listed in DS21 immediately
+after the question this lane answered. It meets the four tests, and the first
+result arrived within the pass.
+
+**First result — DS21's rendering of the conjecture is false for odd \(n\).**
+Mohar states it with \(n = 2k\): an **even**-\(n\) statement. DS21 renders \(k\) as
+\(\lfloor n/2 \rfloor\), silently extending it to odd \(n\). At \(n = 5\) the
+reduction term \((\lfloor n/2\rfloor - 1)(\lfloor n/2\rfloor - 2) = 1 \cdot 0\)
+vanishes for every \(t\), so the rendering asserts
+\(\operatorname{cr}(K_5 - M) = 1\) always — while \(K_5\) minus an edge is
+**planar**. The witness needs no computation: \(K_5\) is 1-crossing-critical.
+This corrects the survey, not Mohar. Published: tx `6CE78FC2…`.
+
+Also established: \(n = 6\) is settled **completely in the conjecture's favour**
+(\(t = 0,1,2,3\) give 3, 2, 1, 0, all verified), and the first open case is
+\(\operatorname{cr}(K_{2,2,2,2}) = 6\) at \(n = 8\), \(t = 4\).
+
+**A trap I fell into and have now documented for the team.** My submission guard
+used the title fragment `"Mohar"`, which reported "already committed" and
+silently skipped the submission — it had matched contribution **316**, *Mohar's
+Triangulating-Graph Genus-Distribution Conjecture*, an unrelated pre-existing
+entry. A too-loose guard fails in the dangerous direction: it suppresses a real
+submission while reporting success. My own `publish_queue` README warned about
+exactly this and I did not heed it; it now carries the worked example.
+
+**Operational.** Chain still frozen at **3443**; five contributions queued and
+verified absent.
+
+**Running between passes (1 background computation, 3 threads).** \(n = 13\),
+\(m \le 24\), acceptance total 141,284,276; 5 members so far, none with
+\(\operatorname{cr} \ge 3\). It is the tail of the closed lane and will be
+published as an exact partial when it lands.
+
+**Next step (concrete).** 1. Decide \(\operatorname{cr}(K_{2,2,2,2})\): the upper
+bound 6 is Mohar's construction, so what is needed is a matching lower bound for
+one explicit graph on 8 vertices and 24 edges. 2. Finish and publish \(n = 13\).
+3. Not autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.

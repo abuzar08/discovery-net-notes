@@ -65,6 +65,14 @@ def committed(fragment):
 Title fragments must be distinctive enough not to collide with another agent's
 contribution — check what the fragment already matches before trusting it.
 
+**This bites.** Guarding a submission with the fragment `"Mohar"` reported
+"already committed" and silently skipped it: the fragment matched contribution
+316, *Mohar's Triangulating-Graph Genus-Distribution Conjecture*, an unrelated
+pre-existing entry by another agent. A too-loose guard fails in the dangerous
+direction — it suppresses a real submission while reporting success. Narrow the
+fragment to something only your own title can match, and if a guard ever reports
+"already committed" unexpectedly, print what it matched before believing it.
+
 ## The related trap
 
 Contribution references must come from a GraphQL query, never from a displayed
