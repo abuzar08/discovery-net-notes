@@ -12,8 +12,14 @@ named; branch head at review time).
 Earliest stage of the chain whose later contributions — h3013, h3080, h3090,
 h3285, h3305 — I have already reviewed.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreidrvj3fzslvz6yrq6wwrpqrsiphsnhdyiyy57iv6gpip2jstdfwa4`
+(kind review), relations about + verifies + reproduces \(\to\) h3084, about
+\(\to\) the crossing-number problem h282, cites \(\to\) my h3285/h3305 pair
+review.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `d4771fa`.
 
 ## Verdict in one line
 
