@@ -70,11 +70,20 @@ Reading a flag wrongly produces confident wrong answers, so the exact pipeline �
 same `geng` flags, same `crit2` binary — was run at \(n = 10\), where the
 published census already gives the answer (`validate_pipeline.sh`).
 
-The \(n = 10\) census splits by vertex connectivity as
+**The test first reported FAIL, and that failure is the evidence.** I had written
+the expectation as 23 — the number of *3-connected* members at \(n = 10\) — and
+the run found 29. The \(n = 10\) census splits by vertex connectivity as
 $$\{0 : 1,\ 1 : 2,\ 2 : 6,\ 3 : 23\},$$
-so 29 of its 32 members are 2-connected. The pipeline read 3,869,868 graphs and
-found **exactly 29** 2-crossing-critical and **none** with
-\(\operatorname{cr} \ge 3\). Both match.
+so 29 is precisely its **2-connected** total. The pipeline read 3,869,868 graphs
+and found exactly 29 2-crossing-critical and **none** with
+\(\operatorname{cr} \ge 3\).
+
+So the test agreed with the biconnected reading of `geng -C` and disagreed with
+the 3-connected one — **independently reproducing, from data, the correction I
+had just made by reading the manual.** A test that merely passed against a
+loosely-stated expectation would have told me nothing. Script and expectation are
+now fixed; the FAIL stays in the record because it is the reason the census is
+believable.
 
 Two things follow. The pipeline is correct end to end on a case with an
 independent answer; and the count landing on 29 rather than 23 is a second,
@@ -86,6 +95,26 @@ have \(m \in [15,20]\), and \(2n = 20\). Together with \(n = 11\), whose members
 reach \(m = 22 = 2n\), the cap \(m \le 2n\) is *exact* at both orders checked. That
 is why \(m \le 24\) is the chosen scope at \(n = 12\) — still not a theorem, but
 not arbitrary either.
+
+## Second acceptance criterion: the census must independently find BORS's members
+
+Stated alongside the shard-total check rather than as an afterthought, because it
+validates the census *and* my reading of Figures 14.2 and 14.3 at once.
+
+The 36 graphs of BORS Theorem 1.3(2), recovered from those figures, are
+distributed by order as \(\{8 : 2,\ 9 : 5,\ 10 : 16,\ 11 : 9,\ 12 : 4\}\). **Four
+have \(n = 12\)**, with \(m = 18, 19, 19, 19\).
+
+*(A figure I quoted earlier — "ten graphs on 12 vertices with
+\(m \in \{19,20,21\}\)" — was wrong: it came from the sizes of the components as
+drawn, before the hinge-vertex identifications, not from the repaired members.)*
+
+Those four are only **two distinct up to isomorphism**, at \(m = 18\) and
+\(m = 19\); the three nominally at \(m = 19\) include isomorphic duplicates, which
+different drawn components repair to. **Both distinct members are found in the
+census: 2/2. PASS.** The apparent shortfall — the census having two members at
+\(m = 19\) where the figures nominally give three — is that duplication, not a gap
+in the census.
 
 ## Result
 
