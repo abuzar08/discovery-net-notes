@@ -28,7 +28,8 @@ Vitray's, via BORS. What is new is that it answers the DS21 question, which
 appears not to have been connected to it.)*
 
 **2. It is the only one up to eleven vertices.** An exhaustive census of all
-312,416,755 candidate graphs on at most eleven vertices finds exactly 88
+316,363,650 candidate graphs over all orders \(n \le 11\) — of which 312,416,755
+are the \(n = 11\) layer alone — finds exactly 88
 2-crossing-critical graphs, of which exactly one — \(C_3 \square C_3\) — has
 \(\operatorname{cr} \ge 3\). Certificate: `census_certificate.json`,
 `verify_census.py`. **So a second counterexample has at least 12 vertices.**
