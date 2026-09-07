@@ -18,13 +18,13 @@ CONTROL   order 57, row (57,828): the closed row's multisets
     only, and the tight multisets there have two or three blocks.)
 
 PART 1   configurations with no isolated low vertex
-   row (58,838):  13914 before,  2413 with alpha(G[L]) <= 3, |R| in 11..28
-        by block count: 2 blocks: 148, 3 blocks: 1226, 4 blocks: 789, 5 blocks: 250
-   row (58,839):  19148 before,  3105 with alpha(G[L]) <= 3, |R| in 11..30
-        by block count: 2 blocks: 191, 3 blocks: 1573, 4 blocks: 1013, 5 blocks: 328
-   row (58,840):  22762 before,  3708 with alpha(G[L]) <= 3, |R| in 11..32
-        by block count: 1 blocks: 2, 2 blocks: 237, 3 blocks: 1873, 4 blocks: 1202, 5 blocks: 394
-   TOTAL: 55824  ->  9226
+   row (58,838):  13861 before,  2360 with alpha(G[L]) <= 3, |R| in 11..28
+        by block count: 2 blocks: 116, 3 blocks: 1205, 4 blocks: 789, 5 blocks: 250
+   row (58,839):  19095 before,  3052 with alpha(G[L]) <= 3, |R| in 11..30
+        by block count: 2 blocks: 159, 3 blocks: 1552, 4 blocks: 1013, 5 blocks: 328
+   row (58,840):  22709 before,  3655 with alpha(G[L]) <= 3, |R| in 11..32
+        by block count: 1 blocks: 2, 2 blocks: 205, 3 blocks: 1852, 4 blocks: 1202, 5 blocks: 394
+   TOTAL: 55665  ->  9067
 
 PART 2   configurations with an isolated low vertex
    alpha(G[L]) >= iso, so at most 3 of them, against the 26 the
@@ -40,7 +40,7 @@ CONCLUSION
    Applied to G[L] it caps the whole block structure, because private
    vertices of distinct blocks are pairwise non-adjacent.
 
-   Order 58 at r = 29 is open in 9226 + 307 = 9533 configurations,
+   Order 58 at r = 29 is open in 9067 + 307 = 9374 configurations,
    against the 103292 after the two audits: a reduction of more than
    ten-fold, and the first movement in the closing direction for
    several passes.

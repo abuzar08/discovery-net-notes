@@ -1542,10 +1542,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 8782 |
+| clique blocks | 8623 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **9104** |
+| **total** | **8945** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -1625,12 +1625,66 @@ gives \(\omega(G)\le29\), but a block merged with \(R\) yields a clique of order
 at most \(29+s-qs\le29\) for \(s=q+\lvert R\rvert-29\ge0\), so that never bites
 either.
 
+### The singleton count was wrong for a second reason, and the fix closes 159
+
+The shortfall map says the lever is \(\mu_2\), through the requirement
+\(\mu_1+\mu_2\ge\lvert Z\rvert+\max(0,t-s)\).  Re-deriving \(s\) from scratch
+exposed a **fifth defect**, independent of \(\delta_0\) and again in the unsafe
+direction.
+
+The \(k_{\mathrm{eff}}\) form \(s=q_1-\lceil(\lvert L\rvert-q_1)/(k_{\mathrm{eff}}-1)\rceil\)
+assumes every non-singleton class absorbs one vertex from each of the
+\(k_{\mathrm{eff}}-1\) other blocks.  That is false when those blocks are
+**unbalanced**: the \(q_i\) vertices of a block are pairwise adjacent, so they
+occupy \(q_i\) *distinct* classes, and the classes meeting \(L\setminus Q_1\)
+therefore number at least \(\max_{i\ge2}\lvert Q_i\setminus Q_1\rvert\), not
+\(\lceil(\lvert L\rvert-q_1)/(k_{\mathrm{eff}}-1)\rceil\).
+
+| multiset | \(\lvert L\rvert\) | \(k_{\mathrm{eff}}\) form | true cap |
+|---|---|---|---|
+| \((5,4,2)\) | 11 | 2 | **1** |
+| \((24,15,5)\) | 44 | 14 | **9** |
+| \((24,10,10)\) | 44 | 14 | 14 |
+| \((24,23)\) | 47 | 1 | 1 |
+
+A larger \(s\) *weakens* the requirement, so this over-claims.  It is exact when
+\(k_{\mathrm{eff}}=2\) or when the other blocks are balanced.
+
+**The corrected count** takes the larger of two separately justified forms: (a)
+when exactly two big blocks cover \(L\), the \(k_{\mathrm{eff}}=2\) realisability
+argument gives \(s=2q_1-\lvert L\rvert\); (b) in general
+\(s=q_1-\max_{i\ge2}q_i-\mathrm{extra}\), the last term covering the cut vertices
+of \(Q_1\) at which the assignment could fail.  Form (a) is what order 57 uses
+throughout, and dropping it caused a regression that the control caught before
+publication — keeping both is necessary, not decorative.
+
+**Effect.**  At order 58, **zero** configurations are reopened — the over-claim
+never actually changed an outcome, because the \(\delta_0\) repair had already
+forced \(s=0\) wherever (C3) fails and the \(\lvert R\rvert\le13\) survivors
+happen to have balanced blocks — and **159** are newly closed, since form (b) is
+far stronger than the \(s=0\) that the previous repair fell back to.  Order 58
+drops from 9104 to **8945**.
+
+**Order 57 re-verified closed** under the corrected count.  Note that
+`dichot.py` PART 1 now reports 26 explicit sub-cases rather than 9, because the
+corrected \(s\) is smaller for connector-block multisets; the residue still
+eliminates every one of them.
+
+**And the frontier is now much sharper.**  Re-running the shortfall map, the
+absorption deficit collapses onto 1:
+
+| absorption shortfall | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| count | **3326** | 1386 | 1378 | 1062 | 652 |
+
+More than a third of what remains at order 58 is now **one unit** from closing.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 8797 configurations without an isolated low vertex together
-with 307 carrying one, 9104 in all.  Nothing here bears on `r >= 30`.
+is **not** closed: 8638 configurations without an isolated low vertex together
+with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 
 ## Files and reproduction
 

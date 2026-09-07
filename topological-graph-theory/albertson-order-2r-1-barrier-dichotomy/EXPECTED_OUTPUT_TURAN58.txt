@@ -2,10 +2,10 @@ Turan on H[R], and the odd-cycle gap, at r = 29
 Z(29) = 8281;  the branch has H K_4-free, i.e. alpha(G) <= 3
 
 ITEM 1   the Turan cap e(H[R]) <= floor(|R|^2/3)
-   row (58,838):  2413 after alpha,  2258 also within the cap, |R| in 11..28
-   row (58,839):  3105 after alpha,  2956 also within the cap, |R| in 11..30
-   row (58,840):  3708 after alpha,  3568 also within the cap, |R| in 11..32
-   TOTAL: 9226  ->  8782
+   row (58,838):  2360 after alpha,  2205 also within the cap, |R| in 11..28
+   row (58,839):  3052 after alpha,  2903 also within the cap, |R| in 11..30
+   row (58,840):  3655 after alpha,  3515 also within the cap, |R| in 11..32
+   TOTAL: 9067  ->  8623
 
 ITEM 2   the odd-cycle blocks never enumerated
    Constraint C forces |R| >= 26, and alpha(C_q) = (q-1)/2 with alpha <= 3
@@ -28,13 +28,13 @@ ITEM 2   the odd-cycle blocks never enumerated
 CONCLUSION
    The Turan cap on H[R] is a genuinely new constraint -- the same
    cap was applied to the components of H - B but never to R -- and
-   it removes 444 configurations.
+   it removes 603 configurations.
    The odd-cycle gap, open since the first Gallai enumeration, is
    now closed: alpha(G) <= 3 confines it to |R| >= 26 with a single
    C_5 or C_7, and 15 of those survive.
 
-   Order 58 at r = 29 is open in 8782 + 15 = 8797 configurations without
+   Order 58 at r = 29 is open in 8623 + 15 = 8638 configurations without
    an isolated low vertex, together with 307 carrying one -- all 307
    of which were checked against the Turan cap and satisfy it -- for
-   9104 in all, against 103292 three passes ago.
+   8945 in all, against 103292 three passes ago.
    r = 29 is NOT proved.

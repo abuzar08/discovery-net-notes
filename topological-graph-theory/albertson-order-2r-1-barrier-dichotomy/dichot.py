@@ -104,16 +104,50 @@ def singletons(NL, mult, d0):
     partition of L into exactly two cliques, the realisability argument needs no
     delta_0 at all -- every vertex outside Q_1 lies in the other block and is
     G-non-adjacent to all of Q_1, so the pairing is a free matching and any
-    2 q_1 - |L| vertices of Q_1 may be left unpaired.  Otherwise 0."""
+    2 q_1 - |L| vertices of Q_1 may be left unpaired.
+
+    A SECOND CORRECTION, and this one is independent of delta_0.  The k_eff form
+    q_1 - ceil((|L| - q_1)/(k_eff - 1)) assumes every non-singleton class can
+    absorb one vertex from each of the k_eff - 1 other blocks.  That is false
+    when those blocks are UNBALANCED: the q_i vertices of a block are pairwise
+    adjacent, so they occupy q_i DISTINCT classes, and the classes meeting
+    L - Q_1 therefore number at least max_{i >= 2} |Q_i - Q_1|, not
+    ceil((|L| - q_1)/(k_eff - 1)).  At (24,15,5) on |L| = 44 the k_eff form
+    claims s = 14 where the true cap is 9.  A larger s WEAKENS the absorption
+    requirement, so this over-claims -- the same unsafe direction as (C3).
+
+    The correct count.  Vertices of Q_i occupy q_i distinct classes, so
+
+        s  <=  q_1 - max_{i >= 2} |Q_i - Q_1| ,
+
+    and that is achievable: G[L - Q_1] is a union of cliques, so it colours with
+    exactly max_{i>=2} |Q_i - Q_1| colours, distinct blocks are non-adjacent so
+    any such class may join any Q_1-vertex, and the only obstruction is a cut
+    vertex of Q_1, of which there are at most extra.  Subtracting those keeps
+    the bound on the safe side.  For two disjoint blocks this returns
+    2 q_1 - |L|, agreeing with the realisability argument of singleton.py.
+
+    Two forms are separately justified and the larger is taken.
+
+    (a) EXACTLY TWO BIG BLOCKS COVERING L.  Then L - Q_1 is contained in the
+        other big block, every vertex of it is G-non-adjacent to all of Q_1 bar
+        at most its own connector partner, so the occupied classes number
+        |L| - q_1 and Hall places them: s = 2 q_1 - |L|.  This is the k_eff = 2
+        case of singleton.py, and it is what order 57 uses throughout.
+
+    (b) IN GENERAL.  Occupied classes >= max_{i >= 2} |Q_i - Q_1|, bounded above
+        by max_{i >= 2} q_i, and the assignment can fail only at a cut vertex of
+        Q_1, of which there are at most extra; subtracting those is conservative
+        but always legal."""
+    if len(mult) < 2:
+        return 0
     q1 = mult[0]
-    if 2 * d0 > DEG:
-        keff = sum(1 for q in mult if q - 1 >= d0)
-        if keff < 2:
-            return 0
-        return max(0, q1 - -(-(NL - q1) // (keff - 1)))
-    if len(mult) == 2 and sum(mult) == NL:
-        return max(0, 2 * q1 - NL)
-    return 0
+    extra = max(0, sum(mult) - NL)
+    big = [q for q in mult if q - 1 >= d0]
+    s = q1 - max(mult[1:]) - extra                       # (b)
+    if len(big) == 2 and big[0] + big[1] >= NL:          # (a)
+        s = max(s, 2 * q1 - NL)
+    return max(0, s)
 
 
 def survivors(nn, m, RSZ, mult, eL, nw, cw):

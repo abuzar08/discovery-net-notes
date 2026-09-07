@@ -9,9 +9,9 @@ PART 1   order 57, row (57,828)
    order 57 now has 9 fully explicit sub-cases, each pinned by (|R|, multiset, k_1, k_2).
 
 PART 2   order 58, class b = 6, c = (51,1)
-   m = 838 : 5768 (|R|, multiset) survive, |R| in 11..28
-   m = 839 : 6616 (|R|, multiset) survive, |R| in 11..30
-   m = 840 : 7219 (|R|, multiset) survive, |R| in 11..32
+   m = 838 : 5693 (|R|, multiset) survive, |R| in 11..28
+   m = 839 : 6542 (|R|, multiset) survive, |R| in 11..30
+   m = 840 : 7146 (|R|, multiset) survive, |R| in 11..32
 
 CONCLUSION
    Order 57 is down to nine explicit sub-cases; order 58's single

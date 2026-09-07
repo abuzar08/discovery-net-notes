@@ -28,10 +28,10 @@ PART 4   the corrected open set at order 58
    Full battery -- crossing, residue, clique cover, absorption, and
    the block-plus-R bound -- over the AUDITED enumeration, with the
    repaired singleton count.
-   row (58,838):  13914 configurations survive, |R| in 11..28
-   row (58,839):  19148 configurations survive, |R| in 11..30
-   row (58,840):  22762 configurations survive, |R| in 11..32
-   TOTAL over the three rows: 55824
+   row (58,838):  13861 configurations survive, |R| in 11..28
+   row (58,839):  19095 configurations survive, |R| in 11..30
+   row (58,840):  22709 configurations survive, |R| in 11..32
+   TOTAL over the three rows: 55665
 
 CONCLUSION
    Constraint C has three consequences with TWO different thresholds,
@@ -42,7 +42,7 @@ CONCLUSION
    At order 58 the effect is large.  The singleton count closed 198
    configurations it was not entitled to close, and the enumeration
    filter excluded well over a hundred thousand multisets.  Both are
-   repaired here, and the corrected open set is 55824 configurations
+   repaired here, and the corrected open set is 55665 configurations
    without an isolated low vertex, against the 19193 last reported.
    Adding iso58.py's isolated-vertex configurations, order 58 at
    r = 29 is open in strictly more cases than previously stated.
