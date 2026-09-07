@@ -18,9 +18,9 @@ PART 1   order 57, row (57,828)
    order 57 survivors after this: 4  [(10, (24, 23, 2)), (10, (25, 22)), (10, (25, 22, 2)), (11, (26, 20))]
 
 PART 2   order 58, class b = 6, c = (51,1)
-   m = 838 : 5713 survivors at |R| in 11..28
-   m = 839 : 6561 survivors at |R| in 11..30
-   m = 840 : 7165 survivors at |R| in 11..32
+   m = 838 : 5769 survivors at |R| in 11..28
+   m = 839 : 6617 survivors at |R| in 11..30
+   m = 840 : 7220 survivors at |R| in 11..32
 
 CONCLUSION
    The singleton-class observation weakens the requirement by s and

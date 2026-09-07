@@ -84,11 +84,36 @@ def defect_mu(S, side, nz, amin):
 
 
 def singletons(NL, mult, d0):
+    """Lower bound on the colour classes that may be left as a single vertex of
+    the largest block.
+
+    A SCOPE CORRECTION.  The k_eff form below counts the blocks with
+    q - 1 >= delta_0 and uses "an independent set of G[L] has at most k_eff
+    vertices, one per big block".  That step needs the big blocks to be PAIRWISE
+    DISJOINT, which Constraint C gives only when a shared vertex would exceed the
+    low degree: D_v >= 2 delta_0 > 28.  So it is valid exactly when
+
+        2 delta_0 > 28,   i.e.   delta_0 >= 15,   i.e.   |R| <= 13.
+
+    At order 2r-1 = 57 that always holds -- |R| <= 11 there, so delta_0 >= 17 --
+    and the order-57 closure is unaffected.  At order 58 |R| runs to 32, and the
+    earlier code applied the k_eff form throughout, eliminating 198
+    configurations at |R| in [14,27] on a hypothesis that does not hold there.
+
+    What survives without the hypothesis: when the multiset is an explicit
+    partition of L into exactly two cliques, the realisability argument needs no
+    delta_0 at all -- every vertex outside Q_1 lies in the other block and is
+    G-non-adjacent to all of Q_1, so the pairing is a free matching and any
+    2 q_1 - |L| vertices of Q_1 may be left unpaired.  Otherwise 0."""
     q1 = mult[0]
-    keff = sum(1 for q in mult if q - 1 >= d0)
-    if keff < 2:
-        return 0
-    return max(0, q1 - -(-(NL - q1) // (keff - 1)))
+    if 2 * d0 > DEG:
+        keff = sum(1 for q in mult if q - 1 >= d0)
+        if keff < 2:
+            return 0
+        return max(0, q1 - -(-(NL - q1) // (keff - 1)))
+    if len(mult) == 2 and sum(mult) == NL:
+        return max(0, 2 * q1 - NL)
+    return 0
 
 
 def survivors(nn, m, RSZ, mult, eL, nw, cw):

@@ -1304,12 +1304,82 @@ The degenerate tail — fewer than two vertices left for blocks, so \(G[L]\) has
 block and \(\chi(G[L])=1\) — is checked explicitly rather than dropped, and every
 case of it dies to the clique cover.
 
+### An audit of Constraint C, and two repairs (`auditc.py`)
+
+Two scope defects in three passes, both from the same root, made it worth
+auditing the constraint once for every use site instead of a third time.
+Constraint C says
+
+$$D_v \;\ge\; 28-\lvert R\rvert \;=:\; \delta_0 \qquad\text{for every low }v,$$
+
+and it has **three** consequences with **two different** validity thresholds.
+
+| consequence | needs | holds for |
+|---|---|---|
+| (C1) no isolated low vertex | \(\delta_0\ge1\) | \(\lvert R\rvert\le27\) |
+| (C2) every block with \(q-1<\delta_0\) is all cut vertices | \(\delta_0\ge1\) | \(\lvert R\rvert\le27\) |
+| **(C3) big blocks are pairwise disjoint** | \(2\delta_0>28\) | \(\lvert R\rvert\le13\) |
+
+(C3) is the one that was missed.  A vertex in two blocks of order \(>\delta_0\)
+has \(D_v\ge2\delta_0\), and \(D_v\le28\) because \(v\) is low, so the conclusion
+needs \(2\delta_0>28\) — **far** stricter than (C1).  At order \(2r-1=57\) all
+three hold with room (\(\lvert R\rvert\le11\), so \(\delta_0\ge17\)); at order 58
+\(\lvert R\rvert\) runs to 32 and every threshold is crossed.
+
+**Defect 1 — the singleton count, and it was unsafe.**  The count
+\(s=q_1-\lceil(\lvert L\rvert-q_1)/(k_{\mathrm{eff}}-1)\rceil\) rests on "an
+independent set of \(G[L]\) has at most \(k_{\mathrm{eff}}\) vertices, one per big
+block", which is (C3).  A larger \(s\) *weakens* the absorption requirement
+\(\lvert Z\rvert+\max(0,t-s)\), so applying it at \(\lvert R\rvert\ge14\) **closed
+198 configurations that were not closed**.  What survives without (C3): when the
+multiset is an explicit partition of \(L\) into exactly two cliques the
+realisability argument needs no \(\delta_0\) at all, giving \(s=2q_1-\lvert
+L\rvert\); otherwise \(s=0\).  `dichot.singletons` now does exactly this.
+
+**Defect 2 — the enumeration filter.**  `mu58.multisets` rejects a multiset when
+\(\sum_{\text{big}}q_i>\lvert L\rvert\), which is (C3) again.  At
+\(\lvert R\rvert\ge14\) it rejects legitimate multisets:
+
+| row | published | audited | wrongly excluded |
+|---|---|---|---|
+| \((58,838)\) | 50885 | 162739 | 111854 |
+| \((58,839)\) | 59563 | 226805 | 167242 |
+| \((58,840)\) | 65237 | 265313 | 200076 |
+| total | 175685 | 654857 | **479172** |
+
+**Control.**  Re-deriving the order-57 multiset lists under the audited filters
+gives *identical* sets at \(\lvert R\rvert=9,10,11\).  **The order-57 closure is
+unaffected**, as is everything at order 58 with \(\lvert R\rvert\le13\).
+
+**Corrected open set.**  Running the full battery over the audited enumeration
+with the repaired singleton count leaves **55824** configurations without an
+isolated low vertex — 13914 / 19148 / 22762 on the three rows — against the
+19193 previously reported, plus the isolated-vertex configurations of `iso58.py`.
+
+**A correction to the previous section.**  The small-\(\lvert R\rvert\) regime is
+**20** configurations, not five.  The five at \(\lvert R\rvert=11\) stand; the
+other fifteen sit at \(\lvert R\rvert=14,15,16\), exactly where (C3) fails, and
+were wrongly eliminated:
+
+| \(\lvert R\rvert\) | multisets | shortfall |
+|---|---|---|
+| 11 | \((24,23)\), \((24,23,2)\) | 701–771 |
+| 14 | \((24,20,2)\) | 701–771 |
+| 15 | \((23,20,2)\), \((24,19,2)\) | 736–1536 |
+| 16 | \((23,19,2)\), \((24,18,2)\) | 701–1536 |
+
+> No elimination anywhere in the chain revives.  Both defects **excluded** or
+> **over-closed** cases; neither resurrected a case that had been correctly
+> eliminated.  What was wrong is every published statement of what *remains* at
+> order 58 with \(\lvert R\rvert\ge14\).
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 19193 configurations without an isolated low vertex together
-with 8568 carrying one, 27761 in all.  Nothing here bears on `r >= 30`.
+is **not** closed: after the Constraint C audit, 55824 configurations without an
+isolated low vertex together with those of `iso58.py` carrying one.  Nothing here
+bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -1318,6 +1388,8 @@ with 8568 carrying one, 27761 in all.  Nothing here bears on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `auditc.py` | the Constraint C audit and its two repairs |
+| `EXPECTED_OUTPUT_AUDITC.txt` | its expected output |
 | `iso58.py` | the `\|R\| >= 28` completeness gap: isolated low vertices |
 | `EXPECTED_OUTPUT_ISO58.txt` | its expected output |
 | `blockr58.py` | a Gallai block plus the high set as a near-complete graph |
@@ -1339,6 +1411,7 @@ with 8568 carrying one, 27761 in all.  Nothing here bears on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 auditc.py       | diff -u EXPECTED_OUTPUT_AUDITC.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 iso58.py        | diff -u EXPECTED_OUTPUT_ISO58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 blockr58.py     | diff -u EXPECTED_OUTPUT_BLOCKR58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 residue58.py    | diff -u EXPECTED_OUTPUT_RESIDUE58.txt -

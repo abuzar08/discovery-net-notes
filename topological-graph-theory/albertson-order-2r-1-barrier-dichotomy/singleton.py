@@ -67,6 +67,7 @@ Exact integer arithmetic; no floating-point value enters any comparison.
 import verify_range as V
 from order2r import RCHI, Z
 import mu58 as MU
+import dichot as D
 
 r = RCHI
 DEG = r - 1
@@ -75,12 +76,12 @@ crK = V.crK
 
 def singletons(NL, mult, d0):
     """Lower bound on the number of colour classes that can be left as a single
-    vertex of the largest block."""
-    q1 = mult[0]
-    keff = sum(1 for q in mult if q - 1 >= d0)
-    if keff < 2:
-        return 0
-    return max(0, q1 - -(-(NL - q1) // (keff - 1)))
+    vertex of the largest block.
+
+    SCOPE: the k_eff form needs the big blocks to be pairwise disjoint, which
+    Constraint C supplies only when 2 delta_0 > 28, i.e. |R| <= 13.  See the
+    correction in dichot.singletons; this is the same function."""
+    return D.singletons(NL, mult, d0)
 
 
 def test(nn, m, RSZ, mult, eL, NZ, cmax):

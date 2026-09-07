@@ -1,0 +1,53 @@
+An audit of Constraint C at r = 29
+Z(29) = 8281;  low means d_G = 28;  delta_0 = 28 - |R|
+
+PART 1   the three consequences and their exact thresholds
+   consequence                      needs          holds for |R| <=
+   (C1) no isolated low vertex      delta_0 >= 1          27
+   (C2) small blocks all cut        delta_0 >= 1          27
+   (C3) big blocks disjoint         2 delta_0 > 28        13
+   threshold check for (C3) over |R| in [1,39]: PASS
+
+   ORDER 57: the theory is applied at |R| in [2,11], so delta_0 in [17,26];
+   all three hold with room.  ORDER 58: |R| runs to 32, so (C3) fails from
+   |R| = 14 and (C1),(C2) from |R| = 28.
+
+PART 2   control: order 57 is unaffected
+   |R| =  9 (delta_0 = 19): published 1 multisets, audited 1  -> identical
+   |R| = 10 (delta_0 = 18): published 4 multisets, audited 4  -> identical
+   |R| = 11 (delta_0 = 17): published 7 multisets, audited 7  -> identical
+   order 57 enumeration unchanged: PASS
+
+PART 3   defect 2: how much the order-58 enumeration excluded
+   row (58,838): published  50885 multisets, audited 162739  -> 111854 were wrongly excluded
+   row (58,839): published  59563 multisets, audited 226805  -> 167242 were wrongly excluded
+   row (58,840): published  65237 multisets, audited 265313  -> 200076 were wrongly excluded
+   TOTAL: 175685 published, 654857 audited, 479172 excluded
+
+PART 4   the corrected open set at order 58
+   Full battery -- crossing, residue, clique cover, absorption, and
+   the block-plus-R bound -- over the AUDITED enumeration, with the
+   repaired singleton count.
+   row (58,838):  13914 configurations survive, |R| in 11..28
+   row (58,839):  19148 configurations survive, |R| in 11..30
+   row (58,840):  22762 configurations survive, |R| in 11..32
+   TOTAL over the three rows: 55824
+
+CONCLUSION
+   Constraint C has three consequences with TWO different thresholds,
+   |R| <= 27 and |R| <= 13, and the stricter one was not observed.
+   Order 57 is unaffected: delta_0 >= 17 throughout, the enumeration
+   is identical, and its closure stands.
+
+   At order 58 the effect is large.  The singleton count closed 198
+   configurations it was not entitled to close, and the enumeration
+   filter excluded well over a hundred thousand multisets.  Both are
+   repaired here, and the corrected open set is 55824 configurations
+   without an isolated low vertex, against the 19193 last reported.
+   Adding iso58.py's isolated-vertex configurations, order 58 at
+   r = 29 is open in strictly more cases than previously stated.
+
+   No elimination anywhere in the chain revives: both defects
+   excluded or over-closed cases, never resurrected eliminated ones,
+   and the order-57 result and the |R| <= 13 order-58 results -- including
+   the five-configuration small-|R| family -- are untouched.
