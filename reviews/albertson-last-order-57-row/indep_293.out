@@ -1,0 +1,21 @@
+Koenig bound validated on 74954 bipartite graphs, violations 0
+
+|R| = 10: |L| = 47, |Z| = 8, e(L) band [502, 533], a >= 2, 4 admissible multisets
+   (24, 23)           e(L)=529 chi=24 t>=2 mu_1+mu_2 >= 9, needed 10, short by 1
+   (24, 23, 2)        e(L)=530 chi=24 t>=3 mu_1+mu_2 >= 9, needed 11, short by 2
+   (25, 22)           e(L)=531 chi=25 t>=5 mu_1+mu_2 >= 9, needed 13, short by 4
+   (25, 22, 2)        e(L)=532 chi=25 t>=6 mu_1+mu_2 >= 9, needed 14, short by 5
+
+|R| = 11: |L| = 46, |Z| = 9, e(L) band [476, 515], a >= 3, 7 admissible multisets
+   (23, 23)           e(L)=506 chi=23 t>=1 mu_1+mu_2 >= 10, needed 10, short by 0
+   (23, 23, 2)        e(L)=507 chi=23 t>=1 mu_1+mu_2 >= 10, needed 10, short by 0
+   (24, 22)           e(L)=507 chi=24 t>=2 mu_1+mu_2 >= 10, needed 11, short by 1
+   (24, 22, 2)        e(L)=508 chi=24 t>=2 mu_1+mu_2 >= 10, needed 11, short by 1
+   (25, 21)           e(L)=510 chi=25 t>=3 mu_1+mu_2 >= 10, needed 12, short by 2
+   (25, 21, 2)        e(L)=511 chi=25 t>=4 mu_1+mu_2 >= 10, needed 13, short by 3
+   (26, 20)           e(L)=515 chi=26 t>=9 mu_1+mu_2 >= 10, needed 18, short by 8
+
+search for the aggregate-versus-per-block comparison (26 vs 145)
+   |R|=9: aggregate values [24], per-block values [96]
+   |R|=10: aggregate values [28, 30, 40, 42], per-block values [120, 150]
+   |R|=11: aggregate values [23, 25, 34, 36, 49, 51, 68], per-block values [115, 144, 175, 208]

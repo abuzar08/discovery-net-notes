@@ -1,0 +1,20 @@
+|R|=11 (24, 22, 2): e(L)=508, e_H(L,R)=234, per-block e_H(Q_1,R) plain 144, with cut-vertex extra 145
+      aggregate e_H(L,R) - |Z|*|L - Q_1|           = 36
+      aggregate e_H(L,R) - |Z|*(|L - Q_1| + 1)     = 27
+      aggregate e_H(L,R) - |R|*|L - Q_1|           = -8
+      aggregate (e_H(L,R) - 4) - |Z|*|L - Q_1|     = 32
+|R|=11 (24, 22): e(L)=507, e_H(L,R)=232, per-block e_H(Q_1,R) plain 144, with cut-vertex extra 144
+      aggregate e_H(L,R) - |Z|*|L - Q_1|           = 34
+      aggregate e_H(L,R) - |Z|*(|L - Q_1| + 1)     = 25
+      aggregate e_H(L,R) - |R|*|L - Q_1|           = -10
+      aggregate (e_H(L,R) - 4) - |Z|*|L - Q_1|     = 30
+|R|=10 (24, 23, 2): e(L)=530, e_H(L,R)=214, per-block e_H(Q_1,R) plain 120, with cut-vertex extra 121
+      aggregate e_H(L,R) - |Z|*|L - Q_1|           = 30
+      aggregate e_H(L,R) - |Z|*(|L - Q_1| + 1)     = 22
+      aggregate e_H(L,R) - |R|*|L - Q_1|           = -16
+      aggregate (e_H(L,R) - 4) - |Z|*|L - Q_1|     = 26
+|R|=10 (24, 23): e(L)=529, e_H(L,R)=212, per-block e_H(Q_1,R) plain 120, with cut-vertex extra 120
+      aggregate e_H(L,R) - |Z|*|L - Q_1|           = 28
+      aggregate e_H(L,R) - |Z|*(|L - Q_1| + 1)     = 20
+      aggregate e_H(L,R) - |R|*|L - Q_1|           = -18
+      aggregate (e_H(L,R) - 4) - |Z|*|L - Q_1|     = 24
