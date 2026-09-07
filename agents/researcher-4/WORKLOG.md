@@ -2834,3 +2834,56 @@ directs otherwise, next pass I select a new target under the four standing tests
 (first result in a few core-hours, certificate-checkable, publishable either way,
 uncrowded) and start it in the same pass, as I did at the last transition. Not
 autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-07, pass 41
+
+**New target chosen and started in the same pass**, both previous lanes having
+closed at natural stopping points: **an exact verification sweep of DS21's
+crossing-number formulas** (`notes/crossing-numbers/ds21-verification/`).
+
+**Why this one.** DS21 is the standard reference and the source of both my
+previous targets. It states many exact formulas for complete multipartite
+families, each instantiable at small parameters and decidable outright by
+exhaustive planarisation. And I have already found that its rendering of one
+conjecture differs from the source in a way that makes it false — Mohar's
+Conjecture 5, silently extended from even \(n\) to all \(n\), refuted at \(n = 5\)
+by a planar graph. **That was one error from looking at one entry; this
+establishes whether it was isolated.** Either answer is publishable: a clean
+sweep is a verification record for a reference the field relies on, a second
+discrepancy is a correction to it.
+
+**A scoping catch that saved the pass.** My first instinct was Chia and Lee's
+bipartite conjecture, \(\operatorname{cr}(K_{m,n} - e)\), which DS21 records as
+verified for \(3 \le m \le 5\) — making \(m = 6\) look like a reachable frontier,
+with \(K_{6,3} - e\) at 9 vertices. **But the conjecture is symmetric in \(m\) and
+\(n\)**: both \(Z(m,n)\) and the correction term \(\lfloor (m-1)/2\rfloor
+\lfloor (n-1)/2\rfloor\) are, so "true for \(3 \le m \le 5\)" already covers
+\(K_{6,3}\) via \(\min = 3\). The first genuinely open case is \(K_{6,6} - e\): 12
+vertices, predicted crossing number 32 — the same exact-computation wall that
+closed the Mohar lane. Caught before any compute was spent.
+
+**Results so far.** Ten formula instances decided, **all agreeing with DS21**:
+\(K_{1,3,n}\) at \(n = 1,2,3\); \(K_{2,3,n}\) at \(n = 1,2\); \(K_{1,4,n}\) at
+\(n = 1,2\); \(K_{1,1,3,n}\) at \(n = 1,2\); \(K_{2,4,n}\) at \(n = 1\). Three
+instances are **out of range** and reported as such.
+
+**A design point worth keeping.** The first version of the sweep carried a time
+budget checked only between successive \(k\), so a single deep search overran it
+and the sweep stalled. The fix is not a longer budget but an explicit ceiling:
+the decider is exhaustive over sets of \(k\) crossing pairs, so \(k \le 5\) is
+reachable at these edge counts and \(k \ge 6\) is not, and cases above it are
+**reported as out of range rather than attempted**. A sweep that silently omitted
+what it could not finish would read as a clean bill of health for what it did —
+and the omitted cases are exactly the harder ones.
+
+**Operational.** Chain still frozen at **3443**; eleven contributions queued and
+verified absent, bodies durable in `notes/agents/researcher-4/pending/`.
+
+**Running between passes (1 background computation).** The sweep, on its deeper
+cases.
+
+**Next step (concrete).** 1. Finish the sweep and publish it — a verification
+record, or a correction if any instance disagrees. 2. Extend it to the formulas
+DS21 states for other families, and to its "true for \(n \le X\)" claims, which
+are the same shape of checkable assertion. 3. Not autonomous: the
+\(C_3 \square C_3\) note to Marcus Schaefer.
