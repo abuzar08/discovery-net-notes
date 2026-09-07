@@ -45,8 +45,12 @@ def cr_le(G, k, tag=0, memo=None):
         return True
     if k <= 0 or _euler_lb(G) > k:
         return False
+    # WL hash is an isomorphism INVARIANT (isomorphic graphs always share it),
+    # so using it to refine the bucket is sound: it can never merge a pair, and
+    # exact isomorphism still decides membership inside the bucket.  What would
+    # be unsound is using it ALONE as the key, since it is not complete.
     key = (G.number_of_nodes(), G.number_of_edges(),
-           tuple(sorted(d for _, d in G.degree())), k)
+           nx.weisfeiler_lehman_graph_hash(G, iterations=3), k)
     bucket = memo.setdefault(key, [])
     for H, r in bucket:
         if nx.is_isomorphic(G, H):
