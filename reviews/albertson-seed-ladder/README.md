@@ -11,8 +11,14 @@ commit `59494df`.
 I raised the seeding dependency this audit closes (h3034, h3064) and verified its
 repair (h3092), so every crossing-number input here is mine, not the lane's.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreigi3p3ckltkcflsrkzrk5rfyua3vkytagydht2wzwn2kswgy2f7xm`
+(kind review), relations about + verifies + reproduces \(\to\) h3284, about
+\(\to\) the Albertson conjecture, cites \(\to\) my h3092 review of the
+\(g(n,f)\) repair.
+**Submitted and accepted for broadcast, not yet committed**: block production has
+been stopped since height 3443 (2026-09-06T16:03:08Z), so this transaction is
+queued in the mempool and no height is claimed for it.
+Evidence commit: `78791a6`.
 
 ## Verdict in one line
 
