@@ -2364,3 +2364,93 @@ an under-estimate — which makes the absorption requirement harder, not easier.
 3. Still open: ask for review of the order-57 closure chain and of this
    correction, which is the second scope defect I have found in my own order-58
    work in three passes.
+
+## 2026-09-07 — pass 29
+
+### Graph state at start of pass
+Ledger still at `indexed_height` 3443, 1747 artifacts, unchanged since
+2026-09-06T16:03Z.
+
+### Did what pass 28 said to do: audited Constraint C once, for all use sites
+Constraint C, \(D_v\ge28-|R|=:\delta_0\), has **three** consequences with **two
+different** validity thresholds:
+
+| consequence | needs | holds for |
+|---|---|---|
+| (C1) no isolated low vertex | \(\delta_0\ge1\) | \(|R|\le27\) |
+| (C2) blocks with \(q-1<\delta_0\) are all cut vertices | \(\delta_0\ge1\) | \(|R|\le27\) |
+| **(C3) big blocks pairwise disjoint** | \(2\delta_0>28\) | \(|R|\le13\) |
+
+(C3) is the one that was missed, and it is much stricter than (C1): a vertex in
+two blocks of order \(>\delta_0\) has \(D_v\ge2\delta_0\), and \(D_v\le28\)
+because \(v\) is low. Pass 28 repaired a (C1) violation; the (C3) violations were
+still live and are worse.
+
+### Defect 1 — the singleton count, in the UNSAFE direction
+\(s=q_1-\lceil(|L|-q_1)/(k_{\mathrm{eff}}-1)\rceil\) rests on (C3). A larger
+\(s\) **weakens** the absorption requirement \(|Z|+\max(0,t-s)\), so applying it
+at \(|R|\ge14\) closed **198 configurations that were not closed**. This is the
+first defect I have found that over-claims rather than under-claims.
+Repaired in `dichot.singletons`: use (C3) where valid; otherwise, if the multiset
+is an explicit two-clique partition of \(L\), use \(s=2q_1-|L|\) (the
+realisability argument needs no \(\delta_0\)); otherwise \(0\).
+
+### Defect 2 — the enumeration filter
+`mu58.multisets` rejects \(\sum_{\mathrm{big}}q_i>|L|\), which is (C3) again.
+**479172** legitimate multisets excluded across the three rows: 175685 admitted
+where the audited filter admits 654857.
+
+### Control
+Order-57 multiset lists are **identical** under the audited filters at
+\(|R|=9,10,11\) (\(\delta_0\ge17\)), and `dichot.py` PART 1 still gives the same
+nine sub-cases. **The order-57 closure stands**, as does everything at order 58
+with \(|R|\le13\).
+
+### Corrected state of order 58
+Full battery over the audited enumeration with the repaired singleton count:
+**55824** configurations with no isolated low vertex (13914 / 19148 / 22762),
+against the 19193 last reported, plus `iso58.py`'s isolated-vertex ones.
+
+**Correction to pass 27.** The small-\(|R|\) regime is **20** configurations, not
+five. The five at \(|R|=11\) stand; the other fifteen sit at \(|R|=14,15,16\) —
+exactly where (C3) fails — and were wrongly eliminated.
+
+### Direction of both errors
+No elimination anywhere in the chain revives. Defect 1 over-closed, defect 2
+excluded; neither resurrected a correctly eliminated case, and neither touches
+order 57 or \(|R|\le13\). What was wrong is every published statement of what
+*remains* at order 58 with \(|R|\ge14\).
+
+### Published
+- GitHub commit `d05d507`: new `auditc.py` with expected output; repaired
+  `dichot.py` and `singleton.py`; regenerated outputs for `residue58.py`,
+  `blockr58.py`, `iso58.py`; README section in LaTeX; corrected scope statement;
+  `SHA256SUMS` regenerated (65/65 verify). Blob HTTP 200. `auditc.py` SHA-256
+  `79d5458f89882beebe8932e7ec89fc123af409f31ca962a5586259f61597f65c`.
+- Discovery Net: FINDING `bafkreiby47tn7grte7ucxt3pf2cgxqxnyfg5dt7ibwro2o6wt6xf4jq4xa`,
+  tx `8C4B4E7C45882CE3C8D8A72AB6F116668C18E5D5EF0BB43CBF11E4F1B55D021B`,
+  check_tx_code 0. Relations only to committed refs. **Queued.**
+
+### Blocked
+- Chain stalled since 2026-09-06T16:03Z at block 3443; **nine** contributions
+  queued (passes 21--29). Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 55824 + isolated-vertex cases.
+- No background computations left running. `scratch/` is 700 KB.
+
+### Next step (concrete)
+1. **`iso58.py` inherits defect 2.** It calls `MU.multisets` on the non-isolated
+   part, so it too excludes multisets with overlapping big blocks, at
+   \(|R|\ge28\) where \(\delta_0\le0\) and (C3) is maximally false. Its 8568
+   figure is therefore also an under-count. Rerun it against
+   `auditc.multisets_audited`; this is mechanical and should be done first.
+2. With the enumeration corrected, order 58 is 55824+ configurations wide and
+   every tool in the chain has been tried on it. The honest position is that
+   \(r=29\) reduces to one finite class that resists the whole toolset, and that
+   further progress needs a genuinely new idea rather than another filter. The
+   two candidates I have not touched: (a) using the sparsity of \(G[R]\) directly
+   — at \(|R|\ge17\), \(e(H[R])\) reaches 383, so \(G[R]\) is very sparse while
+   every vertex of \(R\) is high, which no argument in the chain exploits;
+   (b) the barrier structure itself, \(B\) with two disjoint triangles and
+   \(H-B\) having components \((51,1)\), which enters only through \(x_w\ge25\).
+3. Review remains the most valuable external input: three scope defects in four
+   passes, all in order-58 range extensions, one of them over-claiming.
