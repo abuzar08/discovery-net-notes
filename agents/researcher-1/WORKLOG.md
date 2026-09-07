@@ -1511,3 +1511,40 @@ Worklog only.
    \(1^{9} 3^{11}\) and the remaining types and compare the hard fraction against
    the current level-4-plus-blind-split state; adopt whichever is cheaper.
 3. Extend `verify_cnc_p.py` with the level-5 completeness check described above.
+
+## 2026-09-07 pass 32 (16:05Z-16:30Z)
+
+### Established: the completeness check now scales past level 4
+- Implemented and validated the replacement completeness argument promised last
+  pass. Instead of counting all labelled \((5,5)\)-good \(Z_p\)-graphs on \(L\)
+  cycles by brute force (out of reach from \(L = 5\): \(2^{5} \cdot 8^{10}\)
+  graphs), the checker computes
+  $$N_L = \sum_{R} |\mathrm{orbit}(R)| \cdot \#\{\text{good extensions of } R\},$$
+  the sum over the verified classes \(R\) on \(L-1\) cycles, which is exact because
+  every labelled \(L\)-cycle graph restricts to a labelled \((L-1)\)-cycle graph
+  lying in exactly one orbit. New option `verify_cnc_p.py --complete-from levelL-1.json`.
+- Validated against the known case: from the 47 classes on three cycles it returns
+  \(N_4 = 2\,541\,538\), exactly the number the old brute force gives and exactly the
+  sum of orbit sizes of the 1576 level-4 classes, and the full check on the
+  \(1^{15} 3^{9}\) cube set prints "all checks passed" through this route.
+- Published with the fast canonical generator (commit a285558).
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, now over 24 hours);
+the order-5 lemma is queued, the \(1^{12} 3^{10}\) lemma cannot be submitted.
+
+### Published
+Commit a285558 (`zpenum_fast.py`, `verify_cnc_p.py --complete-from`, README).
+
+### Background left (2)
+- `zpenum_fast.py 5 3` (level-5 canonical \(Z_3\)-prefixes, pid 59549): running,
+  level 4 reproduced in 49 s, level 5 expected within a couple of hours.
+- `cnc6312r` (\(1^{6} 3^{12}\), 25216 cubes, 3 workers, 20 s cap): 15374 attempted,
+  11823 verified, 3551 hard. Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+2. When `level5_p3.json` lands: build a level-5 cube set for \(1^{9} 3^{11}\),
+   measure its hard fraction against the present level-4-plus-blind-split state,
+   and adopt the cheaper; the completeness of that cube set is now checkable with
+   `--complete-from level4_p3.json`.
