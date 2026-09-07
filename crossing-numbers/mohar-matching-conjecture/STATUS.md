@@ -63,6 +63,36 @@ values that are not conjectured, let alone known. Improving
 \(\operatorname{cr}(M_{9,2}) \ge 22\) or \(\operatorname{cr}(M_{9,3}) \ge 17\) would
 propagate directly into the \(n = 10\) row.
 
+## A general-drawing search, and what it does and does not show
+
+The 2-page searches above explore only book drawings, so they can overestimate.
+A planarisation heuristic explores **general** drawings: take a maximal planar
+subgraph, then insert each remaining edge along a shortest path in the dual of
+the current planarisation, one crossing per dual step, randomising the subgraph
+and the insertion order (`planarize.py`).
+
+It is exact on the validation set — \(\operatorname{cr}(K_5) = 1\),
+\(\operatorname{cr}(K_6) = 3\), \(\operatorname{cr}(K_{3,3}) = 1\) and
+\(\operatorname{cr}(K_7) = 9\), all recovered — and over 400 random restarts on
+the open cases it returns
+
+| case | conjecture | heuristic | lower bound |
+| --- | ---: | ---: | ---: |
+| \(M_{8,2}\) | 12 | **12** | 10 |
+| \(M_{8,3}\) | 9 | **9** | 8 |
+| \(M_{10,5} = K_{2,2,2,2,2}\) | 30 | **30** | 24 |
+
+**What this shows.** The upper bounds are confirmed independently of Mohar's
+construction, including at \(n = 10\), which I had flagged as beyond the reach of
+exact methods. And a search over general drawings, from hundreds of random
+starts, fails to beat the conjectured value anywhere — so if the conjecture is
+false at these cases, the better drawing is not one this heuristic finds.
+
+**What it does not show.** These are *upper* bounds, and Mohar's construction
+already supplied them. A heuristic failing to beat a value is evidence, not
+proof; the open question in every case is the **lower** bound, and nothing here
+moves it. The gaps in the table above are unchanged.
+
 ## Method note, which generalises
 
 Every improvement in this file came from enumerating what is already known before
