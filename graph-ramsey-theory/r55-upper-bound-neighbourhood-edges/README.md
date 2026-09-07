@@ -315,6 +315,54 @@ is well below \(d\,\Delta\). So Lemma 1 together with the
 outside the machinery of this reduction, which means the reduction cannot be
 closed by tightening its own inequalities.
 
+### Codegree constraints: sharp locally, useless in aggregate
+
+Finding 1 said the missing quantity is not expressible in
+\((d, e_N, e_M, e, S(v))\). Codegrees are the natural candidate, and they do
+give two constraints invisible to all of the above.
+
+**Lemma 3.** In a \((5,5,n)\)-graph, for **adjacent** \(u,w\) the set
+\(N(u)\cap N(w)\) is triangle-free (a triangle there with \(u,w\) is a
+\(K_5\)) with \(\alpha \le 4\), so it is a \((3,5)\)-graph and
+$$\mathrm{codeg}(u,w) \le R(3,5)-1 = 13 .$$
+
+**Lemma 4.** For **non-adjacent** \(u,w\), put
+\(X = V \setminus (\{u,w\} \cup N(u) \cup N(w))\). An independent
+\(3\)-set in \(X\) together with \(u\) and \(w\) is an independent
+\(5\)-set, so \(\alpha(G[X]) \le 2\); and \(G[X]\) has no \(K_5\). So
+\(G[X]\) is a \((5,3)\)-graph, \(|X| \le R(5,3)-1 = 13\), and since
+\(|X| = n-2-d(u)-d(w)+\mathrm{codeg}(u,w)\),
+$$\mathrm{codeg}(u,w) \le 15 - n + d(u) + d(w).$$
+
+Both were checked on every vertex pair of all \(656\) real
+\((5,5,42)\)-graphs: **zero violations, and both are attained** — the
+adjacent codegree reaches \(13\) and \(|X|\) reaches \(13\). These are
+sharp constraints, not slack ones.
+
+Aggregating them (using \(\sum_{\{u,w\}}\mathrm{codeg} = \sum_x
+\binom{d(x)}{2}\), splitting by adjacency, and bounding the adjacent part by
+\(\min(13e, \sum_d \overline e(d) n_d)\)) gives a necessary condition on
+the degree distribution. **It does not bite**, and it is not close:
+
+| \(n\) | 43 | 44 | 45 |
+|---|---|---|---|
+| minimum aggregate slack | 1204 | 1276 | 1350 |
+
+For comparison, Theorem 1's slack at \(n = 45\) is \(270\), and on a real
+\((5,5,42)\)-graph the codegree aggregate has slack \(1909\).
+
+**This is the diagnosis of the whole lane.** Every local ingredient here is
+sharp — adjacent codegree \(13\) is attained, \(|X| = 13\) is attained, and
+the \(\beta\) the reduction needs is within \(1\)–\(2\) edges of what real
+Ramsey graphs exhibit. Every aggregate built from them is loose, and the
+looser the more local information it discards: the codegree aggregate throws
+away that the mean non-adjacent slack is \(3.69\) while the bound is attained
+only occasionally, and it ends up five times weaker than the edge-count
+aggregate. So the frontier is pincered — **local methods are sharp but need a
+search that is measured out of range at \(n \ge 40\), and global methods are
+affordable but lose exactly the sharpness that would make them work.** That,
+rather than any one failed attempt, is why this order range resists.
+
 **2. The sample is structurally narrow.** The \(656\) graphs have edge counts
 confined to \([423, 438]\), symmetric about \(430.5\) — sixteen values out
 of a range that a hypothetical \((5,5,45)\)-graph would occupy far more
