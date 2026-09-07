@@ -45,6 +45,10 @@ that silently omitted the cases it could not finish would read as a clean bill o
 health for the ones it did, and the omitted cases are exactly the harder ones.
 The scope of the sweep is therefore always visible in its own output.
 
-The exact decider reaches roughly 8 vertices and \(\operatorname{cr} \le 5\); that
-is the honest ceiling established over the previous two lanes, and it bounds
-which instances this sweep can speak about.
+**The ceiling has since been raised.** The original decider reached roughly 8
+vertices and \(\operatorname{cr} \le 5\), which left the sweep's weakest point
+exactly where a discrepancy would be hardest to find: the entries the instrument
+cannot reach are the ones nobody else has checked either. It has been replaced by
+a Kuratowski-branching decider with Euler-bound pruning, which reaches
+\(\operatorname{cr}(K_{4,4}) = 4\) and \(\operatorname{cr}(K_{3,5}) = 4\) —
+both out of reach before. See `kuratowski-branching.md`.
