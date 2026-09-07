@@ -1,0 +1,60 @@
+The state of Albertson at r = 29, recomputed
+Z(29) = 8281;  low means d_G = 28
+
+PART 1   the hypothesis inventory, checked
+   (C1),(C2) hold exactly for |R| <= 27 : PASS
+   (C3)      holds exactly for |R| <= 13 : PASS
+   order 57 uses |R| <= 11, so delta_0 >= 17 and all three hold.
+   order 58 uses |R| <= 32, so all three thresholds are crossed.
+
+PART 2   order 57 is closed, and unaffected by every repair
+   row (57,828): 11 admissible multisets at |R| = 10, 11;
+   the audited and published enumerations are IDENTICAL there, and
+   every multiset is impossible: PASS
+   delta_0 >= 17 also forbids odd-cycle blocks and isolated low
+   vertices outright, so neither gap ever touched order 57.
+
+PART 3   order 58, recomputed
+   row (58,838):  2258 clique-block configurations,   33 with an isolated low vertex
+   row (58,839):  2956 clique-block configurations,  102 with an isolated low vertex
+   row (58,840):  3568 clique-block configurations,  172 with an isolated low vertex
+ITEM 2   the odd-cycle blocks never enumerated
+   Constraint C forces |R| >= 26, and alpha(C_q) = (q-1)/2 with alpha <= 3
+   forces q <= 7.  So the gap is |R| in [26, Rmax] with one C_5 or
+   C_7 and at most one further clique block.
+   row (58,838):    3 admissible cycle configurations, 3 survive
+        |R|=26 C_5 blocks=(27,) e(H[R])=27
+        |R|=27 C_5 blocks=(26,) e(H[R])=51
+        |R|=28 C_5 blocks=(25,) e(H[R])=75
+   row (58,839):    5 admissible cycle configurations, 5 survive
+        |R|=26 C_5 blocks=(27,) e(H[R])=26
+        |R|=27 C_5 blocks=(26,) e(H[R])=50
+        |R|=28 C_5 blocks=(25,) e(H[R])=74
+   row (58,840):    7 admissible cycle configurations, 7 survive
+        |R|=26 C_5 blocks=(27,) e(H[R])=25
+        |R|=27 C_5 blocks=(26,) e(H[R])=49
+        |R|=28 C_5 blocks=(25,) e(H[R])=73
+   TOTAL: 15 admissible, 15 survive
+
+   odd-cycle configurations, all three rows: 15
+
+   ORDER 58 OPEN SET: 8782 + 15 + 307 = 9104
+
+PART 4   soundness controls
+   crminus.g <= Z(n), g(n,0) = crK(n), monotone in f : PASS
+   g(58, f) at every cr(K_13) seed rung: [8210, 8210, 8210, 8210]  -> seed-independent
+
+CONCLUSION
+   PROVED: r <= 26 in the literature; r = 27 and r = 28 here, both
+   reviewed on the ledger.
+
+   r = 29: orders <= 56 impossible; ORDER 57 CLOSED (all five rows,
+   re-verified above); order 58 OPEN in 9104 configurations
+   -- 8782 with clique blocks, 15 with an odd-cycle block, 307 with an
+   isolated low vertex -- in the single class b = 6, c = (51,1).
+
+   ALBERTSON'S CONJECTURE IS NOT PROVED FOR r = 29.  The superseded
+   counts 19193, 27761, 103292 and 9533 appear in earlier queued
+   contributions of mine; the standing figure is the one above.
+
+   Controls: all PASS

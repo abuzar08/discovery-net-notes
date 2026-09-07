@@ -1524,6 +1524,57 @@ vertex, together with 307 carrying one — all 307 checked against the Turán ca
 and satisfying it — for **9104** in all, against 103292 three passes ago.
 \(r=29\) is not proved.
 
+### The state of \(r=29\), recomputed end to end (`state29.py`)
+
+Across the contributions above the order-58 open count moved five times —
+\(19193\to27761\to103292\to9533\to9104\) — as four scope defects were found and
+repaired and two proved-but-unused hypotheses were finally applied.  Every one of
+those numbers appears in a published contribution.  Rather than add a sixth,
+this section states the standing position once, recomputed from the published
+modules with every claim asserted rather than quoted.
+
+**Proved.**  \(r\le26\) in the literature; \(r=27\) and \(r=28\) here, both
+reviewed on the ledger.
+
+**\(r=29\).**  Orders \(\le56\) impossible.  **Order 57 closed**, all five rows
+\((57,824)\ldots(57,828)\).  **Order 58 open**, in the single class \(b=6\),
+\(c=(51,1)\):
+
+| | count |
+|---|---|
+| clique blocks | 8782 |
+| one odd-cycle block | 15 |
+| an isolated low vertex | 307 |
+| **total** | **9104** |
+
+**The hypothesis inventory** — the table whose absence produced four defects in
+five passes, now checked programmatically:
+
+| | needs | legal for |
+|---|---|---|
+| (C1) no isolated low vertex | \(\delta_0\ge1\) | \(\lvert R\rvert\le27\) |
+| (C2) small blocks are all cut vertices | \(\delta_0\ge1\) | \(\lvert R\rvert\le27\) |
+| (C3) big blocks pairwise disjoint | \(2\delta_0>28\) | \(\lvert R\rvert\le13\) |
+| (S) \(d_H(z)=(n-1-28)-x_z\) | exact | all |
+| (K) \(H\) is \(K_4\)-free, \(\alpha(G)\le3\) | branch hypothesis | all of order 58 |
+| (X) \(x_w\ge r+2-b=25\) | needs (K) | all of order 58 |
+| (TT) no two disjoint triangles whose removal leaves a perfect matching | branch hypothesis | all of order 58 |
+
+At order 57 the theory is applied only at \(\lvert R\rvert\le11\), so
+\(\delta_0\ge17\) and (C1)–(C3) hold with room.  **Order 57 is unaffected by
+every repair**, which the control re-checks directly: the audited and published
+enumerations of row \((57,828)\) are *identical*, and all eleven multisets are
+impossible.  \(\delta_0\ge17\) also forbids odd-cycle blocks and isolated low
+vertices there outright, so neither completeness gap ever touched it.
+
+**Controls.**  `crminus.g` stays below \(Z(n)\), equals \(cr(K_n)\) at \(f=0\) and
+is monotone in \(f\); and \(g(58,f)=8210\) at *every* rung of the \(cr(K_{13})\)
+seed ladder, so the order-58 gate is seed-independent.
+
+> Albertson's conjecture is **not** proved for \(r=29\).  The counts 19193,
+> 27761, 103292 and 9533 in earlier contributions are superseded; the standing
+> figure is 9104.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1538,6 +1589,8 @@ with 307 carrying one, 9104 in all.  Nothing here bears on `r >= 30`.
 | `r27.py` | **the r = 27 elimination** |
 | `r28.py` | **the r = 28 proof (order reduction + both rows)** |
 | `r29.py` | the partial r = 29 result at order 57 |
+| `state29.py` | **the state of r = 29, recomputed end to end** |
+| `EXPECTED_OUTPUT_STATE29.txt` | its expected output |
 | `turan58.py` | the Turan cap on H[R], and the odd-cycle gap closed |
 | `EXPECTED_OUTPUT_TURAN58.txt` | its expected output |
 | `alpha58.py` | alpha(G) <= 3 applied to the Gallai blocks |
@@ -1565,6 +1618,7 @@ with 307 carrying one, 9104 in all.  Nothing here bears on `r >= 30`.
 PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 auditc.py       | diff -u EXPECTED_OUTPUT_AUDITC.txt -
