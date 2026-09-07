@@ -1,0 +1,4 @@
+sampled expansions, my own construction (1000 per d)
+   d = 4: max n = 46, max m = 74; decidable by crit2 (n <= 28 and m <= 62): 13.1%   (published: n = 45, m = 71, 16.7%)
+   d = 5: max n = 53, max m = 85; decidable by crit2 (n <= 28 and m <= 62): 1.8%   (published: n = 55, m = 87, 2.3%)
+   d = 6: max n = 64, max m = 100; decidable by crit2 (n <= 28 and m <= 62): 0.3%   (published: n = 59, m = 92, 0%)

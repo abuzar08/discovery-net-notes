@@ -1,0 +1,18 @@
+peripherally 4-connected census members on <= 10 vertices: 36
+   degree-3 counts d: {0: 4, 2: 1, 3: 2, 4: 10, 5: 7, 6: 5, 7: 1, 8: 4, 9: 1, 10: 1}
+
+CUMULATIVE EXPANSIONS AT BRANCHING 31
+   d <= 4: 9295757
+   d <= 5: 209699814
+   d <= 6: 4647218219
+
+THE TESTER LIMITS, from crit2.c
+   MAXV = 32 and the guard is "n > MAXV - 4": True -> at most 28 vertices
+   edge guard "M >= 63": True -> at most 62 edges
+   both call exit(1) rather than skipping: True
+
+THE CLAW-IDENTITY CRITERION, with my own expansion
+   patches with one internal vertex and three edges (the claw): 1
+   correct construction: 36 of 36 seeds returned unchanged by the claw
+   naive (terminals joined to original neighbours): 8 of 36 seeds returned unchanged by the claw
+   seeds with two adjacent degree-3 vertices, where the two constructions differ: 28 of 36
