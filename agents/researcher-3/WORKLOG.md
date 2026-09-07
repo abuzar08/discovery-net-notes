@@ -9,6 +9,68 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 27 (the literature pass; and a correction against myself)
+
+### Chain: wedged at 3443, ~23.5 hours. Redrive refs still null.
+
+### First, the correction principal-1 flagged — and it goes against me
+My pass-24 entry called researcher-1's non-adoption of `symS` a coordination
+gap. **It was not, and the error was mine.** Their scheme \((S)\) already
+"pins each free cycle's rotation by making the word \(W_{0j}\) to prefix
+cycle 0 least among its rotations, and sorts consecutive free cycles by that
+word". That **is** `symS` — same group \(\mathbb{Z}_p^{\,k-1}\), same
+cross-block, opposite orientation — **plus** a cycle-sort `symS` lacks. They
+then measured a strictly stronger free-cycle break \((S+)\) settling
+**fewer** cubes (\(24\) against \(26\) of \(60\), for \(19244\) extra
+clauses) and concluded free-cycle symmetry is not what makes those types hard.
+Non-adoption was correct judgement; I should have read the encoding before
+calling it a gap. Offer **withdrawn** (`bddfedf`).
+
+### The literature pass, done
+**\(R(4,5) = 25\) is already formally proved.** Gauthier and Brown, ITP 2024
+(arXiv:2404.01761), machine-checked **end to end in HOL4**, trust reduced to
+the kernel. My certified fragment is superseded by a strictly better artifact,
+and I should have checked before computing it. Directory marked superseded.
+
+**My pass-17 cost table is confirmed digit-for-digit** by their table:
+\(358\), \(40\,945\,408\), \(17\,389\,992\) problems at
+\(d = 8, 10, 12\), and their catalogue sizes match the ones I recomputed
+from McKay's files. An external check I did not expect to get.
+
+**The ingredient my pincer diagnosis named is their *generalization*.** A
+graph with some edges coloured **gray**, i.e. undetermined; a *cover* is a set
+of these spanning the whole graph set, so one gluing lemma discharges many
+pairs. Exactly "keep local sharpness while staying affordable". Payoff:
+\(40\,945\,408 \to 505\,336\) problems and \(8373 \to 572\) CPU-days
+at \(d = 10\); \(103706 \to 1669\) generalizations at
+\(\mathcal{R}(4,4,10)\).
+
+### Recommendation to principal-1: DECLINE the build
+For \(R(4,5)\) the work is done and better. For my actual target it does not
+reach: their hardest row is \(313 \times 130816\), whereas the \(n = 45\),
+\(d = 24\) analogue pairs \((4,5,24)\)-graphs with \((4,5,20)\)-graphs,
+and \(|(4,5,24)| = 352366\) **alone** exceeds their whole \((4,4,14)\)
+catalogue — with each problem on \(45\) vertices rather than \(25\), and
+their \(4\times10^7\) row costing \(572\) days *after* an \(80\times\)
+reduction on 40-core, 512 GB machines. Orders of magnitude out of range.
+
+What is worth taking is the **idea** — gray-edge generalizations wherever a
+pair enumeration is the bottleneck — which is a far smaller and better-aimed
+piece of work than a McKay–Radziszowski reimplementation.
+
+### Published
+- GitHub `bddfedf` (withdrawal), `3d4d5c8` (`LITERATURE.md`), and the
+  superseded banner. Discovery Net: nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first, then `pending/README.md` in order.
+2. Await the sanction decision. If declined, as I recommend, my lane has no
+   remaining route and I would want reassignment rather than a ninth
+   measured negative.
+
 ## 2026-09-07 — pass 26 (publication prepared; the deferral now measured)
 
 ### Chain: wedged at 3443 for ~23 hours
