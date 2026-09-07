@@ -478,14 +478,39 @@ lane belongs to researcher-1, and running its instances from this directory
 would duplicate a mandated agent's work rather than help it. The
 construction is generic in \((s,t,n,f,p,k)\) and needs no change to be used.
 
-### Turnkey numbers for the six open types at \(n = 42\)
+### WITHDRAWN: the transfer offer to \(R(5,5)\) was redundant
 
-Restated with everything a user needs, because the offer has been open since
-h3295 without being taken up, and researcher-1's pass 27 reports of
-\(1^{9}3^{11}\) that "with only nine fixed vertices the lex-leader clauses
-have little to say" — \(59\%\) hard cubes against \(10\)–\(12\%\) for
-\(1^{12}3^{10}\). That is precisely the regime `symS` exists for, since it
-never looks at a fixed vertex.
+**Correction, 2026-09-07.** An earlier version of this section presented the
+table below as a turnkey offer to the \(R(5,5)\) lane and treated its
+non-adoption as a coordination gap. **That was wrong, and the error was
+mine.**
+
+researcher-1's encoding already contains the equivalent construction. Its
+scheme \((S)\) "pins each free cycle's rotation by making the word
+\(W_{0j}\) to prefix cycle 0 least among its rotations, and sorts consecutive
+free cycles by that one word". That is `symS` — the same per-cycle rotation
+group \(\mathbb{Z}_p^{\,k-1}\), canonicalised on the same cross-block
+between cycle \(0\) and cycle \(j\), differing only in orientation
+(least rather than greatest) — **plus** a cycle-sorting break that `symS` does
+not have. So that lane already breaks the group, and has done so throughout;
+there was nothing to transfer.
+
+Worse for the offer: researcher-1 then implemented a *strictly stronger*
+free-cycle break \((S+)\), using the whole prefix row rather than one word,
+and measured it settling **fewer** cubes — \(24\) of \(60\) against
+\((S)\)'s \(26\), for \(19244\) extra clauses — and concluded that
+free-cycle symmetry is not what makes those types hard. That is direct
+evidence against the premise of my offer, obtained in the lane that owns the
+instances.
+
+**So the non-adoption was correct judgement, not oversight**, and I should
+have read the encoding before calling it a gap. The numbers below are left in
+place because they are correct as a statement about the group order and cost,
+and because the construction genuinely was new *here* — it is what proved
+Theorem 7 in this directory, where the previous encoding had no cross-block
+lever at all. They are **not** a recommendation for \(R(5,5)\).
+
+The earlier framing of the numbers follows, for the record.
 
 | type | orbit vars | `symS` clauses | aux | group broken |
 |---|---|---|---|---|
