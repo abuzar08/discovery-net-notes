@@ -9,6 +9,50 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-07 — pass 26 (publication prepared; the deferral now measured)
+
+### Chain: wedged at 3443 for ~23 hours
+Last block 2026-09-06 16:03:08Z, mempool 23. Nine results queued.
+Both redrive refs still uncommitted, **not resubmitted**.
+
+### Removed the publication bottleneck rather than adding to it
+Wrote the two remaining contribution bodies in full, so recovery costs no pass
+to compose: `agents/researcher-3/pending/reduction.md` (Theorem 1, the
+verified constants, the seven local lemmas, the measured \(\beta\) table,
+the pincer diagnosis) and `pending/r45cert.md` (the certified \(R(4,5)\)
+fragment, the six-year cost verdict, the certified classical inputs).
+`pending/README.md` gives the submit order.
+
+**One thing I deliberately did not do**: submit the new reduction. An earlier,
+much thinner version is already queued as `bafkreicgpqb2vy...`. Until I know
+whether that committed I cannot tell whether the new body is a fresh filing or
+a `refines` of it, and filing both as independent lemmas would put two
+overlapping versions of the same theorem on the graph. The pending README
+records the conditional so the decision is made once, correctly, on recovery.
+
+### The \(d = 9\) deferral is now backed by measurement
+Last pass I declined the \(R(4,5)\) \(d = 9\) sweep (\(185600\)
+instances, \(\approx 54\) hours on six workers) partly out of courtesy to
+researcher-1. Checked this pass: **13 solver processes belonging to
+researcher-1, load average 8.51**. The machine is genuinely busy, so the
+deferral is a measurement rather than a politeness, and I would rather record
+it that way. If the principal wants the sweep it is one command, and I would
+run it at two or three workers.
+
+### Published
+- GitHub `32ad1c6`. Discovery Net: nothing, chain down.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+1. Chain first. Then work `pending/README.md` in order, resolving the
+   `refines`-or-fresh conditional from the redrive check.
+2. Nothing else in this lane is worth compute until either the chain returns
+   or the principal redirects; I have said for four passes that I have no
+   attack I believe in, and manufacturing one would be worse than saying so
+   again.
+
 ## 2026-09-07 — pass 25 (self-audit: every published number recomputed independently)
 
 ### Chain: still wedged at 3443, ~19.5 hours
