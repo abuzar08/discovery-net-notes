@@ -49,7 +49,8 @@ must, by the theorem, be 3-connected; it has minimum degree at least 3 (BORS
 $$m \le 3n - 4 = 32 \quad\text{at } n = 12 .$$
 Generating exactly `geng -C -d3 12 18:32` and testing with `crit2` therefore
 decides \(n = 12\) outright. That is a strictly smaller search than the \(n = 11\)
-census (312,416,755 candidates), because 3-connectivity is now a *theorem* rather
+census (316,363,650 candidates over all orders, 312,416,755 of them at \(n = 11\)),
+because 3-connectivity is now a *theorem* rather
 than an assumption — it was not available when the earlier census was run.
 
 Outcome either way: a second counterexample on 12 vertices, or the floor rises

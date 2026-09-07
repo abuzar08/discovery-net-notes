@@ -86,8 +86,29 @@ So the early stop is dropped. Enumerating **all** partial matchings with
 \(k \le 4\) — the bound the two-hinge count justifies — for every one of the 20
 components gives between 3 and 10 critical identifications each, spread over
 several \(k\), and
-$$\textbf{137 critical identifications in total, every one of crossing number } 2,$$
-none of crossing number at least 3. Their connectivities are mixed — 43 are
+**every critical identification found has crossing number 2**, and none has
+crossing number at least 3.
+
+> **Count withdrawn (reviewer-1, bookkeeping).** I quoted "137 critical
+> identifications". That number should not be relied on and is withdrawn: it
+> reconciles with nothing, and the cause is mine — the enumeration deduplicated
+> by Weisfeiler–Lehman hash, which is not a complete invariant and can merge
+> non-isomorphic graphs. I had identified exactly that misuse of WL hashing in
+> this lane's \(V_8\) detector and then reintroduced it here.
+>
+> Counts in this setting are model-dependent in any case — over partial matchings
+> or over arbitrary pairs, at the least workable \(k\) or accumulated over all
+> \(k\) — so no single figure is canonical and the 55 and the 64 I reported are
+> counts in *different* models and must not be summed. What reproduces exactly is
+> reviewer-1's independent run: over all 315,315 four-pair matchings of the
+> \((14,22)\) component, **274 `CRIT2` and no `CRIT_GE3`**; under this lane's own
+> minimum-degree filter, my figures reproduce **to the digit — 142,321 survivors,
+> 64 critical**; and a least-\(k\) matching search over the other 19 components
+> gives **115**, all `CRIT2`.
+>
+> The mathematical conclusion is unaffected and is now independently confirmed:
+> every 2-crossing-critical identification found, in either model, has
+> \(\operatorname{cr} = 2\). Their connectivities are mixed — 43 are
 2-connected, 90 are 3-connected, 3 are merely connected and 1 is 4-connected —
 which confirms the search reaches identifications the figure does *not* intend,
 alongside the ones it does. That is the point: whichever of them Figure 14.3
@@ -97,15 +118,31 @@ means, provided it uses at most four pairs, it has \(\operatorname{cr} = 2\).
 3-connected case.** By BORS Theorem 14.5, the graph \(\tilde{C}\) obtained from
 the unique non-planar cleavage unit by replacing each virtual edge with a digon
 is 2-crossing-critical **and 3-connected**, and \(G\) is recovered from
-\(\tilde{C}\) by replacing those digons with digonal paths. A digonal path is a
-path with every edge doubled (Definition 14.4), so the replacement subdivides
-both edges of a digon in parallel; the crossing number is a topological
-invariant, hence \(\operatorname{cr}(G) = \operatorname{cr}(\tilde{C})\). \(\square\)
+\(\tilde{C}\) by replacing those digons with digonal paths (Definition 14.4: a
+path with every edge doubled). It remains to see that
+\(\operatorname{cr}(G) = \operatorname{cr}(\tilde{C})\).
+
+> **Justification corrected (reviewer-1, defect 1).** I first argued that the
+> replacement "subdivides both edges of a digon in parallel", so that topological
+> invariance applies. **That is wrong: a digonal path is not homeomorphic to a
+> digon** — a digon has two edges, a digonal path on \(k\) internal vertices has
+> \(2(k+1)\), and it is a series of digons rather than a subdivision of one. The
+> equality is nonetheless true, and reviewer-1 supplies the proof, by redrawing
+> in both directions, together with an 18-case computational check.
+
+Both inequalities are by explicit redrawing. For \(\le\): take an optimal drawing
+of \(\tilde{C}\) and replace each digon by its digonal path drawn inside a thin
+tube following the digon, which introduces no crossing, so
+\(\operatorname{cr}(G) \le \operatorname{cr}(\tilde{C})\). For \(\ge\): take an
+optimal drawing of \(G\) and contract each digonal path back to a single digon
+along the same tube, which removes crossings but creates none, so
+\(\operatorname{cr}(\tilde{C}) \le \operatorname{cr}(G)\). \(\square\)
 
 ## The twelve-vertex floor, independent of every figure
 
 The census is exhaustive for every 2-crossing-critical graph on at most eleven
-vertices — 312,416,755 graphs examined, 88 members — and contains exactly one
+vertices — **316,363,650** candidates examined over all orders \(n \le 11\), of
+which 312,416,755 are the \(n = 11\) layer alone, and 88 members — and contains exactly one
 with \(\operatorname{cr} \ge 3\), namely \(C_3 \square C_3\), which is
 3-connected. So any second counterexample has at least 12 vertices. This uses no
 figure and no part of the classification.

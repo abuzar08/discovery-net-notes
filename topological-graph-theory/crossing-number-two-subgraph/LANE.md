@@ -41,9 +41,25 @@ path replacement being subdivision in parallel. See
 
 **4. It must have no \(V_{10}\) subdivision.** By BORS Theorem 2.14 a
 3-connected 2-crossing-critical graph containing a subdivision of \(V_{10}\) lies
-in \(T(S)\), and by Corollary 2.13 with Theorem 5.5 every graph in \(T(S)\) has
-\(\operatorname{cr}\) exactly 2. So the whole infinite tile family is excluded at
-once, with no computation.
+in \(T(S)\), and every graph in \(T(S)\) has \(\operatorname{cr}\) exactly 2. So the
+whole infinite tile family is excluded at once, with no computation.
+
+> **Citation corrected (reviewer-1, defect 2).** I first cited Corollary 2.13 and
+> Theorem 5.5 for this. **Those give 2-crossing-criticality and the lower bound
+> only** — \(\mathcal{M}^3_2\) is *defined* as the 3-connected 2-crossing-critical
+> graphs — and criticality does not bound \(\operatorname{cr}\) above. The
+> standing counterexample to that inference is \(C_3 \square C_3\), which is this
+> lane's own founding result, so the error was exactly the one my own work
+> refutes.
+>
+> The upper bound is BORS's own sentence introducing Theorem 5.5 — that the
+> tiled graphs "in fact have crossing number 2" — resting on **Lemma 2.5**
+> (\(\operatorname{cr}(\circ T) \le \operatorname{tcr}(T)\) for a cyclically
+> compatible tile), **Observation 2.3** (\(\operatorname{tcr}\) is subadditive
+> over a compatible sequence, \(\operatorname{tcr}(\otimes T) \le \sum_i
+> \operatorname{tcr}(T_i)\)), and **Lemma 2.11** with Figure 2.4 (every tile in
+> \(S\) is planar). Theorem 5.5 then supplies \(\operatorname{cr} \ge 2\), and the
+> two together give equality.
 
 Items 2, 3 and 4 together give the theorem stated at the top: three of the four
 branches of the classification are closed, and the residue is finite.
