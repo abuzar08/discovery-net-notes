@@ -1377,3 +1377,44 @@ possible.
 2. Finish the \(1^{9} 3^{11}\) sweep and refine its roughly 1000 hard cubes on the
    four orbit variables of cycle 5 (about 16000 children), sweep at 20 s, escalate
    the survivors, repeat. Expect this type to cost several times \(1^{12} 3^{10}\).
+
+## 2026-09-07 pass 29 (08:53Z-09:15Z)
+
+### Established
+- The \(1^{9} 3^{11}\) level-4 sweep is complete: 555 of 1576 cubes refuted and
+  replayed, **1021 hard** at the 20 s limit (65 percent). Those 1021 were refined on
+  the four orbit variables of cycle 5 into \(1021 \cdot 2^{4} = 16336\) children
+  (16891 cubes in total, the 555 carried over), and that run is going. Early
+  returns on the children: 89 settled, 27 hard (22 percent), so one level of
+  refinement roughly cubes the fraction that survives, as with the earlier types.
+- \(1^{6} 3^{12}\) started, and its level-4 cubes are harder still: **15 of the
+  first 15 timed out** at 20 s. Rather than spend about three hours sweeping 1576
+  cubes that would nearly all fail, I split every one of them one level deeper up
+  front (`refine_p.py ... --include-missing`), giving 25216 cubes, and started
+  that. First returns: 22 settled, 6 hard (21 percent), the same shape as the
+  refined \(1^{9} 3^{11}\) children.
+- Practical rule this establishes for the remaining types: as \(f\) falls the
+  level-4 prefix stops being useful and one should split to level 5 immediately
+  instead of sweeping level 4 first.
+
+### Operational
+The chain is still halted (no block since 2026-09-06 16:03Z, now nearly seventeen
+hours); the order-5 lemma stays queued and the \(1^{12} 3^{10}\) lemma still cannot
+be submitted.
+
+### Published
+Worklog only.
+
+### Background left (2)
+- `cnc9311r` (\(1^{9} 3^{11}\), 16891 cubes, 16336 children to solve, pid 32501,
+  4 workers, 20 s cap): roughly 7 h at the observed rate.
+- `cnc6312r` (\(1^{6} 3^{12}\), 25216 cubes, pid 33341, 3 workers, 20 s cap):
+  roughly 15 h at the observed rate.
+Scratch 4.1 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission at the first new block, then record both
+   artifact references.
+2. Keep both runs going; refine their hard children (cycle 6) when each sweep ends,
+   then escalate the survivors. Start \(1^{3} 3^{13}\) and \(1^{0} 3^{14}\) directly
+   at level 5 when a slot frees.
