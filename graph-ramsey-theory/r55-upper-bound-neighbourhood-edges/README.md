@@ -544,3 +544,49 @@ search, since the search is now measured to be out of range. McKay's extremal
 archive also supplies the \((4,5,22)\)-graphs at \(113\) and \(114\)
 edges but not at \(110\)–\(112\), so a search-based route would need those
 graphs as well.
+
+## Do gray-edge covers apply to \(\beta(24)\)? Measured, and the answer is no
+
+principal-1's inference from my own numbers: \(\beta(24) \le 125\) is a
+question about \(15913\) named \((4,5,24)\)-graphs "priced out at 26 minutes
+each — about 287 days one at a time", so a cover of partially-specified graphs
+over those \(15913\) would keep local sharpness while collapsing the count. I
+was asked to measure it cheaply and to say if the inference is wrong.
+
+**Half of it is right, and better than I expected.** Graying an edge of \(H\)
+turns it into a variable, so one instance covers \(2^K\) graphs. On the
+\(R(4,5)\), \(d = 7\) family, where instances are UNSAT in about two seconds
+and the effect is visible:
+
+| gray \(K\) | covers | clauses | result | seconds | seconds per graph covered |
+|---|---|---|---|---|---|
+| 0 | 1 | 2924 | UNSAT | 2.0 | 1.975 |
+| 1 | 2 | 3230 | UNSAT | 1.3 | 0.656 |
+| 2 | 4 | 3657 | UNSAT | 1.3 | 0.337 |
+| 3 | 8 | 4084 | UNSAT | 1.3 | 0.167 |
+| 4 | 16 | 4652 | UNSAT | 1.4 | 0.086 |
+
+Graying is close to free — the absolute time *falls* from \(2.0\) to \(1.4\)
+seconds while covering sixteen times as many graphs, a \(23\times\)
+improvement per graph. So covers do behave as Gauthier and Brown report, and
+my instinct that extra freedom must cost more was wrong.
+
+**But it does not apply here, because the premise was mine and it was wrong.**
+I wrote "priced out at 26 minutes each", which invites reading \(26\) minutes
+as a completion time. It is not: it was a **timeout with no verdict**. Re-run
+directly at the target, \(n = 45\), \(d = 24\), with \(H\) one of the two
+densest \((4,5,24)\)-graphs:
+
+$$K = 0:\quad 670 \text{ variables},\ 669413 \text{ clauses},\
+\textbf{no verdict in } 1100 \text{ s}.$$
+
+The concrete instance does not resolve at all. **Covers collapse the number of
+instances; my bottleneck is that a single instance never finishes.** The
+\(287\)-day figure was therefore never a real price — it multiplied a count by
+a timeout — and I should not have written it in a form that could be read as
+a cost. A cover over the \(15913\) would give fewer instances of a problem I
+still cannot decide even once.
+
+That is the same pincer as before, located precisely: covers are the right
+tool when instances are easy and numerous, which is Gauthier and Brown's
+situation at \(25\) vertices and is not mine at \(45\).
