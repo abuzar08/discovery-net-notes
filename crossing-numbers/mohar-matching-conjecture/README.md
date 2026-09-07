@@ -113,7 +113,45 @@ either produces a body of confirmations nobody has collected or turns up a value
 that contradicts the formula — in which case a 2020 conjecture is refuted from
 the existing literature rather than by computation.
 
-## The first genuinely open case, and why the counting route stops
+## Correction: I mis-identified the open cases, and \(t = 1\) is already settled
+
+Before choosing an instrument for \(n = 10\), I enumerated which cases of the
+conjecture are actually open. Two things came out, and the first supersedes what
+I wrote above about "the first open case".
+
+**Mohar's \(t = 1\) case is Chia and Lee's conjecture, and is known for
+\(n \le 12\).** DS21 records that Chia and Lee conjecture
+$$\operatorname{cr}(K_n - e) \;=\; Z(n) - \binom{\lfloor (n-1)/2 \rfloor}{2},$$
+noting it is **true for \(n \le 12\)**. For even \(n = 2k\) we have
+\(\lfloor (n-1)/2 \rfloor = k-1\), so
+\(\binom{k-1}{2} = \tfrac12 (k-1)(k-2)\) and the two formulas are **identical**.
+Mohar's Conjecture 5 at \(t = 1\) is therefore not open at all for
+\(n \le 12\); it is a special case of an older conjecture that has been verified
+there. Mohar's paper does not appear to note the coincidence.
+
+**So the case list at \(n = 8\) is:** \(t = 0\) gives \(\operatorname{cr}(K_8) = 18\),
+known; \(t = 1\) gives 15, known via Chia–Lee; \(t = 4\) gives 6, known via Ho;
+and \(t = 2, 3\) — predicted 12 and 9 — are **open**. The first open case is
+therefore \(n = 8\), \(t = 2\), on 8 vertices and 26 edges, and **not** the
+\(n = 10\) case I named. That is a smaller object and a better target.
+
+## The instrument question for \(n = 10\), answered
+
+The state of the art for exact crossing minimisation is ILP branch-and-cut
+(Chimani, Mutzel and Bomze, ESA 2008; in OGDF). Its reported reach is precise and
+comes with a caveat that matters here: on the **Rome benchmark** — 11,500
+real-world graphs from software engineering, which are *sparse* — it "solves all
+but 6 graphs with a crossing number of up to 20", and "even solves a graph with a
+crossing number of 37". So 37 is a single outlier and the reliable range is
+\(\operatorname{cr} \le 20\).
+
+\(K_{2,2,2,2,2}\) has 10 vertices and **40 edges** with a predicted crossing
+number of **30**. That is above the reliable range and in a far denser regime
+than the benchmark supporting the 37. **The published state of the art does not
+demonstrably reach it.** That is not proof it would fail — only that nothing in
+the literature says it would succeed, which is what the question asked.
+
+## Where the counting route stops
 
 The next case up is \(n = 10\), \(t = 5\), where the conjecture predicts
 $$\operatorname{cr}(K_{2,2,2,2,2}) \;=\; H(10) - \tfrac52 \cdot 4 \cdot 3 \;=\; 60 - 30 \;=\; 30 .$$
@@ -136,5 +174,11 @@ vertices and 32 edges would have to search to roughly 18 crossings, and the
 number of choices of that many independent crossing pairs is astronomically
 large. The method that worked at 7 vertices does not scale.
 
-So \(n = 10\) needs a different instrument, and identifying that is where this
-target goes next.
+So \(n = 10\) needs a different instrument. With \(t = 1\) settled and the first
+open case moved down to \(n = 8\), \(t = 2\), the immediate work is smaller:
+\(M_{8,2} = K_8\) minus two disjoint edges, predicted \(\operatorname{cr} = 12\).
+Its vertex-deleted subgraphs are \(K_7 - e\), whose crossing number is 6 by
+Chia–Lee, and \(K_7 - 2e\), which is a 7-vertex graph on 19 edges and therefore
+within reach of the exhaustive planarisation that settled
+\(\operatorname{cr}(K_{1,2,2,2}) = 3\). Computing it feeds the counting bound
+directly.
