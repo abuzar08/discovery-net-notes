@@ -279,16 +279,49 @@ other two need gaps of \(3\) at \(x = 24\) and \(2\) at \(x = 23\)
 (given the observed \(\beta(20), \beta(21)\)), against observed gaps of
 \(4\) and \(6\) at \(x = 20, 21\).
 
-**This is evidence, not a proof, and three caveats are load-bearing.** The
+**This is evidence, not a proof, and the caveats are load-bearing.** The
 \(328\) graphs are the *known* \((5,5,42)\)-graphs, not all of them, so the
 observed values are lower bounds on the true \(\beta\) at \(n = 42\).
 \(n = 42\) is not \(n = 45\); the degree window is tighter at \(45\), which
 should push \(\beta\) down further, but that direction is argued, not
 established. And \(\beta\) at \(n = 45\) is a statement about a
-*hypothetical* graph, where no data can reach. What the measurement does
-establish is that the required gaps are of the size that real Ramsey graphs
-actually exhibit — which is the difference between a reduction to a plausible
-hypothesis and a reduction to an implausible one.
+*hypothetical* graph, where no data can reach.
+
+**Robustness check.** The \((5,5)\) property is self-complementary, so the
+complement of each stored graph is another \((5,5,42)\)-graph — verified for
+all \(328\). Redoing the measurement over the resulting \(656\) graphs and
+\(55104\) neighbourhoods gives **exactly the same** \(\beta\): \(90, 96,
+101, 108\). The values are stable under doubling the sample.
+
+### Two findings that cut against the encouraging reading
+
+Both are recorded because they weaken the case above, and the case above is
+mine.
+
+**1. None of this directory's constraints is tight at the observed maxima.**
+At the vertex achieving the largest \(e_N\) for each \(d\):
+
+| \(d\) | \(m\) | \(e(G)\) | \(e_N\) | \(\overline e(d)\) | \(e_M\) | allowed \(e_M\) range | \(S(v)\) |
+|---|---|---|---|---|---|---|---|
+| 19 | 22 | 431 | 90 | 92 | 127 | \([117,143]\) | 394 |
+| 20 | 21 | 428 | 96 | 100 | 114 | \([103,133]\) | 410 |
+| 21 | 20 | 436 | 101 | 107 | 99 | \([90,122]\) | 438 |
+| 22 | 19 | 425 | 108 | 114 | 85 | \([79,114]\) | 448 |
+
+\(e_M\) sits \(6\)–\(11\) above its lower bound, never at it, and \(S(v)\)
+is well below \(d\,\Delta\). So Lemma 1 together with the
+\(\underline e, \overline e\) bounds does **not** explain why \(\beta <
+\overline e\). The gap is real and measured, but it is caused by something
+outside the machinery of this reduction, which means the reduction cannot be
+closed by tightening its own inequalities.
+
+**2. The sample is structurally narrow.** The \(656\) graphs have edge counts
+confined to \([423, 438]\), symmetric about \(430.5\) — sixteen values out
+of a range that a hypothetical \((5,5,45)\)-graph would occupy far more
+loosely (\(450 \le e \le 540\)). Whether that concentration is a property of
+\((5,5,42)\)-graphs or an artifact of how these particular ones were found, I
+cannot tell from the data. It is a reason to treat the observed \(\beta\) as
+weaker evidence than the raw agreement of the numbers suggests.
 
 ## Soundness of the argument itself
 
@@ -308,8 +341,8 @@ an honest illustration that this bound is one tool among several.)
 - `e45.json` — the verified constants, source URLs and SHA-256.
 - `r45_24_profile.json` — edge and degree profile of all \(352366\)
   \((4,5,24)\)-graphs.
-- `beta_observed_42.json` — \(\beta\) measured in the \(328\) known
-  \((5,5,42)\)-graphs, against \(\overline e\).
+- `beta_observed_42.json`, `beta_observed_656.json` — \(\beta\) measured in
+  the \(328\) known \((5,5,42)\)-graphs and in all \(656\) with complements.
 - `reduce.py` — the reduction in exact rational arithmetic, and `--selftest`.
 - `glue.py` — the gluing CNF (both the fixed-pair and the fixed-\(H\) forms),
   and the \(S_m\) symmetry break for \(M\).
