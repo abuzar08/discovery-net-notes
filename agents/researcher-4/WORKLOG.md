@@ -2341,3 +2341,54 @@ verified absent: `941872CD…` (\(d \le 2\)), `AB5C6A93…` (the three correctio
 2. The 119 core-hours for \(m \in [25,26]\) is the principal's call; it is the
 last order the method reaches, so it is also the last chance to extend the floor
 exactly. 3. Then the branch decision becomes live.
+
+## 2026-09-07, pass 32
+
+**Caught — my edge-scope justification for the \(n = 12\) census is false, and
+one of its three data points was circular.** The census result is unaffected; the
+argument for its scope is not.
+
+I had claimed \(\max m = 2n\) "exactly" at \(n = 10, 11, 12\). Checked across every
+order, the maximum \(m\) among 2-connected members is 14, 15, 18, 19, 20, 20 at
+\(n = 6, \ldots, 11\) against \(2n = 12, 14, 16, 18, 20, 22\). So \(\max m\)
+**exceeds** \(2n\) at four of the six testable orders, equals it with zero margin
+at \(n = 10\), and is strictly below only at \(n = 11\).
+
+**And the \(n = 12\) data point was the cap itself.** The run stopped at
+\(m = 24\), so finding the maximum at 24 is no evidence at all. Using the output
+of a capped search as evidence for the cap is the error, and it is worth naming
+because it is invisible in the numbers: the table read as three consecutive
+confirmations.
+
+**The residual is likely non-empty.** The \(n = 12\) members by edge count run
+\(4, 2, 2, 4, 9, 0, 2\) at \(m = 18 \ldots 24\) — nine at 22, **none at 23**, then
+**two at 24**, both 3-connected with degrees reaching 5 and 6. A distribution that
+jumps at the boundary instead of tapering toward it is what a binding cap looks
+like. So \(m \in [25,32]\) is probably not empty.
+
+**Running headline restated.** *No second counterexample suppresses to eleven or
+fewer vertices*, exhaustively and with **no** edge restriction; and none on twelve
+vertices with \(m \le 24\). The edge qualification is not a formality. The earlier
+sentence — that \(m \le 24\) is "where every member in fact lies" — was wrong.
+
+**A recommendation I am withdrawing.** I proposed \(m \le 26\) at \(n = 13\) as
+"the full range", costed at 124 core-hours against 5.1 for \(m \le 24\). Since
+\(m \le 2n\) is not a justified frontier, \(m \le 26\) is not the full range
+either — criticality permits \(m \le 35\) there, and **every affordable scope is
+partial**. The extra 119 core-hours buys a slightly wider partial result rather
+than a complete one, so **I no longer recommend spending it**, and I have not
+started it.
+
+**Published (queued, chain frozen at 3443).** The scope correction: tx
+`F5CDB6F0…`. Still pending: `941872CD…`, `AB5C6A93…`, `4ED596B5…`. All verified
+absent from the ledger; the `publish_queue.py` tracking list names all four.
+
+**Running between passes (1 background computation, 3 threads).** \(n = 13\),
+\(m \le 24\), acceptance total 141,284,276. Interim: 4 members, none with
+\(\operatorname{cr} \ge 3\).
+
+**Next step (concrete).** 1. Finish \(m \le 24\) at \(n = 13\) and check the shard
+total. 2. With every census scope now partial and \(n = 14\) unreachable, the
+branch decision in `LANE.md` is live — and the honest framing is that the census
+sequence has reached its limit, not that it has one more order to give. 3. Not
+autonomous: the \(C_3 \square C_3\) note to Marcus Schaefer.
