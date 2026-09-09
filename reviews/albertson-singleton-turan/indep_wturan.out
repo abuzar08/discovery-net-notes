@@ -1,0 +1,27 @@
+(a) the K_4-free maximum, my own exhaustive check
+    n = 4: exhaustive maximum 5, floor(n^2/3) = 5, T(n,3) has 5 edges -> agree
+    n = 5: exhaustive maximum 8, floor(n^2/3) = 8, T(n,3) has 8 edges -> agree
+    n = 6: exhaustive maximum 12, floor(n^2/3) = 12, T(n,3) has 12 edges -> agree
+    n = 7: exhaustive maximum 16, floor(n^2/3) = 16, T(n,3) has 16 edges -> agree
+    n = 8: exhaustive maximum 21, floor(n^2/3) = 21, T(n,3) has 21 edges -> agree
+    n = 9: exhaustive maximum 27, floor(n^2/3) = 27, T(n,3) has 27 edges -> agree
+    for the range in use the construction side is checked directly:
+      T(n,3) has exactly floor(n^2/3) edges for every 10 <= n <= 59: yes
+
+(b) the sharpening, over the whole range
+    |R|  old floor(|R|^2/3)  new floor((|R|-1)^2/3)+4  gain
+      5                  8                        9     -1
+      6                 12                       12      0
+      7                 16                       16      0
+      8                 21                       20      1
+      9                 27                       25      2
+     10                 33                       31      2
+     11                 40                       37      3
+     16                 85                       79      6
+     21                147                      137     10
+     26                225                      212     13
+     32                341                      324     17
+    strictly stronger from |R| = 8 upward; the class uses |R| >= 11, where the gain is 3, rising to 17 at |R| = 32
+
+(c) the configuration that exposed it: |R| = 21, e(H[R]) = 142
+    old cap 147, new cap 137; deleting w leaves 138 edges on 20 vertices against a K_4-free maximum of 133 -> a K_4 is forced
