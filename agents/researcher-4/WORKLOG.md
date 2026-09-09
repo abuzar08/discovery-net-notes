@@ -3026,3 +3026,75 @@ lead I would test first is the prediction above: audit DS21's *conjecture*
 statements against their sources for dropped hypotheses, the class where the one
 known error lives. Not autonomous: the \(C_3 \square C_3\) note to Marcus
 Schaefer, and now two DS21 corrections.
+
+## 2026-09-09, pass 44
+
+Adopted the principal's direction in place of my planned selection pass: does the
+new decider settle \(\operatorname{cr}(M_{8,3})\)? The reason given was correct —
+my pass-40 "out of range" verdict measured branching alone, before Euler pruning
+existed, and pruning had since overturned two other verdicts.
+
+**Answer: no, and the pass-40 estimate was optimistic by about 50 times.**
+Recorded in `M83-REMEASURED.md`.
+
+**1. Branching is not constant; it grows with depth.** Measured 24.0, 25.2, 34.0,
+39.4, 46.7, 50.8, 48.9, 56.6 at depths 0 through 7, because each planarisation
+adds a vertex and two edges and so enlarges the Kuratowski subdivisions below it.
+The tree is \(5.3 \times 10^{12}\), not the \(24^8 \approx 1.1 \times 10^{11}\)
+I reported at pass 40.
+
+**2. Euler pruning cannot fire inside this search at all.** Planarising a
+crossing sends \(n \mapsto n+1\), \(m \mapsto m+2\), so \(\mathrm{lb} = m-3n+6\)
+becomes \(\mathrm{lb}-1\) exactly as \(k\) becomes \(k-1\): **the slack
+\(\mathrm{lb}-k\) is invariant along every branch**, measured at \(-1\) at every
+depth through 7. If the test does not fire at the root it never fires. This also
+explains why the earlier gains did not transfer — they were savings in
+**iterative deepening**, skipping whole levels \(k < \operatorname{cr}\), and a
+fixed-\(k\) decision has no levels to skip.
+
+**3. The node rate is the term I had never measured**: 182 nodes/sec on one core,
+dominated by planarity testing *with Kuratowski extraction* at every node. Raw
+search **8.1 million core-hours**.
+
+**4. Deduplication decays and then runs out of memory.** Isomorphic branches
+collapse by \(4.8\times, 2.3\times, 1.8\times, 1.7\times\) per level —
+extrapolating to about \(285\times\), which is two orders against the six or
+seven needed, leaving 28,000 core-hours. And dedup requires *storing* the
+distinct nodes: \(1.9 \times 10^{10}\) graphs is of order a terabyte, fifty times
+the scratch limit, so even that figure is not attainable. Dedup used exact
+isomorphism with a Weisfeiler–Lehman hash **only as a bucketing key before exact
+comparison** — WL is not a complete invariant, and using it as the sole key is a
+mistake I have made twice in this campaign.
+
+**What would be needed, since a negative verdict is only useful if it prices the
+alternative:** a C implementation at \(2\times10^4\) nodes/sec with dedup bounded
+to the first few levels, about **2,000 core-hours** for one entry. That is a real
+number rather than a wall, so it is the principal's call; my recommendation is
+against, since it is roughly sixteen times the cost of the \(n = 13\) census,
+which settled an entire order, and would settle one row.
+
+**The positive evidence.** The upper-bound heuristic — tight on all ten known
+values tested, including \(\operatorname{cr}(K_8) = 18\) — was run on
+\(M_{8,3}\) with **8,000 randomised restarts across 40 seeds and never found a
+drawing below 9 crossings**. One-sided, so not a proof; but the refutation it can
+find is exactly the one that would break the conjecture here, and it did not find
+it. \(\operatorname{cr}(M_{8,3}) \in \{8,9\}\) stands.
+
+**The lesson.** The pass-40 verdict was wrong in its numbers and right in its
+conclusion, which is the least useful way to be right: it quoted a branching
+factor without saying it was measured on the whole graph rather than the
+Kuratowski subdivision, without pruning, and with no node rate, so when pruning
+arrived there was no way to tell whether it still held. **An out-of-range verdict
+should name what was and was not combined, and carry a cost in core-hours rather
+than a tree size, because a tree size cannot be compared against anything.**
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions still
+absent; nothing this pass depends on the ledger. **No background computations
+running.**
+
+**Next step (concrete).** The DS21 checkpoint deliverable is published and this
+question is answered, so the next pass is the deferred selection — literature
+first, then the graph, then compute, per the amended criteria. Lead to test
+first: audit DS21's *conjecture* statements against their sources for dropped
+hypotheses, the class where the one known error lives. Not autonomous: the
+\(C_3 \square C_3\) note to Marcus Schaefer and two DS21 corrections.
