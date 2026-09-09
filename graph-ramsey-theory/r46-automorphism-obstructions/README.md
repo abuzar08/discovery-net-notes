@@ -375,17 +375,23 @@ The negated region is not just a fraction — it is a finite, explicit list.
 Walking the trie of leaf tags, the uncovered part decomposes into exactly
 \(472\) disjoint cubes:
 
-| depth | residual cubes |
-|---|---|
-| \(17\) | \(2\) |
-| \(18\) | \(355\) |
-| \(21\) | \(16\) |
-| \(22\) | \(99\) |
-| **total** | **\(472\)**, of measure \(5875/2^{22}\) |
+| depth | residual cubes | measure | share of what is open |
+|---|---|---|---|
+| \(17\) | \(2\) | \(1/65536\) | \(1.1\%\) |
+| \(18\) | \(355\) | \(355/262144\) | \(\mathbf{96.7\%}\) |
+| \(21\) | \(16\) | \(1/131072\) | \(0.5\%\) |
+| \(22\) | \(99\) | \(99/4194304\) | \(1.7\%\) |
+| **total** | **\(472\)** | \(5875/4194304\) | \(100\%\) |
 
 They are listed in `residual-1_0-5_7.txt`. This replaces "\(0.14\%\) open" with
 a work list, and it is what the previous table recorded only as
 "(sampled, not completed)" at depth \(22\).
+
+The shape is worth noting: **almost all of the open measure — \(96.7\%\) — sits
+in \(355\) cubes at depth \(18\) that were never split further at all.** At that
+layer the run stopped; it did not diverge. The genuinely stubborn part, the
+\(115\) cubes at depths \(21\) and \(22\) that survived four levels of
+splitting, carries only \(2.2\%\) of the open measure.
 
 **But the split is not converging.** Survivor counts run
 \(483 \to 152 \to 382\), rising in absolute terms even as the covered

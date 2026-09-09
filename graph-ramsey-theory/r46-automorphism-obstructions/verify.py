@@ -23,12 +23,13 @@ Subcommands
       the 2^D cubes over variables 1..D (every sign pattern, once), and
       replays each cube's LRAT against the base formula plus that cube.
 
-  tree N S T F P K DIR [DIR ...]
+  tree N S T F P K DIR [DIR ...] [--certify-cover]
       Certifies the type by a cube split of arbitrary, non-uniform depth.
       Checks that the leaf tags form a complete prefix-free code (no tag a
       prefix of another; Kraft sum exactly 1), which is precisely the
       statement that the cubes partition the assignment space, and replays
-      every leaf.
+      every leaf.  With --certify-cover the partition claim is additionally
+      established by a certificate rather than by that argument; see `cover`.
 
   cover DIR-or-MANIFEST [...]
       Certifies the cube-cover step itself, rather than arguing it.  Builds
@@ -37,6 +38,11 @@ Subcommands
       checker used for every leaf -- so "the cubes cover everything" carries a
       certificate instead of resting on the Kraft argument in `tree`.  If they
       do not cover, prints an explicit uncovered assignment.
+
+  residual DIR-or-MANIFEST [...]
+      Lists the cubes a leaf set does NOT cover, as a finite work list rather
+      than a fraction, and checks that their total measure is exactly
+      1 - (Kraft sum) so the two accounts of "what is open" must agree.
 
   graph S T FILE
       Checks that an explicit graph is an (S,T,|V|)-graph: no K_S and no
@@ -487,6 +493,15 @@ def cmd_tree(a):
     else:
         print(f"  leaf tags are prefix-free, so the covered fraction is exact "
               f"and the leaves do not overlap")
+    if "--certify-cover" in a:
+        # Replace the Kraft argument above by a certificate of the same kind
+        # the leaves carry.  See cmd_cover.
+        ok, info = cover_certify(tags)
+        if ok:
+            print(f"  COVER CERTIFIED  by refuting the negated-cubes formula; "
+                  f"{os.path.getsize(info)} bytes of LRAT replayed here")
+        else:
+            print(f"  COVER REFUTED  the cubes miss the assignment {info}")
 
 
 def collect_tags(args):
@@ -590,6 +605,56 @@ def cmd_cover(a):
           "kind of certificate as each leaf")
 
 
+def cmd_residual(a):
+    """List the cubes a leaf set does NOT cover, exactly.
+
+    Usage: residual DIR-or-MANIFEST [...]
+
+    `cover` answers yes or no and returns one witness.  This returns the whole
+    uncovered region, decomposed into disjoint cubes: walk the trie of leaf
+    tags, and every child of a visited node that is neither a leaf nor an
+    ancestor of one has its entire subtree uncovered.  That subtree is a cube,
+    the decomposition is disjoint by construction, and its measure is exactly
+    1 minus the Kraft sum -- which is checked here, so the two accounts of
+    "what is open" have to agree or this fails.
+
+    Reason to have it: a partial cube-and-conquer run reports a *fraction*
+    open, which cannot be worked on.  This turns it into a finite work list.
+    """
+    from fractions import Fraction
+    srcs = [x for x in a if not x.startswith("--")]
+    tags = set(collect_tags(srcs))
+    prefixes = {t[:i] for t in tags for i in range(len(t) + 1)}
+    res, stack = [], [""]
+    while stack:
+        node = stack.pop()
+        if node in tags:
+            continue
+        for b in "01":
+            c = node + b
+            if c in tags:
+                continue
+            (stack if c in prefixes else res).append(c)
+    res.sort(key=lambda s: (len(s), s))
+    open_measure = sum(Fraction(1, 2 ** len(c)) for c in res)
+    kraft = sum(Fraction(1, 2 ** len(t)) for t in tags)
+    if open_measure != 1 - kraft:
+        raise SystemExit(f"residual measure {open_measure} != 1 - Kraft "
+                         f"{1 - kraft}: the decomposition is wrong")
+    by = {}
+    for c in res:
+        by.setdefault(len(c), []).append(c)
+    print(f"  {len(tags)} leaves; residual is {len(res)} disjoint cubes of "
+          f"total measure {open_measure} = {float(open_measure):.9f}")
+    print("  (agrees with 1 - Kraft sum, checked exactly)")
+    for d in sorted(by):
+        m = Fraction(len(by[d]), 2 ** d)
+        print(f"    depth {d}: {len(by[d]):5d} cubes, measure {m}, "
+              f"{float(m / open_measure) * 100:5.1f}% of what is open")
+    for c in res:
+        print(c)
+
+
 def cover_certify(tags, work=None):
     """(True, lrat_path) if the cubes cover everything; (False, witness) if not.
 
@@ -689,7 +754,7 @@ def main():
         print(__doc__)
         return 2
     {"lower": cmd_lower, "graph": cmd_graph, "cubes": cmd_cubes,
-     "tree": cmd_tree, "cover": cmd_cover,
+     "tree": cmd_tree, "cover": cmd_cover, "residual": cmd_residual,
      "selftest": cmd_selftest}[sys.argv[1]](sys.argv[2:])
     return 0
 
