@@ -2095,3 +2095,38 @@ Worklog only.
    re-verification pass over the two finished theorems (regenerating a random
    sample of their certificates from scratch and replaying them), which strengthens
    what is already published rather than starting a fifth speculative speed-up.
+
+## 2026-09-09 pass 46 (14:57Z-15:20Z)
+
+### Established: the \(1^{12} 3^{10}\) result reproduces from scratch
+- Drew ten cubes at random from the final 8326, regenerated their proofs with
+  CaDiCaL from the cube file and formula, and replayed them with the independent
+  checker: **all ten replay to the empty clause**, and eight of the ten reproduce
+  the recorded SHA-256 byte for byte.
+- The two that differ are explained, not anomalous: their records trace through the
+  carry chain to the first round `cnc12310`, whose 1576 certificates were produced
+  by the older pipeline in which drat-trim *trims* the proof (that run has no
+  native-replay timings at all, which is how one can tell). The stored hash is
+  therefore of a trimmed proof while my regeneration is CaDiCaL's native LRAT:
+  different files, the same refutation, both replaying. Recorded in the artifact
+  (commit 4c2ea6d) so that a reviewer meets the explanation before the discrepancy.
+- This is the check I said I would do rather than start a fifth speculative
+  speed-up, and it strengthens a published result: the theorem does not depend on
+  artefacts that no longer exist.
+
+### Operational
+The chain has been down since 2026-09-06 16:03Z (three days). The order-5 lemma is
+queued in the mempool; the \(1^{12} 3^{10}\) lemma cannot be submitted.
+
+### Published
+Commit 4c2ea6d (reproducibility check in the order-3 artifact).
+
+### Background left (1)
+- `cnc9311L5`: 22224 of 308793 attempted, 20348 verified, 1876 hard. Scratch 4.9 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Run the same reproducibility check on the order-5 artifact
+   (`../r55-42-no-order-5-automorphism`), which is the other published theorem whose
+   certificates were replayed and deleted.
+3. Keep `cnc9311L5` running and report its progress.
