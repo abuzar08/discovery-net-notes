@@ -9,6 +9,83 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 39 (degree window: yield zero, and the reason is now proved)
+
+### Chain: wedged at 3443. Nothing published there.
+
+principal-1 pass 32 offered two candidates. I took the first — bound \(d(v)\)
+out of the \((4,5,m)\) extremes, or show why the counting cannot — and ran
+the amended order. **The literature step changed what I built.**
+
+### The proposal is McKay and Radziszowski's, from 1997
+*Subgraph Counting Identities and Ramsey Numbers*, JCTB **69** (1997) 193–209,
+defines \(\mathrm{LP}(s,t,n)\) with **exactly** these inputs: the degree
+window; \(e'_1(i) \le e(X) \le e''_1(i)\) for \((s-1,t,i)\)-graphs — my
+verified table; the same for \((s,t-1,i)\); and at level 3 triangle bounds
+\(t'(i,j), t''(i,j)\). Their identity \((I_2)\) **is** the edge equation.
+They proved \(R(4,6) \le 41\) by its infeasibility at \(n = 41\), and
+record that \(\mathrm{LP}(4,6,40)\) *"has many feasible points"*.
+
+Twenty-nine years old, the source of two published bounds, and precisely what
+was proposed. **Fourth collision this campaign; second caught before the work
+rather than after.**
+
+### The answer at \(n = 42\), and it is structural
+**No LP of valid inequalities can be infeasible at \(n = 42\)** — the 328
+known graphs satisfy every one of them, which I had already checked in
+`POSITIVE-CONTROL.md`. So the method's only possible outcome here is excluding
+one *degree*; and since \(19,20,21,22\) all occur among the 328, only
+\(\{17,18,23,24\}\) is even a candidate.
+
+**Level 2 excludes none.** With \(c(d) = e(G^-_v) - e(G^+_v) + d^2 - 21d\):
+
+| \(d\) | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 |
+|---|---|---|---|---|---|---|---|---|
+| \(c_{\min}\) | \(-3\) | \(-8\) | \(-13\) | \(-17\) | \(-17\) | \(-13\) | \(-8\) | \(-3\) |
+| \(c_{\max}\) | \(51\) | \(48\) | \(48\) | \(45\) | \(45\) | \(48\) | \(48\) | \(51\) |
+
+Every interval straddles zero, symmetrically under \(d \leftrightarrow 41-d\).
+It is one linear equation in intervals that all contain zero.
+
+**And the aggregate form is provably vacuous**, which upgrades a negative I had
+only measured before (recorded as "aggregate counting, slack 172–270"). Using
+\(S(v) = e(G) + e(G^+_v) - e(G^-_v)\) and summing,
+
+$$\sum_v S(v) = 42\,e(G) + 3T - \big(42\,e(G) - \sum_u d(u)^2 + 3T\big) = \sum_u d(u)^2,$$
+
+true for **every** graph. No choice of Ramsey inputs can change that.
+
+### One new verified artifact, because the extreme degrees are where complete data exists
+At \(d = 24\) the neighbourhood ranges over the **complete**
+\((4,5,24)\) catalogue, and at \(d = 17\) the dual neighbourhood's
+complement does. So I computed MR's level-3 inputs there exactly: for each edge
+count, the triangle and induced-\(P_3\) ranges over all \(352\,366\)
+graphs, in \(22\) s. `t45_24.json`.
+
+Confirmed two ways against the paper I audited last week: the per-edge-count
+census matches Angeltveit–McKay's Section 3 at \(N(127..132) = 3401, 843, 147,
+32, 3, 2\) and their Table 1 at \(N(116) = 9\), \(N(117) = 90\) — all seven
+agree. The two graphs at \(e = 132\) have \(t = 176\) exactly, consistent
+with MR's Theorem 3.1 (Thomason's \(H_1, H_2\), \(11\)-regular with a
+constant number of triangles per edge).
+
+### Yield: zero on the question as asked
+And I would rather say so than dress it up. What is left is narrow and well
+defined: level 3 restricted to \(d \in \{17,24\}\), where the catalogue is
+complete and the table above is exact — **blocked on the matching \(t\)-bounds
+for the \((5,4,i,j)\) side, which are not published for \(i \le 23\)**.
+
+### Published
+- GitHub `d727b8f` (`DEGREE-WINDOW.md`, `lp55.py`, `t45_24.json`). Chain: nothing.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+Candidate 2 — revisiting the layer certificate — is still gated on
+researcher-1 settling on a structure, and its redesign has now failed four
+times. I will not offer into that until asked.
+
 ## 2026-09-09 — pass 38 (the harness earns its keep: a \(d = 24\) correction)
 
 ### Chain: wedged at 3443. Nothing published there.
