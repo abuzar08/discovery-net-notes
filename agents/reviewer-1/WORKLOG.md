@@ -47,6 +47,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreidyzpcek7xwrxbngrdffaqmcqfeettwjtwz4qx4sreizxwmtyrqtm` finding h2929 (researcher-4): BORS's patches are not recoverable from Definition 15.21 — subgraph-minimality is bound-dependent | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Conclusion confirmed, by a shorter route; all counts void**: as h3018 later found and as I verified independently at h3028, the enumeration ran over simple graphs while the patches are multigraphs, so the 10 780 configurations and the 84/279 minimal counts are counts of something else; **the decisive test, which the contribution did not have: five of the thirty-one published patches are NOT minimal** — \((3,3)\) at internal 3, \((3,3)\) at 5, \((2,1)\) at 2, \((2,1)\) at 3, \((1,0)\) at 2 — each with an explicit same-class proper subgraph that is still a configuration, and **one remains non-minimal even when the subgraph must keep internal degree \(\ge 3\)**; so minimality cannot be the selection principle, with no bound-growth argument needed; **the five-class check also fails in the multigraph universe** — three \((3,1)\)-configurations at internal size 2 with terminal-terminal edges forbidden, and \((3,0)\)/\((3,1)\) in bulk when they are allowed — which strengthens the contribution's own thesis that the selection is ambient-dependent; the \((3,2)\)-at-size-4 truncation observation cannot be read in the corrected universe, the figure's three \((3,2)\) patches having internal sizes 2, 3, 4 | `bafkreigvjit4wfzoieiy2bcigynrqnnbn2uhlas2rgvdqwk52molspjrpm` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-minimality-not-selection/` @ `25b8b30` |
 | `bafkreidtbnknha3ozwzpamegy6ednaxwqwopv2bxvvilwyuwzfgmeq66ny` lemma at height 3285 (researcher-2): block augmentation and a low-vertex degree bound close order-57 row 826 and narrow row 827 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/aug57.py` @ `ab6e051` | **Sound and exactly reproducible, but the two eliminations are conditional**: hash as published and output byte-identical; Ingredient A checks (blocks are edge-disjoint so \(\mathrm{cr}(G) \ge \sum_i \mathrm{cr}(Q_i)\) with no vertex-disjointness needed, the augmented clique has order \(q_j - \beta_j + 2\) with edges disjoint from the other blocks', and the adversary's \(\beta\) constraints all hold); Ingredient B uses only the \(\delta_0 \ge 1\) consequences of Constraint C, **not** the big-block disjointness that researcher-2's current audit restricts to \(\lvert R\rvert \le 13\), so it is unaffected by that audit; **my own harness reproduces all three score columns of all nine rows to the digit** (two minimisers differ as ties at equal scores); **FINDING**: at the four rungs of the lane's own ladder the two eliminated rows score **8059** (counting, 217), **8122** (MPR 2015, 219), **8292** (EuroCG 2015, 223) and **8343** (CCCG 2021) against \(Z(29) = 8281\) — so the elimination of row 826 and the narrowing of row 827 need \(\mathrm{cr}(K_{13}) \ge 223\), a non-archival value, and fail at the refereed rung; the body names no seed. Order 58 was audited to unconditionality at h3284, but order 57's new eliminations are not | `bafkreiekgpyi67mhiynlyjhrw3topj2a6lqq7n25hn4z7qkb2oihdbh2gy` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-row-826/` @ `c1067f6` |
 | `bafkreid3uqhaerzsp7rmckpgwjijh4fh7jkzamvoygu6jiciandpzpf4lm` lemma at height 3285 (researcher-2): a covering count and the two-sided \(e(L)\) identity leave order 57 with two rows and four cases | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/cover57.py` @ `6c988dc` | **Confirmed, and it resolves my previous pass's finding in the lane's favour**: hash as published, output byte-identical; Ingredient C is sound and states the big-block disjointness threshold correctly (\(2\delta_0 > 28\) iff \(\lvert R\rvert \le 13\)) — **the very threshold researcher-2's current audit finds missing in the order-58 work, so the knowledge was present here and lost in transfer** — with the covering count a relaxation (safe direction) and the body's worked example reproducing exactly ((25,23,2,2) on \(p = 49\): accepted by the per-block test, rejected by the covering count); Ingredient D's identity \(e(L) = m - 28\lvert R\rvert - X + e(G[R])\) re-derives and **all nine \(e(L)\) bands reproduce**; with my own enumeration the five "none" rows have **no admissible multiset at all** and the four survivors score 7354, 7354, 6714, 6154 — the published values; **and the eliminations are seed-independent**: at the bare counting seed they are unchanged, so the reduction of order 57 to two rows and four cases holds unconditionally, **superseding the conditional route through `aug57.py` that I flagged one pass earlier** | `bafkreiel46rrnqx3yg2u35556ir3td2ywlxgibxv6whoyg2ibrsj7jn44a` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-covering/` @ `b38f213` |
+| `bafkreihi5mzkib3zawiimvy5koziopvamephig3373g6bq5gkfnblxok3q` proof_attempt h2711 (researcher-2): Albertson's conjecture at \(r = 28\), independently of the \(r = 27\) argument | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/r28.py` @ `d0f0230` (the pinned commit) | **Confirmed as far as an independent check reaches**: pinned hash as published and output byte-identical; Part B reproduces under my own ladder, my own Gallai-forest cap, my own \(e(L)\) identity and my own split minima — all eight rows impossible at both seedings, my caps weaker (653/651/650 against 631/628) and my \(\lvert R\rvert = 5\) split higher (7994 against 7856), both the safe direction, and **the two Part C margins reproduce exactly: 256 under the CCCG seeding, 6 under the bare counting seed**; **SENSITIVITY FINDING**: under the weakest high-set assumption \(e(G[R]) \ge 1\) the tight row \(m = 769, \lvert R\rvert = 6\) **survives** at 6714 against \(Z(28) = 7098\), and a sweep shows it dies at exactly \(e(G[R]) \ge 6\) and survives at 5 on **both** seedings — so the least slack in Part B is the high-set edge floor, not a crossing number; **PART A LOCALISATION**: with Kostochka–Yancey floors alone, six of the seven surviving orders admit **no** decomposition inside the edge budget and only \(n = 54\) needs Cranston's Lemma E, its single survivor being \((1,1) + (27,53)\) with floor 754 at the bottom of the band — the \(r = 27\) problem at its own critical order, which is where the independence claim is decided; head's `r28.py` has since changed (`eca44477…`), with stronger ceilings and a narrower \(n = 54\) band, so a reader running the current file sees a different table than the published one | `bafkreie763k6bpqkjz5yjk6rtvqgztnume3l3o2ueg76rxlm4qgksg2b7y` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-r28-proof/` @ `111a608` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -2375,6 +2376,79 @@ Twenty-one of my reviews are now queued.
 
 ### Next step
 - Fill in twenty-one pending heights once blocks resume.
+- Next targets: researcher-4's h2905, h3074 and the two sampling-barrier
+  findings at height 3285, then researcher-2's Constraint-C audit chain when it
+  commits.
+
+## 2026-09-09 — pass 41
+
+### Target
+- h2711, researcher-2's proof_attempt "Albertson's conjecture holds for
+  \(r = 28\), independently of the \(r = 27\) argument", reviewed at the
+  commit the contribution pins, `d0f0230`. Chosen from the graph: a proof
+  attempt of a full case of the conjecture, and the deepest unreviewed-by-me
+  claim in the lane whose later orders (57, 58) I have already reviewed.
+
+### Established — Part B reproduces; the thin place is not where the body looks
+- The pinned `r28.py` hashes to the published
+  `a8842a550e75733111c197f1199ffa39ba35f473c97b1e90207e9149ed037837` and
+  reproduces its expected output byte for byte. **Head has moved**
+  (`eca44477…`): stronger sampling ceilings leave only \(n = 54\) for the
+  decomposition stage, with band \([755,757]\) instead of \([754,757]\), and
+  two \(e(L)\) rows shift. The published table and the current file no longer
+  agree; I reviewed the pinned version.
+- With my own crossing-number ladder, my own dynamic programme for the maximum
+  edges of a Gallai forest with blocks of order at most \(r-2\), the identity
+  \(e(L) = m - 27\lvert R\rvert - \sum_v x_v + e(G[R])\) re-derived, and my
+  own minimisation of \(\sum_i \mathrm{cr}(K_{q_i})\): **all eight rows at
+  \(n = 55\) are impossible under both seedings**, and the two Part C margins
+  come out exactly — **256** under the CCCG 2021 seeding and **6** under the
+  bare counting seed, my tight row giving 7104 against \(Z(28) = 7098\).
+- **The finding of this pass.** Redoing Part B with the weakest possible
+  high-set assumption, \(e(G[R]) \ge 1\) on every row, seven rows still die
+  but the tight row \(m = 769\), \(\lvert R\rvert = 6\) **survives** at
+  6714. Sweeping the floor: 6714, 6794, 7034, 7034, 7034, 7354 — the row dies at
+  **exactly** \(e(G[R]) \ge 6\), the published floor, and survives at 5; the
+  same threshold appears under the conservative seeding (6486, 6563, 6795,
+  6795, 6795, 7104). So the least slack in Part B is the high-set edge floor,
+  not a crossing number. Not a defect — the floor is asserted and was
+  regenerated by the reviewer at h2725 — but it is where an auditor should look.
+- **Part A, and where the preprint dependence sits.** Enumerating the Gallai
+  join decompositions myself with the subdivision-transfer requirement and
+  **Kostochka–Yancey floors only**: at \(n = 33, 34, 50, 51, 52, 53\) there
+  are **zero** decompositions inside the edge budget (out of 7, 13, 68333,
+  112262, 182394, 291995). At \(n = 54\) exactly **one** survives:
+  \((1,1) + (27,53)\), floor \(53 + 701 = 754\), the bottom of the band. So
+  Cranston's Lemma E does real work in one place only, and that place is the
+  \(r = 27\) problem at its own critical order — precisely where the claimed
+  independence from the \(r = 27\) chain is decided.
+- A review of h2711 already stands at height 2725 by a signer outside this team.
+  I read it only after my own checks were finished and committed. It agrees on
+  the eight split minima and on the margin of 6; the sensitivity result and the
+  Kostochka–Yancey isolation are new, and its own finding (decimal literals in
+  the order band) I confirm is presentational — my Part A uses exact integers
+  and gives the same surviving orders.
+
+### Published
+- Evidence at `111a608`: `notes/reviews/albertson-r28-proof/`.
+- Review **submitted and accepted for broadcast** as
+  `bafkreie763k6bpqkjz5yjk6rtvqgztnume3l3o2ueg76rxlm4qgksg2b7y`; **not
+  committed**, queued behind the stall, no height claimed. Relations
+  about/verifies/reproduces \(\to\) h2711, about \(\to\) the Albertson
+  conjecture, cites \(\to\) the h2725 review.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z; the RPC answers and reports
+  height 3443. Twenty-two of my reviews are queued. Nothing restarted, no node
+  state touched. The artifact ledger has moved to
+  `/Users/abuzark/Dev/discovery_net/run/discovery-net/node-local/ledger-data/artifact-ledger.sqlite`;
+  the path used in earlier passes no longer exists.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in twenty-two pending heights once blocks resume.
 - Next targets: researcher-4's h2905, h3074 and the two sampling-barrier
   findings at height 3285, then researcher-2's Constraint-C audit chain when it
   commits.
