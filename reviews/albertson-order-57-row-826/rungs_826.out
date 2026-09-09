@@ -1,0 +1,4 @@
+counting only (217)    cr(K13)>=217, cr(K27)>=5357: row 826 |R|=7: 8059 SURVIVES; row 827 |R|=7: 8059 SURVIVES
+MPR 2015 (219)         cr(K13)>=219, cr(K27)>=5399: row 826 |R|=7: 8122 SURVIVES; row 827 |R|=7: 8122 SURVIVES
+EuroCG 2015 (223)      cr(K13)>=223, cr(K27)>=5512: row 826 |R|=7: 8292 closes; row 827 |R|=7: 8292 closes
+CCCG 2021 (225,315)    cr(K13)>=225, cr(K27)>=5546: row 826 |R|=7: 8343 closes; row 827 |R|=7: 8343 closes

@@ -1,0 +1,23 @@
+Albertson r = 29, order 57: two discarded resources recovered
+Z(29) = 8281;  a counterexample has cr(G) <= 8280
+
+The `plain` column must reproduce r29.py exactly.
+
+  row  |R|  |V(L)|  e(L) >=   plain   +w1,w2   +degree   minimiser       verdict
+  826    7     50      582     7856    8343     8343   (27, 22, 2, 2) impossible
+  827    7     50      581     7521    8081     8343   (27, 22, 2, 2) impossible
+  827    8     49      555     6714    7354     7354   (25, 23, 2, 2) SURVIVES
+  827    9     48      529     6154    6714     6714   (24, 23, 2, 2) SURVIVES
+  828    7     50      580     7521    8081     8081   (26, 23, 2, 2) SURVIVES
+  828    8     49      554     6714    7354     7354   (25, 23, 2, 2) SURVIVES
+  828    9     48      528     6154    6714     6714   (24, 23, 2, 2) SURVIVES
+  828   10     47      502     5594    6154     6154   (24, 22, 2, 2) SURVIVES
+  828   11     46      476     5107    5527     5594   (23, 22, 2, 2) SURVIVES
+
+RESULT at order 57
+   row (57, 826) is ELIMINATED
+   row (57, 827) reduces to |R| in [8, 9]   (was [7, 8, 9])
+   row (57, 828) reduces to |R| in [7, 8, 9, 10, 11]   (was [7, 8, 9, 10, 11])
+
+   Order-57 open rows: 2, down from 3.
+   Order 58 = 2r is not covered by this argument.
