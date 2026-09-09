@@ -3103,3 +3103,84 @@ is not another sharpening. Two things are worth doing, in this order.
    proved; \(r=29\) reduced to one explicit finite class of 8945 configurations
    that resists the whole toolset. That is a publishable stopping point and
    should be stated as one rather than drifted into.
+
+## 2026-09-09 — pass 38
+
+### Graph state at start of pass
+`indexed_height` still 3443 at 2026-09-09T12:18Z — the stall is now about **68
+hours**. Queue seventeen after this pass, all durable in git.
+
+### Established: the branch hypothesis imposes 1 of 70 necessary conditions
+\(H\) is \(K_4\)-free, so every cover clique has \(\le3\) vertices and a cover
+from a packing of \(t_3\) triangles and \(t_2\) edges uses \(58-(2t_3+t_2)\)
+cliques. So \(\theta(H)\le28\) holds **iff** some vertex-disjoint packing has
+\(2t_3+t_2\ge30\), \(3t_3+2t_2\le58\), \(t_3+t_2\le28\) — and enumerating those
+gives **seventy** \((t_3,t_2)\) families.
+
+The branch hypothesis (TT) is exactly the exclusion of \((2,26)\) **and nothing
+else**. The other 69 are equally valid routes to \(\theta(H)\le28\) and none has
+ever been imposed. I had been treating (TT) as *the* condition; it is one of
+seventy.
+
+### Where the next route bites
+The \((3,24)\) family needs three pairwise disjoint triangles. The barrier gives
+two inside \(B\); the Gallai structure gives the third, since with \(k\ge3\)
+blocks the blocks are cliques of \(G\), hence independent sets of \(H\), so
+\(H[L]\) **contains the complete multipartite graph on them** and one vertex from
+each of three blocks is a triangle of \(H\) — disjointly \(\min_i q_i\) of them.
+
+Survivors by block count: 1:2, 2:480, 3:4367, 4:2848, 5:926. So the \((3,24)\)
+route is available on **8141 of 8623 = 94%** of what remains. It asks whether
+\(H\) minus three disjoint triangles, on 49 vertices, has a matching of 24 —
+a question about \(H\) **as a graph**, not about the parameters this chain
+enumerates. That is the precise reason the method here cannot answer it, and it
+is worth having stated exactly rather than deferring a sixth time.
+
+### Verified: absorption into a triangle colour class is impossible
+\(\alpha(G[L])\le3\) makes classes size \(\le3\), and a size-3 class is a triangle
+of \(H\), so absorbing \(z\) would give a \(K_4\). With \(t_i\) classes of size
+\(i\): absorbable \(=t_1+t_2=q_1-t_3\), singletons \(=t_1=2q_1-|L|+t_3\). Raising
+\(t_3\) buys singletons and costs absorbable classes, and the chain takes \(s\) at
+the \(t_3\) maximising singletons **while assuming all \(q_1\) classes absorb** —
+inconsistent. Missing requirement: \(t\le q_1-t_3\).
+
+**Checked: 0.** None of the 3-or-more-block partition configurations is closed by
+the absorption argument at all (they are open, or killed by crossing), so the
+inconsistency is **latent**, not active. Nothing to withdraw; it must be fixed in
+any future use. That is a sixth item of the same family, and the third found to
+be harmless.
+
+### Published
+- GitHub commit `b7dd283`: new `routes58.py` with expected output, README section
+  in LaTeX, `SHA256SUMS` (77/77 verify). Blob HTTP 200. `routes58.py` SHA-256
+  `473d2e2ce328bb92ab690ee2f31fd0dab9498ac8de8d5cc3aa5467386b8142ed`.
+- Discovery Net: FINDING `bafkreigw22k6k6qzpmxdbp6capverov36uek2ag24yh3tojai676uudcey`,
+  tx `20AC3AAF48CD0D026CC3695F7A3F764E9DB084F06A6F4748ECFAE1B0451E83D3`,
+  check_tx_code 0. Body durable at `agents/researcher-2/pending/pass38.md`.
+
+### Blocked
+- Ledger stalled ~68 hours at block 3443; **seventeen** contributions queued.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations.
+- No background computations left running.
+
+### Next step (concrete)
+The lane has reached a clean methodological boundary, and I should say so rather
+than circle it again. The parameter enumeration answers questions about
+\((|R|,\text{multiset},e(H[R]))\); the remaining conditions — all 69 of them — are
+questions about \(H\) as a graph. Two honest options:
+
+1. **Change method.** Build actual candidate graphs \(H\) for a handful of the
+   tightest surviving configurations and test the \((3,24)\) route on them
+   directly. That is a different mode (construction/search rather than counting)
+   and would need a SAT or ILP encoding: 58 vertices, \(K_4\)-free,
+   \(\theta(H)=29\), prescribed degree profile. Feasible in principle, expensive,
+   and it is the only way the remaining conditions become checkable.
+2. **Stop and state the terminus.** \(r=27\) and \(r=28\) proved and reviewed;
+   \(r=29\) reduced from eight rows to order 58 alone, in one class of 8945
+   explicit configurations, with a documented inventory of what closes them and
+   what does not. That is a publishable stopping point.
+
+My recommendation to the orchestrator is (1) bounded to one attempt, then (2).
+Option (1) is the first thing in this lane that needs a solver rather than
+arithmetic, so it is also the natural point to ask whether the effort is better
+spent elsewhere.
