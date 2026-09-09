@@ -9,6 +9,84 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 33 (equivalence demonstrated; the three items recorded)
+
+### Chain: wedged at 3443, ~66 hours per principal-1. Nothing published there.
+
+principal-1 approved the cover work with three conditions. All three done.
+
+### 1. "Demonstrate the equivalence" — `covertest.py`
+Two honest remarks first. **The negative cases did not previously exist**:
+`verify.py selftest` covered graphs and orbit counts, `symstest.py` covers
+symmetry-break soundness, and nothing exercised the cube-cover step against
+deliberately broken input. This file creates them. And **"accept exactly what
+the combinator accepted" is the wrong target in one direction, deliberately**:
+the combinator demands a *partition*, the argument needs only a *cover*, so the
+certificate accepts strictly more.
+
+\(113\) tag sets — hand cases plus randomized complete codes, each also
+perturbed by removing a leaf and by adding an ancestor — with four assertions:
+
+1. **Ground truth.** The certificate's verdict equals brute force over all
+   \(2^d\) assignments on **every one of the 113**. This pins it to the truth,
+   not merely to the other checker.
+2. Every set the combinator accepts, the certificate accepts. **Nothing
+   Theorem 7 rests on is lost.**
+3. Every `PARTIAL` the combinator reports, the certificate refutes — with the
+   witness verified to lie in no cube.
+4. The intended gap is exercised by \(32\) sets the combinator rejects and the
+   certificate accepts, all of which genuinely cover.
+
+Both real trees included: \(n = 39\), \(13^3\) (\(64\) leaves, PARTITION
+\(=\) certificate True) and \(n = 35\), \(1^0 5^7\) (\(10404\) leaves,
+PARTIAL \(=\) certificate False, brute-forced over \(2^{22}\)).
+
+**A finding about my own published checker, from writing the suite.**
+`cmd_tree`'s `Kraft sum > 1 ... the directories overlap` branch is
+**unreachable**. Its prefix-free test runs first and is complete — for sorted
+tags, if \(x\) is a prefix of \(z\) and \(x \le y \le z\) then \(x\) is
+a prefix of \(y\), so adjacent pairs suffice — and a prefix-free set satisfies
+Kraft's inequality \(\sum 2^{-|t|} \le 1\). Not a defect, a defensive check
+that cannot fire, but the message is misleading: the real gate on overlapping
+covers is the prefix test. The suite asserts the branch never fires.
+
+### 2. "Offer it to researcher-1 by citation, and say plainly if it does not transfer"
+It does not, and I established that before offering rather than after. Their
+cubes are canonical \(Z_3\)-prefixes, not a prefix code; completeness is an
+exact orbit–stabiliser identity, brute-forced, already machine-checked and
+re-checked by reviewer-1 in the stronger orbit-*set* form. The negated-cubes
+formula would be *satisfiable* for them, correctly. It applies one layer down,
+to their \(16\)-way refinement splits, which are a plain propositional case
+distinction currently argued in prose. Offered by citation only; no instance of
+theirs was run.
+
+### 3. "Record the three literature items so the team can cite them"
+`r55-formalization-survey/CITE.md`: the negated-cubes cover technique with its
+scale limits and its non-transfer caveat; the certified-symmetry-breaking
+landscape and the fact that automorphism *exclusion* is uncovered; and the
+\(R(5,5)\) situation — \(R(5,5) \le 46\) in JGT 2026, an external group
+naming \(R(5,5)\) and \(R(4,6)\) as targets, and AlphaEvolve moving nine
+lower bounds with **nothing in row 5**. Plus a short "not relevant" note so
+nobody re-checks the Isabelle/Lean asymptotic work.
+
+### The residual sample finished, and it is decisive the wrong way
+\(96/96\), **\(17\) closed, \(79\) timed out — \(17.7\%\)**. Survivors
+multiply by \(2 \times 0.823 = 1.65\) per level against work multiplying by
+\(2\): **the split diverges**, measured at the depth that matters. Recorded in
+the pass-32 entry, whose in-flight estimate of \(23\%\) I have corrected.
+
+### Published
+- GitHub `9c07b47` and this entry. Chain: nothing, unreachable ~66 hours.
+
+### Left running
+**Nothing.** Scratch \(4.2\) GB, residual intermediates deleted.
+
+### Next step
+Nothing is queued behind the chain that I can advance by computing. The lane's
+open question is unchanged and now precisely stated: closing \(1^0 5^7\) needs
+a lever acting on the \(355\) depth-18 cubes, not more splitting and not more
+time — both are now measured out.
+
 ## 2026-09-09 — pass 32 (the cover step now carries a certificate)
 
 ### Chain: still wedged at 3443, now ~3 days. Ledger query returns nothing.
@@ -87,30 +165,29 @@ distinction currently argued in prose. One negated-cubes refutation would
 certify the whole refinement tree at once. That is the accurate offer and it is
 much smaller than the one I made. Corrected in the survey README.
 
-### Cost measurement on the residual, in flight
-Sampling the \(48\) shallowest residual cubes (the \(2\) at depth \(17\)
+### Cost measurement on the residual: the split diverges
+Sampled the \(48\) shallowest residual cubes (the \(2\) at depth \(17\)
 and \(46\) of the \(355\) at depth \(18\)), split one level to depth
-\(19\), at a \(60\) s cap and \(5\) workers: at \(48\) of \(96\)
-leaves, **\(11\) closed and \(37\) timed out**, about \(23\%\).
+\(19\), \(60\) s cap, \(5\) workers. **Final: \(96/96\) leaves,
+\(17\) closed, \(79\) timed out — \(17.7\%\).** Mean proof size
+\(69.9\) MB per closed leaf, \(1188\) MB total.
 
-That is the number the lane needed. Earlier the README recorded that at depth
-\(18\) a fivefold time increase closed **zero** survivors while splitting one
-level deeper "closed immediately". At depth \(18 \to 19\) one level no longer
-closes them: it retires under a quarter. The regime the lane was in has ended.
-Extrapolating, closing the residual by splitting to depth \(22\) is
-\(472 \times 16^4 \approx 3.1 \times 10^7\) leaves at \(\approx 27\) MB
-of proof each — out of range by a wide margin, and the certificate size alone
-settles it before the time does.
+That is the number the lane needed, and it is decisive in the wrong direction.
+Each cube splits into \(2\) children of which \(82.3\%\) survive, so the
+survivor set multiplies by \(2 \times 0.823 = 1.65\) per level while the work
+multiplies by \(2\). **The split diverges**, and this is now measured at the
+depth that matters rather than inferred. Earlier the README recorded that at
+depth \(18\) a fivefold time increase closed **zero** survivors while
+splitting one level deeper "closed immediately"; at \(18 \to 19\) one level
+retires under a fifth. The regime the lane was in has ended.
 
 ### Published
 - GitHub `c5be43a`, `8e13b2b`, `25da267`, `8a6823a`. Chain: nothing,
   unreachable 3 days.
 
 ### Left running
-**One** background job: the residual sample above, \(96\) leaves, expected to
-end within \(\approx 10\) minutes of this entry. Output in
-`scratch/r46/resid57.log`; its intermediates are deletable once the closure
-rate is read off. Scratch \(4.4\) GB.
+**Nothing.** The residual sample completed; its intermediates are deleted and
+the log is kept. Scratch \(4.2\) GB.
 
 ### Next step
 The residual list is the deliverable, not a plan to exhaust it. What it says,
