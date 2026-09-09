@@ -1,0 +1,47 @@
+Hill:  cr(K_n) = Z(n) conjectured; DS21 says proved for n <= 12
+  n  |E|   Z(n)  found  verdict
+  5   10      1      1  reproduces Z(n)   (0.0s)
+  6   15      3      3  reproduces Z(n)   (0.1s)
+  7   21      9      9  reproduces Z(n)   (0.3s)
+  8   28     18     18  reproduces Z(n)   (0.8s)
+  9   36     36     36  reproduces Z(n)   (1.6s)
+ 10   45     60     60  reproduces Z(n)   (3.3s)
+ 11   55    100    100  reproduces Z(n)   (6.2s)
+ 12   66    150    150  reproduces Z(n)   (11.7s)
+ 13   78    225    225  reproduces Z(n)   (20.5s)
+ 14   91    315    318  above by 3   (35.0s)
+ 15  105    441    441  reproduces Z(n)   (58.2s)
+ 16  120    588    596  above by 8   (90.9s)
+
+Zarankiewicz:  cr(K_m,n) = Z(m,n) conjectured
+    m,n  |E|  Z(m,n)  found  verdict
+3,3        9       1      1  reproduces Z(m,n)
+3,4       12       2      2  reproduces Z(m,n)
+3,5       15       4      4  reproduces Z(m,n)
+3,6       18       6      6  reproduces Z(m,n)
+3,7       21       9      9  reproduces Z(m,n)
+3,8       24      12     12  reproduces Z(m,n)
+3,9       27      16     16  reproduces Z(m,n)
+3,10      30      20     20  reproduces Z(m,n)
+4,4       16       4      4  reproduces Z(m,n)
+4,5       20       8      8  reproduces Z(m,n)
+4,6       24      12     12  reproduces Z(m,n)
+4,7       28      18     18  reproduces Z(m,n)
+4,8       32      24     24  reproduces Z(m,n)
+4,9       36      32     32  reproduces Z(m,n)
+4,10      40      40     40  reproduces Z(m,n)
+5,5       25      16     16  reproduces Z(m,n)
+5,6       30      24     24  reproduces Z(m,n)
+5,7       35      36     36  reproduces Z(m,n)
+5,8       40      48     48  reproduces Z(m,n)
+5,9       45      64     64  reproduces Z(m,n)
+5,10      50      80     80  reproduces Z(m,n)
+6,6       36      36     36  reproduces Z(m,n)
+6,7       42      54     54  reproduces Z(m,n)
+6,8       48      72     74  above by 2
+6,9       54      96     96  reproduces Z(m,n)
+6,10      60     120    123  above by 3
+7,7       49      81     81  reproduces Z(m,n)
+7,8       56     108    108  reproduces Z(m,n)
+7,9       63     144    144  reproduces Z(m,n)
+7,10      70     180    183  above by 3

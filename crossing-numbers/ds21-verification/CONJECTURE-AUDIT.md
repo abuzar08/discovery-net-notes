@@ -79,6 +79,50 @@ from the bound as DS21 prints it**, which is checkable from DS21 alone.
 This is a different failure mode from Finding 1: not a dropped hypothesis but a
 **dropped term**, and it is detectable by pure internal consistency.
 
+## Finding 3 (new, minor): an ill-formed graph name, four times
+
+DS21 writes \(GP(2,5)\) in two separate entries:
+
+> \(\mathrm{max}\text{-}\operatorname{cr}(GP(2,5)) = 68\) [440], where \(GP(2,5)\)
+> is the generalized Petersen graph; see [177] for the spectrum of \(GP(2,5)\).
+
+and, in the maximum rectilinear entry,
+
+> \(\mathrm{max}\text{-}\overline{\operatorname{cr}}(GP(2,5)) = 49\) [337], where
+> \(GP(2,5)\) is the Petersen graph.
+
+**Under DS21's own convention this name is ill-formed.** Every other occurrence in
+the survey puts the outer cycle length first — \(GP(12,4)\), \(GP(16,4)\),
+\(GP(3k,k)\), \(GP(4k,k)\), \(GP(n,k)\) — and \(GP(n,k)\) requires
+\(n \ge 3\) and \(k < n/2\). \(GP(2,5)\) has an outer cycle of length 2 and
+\(k > n/2\), so it denotes nothing. The Petersen graph is \(GP(5,2)\).
+
+The quoted values are consistent with \(GP(5,2)\): the Petersen graph has 10
+vertices and 15 edges, hence \(\binom{15}{2} - 10\binom{3}{2} = 75\)
+independent edge pairs, and \(49 \le 68 \le 75\) as required. So the values are
+right and only the name is wrong — a transposition, repeated four times.
+
+This is the least important of the three findings and I am recording it as such.
+It is included because it is unambiguous and checkable from the survey alone,
+and because two independent entries carry the same transposition, which suggests
+it propagated rather than being typed twice.
+
+## Checks that came back clean
+
+Recorded so the audit's coverage is visible, not only its hits:
+
+- \(\mathrm{max}\text{-}\operatorname{cr}(C_n) = n(n-3)/2\) for \(n \ne 4\).
+  \(C_n\) has exactly \(n(n-3)/2\) independent edge pairs, so the claim says
+  every independent pair crosses — a thrackle — and cycles are thrackleable
+  exactly when \(n \ne 4\). The stated exception is correct.
+- \(\mathrm{max}\text{-}\operatorname{cr}(Q_3) = 34\) against
+  \(\mathrm{max}\text{-}\overline{\operatorname{cr}}(Q_3) = 28\): \(Q_3\) has 42
+  independent pairs, and \(28 \le 34 \le 42\). Consistent.
+- \(\mathrm{max}\text{-}\operatorname{cr}(C_3 \square C_3) = 78\): 99
+  independent pairs, so \(78 \le 99\). Consistent.
+- Hill's and Zarankiewicz's upper bounds, reproduced independently and without
+  their constructions — see `hill-zarankiewicz-upper-bounds.md`.
+
 ## A near-miss, recorded because the method needs the warning
 
 I first believed I had found a contradiction: DS21 states
