@@ -1,0 +1,24 @@
+CCCG 2021 seeding: cr(K13) >= 225, Z(28) = 7098
+    m   |R|  |L|   e(L)>=   Gallai cap   split      verdict
+  768    2   53     664         653       -    impossible (exceeds the Gallai cap)
+  768    3   52     637         651    9448    impossible
+  768    4   51     612         650    8721    impossible
+  769    2   53     663         653       -    impossible (exceeds the Gallai cap)
+  769    3   52     636         651    9448    impossible
+  769    4   51     609         650    8721    impossible
+  769    5   50     584         625    7994    impossible
+  769    6   49     560         601    7354    impossible
+    tightest split margin over Z(28): 256
+
+conservative seeding: cr(K13) >= 217, Z(28) = 7098
+    m   |R|  |L|   e(L)>=   Gallai cap   split      verdict
+  768    2   53     664         653       -    impossible (exceeds the Gallai cap)
+  768    3   52     637         651    9126    impossible
+  768    4   51     612         650    8424    impossible
+  769    2   53     663         653       -    impossible (exceeds the Gallai cap)
+  769    3   52     636         651    9126    impossible
+  769    4   51     609         650    8424    impossible
+  769    5   50     584         625    7722    impossible
+  769    6   49     560         601    7104    impossible
+    tightest split margin over Z(28): 6
+

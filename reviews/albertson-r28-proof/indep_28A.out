@@ -1,0 +1,7 @@
+n = 33: 7 decompositions, 0 within the edge budget [471,494] under Kostochka-Yancey floors alone
+n = 34: 13 decompositions, 0 within the edge budget [484,509] under Kostochka-Yancey floors alone
+n = 50: 68333 decompositions, 0 within the edge budget [700,712] under Kostochka-Yancey floors alone
+n = 51: 112262 decompositions, 0 within the edge budget [714,724] under Kostochka-Yancey floors alone
+n = 52: 182394 decompositions, 0 within the edge budget [727,735] under Kostochka-Yancey floors alone
+n = 53: 291995 decompositions, 0 within the edge budget [741,746] under Kostochka-Yancey floors alone
+n = 54: 459451 decompositions, 1 within the edge budget [754,757] under Kostochka-Yancey floors alone; tightest 754
