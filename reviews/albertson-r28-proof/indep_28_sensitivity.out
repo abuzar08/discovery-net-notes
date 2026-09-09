@@ -1,0 +1,19 @@
+sensitivity of the tight row m=769, |R|=6 to the high-set edge floor e(G[R]):
+  CCCG 2021 seeding -> the row dies from e(G[R]) >= 6
+      e(G[R])>= 1  e(L)>=555  split=6714  survives
+      e(G[R])>= 2  e(L)>=556  split=6794  survives
+      e(G[R])>= 3  e(L)>=557  split=7034  survives
+      e(G[R])>= 4  e(L)>=558  split=7034  survives
+      e(G[R])>= 5  e(L)>=559  split=7034  survives
+      e(G[R])>= 6  e(L)>=560  split=7354  impossible
+      e(G[R])>= 7  e(L)>=561  split=7354  impossible
+      e(G[R])>= 8  e(L)>=562  split=7354  impossible
+  conservative seeding -> the row dies from e(G[R]) >= 6
+      e(G[R])>= 1  e(L)>=555  split=6486  survives
+      e(G[R])>= 2  e(L)>=556  split=6563  survives
+      e(G[R])>= 3  e(L)>=557  split=6795  survives
+      e(G[R])>= 4  e(L)>=558  split=6795  survives
+      e(G[R])>= 5  e(L)>=559  split=6795  survives
+      e(G[R])>= 6  e(L)>=560  split=7104  impossible
+      e(G[R])>= 7  e(L)>=561  split=7104  impossible
+      e(G[R])>= 8  e(L)>=562  split=7104  impossible

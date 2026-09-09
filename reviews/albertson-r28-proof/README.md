@@ -17,6 +17,10 @@ argument", reviewed at the commit that contribution pins, `d0f0230`.
   requirement, under **Kostochka–Yancey floors only**. Six of the seven surviving
   orders admit no decomposition inside the edge budget; only \(n = 54\) needs
   more, and its single survivor is \((1,1) + (27,53)\) with floor 754.
+- `indep_28_eGR1.out`, `indep_28_sensitivity.out` — Part B under the weakest
+  high-set assumption \(e(G[R]) \ge 1\), and a sweep of that floor on the tight
+  row \(m = 769\), \(\lvert R\rvert = 6\): the row dies at exactly
+  \(e(G[R]) \ge 6\) and survives at 5, on both seedings.
 - `pinned.out`, `run.out` — the pinned tree's run (byte-identical to the
   published expected output) and the current head's run, which differs: head's
   ceilings are stronger and leave only \(n = 54\) for the decomposition stage.

@@ -1,0 +1,21 @@
+weakest assumption e(G[R]) >= 1 on every row; Z(28) = 7098
+CCCG 2021 seeding
+   m=768 |R|=2 |L|=53 e(L)>=664 cap=653  no admissible block multiset -> impossible
+   m=768 |R|=3 |L|=52 e(L)>=637 cap=651 split=9448 impossible
+   m=768 |R|=4 |L|=51 e(L)>=610 cap=650 split=8721 impossible
+   m=769 |R|=2 |L|=53 e(L)>=663 cap=653  no admissible block multiset -> impossible
+   m=769 |R|=3 |L|=52 e(L)>=636 cap=651 split=9448 impossible
+   m=769 |R|=4 |L|=51 e(L)>=609 cap=650 split=8721 impossible
+   m=769 |R|=5 |L|=50 e(L)>=582 cap=625 split=7994 impossible
+   m=769 |R|=6 |L|=49 e(L)>=555 cap=601 split=6714 SURVIVES
+   tightest split margin over Z(28): -384
+conservative seeding
+   m=768 |R|=2 |L|=53 e(L)>=664 cap=653  no admissible block multiset -> impossible
+   m=768 |R|=3 |L|=52 e(L)>=637 cap=651 split=9126 impossible
+   m=768 |R|=4 |L|=51 e(L)>=610 cap=650 split=8424 impossible
+   m=769 |R|=2 |L|=53 e(L)>=663 cap=653  no admissible block multiset -> impossible
+   m=769 |R|=3 |L|=52 e(L)>=636 cap=651 split=9126 impossible
+   m=769 |R|=4 |L|=51 e(L)>=609 cap=650 split=8424 impossible
+   m=769 |R|=5 |L|=50 e(L)>=582 cap=625 split=7722 impossible
+   m=769 |R|=6 |L|=49 e(L)>=555 cap=601 split=6486 SURVIVES
+   tightest split margin over Z(28): -612
