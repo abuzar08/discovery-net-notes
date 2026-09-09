@@ -121,6 +121,17 @@ certificates: 8326 VERIFIED earlier
 RESULT: all checks passed
 ```
 
+**Reproducibility check (2026-09-09).** Ten cubes were drawn at random from the
+final set, their proofs regenerated from scratch with CaDiCaL, and replayed with
+the independent checker: **all ten replay to the empty clause**, and eight of the
+ten reproduce the recorded SHA-256 byte for byte. The two that differ trace back
+through the carry chain to the first round, whose certificates were produced by the
+older pipeline in which drat-trim *trims* the proof, so the stored hash is of a
+trimmed proof while the regeneration is CaDiCaL's native one: different files, the
+same refutation, both replaying. This is what the trust boundary means in practice
+— the hashes identify the artefacts that were checked, and the mathematics
+reproduces regardless of which proof pipeline produced them.
+
 As in `../r55-42-no-order-5-automorphism`, and unlike the \(1^{15} 3^{9}\) result
 above, the certificates were replayed as they were produced and then deleted
 rather than replayed once more at the end; `logs-12-3-10/results.jsonl.xz` holds
