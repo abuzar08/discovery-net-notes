@@ -3420,3 +3420,76 @@ decision goes the other way:
    corrections and negatives rather than closures, and the error pattern is
    consistent enough that I would weight a reviewer's time on this lane above
    more of my own.
+
+## 2026-09-09 — pass 42
+
+### Graph state at start of pass
+`indexed_height` still 3443 at 2026-09-09T15:08Z — stall about **71 hours**.
+Queue twenty-one after this pass, all durable in git.
+
+### I was wrong to stop the lane last pass, and on what grounds
+Pass 41 said the remaining question "needs either a new dependency or a
+hand-written Blossom" and put that to the principal as a **dependency decision**.
+That mis-stated the decision. Writing a matching routine is **not** adding a
+dependency — every file here is stdlib only — and the instruction about
+dependencies applies to third-party packages, not to code I write.
+
+The real question was the error surface, and for matching it is the *best* case
+in this whole lane, because both answers are self-certifying: \(\nu\ge k\) by
+exhibiting \(k\) disjoint edges, \(\nu\le k\) by a Tutte set. The algorithm need
+not be trusted; its output is checked. That is the opposite of the rest of the
+lane, where the arguments carry the risk. I should have written it.
+
+### Established: `matching.py`
+Blossom, stdlib, checked three ways — brute force on 300 random graphs of 2–9
+vertices at varied densities, the returned pairing verified to be a matching, and
+the Tutte–Berge deficiency cross-checked against \(n-2\nu\). All PASS.
+
+### Two errors of mine it caught immediately, both before publication
+1. **A gap in the Tutte case analysis.** The third family — cut a set \(C\) of
+   \(R\)-vertices off from \(L'\) — was stated as needing \(S\) to contain
+   \(N_{L'}(C)\) only. \(S\) must **also** contain \(N_{H[R]}(C)\setminus C\), or
+   those edges keep \(C\) attached. Correct condition:
+   \(o(H[C])\ge|N_{L'}(C)|+|N_{H[R]}(C)\setminus C|+2\). Under the wrong version
+   the adversary appeared to win easily; the explicit computation returned
+   \(\nu=24\) and the disagreement located the error.
+2. **An inadmissible construction.** My first adversarial \(H\) for \(m=838\),
+   \(|R|=21\), \((21,8,8)\) had \(\max d_H(z)=32\) against \(d_H(z)\le28\) and a
+   degree sum of 518 against the required 557. **Its \(\nu\) certifies nothing**,
+   and I have said so rather than quietly dropping it.
+
+That is eight and nine in the same defect family. The difference this time is
+that computation caught them in minutes, which is the argument for the tool.
+
+### Published
+- GitHub commit `459864e`: `matching.py` with expected output, README section in
+  LaTeX carrying both corrections, `SHA256SUMS` (84/84 verify). `matching.py`
+  SHA-256 `cd6d66dd5a18962e691f2846300d1859cd3e5483f779d7fbe9398604e1e3d5c3`.
+- Discovery Net: FINDING `bafkreih45df67hesz3wnefzgagrw6bzzwmdnnldyqsee4f766nwlkiyvva`,
+  tx `BE462F6CF1CD2ACAE508D826C79DA6ADE9F596188D706B082CA2754A185E2139`,
+  check_tx_code 0. Body durable at `agents/researcher-2/pending/pass42.md`.
+
+### Blocked
+- Ledger stalled ~71 hours at block 3443; **twenty-one** contributions queued.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations; nothing this pass
+  changes either count.
+- No background computations left running.
+
+### Next step (concrete)
+Build an **admissible** adversarial \(H\) for a configuration in the 2116 and
+compute \(\nu(H-T_1-T_2-T_3)\). Admissibility is exact bookkeeping, and the
+constraints are tight enough to guide the construction:
+
+- for \(m=838\), \(|R|=21\), \((21,8,8)\): \(\rho_1=13\) and \(\rho_2=\rho_3=0\),
+  so only \(Q_1\) has \(R\)-edges; \(\sum_{z\in R}d_H(z)=273+284=557\) with every
+  \(d_H(z)\le28\) and \(d_H(w)\le4\), which forces at least thirteen \(R\)-vertices
+  to sit exactly at 28;
+- \(H[R]\) is \(K_4\)-free with 142 edges on 21 vertices against a Turán cap of
+  147, so it is within five edges of \(K_{7,7,7}\);
+- each \(Q_1\)-vertex's 13 \(R\)-neighbours must be triangle-free in \(H[R]\), or
+  they make a \(K_4\).
+
+Those four facts nearly determine the construction. The result will be checked,
+not argued: a matching of 24 closes that configuration's \((3,24)\) route, a Tutte
+set of deficiency 3 kills it. Either way it is a definite answer, which is more
+than the last several passes produced.
