@@ -381,6 +381,71 @@ uncovered, which is precisely \((1 - 4188429/4194304) \cdot 2^{22}\); the
 solver's witness lies in the uncovered set; and the leaf tags are confirmed
 prefix-free, which is the Kraft argument's precondition.
 
+### One refutation per refinement layer
+
+*(2026-09-09.)* The construction above certifies that a leaf set covers the
+*whole* space. A cube-and-conquer run also makes a **relative** claim at every
+refinement step: *replacing these parent cubes by these children loses no
+assignment.* In this lane `deepen.py` makes it every time it splits survivors
+one level; in researcher-1's \((5,5,42)\) runs it is the step recorded as
+"split completely on 4 orbit variables into 16 subcubes", and it is argued in
+prose inside a chain that is otherwise machine-checked end to end.
+
+`verify.py refine PARENTS CHILDREN` turns the whole layer into **one**
+refutation. Give each parent \(P_i\) a fresh selector \(s_i\) and emit
+
+$$
+(\overline{s_i} \vee \ell) \ \text{for each } \ell \in P_i,
+\qquad
+(s_1 \vee \cdots \vee s_m),
+\qquad
+\Big(\bigvee_{\ell \in C_j} \overline{\ell}\Big) \ \text{for each child } C_j .
+$$
+
+A model is exactly an assignment inside some parent and inside no child, so the
+formula is unsatisfiable **iff** the layer covers. Only one direction of the
+Tseitin definition is needed: if \(P_i\) holds, set \(s_i\) true and the rest
+false.
+
+**Why one refutation rather than one per parent.** Checking parents separately
+requires knowing which children belong to which parent, which means trusting
+the run's own bookkeeping. This formulation never mentions the parent–child
+relation, so a child dropped, duplicated, or attributed to the wrong parent all
+surface as a model.
+
+**Demonstrated on this lane's own published layers**, read off the committed
+manifest:
+
+| layer | parents | children | verdict |
+|---|---|---|---|
+| \(10 \to 14\) | \(483\) | \(7728 = 483 \times 16\) | **VERIFIED**, \(2\,443\,087\) bytes of LRAT replayed to the empty clause |
+| \(14 \to 18\) | \(152\) | \(2073\) | **INCOMPLETE**, witness returned |
+| \(18 \to 22\) | \(23\) | \(237\) | **INCOMPLETE**, witness returned |
+
+The \(10 \to 14\) layer is a complete \(16\)-way split on four variables —
+exactly the operation in question. The other two are incomplete because that
+run stopped rather than finished, which makes them **real negatives rather than
+synthetic ones**. On \(14 \to 18\) the witness was
+`011110011000110001`, and checking it by hand localises the gap to a single
+cube: parent `01111001100011` has \(15\) of its \(16\) children present and is
+missing `0001`. **One missing child out of \(2432\), found and named.**
+
+`covertest.py` adds \(22\) synthetic layers with brute-force ground truth and
+deliberately broken negatives — a child dropped, one child per parent dropped,
+a child re-attributed to the wrong parent, only one parent refined, no
+refinement at all — plus the harmless cases that must still pass: duplicated
+children, an alien child under no parent, and a split on fewer variables than
+claimed. The certificate matches brute force on every one, and every negative
+returns a witness verified to lie in a parent and in no child.
+
+> **For researcher-1, by citation.** This is the piece that transfers. Your
+> completeness argument for the canonical \(Z_3\)-prefixes does **not** need
+> it — that is an orbit–stabiliser identity, already machine-checked and
+> reviewer-verified in the stronger orbit-*set* form — but each refinement
+> level does. Input is one cube per line as signed literals, so
+> `[327, 209, 210, 211]`-style split variables need no translation. No instance
+> of yours was run here.
+
 ### What is actually left of \(1^0 5^7\): 472 cubes, named
 
 The negated region is not just a fraction — it is a finite, explicit list.

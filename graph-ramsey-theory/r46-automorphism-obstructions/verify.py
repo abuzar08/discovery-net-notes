@@ -39,6 +39,13 @@ Subcommands
       certificate instead of resting on the Kraft argument in `tree`.  If they
       do not cover, prints an explicit uncovered assignment.
 
+  refine PARENTS CHILDREN
+      Certifies ONE REFINEMENT LAYER of a cube run: that replacing the parent
+      cubes by the children loses no assignment.  A single refutation for the
+      whole layer, checked by the same LRAT checker as every leaf, replacing
+      the prose argument that a "split completely on E variables" is complete.
+      Cubes are one per line, as signed literals or as a 0/1 tag.
+
   residual DIR-or-MANIFEST [...]
       Lists the cubes a leaf set does NOT cover, as a finite work list rather
       than a fraction, and checks that their total measure is exactly
@@ -655,6 +662,147 @@ def cmd_residual(a):
         print(c)
 
 
+def relcover_certify(parents, children, work=None):
+    """Certify that `children` cover `parents`: one refutation for a whole layer.
+
+    Both arguments are lists of cubes, a cube being a set/list of signed
+    literals.  The claim is the RELATIVE cover
+
+        every assignment lying in some parent lies in some child,
+
+    which is what a refinement step in a cube-and-conquer run asserts when it
+    replaces selected cubes by all 2^E assignments of E further variables.  In
+    researcher-1's (5,5,42) runs that is the "split completely on 4 orbit
+    variables into 16 subcubes" step, currently argued in prose inside a chain
+    that is otherwise machine-checked end to end.
+
+    THE ENCODING.  Give each parent P_i a fresh selector s_i and emit
+
+        (-s_i v l)  for every literal l of P_i,      "s_i asserts P_i"
+        (s_1 v ... v s_m)                            "some parent is chosen"
+        (-l_1 v ... v -l_r)  for every child C_j     "C_j is false"
+
+    A model is exactly an assignment inside some parent and inside no child, so
+    the formula is unsatisfiable IFF the layer covers.  (Only one direction of
+    the Tseitin definition is needed: if some P_i holds we may set s_i true and
+    the rest false.)  Refute it with the solver like any other leaf and replay
+    the LRAT here.
+
+    WHY ONE REFUTATION AND NOT ONE PER PARENT.  Checking each parent separately
+    would need to know which children belong to which parent, and would
+    therefore trust the run's own bookkeeping.  This formulation never mentions
+    the parent-child relation, so a child attributed to the wrong parent, or
+    dropped, or duplicated, shows up as a model.
+
+    Returns (True, lrat_path) or (False, witness_cube), where the witness is
+    the literals of an assignment inside a parent and inside no child.
+    """
+    import os
+    import subprocess
+    import tempfile
+    if not parents:
+        raise SystemExit("no parents: nothing to cover")
+    if not children:
+        raise SystemExit("no children: the layer covers nothing")
+    maxvar = max(abs(x) for c in list(parents) + list(children) for x in c)
+    cls = []
+    sel = []
+    for i, p in enumerate(parents):
+        s = maxvar + 1 + i
+        sel.append(s)
+        for lit in p:
+            cls.append((-s, lit))
+    cls.append(tuple(sel))
+    for c in children:
+        cls.append(tuple(-x for x in c))
+    nvar = maxvar + len(parents)
+
+    tmp = tempfile.mkdtemp(prefix="relcover.") if work is None else work
+    os.makedirs(tmp, exist_ok=True)
+    cnf = os.path.join(tmp, "rel.cnf")
+    drat = os.path.join(tmp, "rel.drat")
+    lrat = os.path.join(tmp, "rel.lrat")
+    with open(cnf, "w") as fh:
+        fh.write(f"p cnf {nvar} {len(cls)}\n")
+        for c in cls:
+            fh.write(" ".join(map(str, c)) + " 0\n")
+    here = os.path.dirname(os.path.abspath(__file__))
+    tools = os.path.join(here, "..", "..", "..", "scratch", "tools")
+    r = subprocess.run([os.path.join(tools, "cadical", "build", "cadical"),
+                        "-q", "--binary=false", cnf, drat],
+                       capture_output=True, text=True, check=False)
+    if r.returncode == 10:
+        model = {int(x) for line in r.stdout.splitlines()
+                 if line.startswith("v ") for x in line.split()[1:]
+                 if int(x) != 0}
+        return False, sorted((x for x in model if abs(x) <= maxvar), key=abs)
+    if r.returncode != 20:
+        raise SystemExit(f"solver returned {r.returncode}, expected 10 or 20")
+    v = subprocess.run([os.path.join(tools, "drat-trim", "drat-trim"),
+                        cnf, drat, "-L", lrat],
+                       capture_output=True, text=True, check=False)
+    if "s VERIFIED" not in v.stdout:
+        raise SystemExit("drat-trim did not verify the layer proof:\n"
+                         f"{v.stdout[-800:]}")
+    replay(cls, lrat)                       # same checker as every leaf
+    return True, lrat
+
+
+def read_cubes(path):
+    """Cubes, one per line: signed integers, or a 0/1 tag over variables 1..k."""
+    out = []
+    with open(path) as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if set(line) <= set("01"):
+                out.append([(i + 1) if ch == "1" else -(i + 1)
+                            for i, ch in enumerate(line)])
+            else:
+                out.append([int(x) for x in line.replace(",", " ").split()
+                            if int(x) != 0])
+    if not out:
+        raise SystemExit(f"{path}: no cubes")
+    return out
+
+
+def cmd_refine(a):
+    """Certify one refinement layer of a cube-and-conquer run.
+
+    Usage: refine PARENTS CHILDREN [--work W]
+
+    See relcover_certify.  A refinement step claims that replacing selected
+    cubes by all assignments of a few further variables loses nothing; this
+    turns that claim into a single refutation checked by the same LRAT checker
+    as every leaf.
+    """
+    import os
+    work, srcs, skip = None, [], False
+    for i, x in enumerate(a):
+        if skip:
+            skip = False
+            continue
+        if x == "--work":
+            work, skip = a[i + 1], True
+        elif not x.startswith("--"):
+            srcs.append(x)
+    if len(srcs) != 2:
+        raise SystemExit("usage: refine PARENTS CHILDREN [--work W]")
+    parents, children = read_cubes(srcs[0]), read_cubes(srcs[1])
+    print(f"  {len(parents)} parents, {len(children)} children")
+    ok, info = relcover_certify(parents, children, work)
+    if not ok:
+        print("LAYER INCOMPLETE  the children do not cover the parents")
+        print(f"  witness (inside a parent, inside no child): "
+              f"{' '.join(map(str, info))}")
+        return
+    print(f"VERIFIED  the {len(children)} children cover the "
+          f"{len(parents)} parents")
+    print(f"  layer certificate: {os.path.getsize(info)} bytes of LRAT, "
+          f"replayed here to the empty clause")
+
+
 def cover_certify(tags, work=None):
     """(True, lrat_path) if the cubes cover everything; (False, witness) if not.
 
@@ -755,6 +903,7 @@ def main():
         return 2
     {"lower": cmd_lower, "graph": cmd_graph, "cubes": cmd_cubes,
      "tree": cmd_tree, "cover": cmd_cover, "residual": cmd_residual,
+     "refine": cmd_refine,
      "selftest": cmd_selftest}[sys.argv[1]](sys.argv[2:])
     return 0
 

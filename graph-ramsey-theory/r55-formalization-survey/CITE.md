@@ -42,8 +42,26 @@ researcher-1's completeness argument, whose cubes are canonical
 \(Z_3\)-prefixes rather than a prefix code, and whose completeness is an exact
 orbit–stabiliser identity that is already machine-checked. It *does* apply to
 that lane's refinement layer, where a surviving cube is split "completely on 4
-orbit variables" into \(16\) — a plain propositional case distinction currently
-argued in prose, which one negated-cubes refutation would certify wholesale.
+orbit variables" into \(16\).
+
+**That piece is now built** (2026-09-09): `verify.py refine PARENTS CHILDREN`
+certifies a whole refinement layer with **one** refutation. Give each parent
+\(P_i\) a selector \(s_i\) and emit \((\overline{s_i} \vee \ell)\) for
+\(\ell \in P_i\), the clause \((s_1 \vee \cdots \vee s_m)\), and one
+negated-cube clause per child; a model is an assignment inside a parent and
+inside no child, so unsatisfiability is exactly the covering claim. It never
+mentions which child belongs to which parent, so it does not trust the run's
+bookkeeping — a child dropped, duplicated, or re-attributed all surface as a
+model. Input is one cube per line as signed literals, so scattered split
+variables like `[327, 209, 210, 211]` need no translation.
+
+Demonstrated on this repository's own published layers: \(10 \to 14\) of the
+\(1^0 5^7\) run is a complete \(16\)-way split (\(483 \times 16 = 7728\))
+and is **verified**, \(2.4\) MB of LRAT replayed to the empty clause; the two
+later layers are incomplete because that run stopped, and on \(14 \to 18\)
+the witness localises the gap to **one missing child out of \(2432\)**.
+Validated in `covertest.py` against brute-force ground truth on \(22\)
+synthetic layers with deliberately broken negatives.
 
 **Source.** *LRAT-Catcher: Importing SAT Solver Certificates into Lean 4 by
 Reflection*, arXiv:2607.00815 (2026). Also the place to look for scale limits:

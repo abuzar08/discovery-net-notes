@@ -32,11 +32,12 @@ What is checked, for every tag set in the battery:
 
     python3 covertest.py [--quick]
 """
+import itertools
 import random
 import sys
 from fractions import Fraction
 
-from verify import collect_tags, cover_certify
+from verify import collect_tags, cover_certify, relcover_certify
 
 S = ("/Users/abuzark/.discovery-research-team/workspaces/researcher-3/"
      "scratch/r46/")
@@ -44,6 +45,90 @@ S = ("/Users/abuzark/.discovery-research-team/workspaces/researcher-3/"
 REAL = [("n=39 type 13^3", [S + "cubes_n39_13_3"], True),
         ("n=35 type 1^0 5^7", ["cube-manifests/r46-1_0-5_7-leaves.jsonl.gz"],
          False)]
+
+
+def real_layers():
+    """The refinement layers of my own published 1^0 5^7 run, read off the
+    committed manifest.  Depth 10 -> 14 is a COMPLETE 16-way split (483 x 16 =
+    7728), exactly the operation researcher-1 argues in prose; 14 -> 18 and
+    18 -> 22 are incomplete, because that run stopped rather than finished, so
+    they are real negatives rather than synthetic ones."""
+    import gzip
+    import json
+    src = "cube-manifests/r46-1_0-5_7-leaves.jsonl.gz"
+    with gzip.open(src, "rt") as fh:
+        tags = [json.loads(x)["tag"] for x in fh if x.strip()]
+
+    def cube(t):
+        return [(i + 1) if ch == "1" else -(i + 1) for i, ch in enumerate(t)]
+
+    out = []
+    for d, e, expect in ((10, 14, True), (14, 18, False), (18, 22, False)):
+        ps = sorted({t[:d] for t in tags if len(t) > d})
+        cs = sorted({t[:e] for t in tags if len(t) >= e})
+        out.append((f"real layer {d}->{e}", [cube(t) for t in ps],
+                    [cube(t) for t in cs], expect))
+    return out
+
+
+def rel_bruteforce(parents, children):
+    """Ground truth: does every assignment inside a parent lie in a child?"""
+    varset = sorted({abs(x) for c in list(parents) + list(children) for x in c})
+    idx = {v: i for i, v in enumerate(varset)}
+    kids = [[(idx[abs(x)], x > 0) for x in c] for c in children]
+    for bits in itertools.product((False, True), repeat=len(varset)):
+        if not any(all(bits[idx[abs(x)]] == (x > 0) for x in p) for p in parents):
+            continue
+        if not any(all(bits[i] == s for i, s in k) for k in kids):
+            return False
+    return True
+
+
+def split_layer(parents, svars):
+    """All 2^|svars| extensions of every parent: a complete refinement layer."""
+    out = []
+    for p in parents:
+        for signs in itertools.product((1, -1), repeat=len(svars)):
+            out.append(list(p) + [s * v for s, v in zip(signs, svars)])
+    return out
+
+
+def layer_battery(rng):
+    """(name, parents, children, expected) -- researcher-1's shape: cubes are
+    literal lists over scattered variable indices, split on 4 further ones."""
+    base = [[1, -2, 3], [-1, 2], [1, 2, -3]]
+    sv = [7, 8, 9, 10]                    # "split completely on 4 variables"
+    full = split_layer(base, sv)
+    out = [("complete-16-way", base, full, True),
+           ("split-on-3-of-4", base, split_layer(base, sv[:3]), True),
+           ("split-on-1-of-4", base, split_layer(base, sv[:1]), True),
+           ("duplicated-children", base, full + full[:5], True),
+           ("extra-alien-child", base, full + [[-1, -2, -3, 7, 8, 9, 10]], True),
+           ("!one-child-dropped", base, full[:-1], False),
+           ("!one-child-per-parent-dropped", base,
+            [c for i, c in enumerate(full) if i % 16 != 3], False),
+           ("!child-under-wrong-parent", base,
+            [c if i != 5 else [-1, 2] + c[len(base[0]):] for i, c in
+             enumerate(full)], False),
+           ("!children-of-one-parent-only", base, full[:16], False),
+           ("!no-refinement-at-all", base, [[1, -2, 3, 7]], False)]
+    # Random parents are drawn DISJOINT -- distinct sign patterns on the same
+    # variables -- which is the shape a refinement layer actually has, and is
+    # also what makes "drop a child" a genuine hole.  With overlapping parents
+    # it need not be: a child of one parent can cover the gap left in another,
+    # and an earlier version of this battery mislabelled such a case.  The
+    # certificate was right and the label was wrong; the assertion below is
+    # against brute force either way.
+    for i in range(6):
+        pat = rng.sample(list(itertools.product((1, -1), repeat=3)),
+                         rng.randint(2, 4))
+        ps = [[s * v for s, v in zip(sig, (1, 2, 3))] for sig in pat]
+        f = split_layer(ps, [9, 10])
+        out.append((f"random-complete-{i}", ps, f, True))
+        g = list(f)
+        g.pop(rng.randrange(len(g)))
+        out.append((f"!random-hole-{i}", ps, g, False))
+    return out
 
 
 def kraft_verdict(tags):
@@ -169,6 +254,42 @@ def main():
         assert (v == "PARTITION") == ok, f"{label}: {v} vs certificate {ok}"
         real.append(f"{label}: {len(tags)} leaves, {v} == certificate {ok}")
 
+    # ---- refinement layers (the researcher-1 shape) ----
+    lay = layer_battery(rng)
+    try:
+        reals = real_layers()
+    except (OSError, SystemExit):
+        reals = []
+    lay_gap = 0
+    for name, ps, cs, expect in lay:
+        truth = rel_bruteforce(ps, cs)
+        assert truth is expect, f"{name}: battery mislabelled ({truth})"
+        ok, info = relcover_certify(ps, cs)
+        assert ok is truth, f"{name}: certificate {ok}, brute force {truth}"
+        if not ok:
+            α = {abs(x): x > 0 for x in info}
+            assert any(all(α.get(abs(x)) == (x > 0) for x in p) for p in ps), \
+                f"{name}: witness is in no parent"
+            assert not any(all(α.get(abs(x)) == (x > 0) for x in c) for c in cs), \
+                f"{name}: witness is inside a child"
+            lay_gap += 1
+
+    # the real layers: too big to brute-force, so checked against the count
+    # the split guarantees (a complete E-way split has exactly 2^E children
+    # per parent) and against the recorded expectation.
+    rl = []
+    for name, ps, cs, expect in reals:
+        ok, info = relcover_certify(ps, cs)
+        assert ok is expect, f"{name}: certificate {ok}, expected {expect}"
+        assert (len(cs) == len(ps) * 16) is expect, \
+            f"{name}: child count {len(cs)} vs {len(ps)}x16 contradicts {ok}"
+        if not ok:
+            a = {abs(x): x > 0 for x in info}
+            assert any(all(a.get(abs(x)) == (x > 0) for x in p) for p in ps)
+            assert not any(all(a.get(abs(x)) == (x > 0) for x in c) for c in cs)
+        rl.append(f"{name}: {len(ps)} parents, {len(cs)} children -> "
+                  f"{'covered' if ok else 'INCOMPLETE, witness verified'}")
+
     print(f"covertest OK: {len(cases)} tag sets, "
           f"{'; '.join(f'{k} {v}' for k, v in sorted(stats.items()))}")
     print(f"  certificate == brute-force ground truth on all {len(cases)}")
@@ -182,6 +303,11 @@ def main():
           "unreachable: prefix-freeness is tested first and implies Kraft <= 1")
     for line in real:
         print(f"  REAL TREE  {line}")
+    print(f"  LAYERS  {len(lay)} refinement layers, certificate == brute-force "
+          f"ground truth on every one; {lay_gap} deliberately broken layers "
+          f"each returned a witness verified to be in a parent and in no child")
+    for line in rl:
+        print(f"  REAL LAYER  {line}")
     return 0
 
 
