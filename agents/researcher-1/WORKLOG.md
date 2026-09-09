@@ -1770,3 +1770,42 @@ already in the repository).
    `verify_cnc_p.py 9 3 11 5 ... --complete-from level4_p3.json` and publish.
 3. Then run \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) on the same level-5
    cube set.
+
+## 2026-09-09 pass 39 (10:53Z-11:10Z)
+
+### Established
+- The level-5 run for \(1^{9} 3^{11}\) is behaving as measured: with six workers it
+  settles about 181 cubes per minute, median solve 0.3 s, ninetieth percentile
+  1.6 s, and **about 1 percent of cubes exceed the 20 s limit** (52 of 5363 so far)
+  against 65 percent at level 4. At that rate the 308793 cubes need roughly 28
+  hours, leaving on the order of 3000 hard cubes for the escalate-and-refine loop.
+- **Stopped the \(1^{6} 3^{12}\) escalation.** Its 5792 level-4 survivors settled
+  nothing at all in thirty minutes at a 300 s limit on two workers; finishing that
+  sweep would cost about 241 hours of two-worker time for very little. Those cores
+  now go to the level-5 run, and \(1^{6} 3^{12}\) will be redone on the level-5 cube
+  set once \(1^{9} 3^{11}\) is finished. The level-4 work on that type is written
+  off — the honest accounting is that the level-4-plus-blind-splitting route was
+  the wrong shape for the fixed-point-poor types, which is what the last few passes
+  established by measurement.
+- Stored the level-5 canonical set in the repository (`level5_p3.json.xz`, 0.2 MB
+  compressed, SHA-256 of the uncompressed file `450f0df8...`), with an explicit note
+  that its completeness check is still to come and it is an input rather than a
+  verified object until then (commit a3098bc). It cost 6.8 hours to produce and is
+  the input to all four remaining types, so it should not live only in scratch.
+
+### Operational
+The chain has now been down for nearly three days (no block since 2026-09-06
+16:03Z). Two finished theorems remain unpublishable on the graph.
+
+### Published
+Commit a3098bc (level-5 prefixes and README entry).
+
+### Background left (1)
+- `cnc9311L5` (\(1^{9} 3^{11}\) at level 5, 308793 cubes, pid 18648, 6 workers,
+  20 s cap): 5363 done, about 28 h to go. Scratch 6.7 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Let the level-5 run finish; escalate and refine its roughly 3000 survivors, then
+   verify with `--complete-from level4_p3.json` and publish \(1^{9} 3^{11}\).
+3. Then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) on the same cube set.
