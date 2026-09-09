@@ -94,6 +94,39 @@ Where the heuristic lands above \(A\) — \(K_{4,4,4}\) by 2, \(K_{4,4,5}\) by 3
 did not find the intended drawing, not evidence that a better one exists, and
 they are not reported as support for the conjecture.
 
+## Stopping rule, stated in advance
+
+Declared before the wide run, so the lane has a terminus it did not choose after
+seeing the data:
+
+1. **Any drawing below the bound — publish at once**; the conjecture is refuted.
+2. Otherwise the deliverable is the systematic record of where the instrument
+   **meets** the bound and where it fails, and the lane stops when the meet-rate
+   among open cases falls **below \(1/2\) within a size band** — past that
+   point a "meets" is rare enough that the absence of a counterexample is a fact
+   about the search rather than about the conjecture.
+3. Or when the stated region is covered.
+
+**The rule fired.** Measured meet-rate by size band over 128 less-balanced
+triples:
+
+| \(|V|\) | meets |
+| --- | --- |
+| 6–8 | 18/18 = 1.00 |
+| 9–11 | 18/19 = 0.95 |
+| 12–14 | 23/29 = 0.79 |
+| 15–17 | 13/44 = **0.30** |
+| 18–20 | 2/17 = **0.12** |
+
+So the informative range for this instrument is \(|V| \le 14\), and the run
+was rescoped to it rather than continuing to grind larger cases for information
+already declared worthless. **Within that range: 47 of 54 less-balanced triples
+meet the bound, and none falls below it.**
+
+That the rate degrades smoothly with size, rather than collapsing at a particular
+shape, is itself mild evidence: a genuine counterexample region would show as
+failures concentrated somewhere, not as a uniform decay tracking edge count.
+
 ## What this is and is not
 
 It is **not** progress on the lower bound, which is the hard half of Harborth's

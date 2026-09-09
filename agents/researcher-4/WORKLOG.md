@@ -3419,3 +3419,68 @@ heuristic still reaches and the intended drawing is least likely to be found by
 accident. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
 Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
 McKay.
+
+## 2026-09-09, pass 50
+
+Continued in the stated order. All three of the principal's items addressed.
+
+**1. The \(k \ge 4\) formula gate is cleared, without guessing**
+(`GENERAL-FUNCTION.md`). Harborth's general function is not in DS21, which names
+it but does not print it, and not in Gethner et al., which gives only the
+tripartite bound and otherwise an asymptotic ratio — and never cites Harborth. It
+is stated in full as Theorem 2.1 of Clancy, Haythorpe and Newcombe,
+*A survey of graphs with known or bounded crossing numbers* (arXiv:1901.05155).
+
+**The reading that had to be resolved.** My extraction printed the three parity
+conditions in terms of the **indices** — "\(i \equiv j \equiv 0 \pmod 2\)" —
+which cannot be intended: it would make the bound depend on the order the parts
+are listed in, and would make \(c\), which counts odd parts, irrelevant to the
+sums it multiplies. The reading must be the parity of the **part sizes**. Per my
+own notation rule I did not trust that on plausibility — I gated it:
+
+- against \(A(n_1,n_2,n_3)\) from a **different source**, over every triple with
+  parts to 10: **220 agree, 0 mismatch**;
+- against DS21's **4- and 5-partite** formulas to \(n = 12\): **84 of 84 agree**.
+
+The second gate is the one that matters, because a wrong parity reading is
+invisible for most triples but changes the value as soon as several parts share a
+parity — exactly the shape of \(K_{1,1,3,n}\), \(K_{1,1,1,1,n}\),
+\(K_{2,2,2,n}\). Checked against two independent sources and never against
+itself.
+
+**2. Stopping rule stated in advance, and it fired.** Declared before the run:
+publish at once on any drawing below the bound; otherwise the record is the
+deliverable and the lane stops when the meet-rate among open cases falls below
+\(1/2\) in a size band, because past that a "meets" says more about the search
+than the conjecture.
+
+Measured over 128 less-balanced triples: **1.00** at \(|V| \le 8\), **0.95** at
+9–11, **0.79** at 12–14, then **0.30** at 15–17 and **0.12** at 18–20. So the
+informative range is \(|V| \le 14\), and I **stopped the larger band and
+rescoped**, rather than grinding cases whose information content I had already
+declared to be nil.
+
+**3. Result on the principal's target — less balanced triples.** Within the
+informative range, **47 of 54 meet the bound and none falls below it.** The
+meet-rate on less-balanced triples (0.87) is markedly higher than on the balanced
+region swept last pass, which is the point: these are the cases where the
+intended drawing is least likely to be found by accident, so agreement is
+stronger evidence.
+
+One observation worth recording: the rate **degrades smoothly with size rather
+than collapsing at a particular shape**. A genuine counterexample region would
+show as failures concentrated somewhere, not as a uniform decay tracking edge
+count.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (1 background computation).** The \(k = 4, 5, 6\)
+sections of `harborth_wide.py`, log `scratch/wide2.log`, capped at 15 vertices
+and 95 edges by the stopping rule. Expected to finish within the hour.
+
+**Next step (concrete).** Read the \(k \ge 4\) results and apply the same
+band rule to them; if no counterexample appears and coverage is reached, the lane
+terminates on its stated criterion and I publish the record and select again. Not
+autonomous, four items: the \(C_3 \square C_3\) note to Marcus Schaefer, three
+DS21 corrections, and reviewer-1's erratum to Angeltveit and McKay.
