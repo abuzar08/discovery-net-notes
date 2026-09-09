@@ -1,0 +1,16 @@
+witnesses for the non-minimal patches:
+  class (3, 3), internal 3:
+    patch    [('a0', 'a1'), ('a0', 'a2'), ('a0', 'a2'), ('a0', 'x'), ('a0', 'x'), ('a0', 'y'), ('a2', 'y'), ('a2', 'z'), ('a2', 'z')]
+    subgraph [('a0', 'a2'), ('a0', 'a2'), ('a0', 'x'), ('a0', 'x'), ('a0', 'y'), ('a2', 'y'), ('a2', 'z'), ('a2', 'z')]  class (3, 3)
+  class (3, 3), internal 5:
+    patch    [('a0', 'a1'), ('a0', 'a2'), ('a0', 'x'), ('a1', 'a3'), ('a1', 'y'), ('a2', 'a4'), ('a2', 'x'), ('a2', 'z'), ('a3', 'a4'), ('a3', 'y'), ('a4', 'z')]
+    subgraph [('a0', 'a1'), ('a0', 'a2'), ('a0', 'x'), ('a1', 'y'), ('a2', 'a4'), ('a2', 'x'), ('a2', 'z'), ('a3', 'a4'), ('a3', 'y'), ('a4', 'z')]  class (3, 3)
+  class (2, 1), internal 2:
+    patch    [('a0', 'a1'), ('a0', 'x'), ('a0', 'y'), ('a0', 'z'), ('a1', 'x'), ('a1', 'z')]
+    subgraph [('a0', 'x'), ('a0', 'y'), ('a0', 'z'), ('a1', 'x'), ('a1', 'z')]  class (2, 1)
+  class (2, 1), internal 3:
+    patch    [('a0', 'a1'), ('a0', 'x'), ('a0', 'y'), ('a1', 'a2'), ('a1', 'z'), ('a2', 'x'), ('a2', 'z')]
+    subgraph [('a0', 'a1'), ('a0', 'x'), ('a0', 'y'), ('a1', 'z'), ('a2', 'x'), ('a2', 'z')]  class (2, 1)
+  class (1, 0), internal 2:
+    patch    [('a0', 'a1'), ('a0', 'x'), ('a0', 'y'), ('a1', 'y'), ('a1', 'z')]
+    subgraph [('a0', 'x'), ('a0', 'y'), ('a1', 'y'), ('a1', 'z')]  class (1, 0)
