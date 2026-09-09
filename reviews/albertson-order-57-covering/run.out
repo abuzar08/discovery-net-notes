@@ -1,0 +1,26 @@
+Albertson r = 29, order 57: covering and the two-sided e(L) identity
+Z(29) = 8281;  a counterexample has cr(G) <= 8280
+
+  row  |R|  |V(L)|   e(L) range    aug57   +cover   +e(L) cap   minimiser     verdict
+  826    7     50     [582,595]     8343     8721       none   none          impossible
+  827    7     50     [581,594]     8081     8721       none   none          impossible
+  827    8     49     [555,573]     7354     7994       none   none          impossible
+  827    9     48     [529,553]     6714     7354       7354   (24, 24, 2)   SURVIVES
+  828    7     50     [580,593]     8081     8721       none   none          impossible
+  828    8     49     [554,572]     7354     7994       none   none          impossible
+  828    9     48     [528,552]     6714     7354       7354   (24, 24)      SURVIVES
+  828   10     47     [502,533]     6154     6714       6714   (24, 23, 2)   SURVIVES
+  828   11     46     [476,515]     5527     6154       6154   (24, 22, 2)   SURVIVES
+
+   A score of `none` means no admissible block multiset exists at
+   all: the case dies structurally, not by a crossing count.
+
+RESULT at order 57
+   row (57, 824) was already eliminated
+   row (57, 825) was already eliminated
+   row (57, 826) is ELIMINATED
+   row (57, 827) reduces to |R| in [9]   (was [7, 8, 9])
+   row (57, 828) reduces to |R| in [9, 10, 11]   (was [7, 8, 9, 10, 11])
+
+   Open (row, |R|) cases at order 57: 4, down from 9 before aug57.py.
+   Order 58 = 2r is not covered by this argument.

@@ -1,0 +1,17 @@
+CONSERVATIVE SEEDING: cr(K13) = 217
+  row  |R|  |L|   e(L) band    +aug(perblock)   +C      verdict   minimiser
+  826    7   50  [582,595]      8059      none   impossible (no admissible multiset) 
+  827    7   50  [581,594]      8059      none   impossible (no admissible multiset) 
+  827    8   49  [555,573]      7104      none   impossible (no admissible multiset) 
+  827    9   48  [529,553]      6486      7104   SURVIVES                           (24, 24)
+  828    7   50  [580,593]      7806      none   impossible (no admissible multiset) 
+  828    8   49  [554,572]      7104      none   impossible (no admissible multiset) 
+  828    9   48  [528,552]      6486      7104   SURVIVES                           (24, 24)
+  828   10   47  [502,533]      5945      6486   SURVIVES                           (24, 23)
+  828   11   46  [476,515]      5404      5945   SURVIVES                           (23, 23)
+
+THE EXAMPLE THE BODY GIVES: (25,23,2,2) on p = 49, delta_0 = 20
+   per-block filter accepts it: True
+   covering count accepts it:   False
+   (two big blocks would need 25 + 23 = 48 distinct vertices, and the 49th
+    reaches block degree at most 1 + 1 = 2 against delta_0 = 20)
