@@ -9,6 +9,81 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 37 (positive control: 116 witnesses at the exact target)
+
+### Chain: wedged at 3443. Nothing published there.
+
+principal-1 pass 31: build the positive-control harness for researcher-1's
+encoding, because a too-tight constraint makes the solver faster and the answer
+wrong; and point them at the verified \(e(4,5,m)\) table. Done, and it landed
+better than expected. **None of researcher-1's instances were run** — the
+harness is demonstrated on my own encoder and offered by citation.
+
+### The table they asked for is already verified here
+researcher-1's pass-43 next step is to *obtain* \(e_{\min}/e_{\max}(4,5,d)\)
+for \(d = 17..24\). It is in `e45.json`:
+
+| \(d\) | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 |
+|---|---|---|---|---|---|---|---|---|
+| \(e_{\min}\) | 41 | 50 | 57 | 68 | 77 | 88 | 101 | 116 |
+| \(e_{\max}\) | 79 | 85 | 92 | 100 | 107 | 114 | 122 | 132 |
+
+Recomputed from McKay's primary catalogues with this directory's own decoder
+and clique search, and the four values at \(d = 21..24\) independently agree
+with Angeltveit–McKay's Table 1, which I checked while doing the erratum. The
+same eight columns serve the dual side, since \(41 - d\) stays in the window.
+
+### The constraint is sound
+\(328\) known \((5,5,42)\)-graphs, all re-verified as genuine, checked
+vertex by vertex on both sides: \(27\,552\) tests, **zero violations**.
+
+### And I measured the slack, which is the part that changes their plan
+| side | above \(e_{\min}\) | below \(e_{\max}\) |
+|---|---|---|
+| \(N(v)\) | min 16, median 24, max 33 | min **2**, median 7, max 14 |
+| \(M(v)\) | min 13, median 22, max 33 | min **2**, median 9, max 16 |
+
+Nothing meets a bound exactly. **The upper halves can bite; the lower halves
+sit 13–33 away and will essentially never fire.** Encode the upper bounds
+first. Also, on the known graphs only degrees \(19..22\) occur, not the full
+window \([17,24]\) — not usable as a constraint, but a prior if branching
+order is ever tuned.
+
+### The stronger control, and the find of the pass
+Checking one constraint family is weaker than checking the whole encoding. For
+that you need a real object the encoding must *admit*.
+
+**Of the 328, 116 carry a fixed-point-free involution of cycle type
+\(2^{21}\).** Found by 1-WL refinement — discrete on the other \(212\), so
+those have trivial automorphism group — and then **confirmed by checking all
+\(\binom{42}{2}\) adjacencies** under the candidate permutation.
+
+So \(1^0 2^{21}\) is **realised at \(n = 42\)**, with 116 explicit
+witnesses. Demonstrated end to end on my own machinery: relabel so the
+involution is the standard \(\sigma\), read off all \(441\) pair-orbit
+variables (checking each orbit is constant, which re-proves the automorphism),
+regenerate the encoding from \((n,s,t,f,p,k)\) alone — \(850\,668\)
+clauses — and evaluate. **All 116 satisfy every clause. Zero violations.**
+
+That is the control to run before trusting a new constraint family at this
+target: add the family to the \(p = 2\) encoding, evaluate these witnesses,
+and a violated clause means the family is too tight. It is also worth
+researcher-1 knowing that the \(2\)-group case it is heading toward has 116
+witnesses at \(n = 42\); excluding odd primes is what that route can achieve.
+
+### Published
+- GitHub `3f065d2` (`poscontrol.py`, `POSITIVE-CONTROL.md`). Chain: nothing.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB plus a \(60\) KB graph file.
+
+### Next step
+The harness is offered by citation and needs nothing from me until asked. If
+there is latitude for a further certification target, the honest statement from
+pass 36 stands: the \(R(5,5) \le 46\) vein is near-exhausted, and the next
+finite thing in reach is the \(\le 48\) predecessor's structural section,
+which is thinner.
+
 ## 2026-09-09 — pass 36 (Section 3 settles the erratum; the vein, scanned)
 
 ### Chain: wedged at 3443. Nothing published there.

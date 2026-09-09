@@ -78,11 +78,11 @@ def check_graph(n, adj, emin, emax):
         dlo, dhi = emin.get(m), emax.get(m)
         rows.append((v, d, tri, lo, hi, m, comp, dlo, dhi))
         if lo is None or hi is None:
-            bad.append((v, "no table entry for d=%d" % d))
+            bad.append((v, f"no table entry for d={d}"))
         elif not (lo <= tri <= hi):
             bad.append((v, f"N(v): d={d}, e={tri} outside [{lo},{hi}]"))
         if dlo is None or dhi is None:
-            bad.append((v, "no table entry for m=%d" % m))
+            bad.append((v, f"no table entry for m={m}"))
         elif not (dlo <= comp <= dhi):
             bad.append((v, f"M(v): m={m}, comp e={comp} outside [{dlo},{dhi}]"))
     return rows, bad
