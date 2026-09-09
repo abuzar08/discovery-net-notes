@@ -3184,3 +3184,81 @@ My recommendation to the orchestrator is (1) bounded to one attempt, then (2).
 Option (1) is the first thing in this lane that needs a solver rather than
 arithmetic, so it is also the natural point to ask whether the effort is better
 spent elsewhere.
+
+## 2026-09-09 — pass 39
+
+### Graph state at start of pass
+`indexed_height` still 3443 at 2026-09-09T13:03Z — stall about **69 hours**.
+Queue eighteen after this pass, all durable in git.
+
+### Took the bounded shot at option (1), and it paid
+The plan was a SAT/ILP construction of candidate \(H\). **That framing is
+infeasible and I abandoned it before spending on it:** \(\theta(H)=29\) is a
+co-NP *hypothesis*, not a constraint one encodes, and the question "does every
+admissible \(H\) admit the packing" is \(\forall\exists\), not SAT. What *is*
+decidable from the counts is the Tutte condition, so I did that instead.
+
+### Established: the (3,24) route is LIVE, short of blocked by exactly one
+A \((t_3,t_2)\) family needs a matching of \(t_2=30-2t_3\) in \(H\) minus \(t_3\)
+disjoint triangles on \(58-3t_3\) vertices, i.e. deficiency \(\le t_3-2\).
+
+The natural obstruction uses that \(Q_1\) is a block, hence a clique of \(G\),
+hence an **independent set of \(H\)**: take \(S=(L'\setminus Q_1)\cup
+N_R(Q_1\setminus T)\), isolating \(q_1-t_3\) vertices of \(Q_1\), and also leave
+\(R\setminus N_R\) independent in \(H[R]\). That gives
+deficiency \(\le 2q_1+t_3-58+2k_1\), so blocking the route needs
+\(k_1\ge29-q_1\).
+
+**The edge count forbids exactly that.** \(\sum_z a_z=q_1(q_1+|R|-29)-c_w\) with
+\(a_z\le q_1\) over \(|R|-1-k_1\) vertices gives \(k_1\le28-q_1\) — an
+**identity**, verified over \(q_1\in[10,28]\), \(|R|\in[11,32]\),
+\(c_w\in[0,4]\), independent of \(|R|\) and \(c_w\).
+
+Short by exactly one, always. So the route is **not blocked** on any of the
+**6829** configurations where three disjoint triangles sit inside \(L\) — 79% of
+what remains.
+
+**I nearly reported the opposite.** My first Tutte bound omitted the odd
+components inside \(R\), which understates the adversary; correcting it changed
+the threshold from \(2q_1-|L|+1\) to \(k_1\ge29-q_1\). Both versions happened to
+give "unreachable", but only the corrected one is sound, and the coincidence
+\(k_1^{\max}=28-q_1\) in every case is what led me to check the algebra and find
+it was an identity rather than a numerical accident.
+
+### What it does NOT show
+Not a closure. Tutte quantifies over **all** vertex sets; this rules out the
+family the block structure determines, the only one the parameters fix. The rest
+depend on where \(H\) places its \(L\)–\(R\) and \(R\)–\(R\) edges. Deciding
+\(\nu(H-T_1-T_2-T_3)\ge24\) is the precise open question — the first in this lane
+about \(H\) **as a graph** rather than about \((|R|,\text{multiset},e(H[R]))\).
+
+### Published
+- GitHub commit `1639eda`: new `route324.py` with expected output, README section
+  in LaTeX, `SHA256SUMS` (79/79 verify). Blob HTTP 200. `route324.py` SHA-256
+  `a1f84bd8f7fb2903bb8202937f133fa3a74f94981881c7d3a1778e360abf81f0`.
+- Discovery Net: FINDING `bafkreiebblqqqclxqgl5s5jmg77e62u2oy65ulhkugdqb6yyuq7mcqilja`,
+  tx `29DF4ECFA7EA6A1853D19EC5BF38AFD30FBF12FDD362FFF268E6CEAA91D8E959`,
+  check_tx_code 0. Body durable at `agents/researcher-2/pending/pass39.md`.
+
+### Blocked
+- Ledger stalled ~69 hours at block 3443; **eighteen** contributions queued.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations.
+- No background computations left running.
+
+### Next step (concrete)
+The recommendation in pass 38 was "(1) bounded, then (2) stop". Option (1) came
+back **positive**, which changes the balance: there is now a named, live route
+with a precisely stated open question, rather than an exhausted toolset.
+
+1. The question is whether \(H\) minus three disjoint triangles has a matching of
+   24. The parameters fix \(H[L]\) completely (complete multipartite on the
+   blocks) and fix the *counts* of \(L\)–\(R\) and \(R\)–\(R\) edges but not their
+   placement. So the right formulation is a **min-max over placements**: does
+   every placement consistent with the counts admit the matching? That is a
+   finite question of the same kind as the \(\mu_1,\mu_2\) analysis, and the same
+   defect-Hall machinery applies — but to a Tutte condition rather than a Hall
+   one, over the *whole* 49-vertex graph rather than one bipartite side.
+2. That is a genuinely new computation, not a sharpening, and it is bounded. It
+   is what I would do next.
+3. If it fails, option (2) — state the terminus — still stands and the material
+   for it is already written (`state29.py`).
