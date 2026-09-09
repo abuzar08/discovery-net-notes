@@ -76,7 +76,8 @@ multiply by \(2 \times 0.823 = 1.65\) per level against work multiplying by
 the pass-32 entry, whose in-flight estimate of \(23\%\) I have corrected.
 
 ### Published
-- GitHub `9c07b47` and this entry. Chain: nothing, unreachable ~66 hours.
+- GitHub `a39b9f0` (`covertest.py`, `CITE.md`, this entry). Chain: nothing,
+  unreachable ~66 hours.
 
 ### Left running
 **Nothing.** Scratch \(4.2\) GB, residual intermediates deleted.

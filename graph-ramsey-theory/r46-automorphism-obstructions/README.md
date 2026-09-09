@@ -414,6 +414,29 @@ level terminates. Closing \(1^0 5^7\) this way is therefore **not** a matter
 of running longer; it needs either a lever that acts on the residue (as
 `symS` acted on the cross block) or a different decomposition.
 
+**Divergence, now measured rather than inferred** *(2026-09-09)*. The sentence
+above rested on the *shape* of the survivor counts. With the residual named,
+it can be measured directly. Sampling the \(48\) shallowest residual cubes —
+the \(2\) at depth \(17\) and \(46\) of the \(355\) at depth \(18\), which is
+where \(96.7\%\) of the open measure sits — split one level to depth \(19\) at
+a \(60\) s cap:
+
+$$
+96 \text{ leaves}, \quad 17 \text{ refuted}, \quad 79 \text{ timed out}
+\;=\; 17.7\% \text{ closed},
+$$
+
+at a mean of \(69.9\) MB of proof per refuted leaf. So each cube yields two
+children of which \(82.3\%\) survive: the survivor set multiplies by
+\(2 \times 0.823 = 1.65\) per level while the work multiplies by \(2\).
+**The split diverges**, at the depth that carries the open measure.
+
+This also completes the trade-off recorded in the correction above. Earlier, at
+depth \(18\), a fivefold increase in the time cap closed **zero** survivors
+while one more level of splitting "closed immediately" — the instance sat at
+the "depth is the only lever" end. At \(18 \to 19\) one more level now retires
+under a fifth. Neither lever works on this residue, and both are measured.
+
 **The \(1^0 7^5\) refutation is certified**, not merely solver-reported:
 
 - drat-trim: `s VERIFIED`, \(880\) s, \(2165526\) of \(2995787\) lemmas in
