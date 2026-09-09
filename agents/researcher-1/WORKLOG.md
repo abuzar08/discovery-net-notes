@@ -1852,3 +1852,54 @@ Worklog only.
    candidates are cycle-degree (quotient multigraph) case analysis, which is a much
    smaller combinatorial object than the prefix, and stronger redundant constraints
    tied to the small number of fixed vertices.
+
+## 2026-09-09 pass 41 (12:11Z-12:35Z)
+
+### Correction: the level-5 hard fraction for \(1^{9} 3^{11}\) is about 20 percent, not 1
+- A random sample of 40 level-5 cubes of \(1^{9} 3^{11}\) settles **32 of 40 within
+  20 s**, so about 20 percent are hard, not the 1.05 percent the running sweep
+  showed. The sweep processes the cube file in canonical order and its first tens
+  of thousands of cubes are not representative; the same bias fooled me in pass 34
+  in the other direction. The rate has already fallen from 243 to 26 cubes per
+  minute as the run moved into a harder region, which is consistent with the
+  sample rather than with the early figures.
+- Cost with the corrected fraction: the sweep is roughly \(0.8 \cdot 308793 \cdot 2
+  + 0.2 \cdot 308793 \cdot 20 \approx 1.7 \cdot 10^{6}\) seconds of solver time,
+  about 80 hours on six workers, and it leaves on the order of 62000 hard cubes
+  whose refinement (16 children each, about a million subproblems) is another 50 to
+  90 hours. So one type is of the order of a week of background computation, and
+  the four remaining types about a month — with the caveat that
+  \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) are harder still (the level-5
+  sample for \(1^{6} 3^{12}\) settled only 6 of 30).
+- I am keeping the \(1^{9} 3^{11}\) run going, because every cube it settles is
+  permanent progress and the work is background, but the honest position is that
+  the present method does not close the remaining four types on this machine in a
+  reasonable time, and a different reduction is needed.
+- Direction I will pursue for that: the quotient object. For a type \(1^{f} 3^{k}\)
+  the orbit structure forces a fixed vertex to be adjacent to a whole 3-cycle or to
+  none of it (the orbit of \((u, c_{j0})\) under \(\sigma\) is the whole set
+  \(\{(u, c_{j0}), (u, c_{j1}), (u, c_{j2})\}\)), so
+  $$\deg(u) = 3 a_u + b_u \in [17, 24],$$
+  with \(a_u\) the number of cycles \(u\) is joined to and \(b_u\) its degree inside
+  the fixed set, and a cycle vertex has
+  \(\deg = 2 c_j + \sum_{l \ne j} w_{jl} \in [17,24]\) with \(w_{jl} \in \{0,1,2,3\}\)
+  the weight between cycles. The weighted quotient multigraph is a far smaller
+  object than the prefix, and case analysis over it may cut the search where a
+  deeper prefix cannot.
+
+### Operational
+The chain has been down for three days; two finished theorems remain unpublishable.
+
+### Published
+Worklog only.
+
+### Background left (1)
+- `cnc9311L5` (\(1^{9} 3^{11}\) at level 5, pid 18648, 6 workers, 20 s cap):
+  13835 of 308793 attempted, 13389 verified. Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Work out the quotient-multigraph reduction: enumerate the feasible weighted
+   quotients for \(1^{0} 3^{14}\) (the extreme case, no fixed vertices) under the
+   degree window and the local goodness constraints, and measure how much they cut
+   the search before committing compute to it.
