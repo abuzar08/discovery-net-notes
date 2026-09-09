@@ -1679,6 +1679,37 @@ absorption deficit collapses onto 1:
 
 More than a third of what remains at order 58 is now **one unit** from closing.
 
+### The second absorption side was needlessly narrow
+
+An absorption puts \(z\) into a colour class \(\{u,v\}\) with \(u\in Q_1\)
+and \(v\) **anywhere** in \(L\setminus Q_1\): \(u\) and \(v\) need only be
+non-adjacent, which holds for any two distinct blocks.  So the second matching
+\(\mu_2\) should run against \(L\setminus Q_1\), not merely against
+\(Q_2\setminus Q_1\).
+
+The pass-22 correction narrowed it because \(e_H(L\setminus Q_1,R)\) could not
+then be lower-bounded — taking \(e_H(L,R)-e_1\) uses an upper bound for
+\(e_1\) in the wrong direction.  For a **partition** multiset it can now be
+computed exactly, since \(D_v=q(v)-1\) gives
+
+$$e_H(L\setminus Q_1,R)=(\lvert L\rvert-q_1)(\lvert R\rvert-28)+\sum_{i\ge2}q_i(q_i-1),$$
+
+so the wider side is available there and is used; where the blocks do not
+partition \(L\) the narrow side is kept.  For two blocks the two agree exactly,
+so order 57 is untouched and its closure is re-verified.
+
+**Effect: \(\mu_2\) strictly improves for 641 of the 1843 partition multisets
+among the survivors, but closes none of them.**  The pre-Turán count falls from
+9226 to 9067 and the final total is unchanged at 8945.  Reported as a
+strengthening of the argument rather than a reduction of the case.
+
+**Measured and rejected.**  Sharpening the \(-\mathrm{extra}\) term in the
+singleton count by making its Hall condition explicit — a class of
+\(G[L\setminus Q_1]\) is forbidden only from those cut vertices of \(Q_1\)
+whose block it meets, hence from at most \(\min(\mathrm{extra},k-1)\) of them —
+changes nothing: among the survivors either \(\mathrm{extra}=0\), so nothing
+was being paid, or the Hall condition fails anyway.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is

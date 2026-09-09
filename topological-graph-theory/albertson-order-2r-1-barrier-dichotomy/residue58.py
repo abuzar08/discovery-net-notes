@@ -106,15 +106,38 @@ N58 = 2 * r
 
 
 def second_side(NL, mult):
-    """|Q_2 - Q_1| and the block order to use for it.
+    """The size of the second absorption side.
 
-    Two blocks meet in at most one vertex, so |Q_2 - Q_1| >= q_2 - 1 always.
-    When the block orders sum to exactly |L| the blocks are pairwise disjoint
-    and cover L, no vertex is a cut vertex, and |Q_2 - Q_1| = q_2."""
+    An absorption puts z into a colour class {u, v} with u in Q_1 and v ANYWHERE
+    in L - Q_1: u and v need only be non-adjacent, which holds for any two
+    distinct blocks.  So the second side is L - Q_1, not merely Q_2 - Q_1.
+
+    The pass-22 correction restricted it to Q_2 - Q_1 because e_H(L - Q_1, R)
+    could not then be lower-bounded -- taking e_H(L,R) - e_1 uses an upper bound
+    for e_1 in the wrong direction.  For a PARTITION multiset it can be computed
+    exactly, from sum_{v in L-Q_1} D_v = sum_{i>=2} q_i(q_i - 1), so the wider
+    side is available there and is used.  When the blocks do not partition L the
+    old, narrower side is kept."""
     q2 = mult[1] if len(mult) > 1 else 1
-    if sum(mult) == NL:
-        return q2
+    if len(mult) >= 2 and sum(mult) == NL:
+        return NL - mult[0]
     return max(q2 - 1, 1)
+
+
+def second_edges(NL, mult, RSZ):
+    """A lower bound for e_H(second side, R), exact on a partition.
+
+    e_H(L - Q_1, R) = sum_{v in L-Q_1}(|R| - 28 + D_v)
+                    = (|L| - q_1)(|R| - 28) + sum_{i>=2} q_i(q_i - 1)."""
+    side = second_side(NL, mult)
+    if len(mult) >= 2 and sum(mult) == NL:
+        # every term |R| - 28 + D_v is |N_H(v) ^ R| >= 0 by Constraint C, so
+        # the sum is non-negative on any admissible multiset; the guard is
+        # belt-and-braces for multisets that Constraint C would have rejected.
+        return max(0, side * (RSZ - DEG)
+                   + sum(q * (q - 1) for q in mult[1:]))
+    q2 = mult[1] if len(mult) > 1 else 1
+    return max(0, side * (q2 + RSZ - 29))
 
 
 def thresholds(nn, NL, mult):
@@ -190,7 +213,7 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
     d0 = DEG - RSZ
     s = D.singletons(NL, mult, d0)
     e1 = q1 * (q1 + RSZ - 29)
-    e2 = side2 * (q2 + RSZ - 29)
+    e2 = second_edges(NL, mult, RSZ)
     thr1, thr2 = thresholds(nn, NL, mult)
     budget = sx_max + 2 * eHR
     bad = []

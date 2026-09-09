@@ -19,33 +19,33 @@ CROSSING SHORTFALL  Z - best provable cr lower bound, in buckets of 500
    [ 6000,  6500) :   192
 
 ABSORPTION SHORTFALL  (|Z| + max(0,t-s)) - (mu_1 + mu_2), exact
-     1 :  3326
-     2 :  1386
-     3 :  1378
-     4 :  1062
-     5 :   652
-     6 :   274
-     7 :   197
-     8 :   148
-     9 :   101
-    10 :    61
-    11 :    28
+     1 :  3182
+     2 :  1366
+     3 :  1410
+     4 :  1185
+     5 :   761
+     6 :   266
+     7 :   167
+     8 :   118
+     9 :    83
+    10 :    51
+    11 :    24
     12 :     8
     17 :     1
     18 :     1
 
 THE MINIMUM OF THE TWO, per configuration
-     1 :  3326
-     2 :  1386
-     3 :  1378
-     4 :  1062
-     5 :   654
-     6 :   274
-     7 :   197
-     8 :   148
-     9 :   101
-    10 :    61
-    11 :    28
+     1 :  3182
+     2 :  1366
+     3 :  1410
+     4 :  1185
+     5 :   763
+     6 :   266
+     7 :   167
+     8 :   118
+     9 :    83
+    10 :    51
+    11 :    24
     12 :     8
 
 THE TIGHTEST TEN BY THE MINIMUM OF THE TWO
@@ -75,7 +75,7 @@ THE TIGHTEST TEN BY CROSSING ALONE
 CONCLUSION
    BOTH obstructions are close somewhere, which is the useful fact.
 
-   Absorption: the shortfall reaches 1, and 4712 of the 8623
+   Absorption: the shortfall reaches 1, and 4548 of the 8623
    configurations sit within 2 of closing on it.  It is the broad
    front -- the median shortfall is about 6 -- so a uniform gain of a
    few units in mu_2 would remove most of the case at once.
