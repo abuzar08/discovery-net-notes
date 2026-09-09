@@ -1710,6 +1710,53 @@ whose block it meets, hence from at most \(\min(\mathrm{extra},k-1)\) of them �
 changes nothing: among the survivors either \(\mathrm{extra}=0\), so nothing
 was being paid, or the Hall condition fails anyway.
 
+### The absorption route at order 58 is exhausted (`exhaust58.py`)
+
+The shortfall map showed the near obstruction is the absorption inequality, with
+3182 configurations **one unit** short of
+\(\mu_1+\mu_2\ge\lvert Z\rvert+\max(0,t-s)\).  One unit anywhere would do, so
+this asks each of the four components whether anything is left.  All four are at
+their limit.
+
+**(1) The edge total for \(\mu_1\).**  On a partition \(D_v=q_1-1\) for every
+\(v\in Q_1\), so \(e_H(Q_1,R)=q_1(q_1+\lvert R\rvert-29)\) **exactly** — the
+bound already *is* the value.
+
+**(2) The second side for \(\mu_2\).**  Widened to all of \(L\setminus Q_1\),
+which is what the absorption permits; \(\mu_2\) improved for 641 of 1843 and
+closed none.  As wide as the argument allows.
+
+**(3) The singleton count \(s\).**  Making its Hall condition explicit changes
+nothing at all, 8623 to 8623.
+
+**(4) The inclusion–exclusion step**, which had never been examined.  What is
+needed is \(t\) vertex-disjoint triangles \(\{z,u,v\}\) with \(u\in Q_1\),
+\(v\in L\setminus Q_1\); since \(u,v\) lie in different blocks they are
+automatically \(H\)-adjacent, so the condition is just that \(z\) be
+\(H\)-adjacent to both.  The sets of \(Z\)-vertices matchable into each side are
+**transversal matroids**, so the truth is their matroid intersection,
+\(\min_A[r_1(A)+r_2(Z\setminus A)]\), which inclusion–exclusion underestimates
+whenever the two deficiency sets cannot sit on complementary parts.  Here they
+are coupled, because on a partition
+
+$$a_z+b_z=\lvert N_H(z)\cap L\rvert=dh-c_z \quad\text{exactly},$$
+
+so \(z\) in the overlap has \(c_z\ge dh-A-B\) and, against
+\(\sum_z c_z\le\mathrm{budget}\),
+
+$$\lvert S_1\cap S_2\rvert\,(dh-A-B)\,\le\,\mathrm{budget}.$$
+
+Maximising \(d_1+d_2\) under that cap, over every surviving partition multiset,
+every \((k_1,k_2)\) and every split of the \(w\)-deduction, closes **1 of
+1843**.  The cap does not bite: at the maximising \(A=B=1\) the sum constraints
+already hold \(\lvert S_1\rvert+\lvert S_2\rvert\) well below \(\lvert
+Z\rvert+\mathrm{budget}/(dh-2)\).  Inclusion–exclusion was never where the slack
+was.
+
+> All four components are at their limit.  The 3182 configurations that are one
+> unit short will **not** be closed by sharpening the absorption inequality;
+> order 58 needs a different argument.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1726,6 +1773,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `r29.py` | the partial r = 29 result at order 57 |
 | `profile58.py` | the shortfall map: which obstruction is binding, and by how much |
 | `EXPECTED_OUTPUT_PROFILE58.txt` | its expected output |
+| `exhaust58.py` | the absorption route at order 58 is exhausted |
+| `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
 | `state29.py` | **the state of r = 29, recomputed end to end** |
 | `EXPECTED_OUTPUT_STATE29.txt` | its expected output |
 | `turan58.py` | the Turan cap on H[R], and the odd-cycle gap closed |
@@ -1756,6 +1805,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 profile58.py    | diff -u EXPECTED_OUTPUT_PROFILE58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -
