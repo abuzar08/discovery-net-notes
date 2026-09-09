@@ -1,0 +1,9 @@
+WITNESSES AGAINST THE CONJECTURED BOUNDS (McKay-Radziszowski 1997 §5)
+dl/r45extreme/r4522.88.g6: 3 graphs; orders [22], edge counts [88], any K_4 False, any independent 5-set False -> all are genuine (4,5,22)-graphs with 88 edges
+dl/r45extreme/r4523.101.g6: 1 graphs; orders [23], edge counts [101], any K_4 False, any independent 5-set False -> all are genuine (4,5,23)-graphs with 101 edges
+   hoped: every (4,5,22)-graph has at least 93 edges -> REFUTED by an 88-edge witness
+   hoped: every (4,5,23)-graph has at least 105 edges -> REFUTED by a 101-edge witness
+
+THE MAXIMA, for the sharpening table
+dl/r45extreme/r4522.114.g6: 133 graphs; orders [22], edge counts [114], any K_4 False, any independent 5-set False -> all are genuine (4,5,22)-graphs with 114 edges
+dl/r45extreme/r4523.122.g6: 2 graphs; orders [23], edge counts [122], any K_4 False, any independent 5-set False -> all are genuine (4,5,23)-graphs with 122 edges

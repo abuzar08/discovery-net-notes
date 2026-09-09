@@ -1,0 +1,4 @@
+Table IV (as transcribed in the note) against the exact ranges I computed:
+   e=132: exact [176,176] inside [176,176] but not strictly (lower equal)
+   rows where the exact range is contained: 17 of 17 ; violations: []
+   largest lower-side sharpening: +26 ; largest upper-side: -10
