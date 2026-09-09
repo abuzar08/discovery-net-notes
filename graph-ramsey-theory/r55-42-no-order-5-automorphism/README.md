@@ -106,6 +106,16 @@ computation regenerates the proofs and replays them directly. This differs from
 `../r55-42-order3-cube-and-conquer`, whose 1576 certificates were all replayed
 once more in a single final run.
 
+**Reproducibility check (2026-09-09).** Ten cubes were drawn at random from the
+final 16872, their proofs regenerated from scratch with CaDiCaL and replayed with
+the independent checker: **all ten replay to the empty clause** and nine of the ten
+reproduce the recorded SHA-256 byte for byte. The one that differs was originally
+solved by the earlier pipeline, in which drat-trim *trims* the proof before it is
+hashed (2.7 MB stored against 7.1 MB regenerated), so the two files are different
+encodings of the same refutation and both replay. The same check on
+`../r55-42-order3-cube-and-conquer` gave ten of ten replaying and eight of ten
+matching, with the two differences of the same origin.
+
 Hand-proved and cited, not re-proved here: soundness of the prefix split and of
 the residual clauses \((S)\) (`../r55-42-order3-cube-and-conquer`), of the
 lex-leader clauses \((L)\) (`../r55-42-fixed-vertex-lex-leader`), and of the
