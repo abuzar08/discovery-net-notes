@@ -70,6 +70,45 @@ An out-of-range verdict should record:
    terabyte: a memory wall, not a time wall, and it makes the 28,000 core-hour
    figure unattainable rather than merely expensive.
 
+## Companion rule: findings that rest on notation
+
+Adopted after a near-miss that would have published a false contradiction.
+
+> **In a source whose subject is distinguishing variants of a quantity, any
+> finding that rests on notation must be re-extracted and confirmed verbatim in
+> the source rendering before it is believed. A finding that rests on mathematics
+> is safe from this failure.**
+
+The case: DS21 is a survey of *variants* of the crossing number, distinguished
+almost entirely by diacritics — \(\operatorname{cr}\),
+\(\overline{\operatorname{cr}}\), \(\widetilde{\operatorname{cr}}\), and
+prefixed forms. I extracted its text to plain characters and believed I had found
+an internal contradiction: \(\operatorname{cr}(K^4_8) = 8\) in one place
+against 6 from the survey's own formula, with my own computation agreeing on 6.
+
+**There was no contradiction.** The passage reads
+\(\overline{\operatorname{cr}}(K^4_8) = 8\) while
+\(\operatorname{cr}(K^4_8) = 6\) — the rectilinear crossing number against the
+ordinary one. My extraction had dropped the overbars, which carry the entire
+distinction. The extraction destroyed exactly the notation that is the source's
+subject.
+
+The rule has a useful corollary about which findings are cheap to trust. Of the
+three discrepancies this audit produced:
+
+- the **dropped parity hypothesis** rests on mathematics — a rendering assigns a
+  positive crossing number to a graph that is planar — and no notational error
+  could manufacture or hide it;
+- the **dropped term** rests on arithmetic internal to one paragraph, and was
+  re-extracted and confirmed verbatim before being claimed;
+- the **ill-formed graph name** rests entirely on notation, and was checked
+  against the survey's own conventions in four separate occurrences before being
+  recorded — and it is flagged as the least important of the three.
+
+So: prefer findings that survive the loss of notation. When a finding cannot,
+re-read the source rendering before claiming it, and say in the artifact which
+kind it is.
+
 ## Related standard
 
 The other general lesson from this seat: **gate before costing** — establish that

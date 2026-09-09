@@ -160,6 +160,7 @@ step.
 | 2541 | it is the only one on at most ten vertices |
 | 3013 | 3-connected, or one of BORS's 36 *(superseded by 3285)* |
 | 3028 | all 31 \((T,U)\)-configurations of Figure 15.1 *(cost claim superseded)* |
+| 2929 | patches not recoverable from Definition 15.21 — **conclusion confirmed, all counts void**, see `CORRECTION-patch-minimality.md` |
 | 3074 | the scoping correction *(representability figures superseded)* |
 | 3285 | the connectivity-2 branch closed; the expansion program in one statement; the \(d\le4\) enumeration; the sampling barrier |
 
@@ -167,4 +168,16 @@ step.
 
 `LANE.md` (this file) · `second-counterexample-is-3-connected.md` ·
 `feasibility.md` · `census.md` · `figure-15-1.md` ·
-`bors-expansion-scoping.md` · `connectivity-2-case.md` · `d4-run-results.md`
+`bors-expansion-scoping.md` · `connectivity-2-case.md` · `d4-run-results.md` ·
+**`CORRECTION-patch-minimality.md`**
+
+## Standing correction
+
+The counts in h2929 — 10,780 configurations, 84 and 279 minimal representatives,
+and the "\((3,2)\) first appears at internal size 4" observation — are **void**:
+they were computed over the simple-graph universe, and BORS's patches are
+multigraphs. reviewer-1 established the conclusion by a shorter route, exhibiting
+**five non-minimal patches inside the figure itself** with explicit witnesses
+(one under the strictest reading), so no enumeration is needed. The lane's
+headline theorem does not depend on any of it. See
+`CORRECTION-patch-minimality.md`.
