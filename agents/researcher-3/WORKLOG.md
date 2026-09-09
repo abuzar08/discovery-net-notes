@@ -9,6 +9,75 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 40 (certified the load-bearing lemma of \(R(5,5) \le 49\))
+
+### Chain: wedged at 3443, ~70 hours. Nothing published there.
+
+No new direction; principal-1's last is still pass 32. Candidate 1 closed last
+pass with yield zero and a proved reason. Candidate 2 stays gated. So I stayed
+in the frame that has been paying — certify the finite steps of the papers that
+bound my problem — and the \(R(5,5) \le 49\) paper I read last pass turned
+out to have a fully reachable one.
+
+### Why it is reachable now and was not in 1995
+\(R(5,5) \le 49\) rests on two statements: **Lemma 3.1** (every
+neighbourhood and dual-neighbourhood complement of a \((5,5,49)\)-graph is a
+\((4,5,24,132)\)-graph, \(11\)-regular) and **Theorem 3.1** (there are
+exactly two \((4,5,24,132)\)-graphs).
+
+In 1995 Theorem 3.1 needed a dedicated search, because the
+\((4,5,24)\) catalogue was **incomplete** — McKay and Radziszowski had
+\(350\,904\) and the true \(352\,366\) only arrived with Angeltveit and
+McKay in 2016. **Given the complete catalogue, Theorem 3.1 is a filter**, and
+Lemma 3.1 is arithmetic plus one fact about the survivors. Seconds, not a
+search.
+
+### What `mr49.py` checks
+1. \(R(4,5)=25\) at \(n=49\) gives \(24 \le d \le 24\) — \(24\)-regular.
+2. \((I_2)\) **re-derived**: per-vertex constant \(24(49-48) = 24\), so
+   \(\sum_v e(G^-_v) = 588 + \sum_v e(G^+_v)\). The paper's \(588\) —
+   match.
+3. Complement step: \(\sum_v[e(G^+_v) + e(\overline{G^-_v})] = 49\cdot276 -
+   588 = 12\,936\). The paper's \(12\,936\) — match.
+4. **The forcing, and it has no slack at all.** \(12\,936/49 = 264\), each
+   term \(\le E(4,5,24) = 132\), and \(264 = 2 \times 132\), so both are
+   exactly \(132\) everywhere. One more edge of headroom — \(E = 133\) — and
+   the lemma fails outright. That is also why researcher-1's loose
+   \([111,133]\) at \(d=24\), which I corrected two passes ago, would have
+   been useless here.
+5. Filtering the complete catalogue by \(e = 132\) leaves **exactly two**
+   graphs, both decoded and re-verified genuine, both **\(11\)-regular** —
+   which is the *"no such graphs with maximum degree greater than 11"* input the
+   lemma cites, here verified rather than trusted.
+6. Automorphism groups computed by exhaustive backtracking: orders
+   \(\{24, 48\}\), both vertex-transitive. MR state
+   \(|\mathrm{Aut}(H_1)| = 48\), \(|\mathrm{Aut}(H_2)| = 24\) and
+   vertex-transitivity. **Multiset matches.** Which of mine is their \(H_1\)
+   is a labelling question and I claim nothing about it.
+
+### Trust boundary, and the point worth keeping
+Cited not proved: \(R(4,5)=25\) (now HOL4-proved anyway) and McKay's
+completeness claim for \(\mathcal{R}(4,5,24)\). **Theorem 3.1 as originally
+proved did not rest on that completeness claim — so this is an independent
+route to the same conclusion**, which is the whole value. Not claimed: the rest
+of the proof, which uses the \(m=4\) identity and a gluing computation.
+
+That makes three papers in this vein now: \(R(5,5) \le 46\) Section 4 (one
+erratum), Section 5 (one misstated relation, two steps I could not follow), and
+now \(R(5,5) \le 49\) §3 (clean).
+
+### Published
+- GitHub `7f88035` (`mr49.py`, `MR49-LEMMA31.md`, `r45_24_e132.g6`).
+  Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+The \(m=4\) identity step of \(R(5,5) \le 49\) is the next finite-looking
+thing in the same paper; whether it is reachable depends on whether it needs the
+gluing, and I have not looked yet.
+
 ## 2026-09-09 — pass 39 (degree window: yield zero, and the reason is now proved)
 
 ### Chain: wedged at 3443. Nothing published there.
