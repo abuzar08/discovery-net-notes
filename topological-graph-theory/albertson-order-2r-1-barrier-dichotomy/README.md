@@ -1858,6 +1858,52 @@ enumeration here does not pin down.  Deciding
 one in this lane that is a question about \(H\) **as a graph** rather than about
 \((|R|,\text{multiset},e(H[R]))\).
 
+### The (3,24) route against every decidable Tutte family (`tutte324.py`)
+
+**A correction to the previous section.**  It checked the Tutte obstruction built
+from \(Q_1\), the *largest* block, found it one unit out of reach, and concluded
+the route was unblocked on all 6829 configurations.  The obstruction can be built
+from **any** block, and from a small one it *is* reachable.  The corrected figure
+is **2116, not 6829**; the error was over-optimistic and is stated plainly.
+
+**Family A — isolate a part.**  \(Q_i\) is a block, hence a clique of \(G\),
+hence an independent set of \(H\).  Taking \(S=(L'\setminus Q_i)\cup
+N_R(Q_i\setminus T)\) gives deficiency \(\le 2q_i+3-58+2k_i\), so the
+obstruction is reached exactly at \(k_i\ge29-q_i\).  The edge count on \(Q_i\)
+gives
+
+$$k_i\;\le\;(\lvert R\rvert-1)-\left\lceil\frac{q_i(q_i+\lvert R\rvert-29)-c_w}{q_i}\right\rceil .$$
+
+That ceiling equals \(q_i+\lvert R\rvert-29\) **exactly when \(c_w<q_i\)**,
+giving the clean identity \(k_i\le28-q_i\) and putting the obstruction one unit
+out of reach.  When \(c_w\ge q_i\) the ceiling drops by one and the cap becomes
+\(29-q_i\) — exactly reachable.  With \(c_w\le4\) that is every block of order
+**2, 3 or 4**, and the surviving multisets are full of connector blocks of order
+2.  Checking only \(Q_1\), which is always large, hides it.
+
+**Family B — an \(R\)-set cut off from \(L'\).  Settled outright.**  A cut-off
+set \(C\) must be a union of \(H[R]\)-components with no \(L'\)-edge, so every
+\(z\in C\) has no \(L\)-neighbour at all — \(c_z=29\) — and all its
+\(R\)-neighbours lie in \(C\).  With \(|C|=p\) that forces \(|N_H(z)\cap
+R|\le p-1\), hence \(x_z\ge30-p\), hence
+
+$$Sx\;\ge\;p(30-p)+(\lvert Z\rvert-p).$$
+
+At \(p=1\) that is \(\ge38\) for \(\lvert R\rvert\ge11\), against
+\(Sx\le31\); larger \(p\) is worse.  **No cut-off set exists, for any
+configuration in the class.**
+
+| | count |
+|---|---|
+| surviving clique-block configurations | 8623 |
+| the \((3,24)\) route applies | 6829 |
+| both families unreachable (all blocks of order \(>4\)) | **2116** |
+| counts no longer decide it (a block of order \(\le4\)) | 4713 |
+
+Neither outcome is a closure: Tutte quantifies over **all** vertex sets, and only
+these two families are determined by \((\lvert
+R\rvert,\text{multiset},e(H[R]))\).
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1874,6 +1920,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `r29.py` | the partial r = 29 result at order 57 |
 | `profile58.py` | the shortfall map: which obstruction is binding, and by how much |
 | `EXPECTED_OUTPUT_PROFILE58.txt` | its expected output |
+| `tutte324.py` | the (3,24) route against every decidable Tutte family |
+| `EXPECTED_OUTPUT_TUTTE324.txt` | its expected output |
 | `route324.py` | the unimposed (3,24) route is live, by exactly one unit |
 | `EXPECTED_OUTPUT_ROUTE324.txt` | its expected output |
 | `routes58.py` | the branch hypothesis imposes 1 of 70 necessary conditions |
@@ -1910,6 +1958,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 profile58.py    | diff -u EXPECTED_OUTPUT_PROFILE58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 tutte324.py     | diff -u EXPECTED_OUTPUT_TUTTE324.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 route324.py     | diff -u EXPECTED_OUTPUT_ROUTE324.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 routes58.py     | diff -u EXPECTED_OUTPUT_ROUTES58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -

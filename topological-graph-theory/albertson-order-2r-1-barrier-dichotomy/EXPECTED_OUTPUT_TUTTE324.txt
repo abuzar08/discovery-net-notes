@@ -1,0 +1,40 @@
+The (3,24) route against every Tutte family the counts decide
+Z(29) = 8281;  r = 29
+
+PART 1   Family A: the cap, and where the identity breaks
+   cap = 28 - q_i when c_w < q_i, and 29 - q_i when c_w >= q_i;
+   the obstruction is reached exactly at k_i >= 29 - q_i.
+   block orders for which the obstruction IS reachable: [2, 3, 4]
+   i.e. exactly the blocks of order at most c_w = 4.
+
+PART 2   Family B: no cut-off R-set exists
+   |R| = 11 : a single cut-off vertex needs Sx >= 38, and Sx <= 31
+   |R| = 20 : a single cut-off vertex needs Sx >= 47, and Sx <= 31
+   |R| = 32 : a single cut-off vertex needs Sx >= 59, and Sx <= 31
+   larger cut-off sets need strictly more, so Family B is
+   unreachable for every configuration: PASS
+
+PART 3   how much the two families settle
+   surviving clique-block configurations: 8623
+   the (3,24) route applies to: 6829
+   both families unreachable (all blocks of order > 4): 2116
+   counts no longer decide it (a block of order <= 4): 4713
+
+CONCLUSION
+   CORRECTION.  The previous pass checked the Family A obstruction
+   built from Q_1 only, found it one unit out of reach, and concluded
+   the route was unblocked on all 6829 configurations.  Built from a
+   SMALL block the same obstruction IS reachable, because the
+   identity k_i <= 28 - q_i needs c_w < q_i.  The corrected figure is
+   2116, not 6829.  The error was over-optimistic.
+
+   Family B is settled outright: a cut-off R-set would need
+   Sx >= 29 + |Z| - 1 >= 38 against Sx <= 31, for every configuration.
+
+   So on 2116 configurations both count-decidable Tutte families are
+   unreachable and the route stays live; on the remaining 4713 the
+   counts no longer decide it.  Neither is a closure: Tutte quantifies
+   over all vertex sets and only these two families are determined by
+   (|R|, multiset, e(H[R])).
+
+   Order 58 remains open; r = 29 is NOT proved.
