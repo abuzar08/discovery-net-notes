@@ -1,0 +1,15 @@
+telescoping identity C(n,s1)C(s1,s2)/(C(n-4,s1-4)C(s1-4,s2-4)) = C(n,s2)/C(n-4,s2-4): failures over 8 <= n <= 60, 5 <= s2 < s1 < n: 0
+my own search for a better (32,383) two-page ceiling:
+   greedy (rep 0): 4644 crossings
+   greedy (rep 1): 4644 crossings
+   greedy (rep 2): 4644 crossings
+   matching (rep 0): 5425 crossings
+   matching (rep 1): 5428 crossings
+   matching (rep 2): 5436 crossings
+   random (rep 0): 7101 crossings
+   random (rep 1): 7593 crossings
+   random (rep 2): 7216 crossings
+   clique (rep 0): 8220 crossings
+   clique (rep 1): 8220 crossings
+   clique (rep 2): 8220 crossings
+   best over all strategies: 4644 (greedy); published 4644

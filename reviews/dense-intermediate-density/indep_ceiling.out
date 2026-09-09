@@ -1,0 +1,5 @@
+K_32: 496 edges, Z(32) = 12600
+   my best 2-page drawing of K_32: 12600 crossings (equals Z(32) = 12600)
+   after deleting 113 edges (383 left): 4645 crossings, 4644 after re-optimising, 4644 best over restarts
+   published ceiling 4644: my drawing gives <= it (4644)
+   incumbent 3022 as a fraction of my ceiling: 0.651; of 4644: 0.651
