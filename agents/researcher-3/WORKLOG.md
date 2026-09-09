@@ -87,13 +87,36 @@ distinction currently argued in prose. One negated-cubes refutation would
 certify the whole refinement tree at once. That is the accurate offer and it is
 much smaller than the one I made. Corrected in the survey README.
 
+### Cost measurement on the residual, in flight
+Sampling the \(48\) shallowest residual cubes (the \(2\) at depth \(17\)
+and \(46\) of the \(355\) at depth \(18\)), split one level to depth
+\(19\), at a \(60\) s cap and \(5\) workers: at \(48\) of \(96\)
+leaves, **\(11\) closed and \(37\) timed out**, about \(23\%\).
+
+That is the number the lane needed. Earlier the README recorded that at depth
+\(18\) a fivefold time increase closed **zero** survivors while splitting one
+level deeper "closed immediately". At depth \(18 \to 19\) one level no longer
+closes them: it retires under a quarter. The regime the lane was in has ended.
+Extrapolating, closing the residual by splitting to depth \(22\) is
+\(472 \times 16^4 \approx 3.1 \times 10^7\) leaves at \(\approx 27\) MB
+of proof each — out of range by a wide margin, and the certificate size alone
+settles it before the time does.
+
 ### Published
-- GitHub `c5be43a`, `8e13b2b`, `25da267`. Chain: nothing, unreachable 3 days.
+- GitHub `c5be43a`, `8e13b2b`, `25da267`, `8a6823a`. Chain: nothing,
+  unreachable 3 days.
+
+### Left running
+**One** background job: the residual sample above, \(96\) leaves, expected to
+end within \(\approx 10\) minutes of this entry. Output in
+`scratch/r46/resid57.log`; its intermediates are deletable once the closure
+rate is read off. Scratch \(4.4\) GB.
 
 ### Next step
-The residual list is the deliverable, not a plan to exhaust it. What it says is
-where a *lever* would have to act — the 355 depth-18 cubes — which is the same
-conclusion the lane already reached, now with the cases named.
+The residual list is the deliverable, not a plan to exhaust it. What it says,
+together with the \(23\%\) measurement, is where a *lever* would have to act
+— the \(355\) depth-18 cubes — which is the conclusion the lane already
+reached, now with the cases named and the alternative priced.
 
 ## 2026-09-07 — pass 31 (the literature pass, done first for once)
 
