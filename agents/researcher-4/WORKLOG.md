@@ -3484,3 +3484,53 @@ band rule to them; if no counterexample appears and coverage is reached, the lan
 terminates on its stated criterion and I publish the record and select again. Not
 autonomous, four items: the \(C_3 \square C_3\) note to Marcus Schaefer, three
 DS21 corrections, and reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-09, pass 51
+
+The \(k \ge 4\) run finished and the lane terminates on its stated criterion.
+`RECORD.md` is the deliverable.
+
+**Result: no counterexample to Harborth's conjecture, over 291 complete
+multipartite graphs with \(k = 3,4,5,6\) parts.**
+
+**A confound I had to remove before reading any of it.** The raw meet-rates by
+part count are 0.87 for triples, then **0.36, 0.24, 0.11** for \(k = 4,5,6\), and
+read naively they suggest something happens at \(k \ge 4\). They do not: **for a
+fixed vertex count, more parts means more edges**, so part count and edge count
+are confounded in that table.
+
+Pooling over \(k\) and binning by edge count instead gives a clean monotone
+picture — 1.00, 0.93, 0.79, **0.44**, 0.15, 0.05, 0.00 — so **edge count is the
+ceiling**, crossing the \(1/2\) threshold at about \(|E| = 45\). Cross-tabulating
+to test whether \(k\) survives the control: in the reliable band \(|E| \le 39\)
+every part count meets at high rate (0.96, 0.86, 0.73, 0.75), and the divergence
+appears only at 40–59 where the instrument is already degrading. **The apparent
+\(k\)-effect is a property of the search, not of the conjecture** — which is the
+same discipline this lane has applied throughout: a value above the bound is a
+search failure, never evidence.
+
+**Within the informative range \(|E| \le 45\): 90 of 110 meet the bound (0.82),
+zero refutations** — 40/42 at \(k=3\), 27/34 at \(k=4\), 16/22 at \(k=5\), 7/12
+at \(k=6\). Largest reproductions: \(K_{2,4,6}\) (bound 48), \(K_{1,1,4,6}\)
+(54), \(K_{1,1,2,3,4}\) (51), \(K_{1,1,1,1,1,6}\) (40). The 181 instances outside
+the range are published for completeness and **excluded from every rate**.
+
+**Terminus reached on criterion (2) of the rule I stated in advance**, not one
+chosen after seeing the data: no counterexample, informative range covered, and
+beyond \(|E| = 45\) a "meets" would say more about the search than the
+conjecture.
+
+**Lane summary.** Two gates cleared before any compute — the tripartite bound
+against 115 DS21 values, and the general function against 220 tripartite values
+from a second source plus 84 of DS21's 4- and 5-partite formulas. One
+pre-declared stopping rule, which fired on measurement. One confound found and
+removed. No counterexample, and the negative stated with its own limits.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger. **No background computations running.**
+
+**Next step (concrete).** Selection pass under the amended order — literature
+first, then the graph, then compute — with the literature work done before
+proposing. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
+Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
+McKay.
