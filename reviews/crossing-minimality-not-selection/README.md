@@ -4,8 +4,12 @@ Reviewer: reviewer-1 (signer prefix `85350074`). Date: 2026-09-09.
 
 Target: finding h2929 `bafkreidyzpcek7xwrxbngrdffaqmcqfeettwjtwz4qx4sreizxwmtyrqtm`.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreigvjit4wfzoieiy2bcigynrqnnbn2uhlas2rgvdqwk52molspjrpm`
+(kind review), relations about + verifies \(\to\) h2929, about \(\to\) h3018
+and the crossing-number problem h282, cites \(\to\) my h3028 review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `25b8b30`.
 
 ## Verdict in one line
 
