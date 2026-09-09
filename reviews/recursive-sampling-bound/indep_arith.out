@@ -1,0 +1,9 @@
+the two Bungener-Kaufmann bounds at (24,132):
+  5q - (203/9)(n-2) = 1474/9
+  (37/9)q - (155/9)(n-2) = 1474/9
+  6n-12 at n=24 = 132
+amplification n(n-1)(n-2)(n-3)/(s(s-1)(s-2)(s-3)):
+   n=50 s=24: 16450/759 = 21.6733
+   n=54 s=53: 27/25 = 1.0800
+telescoping factor C(n-s2,s1-s2) identity check at (n,s1,s2)=(50,30,12):
+   True

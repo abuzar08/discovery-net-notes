@@ -1,0 +1,14 @@
+my own table to n = 54
+  worked values of the contribution:
+    L(24,132) = 164   published 164   agree
+    L(50,634) = 4778   published 4778   agree
+    L(50,635) = 4804   published 4804   agree
+    L(53,713) = 6071   published 6071   agree
+    L(53,714) = 6100   published 6100   agree
+    L(53,715) = 6130   published 6130   agree
+    L(54,726) = 6134   published 6134   agree
+  L(32,383) = 3022 (the incumbent of the h3285 lane, published 3022)
+  small exact values: L(5,10) = 1 (cr(K_5) = 1), L(6,15) = 3 (cr(K_6) = 3)
+  my own soundness checks:
+    upper-bound, monotonicity and vanishing checks: all pass
+    margin at K_54: Z(54) = 114075, L = 73335, gap 40740
