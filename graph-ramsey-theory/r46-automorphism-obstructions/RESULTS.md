@@ -50,7 +50,7 @@
 | 39 | `1^22 17^1` | 261 | 224633 | 4476 KB | yes | `232f072d9afac0b2` |
 | 39 | `1^5 17^2` | 53 | 186662 | 1266 KB | yes | `42eef46cecac6a37` |
 | 39 | `1^13 13^2` | 129 | 243834 | 13381 KB | yes | `c004f9abe05d0f40` |
-| 39 | `13^3` | 57 | 253236 | 1065782 KB | no (cube manifest; regenerate) | `cube-and-conquer` |
+| 39 | `13^3` | 57 | 253236 | 1065782 KB | no (cube manifest; regenerate) | `cube-and-conquer`, cover certified |
 | 39 | `1^17 11^2` | 191 | 301317 | 11866 KB | yes | `9a194e18531a7528` |
 | 39 | `1^6 11^3` | 81 | 297566 | 3490 KB | yes | `2adefa92553e1249` |
 | 39 | `1^18 7^3` | None | None | 7668 KB | yes | `0dfc0ed24e682634` |
@@ -61,6 +61,21 @@
 | 39 | `1^19 5^4` | None | None | 6991 KB | yes | `11490327ddea983d` |
 | 39 | `1^14 5^5` | None | None | 6637 KB | yes | `26949a54ec26abc0` |
 | 39 | `1^9 5^6` | None | None | 26890 KB | yes | `3c06897768851fdf` |
+
+### Cube covers, certified rather than argued
+
+Cube-and-conquer needs two things: every leaf refuted, and the leaves covering
+every assignment. The first always carried an LRAT certificate here; from
+2026-09-09 the second does too. `verify.py cover` builds the negated-cubes
+formula (one clause per cube, asserting that cube is false), refutes it, and
+replays that refutation with the same checker used for every leaf, so no
+hand-written combinator remains in the chain. See the README section
+"The cover step now carries a certificate, not an argument".
+
+| n | cycle type | cubes | cover LRAT | sha256 |
+|---|---|---|---|---|
+| 39 | `13^3` | 64 | 2178 B | `830c4d8adc9b5a712f29607b7d3a93edda207689417387454f0c879938f1c7af` |
+| 35 | `1^0 5^7` | 10404 | **not a cover** (open case); witness `0011111111001010011111`, residual exactly 472 cubes in `residual-1_0-5_7.txt` | — |
 
 ### Excluded by the analytic lemma (no certificate needed)
 

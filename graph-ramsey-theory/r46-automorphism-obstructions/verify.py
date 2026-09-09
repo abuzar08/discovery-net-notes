@@ -30,6 +30,14 @@ Subcommands
       statement that the cubes partition the assignment space, and replays
       every leaf.
 
+  cover DIR-or-MANIFEST [...]
+      Certifies the cube-cover step itself, rather than arguing it.  Builds
+      the negated-cubes formula (one clause per cube, asserting that cube is
+      false), refutes it, and replays that refutation here with the same
+      checker used for every leaf -- so "the cubes cover everything" carries a
+      certificate instead of resting on the Kraft argument in `tree`.  If they
+      do not cover, prints an explicit uncovered assignment.
+
   graph S T FILE
       Checks that an explicit graph is an (S,T,|V|)-graph: no K_S and no
       independent set of size T.  Format: first token |V|, then edge pairs.
@@ -481,6 +489,151 @@ def cmd_tree(a):
               f"and the leaves do not overlap")
 
 
+def collect_tags(args):
+    """Leaf tags from directories of c<bits>.lrat / c<bits>.done, and/or a
+    committed .jsonl.gz manifest with a "tag" field."""
+    import gzip
+    import json
+    import os
+    tags = set()
+    for d in args:
+        if d.startswith("--"):
+            continue
+        if d.endswith((".jsonl.gz", ".jsonl")):
+            op = gzip.open if d.endswith(".gz") else open
+            with op(d, "rt") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if line:
+                        tags.add(json.loads(line)["tag"])
+            continue
+        for fn in os.listdir(d):
+            if not fn.startswith("c"):
+                continue
+            if fn.endswith(".lrat"):
+                if os.path.getsize(os.path.join(d, fn)) == 0:
+                    continue
+                tag = fn[1:-5]
+            elif fn.endswith(".done"):
+                tag = fn[1:-5]
+            else:
+                continue
+            if not tag or set(tag) - set("01"):
+                raise SystemExit(f"bad leaf name {fn}")
+            tags.add(tag)
+    if not tags:
+        raise SystemExit("no leaf tags found")
+    return sorted(tags)
+
+
+def cmd_cover(a):
+    """Certify that a set of cubes covers the assignment space, by refutation.
+
+    Usage: cover DIR-or-MANIFEST [...] [--work W]
+
+    WHY THIS EXISTS.  `tree` proves the cover step by checking that the leaf
+    tags are prefix-free with Kraft sum exactly 1.  That argument is correct,
+    but it is a hand-written combinator that no proof checker ever sees: every
+    leaf carries an LRAT certificate, and then a Python function asserts that
+    the leaves fit together.  The cover step is the only unchecked link in the
+    chain.
+
+    THE FIX (the construction used by LRAT-Catcher, arXiv:2607.00815, to
+    assemble cube-and-conquer runs inside Lean).  Build the NEGATED-CUBES
+    FORMULA: one clause per cube asserting that cube is false, i.e. the cube
+    l_1 & ... & l_k contributes the clause (-l_1 v ... v -l_k).  An assignment
+    satisfies this formula exactly when it falls in NO cube.  So
+
+        negated-cubes formula unsatisfiable  <=>  the cubes cover everything,
+
+    and that unsatisfiability is established by running the solver on it like
+    any other leaf and replaying its LRAT here, with the same checker used for
+    every leaf.  The trusted combinator disappears.
+
+    TWO DIFFERENCES FROM THE KRAFT CHECK, both in this one's favour:
+
+      * Covering is all the cube-and-conquer argument needs.  Disjointness is
+        not required -- overlapping cubes are harmless, they just do work
+        twice.  `tree` REJECTS a Kraft sum above 1 as "the directories
+        overlap"; this accepts any genuine cover, overlapping or not.
+      * When the cubes do NOT cover, the solver returns a model, which is an
+        explicit uncovered assignment.  That is a concrete witness rather than
+        a fraction.
+
+    What this does NOT check: that each leaf's own refutation is valid.  That
+    is `tree`'s job and remains unchanged.  The two together are the whole
+    argument.
+    """
+    import os
+    work, srcs, skip = None, [], False
+    for i, x in enumerate(a):
+        if skip:
+            skip = False
+            continue
+        if x == "--work":
+            work, skip = a[i + 1], True
+        elif not x.startswith("--"):
+            srcs.append(x)
+    tags = collect_tags(srcs)
+    depth = max(len(t) for t in tags)
+    print(f"  {len(tags)} cubes over {depth} split variables; "
+          f"negated-cubes formula: {depth} vars, {len(tags)} clauses")
+    ok, info = cover_certify(tags, work)
+    if not ok:
+        print("NOT A COVER  the cubes leave assignments uncovered")
+        print(f"  witness (an assignment in no cube): {info}")
+        return
+    print(f"VERIFIED  the {len(tags)} cubes cover every assignment")
+    print(f"  cover certificate: {os.path.getsize(info)} bytes of LRAT, "
+          f"replayed here to the empty clause")
+    print("  no trusted combinator: the cover step now carries the same "
+          "kind of certificate as each leaf")
+
+
+def cover_certify(tags, work=None):
+    """(True, lrat_path) if the cubes cover everything; (False, witness) if not.
+
+    On the True branch the LRAT has already been verified by drat-trim AND
+    replayed here to the empty clause.  On the False branch the witness is an
+    explicit assignment lying in no cube.
+    """
+    import os
+    import subprocess
+    import tempfile
+    depth = max(len(t) for t in tags)
+    cls = [tuple(sorted(-(i + 1) if c == "1" else (i + 1)
+                        for i, c in enumerate(t))) for t in tags]
+    tmp = tempfile.mkdtemp(prefix="cover.") if work is None else work
+    os.makedirs(tmp, exist_ok=True)
+    cnf = os.path.join(tmp, "cover.cnf")
+    drat = os.path.join(tmp, "cover.drat")
+    lrat = os.path.join(tmp, "cover.lrat")
+    with open(cnf, "w") as fh:
+        fh.write(f"p cnf {depth} {len(cls)}\n")
+        for c in cls:
+            fh.write(" ".join(map(str, c)) + " 0\n")
+    here = os.path.dirname(os.path.abspath(__file__))
+    tools = os.path.join(here, "..", "..", "..", "scratch", "tools")
+    cad = os.path.join(tools, "cadical", "build", "cadical")
+    dtm = os.path.join(tools, "drat-trim", "drat-trim")
+    r = subprocess.run([cad, "-q", "--binary=false", cnf, drat],
+                       capture_output=True, text=True, check=False)
+    if r.returncode == 10:
+        model = sorted((int(x) for line in r.stdout.splitlines()
+                        if line.startswith("v ") for x in line.split()[1:]
+                        if int(x) != 0), key=abs)
+        return False, "".join("1" if x > 0 else "0" for x in model)
+    if r.returncode != 20:
+        raise SystemExit(f"solver returned {r.returncode}, expected 10 or 20")
+    v = subprocess.run([dtm, cnf, drat, "-L", lrat], capture_output=True,
+                       text=True, check=False)
+    if "s VERIFIED" not in v.stdout:
+        raise SystemExit("drat-trim did not verify the cover proof:\n"
+                         f"{v.stdout[-800:]}")
+    replay(cls, lrat)                       # same checker as every leaf
+    return True, lrat
+
+
 def cmd_graph(a):
     s, t = int(a[0]), int(a[1])
     n, adj, m = read_graph(a[2])
@@ -510,8 +663,25 @@ def cmd_selftest(_a):
     # a full n-cycle on n=7 gives floor(7/2)=3 orbits
     name, nv = canonical_orbits(7, 0, 7, 1)
     assert nv == 3, nv
+    # cover certification, on hand-checkable cube sets.  The last case is the
+    # point: {0, 1, 10} covers everything but has Kraft sum 5/4, so `tree`
+    # rejects it as overlapping directories while it is a perfectly good
+    # cover.  Covering is what the argument needs; disjointness is not.
+    for tags, want, why in (
+            (["00", "01", "10", "11"], True, "uniform depth 2"),
+            (["0", "10", "11"], True, "non-uniform"),
+            (["0", "10"], False, "11 is uncovered"),
+            (["0", "1", "10"], True, "overlapping, Kraft 5/4, still a cover"),
+            (["1", "01", "00"], True, "unsorted input"),
+            (["0"], False, "half the space uncovered")):
+        ok, info = cover_certify(tags)
+        assert ok is want, f"cover {tags} ({why}): got {ok}, wanted {want}"
+        if not ok:
+            assert all(not info.startswith(t) for t in tags), \
+                f"cover {tags}: witness {info} is inside a cube"
     print("selftest OK: C_5 is (3,3,5); C_8(1,4) is (3,4,8); "
-          "orbit counts 36 (identity, n=9) and 3 (7-cycle)")
+          "orbit counts 36 (identity, n=9) and 3 (7-cycle); "
+          "6 cover cases including an overlapping cover that Kraft rejects")
 
 
 def main():
@@ -519,7 +689,7 @@ def main():
         print(__doc__)
         return 2
     {"lower": cmd_lower, "graph": cmd_graph, "cubes": cmd_cubes,
-     "tree": cmd_tree,
+     "tree": cmd_tree, "cover": cmd_cover,
      "selftest": cmd_selftest}[sys.argv[1]](sys.argv[2:])
     return 0
 

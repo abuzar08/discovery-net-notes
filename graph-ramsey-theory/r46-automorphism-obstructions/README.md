@@ -317,6 +317,76 @@ this encoding, the residue is short of case distinctions rather than of time.
 > at a larger cap and count how many close — and it must be measured **per
 > encoding**, not inherited from another lane.
 
+### The cover step now carries a certificate, not an argument
+
+*(2026-09-09.)* Every leaf above is refuted by an LRAT certificate replayed
+here. The step that glues them — *these cubes cover every assignment* — was
+not. `verify.py tree` establishes it by checking that the leaf tags are
+prefix-free with Kraft sum \(\sum_\ell 2^{-|\ell|} = 1\). That argument is
+correct, but it is a **hand-written combinator that no proof checker ever
+sees**, and it was the only unchecked link in this lane's chain.
+
+My literature pass on formalized certificate-based Ramsey results
+(`../r55-formalization-survey/`) turned up the fix, which is how LRAT-Catcher
+(arXiv:2607.00815) assembles cube-and-conquer runs inside Lean. Build the
+**negated-cubes formula**: one clause per cube asserting that cube is false,
+so the cube \(\ell_1 \wedge \cdots \wedge \ell_r\) contributes
+\((\overline{\ell_1} \vee \cdots \vee \overline{\ell_r})\). An assignment
+satisfies this formula exactly when it lies in **no** cube, so
+
+$$
+\text{the negated-cubes formula is unsatisfiable}
+\iff \text{the cubes cover every assignment,}
+$$
+
+and that unsatisfiability is established by running the solver on it like any
+other leaf. `verify.py cover` does this, verifies the result with drat-trim,
+and then replays the LRAT with **the same checker used for every leaf**.
+
+| type | cubes | split vars | cover certificate | SHA-256 |
+|---|---|---|---|---|
+| \(n = 39\), \(13^3\) | \(64\) | \(6\) | \(2178\) bytes of LRAT, replayed to the empty clause | `830c4d8adc9b5a712f29607b7d3a93edda207689417387454f0c879938f1c7af` |
+| \(n = 35\), \(1^0 5^7\) | \(10404\) | \(22\) | **NOT A COVER**, with an explicit witness | — |
+
+Two respects in which this is better than the Kraft check, and one in which it
+is not a replacement.
+
+- **Covering is all the cube-and-conquer argument needs; disjointness is
+  not.** Overlapping cubes are harmless — they only do work twice. `tree`
+  *rejects* a Kraft sum above \(1\) as "the directories overlap", so it turns
+  down covers that are perfectly valid. The set \(\{0, 1, 10\}\) has Kraft sum
+  \(5/4\) and covers everything; `cover` accepts it and `tree` does not. That
+  case is in `verify.py selftest`.
+- **When the cubes do not cover, the solver returns a model, which is an
+  explicit uncovered assignment** rather than a fraction. On \(1^0 5^7\) it
+  returned `0011111111001010011111`, and that string satisfies no cube.
+- It does **not** check any leaf's own refutation. That is `tree`'s job and is
+  unchanged. The two together are the whole argument.
+
+**The two methods were cross-checked against each other and agree exactly.**
+Enumerating all \(2^{22}\) assignments by brute force gives \(5875\)
+uncovered, which is precisely \((1 - 4188429/4194304) \cdot 2^{22}\); the
+solver's witness lies in the uncovered set; and the leaf tags are confirmed
+prefix-free, which is the Kraft argument's precondition.
+
+### What is actually left of \(1^0 5^7\): 472 cubes, named
+
+The negated region is not just a fraction — it is a finite, explicit list.
+Walking the trie of leaf tags, the uncovered part decomposes into exactly
+\(472\) disjoint cubes:
+
+| depth | residual cubes |
+|---|---|
+| \(17\) | \(2\) |
+| \(18\) | \(355\) |
+| \(21\) | \(16\) |
+| \(22\) | \(99\) |
+| **total** | **\(472\)**, of measure \(5875/2^{22}\) |
+
+They are listed in `residual-1_0-5_7.txt`. This replaces "\(0.14\%\) open" with
+a work list, and it is what the previous table recorded only as
+"(sampled, not completed)" at depth \(22\).
+
 **But the split is not converging.** Survivor counts run
 \(483 \to 152 \to 382\), rising in absolute terms even as the covered
 fraction approaches \(1\), because each level attacks a strictly harder
