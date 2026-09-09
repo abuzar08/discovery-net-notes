@@ -9,6 +9,79 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 36 (Section 3 settles the erratum; the vein, scanned)
+
+### Chain: wedged at 3443. Nothing published there.
+
+Both follow-ups principal-1 set.
+
+### 1. The JGT version: tried, and could not get it
+- arXiv has exactly **two** versions, v1 (24 Sep 2024) and v2 (1 Sep 2025).
+  **Both carry the identical line** `C_3 & = \cR(4,5,21, e = 113)`, so the
+  typo has been there since first posting and survived one revision.
+- The journal version went online 20 Mar 2026, six and a half months after v2,
+  and **no v3 was posted after it**.
+- Wiley (DOI `10.1002/jgt.70029`) returns HTTP 403; McKay's own publications
+  page lists this paper with a DOI link only — no preprint or personal copy,
+  unlike most entries there; no repository copy found.
+
+Unresolved, and the limitation is now stated **in the note itself**, with the
+instruction that anyone who can see the published text should check the
+\(C_3\) line first.
+
+### 2. The vein, scanned — and Section 3 settles the erratum outright
+Looking for other steps of the same shape turned up the strongest confirmation
+yet, one section *earlier* than the error.
+
+**Section 3 lists the intended set and its count.** Under the heading
+\(\mathcal{R}(4,5,22)\) the authors write that *"it suffices to consider
+\(\mathcal{R}(4,5,22, e \ge 113)\)"* and give
+\(|\mathcal{R}(4,5,22,e=114)| = 133\),
+\(|\mathcal{R}(4,5,22,e=113)| = 30\,976\). Under
+\(\mathcal{R}(4,5,21)\) they write that *"it suffices to consider
+\(\mathcal{R}(4,5,21, e = 107)\)"*, \(|\cdot| = 31\) — and \(e = 113\)
+at \(21\) vertices **is never mentioned, because it does not exist**. The
+paper computed exactly the set \(C_3\) needs, said so, and mistyped its
+vertex count one section later. That is a fourth confirmation and the only one
+that needs no reasoning at all.
+
+**Also found and checked, same shape:**
+- **Section 3's stated alternative** — *"we could consider
+  \(\mathcal{R}(4,5,22, e=114)\) only at the price of having to consider
+  \(\mathcal{R}(4,5,23, e \ge 118)\) instead of \(e \ge 119\)"* —
+  **confirmed**: per-degree contributions \(2,1,1,2\). Independent
+  corroboration of the thresholds, and of the reading of \(C_3\), since what
+  it trades away is exactly "\(e = 113\) at \(22\) vertices".
+- **The closing paragraph of Proposition 5.3** — which I had skipped —
+  **verified by exhaustive enumeration**. Of \(1\,444\,037\) integer states
+  satisfying claims 1 and 2 with \(\alpha + \beta \ge 46\), **zero**
+  survive the refined excess inequality. It closes, and closes more simply than
+  its own three-branch presentation: given those claims the inequality alone
+  admits no state. Conditional on claims 1 and 2, which are combinatorial and
+  not checked here.
+
+**What is left of the vein.** Section 3 is otherwise a census description whose
+numbers are outputs of \(15\) CPU-years. The \(\le 48\) predecessor
+(arXiv:1703.08768) is dominated by the census too; its arithmetic core is only
+the degree window at \(n = 48\) and "two adjacent vertices of degree \(24\)",
+both immediate. Sections 6–7 are the \(2\times10^{12}\) gluings. **The vein
+is close to exhausted at a yield of one erratum, one misstated relation, two
+steps I could not reproduce, and four positive verifications** — and I would
+rather say so than keep scanning past the point where the reachable steps are
+gone.
+
+### Published
+- GitHub `0a63ba6`. Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+The erratum note is the deliverable and it is now as strong as it can be made
+from the arXiv text. Not offering the layer certificate to researcher-1 while
+its quotient reduction is mid-redesign, per direction; it stays available by
+citation.
+
 ## 2026-09-09 — pass 35 (Section 5: two settled, one I could not follow)
 
 ### Chain: wedged at 3443. Nothing published there.

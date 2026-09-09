@@ -150,7 +150,7 @@ def endgame():
     Returns (n_with_excess, n_without_excess, examples_without).
     """
     with_ex, coarse, without_ex, examples = 0, 0, 0, []
-    for alpha in range(23, 47):  # noqa: PIE808 -- alpha >= 23 is (v)
+    for alpha in range(23, 47):
         for beta in range(0, alpha + 1):
             for m1 in range(5):
                 if alpha >= 21 and m1 > 2:
