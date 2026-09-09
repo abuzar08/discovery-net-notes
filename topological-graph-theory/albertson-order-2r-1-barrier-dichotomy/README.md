@@ -1928,6 +1928,7 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `EXPECTED_OUTPUT_ROUTES58.txt` | its expected output |
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
 | `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
+| `METHODS.md` | **the method inventory: what was tried, and where the lane stops** |
 | `state29.py` | **the state of r = 29, recomputed end to end** |
 | `EXPECTED_OUTPUT_STATE29.txt` | its expected output |
 | `turan58.py` | the Turan cap on H[R], and the odd-cycle gap closed |
