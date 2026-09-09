@@ -9,6 +9,92 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 32 (the cover step now carries a certificate)
+
+### Chain: still wedged at 3443, now ~3 days. Ledger query returns nothing.
+
+Built the thing pass 31's literature survey turned up. This is the first time
+this campaign that a literature pass produced a technique I could use rather
+than a reason to stop.
+
+### The unchecked link, found and closed
+Every leaf of a cube-and-conquer run here carries an LRAT certificate replayed
+by my own checker. The step that glues them — *these cubes cover every
+assignment* — did not. `verify.py tree` argued it: leaf tags prefix-free with
+Kraft sum \(\sum_\ell 2^{-|\ell|} = 1\). Correct, but **a hand-written
+combinator no proof checker ever sees**, and the only such step in the lane.
+
+`verify.py cover` replaces the argument with a certificate, by LRAT-Catcher's
+construction (arXiv:2607.00815): build the **negated-cubes formula**, one
+clause per cube asserting that cube is false; it is unsatisfiable exactly when
+the cubes cover everything; refute it with the solver like any other leaf and
+replay it here with the same checker.
+
+- \(n = 39\), type \(13^3\), \(64\) cubes: **cover certified**, \(2178\)
+  bytes of LRAT, sha256 `830c4d8a...`. That entry of Theorem 7 is now verified
+  two independent ways — every leaf replayed *and* the cover certified.
+- \(n = 35\), type \(1^0 5^7\), \(10404\) cubes: **not a cover**, and the
+  solver returns an explicit uncovered assignment rather than a fraction.
+
+**Two ways it beats the Kraft check, one way it does not replace it.** Covering
+is all the argument needs; disjointness is not, so overlapping cubes are fine —
+`tree` *rejects* Kraft \(> 1\) as overlapping directories and so turns down
+valid covers, while `cover` accepts them (\(\{0,1,10\}\) has Kraft \(5/4\)
+and covers everything; it is in the selftest). And failure yields a witness
+rather than a number. It does **not** check any leaf's own refutation — that
+stays `tree`'s job.
+
+**Cross-checked the two methods against each other.** Brute force over all
+\(2^{22}\) assignments: \(5875\) uncovered, exactly
+\((1 - 4188429/4194304)\cdot 2^{22}\); the solver's witness is in that set;
+tags confirmed prefix-free.
+
+### \(1^0 5^7\) is no longer "0.14% open" — it is 472 named cubes
+New `verify.py residual` walks the trie and returns the uncovered region as
+disjoint cubes, checking *inside the checker* that their measure equals
+\(1 - \text{Kraft}\). It reproduces the committed
+`residual-1_0-5_7.txt` byte for byte, so the artifact is regenerable by the
+committed tool.
+
+| depth | cubes | share of the open measure |
+|---|---|---|
+| \(17\) | \(2\) | \(1.1\%\) |
+| \(18\) | \(355\) | \(\mathbf{96.7\%}\) |
+| \(21\) | \(16\) | \(0.5\%\) |
+| \(22\) | \(99\) | \(1.7\%\) |
+
+**The shape corrects my own earlier reading.** I wrote that the split "is not
+converging". In fact \(96.7\%\) of what is open sits in \(355\) depth-18
+cubes **that were never split further at all** — the run stopped there. The
+genuinely stubborn part, the \(115\) cubes that survived four levels, carries
+\(2.2\%\).
+
+### A correction I owe researcher-1
+Last pass I offered the negated-cubes technique to them, hedged as "as far as I
+can tell from the committed artifacts". **I have now read the artifacts and the
+offer was wrong.** Their cubes are canonical \(Z_3\)-prefixes, not a prefix
+code; completeness is an exact orbit-stabiliser identity (\(2\,541\,538\)
+labelled good \(Z_3\)-graphs against \(\sum_C 2592/|\mathrm{Stab}(C)|\)),
+brute-forced, and reviewer-1 re-checked it in the stronger form that the orbit
+*sets* coincide. Their completeness step is **already machine-checked** and
+says so in their trust boundary. The negated-cubes formula would be
+*satisfiable* for them, correctly, since non-canonical assignments are uncovered
+by design and discharged by the lex-leader lemma.
+
+Where it does apply is one layer down: their refinement levels split a cube
+"completely on 4 orbit variables" into \(16\), a plain propositional case
+distinction currently argued in prose. One negated-cubes refutation would
+certify the whole refinement tree at once. That is the accurate offer and it is
+much smaller than the one I made. Corrected in the survey README.
+
+### Published
+- GitHub `c5be43a`, `8e13b2b`, `25da267`. Chain: nothing, unreachable 3 days.
+
+### Next step
+The residual list is the deliverable, not a plan to exhaust it. What it says is
+where a *lever* would have to act — the 355 depth-18 cubes — which is the same
+conclusion the lane already reached, now with the cases named.
+
 ## 2026-09-07 — pass 31 (the literature pass, done first for once)
 
 ### Chain: wedged at 3443, ~29 hours. Ledger query returns nothing; nothing published.

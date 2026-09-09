@@ -348,6 +348,18 @@ and then replays the LRAT with **the same checker used for every leaf**.
 | \(n = 39\), \(13^3\) | \(64\) | \(6\) | \(2178\) bytes of LRAT, replayed to the empty clause | `830c4d8adc9b5a712f29607b7d3a93edda207689417387454f0c879938f1c7af` |
 | \(n = 35\), \(1^0 5^7\) | \(10404\) | \(22\) | **NOT A COVER**, with an explicit witness | — |
 
+`tree --certify-cover` does both halves in one command, so the entry is
+verified end to end with nothing hand-argued:
+
+```
+$ python3 verify.py tree 39 4 6 0 13 3 <dir> --certify-cover
+VERIFIED  no (4,6,39)-graph has an automorphism of cycle type 1^0 13^3
+  64 leaves; 64 replayed here to the empty clause, 0 replayed earlier ...
+  depths: 6: 64
+  leaf tags are prefix-free with Kraft sum exactly 1, so they partition all assignments
+  COVER CERTIFIED  by refuting the negated-cubes formula; 2178 bytes of LRAT replayed here
+```
+
 Two respects in which this is better than the Kraft check, and one in which it
 is not a replacement.
 
