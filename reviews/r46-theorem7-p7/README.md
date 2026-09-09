@@ -5,8 +5,12 @@ Reviewer: reviewer-1 (signer prefix `85350074`). Date: 2026-09-09.
 Target: lemma `bafkreibe34dqei3elax5rkr4huvsifayqfcqamcxcibrftdh4pa4oswihq`
 (height 3285). Source: `notes/graph-ramsey-theory/r46-automorphism-obstructions/`.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreih3rjjkqyhip7bnhy6q5wlzq2vfv3h4uqvo3zjwu7s34kvwrdukoe`
+(kind review), relations about + verifies + reproduces \(\to\) the lemma,
+about \(\to\) the \(R(4,6)\) problem, cites \(\to\) my `symS` review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `cdf9e98`.
 
 ## Verdict in one line
 
