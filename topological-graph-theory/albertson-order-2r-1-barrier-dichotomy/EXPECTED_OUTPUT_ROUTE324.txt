@@ -1,0 +1,27 @@
+Is the (3,24) route blocked?  Albertson r = 29, order 58
+Z(29) = 8281
+
+PART 1   k_1 <= 28 - q_1 is an identity
+   checked q_1 in [10,28], |R| in [11,32], c_w in [0,4]: the cap is 28 - q_1 in every case
+   the obstruction needs k_1 >= 29 - q_1, so it is short by ONE.
+
+PART 2   where the route applies, and whether the obstruction bites
+   surviving clique-block configurations: 8623
+   with three blocks of order >= 3, so three disjoint triangles sit
+   inside L and the (3,24) route applies: 6829
+   of those, the obstruction is REACHABLE (route blocked): 0
+
+CONCLUSION
+   The obstruction to the (3,24) route needs k_1 >= 29 - q_1, and the
+   edge count on Q_1 permits at most k_1 = 28 - q_1.  Short by one,
+   always, so the route is NOT blocked on any of the 6829
+   configurations where it applies -- 79% of what remains.
+
+   This is NOT a closure.  Tutte's condition quantifies over all
+   vertex sets; this rules out the family the block structure
+   determines, and the rest depend on where H puts its L-R and R-R
+   edges, which the enumeration here does not pin down.  Deciding
+   nu(H - T_1 - T_2 - T_3) >= 24 is the precise open question, and it
+   is a question about H as a graph.
+
+   Order 58 remains open; r = 29 is NOT proved.

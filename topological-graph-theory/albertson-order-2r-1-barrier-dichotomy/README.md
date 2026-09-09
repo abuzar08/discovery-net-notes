@@ -1813,6 +1813,51 @@ exactly three is a triangle of \(H\); absorbing \(z\) into it would give a
 absorption argument at all**, so the inconsistency is *latent* — no published
 elimination rests on it, but it must be fixed in any future use.
 
+### The unimposed route is live, by exactly one unit (`route324.py`)
+
+The obvious worry about the \((3,24)\) route is that it hits the same wall as
+everything else.  **It does not.**
+
+A \((t_3,t_2)\) family needs a matching of \(t_2=30-2t_3\) in \(H\) minus
+\(t_3\) disjoint triangles, on \(58-3t_3\) vertices — that is, Tutte–Berge
+deficiency at most \(t_3-2\).
+
+**The natural obstruction.**  \(Q_1\) is a block, hence a clique of \(G\), hence
+an **independent set of \(H\)**.  So take \(S=(L'\setminus Q_1)\cup N_R(Q_1\setminus
+T)\): it isolates the \(q_1-t_3\) surviving vertices of \(Q_1\), and the
+adversary may additionally leave \(R\setminus N_R\) independent in \(H[R]\),
+contributing \(|R|-|N_R|\) more odd components.  With \(|L'|=|L|-3t_3\),
+
+$$\text{deficiency}\;\ge\;2q_1+t_3-|L|+o_R-|N_R|\;\le\;2q_1+t_3-58+2k_1,$$
+
+using \(o_R\le k_1\) and \(|N_R|\ge|R|-k_1\).  To block the route this must
+reach \(t_3-1\), i.e.
+
+$$k_1\;\ge\;29-q_1 .$$
+
+**But the edge count forbids exactly that.**  On a partition every \(v\in Q_1\)
+has \(D_v=q_1-1\), so \(\sum_z a_z=q_1(q_1+|R|-29)-c_w\) with \(a_z\le q_1\)
+spread over \(|R|-1-k_1\) vertices, giving
+
+$$k_1\;\le\;28-q_1 ,$$
+
+an **identity** — verified for \(q_1\in[10,28]\), \(|R|\in[11,32]\),
+\(c_w\in[0,4]\), independent of \(|R|\) and \(c_w\).
+
+> The obstruction needs \(k_1\ge29-q_1\); the count permits at most
+> \(k_1=28-q_1\).  **Short by exactly one, always.**  So the route is not
+> blocked on any of the **6829** configurations where three disjoint triangles
+> sit inside \(L\) — 79% of what remains.
+
+**What this does not show.**  It is *not* a closure.  Tutte's condition
+quantifies over **all** vertex sets; this rules out the family the block
+structure determines, which is the only one the parameters fix.  The rest depend
+on where \(H\) places its \(L\)–\(R\) and \(R\)–\(R\) edges, which the
+enumeration here does not pin down.  Deciding
+\(\nu(H-T_1-T_2-T_3)\ge24\) is the precise open question — and it is the first
+one in this lane that is a question about \(H\) **as a graph** rather than about
+\((|R|,\text{multiset},e(H[R]))\).
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1829,6 +1874,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `r29.py` | the partial r = 29 result at order 57 |
 | `profile58.py` | the shortfall map: which obstruction is binding, and by how much |
 | `EXPECTED_OUTPUT_PROFILE58.txt` | its expected output |
+| `route324.py` | the unimposed (3,24) route is live, by exactly one unit |
+| `EXPECTED_OUTPUT_ROUTE324.txt` | its expected output |
 | `routes58.py` | the branch hypothesis imposes 1 of 70 necessary conditions |
 | `EXPECTED_OUTPUT_ROUTES58.txt` | its expected output |
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
@@ -1863,6 +1910,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 profile58.py    | diff -u EXPECTED_OUTPUT_PROFILE58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 route324.py     | diff -u EXPECTED_OUTPUT_ROUTE324.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 routes58.py     | diff -u EXPECTED_OUTPUT_ROUTES58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
