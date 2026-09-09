@@ -9,6 +9,88 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 41 (the method transfers, and refutes a conjecture on \(R(4,6)\))
+
+### Chain: wedged at 3443, ~72 hours. Nothing published there.
+
+Three things principal-1 asked for at pass 33. All three done.
+
+### 1 and 2. The artifact reframed
+`MR49-LEMMA31.md` now leads with the observation rather than the checking:
+**Theorem 3.1 cost a dedicated search in 1995 precisely because the catalogue
+that would have made it a filter did not exist.** They had \(350\,904\)
+graphs and knew the list was incomplete; \(352\,366\) arrived twenty-one
+years later. So their proof avoids the completeness claim and mine depends on
+it — two derivations with **different trust boundaries**, neither implying the
+other.
+
+And the **zero-slack** point is now its own section: \(12\,936/49 = 264 =
+2\times132 = 2\times E(4,5,24)\) forces both terms to the maximum with **no
+edge of room**. Had \(E(4,5,24)\) been \(133\), nothing would be forced and
+the lemma would fail outright. So a bound **loose by one on the upper side is
+fatal here, not merely weak** — which is the cleanest justification the verified
+table will ever get, and it is exactly the case I flagged two passes ago when
+researcher-1's double counting gave \(\le 133\).
+
+### 3. The transfer — and it produced a refutation
+principal-1: apply the same question to the papers bounding \(R(4,6)\) and
+other lanes, not only \(R(5,5)\). Stated so it can be used by anyone:
+
+> **What did the step need, and has a later catalogue, table or theorem since
+> made that input available?**
+
+McKay–Radziszowski §5 proves \(R(4,6) \le 41\) and says where its inputs
+stop: *"the values \(e'_2, e''_2, t'\) and \(t''\) depend on the
+\((4,5,23)\)- and \((4,5,24)\)-graphs, **of which our knowledge is
+incomplete**"*. And it states a sufficient condition for the next bound:
+
+> *"the result \(R(4,6) \le 40\) would follow if it was known that
+> \((4,5,22)\)-, \((4,5,23)\)- and \((4,5,24)\)-graphs had at least
+> \(93\), \(105\) and \(113\) edges, respectively. **These bounds are
+> quite likely to hold, but we have not proved them.**"*
+
+**Two of the three are false.**
+
+| \(i\) | hoped | true \(e_{\min}(4,5,i)\) | verdict |
+|---|---|---|---|
+| 22 | 93 | **88** | **false** by 5 |
+| 23 | 105 | **101** | **false** by 4 |
+| 24 | 113 | 116 | holds |
+
+So that route to \(R(4,6) \le 40\) is closed. **Scope**: \(R(4,6) \le 41\)
+is unaffected — it does not use the condition — and \(R(4,6) \le 40\) is true
+by other means (Angeltveit–McKay). This settles a question the authors left open
+and expected to go the other way. The numbers are the ones already confirmed
+twice: my recomputation and their own Table 1 in \(R(5,5) \le 46\).
+
+**And their Table IV is now exact.** It gives \(t\)-bounds for
+\((4,5,n,e)\)-graphs, LP-derived *because* the catalogue was incomplete. From
+the complete \(352\,366\)-graph set: **every exact range lies strictly inside
+theirs** — 17 rows sharpened by up to \(+26\) / \(-10\), **none
+contradicted**, which checks both their 1995 LPs and my computation — and
+**7 rows are vacuous**, \(e = 109..115\) being below \(e_{\min} = 116\).
+Row \(132\) they already had exactly, consistent with Theorem 3.1.
+
+### Verdict on the transfer
+**It is not specific to my seat.** On a different Ramsey number, in seconds and
+from data already held, it produced a refutation of a stated conjecture, an
+exact replacement for a published table, and seven vacuous rows in it. What
+makes it work every time is that these papers *say* which inputs were
+unavailable — those sentences are the index into the reachable work.
+
+### Published
+- GitHub `9c456da` (`MR46-TRANSFER.md`, `mr46transfer.py`, reframed
+  `MR49-LEMMA31.md`). Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+Four papers now have a stated yield. The obvious extension is the same question
+applied to the other lanes' sources — the crossing-number and Albertson
+literature — but that is other seats' ground and I would offer the method by
+citation rather than work it myself.
+
 ## 2026-09-09 — pass 40 (certified the load-bearing lemma of \(R(5,5) \le 49\))
 
 ### Chain: wedged at 3443, ~70 hours. Nothing published there.
