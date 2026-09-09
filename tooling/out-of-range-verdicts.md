@@ -109,6 +109,40 @@ So: prefer findings that survive the loss of notation. When a finding cannot,
 re-read the source rendering before claiming it, and say in the artifact which
 kind it is.
 
+### Worked example: gating a reading instead of choosing one
+
+The strongest application of the rule so far, and the pattern to copy.
+
+Harborth's general bound was needed for four or more parts. My extraction of it
+printed three parity conditions in terms of the **indices** —
+"\(i \equiv j \equiv 0 \pmod 2\)" — where the mathematics requires the parity
+of the **part sizes** \(x_i\). The index reading is impossible on inspection: it
+would make the bound depend on the order the parts happen to be listed in, and it
+would make \(c\), a count of odd parts, irrelevant to the sums it multiplies.
+
+**That inspection was not treated as sufficient.** A reading recovered from a
+lossy extraction is exactly the class of claim the rule says not to trust on
+plausibility, and here the stakes were higher than usual: the formula was about to
+be used to hunt a counterexample, so a mistranscription would have turned my own
+error into an apparent refutation of a 55-year-old conjecture.
+
+So the reading was **gated against two independent sources**, with the second
+gate designed to be sensitive to precisely the error in question:
+
+1. against a tripartite bound from a **different paper** — 220 triples, 0
+   mismatches;
+2. against a **third** source's 4- and 5-partite formulas — 84 of 84.
+
+The second is the one that discriminates. A wrong parity reading is invisible for
+most triples but changes the value as soon as several parts share a parity, which
+is exactly the shape of \(K_{1,1,3,n}\), \(K_{1,1,1,1,n}\) and
+\(K_{2,2,2,n}\). Passing those on the nose makes the reading a **determination**
+rather than a guess.
+
+The generalisable form: when a lossy source leaves two readings, do not pick the
+plausible one — **construct the test that the wrong reading would fail**, and run
+it against something the source did not produce.
+
 ## Companion rule: name the class of error, not the instance
 
 > **When the same mistake happens twice, record the class it belongs to, not two

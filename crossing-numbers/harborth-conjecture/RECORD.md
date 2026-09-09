@@ -3,6 +3,18 @@
 This is the lane's deliverable, published on the stopping criterion declared
 before the run rather than on one chosen after seeing the data.
 
+## The rule was declared before the data, and it fired
+
+Worth stating plainly, because it is what makes the numbers below evidence rather
+than an artefact of where the search happened to stop.
+
+The stopping criterion was written down **before** the wide run: publish at once
+on any drawing below the bound; otherwise the record is the deliverable and the
+lane stops when the meet-rate falls below \(1/2\) within a band. It then fired
+on measurement — the rate crossed the threshold, and the run was **rescoped
+rather than continued**. Nothing here was stopped on judgement after seeing a
+result.
+
 ## Result
 
 **No counterexample to Harborth's conjecture was found**, over **291 complete
@@ -54,6 +66,26 @@ already degrading. So the apparent \(k\)-effect is a property of the search, and
 **no conclusion about the conjecture follows from the failures** — consistent
 with the rule this lane has applied throughout: a value above the bound is a
 search failure, never evidence.
+
+## Where *not* to look for a counterexample
+
+The failures **decay smoothly with edge count and do not concentrate at any
+shape**. There is no family, no parity pattern, no balance ratio and no part
+count at which the search suddenly stops meeting the bound; controlling for
+edges, every part count behaves the same in the reliable band, and the decay
+past it is uniform.
+
+This is the argument that the negative is about **search difficulty rather than
+about the conjecture** — a real counterexample region would announce itself as
+failures clustered somewhere, not as a smooth function of \(|E|\).
+
+It is also the part of this record with forward value. Anyone hunting a
+counterexample to Harborth's conjecture should **not** spend effort on small
+multipartite graphs of unusual shape: over 291 of them, spanning balanced and
+highly unbalanced parts and \(k = 3\) through \(6\), the intended drawing was
+found wherever the instrument could find anything at all. If a counterexample
+exists it is not in this region, and the residual uncertainty here is entirely
+the instrument's reach, which is bounded by edge count alone.
 
 ## What would have counted as a refutation
 

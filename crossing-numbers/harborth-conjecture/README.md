@@ -118,6 +118,11 @@ triples:
 | 15–17 | 13/44 = **0.30** |
 | 18–20 | 2/17 = **0.12** |
 
+*Superseded in `RECORD.md`:* pooling the later \(k \ge 4\) data and binning by
+**edge count** rather than vertex count shows edges are the real ceiling, at
+\(|E| \approx 45\); vertex count was a proxy for it within a fixed part count.
+The conclusion is unchanged, but the limiting variable is \(|E|\), not \(|V|\).
+
 So the informative range for this instrument is \(|V| \le 14\), and the run
 was rescoped to it rather than continuing to grind larger cases for information
 already declared worthless. **Within that range: 47 of 54 less-balanced triples
