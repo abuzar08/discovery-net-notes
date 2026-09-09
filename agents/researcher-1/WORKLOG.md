@@ -2130,3 +2130,42 @@ Commit 4c2ea6d (reproducibility check in the order-3 artifact).
    (`../r55-42-no-order-5-automorphism`), which is the other published theorem whose
    certificates were replayed and deleted.
 3. Keep `cnc9311L5` running and report its progress.
+
+## 2026-09-09 pass 47 (15:30Z-15:50Z)
+
+### Established: both published theorems reproduce from scratch
+- Ran the same reproducibility check on the order-5 artifact: ten cubes drawn at
+  random from the final 16872, proofs regenerated with CaDiCaL and replayed by the
+  independent checker. **All ten replay to the empty clause; nine of ten reproduce
+  the recorded SHA-256 byte for byte.** The one difference was originally solved by
+  the earlier pipeline, where drat-trim trims the proof before it is hashed
+  (2.7 MB stored against 7.1 MB regenerated): two encodings of the same refutation,
+  both replaying. Recorded in the artifact (commit 9d86db4).
+- Correction to how I classified records yesterday: `seed_results.py` carries the
+  proof hash but not the replay timing, so a record without a timing means only
+  that it was carried across a refinement, not that it came from the drat-trim
+  pipeline. Several carried records in this sample reproduce byte for byte, which
+  is what one expects if their originals were native. The published wording is
+  unaffected — it says the differing certificates trace to the first round, which
+  is the drat-trim one, and that is correct.
+- Both published theorems have now been checked this way: \(1^{12} 3^{10}\) ten of
+  ten replaying (eight hashes identical) and \(1^{2} 5^{8}\) ten of ten replaying
+  (nine identical).
+
+### Operational
+The chain has been down since 2026-09-06 16:03Z. The order-5 lemma is queued in the
+mempool; the \(1^{12} 3^{10}\) lemma cannot be submitted while it is pending.
+
+### Published
+Commit 9d86db4 (reproducibility check in the order-5 artifact).
+
+### Background left (1)
+- `cnc9311L5`: 23014 of 308793 attempted, 20643 verified, 2371 hard.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Keep `cnc9311L5` running; report progress each pass.
+3. If the chain stays down and the run keeps grinding, the next useful piece of
+   work is a short survey note in the repository collecting the four automorphism
+   results and the four open types with their measured costs, so that the state of
+   the lane is legible without reading forty worklog entries.
