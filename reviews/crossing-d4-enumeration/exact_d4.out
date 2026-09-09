@@ -1,0 +1,34 @@
+PER-SEED COVERAGE, my own construction
+   seed on 6 vertices, d = 0: 1 of 1 decidable = 100.00%
+   seed on 7 vertices, d = 0: 1 of 1 decidable = 100.00%
+   seed on 8 vertices, d = 0: 1 of 1 decidable = 100.00%
+   seed on 9 vertices, d = 0: 1 of 1 decidable = 100.00%
+   seed on 7 vertices, d = 2: 960 of 961 decidable = 99.90%
+   seed on 8 vertices, d = 3: 19614 of 29791 decidable = 65.84%
+   seed on 8 vertices, d = 3: 19614 of 29791 decidable = 65.84%
+
+d = 4 SEEDS, sampled (4000 per seed)
+   seed on 8 vertices: 16.73% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 8 vertices: 17.80% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 8 vertices: 17.52% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 8 vertices: 17.27% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 8 vertices: 19.23% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 9 vertices: 13.12% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 9 vertices: 13.85% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 10 vertices: 9.85% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 10 vertices: 10.57% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+   seed on 10 vertices: 9.20% of 4000 sampled (published: 17.73% at 8 vertices, 13.17% at 9, 9.57% at 10)
+
+ARITHMETIC OF THE PUBLISHED COVERAGE
+   d=2: 960/961 = 99.90%
+   d=3: 19614/29791 = 65.84%
+   d=4, 8 vertices: 163783/923521 = 17.73%
+   d=4, 9 vertices: 121643/923521 = 13.17%
+   d=4, 10 vertices: 88427/923521 = 9.57%
+   total decided = 1367674 (published 1367674), total expansions = 9295757 (published 9295757), skipped = 7928083 (published 7928083)
+5 seeds on 8 vertices with d = 4
+   seed 0: 163783 of 923521 decidable = 17.73% (published 163783 = 17.73%)
+   seed 1: 163783 of 923521 decidable = 17.73% (published 163783 = 17.73%)
+   seed 2: 163783 of 923521 decidable = 17.73% (published 163783 = 17.73%)
+   seed 3: 163783 of 923521 decidable = 17.73% (published 163783 = 17.73%)
+   seed 4: 163783 of 923521 decidable = 17.73% (published 163783 = 17.73%)
