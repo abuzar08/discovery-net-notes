@@ -48,6 +48,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreidtbnknha3ozwzpamegy6ednaxwqwopv2bxvvilwyuwzfgmeq66ny` lemma at height 3285 (researcher-2): block augmentation and a low-vertex degree bound close order-57 row 826 and narrow row 827 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/aug57.py` @ `ab6e051` | **Sound and exactly reproducible, but the two eliminations are conditional**: hash as published and output byte-identical; Ingredient A checks (blocks are edge-disjoint so \(\mathrm{cr}(G) \ge \sum_i \mathrm{cr}(Q_i)\) with no vertex-disjointness needed, the augmented clique has order \(q_j - \beta_j + 2\) with edges disjoint from the other blocks', and the adversary's \(\beta\) constraints all hold); Ingredient B uses only the \(\delta_0 \ge 1\) consequences of Constraint C, **not** the big-block disjointness that researcher-2's current audit restricts to \(\lvert R\rvert \le 13\), so it is unaffected by that audit; **my own harness reproduces all three score columns of all nine rows to the digit** (two minimisers differ as ties at equal scores); **FINDING**: at the four rungs of the lane's own ladder the two eliminated rows score **8059** (counting, 217), **8122** (MPR 2015, 219), **8292** (EuroCG 2015, 223) and **8343** (CCCG 2021) against \(Z(29) = 8281\) — so the elimination of row 826 and the narrowing of row 827 need \(\mathrm{cr}(K_{13}) \ge 223\), a non-archival value, and fail at the refereed rung; the body names no seed. Order 58 was audited to unconditionality at h3284, but order 57's new eliminations are not | `bafkreiekgpyi67mhiynlyjhrw3topj2a6lqq7n25hn4z7qkb2oihdbh2gy` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-row-826/` @ `c1067f6` |
 | `bafkreid3uqhaerzsp7rmckpgwjijh4fh7jkzamvoygu6jiciandpzpf4lm` lemma at height 3285 (researcher-2): a covering count and the two-sided \(e(L)\) identity leave order 57 with two rows and four cases | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/cover57.py` @ `6c988dc` | **Confirmed, and it resolves my previous pass's finding in the lane's favour**: hash as published, output byte-identical; Ingredient C is sound and states the big-block disjointness threshold correctly (\(2\delta_0 > 28\) iff \(\lvert R\rvert \le 13\)) — **the very threshold researcher-2's current audit finds missing in the order-58 work, so the knowledge was present here and lost in transfer** — with the covering count a relaxation (safe direction) and the body's worked example reproducing exactly ((25,23,2,2) on \(p = 49\): accepted by the per-block test, rejected by the covering count); Ingredient D's identity \(e(L) = m - 28\lvert R\rvert - X + e(G[R])\) re-derives and **all nine \(e(L)\) bands reproduce**; with my own enumeration the five "none" rows have **no admissible multiset at all** and the four survivors score 7354, 7354, 6714, 6154 — the published values; **and the eliminations are seed-independent**: at the bare counting seed they are unchanged, so the reduction of order 57 to two rows and four cases holds unconditionally, **superseding the conditional route through `aug57.py` that I flagged one pass earlier** | `bafkreiel46rrnqx3yg2u35556ir3td2ywlxgibxv6whoyg2ibrsj7jn44a` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-covering/` @ `b38f213` |
 | `bafkreihi5mzkib3zawiimvy5koziopvamephig3373g6bq5gkfnblxok3q` proof_attempt h2711 (researcher-2): Albertson's conjecture at \(r = 28\), independently of the \(r = 27\) argument | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/r28.py` @ `d0f0230` (the pinned commit) | **Confirmed as far as an independent check reaches**: pinned hash as published and output byte-identical; Part B reproduces under my own ladder, my own Gallai-forest cap, my own \(e(L)\) identity and my own split minima — all eight rows impossible at both seedings, my caps weaker (653/651/650 against 631/628) and my \(\lvert R\rvert = 5\) split higher (7994 against 7856), both the safe direction, and **the two Part C margins reproduce exactly: 256 under the CCCG seeding, 6 under the bare counting seed**; **SENSITIVITY FINDING**: under the weakest high-set assumption \(e(G[R]) \ge 1\) the tight row \(m = 769, \lvert R\rvert = 6\) **survives** at 6714 against \(Z(28) = 7098\), and a sweep shows it dies at exactly \(e(G[R]) \ge 6\) and survives at 5 on **both** seedings — so the least slack in Part B is the high-set edge floor, not a crossing number; **PART A LOCALISATION**: with Kostochka–Yancey floors alone, six of the seven surviving orders admit **no** decomposition inside the edge budget and only \(n = 54\) needs Cranston's Lemma E, its single survivor being \((1,1) + (27,53)\) with floor 754 at the bottom of the band — the \(r = 27\) problem at its own critical order, which is where the independence claim is decided; head's `r28.py` has since changed (`eca44477…`), with stronger ceilings and a narrower \(n = 54\) band, so a reader running the current file sees a different table than the published one | `bafkreie763k6bpqkjz5yjk6rtvqgztnume3l3o2ueg76rxlm4qgksg2b7y` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-r28-proof/` @ `111a608` |
+| `bafkreic7tbil3msmqw5t53j4gmxvavkhtyvfbp3bz6bnuqqudpxii6ub74` finding h3285 and `bafkreieozcscf2pk2hf5qnvklntqhtz7d2q3i35j2isaw35v4guhu3coda` finding h3285 (researcher-4): the ceiling of 4644 on any \((n,q)\)-only bound at \((32,383)\), and the structural sampling barrier | `crossing-numbers/dense-intermediate-density/` @ `c39afd8` (branch head; neither body names a commit) | **Ceiling confirmed from scratch, two supporting claims reproduced, one caution**: my own two-page machinery reaches \(Z(32) = 12600\) for \(K_{32}\) and **exactly 4644** after deleting 113 edges, and four deletion strategies (4644, 5425, 7101, 8220) do not beat it; the telescoping identity holds with **no failures** over \(8 \le n \le 60\); my own recursive integer-aware sampling bound gives **10979** at the complete endpoint — the published lifted value to the digit — and **2134 with and without the endpoint base** at \((32,383)\), reproducing the "unchanged at intermediate density" phenomenon with different base data; **attribution refinement**: that lift comes from the counting recursion seeded at the exact \(\mathrm{cr}(K_{12}) = 150\), not from \(\mathrm{cr}(K_n) \ge 0.8594 Z(n)\), whose value \(10828\) is *below* 10979; **CAUTION**: the incumbent 3022, the Jensen hull spread and the 0.01 scale-free spread all depend on the lane's own \(L(s,q)\) table (the lane's code returns 3022 on reproduction) — in my table the required lift factors span 1.67 to 2.85, so the flatness is a property of the lane's base data, **not** a consequence of the telescoping identity offered as its explanation, and "there is no \(s\) to tune toward" holds for the current bound rather than for the family | `bafkreign46uklh7ggiyohvibaxf7ndum34fltcj3zpd6s4gjdq3oqozduy` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/dense-intermediate-density/` @ `a546cd2` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -2437,9 +2438,37 @@ Twenty-one of my reviews are now queued.
   about/verifies/reproduces \(\to\) h2711, about \(\to\) the Albertson
   conjecture, cites \(\to\) the h2725 review.
 
+### Second review this pass — the two height-3285 sampling-barrier findings
+- Chosen next because both were on my own backlog list and the ledger showed no
+  review; note that the ledger's "no review" signal is unreliable during the
+  stall (h3293 shows none although mine is queued), so targets are now
+  cross-checked against my own ledger table above before starting.
+- **The ceiling reproduces exactly.** My own two-page drawing code — convex
+  order, page assignment, interleaving crossings, local search with restarts —
+  reaches 12600 for \(K_{32}\), which is \(Z(32)\), and **exactly 4644**
+  after deleting 113 edges and re-optimising. Four deletion strategies give
+  4644, 5425, 7101 and 8220, so nothing beats it.
+- The telescoping identity behind the scale-freeness claim holds with **no
+  failures** over every triple with \(8 \le n \le 60\), \(5 \le s_2 < s_1 < n\).
+- My own recursive integer-aware sampling bound (Euler base, exact
+  \(\mathrm{cr}(K_n)\) for \(n \le 12\) at the endpoint, convex envelope,
+  Jensen at the mean, ceiling at each level) gives **10979** at the complete
+  endpoint — the published lifted figure — and **2134 both with and without**
+  the endpoint base at \((32,383)\), reproducing the phenomenon that the dense
+  endpoint never reaches intermediate density.
+- **Caution recorded, not a defect**: the flatness of the required lift factor
+  across sample sizes (spread \(\le 0.01\)) is a property of the lane's
+  \(L(s,q)\) table, not a consequence of the identity — mine spans 1.67 to
+  2.85 — so "there is no \(s\) to tune toward" is a statement about the
+  current bound, not about the sampling family.
+- Review **submitted and accepted for broadcast** as
+  `bafkreign46uklh7ggiyohvibaxf7ndum34fltcj3zpd6s4gjdq3oqozduy`; evidence at
+  `a546cd2` in `notes/reviews/dense-intermediate-density/`. Twenty-three reviews
+  are now queued behind the stall.
+
 ### Blockers
 - Block production stopped since 2026-09-06T16:03Z; the RPC answers and reports
-  height 3443. Twenty-two of my reviews are queued. Nothing restarted, no node
+  height 3443. Twenty-three of my reviews are queued. Nothing restarted, no node
   state touched. The artifact ledger has moved to
   `/Users/abuzark/Dev/discovery_net/run/discovery-net/node-local/ledger-data/artifact-ledger.sqlite`;
   the path used in earlier passes no longer exists.
@@ -2448,7 +2477,6 @@ Twenty-one of my reviews are now queued.
 - None.
 
 ### Next step
-- Fill in twenty-two pending heights once blocks resume.
-- Next targets: researcher-4's h2905, h3074 and the two sampling-barrier
-  findings at height 3285, then researcher-2's Constraint-C audit chain when it
+- Fill in twenty-three pending heights once blocks resume.
+- Next targets: researcher-4's h2905 and h3074, then researcher-2's Constraint-C audit chain when it
   commits.
