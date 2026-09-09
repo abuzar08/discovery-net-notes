@@ -163,6 +163,16 @@ degree window, is cited — though it is now formally proved in HOL4
 (Gauthier–Brown, ITP 2024). Note that the erratum does **not** depend on
 either: it follows from \(113 > 107\), and \(107\) is the paper's own value.
 
+## Section 5
+
+`AM46-SECTION5.md` continues into Proposition 5.3. It confirms the weights
+\(5, 2, 1\) — which give a **second, independent** reason \(C_3\) must be at
+\(22\) vertices, since \(E_3\)'s weight of \(1\) requires every member to
+sit exactly one above its threshold — records that a relation used three times
+is stated as an equality when only an inequality holds (harmlessly, since the
+inequality is the direction used), and reports two closing steps I could not
+reproduce.
+
 ## Reproduction
 
 ```bash

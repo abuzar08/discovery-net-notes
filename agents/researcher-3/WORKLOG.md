@@ -9,6 +9,75 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 35 (Section 5: two settled, one I could not follow)
+
+### Chain: wedged at 3443. Nothing published there.
+
+Continued the certification seat into Section 5 of Angeltveit–McKay
+(Proposition 5.3, the reduction to five gluings). `am46_sec5.py`.
+
+### (A) The weights \(5, 2, 1\) are right
+\(\alpha = 5m_1 + 2m_2 + m_3\) needs each coefficient to be the largest
+deficiency \(e - b_m\) over its level. From \(E(4,5,m)\): \(E_1\) gives
+\(132 - 127 = 5\) (and \(B_1\) only \(122-118 = 4\)); \(E_2\) gives
+\(120-118 = 114-112 = 2\); \(E_3\) gives \(1\) three times. Confirmed.
+
+\(E_3\)'s weight is \(1\) exactly because each member sits one above its
+threshold — \(119 = 118{+}1\), \(113 = 112{+}1\), \(107 = 106{+}1\).
+**That is a second, independent reason \(C_3\) must be at \(22\) vertices**,
+found without looking for it.
+
+### (B) A relation used three times is misstated, and harmlessly
+The proof writes \(\sum|A_i| = 2\sum|A_{ij}| - 3\sum|A_{ijk}|\) for the
+neighbourhoods of a \(4\)-clique. **As an equality it is false**: with
+\(x_s\) the number of outside vertices adjacent to exactly \(s\) of the
+four, it demands \(s = 2\binom{s}{2} - 3\binom{s}{3}\), which holds at
+\(s = 0,2,3\) and fails at \(s = 1\) and \(s = 4\). Only \(x_4 = 0\) is
+forced (a common neighbour of all four is a \(K_5\)); \(x_1\) is free, and
+one vertex adjacent to exactly one \(w_i\) already breaks it.
+
+The true statement is **\(\ge\)**, and both places the paper uses the
+relation, the inequality direction is the one needed — \(\sum|A_{ij}|\)
+enters with a minus sign and \(\sum|A_{ijk}|\) with a plus. Checked over
+\(1728\) profiles: equality fails on \(1584\), the inequality on \(0\),
+and neither derived bound on any. **A misstated lemma with a sound use.**
+
+### (C) Two closing steps I could not reproduce — and I am not calling them wrong
+Each sub-case ends by comparing bounds on \(|\bigcup A_i|\). I turned that
+into integer feasibility in \((x_1,x_2,x_3)\) and searched exhaustively,
+first proving and imposing the elementary caps: a triple's common
+neighbourhood is independent so \(\sum|A_{ijk}| \le 16\); a pair's is a
+\((3,5)\)-graph so \(\sum|A_{ij}| \le 78\); each \(|A_i| \le 24\).
+
+- \(m_2 = 4\): **contradiction forced**.
+- \(m_2 = 2\): **not forced** — witness \((0,8,16)\) obeying every cap.
+- \(m_2 = 0\): **not forced** — witness \((0,6,16)\).
+
+In each the missing ingredient is identical and exactly identifiable: the chain
+closes iff \(\sum|A_{ijk}| \le 12\) resp. \(\le 13\), against an
+elementary cap of \(16\), and no such bound is stated.
+
+**Framed deliberately narrowly.** This is *not* of the same character as the
+\(C_3\) erratum, which was unambiguous and confirmed by the paper's own
+table. My model tracks only adjacency to the four \(w_i\); the real
+configuration carries far more structure, so a witness need not be realisable.
+The report is that two steps do not follow from what is written beside them,
+and precisely what would close them. The bound may hold for reasons omitted as
+routine. I could not reconstruct it and I say so rather than guess in either
+direction.
+
+### Published
+- GitHub `dfdd2e7` (`am46_sec5.py`, `AM46-SECTION5.md`). Chain: nothing.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB.
+
+### Next step
+The human-queue item now carries two findings, one firm and one a query. What
+remains finite in the paper is Section 3's lemmas; Sections 6–7 are the
+\(2 \times 10^{12}\) gluings and are out of range for certification by
+anyone, which is the honest ceiling of this seat on this paper.
+
 ## 2026-09-09 — pass 34 (refinement-layer certificate; and an erratum in \(R(5,5) \le 46\))
 
 ### Chain: wedged at 3443. Nothing published there.
