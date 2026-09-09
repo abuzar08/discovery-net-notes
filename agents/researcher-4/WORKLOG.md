@@ -2955,3 +2955,74 @@ DS21's "true for \(n \le X\)" claims. 3. The principal's checkpoint applies from
 here: if the sweep stays clean and the remaining entries are all beyond the
 instrument, publish the record and select again. 4. Not autonomous: the
 \(C_3 \square C_3\) note to Marcus Schaefer.
+
+## 2026-09-09, pass 43
+
+**Checkpoint pass.** The principal's condition was: if after two passes the sweep
+is clean and the remaining entries are beyond the instrument, say so, publish the
+verification record, and select again. That condition is met, but not before
+first attacking the reason the remaining entries were out of reach.
+
+**The widened exact sweep finished**: 41 instances, **25 decided, all agreeing
+with DS21, 0 mismatches**, 12 undecided on time, 4 out of range. The
+Kuratowski-branching decider paid off where it could — \(K_{2,4,2}\) fell from
+435.2 s to 72.6 s — but 12 cases still exhausted a 600 s budget. That is not
+fixable with a longer budget: the decider is exponential in
+\(\operatorname{cr}\), so doubling the budget buys a fraction of a crossing.
+
+**So I changed what is computed** (`refutation-sweep.md`, `ubound.py`, commit
+`2954e21`). DS21 states its formulas as **exact values**, so a *drawing* with
+fewer crossings than a stated formula refutes it outright, with the drawing as
+certificate — no lower bound and no exhaustive search. Upper bounds scale to
+hundreds of edges, so this reaches precisely the entries the exact sweep cannot,
+which is where the principal correctly said a discrepancy would be hardest to
+find.
+
+Method: maximal planar subgraph greedily in random edge order, then insert each
+remaining edge along a shortest path in the **dual** of the current embedding, so
+the crossings paid equal the dual distance; split crossed edges with degree-4
+dummies, re-embed, randomised restarts. Every step builds a realisable drawing,
+so it can only overestimate \(\operatorname{cr}\) — that one-directional
+soundness is what makes a value below a stated formula a real refutation.
+
+**The heuristic is tight on all ten known values tested**, including
+\(\operatorname{cr}(K_8) = 18\) and \(\operatorname{cr}(K_{5,5}) = 16\), both in
+under a second and both far outside the exact decider's reach in either version.
+
+**Refutation sweep results: 108 instances to \(n = 12\), up to 18 vertices and 84
+edges, 67 reproducing DS21's stated value exactly, 41 inconclusive, and zero
+refutations.** Strongest single reproductions:
+\(\operatorname{cr}(K_{1,4,12}) = 132\) at 17 vertices and 64 edges in 5.1 s, and
+\(\operatorname{cr}(K_{2,3,11}) = 111\) at 16 vertices and 61 edges.
+
+**Stated plainly in the record, because it bounds the claim:** the sweep is
+**one-sided**. A formula that is too large can be beaten and exposed; one that is
+too small returns a value above it, indistinguishable from the heuristic missing
+the optimum. And the 67 exact reproductions confirm the **upper-bound half only**
+— that the asserted drawing exists — not the lower bound, which is the hard half
+of every one of these theorems.
+
+**The finding worth more than the clean result.** The nine entries checked are
+*theorems with formulas*, and they are clean. The entry that was wrong is a
+*conjecture whose hypotheses had to be paraphrased*: DS21 renders Mohar's
+Conjecture 5 with \(\lfloor n/2 \rfloor\) where Mohar has \(n = 2k\). That is not
+an arithmetic slip but a **hypothesis lost in compression**. Formulas get copied;
+hypotheses get re-expressed, and re-expression is where side conditions are lost.
+That is a testable prediction about where to audit this reference next, and a
+better guide than "the formulas check out."
+
+**Deliverable published:** `VERIFICATION-RECORD.md`.
+
+**Operational.** Chain still frozen at **3443**, verified by direct query at both
+ends of the pass. Eleven contributions still absent from the ledger; nothing
+published this pass depends on it.
+
+**Running between passes: none.** Both sweeps complete.
+
+**Next step (concrete).** The checkpoint is met, so: select again, and under the
+principal's amended criteria — **literature first, then the graph, then compute**
+— the selection pass does the literature work before proposing, not after. The
+lead I would test first is the prediction above: audit DS21's *conjecture*
+statements against their sources for dropped hypotheses, the class where the one
+known error lives. Not autonomous: the \(C_3 \square C_3\) note to Marcus
+Schaefer, and now two DS21 corrections.
