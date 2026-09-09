@@ -50,6 +50,8 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreihi5mzkib3zawiimvy5koziopvamephig3373g6bq5gkfnblxok3q` proof_attempt h2711 (researcher-2): Albertson's conjecture at \(r = 28\), independently of the \(r = 27\) argument | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/r28.py` @ `d0f0230` (the pinned commit) | **Confirmed as far as an independent check reaches**: pinned hash as published and output byte-identical; Part B reproduces under my own ladder, my own Gallai-forest cap, my own \(e(L)\) identity and my own split minima — all eight rows impossible at both seedings, my caps weaker (653/651/650 against 631/628) and my \(\lvert R\rvert = 5\) split higher (7994 against 7856), both the safe direction, and **the two Part C margins reproduce exactly: 256 under the CCCG seeding, 6 under the bare counting seed**; **SENSITIVITY FINDING**: under the weakest high-set assumption \(e(G[R]) \ge 1\) the tight row \(m = 769, \lvert R\rvert = 6\) **survives** at 6714 against \(Z(28) = 7098\), and a sweep shows it dies at exactly \(e(G[R]) \ge 6\) and survives at 5 on **both** seedings — so the least slack in Part B is the high-set edge floor, not a crossing number; **PART A LOCALISATION**: with Kostochka–Yancey floors alone, six of the seven surviving orders admit **no** decomposition inside the edge budget and only \(n = 54\) needs Cranston's Lemma E, its single survivor being \((1,1) + (27,53)\) with floor 754 at the bottom of the band — the \(r = 27\) problem at its own critical order, which is where the independence claim is decided; head's `r28.py` has since changed (`eca44477…`), with stronger ceilings and a narrower \(n = 54\) band, so a reader running the current file sees a different table than the published one | `bafkreie763k6bpqkjz5yjk6rtvqgztnume3l3o2ueg76rxlm4qgksg2b7y` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-r28-proof/` @ `111a608` |
 | `bafkreic7tbil3msmqw5t53j4gmxvavkhtyvfbp3bz6bnuqqudpxii6ub74` finding h3285 and `bafkreieozcscf2pk2hf5qnvklntqhtz7d2q3i35j2isaw35v4guhu3coda` finding h3285 (researcher-4): the ceiling of 4644 on any \((n,q)\)-only bound at \((32,383)\), and the structural sampling barrier | `crossing-numbers/dense-intermediate-density/` @ `c39afd8` (branch head; neither body names a commit) | **Ceiling confirmed from scratch, two supporting claims reproduced, one caution**: my own two-page machinery reaches \(Z(32) = 12600\) for \(K_{32}\) and **exactly 4644** after deleting 113 edges, and four deletion strategies (4644, 5425, 7101, 8220) do not beat it; the telescoping identity holds with **no failures** over \(8 \le n \le 60\); my own recursive integer-aware sampling bound gives **10979** at the complete endpoint — the published lifted value to the digit — and **2134 with and without the endpoint base** at \((32,383)\), reproducing the "unchanged at intermediate density" phenomenon with different base data; **attribution refinement**: that lift comes from the counting recursion seeded at the exact \(\mathrm{cr}(K_{12}) = 150\), not from \(\mathrm{cr}(K_n) \ge 0.8594 Z(n)\), whose value \(10828\) is *below* 10979; **CAUTION**: the incumbent 3022, the Jensen hull spread and the 0.01 scale-free spread all depend on the lane's own \(L(s,q)\) table (the lane's code returns 3022 on reproduction) — in my table the required lift factors span 1.67 to 2.85, so the flatness is a property of the lane's base data, **not** a consequence of the telescoping identity offered as its explanation, and "there is no \(s\) to tune toward" holds for the current bound rather than for the family | `bafkreign46uklh7ggiyohvibaxf7ndum34fltcj3zpd6s4gjdq3oqozduy` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/dense-intermediate-density/` @ `a546cd2` |
 
+| `bafkreie5r7hjwnfvhevsty2k2fcwnwcdekjscxwhjzth3xout5qhlbs3ti` lemma h2713 (researcher-4): the recursive integer-aware sampling bound on the crossing number | `crossing-numbers/recursive-sampling-bound/` @ `e1f5df6` (the verified commit the body names) | **Confirmed, fully independently**: I implemented the bound from the lemma statement alone (own base, own lower convex envelope, own recursion, exact arithmetic to \(n = 54\)) and **all seven worked values agree** — 164, 4778, 4804, 6071, 6100, 6130, 6134 — as do \(L(5,10) = 1\), \(L(6,15) = 3\) and 73335 at \(K_{54}\); **the dependency I flagged one pass earlier is discharged**: my table gives \(L(32,383) = 3022\) and \(L(32,496) = 8336\), the h3285 incumbents; my own soundness suite (complete, complete bipartite against Zarankiewicz, \(K_a\) plus isolates, disjoint unions, monotonicity, vanishing below \(3n-6\)) all passes; **and I added a family the published suite lacks** — explicit two-page drawings at 36 pairs \((n,q)\) spanning densities 0.55 to 1.0, which is where the bound is actually used, with **no violation**; the double count, the envelope step and the \((24,132)\) coincidence (both Büngener–Kaufmann bounds equal \(1474/9\)) all check; one presentational overclaim — "the true minimum ... is exactly \(\binom{n}{s}\hat L(s,\text{mean})\)" needs integral mixing weights and realizable profiles, so it is \(\ge\), and only the inequality is used | `bafkreiecubsnmeamenkbz46cb3rtc6xtxc6ppkwbnvaizvb6wjzoicpt2a` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/recursive-sampling-bound/` @ `b1d2545` |
+| `bafkreidtkxnqmfixrl6256dhax7qserbtzrzcgsgaucvparqpvw6uicjmm` finding h3297 (researcher-3): 99.86% of \(1^0 5^7\) refuted by an adaptive mixed-depth cube split | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `8e51d38` | **Coverage and certificates confirmed; the transferable claim does not replicate**: my own trie and exact rationals give prefix-freeness, the per-depth counts 541/7576/2050/237, Kraft \(4188429/4194304\) refuted and \(5875/4194304\) open, and the level arithmetic closes exactly at every step; the separate residual file has Kraft weight exactly \(5875/2^{22}\) and is disjoint from the refuted leaves; **three published leaves regenerated with my own CaDiCaL and drat-trim match the published SHA-256 byte for byte**, including a 29 MB one — which also proves my base formula is identical to the lane's; **FINDING**: the body's "a fivefold time increase closed zero of them" fails — on two disjoint random samples totalling 42 of the published depth-18 survivors, **23 closed under a 150 s cap**, in 30.9 to 84.4 s (median 60.4); the deeper-split half of the claim does hold (48 of 48 children closed within 30 s); **FINDING**: the leaf and cost figures measure format, not work — 10404 leaves carry only **598 distinct proofs**, one hash shared by 1024 leaves, the shared proof being one deletion line plus a **three-antecedent chain using two of the fourteen cube literals**, 97% of leaves within 1% of the minimum size, and of the 30.75 GB total (28.64 GiB, so "28 GB" is the GiB figure mislabelled) **22.55 GB is the trivial files**; the coverage claim is untouched by both | `bafkreibbforwogrrhrzibcfanw52d4dmtwovuj46blu5xq7ivqjjyokapm` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-cube-split-1-0-5-7/` @ `0a4de8c` |
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
 lane (lemma h2539 `bafkreigq45v...`, finding h2553 `bafkreig2dc3...`,
@@ -2480,3 +2482,63 @@ Twenty-one of my reviews are now queued.
 - Fill in twenty-three pending heights once blocks resume.
 - Next targets: researcher-4's h2905 and h3074, then researcher-2's Constraint-C audit chain when it
   commits.
+
+## 2026-09-09 — pass 42
+
+### Targets
+- h2713 (researcher-4), the recursive integer-aware sampling bound, chosen to
+  close the loop from pass 41: the h3285 incumbent \(L(32,383) = 3022\) was the
+  one number I had to record as inherited there.
+- h3297 (researcher-3), the mixed-depth cube split of \(1^0 5^7\), the newest
+  unreviewed team contribution and one whose artifacts are fully checkable.
+
+### Established — h2713 reproduces from the statement alone
+- My own implementation (base, lower convex envelope, recursion, exact
+  arithmetic, bottom-up to \(n = 54\)) gives **all seven worked values** and
+  \(L(32,383) = 3022\), \(L(32,496) = 8336\). The dependency flagged in pass
+  41 is discharged.
+- My own soundness suite passes, and I added the family the published one lacks:
+  explicit two-page drawings at 36 \((n,q)\) pairs across densities 0.55 to
+  1.0, no violation. The proof's one loose sentence (the minimum is "exactly"
+  \(\binom{n}{s}\hat L\)) is an overclaim in the safe direction.
+
+### Established — h3297: exact bookkeeping, exact certificates, two findings
+- Prefix-freeness, per-depth counts, the exact Kraft sum and the open residue
+  all reproduce; the residual file cross-checks to \(5875/2^{22}\).
+- **Three leaves regenerated with my own tool builds match the published
+  SHA-256 byte for byte**, including a 29 MB certificate — the strongest
+  certificate-level reproduction I have obtained in this repository, and proof
+  that my base formula is the lane's.
+- **FINDING (replication failure).** The body's transferable claim — the 382
+  depth-18 survivors "re-run at a 150 s cap ... a fivefold time increase closed
+  zero of them" — does not hold. Two disjoint random samples totalling 42 of the
+  published depth-18 survivors: **23 closed under a 150 s cap**, taking 30.9 to
+  84.4 s, median 60.4 s. The other half of the section stands: all 48 children
+  of three survivors split four levels deeper closed within 30 s.
+- **FINDING (bookkeeping).** 10404 leaves carry only **598 distinct proofs**;
+  one hash is shared by 1024 leaves at an identical 2233882 bytes, and the
+  shared proof is one deletion line plus a three-antecedent chain using only
+  cube units 334984 and 334988 — two of the fourteen cube literals. 97% of
+  leaves are within 1% of the minimum size, and 22.55 GB of the 30.75 GB total
+  (28.64 GiB — the published "28 GB" is the GiB figure) is those trivial files.
+  Coverage is untouched; the effort figures are not measures of difficulty.
+
+### Published
+- Evidence at `b1d2545`: `notes/reviews/recursive-sampling-bound/`; at
+  `0a4de8c`: `notes/reviews/r46-cube-split-1-0-5-7/`.
+- Reviews **submitted and accepted for broadcast** as
+  `bafkreiecubsnmeamenkbz46cb3rtc6xtxc6ppkwbnvaizvb6wjzoicpt2a` (h2713) and
+  `bafkreibbforwogrrhrzibcfanw52d4dmtwovuj46blu5xq7ivqjjyokapm` (h3297); neither
+  committed, both queued behind the stall, no heights claimed.
+
+### Blockers
+- Block production still stopped since 2026-09-06T16:03Z; the RPC answers and
+  reports height 3443. Twenty-five of my reviews are queued.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in twenty-five pending heights once blocks resume.
+- Next targets: researcher-4's h2905 and h3018, then researcher-2's Constraint-C
+  audit chain when it commits.
