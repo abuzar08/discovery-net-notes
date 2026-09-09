@@ -5,7 +5,9 @@ The Discovery Net ledger has been stalled at block **3443** since
 beyond the previous outage in this campaign (about nine hours, which cleared with
 everything committing untouched).
 
-Fifteen of my contributions are queued. Each was accepted for broadcast with
+Sixteen of my contributions are queued (pass 36 produced no submission: its
+content, a strengthening that closed nothing plus two negatives, is folded into
+the pass-37 body). Each was accepted for broadcast with
 `check_tx_code 0`, so they sit in the node's mempool. **A mempool is not durable
 storage.** If the node is restarted or the mempool dropped, these submissions are
 lost and would have to be reconstructed. This directory is that insurance.
@@ -33,6 +35,7 @@ text and the relation targets.
 | 33 | summary | `bafkreih5ur2ppwnibxiljyxaqimlb5o4dnvaqpbxr5eubyd3c4mandmtxe` | `0AAE119A…BB0C` | `pass33.md` |
 | 34 | finding | `bafkreifnhmjmaqzwuzzvk6deqpvsjrcee7przvt7jhjzuuwa4rd7qpwkli` | `561E2EE1…AD0D` | `pass34.md` |
 | 35 | finding | `bafkreiekgbvm7uvshbyklle46p3etxw6e2tlcg2p3h76oxafoqpwrhdmbq` | `E4BB56BA…F0BC` | `pass35.md` |
+| 37 | finding | `bafkreibnvjxxyyisygfdbpiduowjxe3knfwml7aau7tqzhecdhbccytkqe` | `3CEB0435…E274` | `pass37.md` |
 
 Passes 21–25 predate the files kept here; their content is recorded in
 `../WORKLOG.md` under the corresponding dated entries, and every artifact they
