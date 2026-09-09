@@ -3343,3 +3343,80 @@ seven items, of which this is the second that over-claimed.
 3. Option (2) — state the terminus — remains available and its material is
    written (`state29.py`). If the sampling in (1) is inconclusive, that is where
    this should stop.
+
+## 2026-09-09 — pass 41
+
+### Graph state at start of pass
+`indexed_height` still 3443 at 2026-09-09T14:32Z — stall about **71 hours**.
+Queue twenty after this pass, all durable in git. All 82 artifact checksums pass
+and `state29.py` is current (8945).
+
+### The planned step, and why it stops the lane
+Pass 40's plan was to fix a placement — build \(H\) — for a sample of the 2116
+and compute \(\nu(H-T_1-T_2-T_3)\) directly. That needs **general non-bipartite
+maximum matching**; \(H'\) is complete-multipartite-plus-attachments, not
+bipartite. `networkx` is **not installed** here, so it would take either a new
+dependency or a hand-written Blossom implementation.
+
+The standing instruction is to ask before adding a dependency, and a hand-written
+Blossom is a large error surface in a lane that has already produced seven items
+of one defect family, three of them over-claiming. So I did not do it, and I have
+flagged the decision to the principal instead.
+
+That is the inconclusive outcome I twice said would be the stopping point.
+
+### Established: `METHODS.md`, the method inventory and terminus
+Sixteen methods with measured outcomes; the branch hypothesis placed as one
+condition of seventy; the precise open question; the defect record. Written for a
+successor, not as a narrative.
+
+Highlights worth keeping visible:
+- the single largest reduction was applying the **already-proved** \(\alpha(G)\le3\)
+  to the Gallai blocks — 103292 → 9533 — a hypothesis that had been sitting
+  unused in my own reviewed lemma;
+- the most instructive negatives were that widening the second absorption side
+  improves \(\mu_2\) for 641 configurations and closes **none**, and that
+  inclusion–exclusion was never the bottleneck (matroid intersection closes 1 of
+  1843);
+- all four components of the absorption inequality are at their limit, with 3326
+  configurations one unit short.
+
+### The precise open question, recorded
+On the 2116 where both decidable Tutte families are unreachable: does some other
+Tutte set obstruct? Not decided by \((|R|,\text{multiset},e(H[R]))\), which fix
+\(H[L]\) completely and the \(L\)–\(R\) and \(R\)–\(R\) edge **counts** but not
+their **placement**.
+
+### Published
+- GitHub commit `2ca2d39`: `METHODS.md`, README file-table entry, `SHA256SUMS`
+  (82/82 verify).
+- Discovery Net: SUMMARY `bafkreiejn45vzo7sxhu3an5q2qrymvaztxkno5uiyglwwdyegtay2r744m`,
+  tx `39ED34B029C623D19D6316CADB7FA02A2B0EBDF60946B57412FBCD973815ACA1`,
+  check_tx_code 0. Body durable at `agents/researcher-2/pending/pass41.md`.
+
+### Blocked
+- Ledger stalled ~71 hours at block 3443; **twenty** contributions queued.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations.
+- No background computations left running.
+
+### Recommendation to the orchestrator / principal
+The lane has a clean terminus and I recommend treating it as one unless a
+decision goes the other way:
+
+1. **Decision needed:** whether to add a general-matching dependency (or accept a
+   hand-written Blossom) so the 2116 can be tested by building \(H\). That is the
+   only concrete way forward I have identified, and it is bounded. Without it the
+   lane cannot decide the remaining question.
+2. **If the answer is no**, the standing result is a good place to stop: \(r=27\)
+   and \(r=28\) proved and reviewed, order 57 closed at \(r=29\), order 58 reduced
+   from eight rows to one class of 8945 explicit configurations with a full
+   inventory of what closes them and what does not.
+3. **Independent of either**, the twenty queued contributions need the chain
+   back. Seventy-one hours is far beyond the previous outage; if the node cannot
+   be recovered, the bodies and artifact refs are all durable in
+   `agents/researcher-2/pending/` and can be resubmitted after querying which
+   have committed.
+4. My own judgement on marginal returns: the last several passes have produced
+   corrections and negatives rather than closures, and the error pattern is
+   consistent enough that I would weight a reviewer's time on this lane above
+   more of my own.
