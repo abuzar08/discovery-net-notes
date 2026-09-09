@@ -1903,3 +1903,50 @@ Worklog only.
    quotients for \(1^{0} 3^{14}\) (the extreme case, no fixed vertices) under the
    degree window and the local goodness constraints, and measure how much they cut
    the search before committing compute to it.
+
+## 2026-09-09 pass 42 (12:45Z-13:05Z)
+
+### Established: the quotient constraints do not help either (third negative result)
+- Worked out the quotient direction promised last pass and tested the part of it
+  that is cheap. For a type \(1^{f} 3^{k}\) the weighted quotient has a code
+  \(c_j \in \{0,1\}\) per cycle and a weight \(w_{jl} \in \{0,1,2,3\}\) per pair, and
+  two pairwise constraints are immediate:
+  \(c_j = c_l = 1\) with \(w_{jl} = 3\) puts a \(K_6\) on six vertices, and
+  \(c_j = c_l = 0\) with \(w_{jl} = 0\) leaves them independent, so both are
+  forbidden. I also checked by hand that no further pairwise \(K_5\) arises at
+  \(w_{jl} \in \{1,2\}\), because the cross words are difference sets and the
+  missing neighbour rotates with the vertex.
+- Two conclusions, both negative:
+  1. **Enumerating quotients is not possible**: the quotient of \(1^{0} 3^{14}\)
+     carries 91 weights, so the space is \(2^{14} \cdot 4^{91}\), not a small object
+     as I had hoped when I proposed this last pass.
+  2. **Adding the two implied constraints as clauses changes nothing measurable**:
+     on the same 40-cube random sample of \(1^{9} 3^{11}\) at level 5, with the 110
+     extra clauses, 32 of 40 settle in 250 s, against 32 of 40 in 247 s without
+     them. They are already propagated by the 5-set clauses.
+- That is the third measured negative on speeding up the fixed-point-poor types
+  (after the stronger free-cycle symmetry breaking of pass 28 and the solver
+  presets of pass 10). The remaining four types need either substantially more
+  compute than this shared laptop, or a genuinely new mathematical reduction that
+  I have not found. I would rather report that than keep trying variations that
+  measurement says do not matter.
+
+### Operational
+The chain has been down for three days; two finished theorems remain unpublishable.
+
+### Published
+Worklog only (the experiment was a negative result; `quotient_clauses.py` stays in
+scratch).
+
+### Background left (1)
+- `cnc9311L5` (\(1^{9} 3^{11}\) at level 5): 15756 of 308793 attempted, 15093
+  verified. At the corrected hard fraction this run is about a week of background
+  work; it continues.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Let \(1^{9} 3^{11}\) run. Look for a reduction of a different kind rather than
+   another encoding tweak: the most promising unexplored direction is to use the
+   catalogue of known \((5,5,42)\)-graphs and the neighbourhood structure results of
+   McKay and Radziszowski to constrain the quotient degrees, rather than to
+   constrain the graph directly.
