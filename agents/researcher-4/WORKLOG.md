@@ -3167,3 +3167,65 @@ else, but **statements whose hypotheses are re-expressed** — conditional resul
 ("if Zarankiewicz's conjecture is true..."), range claims ("true for \(n \le X\)"),
 and attributions where a survey must paraphrase rather than copy. Not autonomous:
 the \(C_3 \square C_3\) note to Marcus Schaefer, and now three DS21 corrections.
+
+## 2026-09-09, pass 46
+
+No new direction from the principal (message unchanged), so I continued on the
+axis I proposed at the end of pass 45: statements whose hypotheses or names are
+**re-expressed** rather than copied. Commits `f97f14e` and earlier this pass.
+
+**A third finding, minor and recorded as such.** DS21 writes \(GP(2,5)\) four
+times across two entries, calling it "the Petersen graph". **Under DS21's own
+convention that name is ill-formed**: every other occurrence puts the outer cycle
+first — \(GP(12,4)\), \(GP(16,4)\), \(GP(3k,k)\), \(GP(4k,k)\), \(GP(n,k)\) — and
+\(GP(n,k)\) needs \(n \ge 3\), \(k < n/2\). The Petersen graph is \(GP(5,2)\).
+The values are right: the Petersen graph has 75 independent edge pairs and
+\(49 \le 68 \le 75\) as required, so only the name is wrong. It appears in two
+independent entries, which suggests it propagated rather than being typed twice.
+
+**The main work: a construction-free reproduction of the Hill and Zarankiewicz
+upper bounds** (`hill-zarankiewicz-upper-bounds.md`). DS21's own footnote 68 says
+"verifying the upper bound is a tedious exercise in counting". The planarisation
+heuristic knows nothing about Hill's cylindrical drawings, Zarankiewicz's
+construction, or Mohar's geodesic embedding, so if it lands on exactly \(Z(n)\)
+that is a mechanical confirmation obtained without doing the counting — and since
+it only ever overestimates, a value *below* \(Z(n)\) would refute the conjecture.
+
+- **Hill: reproduced exactly at every \(n\) from 5 to 13, and at 15.** Missed by
+  3 at \(n = 14\), which the \(n = 15\) success shows is an unlucky seed rather
+  than a ceiling.
+- **Zarankiewicz: 27 of 30 instances reproduce \(Z(m,n)\) exactly**, none below.
+
+**The two rows worth pointing at.** \(n = 13\) is *beyond* the range DS21 records
+as proved for Hill (\(n \le 12\)) and is exactly where the value is open,
+bracketed at \(\{219,221,223,225\}\); the heuristic builds a 225-crossing drawing
+of \(K_{13}\) in 20 seconds, confirming the upper end — the half of that bracket
+that comes from a construction. Likewise \(K_{7,7}\), \(K_{7,8}\), \(K_{7,9}\)
+all reproduce \(Z(7,n)\), and \(m = 7\) is outside the \(n \le 6\) range DS21
+records as settled in general.
+
+**What it does not show, stated in the artifact:** nothing about the lower bound,
+which is the hard half of both conjectures. The claim is only that the
+upper-bound construction is *recoverable by search*.
+
+**Clean checks recorded so coverage is visible, not just hits:**
+\(\mathrm{max}\text{-}\operatorname{cr}(C_n) = n(n-3)/2\) for \(n \ne 4\) —
+correct, since \(C_n\) has exactly that many independent pairs and cycles are
+thrackleable precisely when \(n \ne 4\), so the stated exception is right;
+\(\mathrm{max}\text{-}\operatorname{cr}(Q_3) = 34\) against 42 independent pairs;
+\(\mathrm{max}\text{-}\operatorname{cr}(C_3 \square C_3) = 78\) against 99.
+
+**Operational.** Chain still frozen at **3443** — four days. Eleven contributions
+absent; nothing this pass depends on the ledger. No background computations
+running. PDFs remain in `scratch/`, uncommitted.
+
+**Next step (concrete).** Running totals now: **three DS21 discrepancies for a
+human** (dropped parity hypothesis, dropped term invalidating a stated
+implication, ill-formed graph name) and **zero refutations of any formula** over
+25 exact decisions and 123 upper-bound reproductions. The formula-checking vein
+is exhausted and I will not keep pulling on it. The audit veins that produced all
+three findings are: statements re-expressed from a source, implications whose
+arithmetic can be checked, and names checked against the survey's own
+conventions. Next pass takes the third systematically, since it is the cheapest
+and has a hit rate. Not autonomous: the \(C_3 \square C_3\) note to Marcus
+Schaefer, and three DS21 corrections.
