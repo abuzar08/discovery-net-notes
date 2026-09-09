@@ -64,7 +64,17 @@ non-negative, each vertex contributes at least \(1\), and
 | 3 | the second regrouping is algebraically identical to the first, i.e. \(-a + b + 1 = c\) on each line | holds on all four |
 | 4 | each vertex contributes at least \(1\) | **fails as printed**; holds under the reading below |
 
-Checks 0–3 confirm the section. Check 4 is where it stops.
+| 5 | Section 3's stated alternative — \(\mathcal{R}(4,5,23, e \ge 118)\) in place of \(e \ge 119\), with no set at \(e = 113\) | **confirmed**: every vertex still contributes \(\ge 1\) |
+
+Checks 0–3 and 5 confirm the section. Check 4 is where it stops.
+
+Check 5 is worth its own line. Section 3 remarks in passing that one *"could
+consider \(\mathcal{R}(4,5,22, e = 114)\) only at the price of having to
+consider \(\mathcal{R}(4,5,23, e \ge 118)\) instead of
+\(\mathcal{R}(4,5,23, e \ge 119)\)"*. That alternative works — per-degree
+contributions \(2, 1, 1, 2\) — and it is independent corroboration of the
+reading of \(C_3\), because what it trades away is exactly *"\(e = 113\) at
+\(22\) vertices"*.
 
 ## The erratum
 
@@ -116,8 +126,20 @@ makes every line contribute at least \(1\) and the section goes through:
 | \(22\) | \(0\) | \(0\) | \(1\) |
 | \(21\) | \(1\) | \(0\) | \(2\) |
 
-**The intended reading is forced three independent ways.**
+**The intended reading is forced four independent ways, and the first is
+decisive on its own.**
 
+0. **Section 3 of the same paper lists the intended set and its count.** One
+   section earlier, under the heading \(\mathcal{R}(4,5,22)\), the authors
+   write: *"for the proof of Theorem 1.1 it suffices to consider
+   \(\mathcal{R}(4,5,22, e \ge 113)\)"*, and give
+   \(|\mathcal{R}(4,5,22,e=114)| = 133\) and
+   \(|\mathcal{R}(4,5,22,e=113)| = 30\,976\). Under the heading
+   \(\mathcal{R}(4,5,21)\) they write that *"it suffices to consider
+   \(\mathcal{R}(4,5,21, e = 107)\)"* and give \(|\cdot| = 31\) —
+   **\(e = 113\) at \(21\) vertices is never mentioned, because it does not
+   exist.** So the paper computed exactly the set \(C_3\) needs, said so, and
+   then mistyped its vertex count one section later.
 1. **The letters.** \(A, B, C, D\) denote \(24, 23, 22, 21\) vertices
    everywhere else in the section — \(A\) at \(24\), \(B_1, B_2, B_3\) at
    \(23\), \(C_2\) at \(22\), \(D_3\) at \(21\). Only \(C_3\) breaks it.
@@ -129,6 +151,10 @@ makes every line contribute at least \(1\) and the section goes through:
    \(B_3\): \(119 = 118+1\), \(D_3\): \(107 = 106+1\). So \(C_3\) must be
    \(112 + 1 = 113\) **at \(22\) vertices**.
 3. **The argument needs precisely that set**, as the table above shows.
+4. **Section 5 needs it too**: the weight \(1\) that \(E_3\) carries in
+   \(\alpha = 5m_1 + 2m_2 + m_3\) requires every member of \(E_3\) to sit
+   exactly one above its threshold, and \(112 + 1 = 113\) at \(22\)
+   vertices is the only way \(C_3\) can do that. See `AM46-SECTION5.md`.
 
 **The omission is not vacuous.** By the same Appendix Table 1,
 \(|\mathcal{R}(4,5,22,\, e = 113)| = 30\,976\), whereas
@@ -144,10 +170,26 @@ checked and which this does not put in doubt. What I have checked is Section 4,
 end to end, and what I report is that one of its seven set definitions has the
 wrong vertex count.
 
-I also cannot tell from here whether the *Journal of Graph Theory* version
-carries the same typo; the check above is against arXiv:2409.15709v2 of
-1 September 2025, whose LaTeX source reads
-`C_3 & = \cR(4,5,21, e = 113)`.
+### Does the published version carry it?
+
+**I could not obtain the *Journal of Graph Theory* text, so this note stands
+against the arXiv version, and that limitation is part of the claim.** What I
+established:
+
+- arXiv has exactly two versions, v1 (24 September 2024) and v2 (1 September
+  2025). **Both carry the identical line** `C_3 & = \cR(4,5,21, e = 113)`, so
+  the typo has been present since first posting and survived one revision.
+- The journal version appeared online on 20 March 2026, about six and a half
+  months after v2, and **no v3 was posted afterwards**.
+- The Wiley page (DOI `10.1002/jgt.70029`) returns HTTP 403 without a
+  subscription, and McKay's own publications page lists this paper with a DOI
+  link only — no preprint or personal copy, unlike most entries there. I found
+  no repository copy.
+
+So it is unresolved whether the typo was caught in proof. Anyone able to see
+the published text should check the \(C_3\) line first; if it reads
+\(\mathcal{R}(4,5,22, e = 113)\) there, this note becomes a reading aid for
+the arXiv version rather than an erratum.
 
 ## Trust boundary
 

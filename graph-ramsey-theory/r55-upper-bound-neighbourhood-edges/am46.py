@@ -49,6 +49,18 @@ SETS_AS_PRINTED = {
 }
 SETS_AS_INTENDED = dict(SETS_AS_PRINTED, C3=(22, 113, 113))
 
+# Section 3 states an alternative in passing: "we could consider
+# R(4,5,22, e = 114) only at the price of having to consider
+# R(4,5,23, e >= 118) instead of R(4,5,23, e >= 119)."  That is a checkable
+# claim about the same four inequalities, and it is a further corroboration of
+# the threshold structure -- it trades e = 113 at 22 vertices for e = 118 at 23.
+SETS_ALTERNATIVE = {
+    "A":  (24, 127, None),
+    "B":  (23, 118, None),      # e >= 118 instead of e >= 119
+    "C2": (22, 114, 114),       # and no set at e = 113
+    "D3": (21, 107, 107),
+}
+
 # The four lines of the second rewrite: d -> (a, b) in
 #   (e(F_v^-) - a) + (b - e(F_v^+)) + 1
 REWRITE = {24: (104, 127), 23: (119, 118), 22: (135, 112), 21: (149, 106)}
@@ -193,6 +205,19 @@ def main():
             print(f"     a vertex can contribute {worst}, so the bound "
                   f"excess(F) >= 46 does NOT follow.\n")
 
+    alt = bracket_bounds(SETS_ALTERNATIVE, emax)
+    worst_alt = min(v[5] for v in alt.values())
+    print(f"(5) Section 3's stated alternative -- R(4,5,23, e >= 118) in place "
+          f"of e >= 119, with no")
+    print(f"    set at e = 113 -- gives every vertex at least {worst_alt}: "
+          f"{'CONFIRMED' if worst_alt >= 1 else 'DOES NOT WORK'}.")
+    print(f"    Per degree: " + ", ".join(f"d={d}: {alt[d][5]}"
+                                          for d in (24, 23, 22, 21)))
+    print("    This is independent corroboration of the thresholds, and of "
+          "the reading of C_3: the")
+    print("    alternative trades exactly 'e = 113 at 22 vertices' for "
+          "'e = 118 at 23 vertices'.\n")
+
     printed = bracket_bounds(SETS_AS_PRINTED, emax)
     intended = bracket_bounds(SETS_AS_INTENDED, emax)
     bad = [d for d in printed if printed[d][5] < 1]
@@ -207,8 +232,14 @@ def main():
           "R(4,5,22, e=113) repairs it:")
     print(f"  every vertex then contributes at least "
           f"{min(v[5] for v in intended.values())}.")
-    print("  That reading is forced three ways: the letters A,B,C,D denote "
-          "24,23,22,21 vertices throughout;")
+    print("  Section 3 of the same paper settles it: under 'R(4,5,22)' it "
+          "says it suffices to consider")
+    print("  R(4,5,22, e >= 113) and gives |R(4,5,22,e=113)| = 30,976, while "
+          "under 'R(4,5,21)' only")
+    print("  e = 107 appears.  The paper computed the set C_3 needs and "
+          "mistyped its vertex count.")
+    print("  Also forced by: the letters A,B,C,D denote 24,23,22,21 vertices "
+          "throughout;")
     print("  the subscript is the deficiency, and E_3 = B_3 u C_3 u D_3 has "
           "119 = 118+1 and 107 = 106+1,")
     print("  so C_3 must be 112+1 = 113 at 22 vertices; and the argument "

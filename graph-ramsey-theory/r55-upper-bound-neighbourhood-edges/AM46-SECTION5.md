@@ -115,6 +115,33 @@ elementary structure, and what would close each is an upper bound on
 routine. I could not reconstruct it, and I am recording that rather than
 guessing in either direction.
 
+## (D) The closing paragraph is correct — settled
+
+The proposition ends with a three-branch argument on \(\alpha \ge \beta\).
+Its inputs are the refined excess inequality
+
+$$
+\alpha + \beta \;\ge\; 46 + \max(n_{21} - \bar m_1, 0) + \max(\bar n_{21} - m_1, 0),
+$$
+
+claim 1 (\(\alpha \ge 21 \Rightarrow m_1 \le 2\)), claim 2
+(\(\alpha \ge 23 \Rightarrow (\alpha,m_1,n_{21}) = (23,2,13)\) or
+\(m_1 \le 1\) and \(n_{21} \ge \alpha - 21\)), and \(m_1, \bar m_1 \le 4\).
+Claims 1 and 2 are proved earlier by arguments not checked here.
+
+Enumerating every integer state:
+
+| constraint added | states |
+|---|---|
+| claims 1 and 2 alone | \(1\,945\,431\) |
+| and \(\alpha + \beta \ge 46\) | \(1\,444\,037\) |
+| and the refined inequality | \(\mathbf{0}\) |
+
+**Zero.** The system is unsatisfiable, so the paragraph closes — and it closes
+more simply than its own three-branch presentation suggests: given claims 1
+and 2, the refined inequality alone admits no state. Verified, conditional on
+those two claims.
+
 ## Reproduction
 
 ```bash

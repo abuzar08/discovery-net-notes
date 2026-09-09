@@ -132,6 +132,53 @@ def feasible(sA_min, union_max, per_pair_max=None, cap=40, use_structure=True):
     return None
 
 
+def endgame():
+    """(D) The closing paragraph of Proposition 5.3, checked exhaustively.
+
+    Suppose F in R(5,5,46) does NOT satisfy the conclusion.  The paragraph then
+    has available:
+
+        (i)  alpha + beta >= 46 + max(n_21 - mbar_1, 0) + max(nbar_21 - m_1, 0)
+        (ii) claim 1: alpha >= 21  =>  m_1 <= 2   (and dually)
+        (iii) claim 2: alpha >= 23  =>  (alpha, m_1, n_21) = (23, 2, 13)
+                                        or (m_1 <= 1 and n_21 >= alpha - 21)
+        (iv) m_1, mbar_1 <= 4, and n_21 <= alpha, nbar_21 <= beta
+        (v)  WLOG alpha >= beta, and alpha + beta >= 46 gives alpha >= 23
+
+    Claims 1 and 2 are proved earlier by arguments this file does not check.
+    Given them, is the system satisfiable?  Every integer state is enumerated.
+    Returns (n_with_excess, n_without_excess, examples_without).
+    """
+    with_ex, coarse, without_ex, examples = 0, 0, 0, []
+    for alpha in range(23, 47):  # noqa: PIE808 -- alpha >= 23 is (v)
+        for beta in range(0, alpha + 1):
+            for m1 in range(5):
+                if alpha >= 21 and m1 > 2:
+                    continue
+                for mb1 in range(5):
+                    if beta >= 21 and mb1 > 2:
+                        continue
+                    for n21 in range(alpha + 1):
+                        if not ((alpha, m1, n21) == (23, 2, 13)
+                                or (m1 <= 1 and n21 >= alpha - 21)):
+                            continue
+                        for nb21 in range(beta + 1):
+                            if beta >= 23 and not (
+                                    (beta, mb1, nb21) == (23, 2, 13)
+                                    or (mb1 <= 1 and nb21 >= beta - 21)):
+                                continue
+                            without_ex += 1
+                            if alpha + beta >= 46:
+                                coarse += 1
+                                if len(examples) < 3:
+                                    examples.append((alpha, beta, m1, mb1,
+                                                     n21, nb21))
+                            if alpha + beta >= (46 + max(n21 - mb1, 0)
+                                                + max(nb21 - m1, 0)):
+                                with_ex += 1
+    return with_ex, coarse, without_ex, examples
+
+
 def main():
     with open(os.path.join(HERE, "e45.json")) as fh:
         emax = {int(k): v for k, v in json.load(fh)["emax"].items()}
@@ -193,6 +240,25 @@ def main():
             print(f"       the chain closes iff sum|A_ijk| <= {need}; "
                   f"the elementary cap is {B['sum_Aijk']}, and the text "
                   f"states no sharper one")
+    with_ex, coarse, without_ex, ex = endgame()
+    print()
+    print("(D) the closing paragraph of Proposition 5.3, over every integer "
+          "state consistent with")
+    print("    its stated inputs (claims 1 and 2 assumed, not checked here):")
+    print(f"    states satisfying claims 1 and 2 alone:            "
+          f"{without_ex}")
+    print(f"    of those, also satisfying alpha + beta >= 46:      {coarse}"
+          f"   e.g. (alpha,beta,m1,mbar1,n21,nbar21) = "
+          f"{ex[0] if ex else None}")
+    print(f"    of those, also satisfying the refined inequality:  {with_ex}")
+    if with_ex:
+        raise SystemExit("the endgame does NOT close: a state survives")
+    print("    ZERO.  So the system is unsatisfiable and the paragraph closes "
+          "-- and it closes for a")
+    print("    simpler reason than the three-branch argument gives: the "
+          "excess inequality alone,")
+    print("    against claims 1 and 2, admits no state at all.  Verified, "
+          "conditional on those claims.")
     print()
     print("READING.  (A) and (B) are settled: the weights are right, and the "
           "four-set relation is")
