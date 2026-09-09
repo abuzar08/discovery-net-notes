@@ -2951,3 +2951,75 @@ now one unit from closing.**
    move a third of the remaining case.
 2. Failing that, \(+1\) on \(\mu_2\) via defect Hall using the per-vertex floor
    \(\mathrm{amin}_2\), which is currently only ever passed as \(\max(a,1)\).
+
+## 2026-09-09 — pass 36
+
+### OPERATIONAL: the ledger stall is now ~66 hours
+`indexed_height` still 3443, 1747 artifacts. The stall began 2026-09-06T16:03Z;
+it is now 2026-09-09T10:20Z. That is **about 66 hours**, against the previous
+outage in this campaign of about nine hours which cleared with everything
+committing untouched. Fifteen of my contributions are queued, each accepted with
+`check_tx_code 0` and therefore sitting in the node's mempool.
+
+**A mempool is not durable storage.** Acting on that, I made the queue durable in
+git: `agents/researcher-2/pending/` now holds the ten recoverable bodies (passes
+26--35) verbatim, plus an index recording every artifact ref, transaction hash,
+kind and relation target for all fifteen, and a warning against blind
+resubmission (query the ledger first; a rejected transaction creates nothing, a
+duplicate submission does not). Passes 21--25 predate those files and are
+reconstructible from this worklog plus the committed artifacts. Commit `6db583b`.
+Researchers 3 and 4 had already done the equivalent; I had not.
+
+### Established: the second absorption side was needlessly narrow
+An absorption puts \(z\) into a class \(\{u,v\}\) with \(u\in Q_1\) and \(v\)
+**anywhere** in \(L\setminus Q_1\) — they need only be non-adjacent, which holds
+for any two distinct blocks. So \(\mu_2\) should run against \(L\setminus Q_1\),
+not merely \(Q_2\setminus Q_1\). The pass-22 correction narrowed it because
+\(e_H(L\setminus Q_1,R)\) could not then be lower-bounded; for a **partition**
+multiset it can now be computed exactly, from \(D_v=q(v)-1\):
+
+\(e_H(L\setminus Q_1,R)=(|L|-q_1)(|R|-28)+\sum_{i\ge2}q_i(q_i-1)\).
+
+Where the blocks do not partition \(L\) the narrow side is kept. For two blocks
+the two agree exactly, so **order 57 is untouched and re-verified closed**.
+
+**Effect: \(\mu_2\) strictly improves for 641 of the 1843 partition multisets
+among the survivors, but closes none.** Pre-Turán count \(9226\to9067\); final
+total unchanged at **8945** \((8623+15+307)\). A strengthening of the argument,
+not a reduction of the case. Commit `a943e96`.
+
+### Measured and rejected
+- **The Hall sharpening of the singleton count** (last pass's stated next step).
+  A class of \(G[L\setminus Q_1]\) is forbidden only from those cut vertices of
+  \(Q_1\) whose block it meets, hence from at most \(\min(\mathrm{extra},k-1)\),
+  so the \(-\mathrm{extra}\) term can be dropped when
+  \(q_1-\min(\mathrm{extra},k-1)\ge M\). Measured: **no change at all**, 8623 to
+  8623. Among the survivors either \(\mathrm{extra}=0\), so nothing was being
+  paid, or the Hall condition fails anyway. The \(s\) lever is exhausted.
+
+### Publication decision
+I did **not** submit a sixteenth contribution this pass. The mathematical content
+is a sound strengthening that closes nothing plus two negatives; with the queue
+fifteen deep and the chain stalled 66 hours, adding it would be noise. It is
+recorded in git and in the README, and will be folded into the next substantive
+contribution. Stating the choice rather than letting the gap look like an
+omission.
+
+### Blocked
+- Ledger stalled ~66 hours at block 3443; **fifteen** contributions queued, now
+  durable in git. Not resubmitting.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations.
+- No background computations left running. `scratch/` is about 1.0 MB.
+
+### Next step (concrete)
+The absorption levers are now measured to exhaustion: \(s\) is closed off (this
+pass), \(\mu_1\)'s edge total \(q_1(q_1+|R|-29)\) is **exact** on a partition so
+nothing is recoverable there, and \(\mu_2\)'s side is now as wide as the argument
+permits. 3182 configurations remain one unit short. What has *not* been tried is
+replacing the two-matching bound itself: the requirement
+\(\#\{z\text{ saturated in both}\}\ge\mu_1+\mu_2-|Z|\) is the crude
+inclusion–exclusion step, and what is actually needed is a lower bound on the
+maximum number of vertex-disjoint triangles \(\{z,u,v\}\) with \(u\in Q_1\),
+\(v\in L\setminus Q_1\) — a tripartite 3-dimensional matching. A direct
+lower bound there, rather than the product of two 2-matchings, is the last
+untried route on the near obstruction, and one unit is all it needs to yield.
