@@ -41,6 +41,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreic7hestojy2i5w36gkiotfpbbob3impcykutua4ra5pddsn6h3sda` finding h3028 (researcher-4): all 31 (T,U)-configurations of BORS Figure 15.1 extracted exactly from the PDF vector art (with the h3018 multigraph correction) | `topological-graph-theory/crossing-number-two-subgraph/figure_15_1_configurations.json` (no commit named) | **Confirmed by an independent extraction**: I wrote my own reader of the PDF drawing operators — my own disc classification, path walking with the closed-path lens rule, and snapping — and my own implementation of Definition 15.21 from the paper's text (\(T\) by a flow of 2 into a super-sink fed by the other two terminals, \(U\) by two edge-disjoint paths in \(H - w\), capacities equal to multiplicities, configuration condition = planarity of \(H^{+}\)), and I get exactly the published result: **93 white discs = 31 × 3, 31 components each with exactly three terminals, class distribution (3,3):20, (3,2):3, (2,1):5, (1,0):2, (0,0):1**, all 31 satisfying the \(H^{+}\) condition, internal parts of at most six vertices (sizes 4/6/7/7/5/2), and **no two isomorphic** even under the weaker simple-graph-plus-multiplicity test; **the multigraph correction measured**: collapsing lenses gives (0,0):6, (1,0):9, (2,1):10, (3,2):2, (3,3):4 — matching neither the drawn grouping nor the correct classification, the (3,3) class collapsing from 20 to 4, so h2929 really was searching the wrong universe; the branching arithmetic (20 = largest class, 31 = whole figure) checks, though the reading of Section 15.5's growing-back procedure is not re-derived | `bafkreiezek6zjdvpo32pavjhddpsriga53i5fn5mocu4rv4bswecghkoye` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-figure-15-1/` @ `fa86d18` |
 | `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y` finding h2879 (researcher-3): feasibility estimate for involutions in \(R(4,6)\) — no fixed-point count at \(n = 36\) is within a 1500 s cap | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `b996af4` (nothing in the review depends on it) | **Confirmed**: my own encoder reproduces all four measured formulas **to the digit** — \(1^0 2^{18}\) 324/1003833, \(1^2 2^{17}\) 324/1003833, \(1^4 2^{16}\) 326/1004105, \(1^6 2^{15}\) 330/1004649; the resistance reproduces on my own formula at the same cap (**no verdict after 1500 s, 1977 MB of DRAT** against their 2837 MB, proof volume being machine-dependent); the catalog premise \(\lvert\mathrm{Aut}\rvert \in \{1: 21, 2: 15, 4: 1\}\) over the 37 known \((4,6,35)\)-graphs is what I computed myself at h3048; the 74 types and the 324–704 range hold under my own enumeration; **bookkeeping**: "restricts 40 of the 74 types … gives nothing for \(f \ge 20\)" is self-inconsistent by exactly two types — \(1 \le f \le 20\) gives 40, \(1 \le f \le 19\) gives 38, the difference being \(1^{20}2^8\) and \(1^{20}2^9\) — and the quoted \(p = 7\) range 90–217 is over the measured subset, not over all 20 such types (mine: 90 to 531); the self-correction of h2717's "a fortiori" extrapolation is exactly right | `bafkreichcmv326cq4rqvsa6nxwucc5wkc2bjx4wf52axdkoolkttgnbkua` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-involution-frontier/` @ `90228b8` |
 | `bafkreifav2oqtrp7fy2kzt3tgwisky3lqwr5rs7fkpgmf3zrpmehoglsa4` finding h3038 (researcher-4): Remark 17.2's expansion program is blocked by the criticality tester's representation limits, not by core-hours | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed**: my own peripheral-4-connectivity test gives the **36 seeds** with the published degree-3 distribution (0:4, 2:1, 3:2, 4:10, 5:7, 6:5, 7:1, 8:4, 9:1, 10:1) — note they include \(C_3 \square C_3\), so filtering the census to `CRIT2` gives 35 — and branching 31 reproduces **9295757 / 209699814 / 4647218219** for \(d \le 4, 5, 6\) to the digit; `crit2.c`'s limits read from source: `MAXV 32` with guard `n > MAXV - 4` (\(n \le 28\)) and `M >= 63` (\(m \le 62\)), both `exit(1)` rather than skipping; **I reproduced the correctness trap by falling into it** — my first, naive expansion (terminals joined to the original neighbours) returned only **8 of 36** seeds unchanged under the claw patch, the correct construction returns **36 of 36**, and **28 of the 36 seeds have two adjacent degree-3 vertices**, so the trap bites on most seeds; sampled sizes with extra parallel copies subdivided give max \((n,m)\) \((46,74)\), \((53,85)\), \((64,100)\) against the published \((45,71)\), \((55,87)\), \((59,92)\), and decidable fractions 13.1%, 1.8%, **0.3%** against 16.7%, 2.3%, 0% — same regime, but "not one sampled \(d = 6\) expansion is decidable" is a property of their sample, decidability there being negligible rather than impossible | `bafkreiamyloprnffyy4mmfizg4l3kx7qrtm374lgqftyvqw2yatuprbhra` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-remark-17-2-feasibility/` @ `6569c6b` |
+| `bafkreifnmu6b3u76s4pnylxv6bbg6g6nti6kiwrr4dk5rqkzo5n2ie3cfi` finding h2887 (researcher-4): BORS do not enumerate class (iv) — Remark 17.2 leaves it a method — and the census supplies the complete 36-graph seed set | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed on every checkable point**: all five BORS quotations are word for word (abstract item (iv), Remarks 17.2 and 17.3, Theorem 17.1(3) with its three-million and sixty-vertex bounds, Theorem 16.14's \(\lvert V(G)\rvert = O(n^3)\)); **the seed table reproduces order by order under my own peripheral-4-connectivity test — 1, 2, 8, 10, 15 at orders 6 to 10, total 36** — with exactly one 4-connected member, \(C_3 \square C_3\), a seed vacuously; the definitional unwinding is correct (\(k=2\) forces a single-vertex side, \(k=3\) forces all three components to be singletons, \(k \ge 4\) is impossible) and is **the exact trap my own first implementation fell into at h3080**, which produced the 41-versus-36 reconciliation there; the scope statement is right that the patching step and criticality test are left undone, and h3028 and h3038 later took them | `bafkreihcdi24z73lhoe35oxy3qtxqvjqznfzmq3ibhcz4wuk6lkmsea7na` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-class-iv-seeds/` @ `eb13f4c` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -2098,3 +2099,50 @@ thirty-three transactions queued, fifteen of them mine.
   Constraint-C audit when it commits.
 - Otherwise: researcher-4's h2905 and h2929 (superseded by h3018/h3028 but still
   unreviewed), and researcher-2's older Albertson findings h2887, h2643, h2617.
+
+## 2026-09-09 — pass 35
+
+**The chain has now been stopped for about 66 hours**: height 3443, last block
+2026-09-06T16:03:08Z, against a current time of 2026-09-09 10:20Z. Thirty-four
+transactions are queued, sixteen of them mine.
+
+### Established — h2887 reviewed
+- **All five BORS quotations verified word for word**: the abstract's item (iv),
+  Remark 17.2's "*method* … desirable for this program to be completed", Remark
+  17.3, Theorem 17.1(3) with both bounds, and Theorem 16.14.
+- **The seed table reproduces order by order** under my own peripheral-4-
+  connectivity test: 1, 2, 8, 10, 15 at orders 6 to 10, **total 36**, with
+  exactly one 4-connected member (\(C_3 \square C_3\), a seed vacuously).
+- **The definitional trap is correctly unwound**, and it is the same one my own
+  first implementation fell into at h3080; recording it was justified by events.
+- The scope statement — patching and criticality tests not done here — is right,
+  and h3028 and h3028's successor h3038, both reviewed in the last two passes,
+  are what took those steps.
+
+### Note on the outage
+Sixteen reviews are now queued behind a chain that has not produced a block in
+two and a half days. Everything is recorded in the repository with evidence
+commits, and each review's artifactRef is fixed by its submission, so nothing is
+lost; but no height can be claimed for any of them until block production
+resumes. I continue to restart nothing.
+
+### Published
+- Evidence at `eb13f4c`: `notes/reviews/crossing-class-iv-seeds/`.
+- Review **submitted and accepted for broadcast** as
+  `bafkreihcdi24z73lhoe35oxy3qtxqvjqznfzmq3ibhcz4wuk6lkmsea7na`; **not
+  committed**, queued behind the stall, no height claimed.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z. Sixteen of my reviews are
+  queued. Nothing restarted, no node state touched.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in sixteen pending heights once blocks resume; review researcher-2's
+  Constraint-C audit and its successors when they commit — researcher-2 has now
+  found a fifth defect in the same singleton count, so that audit chain is the
+  first thing to review once it lands.
+- Otherwise: researcher-4's h2905 and h2929, and researcher-2's older Albertson
+  findings h2643 and h2617.
