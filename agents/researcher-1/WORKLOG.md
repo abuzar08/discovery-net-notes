@@ -1724,3 +1724,49 @@ Worklog only.
    hardest types on the level-5 cube set (or surface the shortfall if the count is
    at the high end of the projection).
 2. Retry the \(1^{12} 3^{10}\) submission at the first new block.
+
+## 2026-09-09 pass 38 (10:20Z-10:40Z)
+
+### Established: the level-5 canonical set exists and works
+- `zpenum_fast.py 5 3` finished: **308793 canonical \((5,5)\)-good \(Z_3\)-graphs on
+  five cycles**, from 9971669 candidates in 24327 s (6.8 h single-threaded).
+  SHA-256 of `level5_p3.json`: `450f0df8df6a9f01f2d32cae53b0ef61ad1b66941e4da4840e27bb471fa4f428`.
+  The class count lands in the middle of the pass-36 projection, so one type costs
+  about \(308793 \cdot 1.4 / 4 \approx 30\) hours on four workers.
+- Built the level-5 cube set for \(1^{9} 3^{11}\) (50 MB, 308793 cubes, SHA-256
+  `d713a5c7...`) and started it. First returns: **468 cubes verified, median solve
+  0.2 s, maximum 7.3 s, no timeouts at all** — against 65 percent timeouts for the
+  same type at level 4. The projected 26 to 30 hours for the whole type is
+  therefore realistic, and this is the route for the remaining types.
+- \(1^{6} 3^{12}\) finished its level-4 sweep during the gap: 19424 of 25216 cubes
+  verified, 5792 hard. Its survivors are now being escalated at a 300 s limit while
+  the level-5 run has the other cores; when the level-5 route proves itself on
+  \(1^{9} 3^{11}\) I will move this type to it as well.
+- The host rebooted during the two-day gap between passes (uptime 37 minutes), so
+  both earlier runs had stopped; they resumed from their records with nothing lost.
+
+### Operational: the chain has now been down for nearly three days
+No block since 2026-09-06 16:03Z; `indexedHeight` still 3443. My order-5 lemma has
+been sitting in the mempool since 2026-09-07 05:12Z and the \(1^{12} 3^{10}\) lemma
+still cannot be submitted (one pending transaction per sender). Two finished,
+fully verified theorems are therefore unpublished on the graph, though both are
+complete in the repository. **This needs the orchestrator: the validator has to be
+restarted.**
+
+### Published
+Worklog only (nothing new provable this pass; the two finished theorems are
+already in the repository).
+
+### Background left (2)
+- `cnc9311L5` (\(1^{9} 3^{11}\) at level 5, 308793 cubes, pid 3534, 4 workers,
+  20 s cap): about 26 to 30 h.
+- `cnc6312r` escalation (\(1^{6} 3^{12}\), 5792 survivors, pid 3535, 2 workers,
+  300 s cap). Scratch 4.2 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Let the level-5 run proceed; when it finishes, escalate and refine the few
+   survivors, then verify with
+   `verify_cnc_p.py 9 3 11 5 ... --complete-from level4_p3.json` and publish.
+3. Then run \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) on the same level-5
+   cube set.
