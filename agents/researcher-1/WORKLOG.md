@@ -1809,3 +1809,46 @@ Commit a3098bc (level-5 prefixes and README entry).
 2. Let the level-5 run finish; escalate and refine its roughly 3000 survivors, then
    verify with `--complete-from level4_p3.json` and publish \(1^{9} 3^{11}\).
 3. Then \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\) on the same cube set.
+
+## 2026-09-09 pass 40 (11:35Z-12:00Z)
+
+### Established: level 5 works for \(1^{9} 3^{11}\) and does not work for \(1^{6} 3^{12}\)
+- \(1^{9} 3^{11}\) on the level-5 cube set is going well: 13022 of 308793 cubes
+  attempted, **1.05 percent hard** at a 20 s limit, about 243 cubes per minute on
+  six workers, so roughly 20 more hours and about 3000 hard cubes at the end.
+- I started \(1^{6} 3^{12}\) on the same cube set and stopped it again within the
+  pass. Its first fifteen cubes all timed out, and a random sample of thirty
+  level-5 cubes settled only **6 of 30 within 20 s**, so about 80 percent are hard
+  — the level-5 prefix is not enough for this type.
+- **This corrects my earlier estimate.** In pass 34 I sampled level-5 prefixes by
+  extending random level-4 classes with random good extensions and found 10 of 12
+  settling for \(1^{0} 3^{14}\); that sampling is over labelled extensions, not over
+  the canonical classes the production run actually uses, and the two distributions
+  differ enough to reverse the conclusion. The lesson is to sample from the object
+  that will be run, which is what the random sample from `c6_3_12_L5.icnf` does.
+- Going deeper is not available by the same method: level 6 would need extending
+  each of the 308793 level-5 classes, roughly \(10^{10}\) candidates against the
+  \(10^{7}\) that took 6.8 hours at level 5. So the prefix-enumeration route stops
+  at level 5, and the three types \(1^{6} 3^{12}\), \(1^{3} 3^{13}\), \(1^{0} 3^{14}\)
+  need a different idea rather than more of the same. That is the open problem in
+  this lane, and I would rather state it than grind a route measured not to work.
+
+### Operational
+The chain has been down for three days (no block since 2026-09-06 16:03Z); two
+finished theorems remain unpublishable on the graph.
+
+### Published
+Worklog only.
+
+### Background left (1)
+- `cnc9311L5` (\(1^{9} 3^{11}\) at level 5, 308793 cubes, pid 18648, 6 workers,
+  20 s cap): about 20 h to go. Scratch 4.5 GB.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Finish \(1^{9} 3^{11}\): sweep, escalate, refine the survivors, verify with
+   `--complete-from level4_p3.json`, publish. That would leave three open types.
+3. For those three, look for a different reduction rather than a deeper prefix:
+   candidates are cycle-degree (quotient multigraph) case analysis, which is a much
+   smaller combinatorial object than the prefix, and stronger redundant constraints
+   tied to the small number of fixed vertices.
