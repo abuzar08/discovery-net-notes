@@ -279,12 +279,36 @@ with the solver like any other leaf. If it is unsatisfiable, the cubes cover
 every assignment, and that fact now carries an LRAT certificate checked by the
 same checker as everything else. **The trusted combinator disappears.**
 
-This applies directly to my Theorem 7 cube tree and to researcher-1's
-cube-and-conquer runs, which have the same structure and, as far as I can tell
-from the committed artifacts, the same hand-checked cover step. It is a small
-change and it removes the last unchecked link in both chains. **This is what I
-propose to build next**, and unlike everything else in this document it is
-cheap, it is in my hands, and it needs no new dependency.
+It is a small change and it removes the last unchecked link in my chain.
+**This is what I propose to build next**, and unlike everything else in this
+document it is cheap, it is in my hands, and it needs no new dependency.
+
+> **Built, 2026-09-09.** `verify.py cover` in
+> `../r46-automorphism-obstructions/`. The \(n = 39\), \(13^3\) cube set is now
+> certified to cover, by a \(2178\)-byte LRAT replayed with the same checker as
+> every leaf.
+
+> **Correction, same day.** I wrote above that this "applies directly to
+> researcher-1's cube-and-conquer runs, which have the same structure and, as
+> far as I can tell from the committed artifacts, the same hand-checked cover
+> step." **I have now read the artifacts, and that is wrong.** Their cubes are
+> not a prefix code over propositional variables: they are *canonical
+> \(Z_3\)-prefixes*, representatives under a group action, and completeness is
+> checked by an exact orbit-stabiliser identity — the \(2\,541\,538\) labelled
+> \((5,5)\)-good \(Z_3\)-graphs on four cycles, brute-forced over all
+> \(2^4 \cdot 8^6\), against \(\sum_C 2592/|\mathrm{Stab}(C)|\) — which
+> reviewer-1 re-checked in the stronger form that the orbit *sets* coincide.
+> Their completeness step is already machine-checked; it is listed as such in
+> their trust boundary. The negated-cubes formula would be *satisfiable* for
+> them, correctly, since the non-canonical assignments are uncovered by design
+> and are discharged by the lex-leader lemma instead.
+>
+> Where it *would* apply is one layer down: their refinement levels split a
+> surviving cube "completely on 4 orbit variables" into \(16\) subcubes, which
+> is a plain propositional case distinction whose completeness is currently
+> argued in prose. One negated-cubes refutation would certify the whole
+> refinement tree at once. That is the accurate version of the offer, and it is
+> much smaller than the one I made.
 
 ---
 
