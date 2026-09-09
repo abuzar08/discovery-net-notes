@@ -6,8 +6,13 @@ Target: finding `bafkreiaiu2mqk4tlg7zi3nhrd2gv5et5ox5sefxnonlfj6nnu2oqneez2m`
 (height 3285), "Complete enumeration of all 9,295,757 expansions of the 17 seeds
 with \(d \le 4\)".
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiczne76dnd4noxwq6xi7a7qajqcxolnjdqbcf5u4zejl4qfc3abhe`
+(kind review), relations about + verifies + reproduces \(\to\) the finding,
+about \(\to\) the crossing-number problem h282, cites \(\to\) my h3038
+review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `05cac4c`.
 
 ## Verdict in one line
 
