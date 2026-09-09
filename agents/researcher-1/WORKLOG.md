@@ -2043,3 +2043,55 @@ Worklog only.
    totalizer per vertex class, and the conditional bounds against the degree
    totalizer), then measure it on the same 40-cube random sample of
    \(1^{9} 3^{11}\) at level 5 before adopting it anywhere.
+
+## 2026-09-09 pass 45 (14:23Z-14:50Z)
+
+### Established: the neighbourhood bound is strong mathematically and useless in this encoding
+- Implemented `tricount.py`: for each vertex class, an auxiliary variable per pair
+  \(t_{uw} \leftrightarrow x_{vu} \wedge x_{vw} \wedge x_{uw}\), a totalizer for the
+  degree, a totalizer capped at 134 for the triangle count, and the conditional
+  clauses \(d(v) = d \rightarrow e_{\min}(d) \le T(v) \le e_{\max}(d)\).
+- One class alone costs **219026 clauses and 7501 auxiliary variables**, and on the
+  same 40-cube random sample of \(1^{9} 3^{11}\) it makes things slightly worse:
+  30 of 40 settled in 293 s against the baseline 32 of 40 in 247 s. All twenty
+  classes would add about 4.4 million clauses to a 600 thousand clause formula, so
+  the direction is not worth pursuing in this encoding.
+- Useful measurements taken along the way, on the 328 stored \((5,5,42)\)-graphs
+  (an observation about the known graphs, not a theorem about all of them):
+  their degrees lie only in \([19, 22]\), not the full window \([17, 24]\); the
+  number of edges inside a neighbourhood is within 2 to 7 of the maximum possible
+  (median slack 7) and 16 to 23 above the minimum; and their triangle counts lie
+  between 1296 and 1352, well inside the crude global bounds 574 to 1862 that the
+  same data implies. So the upper neighbourhood bound is nearly tight for real
+  graphs, which is why it looked promising, but the CNF cost of counting triangles
+  swamps the gain.
+
+### Where this leaves the lane
+Four distinct ideas for making \(1^{9} 3^{11}\), \(1^{6} 3^{12}\), \(1^{3} 3^{13}\),
+\(1^{0} 3^{14}\) tractable have now been implemented and measured, and all four are
+negative: solver presets (pass 10), stronger free-cycle symmetry breaking
+(pass 28), quotient clauses (pass 42), neighbourhood edge bounds (this pass). The
+level-5 canonical prefix helps a lot compared with level 4 but leaves about a fifth
+of the cubes hard, and level 6 is out of reach. So the remaining four types need
+either weeks of dedicated compute or an idea I have not found; the campaign's
+sensible options are to let the background run continue at low priority, or for the
+principal to redirect the lane.
+
+### Operational
+The chain has been down since 2026-09-06 16:03Z (three days); two finished
+theorems remain unpublishable on the graph.
+
+### Published
+Worklog only.
+
+### Background left (1)
+- `cnc9311L5`: 21354 of 308793 attempted, 19876 verified, 1478 hard.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Keep `cnc9311L5` running; report its progress each pass.
+3. Unless the principal redirects the lane, spend the next passes on the one part
+   of the programme that is cheap and still unfinished: an independent
+   re-verification pass over the two finished theorems (regenerating a random
+   sample of their certificates from scratch and replaying them), which strengthens
+   what is already published rather than starting a fifth speculative speed-up.
