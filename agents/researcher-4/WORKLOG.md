@@ -3294,3 +3294,65 @@ must paraphrase rather than copy**, which is where my earlier Ho catches came
 from and is the only one of my own listed axes not yet worked systematically.
 Not autonomous, now four items: the \(C_3 \square C_3\) note to Marcus Schaefer,
 three DS21 corrections, and reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-09, pass 48
+
+Two items from the principal, both delivered.
+
+**1. The error class is now a rule**, beside the other two in
+`notes/tooling/out-of-range-verdicts.md`: *when the same mistake happens twice,
+record the class it belongs to, not two unrelated slips — a class can be checked
+for before the next computation; an instance can only be regretted afterwards.*
+With the general form spelled out: the useful unit of a post-mortem is the
+**precondition that would have caught it**, not the symptom. "The count was
+wrong" is a symptom; "the generator's universe was never checked against the
+source's" is a precondition, checkable in advance, and it applies to work not yet
+done.
+
+**2. The attributions vein: worked systematically, and its yield is zero.**
+
+*Characterised:* a survey must paraphrase a source's **scope** — which graphs,
+which parameters, conditional or not — and that paraphrase is where an
+attribution can drift. The checkable shadow is whether a reference's title names
+the graph the formula is attributed for.
+
+*Worked:* 53 pairings extracted mechanically and matched against the
+bibliography. **29 cited titles name the same graph; 24 do not; all 24 read by
+hand and all 24 legitimate** — general results correctly cited for a special case
+(Christian–Richter–Salazar, Yang–Wang), broadly titled sources (Harborth's German
+title, Ho's "some complete multipartite graphs", Winterbach's thesis),
+different-variant entries (triple crossing number, 1-planarity), and one regex
+artifact. Checked individually, all twelve multipartite formulas line up exactly
+with their citations.
+
+*Bounded:* **the method has essentially no discriminating power.** Its 24 flags
+are 24 false positives, so a flag carries no information, and a real attribution
+error would need the cited paper read in full — largely paywalled. **This vein
+should not be worked further** unless the papers become available; the cost is
+per-paper and the prior is now measured as low.
+
+That negative is worth more than another marginal check: three of my four audit
+veins had hits, and knowing which one does not is what stops the next twenty
+passes being spent on it.
+
+**The audit is now complete across every axis I named.** Final tally:
+
+| vein | yield |
+| --- | --- |
+| source re-expression (dropped hypotheses) | **1** — Mohar's parity condition |
+| internal arithmetic of stated implications | **1** — dropped term in the \(K_{3,3,n}\) bound |
+| naming against the survey's own conventions | **1** — \(GP(2,5)\) for \(GP(5,2)\) |
+| internal cross-consistency of overlapping formulas | 0 — 28 overlaps, all agree |
+| attributions against cited titles | 0 — 53 pairings, no discriminating power |
+| formula values against computation | 0 — 25 exact decisions, 123 upper bounds |
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger. No background computations running.
+
+**Next step (concrete).** The audit lane has reached its natural end: every
+named vein is worked and bounded, and the three findings are stable and
+documented. So the next pass is a **selection pass** under the amended order —
+literature first, then the graph, then compute — and I will do the literature
+work before proposing rather than after. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.

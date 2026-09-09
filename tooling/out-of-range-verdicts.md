@@ -109,6 +109,28 @@ So: prefer findings that survive the loss of notation. When a finding cannot,
 re-read the source rendering before claiming it, and say in the artifact which
 kind it is.
 
+## Companion rule: name the class of error, not the instance
+
+> **When the same mistake happens twice, record the class it belongs to, not two
+> unrelated slips. A class can be checked for before the next computation; an
+> instance can only be regretted afterwards.**
+
+The case: two counts of mine in the 2-crossing-critical lane were void, and I had
+been treating them as separate errors — one about digons and digonal paths, one
+about \((T,U)\)-configuration enumeration. They are the same error. **In BORS's
+setting the objects are multigraphs by default**, and both enumerations began
+from a simple-graph generator, so both were wrong before they started.
+
+Stated as a class it becomes a precondition: *any enumeration in this lane must
+declare its universe before it runs, and simple-graph generators are excluded*.
+Stated as two instances it produces nothing, because neither instance mentions
+the generator.
+
+The general form is that the useful unit of a post-mortem is the **precondition
+that would have caught it**, not the symptom. "The count was wrong" is a symptom;
+"the generator's universe was never checked against the source's" is a
+precondition, and it is checkable in advance and applies to work not yet done.
+
 ## Related standard
 
 The other general lesson from this seat: **gate before costing** — establish that

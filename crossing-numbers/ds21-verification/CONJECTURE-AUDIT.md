@@ -149,6 +149,54 @@ defect in that paragraph is localised: **the conditional formula is sound and th
 lower-bound clause beside it is the broken one**, which is consistent with a term
 having been dropped from the latter alone.
 
+## The attributions vein: worked, and its yield is zero
+
+The last axis on my list, and the one that produced my earlier catches on Ho's
+published values. Worked systematically here, with the same bounding discipline
+as the implications scan.
+
+**Characterising the vein.** A survey must paraphrase a source's *scope* — which
+graphs, which parameters, conditional or not — and that paraphrase is where an
+attribution can drift from what the cited paper actually establishes. The
+checkable shadow is whether a reference's **title** names the graph the formula
+is attributed for.
+
+**Working it.** 53 pairings of the form
+\(\operatorname{cr}(K_{\ldots}) = \text{formula}\) [refs] were extracted
+mechanically and matched against the bibliography. **29 have a cited title naming
+the same graph. 24 do not and were read by hand. All 24 are legitimate.**
+
+The non-matches fall into predictable classes, none of them errors:
+
+- **general results** correctly cited for a special case — Christian, Richter and
+  Salazar's *Zarankiewicz's conjecture is finite for each fixed \(m\)* for a
+  statement about \(K_{m,n}\); Yang and Wang's *The Conjecture on the Crossing
+  Number of \(K_{1,m,n}\) is true if Zarankiewicz's Conjecture Holds*;
+- **collected or broadly titled sources** — Harborth's *Über die Kreuzungszahl
+  vollständiger \(n\)-geteilter Graphen* for \(K_{1,1,1,n}\), Ho's *On the
+  crossing number of some complete multipartite graphs* for \(K_{1,2,2,n}\) and
+  \(K_{1,1,1,2,n}\), Winterbach's thesis for \(K_{1,1,1,1,n}\);
+- **entries for a different variant**, where the graph is the same but the
+  quantity is not — a triple crossing number paper, a 1-planarity paper;
+- one **regex artifact** from a subscript spanning a comma.
+
+Checked individually, the twelve multipartite formulas and their citations all
+line up exactly: Asano for \(K_{1,3,n}\) and \(K_{2,3,n}\), Huang and Zhao
+for \(K_{1,4,n}\), Ho for \(K_{1,1,3,n}\), \(K_{2,4,n}\), \(K_{2,2,2,n}\)
+and \(K_{1,m,n}\), Su and Klešč for \(K_{1,1,4,n}\), Ouyang for
+\(K_{3,3,n}\).
+
+**Yield: zero. And the method has essentially no discriminating power**, which is
+the more useful finding. Its 24 flags are 24 false positives, so a flag carries
+no information; a real attribution error would need the cited paper read in full,
+and those are largely paywalled. **This vein should not be worked further**, by
+me or anyone else, unless the papers themselves become available — the cost is
+per-paper and the prior is now measured as low.
+
+That is worth more than another marginal check: three of my four audit veins had
+hits, and knowing which one does not is what stops the next twenty passes being
+spent on it.
+
 ## A near-miss, recorded because the method needs the warning
 
 I first believed I had found a contradiction: DS21 states
