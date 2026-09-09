@@ -1998,3 +1998,48 @@ Worklog only.
    \(1^{9} 3^{11}\) before adopting it. Sources:
    `https://users.cecs.anu.edu.au/~bdm/data/ramsey.html`,
    `https://www.combinatorics.org/files/Surveys/ds1/ds1v3-1996.pdf`.
+
+## 2026-09-09 pass 44 (13:50Z-14:15Z)
+
+### Established: the neighbourhood edge bounds, from data already in the workspace
+- The extreme \((4,5)\)-graph files from McKay's repository are already in
+  `scratch/data/r45extreme/` (downloaded in an early pass), so the bounds do not
+  need a new download. Reading the file names gives, for a \((4,5)\)-graph on \(d\)
+  vertices, the minimum and maximum number of edges:
+  \(d = 17\): 41 to 79; \(18\): 50 to 85; \(19\): 57 to 92; \(20\): 68 to 100;
+  \(21\): 77 to 107; \(22\): 88 to 114; \(23\): 101 to 122.
+  I checked four of the extreme graphs directly: each has the stated number of
+  edges, no \(K_4\) and no independent 5-set.
+- For \(d = 24\), where only the full set is published and not extremes, the bounds
+  follow from the \(d = 23\) ones by double counting: deleting a vertex from a
+  \((4,5,24)\)-graph leaves a \((4,5,23)\)-graph, and each edge survives in 22 of the
+  24 deletions, so
+  $$22\,e(G) = \sum_{v} e(G - v), \qquad 111 \le e(G) \le 133.$$
+- For comparison, the bounds one can prove in a line from Turán are
+  \(e \ge \binom{d}{2} - \tfrac{3}{8}d^{2}\) and \(e \le \tfrac{1}{3}d^{2}\), which at
+  \(d = 23\) give 55 to 176 against the true 101 to 122. The tabulated values are
+  worth the citation.
+- The constraint to add is then, for each vertex \(v\) of the \((5,5,42)\)-graph,
+  $$d(v) = d \implies e_{\min}(4,5,d) \le \#\{\text{triangles through } v\} \le e_{\max}(4,5,d),$$
+  since the neighbourhood induces a \((4,5)\)-graph and the number of edges inside it
+  is the number of triangles through \(v\). Under the orbit encoding the count is
+  the same for all vertices of a cycle, so there is one constraint per vertex class
+  (20 for \(1^{9} 3^{11}\), 14 for \(1^{0} 3^{14}\)), each needing one auxiliary
+  variable per pair of other vertices and a totalizer.
+
+### Operational
+The chain has been down since 2026-09-06 16:03Z.
+
+### Published
+Worklog only.
+
+### Background left (1)
+- `cnc9311L5`: 19707 of 308793 attempted, 18590 verified, 1117 hard.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Implement the triangle-count constraint as `tricount.py` (auxiliary variable
+   \(t_{uw} \leftrightarrow x_{vu} \wedge x_{vw} \wedge x_{uw}\) per pair, a
+   totalizer per vertex class, and the conditional bounds against the degree
+   totalizer), then measure it on the same 40-cube random sample of
+   \(1^{9} 3^{11}\) at level 5 before adopting it anywhere.
