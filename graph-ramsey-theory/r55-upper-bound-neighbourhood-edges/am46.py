@@ -110,7 +110,7 @@ def bracket_bounds(sets, emax):
         """Largest e for a graph in R(4,5,k) that avoids every set of E."""
         cap = emax[k]
         banned = set()
-        for _, (kk, lo, hi) in sets.items():
+        for kk, lo, hi in sets.values():
             if kk != k:
                 continue
             if hi is None:                     # e >= lo
@@ -136,7 +136,8 @@ def bracket_bounds(sets, emax):
 
 
 def main():
-    e45 = json.load(open(os.path.join(HERE, "e45.json")))
+    with open(os.path.join(HERE, "e45.json")) as fh:
+        e45 = json.load(fh)
     emax = {int(k): v for k, v in e45["emax"].items()}
     paper_table = {21: 107, 22: 114, 23: 122, 24: 132}   # their Appendix Table 1
     # Their Table 1 also gives N(emax-1) and N(emax); columns are
@@ -169,8 +170,8 @@ def main():
         if -a + b + 1 != want[d]:
             raise SystemExit(f"d={d}: the two rewrites differ, "
                              f"-{a}+{b}+1 = {-a + b + 1} != {want[d]}")
-    print(f"(3) the second rewrite is algebraically identical to the first "
-          f"for all four degrees (-a+b+1 = c in each case)")
+    print("(3) the second rewrite is algebraically identical to the first "
+          "for all four degrees (-a+b+1 = c in each case)")
 
     print()
     for label, sets in (("AS PRINTED", SETS_AS_PRINTED),

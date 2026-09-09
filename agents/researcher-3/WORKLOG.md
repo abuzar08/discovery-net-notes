@@ -9,6 +9,116 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 34 (refinement-layer certificate; and an erratum in \(R(5,5) \le 46\))
+
+### Chain: wedged at 3443. Nothing published there.
+
+Both tasks principal-1 set, in the order set.
+
+### 1. The refinement-split layer, certified
+`verify.py refine PARENTS CHILDREN` turns a whole refinement layer into **one**
+refutation. Give each parent \(P_i\) a selector \(s_i\); emit
+\((\overline{s_i} \vee \ell)\) for \(\ell \in P_i\), the clause
+\((s_1 \vee \cdots \vee s_m)\), and one negated-cube clause per child. A
+model is exactly an assignment inside a parent and inside no child, so
+unsatisfiability **is** the covering claim.
+
+**One refutation, not one per parent**, and that is the design point: checking
+parents separately needs to know which child belongs to which parent, which
+means trusting the run's own bookkeeping. This formulation never mentions the
+relation, so a child dropped, duplicated, or re-attributed all surface as a
+model.
+
+Demonstrated on **my own published layers**, read off the committed manifest:
+
+| layer | parents | children | verdict |
+|---|---|---|---|
+| \(10 \to 14\) | \(483\) | \(7728 = 483 \times 16\) | **VERIFIED**, \(2\,443\,087\) B of LRAT |
+| \(14 \to 18\) | \(152\) | \(2073\) | **INCOMPLETE**, witness |
+| \(18 \to 22\) | \(23\) | \(237\) | **INCOMPLETE**, witness |
+
+\(10 \to 14\) is a complete \(16\)-way split on four variables — exactly the
+operation in question. The other two are incomplete because that run stopped,
+so they are **real negatives, not synthetic ones**. On \(14 \to 18\) the
+witness localises the gap to **one missing child out of \(2432\)**: parent
+`01111001100011` has \(15\) of its \(16\) children and is missing `0001`.
+
+`covertest.py` adds \(22\) synthetic layers with brute-force ground truth and
+deliberately broken negatives — a child dropped, one per parent dropped, a
+child re-attributed, only one parent refined, no refinement at all — plus the
+harmless cases that must still pass. Offered to researcher-1 **by citation**;
+none of its instances were run.
+
+### 2. The literature-first scan, and what survived
+Ran the scan in the amended order. Of the four frontiers I have been offered
+over this lane, three are closed on evidence already recorded: the
+\((5,5,43)\) lower bound (AlphaEvolve moved nine bounds and **nothing in row
+5**; circulants excluded at \(42\)–\(45\) and prior art), the \(2\)-group
+structure at \(n = 42\) (researcher-1's lane), and new structural constraints
+at \(n = 44, 45\) (my nine measured negatives).
+
+**What survived is the fourth: certified reproduction of the finite steps of
+the current best upper bound.** I read Angeltveit–McKay, \(R(5,5) \le 46\)
+(arXiv:2409.15709v2; JGT 2026) — literature first, before any compute. Its
+verification is *"approximately 15 years of CPU time"* for the census plus
+*"another 15"* for \(\approx 2 \times 10^{12}\) gluings, then *"about 50
+years of additional CPU time"* to replicate with independent programs. Eighty
+CPU-years, two implementations, **no certificates**. Sections 5–7 are out of
+range for anyone.
+
+**Section 4 is the exception**: no catalogue, no search — an identity, a degree
+window, four constants, four regrouped constants, four inequalities. Finite,
+and checkable in seconds. `am46.py` does it.
+
+### And Section 4 does not go through as printed
+- **(0)** \(E(4,5,m)\) for \(m = 21..24\) from my `e45.json`:
+  \(107, 114, 122, 132\) — agrees with their Appendix Table 1.
+- **(1)** the edge equation \(\operatorname{excess}(F) = 0\) verified as an
+  identity on \(40\) random graphs in exact arithmetic.
+- **(2)** the constants \(24, 0, -22, -42\) **re-derived** from
+  \(-\tfrac12 d(n{-}2d)\) at \(n = 46\), not copied — they match.
+- **(3)** the second regrouping is algebraically identical to the first
+  (\(-a + b + 1 = c\) on each line).
+- **(4)** *"each vertex contributes at least 1"* — **fails.**
+
+\(C_3\) is printed as \(\mathcal{R}(4,5,21, e = 113)\), which is **empty**,
+since \(E(4,5,21) = 107 < 113\) — by their own Table 1. Then \(E\) holds
+nothing at \(22\) vertices but \(C_2\) (\(e = 114\)), so degrees \(23\)
+and \(22\) each contribute \(0\) instead of \(1\) — one failure on each
+side of the identity — and \(\operatorname{excess}(F) \ge 46\) does not
+follow. Reading \(C_3 = \mathcal{R}(4,5,22, e = 113)\) repairs it exactly.
+
+**Forced three ways.** The letters \(A,B,C,D\) mean \(24,23,22,21\) vertices
+everywhere else; the subscript is the deficiency, and \(E_3 = B_3 \cup C_3
+\cup D_3\) has \(119 = 118{+}1\) and \(107 = 106{+}1\), so \(C_3\) must
+be \(112{+}1 = 113\) at \(22\) vertices; and the argument needs precisely
+that set. **Not vacuous**: the needed set has \(30\,976\) members by their
+Table 1; the printed one has none.
+
+**Scope, stated narrowly.** An erratum in one of seven set definitions, **not a
+gap in the theorem**. The intended set is unambiguous and the corrected section
+is correct. I make no claim about Sections 5–7 or about \(R(5,5) \le 46\),
+which I have not checked and which this does not put in doubt. I cannot tell
+from here whether the JGT version carries the same typo.
+
+### For the human queue
+A fourth item: an erratum note to Vigleik Angeltveit and Brendan McKay.
+`AM46-SECTION4.md` is written so it can be sent as-is.
+
+### Published
+- GitHub `c193073` (refine + covertest layers), `043cbd7` (`am46.py`,
+  `AM46-SECTION4.md`). Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(2.9\) GB plus a \(300\) KB literature cache.
+
+### Next step
+The seat is now what principal-1 said it could legitimately be: **a
+certification seat within \(R(5,5)\)**, and it produced on its first pass.
+The next finite step in the same paper is Section 3 and Theorem 5.4's
+combinatorial reduction; Sections 6–7 are the trillion-gluing computations and
+are out of range for certification by anyone.
+
 ## 2026-09-09 — pass 33 (equivalence demonstrated; the three items recorded)
 
 ### Chain: wedged at 3443, ~66 hours per principal-1. Nothing published there.
