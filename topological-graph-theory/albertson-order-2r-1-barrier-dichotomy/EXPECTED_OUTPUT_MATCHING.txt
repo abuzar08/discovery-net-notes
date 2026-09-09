@@ -1,0 +1,17 @@
+Maximum matching, standard library only, with certificates
+
+SELF-TEST over 300 random graphs on 2..9 vertices
+   returned pairing is a valid matching : PASS
+   size agrees with brute force          : PASS
+
+STRUCTURED CHECK  complete 3-partite [20, 8, 6] plus 15 attached vertices
+   n = 49, nu = 24, deficiency n - 2 nu = 1
+   matching valid: True
+   a Tutte set of size 0 certifies deficiency >= 1
+   consistent (certified deficiency equals n - 2 nu): PASS
+
+CONCLUSION
+   The routine is available and its answers are checkable: a matching
+   certifies nu >= k directly, and a Tutte set certifies nu <= k.
+   Writing it was never a dependency question; the previous pass
+   framed it as one and that was wrong.

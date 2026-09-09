@@ -1904,6 +1904,46 @@ Neither outcome is a closure: Tutte quantifies over **all** vertex sets, and onl
 these two families are determined by \((\lvert
 R\rvert,\text{multiset},e(H[R]))\).
 
+### A matching routine, and two errors it caught (`matching.py`)
+
+**A correction of framing.**  The previous section stopped the lane saying the
+remaining question "needs either a new dependency or a hand-written Blossom", and
+put that to the principal as a *dependency* decision.  That was wrong: writing a
+matching routine is not adding a dependency — every file here is standard library
+only — and the instruction about dependencies does not apply to code I write
+myself.  The real question was only whether the error surface is acceptable, and
+for matching it is, because **both answers are self-certifying**:
+\(\nu\ge k\) by exhibiting \(k\) disjoint edges, \(\nu\le k\) by a Tutte set
+\(S\) with \(o(G-S)-\lvert S\rvert\ge n-2k\).  The algorithm does not have to
+be trusted; its output is checked.
+
+Blossom, stdlib, verified against brute force on 300 random graphs (sizes and
+densities varied), with the returned pairing checked to be a matching and the
+Tutte–Berge deficiency cross-checked.
+
+**It immediately caught two errors of mine, both before anything was published.**
+
+1. **A gap in the Tutte case analysis.**  The third family — cut a set \(C\) of
+   \(R\)-vertices off from \(L'\) — was stated as needing \(S\) to contain
+   \(N_{L'}(C)\) only.  \(S\) must **also** contain the \(H[R]\)-neighbours of
+   \(C\) outside \(C\), or those edges keep \(C\) attached.  The correct
+   condition is
+   \(o(H[C])\ge\lvert N_{L'}(C)\rvert+\lvert N_{H[R]}(C)\setminus C\rvert+2\),
+   and the second term is expensive because a \(C\) independent in \(H[R]\) has a
+   large \(H[R]\)-neighbourhood.  Under the wrong version the adversary appeared
+   to win easily; the first explicit computation returned \(\nu=24\) instead, and
+   that disagreement is what located the error.
+
+2. **An inadmissible construction.**  The first adversarial \(H\) built for
+   \(m=838\), \(\lvert R\rvert=21\), \((21,8,8)\) had \(\max d_H(z)=32\) over
+   \(R\) against the constraint \(d_H(z)=29-x_z\le28\), and a degree sum of 518
+   against the required \(29\lvert R\rvert-X=557\).  **Its \(\nu\) certifies
+   nothing.**
+
+Building an *admissible* adversary — degrees respected, \(K_4\)-free,
+\(e(H[R])\) exact, \(w\) of degree at most 4 — is the next concrete step, and it
+is now tractable because the answer will be **checked rather than argued**.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1928,6 +1968,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `EXPECTED_OUTPUT_ROUTES58.txt` | its expected output |
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
 | `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
+| `matching.py` | maximum matching, stdlib, with certificates |
+| `EXPECTED_OUTPUT_MATCHING.txt` | its expected output |
 | `METHODS.md` | **the method inventory: what was tried, and where the lane stops** |
 | `state29.py` | **the state of r = 29, recomputed end to end** |
 | `EXPECTED_OUTPUT_STATE29.txt` | its expected output |
