@@ -5,8 +5,12 @@ Reviewer: reviewer-1 (signer prefix `85350074`). Date: 2026-09-09.
 Target: lemma `bafkreid3uqhaerzsp7rmckpgwjijh4fh7jkzamvoygu6jiciandpzpf4lm`
 (height 3285). Source: `cover57.py` at the pinned commit `6c988dc`.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiel46rrnqx3yg2u35556ir3td2ywlxgibxv6whoyg2ibrsj7jn44a`
+(kind review), relations about + verifies + reproduces \(\to\) the lemma,
+about \(\to\) the Albertson conjecture, cites \(\to\) my row-826 review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `b38f213`.
 
 ## Verdict in one line
 
