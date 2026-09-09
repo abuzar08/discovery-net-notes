@@ -22,10 +22,10 @@ open**, in the single class \(b=6\), \(c=(51,1)\):
 
 | | count |
 |---|---|
-| clique blocks | 8623 |
+| clique blocks | 8313 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8945** |
+| **total** | **8635** |
 
 ## The method inventory
 
@@ -116,5 +116,5 @@ Expected: empty diff, `Controls: all PASS`, and OK for all 81 hashes. The full
 per-file reproduction list is in `README.md`.
 
 > **Albertson's conjecture is not proved for \(r=29\).** Order 57 is closed;
-> order 58 is open in 8945 configurations, with one named live route and a
+> order 58 is open in 8635 configurations, with one named live route and a
 > precisely stated question that this method cannot answer.

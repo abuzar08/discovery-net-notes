@@ -1542,10 +1542,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 8623 |
+| clique blocks | 8313 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8945** |
+| **total** | **8635** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -1944,6 +1944,46 @@ Building an *admissible* adversary — degrees respected, \(K_4\)-free,
 \(e(H[R])\) exact, \(w\) of degree at most 4 — is the next concrete step, and it
 is now tractable because the answer will be **checked rather than argued**.
 
+### The singleton \(w\) sharpens the Turán cap on \(H[R]\) (`wturan58.py`)
+
+**Found by failing to build something.**  The plan was to construct an
+*admissible* adversarial \(H\) for one configuration in the 2116 —
+\(m=838\), \(\lvert R\rvert=21\), \((21,8,8)\), \(e(H[R])=142\) — and compute
+\(\nu(H-T_1-T_2-T_3)\) with the certifying matching routine.  The construction
+could not be completed, and the reason is a theorem.
+
+The class has a singleton component \(\{w\}\) with \(N_H(w)\subseteq B\) and at
+most two neighbours in each of the two disjoint triangles, so \(d_H(w)\le b-2=4\)
+and \(x_w=29-d_H(w)\ge25\) puts \(w\) in \(R\).  Hence \(d_{H[R]}(w)\le4\) and
+
+$$e(H[R])=e(H[R]-w)+d_{H[R]}(w)\;\le\;e(H[R]-w)+4 .$$
+
+\(H\) is \(K_4\)-free, so \(H[R]-w\) is \(K_4\)-free on \(\lvert R\rvert-1\)
+vertices and Turán caps it exactly:
+
+$$e(H[R])\;\le\;\left\lfloor\frac{(\lvert R\rvert-1)^2}{3}\right\rfloor+4 .$$
+
+| \(\lvert R\rvert\) | 11 | 16 | 21 | 26 | 32 |
+|---|---|---|---|---|---|
+| old \(\lfloor \lvert R\rvert^2/3\rfloor\) | 40 | 85 | 147 | 225 | 341 |
+| new | 37 | 79 | 137 | 212 | 324 |
+| gain | 3 | 6 | 10 | 13 | 17 |
+
+At \(\lvert R\rvert=21\) the configuration asks for 142; deleting \(w\) leaves
+138 edges on 20 vertices against a \(K_4\)-free maximum of 133, so \(H[R]-w\)
+contains a \(K_4\) and so does \(H\).  The configuration is impossible — which is
+exactly why no adversary for it could be built.
+
+**Effect:** removes **310** of the 8623 clique-block survivors.  The 307
+isolated-vertex and 15 odd-cycle configurations already satisfy it.  Order 58
+falls from 8945 to **8635**.  Order 57 is untouched — \(w\) is a feature of the
+order-58 class only.
+
+This did not come from sharpening an argument.  It came from trying to exhibit an
+object and failing, which in this lane has been the more reliable direction: the
+nine defects before it were all found by re-deriving arguments, three of them
+only after publication.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1968,6 +2008,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `EXPECTED_OUTPUT_ROUTES58.txt` | its expected output |
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
 | `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
+| `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
+| `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
 | `matching.py` | maximum matching, stdlib, with certificates |
 | `EXPECTED_OUTPUT_MATCHING.txt` | its expected output |
 | `METHODS.md` | **the method inventory: what was tried, and where the lane stops** |

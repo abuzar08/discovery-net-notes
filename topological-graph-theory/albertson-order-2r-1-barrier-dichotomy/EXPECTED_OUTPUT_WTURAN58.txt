@@ -1,0 +1,33 @@
+The singleton w sharpens the Turan cap on H[R], at r = 29
+Z(29) = 8281;  d_H(w) <= b - 2 = 4 puts w in R with small H[R]-degree
+
+PART 1   the sharpened cap against the old one
+   |R|    old floor(|R|^2/3)    new floor((|R|-1)^2/3)+4    gain
+    11                 40                         37        3
+    16                 85                         79        6
+    21                147                        137       10
+    26                225                        212       13
+    32                341                        324       17
+
+   The configuration that exposed it: |R| = 21 with e(H[R]) = 142.
+   Deleting w leaves 138 edges on 20 vertices against a K_4-free
+   maximum of 133, so H[R] - w contains a K_4 and so does H.
+
+PART 2   what the sharpened cap removes
+   row (58,838):  2205 clique-block survivors,  2094 within the sharper cap
+   row (58,839):  2903 clique-block survivors,  2803 within the sharper cap
+   row (58,840):  3515 clique-block survivors,  3416 within the sharper cap
+   clique-block: 8623 -> 8313  (removed 310)
+   isolated-vertex: 307 -> 307  (removed 0)
+
+CONCLUSION
+   e(H[R]) <= floor((|R|-1)^2/3) + 4, because deleting w from H[R]
+   leaves a K_4-free graph on |R| - 1 vertices and w carries at most
+   four edges.  Strictly stronger than floor(|R|^2/3) at every |R| in
+   the range, by 3 at |R| = 11 rising to 17 at |R| = 32.
+
+   Order 58 at r = 29: 8313 + 15 + 307 = 8635 configurations, against
+   8945 before.  Order 57 is untouched -- w is a feature of the
+   order-58 class only.
+
+   r = 29 is NOT proved.

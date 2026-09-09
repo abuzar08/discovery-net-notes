@@ -51,6 +51,7 @@ This table is the thing whose absence produced four defects in five passes.
   (S)  d_H(z) = (n-1-28) - x_z       exact               all
   (K)  H is K_4-free, alpha(G) <= 3  branch hypothesis   all of order 58
   (X)  x_w >= r + 2 - b = 25         needs (K)           all of order 58
+  (W)  e(H[R]) <= floor((|R|-1)^2/3)+4  needs (K) and (X)  all of order 58
   (TT) no two disjoint triangles T   branch hypothesis   all of order 58
        with H - T_1 - T_2 having a perfect matching
 
@@ -137,7 +138,8 @@ def part3_order58():
             NL = N58 - RSZ
             d0 = DEG - RSZ
             base = m - DEG * RSZ - X
-            cap = T.turan_k4free(RSZ)
+            cap = min(T.turan_k4free(RSZ),
+                      (RSZ - 1) * (RSZ - 1) // 3 + 4)   # w sharpens Turan
             for mult, eL in AC.multisets_audited(NL, max(base, 0),
                                                  base + RSZ * (RSZ - 1) // 2,
                                                  d0, r):
