@@ -1,0 +1,24 @@
+sum of bytes over all leaves      : 30749579417 = 30.75 GB / 28.64 GiB
+sum over distinct sha256 (footprint): 8844087529 = 8.84 GB / 8.24 GiB
+
+  groups with common prefix length  1, leaf depths (14,), complete subtree False : 20
+  groups with common prefix length  1, leaf depths (18,), complete subtree False : 19
+  groups with common prefix length  2, leaf depths (10,), complete subtree True : 1
+  groups with common prefix length  2, leaf depths (14,), complete subtree False : 4
+  groups with common prefix length  2, leaf depths (18,), complete subtree False : 13
+  groups with common prefix length  3, leaf depths (10,), complete subtree False : 5
+  groups with common prefix length  3, leaf depths (14,), complete subtree False : 12
+  groups with common prefix length  3, leaf depths (18,), complete subtree False : 13
+  groups with common prefix length  4, leaf depths (10,), complete subtree False : 2
+  groups with common prefix length  4, leaf depths (14,), complete subtree False : 23
+  groups with common prefix length  4, leaf depths (18,), complete subtree False : 12
+  groups with common prefix length  5, leaf depths (10,), complete subtree False : 2
+  groups with common prefix length  5, leaf depths (10,), complete subtree True : 1
+  groups with common prefix length  6, leaf depths (10,), complete subtree False : 2
+
+groups that are exactly a complete subtree below one node: 58
+groups that are not: 216
+  depth 10: 541 leaves, 51 distinct hashes, 23 distinct byte counts
+  depth 14: 7576 leaves, 174 distinct hashes, 49 distinct byte counts
+  depth 18: 2050 leaves, 319 distinct hashes, 216 distinct byte counts
+  depth 22: 237 leaves, 54 distinct hashes, 23 distinct byte counts

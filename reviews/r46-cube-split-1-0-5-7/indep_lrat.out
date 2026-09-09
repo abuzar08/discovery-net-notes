@@ -1,0 +1,5 @@
+line 2 id: 335017 first tokens: ['335017', '0', '334984', '334988', '334478', '0']
+lemma literals: [] | antecedent count: 3
+cube-unit antecedents used: [334984, 334988]
+max antecedent id: 334988 min: 334478
+deletion line deletes 334992 clause ids; includes unit ids: [334982, 334983, 334985, 334986, 334987, 334989, 334990, 334991, 334992, 334993, 334994, 334995]

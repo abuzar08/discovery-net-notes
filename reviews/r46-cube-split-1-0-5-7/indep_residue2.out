@@ -1,0 +1,6 @@
+a further 30 of the 355 published depth-18 survivors, cap 150 s:
+   closed: 14 of 30
+   solve times of the closures: min 30.9 s, median 60.4 s, max 84.4 s
+   closures needing more than 30 s: 14
+
+[exited with code 0]

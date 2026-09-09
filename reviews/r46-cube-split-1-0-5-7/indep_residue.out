@@ -1,0 +1,7 @@
+355 published depth-18 survivors; my sample of 12
+   cap  30 s: 1 of 12 closed ['011000011010110001']
+   cap 150 s: 9 of 12 closed ['001111011111100001', '011000011010110001', '001111110000111101', '010000010100110001', '011010010000110101', '010000010100111001', '001111110100111001', '011100010000110001', '011010011100100001']
+   splitting three of them four levels deeper (16 children each), cap 30 s:
+      001111011111100001: 16 of 16 children closed, slowest 14.4 s
+      011000011010110001: 16 of 16 children closed, slowest 5.0 s
+      001111110000111101: 16 of 16 children closed, slowest 11.0 s

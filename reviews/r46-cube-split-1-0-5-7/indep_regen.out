@@ -1,0 +1,7 @@
+base clauses 334981 vars 221
+01000010000000 cadical rc 20 in 0.1s
+   drat-trim VERIFIED True lrat bytes 2233882 sha a83bc61ee731d674
+01000010000001 cadical rc 20 in 0.1s
+   drat-trim VERIFIED True lrat bytes 2233882 sha a83bc61ee731d674
+01110101110010 cadical 5.2s rc20, drat-trim 8.5s VERIFIED True, bytes 29222348 (published 29222348), sha cfdcd82664b5d701 (published cfdcd82664b5d701) -> MATCH
+0111011111 cadical 0.1s rc20, drat-trim 0.3s VERIFIED True, bytes 2233854 (published 2233854), sha c53ff9ec9028b86e (published c53ff9ec9028b86e) -> MATCH

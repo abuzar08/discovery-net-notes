@@ -1,0 +1,10 @@
+residual file: 472 entries, depths {17: 2, 18: 355, 21: 16, 22: 99}
+  its Kraft weight = 5875/4194304 = 5875/2^22 (published open fraction 5875/4194304)
+  residual cubes that are inside a refuted leaf (should be 0): 0
+  refuted + open = 1 (must be exactly 1): True
+
+level bookkeeping implied by the published table:
+  541 refuted + 483 survivors = 1024 (2^10 = 1024)
+  483*16 = 7728 = 7576 refuted + 152 survivors = 7728
+  152*16 = 2432 = 2050 refuted + 382 survivors = 2432
+  382*16 = 6112 = 237 refuted + 5875 open = 6112

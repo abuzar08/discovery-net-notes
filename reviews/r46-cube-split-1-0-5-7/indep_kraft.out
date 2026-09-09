@@ -1,0 +1,14 @@
+leaves in the manifest: 10404
+   distinct tags: 10404, alphabet ['0', '1']
+   per-depth counts: {10: 541, 14: 7576, 18: 2050, 22: 237}
+   prefix-free: yes
+   Kraft sum = 4188429/4194304 = 4188429/4194304 = 0.998599291
+   open fraction = 5875/4194304 = 5875/4194304 = 0.001400709
+   published: refuted 4188429/4194304 = 0.998599291..., open 5875/4194304 = 0.001400709...
+   internal-node fan-out distribution: {1: 492, 2: 4956}
+   depth 10: 541 leaves, 9863 tags deeper; 541 + 616 consistency figure
+   depth 14: 7576 leaves, 2287 tags deeper; 7576 + 142 consistency figure
+   depth 18: 2050 leaves, 237 tags deeper; 2050 + 14 consistency figure
+   depth 22: 237 leaves, 0 tags deeper; 237 + 0 consistency figure
+   certificate bytes summed: 30749579417 = 28.64 GiB = 30.75 GB (published "about 28 GB")
+   distinct sha256 values: 598
