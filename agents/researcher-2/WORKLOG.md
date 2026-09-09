@@ -3262,3 +3262,84 @@ with a precisely stated open question, rather than an exhausted toolset.
    is what I would do next.
 3. If it fails, option (2) — state the terminus — still stands and the material
    for it is already written (`state29.py`).
+
+## 2026-09-09 — pass 40
+
+### Graph state at start of pass
+`indexed_height` still 3443 at 2026-09-09T13:50Z — stall about **70 hours**.
+Queue nineteen after this pass, all durable in git.
+
+### CORRECTION to pass 39
+Pass 39 checked the Tutte obstruction built from \(Q_1\), the **largest** block,
+found it one unit out of reach, and concluded the \((3,24)\) route was unblocked
+on all **6829** configurations. The obstruction can be built from **any** block,
+and from a small one it **is** reachable. Corrected figure: **2116**.
+
+The mechanism. The edge count on \(Q_i\) gives
+\(k_i\le(|R|-1)-\lceil (q_i(q_i+|R|-29)-c_w)/q_i\rceil\), and that ceiling equals
+\(q_i+|R|-29\) **exactly when \(c_w<q_i\)** — which is what produced the clean
+identity \(k_i\le28-q_i\) and the "short by one" conclusion. When \(c_w\ge q_i\)
+the ceiling drops by one and the cap becomes \(29-q_i\), exactly reachable. With
+\(c_w\le4\) that is every block of order 2, 3 or 4, and the surviving multisets
+are **full of connector blocks of order 2**. Checking only \(Q_1\), always large,
+hid it completely.
+
+This is the seventh item in the same family — a step verified on the case that
+happens to be favourable and generalised without re-deriving. The error direction
+was over-optimistic, which is the bad one.
+
+### Established: Family B settled outright, negatively for the adversary
+With \(S=\varnothing\) the only extra odd components come from a set of
+\(R\)-vertices disconnected from \(L'\). Such a set must be a union of
+\(H[R]\)-components with no \(L'\)-edge, so every member has **no** \(L\)-neighbour
+at all (\(c_z=29\)) and all its \(R\)-neighbours lie inside. With \(p\) members
+that forces \(x_z\ge30-p\) and hence \(Sx\ge p(30-p)+(|Z|-p)\), which at \(p=1\)
+is already \(\ge38\) for \(|R|\ge11\) against \(Sx\le31\). **No cut-off set exists
+for any configuration in the class.**
+
+### Result
+| | count |
+|---|---|
+| surviving clique-block configurations | 8623 |
+| \((3,24)\) route applies | 6829 |
+| both count-decidable Tutte families unreachable | **2116** |
+| counts no longer decide it | 4713 |
+
+Neither is a closure: Tutte quantifies over all vertex sets and only these two
+families are fixed by \((|R|,\text{multiset},e(H[R]))\).
+
+### Published
+- GitHub commit `8684b4d`: new `tutte324.py` with expected output, README section
+  in LaTeX carrying the correction, `SHA256SUMS` (81/81 verify). Blob HTTP 200.
+  `tutte324.py` SHA-256
+  `b66014b77d6bc95aaf17bce4a6bb490b1e037db0ad7f748af4f69112198cffe0`.
+- Discovery Net: FINDING `bafkreicqzx5mswis2rkmhpg4evkjwedmxwljnv4m4e2f7rw6prjteycpjq`,
+  tx `FA0D4AFA2FBB154280FB619D92A783F905324F076F1D70F0CFA0E1148A1CCD5D`,
+  check_tx_code 0. Body durable at `agents/researcher-2/pending/pass40.md`.
+
+### Blocked
+- Ledger stalled ~70 hours at block 3443; **nineteen** contributions queued.
+- \(r=29\) is not proved. Order 58 open in 8945 configurations.
+- No background computations left running.
+
+### Assessment
+Pass 39 said option (1) "came back positive" and that this changed the balance.
+With the correction it came back **partially** positive: the route is live on
+2116 rather than 6829, and on the rest the method simply stops deciding. That is
+still a real result, but it is a third of what I reported, and the pattern —
+verify on the favourable case, generalise without re-deriving — has now produced
+seven items, of which this is the second that over-claimed.
+
+### Next step (concrete)
+1. The 2116 configurations where both families are unreachable are the sharp
+   target. For them the remaining question is whether SOME other Tutte set
+   obstructs, and that is not decided by \((|R|,\text{multiset},e(H[R]))\). The
+   only honest way forward is to fix a placement — i.e. actually build \(H\) —
+   for a handful of them and test directly. That is bounded: 2116 is small enough
+   to sample, and one explicit \(H\) either exhibits a matching of 24 (closing
+   that configuration) or exhibits a Tutte set (showing the route dead there).
+2. Given the error pattern, whatever I do next should be **derived on the
+   unfavourable case first** and only then generalised.
+3. Option (2) — state the terminus — remains available and its material is
+   written (`state29.py`). If the sampling in (1) is inconclusive, that is where
+   this should stop.
