@@ -3534,3 +3534,77 @@ first, then the graph, then compute — with the literature work done before
 proposing. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
 Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
 McKay.
+
+## 2026-09-09, pass 52
+
+**1. The principal's three record items, delivered** (commit `dda35e5`).
+`RECORD.md` now states plainly that the stopping rule was **declared before the
+data and fired on measurement** — the rate crossed the threshold and the run was
+rescoped rather than continued. The smooth-decay observation is its own section,
+framed as the principal asked: **where *not* to look.** Failures track edge count
+uniformly and do not concentrate at any family, parity pattern, balance ratio or
+part count, which is the argument that the negative is about search difficulty
+rather than the conjecture — and it tells the next person that a counterexample,
+if one exists, is not among small multipartite graphs of unusual shape. The
+parity gating is now the worked example in the tooling note, with its
+generalisable form: **when a lossy source leaves two readings, do not pick the
+plausible one — construct the test the wrong reading would fail, and run it
+against something the source did not produce.**
+
+I also reconciled an inconsistency I had left: the README gave the informative
+range as \(|V| \le 14\), the record as \(|E| \le 45\). Edges are the real
+limiting variable; vertices were a proxy within a fixed part count. Marked as
+superseded rather than silently rewritten.
+
+**2. New lane selected, literature first**:
+`notes/crossing-numbers/four-connected-hamiltonicity/`.
+
+> **DS21 open question: if \(G\) is 4-connected with \(\operatorname{cr}(G) \le 3\),
+> is \(G\) Hamiltonian?**
+
+Ozeki and Zamfirescu (SIAM J. Discrete Math. 32 (2018) 2783–2794) prove it for
+\(\operatorname{cr} \le 2\) and construct 4-connected non-Hamiltonian graphs with
+\(\operatorname{cr} \ge 6\); **\(\operatorname{cr} = 3,4,5\) are open** and DS21's
+July 2026 edition still lists the question as open. It generalises Tutte's
+theorem on 4-connected planar graphs.
+
+**Why it beats the alternatives.** It is **refutable by a single explicit graph**
+that is its own certificate — 4-connectivity, non-Hamiltonicity and a 3-crossing
+drawing are each checkable without my code. \(\operatorname{cr} = 3\) is inside
+my exact decider's comfortable range, unlike the \(\operatorname{cr} = 8\)
+targets that closed two earlier lanes. And Ozeki–Zamfirescu give a **free half
+test**: every 4-connected non-Hamiltonian graph already has
+\(\operatorname{cr} \ge 3\), so one call to "is \(\operatorname{cr} \le 3\)?"
+is decisive.
+
+**A target I rejected on the gate, worth recording.** Harary–Kainen–Schwenk,
+\(\operatorname{cr}(C_m \square C_n) = n(m-2)\), first open at \(m = 8\), looked
+attractive — but DS21 notes straight-line drawings already achieve \(n(m-2)\), so
+the upper bound is known and my one-sided instrument could only ever reproduce
+it. **Zero information before any compute was spent.**
+
+**Feasibility, gated.** Chvátal–Erdős prunes hard (4-connected and
+non-Hamiltonian forces independence number \(\ge 5\)), and Euler plus minimum
+degree confine the search to \(2n \le m \le 3n-3\). Candidate counts:
+**705,929** at \(n=10\), **66,634,446** at \(n=11\).
+
+**First results.** 4-connected non-Hamiltonian graphs **do** exist at \(n = 10\).
+On the first eight, \(\operatorname{cr} \le 3\) is **false** for all, with
+heuristic upper bounds 8, 9, 10 — far from 3 and consistent with
+Ozeki–Zamfirescu's \(\operatorname{cr} \ge 6\) constructions.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The complete \(n=10\)
+census (`census10.sh`, log `scratch/census10.log`), expected within the hour; and
+the \(\operatorname{cr} \le 3\) test on the first survivors
+(`scratch/crtest.log`).
+
+**Next step (concrete).** Read the census, run \(\operatorname{cr} \le 3\) on
+every survivor, and publish: a counterexample settles a question open since 2018,
+an exhaustive negative at \(n=10\) is the first census of the region. Then decide
+on \(n=11\), which needs a C filter at 67 million candidates — and I will price
+it in core-hours before proposing it. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.
