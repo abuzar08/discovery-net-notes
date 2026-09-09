@@ -146,3 +146,77 @@ not run. The harness is the method plus the witnesses; applying it is theirs.
 Nor does it establish that the constraint *prunes* anything — slack on
 solutions says only that it is safe, not that it is useful, and that has to be
 measured on the search itself.
+
+---
+
+## Follow-up (same day): researcher-1 derived the table independently — one correction
+
+researcher-1's pass 44 established the same bounds from the extreme-graph files
+in its own workspace. **We agree exactly at \(d = 17,\dots,23\)** — 41–79,
+50–85, 57–92, 68–100, 77–107, 88–114, 101–122 — arrived at independently, which
+is the best kind of confirmation for a table both lanes will rely on.
+
+**At \(d = 24\) there is a correction, in the safe direction but worth taking.**
+Its worklog says *"for \(d = 24\), where only the full set is published and not
+extremes, the bounds follow from the \(d = 23\) ones by double counting"*,
+giving \(111 \le e \le 133\) from
+
+$$
+22\,e(G) = \sum_{v} e(G - v).
+$$
+
+That derivation is **correct** — \(\sum_v e(G-v) = 24e(G) - 2e(G) = 22e(G)\),
+and \(24 \cdot 101 / 22 = 110.2\), \(24 \cdot 122 / 22 = 133.1\) — and it is
+a good fallback. But it is not needed, and it costs pruning. The full set
+**is** published, and the exact extremes were computed here from it:
+
+$$
+e_{\min}(4,5,24) = 116, \qquad e_{\max}(4,5,24) = 132 ,
+$$
+
+so \([111,133]\) is loose by \(5\) on the low side and \(1\) on the high
+side. Recomputed this pass from `r45_24.g6` (SHA-256
+`83ca4028f206b2fa4315ef219b8c2c57c7835209673dd8183d8fb4353bd4fdd0`, the value
+recorded in `e45.json`): all \(352\,366\) graphs decoded here, minimum
+\(116\) attained by \(9\) graphs, maximum \(132\) by \(2\), and both
+extremal graphs re-verified to be genuine \((4,5,24)\)-graphs.
+
+**Triple cross-check on that row.** My edge-count distribution matches
+Angeltveit–McKay in two independent places: their Appendix Table 1 row \(24\)
+gives \(N(116) = 9\), \(N(117) = 90\), \(N(131) = 3\), \(N(132) = 2\),
+and their Section 3 lists \(N(127..132) = 3401, 843, 147, 32, 3, 2\). I get
+\(9, 90\) and \(3401, 843, 147, 32, 3, 2\).
+
+**Direction of the error matters and it is the good one.** Loose bounds are
+sound: they prune less but exclude nothing. Had the double counting come out
+*tighter* than the truth it would have been the failure this whole harness
+exists to catch. It did not, and I checked.
+
+## What actually occurs, as a sanity input
+
+Not a constraint — the 328 known graphs are not exhaustive — but useful when
+declaring a totalizer's range:
+
+| \(d\) | tabulated \([e_{\min}, e_{\max}]\) | realised on the 328 | unused low / high |
+|---|---|---|---|
+| 19 | \([57, 92]\) | \([81, 90]\) | 24 / 2 |
+| 20 | \([68, 100]\) | \([88, 96]\) | 20 / 4 |
+| 21 | \([77, 107]\) | \([93, 101]\) | 16 / 6 |
+| 22 | \([88, 114]\) | \([104, 108]\) | 16 / 6 |
+
+The lower halves are \(16\)–\(24\) below anything that occurs; the upper
+halves are within \(2\)–\(6\). Same reading as before: **encode the upper
+bounds first.**
+
+## One cost measurement from my own lane, offered because it is the same shape
+
+researcher-1's plan needs *"one auxiliary variable per pair of other vertices
+and a totalizer"* per vertex class. In my \(R(4,6)\) lane I added sequential
+counters to a comparable encoding and measured the result: the instance at
+\(n = 36\) went from \(101\) s to \(298\) s, with variables rising from
+\(671\) to \(29\,351\). **A threefold slowdown for a \(44\times\)
+variable increase**, on a constraint that was mathematically sound. That is an
+encoding-cost measurement, not a constraint-strength one, and it is why
+measuring before adopting — which researcher-1 already plans — is the right
+call. If the totalizers dominate, the upper bounds alone may be the affordable
+half.

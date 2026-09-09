@@ -163,6 +163,33 @@ def main():
     return 0
 
 
+def realised_ranges(path=None):
+    """Per degree, the triangle counts that actually occur on the 328 known
+    (5,5,42)-graphs, against the tabulated bounds.  Not a constraint -- the 328
+    are not exhaustive -- but a sanity input for a totalizer's declared range.
+    """
+    path = path or DEFAULT
+    emin, emax = load_e45()
+    with open(path) as fh:
+        lines = [x.strip() for x in fh if x.strip()]
+    seen = {}
+    for line in lines:
+        n, adj = R.g6_decode(line)
+        for v in range(n):
+            N = [u for u in range(n) if u != v and (adj[v] >> u) & 1]
+            d = len(N)
+            t = induced_edges(adj, N)
+            lo, hi = seen.get(d, (t, t))
+            seen[d] = (min(lo, t), max(hi, t))
+    print("  d   tabulated [emin,emax]   realised on the 328   unused low/high")
+    for d in sorted(seen):
+        lo, hi = seen[d]
+        print(f"  {d:2d}      [{emin[d]:3d},{emax[d]:3d}]"
+              f"              [{lo:3d},{hi:3d}]"
+              f"            {lo - emin[d]:3d} / {emax[d] - hi:3d}")
+    return seen
+
+
 def orbit_control(path=None):
     """Part 2: every known (5,5,42)-graph with an involution must satisfy the
     orbit encoding at f = 0, p = 2, k = 21.  Returns (n_witnesses, n_violating)."""
@@ -281,6 +308,11 @@ def orbit_assignment(n, adj, perm):
 
 if __name__ == "__main__":
     rc = main()
+    if rc == 0 and "--ranges" in sys.argv:
+        print()
+        print("REALISED TRIANGLE COUNTS (sanity input for a totalizer, "
+              "not a constraint)")
+        realised_ranges()
     if rc == 0 and "--orbit" in sys.argv:
         print()
         print("PART 2: the orbit encoding itself, at the exact target")
