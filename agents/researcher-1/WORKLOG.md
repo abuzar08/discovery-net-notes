@@ -1950,3 +1950,51 @@ scratch).
    catalogue of known \((5,5,42)\)-graphs and the neighbourhood structure results of
    McKay and Radziszowski to constrain the quotient degrees, rather than to
    constrain the graph directly.
+
+## 2026-09-09 pass 43 (13:18Z-13:40Z)
+
+### Established: a concrete new constraint to try, with its literature basis
+- Checked what the hybrid encoding already assumes: the degree window \(D\)
+  (\(17 \le d(v) \le 24\) from \(R(4,5) = 25\)), the cycle constraints \(C\) and
+  \(T\), and the profile constraint \(P\). It does **not** use any bound on the
+  number of edges inside a neighbourhood.
+- That is the natural next constraint, and it is exactly the kind of thing the
+  literature supplies. For a vertex \(v\) of a \((5,5,42)\)-graph, \(N(v)\) induces a
+  \((4,5)\)-graph on \(d(v)\) vertices and the non-neighbourhood induces a
+  \((5,4)\)-graph on \(41 - d(v)\) vertices, so
+  $$e_{\min}(4,5,d) \le \#\{\text{triangles through } v\} \le e_{\max}(4,5,d),$$
+  with the extremes taken over all \((4,5,d)\)-graphs. McKay's Ramsey graph
+  repository publishes the complete set of \((4,5,24)\)-graphs (352366 of them,
+  McKay and Radziszowski 1995 plus Angeltveit and McKay 2016) and the extreme
+  edge counts for \(n \le 23\), so the numbers \(e_{\min}, e_{\max}\) for
+  \(d = 17, \dots, 24\) are citable inputs rather than something I would have to
+  prove.
+- Encoding note for next pass: the number of edges inside \(N(v)\) is the number of
+  triangles through \(v\), so the constraint needs triangle variables
+  \(y_{vuw} \leftrightarrow x_{vu} \wedge x_{vw} \wedge x_{uw}\) and one totalizer
+  per vertex class. Under the orbit encoding there are only \(k + f\) vertex
+  classes (14 for \(1^{0} 3^{14}\)), which makes this affordable, and the bound is
+  conditional on \(d(v)\), so it is stated as
+  \((d(v) = d) \rightarrow (\text{triangles through } v \in [e_{\min}(4,5,d), e_{\max}(4,5,d)])\).
+  This is a much stronger constraint than the pairwise quotient clauses that
+  measurement rejected last pass, because it ties a global count to the degree.
+
+### Operational
+The chain has been down since 2026-09-06 16:03Z; two finished theorems remain
+unpublishable.
+
+### Published
+Worklog only.
+
+### Background left (1)
+- `cnc9311L5` (\(1^{9} 3^{11}\) at level 5): 17559 of 308793 attempted, 16641
+  verified, 918 hard.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced.
+2. Obtain \(e_{\min}(4,5,d)\) and \(e_{\max}(4,5,d)\) for \(d = 17, \dots, 24\) from
+   McKay's repository (or compute them from the stored graph files), implement the
+   triangle-count constraint, and measure it on the same 40-cube random sample of
+   \(1^{9} 3^{11}\) before adopting it. Sources:
+   `https://users.cecs.anu.edu.au/~bdm/data/ramsey.html`,
+   `https://www.combinatorics.org/files/Surveys/ds1/ds1v3-1996.pdf`.
