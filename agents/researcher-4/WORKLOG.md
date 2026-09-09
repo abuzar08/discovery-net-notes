@@ -3098,3 +3098,72 @@ first, then the graph, then compute, per the amended criteria. Lead to test
 first: audit DS21's *conjecture* statements against their sources for dropped
 hypotheses, the class where the one known error lives. Not autonomous: the
 \(C_3 \square C_3\) note to Marcus Schaefer and two DS21 corrections.
+
+## 2026-09-09, pass 45
+
+Two directions taken: publish the reporting standard team-wide, and run the
+deferred selection pass as the DS21 conjecture audit.
+
+**1. Reporting standard published** at `notes/tooling/out-of-range-verdicts.md`,
+outside my worklog where others can find it, with the six-item checklist and the
+\(M_{8,3}\) case as the worked example of what its absence costs.
+
+**2. The audit** (`CONJECTURE-AUDIT.md`). Source: DS21 **Ninth Edition, July 17,
+2026**, 177 pages — newer than the catalogued May 2024 version.
+
+**Finding 1 confirmed against the source, not merely against my earlier note.**
+Mohar's Conjecture 5 uses \(k\), and his Theorem 3 defines it: "Let \(k \ge 3\)
+be an integer... let \(\hat{P}\) be the set of \(n = 2k\) points". So the
+conjecture is about **even \(n \ge 6\)**, and the identity underpinning it,
+\(\tfrac14 k(k-1)(k-2)(k-3) + \tfrac12 k(k-1)(k-2) = H(n)\), holds precisely
+because \(n = 2k\). DS21 substitutes \(\lfloor n/2 \rfloor\) for \(k\) with no
+restriction on \(n\), asserting \(\operatorname{cr}(K_5 - e) = 1\) for a planar
+graph. **Still present in the current edition.**
+
+**Finding 2, new: a dropped term that invalidates a stated implication.** DS21
+prints \(\operatorname{cr}(K_{3,3,n}) \ge Z(6,n) + 2n + 1\) and says "this
+implies that \(\operatorname{cr}(K_{3,3,3}) = 15\)". With DS21's own definitions
+\(Z(6,3) = 6\), so the bound gives only \(\ge 13\); my heuristic finds a drawing
+of \(K_{3,3,3}\) with exactly 15 crossings, so \(\le 15\). **13 and 15 do not
+imply 15.** The next sentence supplies the missing term — \(2\lfloor n/2 \rfloor\)
+contributes exactly 2 at \(n = 3\), giving 15 on the nose. The finding is
+**internal to the survey**: the cited paper (Ouyang 2025) is paywalled, I have not
+read it, and I claim nothing about its contents — only that the implication does
+not follow from the bound as printed.
+
+**A near-miss I want on the record.** I first thought DS21 contradicted itself,
+stating \(\operatorname{cr}(K^4_8) = 8\) where its own \(K_{2,2,2,n}\) formula
+gives 6 for the same graph. **It is not an error**: the passage is in the
+*rectilinear* entry and reads \(\overline{\operatorname{cr}}(K^4_8) = 8\) while
+\(\operatorname{cr}(K^4_8) = 6\), and my text extraction had dropped the overbars.
+Plain-text extraction of this survey destroys exactly the notation that separates
+the crossing-number variants, which is the survey's whole subject. Every
+candidate must be re-read in the source rendering. Finding 1 survives because it
+rests on mathematics (a planar graph given a positive crossing number) rather
+than notation; Finding 2 survives because the passage was re-extracted and
+confirmed verbatim.
+
+**Supporting computation: four families DS21 lists that I had never swept** —
+\(K_{1,1,1,n}\), \(K_{1,1,4,n}\), \(K_{1,m,n}\), and \(K_{3,3,3}\) — 26 further
+instances, **all consistent, none refuted**. Running totals across all sweeps:
+**25 decided exactly, 93 upper bounds reproducing the stated value, zero
+refutations.**
+
+**The method's yield is bounded and I am saying so.** Scanning every stated
+implication asserting a numeric value is **complete for that pattern**: 7 such
+contexts in 177 pages, of which exactly one is a checkable crossing-number claim
+— the one above. The other six are complexity or asymptotic statements with
+nothing to evaluate. That vein is exhausted with a yield of one.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger. No background computations running. The
+two PDFs downloaded for the audit stay in `scratch/` and are not committed.
+
+**Next step (concrete).** There are now **three** DS21 corrections for a human,
+not two. The audit found a second discrepancy, which under the principal's
+framing "changes the calculus" — so the next pass extends it along the axis that
+worked: not more formula checking, which has produced 93 agreements and nothing
+else, but **statements whose hypotheses are re-expressed** — conditional results
+("if Zarankiewicz's conjecture is true..."), range claims ("true for \(n \le X\)"),
+and attributions where a survey must paraphrase rather than copy. Not autonomous:
+the \(C_3 \square C_3\) note to Marcus Schaefer, and now three DS21 corrections.
