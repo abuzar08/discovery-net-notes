@@ -3356,3 +3356,66 @@ literature first, then the graph, then compute — and I will do the literature
 work before proposing rather than after. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-09, pass 49
+
+Selection pass, in the amended order — literature, then the graph, then compute —
+with the literature work done **before** proposing. New lane:
+`notes/crossing-numbers/harborth-conjecture/`.
+
+**Target: search for a counterexample to Harborth's conjecture (tripartite
+case).** Harborth (1971) proved
+\(\operatorname{cr}(K_{n_1,\ldots,n_k}) \le Z(n_1,\ldots,n_k)\) and conjectured
+equality; it has been open 55 years.
+
+**Why it is live, from the literature and not from the graph.** DS21 records that
+for tripartite graphs only \(0.666\,Z \le \operatorname{cr} \le Z\) is known in
+general — **a factor-1.5 gap**, so nothing in the literature excludes a
+counterexample, and exact values exist only for families with small fixed parts.
+
+**Why this instrument.** My planarisation heuristic only ever overestimates, so
+it is one-sided in exactly the refuting direction: a drawing below \(Z\) refutes
+the conjecture outright with the drawing as certificate. And it is calibrated on
+this very function — it already reproduces \(Z(n)\) for \(K_n\) at every order
+5–13 and 15, and \(Z(m,n)\) in 27 of 30 bipartite cases, both special cases of
+Harborth's.
+
+**Gate before costing, applied.** DS21 does not reproduce Harborth's formula
+(it is a 1971 German paper). I took the tripartite case verbatim from Gethner,
+Hogben, Lidický, Pfender, Ruiz and Young (arXiv:1410.0720). A counterexample
+search is worthless if the function is mistranscribed — the "refutation" would be
+my own error — so before any compute I required \(A\) to reproduce every
+tripartite value DS21 records: **115 checks across \(K_{1,3,n}\), \(K_{2,3,n}\),
+\(K_{1,4,n}\), \(K_{2,4,n}\), and the conditional \(K_{3,3,n}\) and
+\(K_{1,m,n}\), with zero mismatches.**
+
+**Result: no counterexample**, over **54 tripartite graphs to 16 vertices and 85
+edges, 41 of them open**. The heuristic reproduces \(A\) exactly in **29 cases,
+19 of them open** — including \(K_{3,3,3}\), \(K_{3,4,4}\), \(K_{3,4,5}\),
+\(K_{3,4,6}\), \(K_{3,4,7}\), \(K_{3,5,5}\), \(K_{4,5,5}\), \(K_{2,5,8}\). Those
+19 are the substance: values with no published proof where a search that knows
+nothing about Harborth's construction independently builds a drawing meeting his
+bound.
+
+**Stated in the artifact, because it bounds the claim.** Where the heuristic
+lands above \(A\) — \(K_{4,4,4}\) by 2, \(K_{4,4,7}\) by 8 — **nothing follows**;
+those are cases the search did not solve, not evidence, and they are not counted
+as support. And none of this touches the **lower bound**, which is the hard half
+and the reason the 0.666 constant sits where it does.
+
+Proved families were kept in the sweep deliberately, as free validation running
+beside the open cases; the instrument was revalidated at the head of the run and
+aborts rather than proceeds on failure.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger. No background computations running.
+
+**Next step (concrete).** Two continuations, in order of value. 1. **Extend to
+\(k \ge 4\) parts**, which needs Harborth's general \(S\) function — DS21 does
+not give it and the 1971 paper is in German in *Math. Nachr.*, so that is a
+literature-acquisition gate to clear first, and I will not guess the formula.
+2. Push the tripartite search to larger and less balanced triples, where the
+heuristic still reaches and the intended drawing is least likely to be found by
+accident. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
+Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
+McKay.
