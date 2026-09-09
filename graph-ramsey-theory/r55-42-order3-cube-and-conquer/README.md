@@ -221,6 +221,16 @@ reports `sha256 mismatch` — rebuild the manifest from your own `results.jsonl`
   from `../r55-42-prime-order-automorphisms` and `verify_symF.py` from
   `../r55-42-fixed-vertex-lex-leader`).
 - `zpenum.py` — orderly generation of canonical \(Z_p\)-good graphs (for \(p = 3\) the codes are \(I_3\) and \(K_3\)).
+- `level5_p3.json.xz` — the 308793 canonical \((5,5)\)-good \(Z_3\)-graphs on **five**
+  cycles, produced by `zpenum_fast.py 5 3` from 9971669 candidates in 6.8 hours
+  (SHA-256 of the uncompressed file
+  `450f0df8df6a9f01f2d32cae53b0ef61ad1b66941e4da4840e27bb471fa4f428`). Measurement
+  shows this deeper prefix is what the fixed-point-poor types need: for
+  \(1^{9} 3^{11}\) the level-4 cubes leave 65 percent unsolved at a 20 s limit,
+  while the level-5 cubes leave about 1 percent (median solve 0.3 s). Its
+  completeness will be checked with `verify_cnc_p.py --complete-from level4_p3.json`
+  and reported with the first result that uses it; until then it is an input, not a
+  verified object.
 - `zpenum_fast.py` — the same generation with a canonical form that minimises over
   the \(2(p-1)kp\) choices of (complementation, multiplier, which cycle becomes
   cycle 0, its rotation) and then fixes the remaining cycles greedily (each
