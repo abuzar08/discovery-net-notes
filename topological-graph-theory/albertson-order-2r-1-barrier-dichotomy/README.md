@@ -1757,6 +1757,62 @@ was.
 > unit short will **not** be closed by sharpening the absorption inequality;
 > order 58 needs a different argument.
 
+### The branch hypothesis imposes one of seventy conditions (`routes58.py`)
+
+Both of the chain's arguments are now measured out at order 58, so what is left
+is the branch hypothesis, and it is far weaker than the condition it stands in
+for.
+
+**The clique-cover arithmetic.**  \(H\) is \(K_4\)-free, so every cover clique
+has at most three vertices.  A cover from a vertex-disjoint packing of \(t_3\)
+triangles and \(t_2\) edges, uncovered vertices as singletons, uses
+\(58-(2t_3+t_2)\) cliques, so \(\theta(H)\le28\) holds **iff** some packing has
+
+$$2t_3+t_2\ge30,\qquad 3t_3+2t_2\le58,\qquad t_3+t_2\le28 .$$
+
+Enumerating those gives **seventy** admissible \((t_3,t_2)\) families:
+
+| \((t_3,t_2)\) | vertices covered | parts | savings |
+|---|---|---|---|
+| \((2,26)\) | 58 | 28 | 30 |
+| \((3,24)\) | 57 | 27 | 30 |
+| \((4,22)\) | 56 | 26 | 30 |
+| \((4,23)\) | 58 | 27 | 31 |
+
+The branch hypothesis (TT) — *no two disjoint triangles whose removal leaves a
+perfect matching* — is exactly the exclusion of \((2,26)\) **and nothing else**.
+The other **69** are equally valid routes to \(\theta(H)\le28\) and none has ever
+been imposed.
+
+**Where the next route is available.**  The \((3,24)\) family needs three
+pairwise disjoint triangles.  The barrier supplies two inside \(B\); the Gallai
+structure supplies the third, because with \(k\ge3\) blocks the blocks are
+cliques of \(G\), hence independent sets of \(H\), so \(H[L]\) **contains the
+complete multipartite graph on them** and one vertex from each of three blocks is
+a triangle of \(H\) — disjointly, \(\min_i q_i\) of them.
+
+| block count | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| survivors | 2 | 480 | 4367 | 2848 | 926 |
+
+So on **8141 of 8623** surviving configurations — 94% of what remains — \(H\) has
+three pairwise disjoint triangles and the \((3,24)\) route is available.  It asks
+whether \(H\) minus three disjoint triangles, on 49 vertices, has a matching of
+24.  That is a question about \(H\) **as a graph**, which is exactly why the
+parameter enumeration in this directory cannot answer it.
+
+**A verification: absorption into a triangle class is impossible.**  Since
+\(\alpha(G[L])\le3\), a colour class has at most three vertices and a class of
+exactly three is a triangle of \(H\); absorbing \(z\) into it would give a
+\(K_4\).  With \(t_i\) classes of size \(i\), the absorbable classes number
+\(t_1+t_2=q_1-t_3\) while the singletons number \(t_1=2q_1-|L|+t_3\), so raising
+\(t_3\) buys singletons and costs absorbable classes — and the chain takes
+\(s\) at the \(t_3\) maximising singletons while implicitly assuming all
+\(q_1\) classes can absorb.  The missing requirement is \(t\le q_1-t_3\).
+**Checked: none of the 3-or-more-block partition configurations is closed by the
+absorption argument at all**, so the inconsistency is *latent* — no published
+elimination rests on it, but it must be fixed in any future use.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -1773,6 +1829,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `r29.py` | the partial r = 29 result at order 57 |
 | `profile58.py` | the shortfall map: which obstruction is binding, and by how much |
 | `EXPECTED_OUTPUT_PROFILE58.txt` | its expected output |
+| `routes58.py` | the branch hypothesis imposes 1 of 70 necessary conditions |
+| `EXPECTED_OUTPUT_ROUTES58.txt` | its expected output |
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
 | `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
 | `state29.py` | **the state of r = 29, recomputed end to end** |
@@ -1805,6 +1863,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 r27.py          | diff -u EXPECTED_OUTPUT_R27.
 PYTHONDONTWRITEBYTECODE=1 python3 r28.py          | diff -u EXPECTED_OUTPUT_R28.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 r29.py          | diff -u EXPECTED_OUTPUT_R29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 profile58.py    | diff -u EXPECTED_OUTPUT_PROFILE58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 routes58.py     | diff -u EXPECTED_OUTPUT_ROUTES58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -

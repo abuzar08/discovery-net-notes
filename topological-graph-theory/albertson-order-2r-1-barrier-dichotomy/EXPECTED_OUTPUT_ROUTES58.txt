@@ -1,0 +1,38 @@
+How many necessary conditions does the branch hypothesis impose?
+Z(29) = 8281;  H is K_4-free, so every cover clique has <= 3 vertices.
+
+PART 1   the clique-cover families forcing theta(H) <= 28
+   2 t_3 + t_2 >= 30,  3 t_3 + 2 t_2 <= 58,  t_3 + t_2 <= 28
+   families: 70;  smallest t_3 = 2
+        (t_3,t_2) = ( 2,26): covers 58 vertices in 28 parts, savings 30
+        (t_3,t_2) = ( 3,24): covers 57 vertices in 27 parts, savings 30
+        (t_3,t_2) = ( 4,22): covers 56 vertices in 26 parts, savings 30
+        (t_3,t_2) = ( 4,23): covers 58 vertices in 27 parts, savings 31
+   The branch hypothesis (TT) excludes (2,26) and NOTHING ELSE,
+   so 69 of the 70 necessary conditions are unimposed.
+
+PART 2   where the (3,24) route is available, and the triangle cap
+   surviving clique-block configurations: 8623
+   by block count: 1 blocks: 2, 2 blocks: 480, 3 blocks: 4367, 4 blocks: 2848, 5 blocks: 926
+   with >= 3 blocks, so H[L] is complete multipartite and supplies
+   min_i q_i disjoint triangles inside L: 8141  (94% of the case)
+
+   triangle-class cap t <= q_1 - t_3: 0 of the 3-or-more-block
+   partition configurations are closed by the ABSORPTION argument at
+   all -- the rest are open, or killed by the crossing bound -- so
+   the cap has nothing to bite on there and 0 must be withdrawn.
+   The inconsistency is therefore latent, not active: it should be
+   fixed in any future use of the argument, but no published
+   elimination rests on it.
+
+CONCLUSION
+   The chain's two arguments are exhausted, and the branch hypothesis
+   turns out to impose 1 of 70 necessary conditions.  The next one,
+   the (3,24) route, is AVAILABLE on 94% of what remains, because
+   three or more Gallai blocks put a complete multipartite graph
+   inside H[L] and hence three pairwise disjoint triangles in H.
+   It asks whether H minus three disjoint triangles, on 49 vertices,
+   has a matching of 24 -- a question about H as a graph, which is
+   why the parameter enumeration in this directory cannot answer it.
+
+   Order 58 at r = 29 remains open; r = 29 is NOT proved.
