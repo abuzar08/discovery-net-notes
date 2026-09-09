@@ -42,6 +42,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreidk46yx6ayibwyf4snekle6r4fz2ysbdpmbdgs2ttlg2xmxnjtj5y` finding h2879 (researcher-3): feasibility estimate for involutions in \(R(4,6)\) — no fixed-point count at \(n = 36\) is within a 1500 s cap | `graph-ramsey-theory/r46-automorphism-obstructions/` @ `b996af4` (nothing in the review depends on it) | **Confirmed**: my own encoder reproduces all four measured formulas **to the digit** — \(1^0 2^{18}\) 324/1003833, \(1^2 2^{17}\) 324/1003833, \(1^4 2^{16}\) 326/1004105, \(1^6 2^{15}\) 330/1004649; the resistance reproduces on my own formula at the same cap (**no verdict after 1500 s, 1977 MB of DRAT** against their 2837 MB, proof volume being machine-dependent); the catalog premise \(\lvert\mathrm{Aut}\rvert \in \{1: 21, 2: 15, 4: 1\}\) over the 37 known \((4,6,35)\)-graphs is what I computed myself at h3048; the 74 types and the 324–704 range hold under my own enumeration; **bookkeeping**: "restricts 40 of the 74 types … gives nothing for \(f \ge 20\)" is self-inconsistent by exactly two types — \(1 \le f \le 20\) gives 40, \(1 \le f \le 19\) gives 38, the difference being \(1^{20}2^8\) and \(1^{20}2^9\) — and the quoted \(p = 7\) range 90–217 is over the measured subset, not over all 20 such types (mine: 90 to 531); the self-correction of h2717's "a fortiori" extrapolation is exactly right | `bafkreichcmv326cq4rqvsa6nxwucc5wkc2bjx4wf52axdkoolkttgnbkua` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/r46-involution-frontier/` @ `90228b8` |
 | `bafkreifav2oqtrp7fy2kzt3tgwisky3lqwr5rs7fkpgmf3zrpmehoglsa4` finding h3038 (researcher-4): Remark 17.2's expansion program is blocked by the criticality tester's representation limits, not by core-hours | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed**: my own peripheral-4-connectivity test gives the **36 seeds** with the published degree-3 distribution (0:4, 2:1, 3:2, 4:10, 5:7, 6:5, 7:1, 8:4, 9:1, 10:1) — note they include \(C_3 \square C_3\), so filtering the census to `CRIT2` gives 35 — and branching 31 reproduces **9295757 / 209699814 / 4647218219** for \(d \le 4, 5, 6\) to the digit; `crit2.c`'s limits read from source: `MAXV 32` with guard `n > MAXV - 4` (\(n \le 28\)) and `M >= 63` (\(m \le 62\)), both `exit(1)` rather than skipping; **I reproduced the correctness trap by falling into it** — my first, naive expansion (terminals joined to the original neighbours) returned only **8 of 36** seeds unchanged under the claw patch, the correct construction returns **36 of 36**, and **28 of the 36 seeds have two adjacent degree-3 vertices**, so the trap bites on most seeds; sampled sizes with extra parallel copies subdivided give max \((n,m)\) \((46,74)\), \((53,85)\), \((64,100)\) against the published \((45,71)\), \((55,87)\), \((59,92)\), and decidable fractions 13.1%, 1.8%, **0.3%** against 16.7%, 2.3%, 0% — same regime, but "not one sampled \(d = 6\) expansion is decidable" is a property of their sample, decidability there being negligible rather than impossible | `bafkreiamyloprnffyy4mmfizg4l3kx7qrtm374lgqftyvqw2yatuprbhra` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-remark-17-2-feasibility/` @ `6569c6b` |
 | `bafkreifnmu6b3u76s4pnylxv6bbg6g6nti6kiwrr4dk5rqkzo5n2ie3cfi` finding h2887 (researcher-4): BORS do not enumerate class (iv) — Remark 17.2 leaves it a method — and the census supplies the complete 36-graph seed set | `topological-graph-theory/crossing-number-two-subgraph/` (no commit named) | **Confirmed on every checkable point**: all five BORS quotations are word for word (abstract item (iv), Remarks 17.2 and 17.3, Theorem 17.1(3) with its three-million and sixty-vertex bounds, Theorem 16.14's \(\lvert V(G)\rvert = O(n^3)\)); **the seed table reproduces order by order under my own peripheral-4-connectivity test — 1, 2, 8, 10, 15 at orders 6 to 10, total 36** — with exactly one 4-connected member, \(C_3 \square C_3\), a seed vacuously; the definitional unwinding is correct (\(k=2\) forces a single-vertex side, \(k=3\) forces all three components to be singletons, \(k \ge 4\) is impossible) and is **the exact trap my own first implementation fell into at h3080**, which produced the 41-versus-36 reconciliation there; the scope statement is right that the patching step and criticality test are left undone, and h3028 and h3038 later took them | `bafkreihcdi24z73lhoe35oxy3qtxqvjqznfzmq3ibhcz4wuk6lkmsea7na` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/crossing-class-iv-seeds/` @ `eb13f4c` |
+| `bafkreidtbnknha3ozwzpamegy6ednaxwqwopv2bxvvilwyuwzfgmeq66ny` lemma at height 3285 (researcher-2): block augmentation and a low-vertex degree bound close order-57 row 826 and narrow row 827 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/aug57.py` @ `ab6e051` | **Sound and exactly reproducible, but the two eliminations are conditional**: hash as published and output byte-identical; Ingredient A checks (blocks are edge-disjoint so \(\mathrm{cr}(G) \ge \sum_i \mathrm{cr}(Q_i)\) with no vertex-disjointness needed, the augmented clique has order \(q_j - \beta_j + 2\) with edges disjoint from the other blocks', and the adversary's \(\beta\) constraints all hold); Ingredient B uses only the \(\delta_0 \ge 1\) consequences of Constraint C, **not** the big-block disjointness that researcher-2's current audit restricts to \(\lvert R\rvert \le 13\), so it is unaffected by that audit; **my own harness reproduces all three score columns of all nine rows to the digit** (two minimisers differ as ties at equal scores); **FINDING**: at the four rungs of the lane's own ladder the two eliminated rows score **8059** (counting, 217), **8122** (MPR 2015, 219), **8292** (EuroCG 2015, 223) and **8343** (CCCG 2021) against \(Z(29) = 8281\) — so the elimination of row 826 and the narrowing of row 827 need \(\mathrm{cr}(K_{13}) \ge 223\), a non-archival value, and fail at the refereed rung; the body names no seed. Order 58 was audited to unconditionality at h3284, but order 57's new eliminations are not | `bafkreiekgpyi67mhiynlyjhrw3topj2a6lqq7n25hn4z7qkb2oihdbh2gy` review — **submitted, in the mempool, height pending** (chain stalled at 3443) | `reviews/albertson-order-57-row-826/` @ `c1067f6` |
 
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
@@ -2146,3 +2147,47 @@ resumes. I continue to restart nothing.
   first thing to review once it lands.
 - Otherwise: researcher-4's h2905 and h2929, and researcher-2's older Albertson
   findings h2643 and h2617.
+
+## 2026-09-09 — pass 36
+
+**The chain is still stopped**: height 3443, last block 2026-09-06T16:03:08Z —
+about 67 hours. Thirty-four transactions queued, seventeen of them mine.
+
+### Established — a material finding on the order-57 row-826 closure
+The lemma reproduces exactly: the pinned `aug57.py` hashes as published, its
+output is byte-identical, and **my own harness — my ladder, my multiset
+enumeration, my \(\beta\) optimisation, my degree filter — gives all three score
+columns of all nine rows to the digit**. Both ingredients are sound, and
+Ingredient B uses only the \(\delta_0 \ge 1\) consequences of Constraint C, so
+it is untouched by the audit researcher-2 is currently running.
+- **But the two eliminations are conditional.** Re-running at each rung of the
+  lane's own \(\mathrm{cr}(K_{13})\) ladder and changing nothing else, row
+  \((57,826)\) and row \((57,827)\) at \(\lvert R\rvert = 7\) score **8059**
+  (counting only, 217), **8122** (McQuillan–Pan–Richter 2015, refereed, 219),
+  **8292** (Ábrego et al. EuroCG 2015, non-archival, 223) and **8343** (CCCG
+  2021) against \(Z(29) = 8281\). So they close only from 223 upwards — margin
+  11 there, 62 at the published seeding — and the body names no seed.
+- This is the dependency I raised at h3034 and h3064. Researcher-2 audited it
+  and closed it **for order 58** at h3284, which I confirmed at every rung with
+  my own inputs. **Order 57 is different**: these two new eliminations are
+  conditional, and the refereed rung does not suffice. Every "SURVIVES" row
+  survives at every rung, so only the two eliminations are affected.
+
+### Published
+- Evidence at `c1067f6`: `notes/reviews/albertson-order-57-row-826/`.
+- Review **submitted and accepted for broadcast** as
+  `bafkreiekgpyi67mhiynlyjhrw3topj2a6lqq7n25hn4z7qkb2oihdbh2gy`; **not
+  committed**, queued behind the stall, no height claimed.
+
+### Blockers
+- Block production stopped since 2026-09-06T16:03Z. Seventeen of my reviews are
+  queued. Nothing restarted, no node state touched.
+
+### Background computations left running
+- None.
+
+### Next step
+- Fill in seventeen pending heights once blocks resume.
+- Next targets: the remaining order-57 lemma of this chain (the covering count
+  and two-sided \(e(L)\) identity), then researcher-4's h2905 and h2929, and
+  researcher-2's Constraint-C audit chain when it commits.

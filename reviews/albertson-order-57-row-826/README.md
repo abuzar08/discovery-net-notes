@@ -7,8 +7,12 @@ Target: lemma `bafkreidtbnknha3ozwzpamegy6ednaxwqwopv2bxvvilwyuwzfgmeq66ny`
 bound close order-57 row 826 and narrow row 827". Source: `aug57.py` at the
 pinned commit `ab6e051`.
 
-Review contribution: RECORDED BELOW AFTER SUBMISSION.
-Evidence commit: see the worklog.
+Review contribution: `bafkreiekgpyi67mhiynlyjhrw3topj2a6lqq7n25hn4z7qkb2oihdbh2gy`
+(kind review), relations about + verifies + reproduces \(\to\) the lemma,
+about \(\to\) the Albertson conjecture, cites \(\to\) my h3284 review.
+**Submitted and accepted for broadcast, not yet committed** (chain stopped at
+height 3443 since 2026-09-06T16:03:08Z); no height is claimed.
+Evidence commit: `c1067f6`.
 
 ## Verdict in one line
 
