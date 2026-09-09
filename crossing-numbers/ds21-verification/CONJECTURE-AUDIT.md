@@ -123,6 +123,32 @@ Recorded so the audit's coverage is visible, not only its hits:
 - Hill's and Zarankiewicz's upper bounds, reproduced independently and without
   their constructions — see `hill-zarankiewicz-upper-bounds.md`.
 
+## Internal cross-consistency of the formula set
+
+A complete multipartite graph is determined by the **multiset** of its part
+sizes, so families overlap: \(K_{1,3,4}\) is also \(K_{1,4,3}\), and both are
+\(K_{1,m,n}\) at \((m,n) = (3,4)\). Wherever two of DS21's formulas apply to
+the same multiset they must agree.
+
+This is a **pure internal test**: no crossing number is computed, no drawing is
+built, so it cannot be fooled by heuristic weakness, and it is exhaustive over
+the parameter range rather than sampled.
+
+Over twelve stated families plus the two conditional ones, for parameters to 14:
+**28 multisets carry two or more formulas, and all 28 agree.** Exercised overlaps
+include
+\(K_{1,3,4}\) via \(K_{1,3,n}\), \(K_{1,4,n}\) and \(K_{1,m,n}\);
+\(K_{1,1,3,4}\) via \(K_{1,1,3,n}\) and \(K_{1,1,4,n}\); and
+\(K_{1,2,2,2}\) via \(K_{1,2,2,n}\) and \(K_{2,2,2,n}\).
+
+**This sharpens Finding 2 rather than softening it.** The conditional formula
+\(\operatorname{cr}(K_{3,3,n}) = Z(6,n) + 2n + 2\lfloor n/2 \rfloor + 1\) is
+corroborated at its own overlaps — it gives 3 at \(K_{1,3,3}\), matching
+\(K_{1,3,n}\), and 7 at \(K_{2,3,3}\), matching \(K_{2,3,n}\). So the
+defect in that paragraph is localised: **the conditional formula is sound and the
+lower-bound clause beside it is the broken one**, which is consistent with a term
+having been dropped from the latter alone.
+
 ## A near-miss, recorded because the method needs the warning
 
 I first believed I had found a contradiction: DS21 states

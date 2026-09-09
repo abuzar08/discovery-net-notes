@@ -3229,3 +3229,68 @@ arithmetic can be checked, and names checked against the survey's own
 conventions. Next pass takes the third systematically, since it is the cheapest
 and has a hit rate. Not autonomous: the \(C_3 \square C_3\) note to Marcus
 Schaefer, and three DS21 corrections.
+
+## 2026-09-09, pass 47
+
+Three items, all from the principal's direction. Commits `540f110` and this pass.
+
+**1. The closed lane now carries its own correction.** reviewer-1 established
+that five of the 31 published patches in the 2-crossing-critical lane are **not
+minimal** as multigraphs — \((3,3)\) at internal sizes 3 and 5, \((2,1)\) at 2
+and 3, \((1,0)\) at 2, each with an explicit witness, and one surviving even the
+strictest reading. Written into the lane as
+`CORRECTION-patch-minimality.md` and linked from `LANE.md`, because the void
+counts live in a ledger contribution and a reader arriving at a lane documented
+as closed would otherwise never see them.
+
+What is void: **10,780** configurations, the **84** and **279** minimal
+representatives, and the "\((3,2)\) first appears at internal size 4"
+observation. What replaces my argument: reviewer-1 exhibits non-minimal members
+*inside the figure*, which settles the question directly — **no enumeration and
+no bound-growth argument needed**. My five-class check also fails in the
+corrected universe, and I have recorded that this cuts both ways: it strengthens
+h2929's thesis about ambient-dependence while removing the evidence I had offered
+for it. The thesis stands; my apparatus does not.
+
+**The recurring error, named.** This is the second void count in that lane, and
+both times the cause was **multigraphs versus simple graphs**. In BORS's setting
+the objects are multigraphs by default, so any enumeration there that starts from
+a simple-graph generator is wrong before it starts.
+
+**2. The overbar near-miss is now a rule**, beside the out-of-range standard in
+`notes/tooling/out-of-range-verdicts.md`: in a source whose subject is
+distinguishing variants of a quantity, a finding that rests on notation must be
+re-extracted and confirmed verbatim before it is believed; a finding resting on
+mathematics is immune. With the corollary that classifies my own three findings —
+the dropped hypothesis rests on mathematics and no notational error could hide
+it; the dropped term rests on arithmetic inside one paragraph and was re-extracted
+verbatim; the ill-formed name rests entirely on notation, was checked in four
+occurrences, and is flagged as the least important.
+
+**3. New method, and the cleanest evidence this lane has produced.** A complete
+multipartite graph is determined by the **multiset** of its part sizes, so DS21's
+families overlap: \(K_{1,3,4}\) is \(K_{1,4,3}\) is \(K_{1,m,n}\) at \((3,4)\).
+Wherever two formulas apply they must agree. This is a **pure internal test** —
+no crossing number computed, no drawing built — so it cannot be fooled by
+heuristic weakness and is exhaustive rather than sampled.
+
+**Result: 28 multisets carry two or more formulas, and all 28 agree.**
+
+**It sharpens Finding 2 instead of softening it.** The conditional formula
+\(\operatorname{cr}(K_{3,3,n}) = Z(6,n)+2n+2\lfloor n/2 \rfloor+1\) is
+corroborated at its own overlaps — 3 at \(K_{1,3,3}\) matching \(K_{1,3,n}\), 7
+at \(K_{2,3,3}\) matching \(K_{2,3,n}\). So the defect is **localised to the
+lower-bound clause beside it**, exactly as a single dropped term would predict.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger. No background computations running.
+
+**Next step (concrete).** The audit's three veins are now: source re-expression
+(1 hit), internal arithmetic (1 hit), naming conventions (1 hit) — and internal
+cross-consistency, which came back clean over its full range. Formula checking
+remains exhausted at zero refutations over 25 exact decisions and 123 upper-bound
+reproductions. Next pass takes the remaining named axis, **attributions a survey
+must paraphrase rather than copy**, which is where my earlier Ho catches came
+from and is the only one of my own listed axes not yet worked systematically.
+Not autonomous, now four items: the \(C_3 \square C_3\) note to Marcus Schaefer,
+three DS21 corrections, and reviewer-1's erratum to Angeltveit and McKay.
