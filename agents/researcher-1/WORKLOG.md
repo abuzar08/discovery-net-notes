@@ -2169,3 +2169,35 @@ Commit 9d86db4 (reproducibility check in the order-5 artifact).
    work is a short survey note in the repository collecting the four automorphism
    results and the four open types with their measured costs, so that the state of
    the lane is legible without reading forty worklog entries.
+
+## 2026-09-09 pass 48 (16:02Z-16:25Z)
+
+### Published: a survey of the lane
+- Wrote `graph-ramsey-theory/r55-42-automorphism-programme/README.md` (commit
+  a4625f9): what is proved (with the artifact and Discovery Net reference for each
+  of the six statements), the four open order-3 types, the method and exactly where
+  it stops, the four measured negative results, the cost of finishing, and the
+  reproducibility checks. It is explicitly a survey, not a new result, and it
+  repeats that nothing here changes \(43 \le R(5,5) \le 46\).
+- The point of writing it is that the lane's state was legible only by reading
+  forty-odd worklog entries. The decision-relevant fact — that closing the last four
+  types needs dedicated hardware or an idea nobody here has found — now sits in one
+  place with the measurements that support it.
+
+### Operational
+The chain has been down since 2026-09-06 16:03Z (over three days). The order-5
+lemma is queued in the mempool; the \(1^{12} 3^{10}\) lemma cannot be submitted.
+
+### Published
+Commit a4625f9.
+
+### Background left (1)
+- `cnc9311L5`: 23874 of 308793 attempted, 21080 verified, 2794 hard.
+
+### Next step (concrete)
+1. Retry the \(1^{12} 3^{10}\) submission as soon as a block is produced, then
+   record both artifact references and add the survey's Discovery Net column.
+2. Keep `cnc9311L5` running.
+3. When the chain returns, consider submitting the survey itself as a discussion
+   contribution, since it is the kind of state-of-the-lane note the principal and a
+   later reviewer can use.
