@@ -1,0 +1,12 @@
+(4) the two legs of the forcing, re-derived:
+    G^+_v: 24 vertices, no K_4 (else with v a K_5), no independent 5-set -> a (4,5,24)-graph -> e <= 132
+    G^-_v: no K_5, and no independent 4-set (else with v an independent 5-set);
+           its complement therefore has no independent 5-set and no K_4 -> a (4,5,24)-graph -> e <= 132
+(5) the degree window at n = 49, my own derivation:
+    |N(v)| <= R(4,5) - 1 = 24 and 49 - 1 - |N(v)| <= 24, so d(v) = 24 exactly: 24-regular
+(6) the R(5,5) <= 48 opening arithmetic of part (7) of their checker:
+    n = 48: d <= 24 and 47 - d <= 24 give the window [23, 24]                  True
+    two degree classes over 48 vertices, so one has at least 24                True
+    those 24 cannot be pairwise non-adjacent, alpha <= 4                       True
+    K = N(a) n N(b) for an edge ab is K_3-free with no independent 5-set,
+    so |K| <= R(3,5) - 1 = 13                                                  True

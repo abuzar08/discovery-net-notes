@@ -1,0 +1,16 @@
+(1) THE COUNTING IDENTITY, DERIVED FROM SCRATCH
+    n = 49, d = 24: m = 588 (the paper's 588: match)
+    sum_v e(G^+_v) = 3t and sum_v e(G^-_v) = m + 3t, so the difference is exactly m = 588, independently of t
+    C(24,2) = 276; sum_v [e(G^+_v) + e(comp G^-_v)] = 49 * 276 - 588 = 12936 (the paper's 12936: match)
+    average per vertex = 12936 / 49 = 264 (exact: True), and 2 * 132 = 264 -> both terms forced to 132
+    with E(4,5,24) = 133 instead: 2 * 133 = 266 > 264, so nothing would be forced -> the lemma fails
+
+(2) THEOREM 3.1 AS A FILTER
+    graphs of the complete (4,5,24) catalogue with exactly 132 edges: 2
+      WsnNFaUwKUQbAMRC_xxXKCl\dQz_{b...  order 24, K_4 False, independent 5-set False, degrees 11..11 -> 11-regular genuine (4,5,24,132)-graph
+      WvyeKYRcsX[BEEQPeCxg]QdlC}`E}A...  order 24, K_4 False, independent 5-set False, degrees 11..11 -> 11-regular genuine (4,5,24,132)-graph
+
+(3) AUTOMORPHISM GROUPS AND TRANSITIVITY, MY OWN BACKTRACKING
+      WsnNFaUwKUQbAMRC_xxX...  |Aut| = 24, orbits [24] -> vertex-transitive
+      WvyeKYRcsX[BEEQPeCxg...  |Aut| = 48, orbits [24] -> vertex-transitive
+    multiset of orders: [24, 48]; the paper states {24, 48} -> match
