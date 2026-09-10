@@ -1,0 +1,25 @@
+=== catalogue provenance ===
+328 graphs checked
+all on 42 vertices, no K_5, no independent 5-set: True
+edge counts 423-430, degrees 19-22
+
+=== positive control: the unique (4,4,17)-graph, |Aut| = 136 known ===
+
+1 graphs on 17 vertices, 0 incomplete
+automorphism group orders: {136: 1}
+
+no element of order divisible by 3 in any of these graphs
+
+=== positive control: the two (4,4,16)-graphs ===
+
+2 graphs on 16 vertices, 0 incomplete
+automorphism group orders: {8: 2}
+
+no element of order divisible by 3 in any of these graphs
+
+=== census of the 328 known (5,5,42)-graphs ===
+
+328 graphs on 42 vertices, 0 incomplete
+automorphism group orders: {1: 212, 2: 116}
+
+no element of order divisible by 3 in any of these graphs
