@@ -21,13 +21,25 @@ with cycle type \(1^{f} p^{k}\), so \(f + pk = 42\).
 | \(1^{15} 3^{9}\) excluded | `../r55-42-order3-cube-and-conquer` | h2873, reviewed h2901 |
 | \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | submitted, awaiting a block |
 | \(1^{12} 3^{10}\) excluded | `../r55-42-order3-cube-and-conquer`, second section | not yet submitted |
+| No automorphism of order 27, and an automorphism of order 9 has cycle type \(3^{2} 9^{4}\) | `../r55-42-order-9-automorphisms` | not yet submitted |
 
 Together these give, for every \((5,5,42)\)-graph \(G\),
 $$|\mathrm{Aut}(G)| = 2^{a} 3^{b},$$
-with an order-3 automorphism having at most 9 fixed points. Four cycle types remain
-open, all of order 3:
-$$1^{9} 3^{11}, \qquad 1^{6} 3^{12}, \qquad 1^{3} 3^{13}, \qquad 1^{0} 3^{14}.$$
-Excluding them would give \(|\mathrm{Aut}(G)| = 2^{a}\).
+with an order-3 automorphism having at most 9 fixed points and no element of order
+27. Four cycle types remain open, all of order 3:
+$$1^{9} 3^{11}, \qquad 1^{6} 3^{12}, \qquad 1^{3} 3^{13}, \qquad 1^{0} 3^{14},$$
+together with the single order-9 type \(3^{2} 9^{4}\). Excluding the four order-3
+types would give \(|\mathrm{Aut}(G)| = 2^{a}\); excluding \(3^{2} 9^{4}\) alone,
+which is much cheaper, would give that the Sylow 3-subgroups have exponent 3.
+
+**Where the cheap results are.** The order-9 work is worth singling out as a lesson
+about this lane. A larger cyclic group collapses the \(\binom{42}{2} = 861\) vertex
+pairs into fewer orbits -- about 100 for an order-9 element against 331 for an
+order-3 element with 9 fixed points -- and the resulting formula is small enough that
+two of the three order-9 types fell to a single solver call, in 8 seconds and in 179
+seconds, with no symmetry breaking and no cube split at all. Whole days of the
+order-3 grind buy less than that afternoon did. Anyone extending this programme
+should look for the types with the largest automorphism first.
 
 ## The method, and where it stops
 
@@ -80,10 +92,26 @@ and all four failed; they are recorded so that nobody repeats them.
 
 ## Cost of finishing, and the honest position
 
-At the measured level-5 hard fraction, one sweep of \(1^{9} 3^{11}\) is about
-\(1.7 \cdot 10^{6}\) seconds of solver time and leaves of the order of 60000 hard
-cubes for the escalate-and-refine loop, so the type is roughly a week of background
-computation on a shared laptop; the other three are harder. The programme is
+**Measured cost of \(1^{9} 3^{11}\) (2026-09-09).** After 50699 of the 308793
+level-5 cubes, 17.9 percent are hard at the 20 s limit, and an easy cube costs
+2.53 s to solve and 1.40 s to replay, so a full sweep is about \(2.1 \cdot 10^{6}\)
+core-seconds, or 583 core-hours. Forty of the hard cubes were then drawn at random
+and re-attempted at 300 s: **all forty were refuted and replayed**, with median 44.6 s
+and maximum 194.9 s. At 83.3 s of solve-plus-replay per hard cube and about 55000
+hard cubes, escalation is a further 1276 core-hours, so the type costs about
+$$583 + 1276 \approx 1900 \text{ core-hours},$$
+about 15 days at five workers on a shared laptop.
+
+That is more than the week estimated when this note was first written, and the
+earlier figure was wrong in a specific way worth recording: it counted only the
+sweep's solver time and treated escalation as an open-ended refine loop. The new
+measurement changes the *shape* of the estimate as well as its size. Because a 300 s
+limit settles the hard cubes outright, no refinement round is expected at all, so
+the cost is a single predictable sweep-plus-escalation pass rather than the
+branching process that \(1^{12} 3^{10}\) and \(1^{2} 5^{8}\) needed. The other three
+types remain harder and are not measured this way.
+
+The programme is
 therefore not compute-bound in a way that a few more passes will fix: closing the
 remaining four types needs either dedicated hardware or a reduction nobody in this
 lane has found yet. That is stated here rather than buried in a worklog because it

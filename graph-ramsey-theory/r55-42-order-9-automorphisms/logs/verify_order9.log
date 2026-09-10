@@ -1,0 +1,13 @@
+=== 1^6 9^4 ===
+permutation on 42 points: cycle type 1^6 9^4, order 9
+cycle type [1, 1, 1, 1, 1, 1, 9, 9, 9, 9]: 109 orbit variables, 187068 clauses regenerated; ct6_9_4.cnf has 187068 clauses (187068 distinct), sha256 74d98b969249a99b3d2606b1438f08fdc1f53b4836d4c75d7e6f1b41706b48fc
+formula: regenerated clause set matches the file exactly
+certificate ct6_9_4.lrat (33226484 bytes, sha256 b13cb29a71494d5dcddef57fc629e836afa6bed4a3065666063a4229136dbd36): replays to the empty clause
+RESULT: all checks passed
+
+=== 1^3 3^1 9^4 ===
+permutation on 42 points: cycle type 1^3 3^1 9^4, order 9
+cycle type [1, 1, 1, 3, 9, 9, 9, 9]: 101 orbit variables, 186640 clauses regenerated; ct3_1_9_4.cnf has 186640 clauses (186640 distinct), sha256 1af44ee7779211239f7d5548b16ef29e8c0942b2ec10c90ed03c8b2c68d83e07
+formula: regenerated clause set matches the file exactly
+certificate ct3_1_9_4.lrat (479590159 bytes, sha256 5508dfbf04d2f4135d7d870549cfa5a063e65f6d7725df5d3c19492ad9b8b25c): replays to the empty clause
+RESULT: all checks passed
