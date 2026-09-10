@@ -97,12 +97,60 @@ Collecting the lane's state (`../r55-42-automorphism-programme` for the full tab
 | 2 | occurs -- 116 known examples |
 
 The order-3 row is the expensive one and the order-4 row is the one nobody has
-looked at. Since a \(Z_4\) or \(Z_2 \times Z_2\) collapses the \(\binom{42}{2} = 861\)
-vertex pairs into roughly 220 orbits -- more than the 97 to 143 of the order-9 work
-but well below the 311 to 331 of a single order-3 element -- the order-4 question may
-be the better next target on cost grounds alone. The obstacle is that it needs a
-bound on the fixed points of an involution of a \((5,5,42)\)-graph, and this lane has
-never proved one; without it the enumeration of order-4 actions is large.
+looked at. The next section proves the bound that makes order 4 enumerable at all,
+sizes the enumeration, and reports a probe of how hard it actually is.
+
+## A bound for involutions
+
+The census makes the order-4 question the interesting one, and that question needs
+something this lane has never proved: a bound on the fixed points of an involution.
+Here is one. It is weak, but it is what makes the enumeration finite.
+
+**Lemma.** An involution of a \((5,5,42)\)-graph has at most 36 fixed points.
+
+*Proof.* Let \(\sigma\) be an involution of a \((5,5,42)\)-graph \(G\), let
+\(F\) be its fixed set, and let \(C = \{u, \sigma u\}\) be any 2-cycle.
+
+First, every \(v \in F\) is joined to both of \(u, \sigma u\) or to neither:
+\(\sigma\) fixes \(v\) and swaps \(u\) with \(\sigma u\), so \(v \sim u\)
+if and only if \(v = \sigma v \sim \sigma u\). Write \(A_C\) for the fixed
+vertices joined to both and \(B_C\) for those joined to neither, so that
+\(F = A_C \sqcup B_C\) and \(f = |A_C| + |B_C|\).
+
+Suppose \(u \sim \sigma u\). A triangle inside \(A_C\) together with \(u\) and
+\(\sigma u\) would be a \(K_5\), since the three are mutually adjacent, each is
+adjacent to both of \(u, \sigma u\), and \(u \sim \sigma u\). So \(A_C\) is
+triangle-free, and it inherits from \(G\) the absence of an independent 5-set; hence
+\(|A_C| \le R(3,5) - 1 = 13\). An independent 4-set inside \(B_C\) together with
+\(u\) would be an independent 5-set, since none of the four is adjacent to \(u\).
+So \(B_C\) has no independent 4-set and no \(K_5\); hence
+\(|B_C| \le R(5,4) - 1 = 24\). Therefore \(f \le 37\). If instead
+\(u \not\sim \sigma u\), the same argument applied to the complement -- which is
+again a \((5,5,42)\)-graph -- gives \(|B_C| \le 13\) and \(|A_C| \le 24\), and
+the same bound. Since \(f + 2k = 42\) makes \(f\) even, \(f \le 36\).
+\(\square\)
+
+The bound is certainly not tight -- every involution in the census is fixed-point-free
+-- but it is enough to make the order-4 enumeration finite:
+
+| Group | actions with \(f \le 36\) | pair orbits |
+|---|---|---|
+| \(Z_4\) | 90 cycle types | 221 to 637 |
+| \(Z_2 \times Z_2\) | 1347 actions | about 220 upward |
+
+For comparison, a single involution collapses the 861 vertex pairs into only 441 to
+747 orbits -- *more* than the 311 to 331 of a single order-3 element. That is the
+structural reason involutions are not excludable by this method and, consistently,
+the reason they are the symmetry that actually occurs.
+
+**Feasibility probe (2026-09-10).** The 90 \(Z_4\) types were sized and the smallest
+of them tried. \(1^{0} 2^{1} 4^{10}\), with 221 pair orbits and 424084 clauses -- a
+smaller formula than any open order-3 type -- **did not fall to a single CaDiCaL call
+within the 10 minutes it was given**, unlike the order-9 types, which fell in 8 and
+179 seconds at 109 and 101 orbits. A longer probe is running and its result will be
+recorded here. So order 4 is a real project needing cube-and-conquer, not another
+afternoon; the orbit count alone does not predict difficulty, and the jump from about
+100 orbits to about 220 is evidently where this method stops being cheap.
 
 ## Files
 
