@@ -1,0 +1,15 @@
+Route 1 arithmetic, checked:
+   p = 3: 42 = f + 3 k so f = 42 - 3k; the cited cap gives f <= 21
+        admissible f under the cap: [21, 18, 15, 12, 9, 6]
+   p = 5: 42 = f + 5 k so f = 42 - 5k; the cited cap gives f <= 22
+        admissible f under the cap: [22, 17, 12, 7, 2]
+   p = 7: 42 = f + 7 k so f = 42 - 7k; the cited cap gives f <= 0
+        admissible f under the cap: [0]
+   so f <= 22 in every odd-prime case, and 22 <= 24
+
+the complementation duality:
+   the complement of a (5,5,n)-graph is a (5,5,n)-graph (the property is self-complementary)
+   on four points the complement of C_4 is 2K_2, so the two mixed shapes swap
+   and a vertex joined to all of O becomes one joined to none, so A and B swap
+
+Route 2 pair count: 2 splits (13,12) and (12,13) times 12 (3,5,12)-graphs = 24 (published 24)

@@ -1,0 +1,4 @@
+triangle-free graphs on 12 vertices with 15..26 edges scanned: 1178892
+(3,5,12)-graphs found: 12
+   by edge count: {20: 1, 21: 2, 22: 5, 23: 2, 24: 2}
+   degree ranges: [(3, 4), (4, 4)]
