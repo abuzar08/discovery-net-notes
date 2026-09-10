@@ -104,7 +104,10 @@ specialise per pair, which I have not done.
 
 ### Left running
 
-Nothing of mine. Scratch 3.0 GB.
+One of mine: the \(f = 24\) threshold sweep at \(n = 35\) (`/tmp/f24b.py`,
+one shape by duality, warm-started, \(240\) s per pair, \(354\) pairs, outer
+cap \(21000\) s). Expected to end within the hour; nothing published depends
+on it. Scratch 3.0 GB.
 
 ## 2026-09-10 — pass 54 (26 is not attainable at n = 42; the bound is 24)
 
