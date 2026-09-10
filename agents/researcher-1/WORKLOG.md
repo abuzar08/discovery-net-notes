@@ -2815,3 +2815,72 @@ the faster one frees its 4 workers in about 9. Scratch 9.8 GB.
    promote Theorem 2 of `r55-42-no-z3-squared` with both corollaries.
 3. Do **not** start order 4 without canonical prefix machinery; the probe shows plain
    splitting cannot get there.
+
+## 2026-09-10 pass 57
+
+### Retracted: "look for the largest symmetry group first"
+Commit d220b69. That rule is one I published in the survey two passes ago, and a
+successor would have followed it. It is wrong, and the correction is worth more than
+the rule was.
+
+The reasoning behind it: excluding every group of order 8 would bound the Sylow
+2-subgroup by 4 and so bound \(a\) in \(|\mathrm{Aut}(G)| = 2^{a}3^{b}\) — which
+nothing does today — and a bigger group should give a smaller formula. So I built one
+and measured. **A \(Z_2^{3}\) action on 42 points has 126 pair orbits, more than the
+97 to 99 of the \(Z_3\times Z_3\) actions**, despite the group being smaller. The
+reason: orbit count is \(861/|V|\) only up to a correction for pairs with non-trivial
+stabiliser, and an elementary abelian 2-group has seven involutions, each fixing many
+pairs. Group order is a bad proxy for the thing that matters.
+
+One fixed recipe — degree window, 14-variable split, cubes sampled at random —
+applied to three groups:
+
+| Group | order | orbit vars | free after 14-split | hard at 120 s |
+|---|---|---|---|---|
+| \(Z_3\times Z_3\) | 9 | 97-99 | 83-85 | **1-4 percent** |
+| \(Z_2^{3}\) | 8 | 126 | 112 | **100 percent** |
+| \(Z_4\) | 4 | 221 | 207 | **100 percent** |
+
+Order 8 also resisted a single call on the plain formula for 8 minutes, with and
+without fixed points. The threshold is sharp and sits between 85 and 112 free
+variables; nothing above it has yielded.
+
+The replacement rule: **compute the orbit count itself before committing effort.**
+It takes seconds and it is the quantity that predicts, where group order does not.
+
+### Stated: the programme's honest ceiling
+Following from the above, and now said plainly in the survey rather than left to be
+inferred. Rows four and five of the cost table are the ones that bound \(a\), and
+both are measured at a 100 percent hard fraction; so is order 8, which would have
+given \(a \le 2\). **Nothing available here bounds \(a\) at all.**
+
+What is reachable is the \(b\) side: \(b \le 1\) for about a day of background
+computation, \(b = 0\) for some thousands of core-hours. So the ceiling is
+\(|\mathrm{Aut}(G)| = 2^{a}\) with \(a\) unbounded, and
+\(|\mathrm{Aut}(G)| \le 2\) — which every one of the 328 known graphs satisfies —
+needs an idea that is not the orbit encoding. The gap between what this method can
+prove and what the data shows is exactly the 2-part.
+
+I would rather record that now than have the principal discover it after allocating
+another few thousand core-hours.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Eight artifacts await a block.
+
+### Published
+Commit d220b69 (order-8 measurement, rule retraction, honest ceiling).
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 3169 of 16384, 10 workers, 6.6 percent hard.
+- `z3sq/a0_b2000_c4_deg`: 5665 of 16384, 4 workers, 1.7 percent hard.
+Measured over a 105-minute window: 568 and 605 cubes/hour, so about 23 and 18 hours
+remaining. The allocation is within 6 percent of optimal, so I left it alone rather
+than restarting for a marginal gain. Scratch 9.4 GB.
+
+### Next step (concrete)
+1. When `a0_b2000_c4_deg` finishes, move its workers to the slower run and launch
+   \(3^{2}9^{4}\), which is built, verified and split ready.
+2. Verify both \(Z_3\times Z_3\) runs and promote Theorem 2 of `r55-42-no-z3-squared`.
+3. Do not start order 4, order 8, or \(Z_2\times Z_2\) — all three measured at 100
+   percent hard under the recipe that works.
