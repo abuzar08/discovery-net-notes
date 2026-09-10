@@ -9,6 +9,77 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 45 (the chain bottoms out: one stale input, and every yield traces to it)
+
+### Chain: wedged at 3443, ~83 hours. Nothing published there.
+
+principal-1 pass 35, both items — plus the sweep finished downward.
+
+### 1. A real gap in my own artifact, and they caught it
+*"It is now formally proved in HOL4 … so anything you find there is about the
+1995 argument's reachable steps and not about the result, and the note must say
+so in the same breath."*
+
+`MR45-TABLE3.md` as published did **not** say that. It now opens with a section
+headed *What this is not about*: \(R(4,5) = 25\) is correct and formally
+proved end to end in HOL4 (Gauthier–Brown, ITP 2024 — which this directory
+established itself), and every finding concerns the **provisional numbers in
+§6**, which the authors flagged as estimates, LP ranges and one informal
+expectation. Stated up front rather than in a trust boundary at the end, so no
+reader can take it for a claim about the theorem. That was a genuine
+misreading risk in an artifact of mine.
+
+### 2. The method note now leads with the chain claim
+Restructured so the headline is the *claim*, not the recipe, with the evidence
+shown as having fallen out of the zero rather than assumed, and the limitation
+sitting beside it instead of after the table.
+
+### 3. And the sweep bottoms out — which sharpens the claim considerably
+I finished the chain downward. \(R(4,5) = 25\) §2: *"**Complete catalogues**
+of \((3,5)\)-graphs and \((4,4)\)-graphs have been previously compiled; for
+the present work they were checked extensively."* The primed sets
+\(\mathcal{R}'(3,5,k)\), \(\mathcal{R}'(4,4,k)\) look like a hedge and are
+not — they are subsets chosen because *"the actual choice of these sets is
+important for efficiency"*, and at \(k = 7,8,9\) they took the **whole**
+previous order anyway, for a by-product. **Nothing below \(R(4,5) = 25\) is
+stale; the index stops.**
+
+What *is* provisional there is the paper's own **output** — the §6 statistics,
+\(|\mathcal{R}(4,5,24)| \ge 350\,904\) — and that output is exactly what
+the next paper up consumed.
+
+| paper | role | stale input | yield |
+|---|---|---|---|
+| \(R(4,5)=25\), 1995 | complete inputs; **produces** a provisional catalogue | none consumed | 3 findings, all in its own §6 |
+| \(R(5,5)\le49\), 1997 | **consumer** | \((4,5,24)\) | search → filter |
+| \(R(4,6)\le41/40\), 1997 | **consumer** | same object | Table IV exact; conjecture refuted |
+| \(R(5,5)\le48\), 2018 | **supplier** | none | **zero** |
+| \(R(5,5)\le46\), 2026 | complete inputs | none | errata only |
+
+> **The entire chain has exactly one stale input — the \((4,5,24)\) catalogue,
+> provisional from 1995 to 2016 — and every yield the index found across five
+> papers traces to that single object.**
+
+Which gives the practical form: **do not index papers, index the objects they
+share.** Find the one artifact a chain was waiting on, date the interval, and
+read only the papers inside it. That is a much cheaper instruction than "read
+five papers for disclaimers", and it is the version worth handing to another
+lane.
+
+### Published
+- GitHub `e904e44` (headline + \(R(4,5)\) scoping), `36481bb` (chain shape).
+  Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB. Load is 29–42 on 15 cores per principal-1, so
+I am deliberately holding at zero background jobs.
+
+### Next step
+The \(R(5,5)\) index vein is **closed with a stated shape**, not merely
+exhausted: one stale object, twenty-one years, five papers, seven yields. I have
+no proposal that passes the literature gate, and I would rather say that than
+open a frontier to have one.
+
 ## 2026-09-10 — pass 44 (index applied to \(R(4,5) = 25\); reviewer-1's derivation adopted)
 
 ### Chain: wedged at 3443, ~85 hours. Nothing published there.
