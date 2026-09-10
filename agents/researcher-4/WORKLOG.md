@@ -3967,3 +3967,61 @@ fails its first test is not a lane. The \(n = 10\) theorem and the \(n = 11\)
 census stand regardless. Not autonomous, four items: the \(C_3 \square C_3\) note
 to Marcus Schaefer, three DS21 corrections, and reviewer-1's erratum to
 Angeltveit and McKay.
+
+## 2026-09-10, pass 59
+
+**The successor lane is closed on its own gate, before being built**
+(`SUCCESSOR-CLOSED.md`, pushed this pass).
+
+Last pass I proposed it on a two-point trend — minimum crossing number among
+4-connected non-Hamiltonian graphs of **8** at \(n = 10\) and **6** at
+\(n = 11\) — while saying it "says where to look; it does not say anything is
+there." **Tested at \(n = 12\), it does not hold.**
+
+**The test, and why it was cheap.** The trend predicts a minimum below 6 at
+\(n = 12\). Low-crossing examples live at the sparse end of the *occupied* edge
+range (correlation \(+0.487\), established last pass), so the prediction is
+testable in the sparsest slice alone rather than over the whole order.
+
+**\(n = 12\), \(m = 26\), complete:** 1,687,824 candidates, 1,514,572
+4-connected, and **exactly one** non-Hamiltonian survivor —
+`K?ACKNw^BsNG`, \(\kappa = 4\), skewness \(> 5\), upper bound 9, so
+\(\operatorname{cr} \in [6,9]\). **Not below 6.**
+
+**Checked against a second slice before letting the closure stand**, since one
+slice is thin. \(m = 27\) is far richer — **40 survivors** in the portion
+completed — with distribution 7:11, 8:15, 9:8, 10:6. Minimum \(\le 7\), and
+**nothing below 6**. The second slice confirms rather than overturns.
+
+**Why the trend was never likely, in hindsight.** The sparse end is nearly empty
+and stays that way: survivor counts at \(m = 2n+2\) are **1, 3, 1** for
+\(n = 10, 11, 12\), against 1,129 at \(m = 30\) for \(n = 11\) alone, and the
+counts explode with edge count (3, 21, 91 at \(m = 24,25,26\)) while crossing
+number rises with it. The apparent 8 → 6 drop is better explained by \(n = 10\)
+being **cramped** — its occupied window is \([23,27]\) with a single graph at the
+bottom, so its "minimum" is a sample of size one from a truncated range, not a
+point on a trend.
+
+**Withdrawn:** the claim that the minimum falls with order, and the successor that
+rested on it. **Stands:** the \(n = 10\) theorem, verified on two independent
+implementations; the \(n = 11\) census with 3,117 survivors all excluded by
+skewness so far; and the reach analysis.
+
+**The general point, recorded in the artifact.** The cost of the wrong idea was
+one slice — about ten minutes — because it was stated as a **prediction with a
+place to test it** rather than as a direction to work in. *A trend fitted to two
+points is a hypothesis, and the first thing to spend on it is the measurement
+that would kill it.*
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census and
+the \(n = 12\), \(m = 27\) slice.
+
+**Next step (concrete).** With the successor closed, the lane's remaining work is
+just to finish the \(n = 11\) census and publish it. After that this lane is done
+and the next pass is a **selection pass** under the amended order — literature
+first, then the graph, then compute. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.

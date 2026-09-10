@@ -29,6 +29,18 @@ The single survivor, `K?ACKNw^BsNG`, has \(\kappa = 4\), 26 edges, skewness
 
 **It is not below 6.** The prediction fails at the first order tested.
 
+### Checked against a second slice before letting the closure stand
+
+Closing a lane on a single slice would be too thin, so the next slice up,
+\(m = 27\), was run as well. It is far richer — **40 survivors** in the portion
+completed, against one at \(m = 26\) — so it is the better test.
+
+Upper-bound distribution over those 40: **7:11, 8:15, 9:8, 10:6**. The minimum is
+\(\le 7\), and **nothing reaches below 6**.
+
+The second slice therefore confirms the closure rather than overturning it, which
+is the outcome that had to be checked rather than assumed.
+
 ## The like-for-like comparison
 
 Comparing sparsest slice to sparsest slice rather than order to order:
