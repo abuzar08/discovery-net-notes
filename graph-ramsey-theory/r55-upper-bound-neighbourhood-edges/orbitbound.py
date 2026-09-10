@@ -639,12 +639,16 @@ def cmd_audit():
     print("\n  Corollary 6, the hand exclusions -- each needs a large orbit:\n")
     print("     argument                                    needs |O| >=   at 4?")
     rows = [("(a) fixed vertex has deg or co-deg >= |O|", 25),
-            ("(b) counting A_C-B_C edges, deg_F(v) <= 1", 19),
-            ("(c) counting A_C-B_C edges, deg_F(v) <= 5", 19),
+            ("(b) A_C-B_C edge count, used at |O| = 23", 23),
+            ("(c) A_C-B_C edge count, used at |O| = 19", 19),
             ("(d) adjacent to >= 2 orbits gives deg >= 2|O|", 13),
             ("(e) (d) plus profile classes", 13)]
     for label, thr in rows:
         print(f"     {label:44s} {thr:6d}         no")
+    print("\n  The shape behind (b) and (c) is: v in A_C is joined to all of O,")
+    print("  so deg_F(v) <= 24 - |O| by the degree window.  That is a real")
+    print("  constraint when |O| is 19 or 23, giving 5 or 1.  At |O| = 4 it")
+    print("  gives deg_F(v) <= 20 against |F| <= 26 -- nearly vacuous.")
     print("\n  Every threshold comes from the degree window: an argument of")
     print("  this shape needs one orbit to fill a constant fraction of the")
     print("  24-vertex neighbourhood.  A 4-orbit fills a sixth of it, so none")

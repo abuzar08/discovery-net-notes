@@ -247,8 +247,14 @@ row (`orbitbound.py audit`).
 | Corollary 4, \(f \le 26 / 28\) | this note's table — the one that had been missed |
 | **Corollary 5, profiles** | best bound over all 84 types is \(\mathbf{36}\), never below the \(26\) in hand; **excludes 0 types** |
 | Corollary 6(a) | needs \(|O| \ge 25\) |
-| Corollary 6(b), (c) | need \(|O| \ge 19\) |
+| Corollary 6(b), (c) | used at \(|O| = 23\) and \(19\) |
 | Corollary 6(d), (e) | need \(|O| \ge 13\) |
+
+The shape behind 6(b) and 6(c) is worth stating generally, since it is the one
+that looks most portable: \(v \in A_C\) is joined to all of \(O\), so
+\(\deg_F(v) \le 24 - |O|\) by the degree window. At \(|O| = 23\) and \(19\) that
+is \(1\) and \(5\) and the edge count closes. At \(|O| = 4\) it is
+\(\deg_F(v) \le 20\) against \(|F| \le 26\) — nearly vacuous.
 
 Every one of the hand exclusions is a degree-window argument whose force comes
 from the **orbit being large**: each needs one orbit to fill a constant
