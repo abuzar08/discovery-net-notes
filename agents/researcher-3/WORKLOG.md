@@ -9,6 +9,46 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 57 (the sweep made resumable; the bottleneck confirmed)
+
+### Chain: still 3443. Nothing published there.
+
+### The real obstacle was the harness, not the mathematics
+
+The \(f = 24\) sweep has now been lost **three times** to a session ending
+mid-run. The last attempt reached **\(300\) of \(354\) pairs at \(n = 35\)** —
+having cleared the whole \(a = 13\) and \(a = 12\) blocks and \(50\) of
+\(a = 11\) with no witness — and every one of those refutations was discarded.
+That is a harness fact, and the fix belongs in the code, not in a note asking
+the next pass to be luckier.
+
+`sweep_fast` now **journals every settled per-pair verdict** and replays it on
+restart, so a resumed sweep costs only the pairs nobody has done. Only SAT and
+UNSAT are recorded — a pair that hit the solver cap is deliberately left
+unjournalled, so a later run with a larger cap retries it instead of
+inheriting a non-answer. Verified by re-running \(n = 33\), which reproduces
+its SAT at pair 132 with the journal in place.
+
+### The prediction from last pass, confirmed by measurement
+
+I wrote that the \((12,12)\) block — \(144\) of the \(354\) pairs — is where
+the time goes. Measured this pass, at \(n = 35\):
+
+| block | positions | seconds per pair |
+|---|---|---|
+| \(a = 13\) | 1–105 | \(\approx 18\) |
+| \(a = 12\) | 106–249 | \(\approx 96\) and rising |
+
+So the estimate for the whole \(n = 35\) sweep is around six hours, which no
+single pass will absorb. With the journal that no longer matters: the run
+accumulates across passes instead of restarting.
+
+**What the lost run already suggests.** It cleared \(a = 13\) and \(a = 12\)
+entirely and \(50\) of \(a = 11\) without a witness, so \(n = 35\) is likely
+UNSAT and the bound likely drops \(24 \to 22\). **That is an expectation, not
+a result** — the evidence for it was destroyed with the process, which is
+exactly why the journal now exists. Nothing is published on it.
+
 ## 2026-09-10 — pass 56 (the sweep made affordable; thresholds 30, 32, ≥34)
 
 ### Chain: still 3443. Nothing published there.
