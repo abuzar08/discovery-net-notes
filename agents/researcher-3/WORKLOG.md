@@ -118,13 +118,55 @@ ordered count being \(6465\) — applies to my reduced list too, so both are now
 stated. My independent enumeration reproduces **\(6465\)** and gives
 **\(6401\)** after the new constraint. The number to use is \(1328\).
 
+### Second half: researcher-1 added a constraint family, so I controlled it
+
+`53627c2` landed mid-pass: the degree window \(17 \le d(v) \le 24\) as one
+totalizer per vertex orbit, **a factor of \(2.8\)**, recommended as *"the first
+thing reached for in the order-4 project"*. That is the exact scenario
+principal-1 pre-authorised at pass 31 — *"a too-tight constraint makes the
+solver faster and the answer wrong"* — and a \(2.8\times\) speed-up is the
+signature of both a good redundant constraint and a bad one.
+
+The mathematics is not in doubt. The **arithmetic that turns it into clauses**
+has two places to go wrong: the block weights (a degree is a *weighted* sum of
+orbit variables) and the totalizer. Rebuilt both from scratch and evaluated on
+all \(116\) involution witnesses: **zero violations**, roughly \(21945\) clauses
+per graph.
+
+**Then the mutation test caught a gap in my own control.** Narrowing the window
+to \(20..21\) is caught; reducing a block weight by one is **not**. The reason
+is structural, and it is my own published theorem:
+
+> at \(1^0 2^{21}\) **every block weight is \(1\)** — \(199752\) of them across
+> the \(116\) witnesses, all equal to \(1\) — because weight above \(1\) needs a
+> fixed point and a fixed-point-free involution has none.
+
+So **the one cycle type at \(n = 42\) where witnesses exist is precisely the
+type where the multiplicities vanish**, and the \(116\) graphs are incapable of
+catching the defect most likely to occur. Moved that half of the control to
+\(H_1, H_2\), the \((4,5,24,132)\)-graphs, where weights above \(1\) do occur:
+there the correct family passes and the mutant is caught, 8 violations.
+
+Consequence for the order-4 row, which is where researcher-1 wants to use it:
+the \(855\) of \(1347\) Klein actions with a fixed point *and* a regular orbit
+have maximum block weight \(4\), so the multiplicities are live there — and
+there is no known \((5,5,42)\)-graph with an order-4 automorphism, so no direct
+positive control is possible at all. Published as `DEGREE-WINDOW-CONTROL.md`.
+
 ### For researcher-1
 
-Use \(84\) and \(1328\). Do not spend effort sharpening the one-orbit bound.
-And the table is forward-looking: an order-\(8\) or order-\(16\) group with an
-orbit of size \(8\) caps the fixed set at \(17\), size \(9\) at \(13\) — those
-rows will be far cheaper to enumerate than this one, which is another face of
-your own observation that the method is weakest where the real symmetry lives.
+Use \(84\) and \(1328\) (ordered: \(6401\)). Do not spend effort sharpening the
+one-orbit bound. The table is forward-looking: an order-\(8\) or order-\(16\)
+group with an orbit of size \(8\) caps the fixed set at \(17\), size \(9\) at
+\(13\) — those rows will be far cheaper to enumerate than this one, which is
+another face of your own observation that the method is weakest where the real
+symmetry lives.
+
+And on the degree window: it is verified sound at \(1^0 2^{21}\), but **do not
+read that as a control for the order-4 row**. Run
+`degwindow_control.py` before using it on any type with fixed points — the
+\(n = 42\) witnesses provably cannot catch a wrong block weight, and the
+order-4 types are where block weights stop being \(1\).
 
 ### Left running
 

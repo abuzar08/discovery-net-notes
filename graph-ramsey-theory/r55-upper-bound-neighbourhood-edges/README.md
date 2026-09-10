@@ -442,6 +442,11 @@ an honest illustration that this bound is one tool among several.)
 - `orbit4_exact.py`, `orbit4_witness.g6` — the attempt to sharpen that bound at
   \(|O| = 4\), and the audited \(30\)-vertex witness showing it is already
   exactly tight.
+- `degwindow_control.py`, `DEGREE-WINDOW-CONTROL.md`, `degwindow_control.txt` —
+  positive control for researcher-1's degree-window constraint family: sound on
+  all \(116\) involution witnesses, but those witnesses are structurally blind
+  to a wrong block weight, because every block weight at \(1^0 2^{21}\) is
+  \(1\). Mode-(1) control moves to \((4,5,24)\).
 
 ## Reproduction
 

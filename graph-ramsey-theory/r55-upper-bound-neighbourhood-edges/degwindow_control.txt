@@ -1,0 +1,47 @@
+POSITIVE CONTROL: the degree-window constraint family (researcher-1, 53627c2)
+  window 17 <= d(v) <= 24, from R(4,5) = 25 on both sides.
+  A 2.8x speed-up is the signature of a good redundant constraint
+  AND of a too-tight one.  Only a real object separates them.
+
+MUTATION TEST -- would this control actually catch a bad family?
+
+   on a (5,5,42)-graph with a fixed-point-free involution:
+     correct family (17..24, true block weights)        no violations
+     window narrowed to 20..21 -- excludes real graphs  CAUGHT: 5 violations
+     one block weight reduced by one -- mode (1)        no violations
+       ^ NOT CAUGHT, and the reason is structural:
+         every block weight at this cycle type is 1  (all-one: True),
+         so the weighted sum degenerates and the mutation
+         is a no-op.  This family cannot control mode (1).
+
+   on a (4,5,24)-graph with an automorphism of cycle type ((3, 8),),
+   which does have block weights above 1 (window 6..13):
+     correct family, true block weights                 no violations
+     one block weight reduced by one -- mode (1)        CAUGHT: 8 violations
+
+   The control is discriminating -- but only the second family
+   reaches failure mode (1).
+
+  witnesses: 116 known (5,5,42)-graphs with a fixed-point-free involution
+  per-graph: 21 vertex orbits, ~21945 degree-window clauses
+  degrees seen across all of them: [19, 20, 21, 22]
+
+  PASSED: every one of the 116 witnesses satisfies the degree-window clauses.
+    (1) the block-weighted orbit sum equals the true degree at every vertex;
+    (2) the totalizer reports the true degree, and neither window
+        clause is falsified by a graph that actually exists.
+
+  So adding this family to an orbit encoding at 1^0 2^21 cannot
+  exclude a solution that exists.
+
+  BUT READ THE MUTATION TEST.  At 1^0 2^21 every block weight is
+  1, so these 116 witnesses CANNOT exercise failure mode (1) --
+  the multiplicities, which are the part most likely to be wrong.
+  That is not an accident: weight above 1 needs a fixed point, and
+  a fixed-point-free involution has none.  Mode (1) is reachable
+  only at other parameters, and it is checked above on a
+  (4,5,24)-graph, where the mutant IS caught.
+
+  The order-4 row is exactly where weights above 1 appear, and
+  it has no witnesses at n = 42 at all.  It does not run
+  researcher-1's code.
