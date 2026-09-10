@@ -2683,3 +2683,68 @@ hours and the first around a day. Scratch 9.3 GB.
    \(2^{a}\cdot3\).
 4. Order 4 when a slot frees: the encoder and checker are ready and controlled, so the
    work is prefix enumeration plus sweep.
+
+## 2026-09-10 pass 55
+
+### Published: the lane survey refreshed with a cost-versus-payoff table
+`graph-ramsey-theory/r55-42-automorphism-programme/README.md` (commit 92e68d6). The
+survey still said "four artifacts" when there are eight, and its summary predated the
+order-9, \(Z_3\times Z_3\), census and involution-bound work. It is the document the
+principal and a reviewer actually read, so letting it drift is a real cost.
+
+It now carries one table of the five open items with cost and payoff:
+
+| Open item | Cost | Buys |
+|---|---|---|
+| 2 of 39 \(Z_3\times Z_3\) actions | running, about a day | every 3-subgroup cyclic, hence \(b \le 2\) |
+| order-9 type \(3^{2}9^{4}\) | a cube-and-conquer run | no order 9; with the above, \(b \le 1\) |
+| 4 order-3 cycle types | about 1900 core-hours for the cheapest | \(b = 0\) |
+| 90 \(Z_4\) cycle types | machinery ready; needs prefix enumeration and sweep | no order 4 |
+| 1347 \(Z_2\times Z_2\) actions | larger still | with the above, \(a \le 1\) |
+
+and states two conclusions rather than leaving them to be inferred. **The two cheap
+rows dominate the expensive one**: together they give \(|\mathrm{Aut}(G)| = 2^{a}\) or
+\(2^{a}\cdot 3\) for about a day of background computation, whereas the four order-3
+types cost thousands of core-hours and only improve \(b \le 1\) to \(b = 0\). And
+**the destination is \(|\mathrm{Aut}(G)| \le 2\)** — which every known example
+satisfies, and which cannot be improved to 1, since 116 of them carry a real
+involution.
+
+### Rebalanced the two runs on measured throughput
+Over 3 h 16 the frontiers were 2190 and 4667, so on 7 workers each the slow action
+needed about 21 more hours and the fast one about 8 — the fast one would have finished
+and left seven cores idle while the slow one ground on. Remaining work is roughly
+426k against 161k core-seconds, so I stopped both with `stop_run.sh` and restarted at
+**10 workers and 4**, which should bring both home in about 12 hours instead of 21.
+Both resumed correctly from their results files, skipping 2170 and 4600 cubes.
+
+### Checked the expensive things before spending twelve more hours on them
+Cheap checks that would have made the whole run worthless if they failed:
+- both augmented formulas regenerate exactly (97 and 99 orbit variables, 199206 and
+  199646 distinct clauses, degree window over 6 vertex orbits each);
+- both cube files are exactly the \(2^{14}\) sign patterns of 14 variables, which is
+  what `--cubes` will demand;
+- all 6770 recorded results have `cube_lits` agreeing with the cube file, 0 mismatches.
+
+Better to find a cube/formula mismatch now than after the sweep.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Eight artifacts await a block.
+
+### Published
+Commit 92e68d6.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 2170 of 16384 done, 10 workers, 120 s limit.
+- `z3sq/a0_b2000_c4_deg`: 4600 of 16384 done, 4 workers, 120 s limit.
+Hard fractions flat at about 4 and 1.3 percent. Expected to finish together in roughly
+12 hours. Scratch 9.0 GB.
+
+### Next step (concrete)
+1. Verify both with `verify_groupenc.py --degree --cubes` and promote Theorem 2 of
+   `r55-42-no-z3-squared` with both corollaries — this is the single highest-value
+   step available and it is close.
+2. The roughly 150 hard cubes across the two runs get split deeper, not escalated.
+3. Then \(3^{2}9^{4}\), completing the second cheap row of the survey table.
+4. Order 4 after that: encoder and checker are ready and controlled.
