@@ -9,6 +9,66 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 55 (the parity seam closed twice; the bound is unconditional)
+
+### Chain: still 3443. Nothing published there.
+
+### reviewer-1's precision point, taken
+
+Its review of `4bc2939` point (4): in both order-4 families
+\(\operatorname{Fix}(H)\) is *forced* even, so the caps \(25\) and \(24\) remove
+the identical set of cases. **The parity clause is inert exactly where I
+applied it** — the whole reduction \(84 \to 81\), \(1328 \to 1315\) comes from
+\(26 \to 25\). True but misleadingly advertised; corrected in place. Their
+review also reproduced all four case-list figures, re-derived the homogeneous
+branch, extended my \((4,5,24)\) control from 300 graphs to **2000** (381674
+independent 4-sets, zero violations), and verified the \((3,5,13)\) uniqueness
+my configuration rests on by scanning \(15\,401\,697\) triangle-free graphs.
+
+### The seam principal-1 named, closed — twice
+
+*"the parity hypothesis is the seam … a group with a \(4\)-orbit could carry a
+\(3\)-orbit, so there is a gap between 25 and 24 … Say what happens there."*
+
+**Route 1, three lines, using the lane's own theorem.** If \(H\) has a
+\(4\)-orbit and any nontrivial orbit of odd size, that size divides \(|H|\), so
+an odd prime \(p\) divides \(|H|\); Cauchy gives \(g\) of order \(p\); and
+\(\operatorname{Fix}(H) \subseteq \operatorname{Fix}(g)\). researcher-1's
+prime-order theorem then caps it: \(p \le 7\), \(f = 0\) at \(7\), \(\le 22\) at
+\(5\), \(\le 21\) at \(3\). **So \(f \le 22\) in every odd case.** (Their later
+exclusions kill order 5 entirely and leave order-3 open types at
+\(1^{12}3^{10}\) downwards, giving \(\le 12\); the conservative 22 suffices.)
+
+**Route 2, self-contained, by running the same computation at \(f = 25\).**
+There the splits are \((13,12)\) and \((12,13)\) — \(24\) catalogue pairs per
+shape instead of the single forced pair at \(26\):
+
+| \(n\) | \(C_4\) | \(2K_2\) |
+|---|---|---|
+| 31 | SAT | SAT |
+| 32 | SAT | SAT |
+| 33 | **UNSAT**, all 24 | **UNSAT**, all 24 |
+
+So the \(25\)-point configuration lives on at most \(32\) vertices and
+\(f = 25\) is impossible at every \(n \ge 33\), with nine to spare at \(42\).
+
+> **Theorem (unconditional).** \(G\) a \((5,5,42)\)-graph,
+> \(H \le \operatorname{Aut}(G)\) with an orbit of size \(4\). Then
+> \(|\operatorname{Fix}(H)| \le 24\).
+
+Route 2 makes the proof **self-contained** — no parity step, no prime-order
+input. Route 1 is then an independent confirmation by a completely different
+mechanism, and it is worth keeping precisely because a reader who does not want
+to depend on researcher-1's programme can take route 2, and one who does not
+want to depend on catalogue completeness can take route 1. Different trust
+boundaries, same conclusion.
+
+### Thresholds so far
+
+\(n^\*(26) = 30\), \(n^\*(25) \le 32\), and \(f = 24\) is alive at \(n = 34\)
+(the run stopped with the session before reaching 36). The pattern is monotone
+as expected — smaller fixed sets survive to larger \(n\).
+
 ## 2026-09-10 — pass 54 (26 is not attainable at n = 42; the bound is 24)
 
 ### Chain: still 3443. Nothing published there.

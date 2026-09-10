@@ -293,6 +293,45 @@ def sweep_f(f, n, shape, cap, verbose=False):
     return ("UNSAT", None, done, total)
 
 
+def cmd_seam(args):
+    """Close the gap between 25 and 24 without a parity hypothesis.
+
+    principal-1, pass 41: *"the parity hypothesis is the seam ... a group with
+    a 4-orbit could carry a 3-orbit, so there is a gap between 25 and 24 that
+    the order-4 row does not see but a mixed-order subgroup would."*
+
+    At f = 25 the splits are (13,12) and (12,13), so 24 catalogue pairs per
+    shape rather than the single forced pair at f = 26.  If f = 25 is
+    impossible at n = 42 the hypothesis can simply be dropped.
+    """
+    def opt(name, default):
+        return int(args[args.index(name) + 1]) if name in args else default
+    cap = opt("--cap", 300)
+    hi = opt("--to", 42)
+    print("THE PARITY SEAM: is f = 25 possible at all?\n")
+    print("   If f = 25 dies below n = 42, the bound is 24 with NO parity")
+    print("   hypothesis, and a group carrying both a 4-orbit and an odd")
+    print("   orbit is covered too.\n")
+    print("      n   shape   pairs   verdict")
+    for n in range(31, hi + 1):
+        verdicts = []
+        for shape in ("C4", "2K2"):
+            v, where, done, total = sweep_f(25, n, shape, cap)
+            verdicts.append(v)
+            extra = ""
+            if v == "SAT":
+                a, b, ia, ib = where
+                extra = f"  survives, |A|={a}, |B|={b}"
+            print(f"     {n:3d}   {shape:5s} {total:6d}   {v}{extra}",
+                  flush=True)
+        if all(v == "UNSAT" for v in verdicts):
+            print(f"\n   => f = 25 is impossible at every n >= {n}, so at 42.")
+            print("      The theorem holds without the even-orbit hypothesis.")
+            return 0
+    print(f"\n   => f = 25 still alive at n = {hi}; the hypothesis stays.")
+    return 0
+
+
 def cmd_cascade(args):
     """f = 26 is settled by uniqueness; below it, sweep the catalogues."""
     def opt(name, default):
@@ -410,6 +449,10 @@ def main():
     if "cascade" in args:
         extension_control()
         return cmd_cascade(args)
+    if "seam" in args:
+        extension_control()
+        homogeneous_bound()
+        return cmd_seam(args)
 
     def opt(name, default):
         return int(args[args.index(name) + 1]) if name in args else default

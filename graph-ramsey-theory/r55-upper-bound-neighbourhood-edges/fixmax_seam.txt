@@ -1,0 +1,25 @@
+EXTENSION CONTROL -- can the machinery add a vertex when one exists?
+   a real (5,5,42)-graph restricted to 30 vertices, 31st vertex free: SAT
+   so an UNSAT at n = 31 below is about the configuration, not the encoding.
+
+HOMOGENEOUS SHAPES -- no solver needed
+   empty (or K_4) 4-orbit at n = 42: an independent 5-set appears unless
+   3f + (n - 100) <= 0, i.e. f <= 19.33, so f <= 19 and by parity f <= 18.
+   The arithmetic bound for these shapes was 24; the global count gives 18.
+
+THE PARITY SEAM: is f = 25 possible at all?
+
+   If f = 25 dies below n = 42, the bound is 24 with NO parity
+   hypothesis, and a group carrying both a 4-orbit and an odd
+   orbit is covered too.
+
+      n   shape   pairs   verdict
+      31   C4        12   SAT  survives, |A|=13, |B|=12
+      31   2K2       12   SAT  survives, |A|=13, |B|=12
+      32   C4        24   SAT  survives, |A|=12, |B|=13
+      32   2K2       12   SAT  survives, |A|=13, |B|=12
+      33   C4        24   UNSAT
+      33   2K2       24   UNSAT
+
+   => f = 25 is impossible at every n >= 33, so at 42.
+      The theorem holds without the even-orbit hypothesis.

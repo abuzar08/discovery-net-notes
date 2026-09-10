@@ -1,4 +1,4 @@
-# The true maximum: 26 is not attainable at \(n = 42\)
+# The true maximum: \(|\operatorname{Fix}(H)| \le 24\) at \(n = 42\), unconditionally
 
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-10.
 Checker: `fixmax.py`. Builds on `ORBIT-FIXED-POINT-BOUND.md` and
@@ -49,11 +49,13 @@ cross edges plus everything touching the \(n - 30\) extra vertices.
 is monotone, no \((5,5,n)\)-graph with \(n \ge 31\) contains it — in particular
 none with \(n = 42\), where \(12\) vertices sit outside the configuration.
 
-> **Theorem.** Let \(G\) be a \((5,5,42)\)-graph and
+> **Theorem (first form).** Let \(G\) be a \((5,5,42)\)-graph and
 > \(H \le \operatorname{Aut}(G)\) with an orbit of size \(4\). Then
 > \(|\operatorname{Fix}(H)| \le 25\); and if every nontrivial \(H\)-orbit has
 > even size — in particular whenever \(H\) is a \(2\)-group, which covers the
 > whole order-4 row — then \(|\operatorname{Fix}(H)| \le 24\).
+>
+> §4a removes the hypothesis: \(\le 24\) holds for **every** such \(H\).
 
 *Proof.* Suppose the orbit's shape is mixed and \(|\operatorname{Fix}(H)| = 26\).
 Then \(|A| = |B| = 13\), both halves are the unique graphs, and \(G\) restricted
@@ -66,7 +68,15 @@ even size then \(42 - f\) is even, so \(f\) is even and \(f \le 24\).
 **The parity step needs the hypothesis.** A group with a \(4\)-orbit may also
 have a \(3\)-orbit if \(3\) divides its order, and then \(f\) need not be even.
 For \(Z_4\) and \(Z_2 \times Z_2\) — the order-4 row — every orbit has size
-\(1, 2\) or \(4\), so the hypothesis holds and \(24\) is the operative number.
+\(1, 2\) or \(4\), so the hypothesis holds.
+
+> **But the parity clause is inert exactly where it is applied** — reviewer-1's
+> review of `4bc2939`, point (4). In both families \(\operatorname{Fix}(H)\) is
+> *forced* even (\(c_1 = 42 - 2c_2 - 4c_4\), \(n_1 = 42 - 2\sum b_i - 4c\)), so
+> the caps \(25\) and \(24\) remove the identical set of cases and the counts
+> at the two caps agree. **The whole reduction in §5a comes from \(26 \to 25\).**
+> The clause is true and it earns its place only for groups with odd orbits —
+> which is precisely the seam §4a now closes.
 
 ## 4. The homogeneous shapes need no solver
 
@@ -99,6 +109,70 @@ that in a \((4,5,n)\)-graph a vertex set joined to all of an independent
 against the real catalogue: **300 \((4,5,24)\)-graphs, every independent
 \(4\)-set, zero violations** — the largest such set actually seen is \(4\), so
 the bound is sound and loose.
+
+## 4a. The parity seam, closed twice
+
+principal-1, pass 41: *"the parity hypothesis is the seam: \(\le 24\) needs
+every nontrivial orbit even, and a group with a \(4\)-orbit could carry a
+\(3\)-orbit, so there is a gap between 25 and 24 that the order-4 row does not
+see but a mixed-order subgroup would. Say what happens there."*
+
+Here is what happens. **The hypothesis can be dropped**, by two independent
+routes.
+
+**Route 1 — the lane's own prime-order theorem.** Suppose \(H\) has a
+\(4\)-orbit and some nontrivial orbit of *odd* size \(m\). Orbit sizes divide
+\(|H|\), so an odd prime \(p\) divides \(|H|\), and Cauchy gives \(g \in H\) of
+order \(p\). Every point fixed by all of \(H\) is fixed by \(g\), so
+\(\operatorname{Fix}(H) \subseteq \operatorname{Fix}(g)\). researcher-1's
+theorem (`r55-42-prime-order-automorphisms`) bounds exactly that:
+
+> *"Then \(p \le 7\), and if \(p = 7\) then \(f = 0\); if \(p = 5\) then
+> \(f \le 22\); if \(p = 3\) then \(f \le 21\)."*
+
+So \(|\operatorname{Fix}(H)| \le 22\) in every odd case — below \(24\). (Their
+later exclusions make this much stronger still: order 5 is gone entirely, so
+\(p = 3\) is forced, and the open order-3 types are \(1^{12}3^{10}\) downwards,
+giving \(f \le 12\). The conservative \(22\) is enough and does not depend on
+those.)
+
+**Route 2 — the same computation, run at \(f = 25\).** Independently of any
+prime-order input: at \(f = 25\) the splits are \((13,12)\) and \((12,13)\),
+so \(24\) catalogue pairs per shape rather than one.
+
+| \(n\) | \(C_4\) | \(2K_2\) |
+|---|---|---|
+| 31 | SAT | SAT |
+| 32 | SAT | SAT |
+| 33 | **UNSAT**, all 24 pairs | **UNSAT**, all 24 pairs |
+
+So the \(25\)-point configuration lives on at most \(32\) vertices, and
+\(\mathbf{f = 25}\) **is impossible at every \(n \ge 33\)** — in particular at
+\(42\), with nine vertices to spare.
+
+Either route gives the same conclusion, so the theorem of §3 can be restated
+without its hypothesis:
+
+> **Theorem (unconditional form).** Let \(G\) be a \((5,5,42)\)-graph and
+> \(H \le \operatorname{Aut}(G)\) a subgroup with an orbit of size \(4\). Then
+> \(|\operatorname{Fix}(H)| \le 24\).
+
+*Proof.* Homogeneous orbit shapes give \(f \le 19\) (§4). For a mixed shape,
+\(f = 26\) is impossible at \(n \ge 31\) (§3) and \(f = 25\) is impossible at
+\(n \ge 33\) (route 2), and \(42\) exceeds both, so \(f \le 24\). \(\square\)
+
+Note that route 2 makes the proof **self-contained**: no parity argument and no
+prime-order input are used at all. Route 1 is then an independent confirmation
+of the same conclusion by a completely different mechanism, and it also covers
+the odd-orbit case with room to spare (\(22\), or \(12\) using the lane's later
+exclusions).
+
+**What each route costs.** Route 1 is three lines but **borrows researcher-1's
+theorem**, so it inherits that trust boundary. Route 2 is self-contained but
+costs \(48\) solver calls per \(n\) and rests on completeness of the
+\((3,5,12)\) catalogue. They are worth having separately for exactly that
+reason: a reader who does not want to depend on the prime-order programme can
+take route 2, and vice versa.
 
 ## 5. Below 26 the catalogues come back
 
@@ -163,10 +237,11 @@ Both UNSATs are certified through drat-trim to LRAT.
 
 ## 7. What this establishes and what it does not
 
-**Establishes.** \(n^\* = 30\) for the mixed-shape \(26\)-point configuration;
-hence \(|\operatorname{Fix}(H)| \le 24\) for any group with a \(4\)-orbit in a
-\((5,5,42)\)-graph, improving the \(26\) of the arithmetic bound; and
-\(f \le 18\) for homogeneous shapes, by hand.
+**Establishes.** \(n^\* = 30\) for the mixed-shape \(26\)-point configuration
+and \(n^\* \le 32\) for the \(25\)-point one; hence
+\(|\operatorname{Fix}(H)| \le 24\) **unconditionally** for any group with a
+\(4\)-orbit in a \((5,5,42)\)-graph, improving the \(26\) of the arithmetic
+bound; and \(f \le 19\) for homogeneous shapes, by hand.
 
 **Does not establish.** That \(24\) is attained. §5 reports how far the
 cascade got. Nor does it say anything about orbits of other sizes — the
@@ -181,5 +256,6 @@ uniqueness at \(13\) does the work and the result rests on two refutations).
 
 ```bash
 python3 fixmax.py --from 30 --to 32        # the threshold, with both controls
+python3 fixmax.py seam --cap 300           # f = 25 dies at n = 33; the seam
 python3 fixmax.py cascade --n 31           # how far down the cascade goes
 ```
