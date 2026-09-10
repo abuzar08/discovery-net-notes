@@ -158,9 +158,38 @@ def control(n, adj, perm, s, t):
     return nvar, len(cls), bad
 
 
+def closed_form(f, p, k):
+    """Orbit count for type 1^f p^k, valid for EVERY p.
+
+    The formula used in the R(4,6) lane is
+        C(f,2) + f k + C(k,2) p + k (p-1)/2,
+    derived there for odd primes.  Two things go wrong outside that range, and
+    one correction fixes both.
+
+    The internal pairs of a single p-cycle are indexed by the distance
+    d = 1..p-1, and sigma identifies d with p-d, so the number of internal
+    orbits per cycle is the number of classes of {1..p-1} under d <-> p-d,
+    which is floor(p/2) -- NOT (p-1)/2.
+
+      * p = 2: the one internal pair is FIXED by sigma, so 1 per cycle, not
+        1/2.  Uncorrected the form gives 138 for 2^12 and 430 for 2^21 against
+        the true 144 and 441.  (Caveat due to reviewer-1, pass 47.)
+      * p composite, e.g. p = 4: distances 1 and 3 form one orbit and distance
+        2 forms another, so 2 per cycle rather than 1.  At 1^3 4^3 the
+        uncorrected form gives 28 against the true 30 -- found here when the
+        p = 2 fix alone still failed that row.
+
+    floor(p/2) agrees with (p-1)/2 at every odd p, so nothing that was right
+    before changes.
+    """
+    from math import comb
+    return comb(f, 2) + f * k + comb(k, 2) * p + k * (p // 2)
+
+
 def cross_check_against_1fpk():
     """On types 1^f p^k, the general orbit map must agree with this directory's
-    special-case one (verify.canonical_orbits), which was written separately."""
+    special-case one (verify.canonical_orbits), which was written separately,
+    and with the corrected closed form."""
     if R46 not in sys.path:
         sys.path.insert(0, R46)
     import verify
@@ -179,7 +208,21 @@ def cross_check_against_1fpk():
                 (mine[a] == mine[b]) != (theirs[a] == theirs[b])
                 for a in mine for b in mine):
             raise SystemExit(f"orbit maps disagree at 1^{f} {p}^{k}")
+        if closed_form(f, p, k) != nv1:
+            raise SystemExit(f"closed form {closed_form(f, p, k)} != {nv1} "
+                             f"at 1^{f} {p}^{k}")
         checked.append((n, f, p, k, nv1))
+    # the p = 2 cases the R(4,6) form would get wrong
+    for f, p, k in ((0, 2, 12), (4, 2, 10), (0, 2, 21)):
+        n = f + p * k
+        perm = list(range(n))
+        for j in range(k):
+            for i in range(p):
+                perm[f + j * p + i] = f + j * p + (i + 1) % p
+        _, nv = pair_orbits(n, perm)
+        if closed_form(f, p, k) != nv:
+            raise SystemExit(f"corrected closed form wrong at 1^{f} 2^{k}")
+        checked.append((n, f, p, k, nv))
     return checked
 
 

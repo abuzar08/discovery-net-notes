@@ -89,7 +89,9 @@ $$
 
 not the full window \([17,24]\) that \(R(4,5) = 25\) permits. The 328 are not
 an exhaustive set, so **this is not usable as a constraint** — but it does say
-where the mass is if branching order is ever tuned.
+where the mass is if branching order is ever tuned. **Also published**: McKay
+and Radziszowski 1997 §4, *"All the vertices have degrees between 19 and 22,
+inclusive."*
 
 ## 4. The stronger control: the encoding itself, at the exact target
 
@@ -105,6 +107,22 @@ must remain **satisfiable** — and it is, explicitly:
 > is discrete on the other 212, so those have trivial automorphism group) and
 > then **confirmed by checking all \(\binom{42}{2}\) adjacencies** under the
 > candidate permutation.
+
+> **Prior art, and I should have cited it from the first draft.** That split is
+> **published**: McKay and Radziszowski, JCTB 69 (1997) §4 — *"Of these 328
+> graphs, 212 have trivial automorphism groups and the others have a single
+> nontrivial involution without fixed points."* The same section also gives the
+> edge range and distribution and the degree range, both of which I recomputed
+> and reported below without attribution. reviewer-1 recorded the point in its
+> **pass 1**, months before I made the observation, and I did not find it.
+> Fourth prior-art collision of this campaign.
+>
+> What survives as mine is not the observation but its **use**: these graphs as
+> explicit satisfying assignments for an encoding, which is what a positive
+> control needs and what §4 was not written to supply. The recomputation is an
+> independent reproduction of published data — it matches digit for digit,
+> including the edge distribution \(1, 7, 29, 66, 89, 77, 43, 16\) — and that
+> is worth something, but it is a check, not a finding.
 
 Each of the 116 is therefore an explicit satisfying assignment for the orbit
 encoding at \(f = 0\), \(p = 2\), \(k = 21\). Demonstrated end to end on this
@@ -278,3 +296,58 @@ because a formula that has lost its solutions still refutes.
 ```bash
 python3 cyctype_control.py
 ```
+
+### Two additions from reviewer-1's review, both adopted
+
+reviewer-1 confirmed all eleven rows with a **third** independent
+implementation — same orbit counts, same clause counts, zero violations — and
+independently found the 116 involutions, with the search *exhausting* on the
+other 212 rather than timing out, so those provably carry none. It added two
+things I had not seen.
+
+**Why the clause count is exactly \(\binom{42}{5}\), which is not the reason
+it looks like.** I reported \(850\,668\) clauses at \(2^{21}\) without
+noticing that \(\binom{42}{5} = 850\,668\) too — which reads as if the
+encoding dedupes nothing. It is a different and better fact. The **distinct
+clause supports** number \(425\,334 = \binom{42}{5}/2\), and that is
+*forced*: a fixed-point-free involution moves every vertex and a \(5\)-set has
+odd size, so **no \(5\)-set is \(\sigma\)-invariant**; the \(5\)-sets
+therefore pair off and each pair shares one support. Two clauses per support —
+one all-positive, one all-negative — gives \(850\,668\). The same convention
+reconciles researcher-1's table, whose \(187\,068\) clauses at
+\(1^6 9^4\) are \(2 \times 93\,534\) supports. Worth stating, because
+anyone comparing either table against \(\binom{42}{5}\) would otherwise
+suspect one of them of counting \(5\)-sets.
+
+**A trap in a closed form this team uses — and it is wider than reported.**
+The orbit-count formula
+\(\binom{f}{2} + fk + \binom{k}{2}p + k(p-1)/2\), derived in the
+\(R(4,6)\) lane for **odd primes**, is wrong outside that range.
+
+reviewer-1 reported the \(p = 2\) case: the single internal pair of a
+\(2\)-cycle is *fixed* by \(\sigma\), so the contribution is \(k\), not
+\(k/2\). It gives \(138\) for \(2^{12}\) against \(144\), and \(430\)
+for \(2^{21}\) against \(441\).
+
+Encoding that fix as a special case and re-running the cross-check **failed a
+second row** — \(1^3 4^3\), giving \(28\) against the true \(30\). So the
+problem is not \(p = 2\) but **\(p\) not prime**. The internal pairs of a
+\(p\)-cycle are indexed by distance \(d = 1, \dots, p-1\) and \(\sigma\)
+identifies \(d\) with \(p - d\), so the count per cycle is the number of
+classes of \(\{1,\dots,p-1\}\) under \(d \leftrightarrow p-d\), which is
+
+$$
+\left\lfloor p/2 \right\rfloor, \quad\text{not}\quad (p-1)/2 .
+$$
+
+At \(p = 4\), distances \(1, 3\) form one class and \(2\) forms another —
+two, not one. At \(p = 2\) it gives \(1\), which is reviewer-1's case. And
+\(\lfloor p/2 \rfloor = (p-1)/2\) at every odd \(p\), so **nothing that
+was right before changes**.
+
+Nothing is broken in the lane it came from: `symC_regen` returns nothing at all
+when \(p\) is even, and \(R(4,6)\) Theorem 7 covers \(p \ge 5\) prime.
+The trap is for a reader reusing the form, and the cross-check in this file now
+runs the corrected version against direct computation at \(1^0 2^{12}\),
+\(1^4 2^{10}\), \(1^0 2^{21}\) and \(1^3 4^3\) as well as the odd-prime
+rows.
