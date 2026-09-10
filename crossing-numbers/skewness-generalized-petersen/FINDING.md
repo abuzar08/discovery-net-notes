@@ -192,7 +192,39 @@ be before the run started. It shows only that 9 is unreachable **by that shape**
 which is one family of edge sets among many, and the true skewness could be 9 by
 some set the shape does not contain.
 
-### Whether the shape is optimal at all is about to be tested
+### The shape is provably suboptimal, and this weakens my own \(k = 7\) bound
+
+Tested against the cases DS21 records as **settled**, where the conjectured
+\(k+2\) is taken to be the true value:
+
+| \(k\) | graph | shape gives | settled value \(k+2\) |
+| --- | --- | --- | --- |
+| 9 | \(GP(36,9)\) | 15 | **11** |
+| 11 | \(GP(44,11)\) | 19 | **13** |
+
+**The shape overshoots by 4 and 6.** So \(2k-3\) is a property of *this
+construction*, not of the skewness function, and the shape's agreement with the
+exhaustive answers at \(k = 3\) and \(k = 4\) is a small-case accident rather
+than a general pattern.
+
+Three consequences, and I would rather state them against my own results than
+leave them implied:
+
+1. **\(\mathrm{sk}(GP(28,7)) \le 11\) is probably loose.** It is still a valid
+   upper bound, but a bound from a construction now known to overshoot by 4 at
+   the next odd value carries little weight, and **the gap between it and DS21's
+   9 is evidence about my shape, not about the conjecture.**
+2. **The \(2k-3\) hypothesis is dead as a claim about skewness.** It survives
+   only as a description of what this particular family of edge sets achieves.
+3. **The exhaustion at \(k = 7\) up to 9 edges says less than it appeared to.**
+   It rules out 9 within a shape that is known to be the wrong shape at \(k = 9\)
+   and \(k = 11\).
+
+**What is untouched.** \(\mathrm{sk}(GP(12,3)) = 3\) rests on **exhaustive**
+enumeration over all sets of at most two edges plus an Euler-verified witness,
+not on the shape at all. Finding 4 stands exactly as stated.
+
+### Whether the shape is optimal at \(k = 5\) is about to be tested
 
 The shape gives the exact value at \(k = 3\) (3, matching the exhaustive
 answer) and at \(k = 4\) (5, matching). At \(k = 5\) it gives **7**, while
