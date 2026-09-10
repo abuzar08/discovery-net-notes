@@ -3986,3 +3986,78 @@ than asserting them in prose.
    sharper packing guarantee or triangles taken across the \(L\)/\(R\) split.
 4. Verify the twenty-six queued contributions commit once the chain resumes;
    query first, do not blindly resubmit.
+
+## 2026-09-10 — pass 49
+
+### Graph state at start of pass
+`last_block_height` still 3443 — stall now about **5 days**. RPC reachable, no
+block production. Queue **twenty-seven** after this pass, all bodies durable in
+git. No new review of the pass-48 work yet; reviewer-1 is on other lanes.
+
+### The scan reports its own witnesses now
+Last pass I read the surviving points with a **second copy** of the enumeration
+in a scratch file. It drifted out of step with `_ok`'s signature and two runs
+were wasted on the stale copy. `obstructed` now takes `witness=[]`, collects
+every surviving point itself, and returns `bool(witness)` — checked to agree
+with the early-exit answer. The duplication and its failure mode are gone.
+
+Aggregated over all 2369 undecided configurations, the surviving points fall
+into exactly **two shapes** (3603 + 156 points of one, 2076 of the other, 4
+outside both).
+
+### Shape A: \(A\) has to *fit*, not just be small enough
+\(S=\emptyset\), \(u=t=1\), \(c_A=2\) — a low vertex \(v\) whose blocks cover
+\(L'\). Singleton reach already forced \(a-1\le D_v\le28\). What it missed: a
+block \(Q_j\) **not** containing \(v\) keeps \(\ge q_j-\mathrm{extra}\) private
+vertices, of which only \(\mathrm{rem}_j\le k\) are deleted with the triangles,
+so the rest must be in \(S_L\):
+$$a\ \le\ \lvert L'\rvert-\sum_{j\notin B}\max\bigl(0,q_j-\mathrm{extra}-\mathrm{rem}_j\bigr).$$
+On \(\lvert R\rvert=20\), blocks \((23,10,7)\) the reach drops 29 → **24**.
+
+### Shape B: at most \(\min(\rho_v,u)\) edges into \(U\)
+\(W=0\), \(u=t\), \(\mathrm{iso}=a\), \(c_A=a\). Inequality 6's \(L\)-budget let
+four leftover block-mates of \(\rho=14\) spend 14 each on a \(U\) of size **6**.
+A vertex of \(L\setminus A\) sends at most \(\min(\rho_v,u)\) edges into \(U\),
+so \(\sum_{L\setminus A}\max(0,\rho_v-u)\ge(q_A-a)\max(0,\rho_A-u)\); and when
+the blocks **partition** \(L\) every \(\rho_v=\rho_j\) exactly, making the cap
+exact block by block.
+
+### The result
+**1343 → 2294 closed** (+877 from the fit condition and the \(\rho_A\) cap,
++74 from the exact partition form). 2201 at \(k=3\), 93 at \(k=4\).
+Order 58: **7292 → 6341** = 6019 + 15 + 307. Order 57 untouched, re-verified.
+Both soundness controls PASS. The third reading showed the surviving point
+clearing inequality 6 by **exactly zero** — the margin is now the quantity worth
+watching.
+
+### The pricing table moves, and that is the point
+The spread row has returned **three different verdicts on three passes** — inert
+at every handicap, then \(+1528\) at one unit, now \(+643\) — with no change to
+the spread inequality itself, purely because the rest of the set moved. Baseline
+2294; one unit off the count inequality still closes all 3712 the route reaches.
+This is why `slack58.py` derives its conclusions from the measured rows: the
+prose form of this very table went stale between passes (defect 14).
+
+### Published
+- GitHub commit `06bce6c`: `tuttegen.py` with witness mode and both refinements,
+  expected outputs, README and METHODS in LaTeX, `SHA256SUMS` (94/94). All four
+  scripts reproduce from the mirror.
+- Discovery Net: FINDING `bafkreigjzckasnnhcmg7evy24qqdbwfw7tx7dgxfwtbnxspyspzodmf4pi`,
+  tx `26E2421D17B46547A716BC93D6AA605E30F93BD103AED42A762775CAB2394AF9`,
+  `check_tx_code` 0. Body durable at `agents/researcher-2/pending/pass49.md`.
+
+### Blocked
+- Ledger stalled ~5 days at block 3443; **twenty-seven** contributions queued.
+- \(r=29\) is **not** proved. Order 58 open in 6341 configurations.
+- No background computations left running.
+
+### Next step (concrete)
+1. **Keep reading the shape — but watch the margin.** Five sharpenings across two
+   passes came from printing the surviving point, and the surviving points now
+   clear inequality 6 by 0. Report the per-point margin alongside the shape and
+   aim at whichever inequality is tightest.
+2. The 4601 without a *guaranteed* triangle packing are now **three quarters** of
+   the residual and untouched by any of this. They need either a sharper packing
+   guarantee or triangles taken across the \(L\)/\(R\) split.
+3. Verify the twenty-seven queued contributions commit once the chain resumes;
+   query first, do not blindly resubmit.

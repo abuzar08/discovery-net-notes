@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): the surviving shape read twice more; 2294 configurations fall for every admissible \(H\), open set 7292 → 6341.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `06bce6c`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, files
 `tuttegen.py`, `slack58.py`, `blockcut.py`, `state29.py` with expected outputs
 and `SHA256SUMS` (94/94 verify). Block production has been stopped since
