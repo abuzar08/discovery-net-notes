@@ -22,6 +22,7 @@ with cycle type \(1^{f} p^{k}\), so \(f + pk = 42\).
 | \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | submitted, awaiting a block |
 | \(1^{12} 3^{10}\) excluded | `../r55-42-order3-cube-and-conquer`, second section | not yet submitted |
 | No automorphism of order 27, and an automorphism of order 9 has cycle type \(3^{2} 9^{4}\) | `../r55-42-order-9-automorphisms` | not yet submitted |
+| A \(Z_3 \times Z_3\) in \(\mathrm{Aut}(G)\) must act without fixed points and with four regular orbits (37 of 39 actions excluded) | `../r55-42-no-z3-squared` | not yet submitted |
 
 Together these give, for every \((5,5,42)\)-graph \(G\),
 $$|\mathrm{Aut}(G)| = 2^{a} 3^{b},$$
@@ -32,14 +33,23 @@ together with the single order-9 type \(3^{2} 9^{4}\). Excluding the four order-
 types would give \(|\mathrm{Aut}(G)| = 2^{a}\); excluding \(3^{2} 9^{4}\) alone,
 which is much cheaper, would give that the Sylow 3-subgroups have exponent 3.
 
-**Where the cheap results are.** The order-9 work is worth singling out as a lesson
-about this lane. A larger cyclic group collapses the \(\binom{42}{2} = 861\) vertex
-pairs into fewer orbits -- about 100 for an order-9 element against 331 for an
+**Where the cheap results are.** The order-9 and \(Z_3 \times Z_3\) work is worth
+singling out as a lesson about this lane. A larger group collapses the \(\binom{42}{2} = 861\) vertex
+pairs into fewer orbits -- about 100 for an order-9 element against 311 for an
 order-3 element with 9 fixed points -- and the resulting formula is small enough that
 two of the three order-9 types fell to a single solver call, in 8 seconds and in 179
 seconds, with no symmetry breaking and no cube split at all. Whole days of the
-order-3 grind buy less than that afternoon did. Anyone extending this programme
-should look for the types with the largest automorphism first.
+order-3 grind buy less than that afternoon did. The same trick applied to the
+non-cyclic group of order 9 knocked out 37 of the 39 possible \(Z_3 \times Z_3\)
+actions, again mostly by single solver calls. Anyone extending this programme should
+look for the largest symmetry group first, cyclic or not: the collapse in formula
+size is what decides feasibility, and it does not care whether the group is generated
+by one element.
+
+Completing the two outstanding \(Z_3 \times Z_3\) actions and the single order-9
+type \(3^{2} 9^{4}\) would give \(|\mathrm{Aut}(G)| = 2^{a}\) or
+\(2^{a} \cdot 3\) for every \((5,5,42)\)-graph -- a far stronger conclusion than
+the four open order-3 types would yield, at a small fraction of their cost.
 
 ## The method, and where it stops
 

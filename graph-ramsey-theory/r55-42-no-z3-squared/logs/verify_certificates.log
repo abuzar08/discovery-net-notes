@@ -1,0 +1,188 @@
+SKIP a0_b1100_c4 (still solving)
+SKIP a0_b2000_c4 (still solving)
+101 orbit variables, 181212 clauses regenerated; z3sq/a0_b2111_c3.cnf has 181212 clauses (181212 distinct), sha256 bd91312fe2d86e735c794732beac57220e42e77fc08aa62cb0499bce71cf4e7c
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b2111_c3.lrat (37127963 bytes, sha256 6bd5b2335fdb43e2571e1c814ab3a6f5d90476c1aef963d3258cfbf4d3b1a271): replays to the empty clause
+RESULT: all checks passed
+
+103 orbit variables, 181652 clauses regenerated; z3sq/a0_b2210_c3.cnf has 181652 clauses (181652 distinct), sha256 124c2a0ee757235334312a1a4978c76904ef31d46b67321e388a3b91a281aa10
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b2210_c3.lrat (63453742 bytes, sha256 e7292c93ca90386a703e879b78e70a35a3e9467ce74d8f25e2e73ec869c696a4): replays to the empty clause
+RESULT: all checks passed
+
+109 orbit variables, 171668 clauses regenerated; z3sq/a0_b2222_c2.cnf has 171668 clauses (171668 distinct), sha256 ae11984776dbf04ee3e4a70ca881fd55cb4a905d9ee059f7aa1ccc4229b203d1
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b2222_c2.lrat (142280 bytes, sha256 580dc499ec8bdd2754ff3355a07792314d5110e6d02d0d39c07ef4c949357e36): replays to the empty clause
+RESULT: all checks passed
+
+105 orbit variables, 182072 clauses regenerated; z3sq/a0_b3110_c3.cnf has 182072 clauses (182072 distinct), sha256 c315ccc664c2018f3756e5ef5d5bba98f28095c4bf0cd970520643df5977bc4a
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b3110_c3.lrat (42684732 bytes, sha256 1d27050b4604d031466c461fae7937c65fa47a1162d6672c97dd1a8f57387c53): replays to the empty clause
+RESULT: all checks passed
+
+107 orbit variables, 182600 clauses regenerated; z3sq/a0_b3200_c3.cnf has 182600 clauses (182600 distinct), sha256 935f4f0406069a7223a37bb613f5df747d1ce9ded4d1dd82f5499269faf6b0c5
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b3200_c3.lrat (37758211 bytes, sha256 6cf7af0bcbd177c2463aa02cb31fa033e278fecf3e0fb7c56b9abb68769f4887): replays to the empty clause
+RESULT: all checks passed
+
+111 orbit variables, 172492 clauses regenerated; z3sq/a0_b3221_c2.cnf has 172492 clauses (172492 distinct), sha256 717938b62bf014fa8dc6ffa545bd8e0f8db1b69eadf34a51d8a3363b992480e1
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b3221_c2.lrat (186235 bytes, sha256 d8574c1a1a4d2d099e75dd70b9514be0a47bd4291d9cda8fe277932dcf4213c3): replays to the empty clause
+RESULT: all checks passed
+
+113 orbit variables, 173396 clauses regenerated; z3sq/a0_b3311_c2.cnf has 173396 clauses (173396 distinct), sha256 66d0ca1b01620e7ee627b6e9f1956d6b07ffbf285c0e0f03e2bc031ed972f5a2
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b3311_c2.lrat (2624994 bytes, sha256 a775853862e407c5097cecfbf47c7ca0d145a83698f76ec1304e5cda67bcbd8c): replays to the empty clause
+RESULT: all checks passed
+
+115 orbit variables, 174396 clauses regenerated; z3sq/a0_b3320_c2.cnf has 174396 clauses (174396 distinct), sha256 64cbf95ef72bc0e692f71e61b84169aa59f71af1ffb3e07b243f9b58702e76fa
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b3320_c2.lrat (203977 bytes, sha256 52ef1054ac149e8c861f44d912d5c95fb6f5560c3a6a3be44863834b8ce3ac59): replays to the empty clause
+RESULT: all checks passed
+
+123 orbit variables, 146314 clauses regenerated; z3sq/a0_b3332_c1.cnf has 146314 clauses (146314 distinct), sha256 6430293cfad4e5830a82a149aa51473cf568bee960dfe64c67555551953a54d5
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b3332_c1.lrat (155920 bytes, sha256 167aadd1f2f4628d4930d3a84eb7c8c59ca22cacda08f798ea9d6d1137506512): replays to the empty clause
+RESULT: all checks passed
+
+111 orbit variables, 183512 clauses regenerated; z3sq/a0_b4100_c3.cnf has 183512 clauses (183512 distinct), sha256 3e9076c6c3d3b0938e4589085adbcd4226805ab38cbecae1771e67abf71c44e4
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4100_c3.lrat (556382593 bytes, sha256 097e467a3929506ce472d48715ecc58c606d27045caca7671868e2966ca83911): replays to the empty clause
+RESULT: all checks passed
+
+115 orbit variables, 174172 clauses regenerated; z3sq/a0_b4211_c2.cnf has 174172 clauses (174172 distinct), sha256 6b7d987231e37a5f30290f7900474d0697be6f7d6d902cb45f94959c20911dae
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4211_c2.lrat (178885 bytes, sha256 591295b319dd423201e06c1f29d890269ae8f76fbfeb4fe8bb6a00b440032cdd): replays to the empty clause
+RESULT: all checks passed
+
+117 orbit variables, 175252 clauses regenerated; z3sq/a0_b4220_c2.cnf has 175252 clauses (175252 distinct), sha256 f02b9bbc7345eea3e8b95f1a3c7b690fbd755dbc670244f60f442811d322d753
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4220_c2.lrat (181727 bytes, sha256 1b321cba111ef3758dfe5694b0410bd918a35cb7221211bb662c98b7c54481cd): replays to the empty clause
+RESULT: all checks passed
+
+119 orbit variables, 176396 clauses regenerated; z3sq/a0_b4310_c2.cnf has 176396 clauses (176396 distinct), sha256 72238433399d0f1c7519134b019b67252d035b2d9ec6a9e45dc8f3810e1f10d1
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4310_c2.lrat (688411 bytes, sha256 fd50bef428c2242e4626c9042e8a65945a1dde306fe2cf4160dd020cb7ac025c): replays to the empty clause
+RESULT: all checks passed
+
+125 orbit variables, 148242 clauses regenerated; z3sq/a0_b4322_c1.cnf has 148242 clauses (148242 distinct), sha256 4fc957ff1b1ea00733fa2815f84860cf47ccfb523de8a7aac5f870e604831aa4
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4322_c1.lrat (579832 bytes, sha256 ee4308105c6e4e80afd4c9b4f52646cdf338d3c2fd7508e2b901e3af4b3cc169): replays to the empty clause
+RESULT: all checks passed
+
+127 orbit variables, 150446 clauses regenerated; z3sq/a0_b4331_c1.cnf has 150446 clauses (150446 distinct), sha256 8696f3d04d20469a293b50c462b10bdfcb2c128fbf873759a1e3d3017fbfc150
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4331_c1.lrat (195500 bytes, sha256 8018298937a9027f4b514645d6c91263281e5ac1e701b046eddd5fe6c8908c7b): replays to the empty clause
+RESULT: all checks passed
+
+125 orbit variables, 180116 clauses regenerated; z3sq/a0_b4400_c2.cnf has 180116 clauses (180116 distinct), sha256 ea6db025239c7ac7a1566aacac09046caca3b586eb734bc24eaa3a85dc4d2fc1
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4400_c2.lrat (7870609 bytes, sha256 2f80cf60d95628468f49a5cc8d88d9ff399b947c0cf5d0fc65c4b271341d445c): replays to the empty clause
+RESULT: all checks passed
+
+129 orbit variables, 152606 clauses regenerated; z3sq/a0_b4421_c1.cnf has 152606 clauses (152606 distinct), sha256 0dc76c5251ad82c85c5e726fe09aee73857d47426298c3ca1197a5dce86b1d20
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4421_c1.lrat (148929 bytes, sha256 9217f3f395f8b36460976e57486523e188742ccebf2ea531f364280493d30920): replays to the empty clause
+RESULT: all checks passed
+
+133 orbit variables, 157454 clauses regenerated; z3sq/a0_b4430_c1.cnf has 157454 clauses (157454 distinct), sha256 cdc05d0d6f6666c4089cd039333400593310d22aabf3443866f0a838dfc324d4
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4430_c1.lrat (184750 bytes, sha256 3102d3af0968c5f3509ad3bf589248ef223c3e9a94b5db91f23a7c42ddc2133a): replays to the empty clause
+RESULT: all checks passed
+
+141 orbit variables, 72650 clauses regenerated; z3sq/a0_b4433_c0.cnf has 72650 clauses (72650 distinct), sha256 d5b80593382f50f3b1c7dba2789d84753af88d0bdee8308ce53833413de5994f
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4433_c0.lrat (119958 bytes, sha256 daacfffc74dce069149f7c5028e60d4f9ac3e38607244464c19bcb4ed06bfd80): replays to the empty clause
+RESULT: all checks passed
+
+143 orbit variables, 76986 clauses regenerated; z3sq/a0_b4442_c0.cnf has 76986 clauses (76986 distinct), sha256 2e6f9a89223f2c8767c57506ef6dd63137686664f1dde8a5422e197c88d8a6e5
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a0_b4442_c0.lrat (75288 bytes, sha256 b7403296ecb438f94cfe08fdc51e82f73950e9eb53e44e4f9b25a6002272c54e): replays to the empty clause
+RESULT: all checks passed
+
+101 orbit variables, 186468 clauses regenerated; z3sq/a3_b1000_c4.cnf has 186468 clauses (186468 distinct), sha256 d5269259779b4f5b3761422372d97417bbe3cb1edaf02d87fa5ec5a8517986e7
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b1000_c4.lrat (347986944 bytes, sha256 0157714ac1ca7d5b3c757671ad40a3ffa2ae4e7e4bde9a4ddb7dbbff3b152d1e): replays to the empty clause
+RESULT: all checks passed
+
+109 orbit variables, 181612 clauses regenerated; z3sq/a3_b1111_c3.cnf has 181612 clauses (181612 distinct), sha256 7617eac33f07b8562de245722ee279e8bab16dac4ced6f807d4b5d7ccd2c7cfc
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b1111_c3.lrat (4391235 bytes, sha256 3a2198021731dc1f9fdd19511fb59757ef093524c5cb0e25b95884c78f612cfa): replays to the empty clause
+RESULT: all checks passed
+
+111 orbit variables, 182100 clauses regenerated; z3sq/a3_b2110_c3.cnf has 182100 clauses (182100 distinct), sha256 12ff2ff1652f93ee3a7966563f893c9d0c17c80dcd71e0afe2f68993ea05f32b
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b2110_c3.lrat (215331078 bytes, sha256 2564643cd115bbc2a8b3a6e552fd89d981f261c261ca150b6b255a5b7abb3350): replays to the empty clause
+RESULT: all checks passed
+
+113 orbit variables, 182644 clauses regenerated; z3sq/a3_b2200_c3.cnf has 182644 clauses (182644 distinct), sha256 f4068572b102b1b46ab42cc51d073ddcce60e9f827ec6deed27f1cd454b4bb85
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b2200_c3.lrat (12084916 bytes, sha256 c4bfddcf89ae66745de20d95dd5deb84eb80ffbb118d52ac4128b94916ee1d50): replays to the empty clause
+RESULT: all checks passed
+
+123 orbit variables, 173762 clauses regenerated; z3sq/a3_b2221_c2.cnf has 173762 clauses (173762 distinct), sha256 d356bcd7e4e6a4802b224ce73697442d4a8741214f9e7b276d57323e2662f5ad
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b2221_c2.lrat (214489 bytes, sha256 90a0085ab171a12fd2c8ca38f48ce86dee71625ff2ab2b3f43ab26ad2e440713): replays to the empty clause
+RESULT: all checks passed
+
+SKIP a3_b3100_c3 (still solving)
+125 orbit variables, 174834 clauses regenerated; z3sq/a3_b3211_c2.cnf has 174834 clauses (174834 distinct), sha256 e3526e7c6de73d2ea10e6c0ee2acaaf658f592c6ddd329ecf6affd5b5c77f6eb
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b3211_c2.lrat (221939 bytes, sha256 dcb7886f7b37bfc17cb41e7986eeebc7d7beefc9aeffa7cb3f0cc67cd6ce2813): replays to the empty clause
+RESULT: all checks passed
+
+127 orbit variables, 176018 clauses regenerated; z3sq/a3_b3220_c2.cnf has 176018 clauses (176018 distinct), sha256 e0ad1416318b1004a1121d650af61b848e5c7ca1d9f27eddf7a86aa5bc92290e
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b3220_c2.lrat (279222 bytes, sha256 86c09e8bed9f9905e55cf91c7662c4e928820f03d5ef637a540f68d1ace053ef): replays to the empty clause
+RESULT: all checks passed
+
+129 orbit variables, 177274 clauses regenerated; z3sq/a3_b3310_c2.cnf has 177274 clauses (177274 distinct), sha256 259807be5c75befb5065e2020ddf75ce1983e8400bfe8cbab38b939b182b62bd
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b3310_c2.lrat (395622 bytes, sha256 e6e6ae0045a7548e111eaafab0517f39696381b742d71acad3d9ecff735a60b7): replays to the empty clause
+RESULT: all checks passed
+
+141 orbit variables, 151410 clauses regenerated; z3sq/a3_b3322_c1.cnf has 151410 clauses (151410 distinct), sha256 c14d817d7fb0a8f58fc15bc26085700833ee8e733b69777069f9b4a56675d9b8
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b3322_c1.lrat (188605 bytes, sha256 1e08fa5765f78b7b7469e9412e8d58169544b1991e35abfae9fc3178ed3e1d93): replays to the empty clause
+RESULT: all checks passed
+
+143 orbit variables, 153966 clauses regenerated; z3sq/a3_b3331_c1.cnf has 153966 clauses (153966 distinct), sha256 9c8631cbe2bb00ccaff6abbda9aded40a82cd906da5f9c94daa0ab81f5a9711e
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b3331_c1.lrat (485642 bytes, sha256 30f0ca870868b5ff7677e38872ca2a67c2413a728add3cb51b1a9e15fcb5705b): replays to the empty clause
+RESULT: all checks passed
+
+109 orbit variables, 186288 clauses regenerated; z3sq/a6_b0000_c4.cnf has 186288 clauses (186288 distinct), sha256 4120d0e7aa2afadc51aac3c77275447093e5ccd4292db899f89f8aacef6a7846
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a6_b0000_c4.lrat (7218914 bytes, sha256 d078304ee58fc0da516da1c770a639c65654db06a6f15b088c89bd8115f8ab3d): replays to the empty clause
+RESULT: all checks passed
+
+123 orbit variables, 182658 clauses regenerated; z3sq/a6_b1110_c3.cnf has 182658 clauses (182658 distinct), sha256 8defeeeadf56a7e561aa6122cf1317488aa23d56eb3b37e7d69e293fbe496b17
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a6_b1110_c3.lrat (1396774 bytes, sha256 accb8d07a2e8d4b206f6c95762d32c905c1859ea6980b4f2f3bcd699a652386c): replays to the empty clause
+RESULT: all checks passed
+
+125 orbit variables, 183314 clauses regenerated; z3sq/a6_b2100_c3.cnf has 183314 clauses (183314 distinct), sha256 8845e04a7206cbd6d9e90a38ed1385b7f4b1f6c4bb915ebef1c1d78f74b9b0b6
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a6_b2100_c3.lrat (595950 bytes, sha256 5a7a6a69e1f80d44f469c2a3a01c8bc0e012e6f0bf7a5d608b8f878b5dcc84c8): replays to the empty clause
+RESULT: all checks passed
+
+141 orbit variables, 176462 clauses regenerated; z3sq/a6_b2211_c2.cnf has 176462 clauses (176462 distinct), sha256 6e86a882dbf97b382488562cc3eb2a26b8859a82dd0077e95d88011488e8875c
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a6_b2211_c2.lrat (269106 bytes, sha256 86345ba276a7b0261eccfae6f0a660318200e85718e2eb39b611f36c7d140315): replays to the empty clause
+RESULT: all checks passed
+
+143 orbit variables, 177894 clauses regenerated; z3sq/a6_b2220_c2.cnf has 177894 clauses (177894 distinct), sha256 71c2e8947789cd7885e2bc45acb5fe275578ea33f37dd7aecc595a22e70105b8
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a6_b2220_c2.lrat (374527 bytes, sha256 b1aaf541227668a219d9f68d9ef0f886f44cf89cf5725d221392048cdf8eda63): replays to the empty clause
+RESULT: all checks passed
+
+141 orbit variables, 184142 clauses regenerated; z3sq/a9_b1100_c3.cnf has 184142 clauses (184142 distinct), sha256 8d74dc78646e9d0fecd66de188eb2109c32715d85172c5b6376c141655d60a3d
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a9_b1100_c3.lrat (2302605 bytes, sha256 42fec3065096af436281720df72e457265cc681088a7e93680c50f7a959c57d9): replays to the empty clause
+RESULT: all checks passed
+
+action a=3 b=(3, 1, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 6, 6, 12, 12], all <= 12
+115 orbit variables, 183176 clauses regenerated; z3sq/a3_b3100_c3.cnf has 183176 clauses (183176 distinct), sha256 204c271764a2b395afa54ce918da87375e6e5e19655f44a1e9e02669ed3170ce
+formula: regenerated clause set matches the file exactly
+certificate z3sq/a3_b3100_c3.lrat (1182406938 bytes, sha256 8fa0b47343edc64caa246bbc5ba46217d151ab81bd5c7b5aa309c0fbf688db58): replays to the empty clause
+RESULT: all checks passed

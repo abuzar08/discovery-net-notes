@@ -1,0 +1,37 @@
+a0 b=(0, 0, 0, 0) c=1 on n=9, (s,t)=(4,4): 4 orbit variables, 2 clauses
+  SAT; model decoded to a graph with 9 edges: contains K4: False, contains independent 4-set: False, both generators are automorphisms: True  -> WITNESS CONFIRMED
+  forward: 3 random invariant graph(s) verified good by direct search, 0 violated clauses
+
+a0 b=(0, 0, 0, 0) c=1 on n=9, (s,t)=(3,4): 4 orbit variables, 9 clauses
+  UNSAT (no invariant graph at these parameters; forward control below still applies)
+  forward: no random invariant graph was good at these parameters
+
+a3 b=(0, 0, 0, 0) c=1 on n=12, (s,t)=(4,4): 10 orbit variables, 76 clauses
+  UNSAT (no invariant graph at these parameters; forward control below still applies)
+  forward: no random invariant graph was good at these parameters
+
+a0 b=(1, 0, 0, 0) c=1 on n=12, (s,t)=(4,4): 8 orbit variables, 48 clauses
+  UNSAT (no invariant graph at these parameters; forward control below still applies)
+  forward: no random invariant graph was good at these parameters
+
+a0 b=(1, 1, 0, 0) c=1 on n=15, (s,t)=(4,5): 13 orbit variables, 219 clauses
+  SAT; model decoded to a graph with 39 edges: contains K4: False, contains independent 5-set: False, both generators are automorphisms: True  -> WITNESS CONFIRMED
+  forward: 3 random invariant graph(s) verified good by direct search, 0 violated clauses
+
+a0 b=(0, 0, 0, 0) c=2 on n=18, (s,t)=(4,5): 17 orbit variables, 1204 clauses
+  SAT; model decoded to a graph with 54 edges: contains K4: False, contains independent 5-set: False, both generators are automorphisms: True  -> WITNESS CONFIRMED
+  forward: 3 random invariant graph(s) verified good by direct search, 0 violated clauses
+
+a3 b=(1, 1, 0, 0) c=1 on n=18, (s,t)=(4,5): 25 orbit variables, 892 clauses
+  UNSAT (no invariant graph at these parameters; forward control below still applies)
+  forward: no random invariant graph was good at these parameters
+
+a0 b=(1, 1, 1, 1) c=1 on n=21, (s,t)=(5,5): 26 orbit variables, 2860 clauses
+  SAT; model decoded to a graph with 84 edges: contains K5: False, contains independent 5-set: False, both generators are automorphisms: True  -> WITNESS CONFIRMED
+  forward: 3 random invariant graph(s) verified good by direct search, 0 violated clauses
+
+a0 b=(0, 0, 0, 0) c=3 on n=27, (s,t)=(5,5): 39 orbit variables, 17790 clauses
+  SAT; model decoded to a graph with 144 edges: contains K5: False, contains independent 5-set: False, both generators are automorphisms: True  -> WITNESS CONFIRMED
+  forward: 3 random invariant graph(s) verified good by direct search, 0 violated clauses
+
+POSITIVE CONTROL: all cases passed

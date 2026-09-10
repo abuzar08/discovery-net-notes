@@ -1,0 +1,198 @@
+39 actions with fmax=12
+
+=== a0_b1100_c4 ===
+action a=0 b=(1, 1, 0, 0) c=4: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 0, 0, 3, 3, 3, 3], all <= 12
+97 orbit variables, 186710 clauses regenerated; z3sq/a0_b1100_c4.cnf has 186710 clauses (186710 distinct), sha256 fa8883fbb82e35f70641cf22692c1ce8318c26f2e24fc8e8e47db0753c572cf5
+formula: regenerated clause set matches the file exactly
+
+=== a0_b2000_c4 ===
+action a=0 b=(2, 0, 0, 0) c=4: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 0, 0, 0, 0, 6, 6], all <= 12
+99 orbit variables, 187126 clauses regenerated; z3sq/a0_b2000_c4.cnf has 187126 clauses (187126 distinct), sha256 b90175fa93596c0eba4e5663c3e54bdfaff1747b7bdbdd2e0aee58ac75edc99f
+formula: regenerated clause set matches the file exactly
+
+=== a0_b2111_c3 ===
+action a=0 b=(2, 1, 1, 1) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 3, 3, 6, 6], all <= 12
+101 orbit variables, 181212 clauses regenerated; z3sq/a0_b2111_c3.cnf has 181212 clauses (181212 distinct), sha256 bd91312fe2d86e735c794732beac57220e42e77fc08aa62cb0499bce71cf4e7c
+formula: regenerated clause set matches the file exactly
+
+=== a0_b2210_c3 ===
+action a=0 b=(2, 2, 1, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 3, 3, 6, 6, 6, 6], all <= 12
+103 orbit variables, 181652 clauses regenerated; z3sq/a0_b2210_c3.cnf has 181652 clauses (181652 distinct), sha256 124c2a0ee757235334312a1a4978c76904ef31d46b67321e388a3b91a281aa10
+formula: regenerated clause set matches the file exactly
+
+=== a0_b2222_c2 ===
+action a=0 b=(2, 2, 2, 2) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 6, 6, 6, 6, 6, 6], all <= 12
+109 orbit variables, 171668 clauses regenerated; z3sq/a0_b2222_c2.cnf has 171668 clauses (171668 distinct), sha256 ae11984776dbf04ee3e4a70ca881fd55cb4a905d9ee059f7aa1ccc4229b203d1
+formula: regenerated clause set matches the file exactly
+
+=== a0_b3110_c3 ===
+action a=0 b=(3, 1, 1, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 3, 3, 3, 3, 9, 9], all <= 12
+105 orbit variables, 182072 clauses regenerated; z3sq/a0_b3110_c3.cnf has 182072 clauses (182072 distinct), sha256 c315ccc664c2018f3756e5ef5d5bba98f28095c4bf0cd970520643df5977bc4a
+formula: regenerated clause set matches the file exactly
+
+=== a0_b3200_c3 ===
+action a=0 b=(3, 2, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 0, 0, 6, 6, 9, 9], all <= 12
+107 orbit variables, 182600 clauses regenerated; z3sq/a0_b3200_c3.cnf has 182600 clauses (182600 distinct), sha256 935f4f0406069a7223a37bb613f5df747d1ce9ded4d1dd82f5499269faf6b0c5
+formula: regenerated clause set matches the file exactly
+
+=== a0_b3221_c2 ===
+action a=0 b=(3, 2, 2, 1) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 6, 6, 6, 6, 9, 9], all <= 12
+111 orbit variables, 172492 clauses regenerated; z3sq/a0_b3221_c2.cnf has 172492 clauses (172492 distinct), sha256 717938b62bf014fa8dc6ffa545bd8e0f8db1b69eadf34a51d8a3363b992480e1
+formula: regenerated clause set matches the file exactly
+
+=== a0_b3311_c2 ===
+action a=0 b=(3, 3, 1, 1) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 9, 9, 9, 9], all <= 12
+113 orbit variables, 173396 clauses regenerated; z3sq/a0_b3311_c2.cnf has 173396 clauses (173396 distinct), sha256 66d0ca1b01620e7ee627b6e9f1956d6b07ffbf285c0e0f03e2bc031ed972f5a2
+formula: regenerated clause set matches the file exactly
+
+=== a0_b3320_c2 ===
+action a=0 b=(3, 3, 2, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 6, 6, 9, 9, 9, 9], all <= 12
+115 orbit variables, 174396 clauses regenerated; z3sq/a0_b3320_c2.cnf has 174396 clauses (174396 distinct), sha256 64cbf95ef72bc0e692f71e61b84169aa59f71af1ffb3e07b243f9b58702e76fa
+formula: regenerated clause set matches the file exactly
+
+=== a0_b3332_c1 ===
+action a=0 b=(3, 3, 3, 2) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 9, 9, 9, 9, 9, 9], all <= 12
+123 orbit variables, 146314 clauses regenerated; z3sq/a0_b3332_c1.cnf has 146314 clauses (146314 distinct), sha256 6430293cfad4e5830a82a149aa51473cf568bee960dfe64c67555551953a54d5
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4100_c3 ===
+action a=0 b=(4, 1, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 0, 0, 3, 3, 12, 12], all <= 12
+111 orbit variables, 183512 clauses regenerated; z3sq/a0_b4100_c3.cnf has 183512 clauses (183512 distinct), sha256 3e9076c6c3d3b0938e4589085adbcd4226805ab38cbecae1771e67abf71c44e4
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4211_c2 ===
+action a=0 b=(4, 2, 1, 1) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 6, 6, 12, 12], all <= 12
+115 orbit variables, 174172 clauses regenerated; z3sq/a0_b4211_c2.cnf has 174172 clauses (174172 distinct), sha256 6b7d987231e37a5f30290f7900474d0697be6f7d6d902cb45f94959c20911dae
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4220_c2 ===
+action a=0 b=(4, 2, 2, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 6, 6, 6, 6, 12, 12], all <= 12
+117 orbit variables, 175252 clauses regenerated; z3sq/a0_b4220_c2.cnf has 175252 clauses (175252 distinct), sha256 f02b9bbc7345eea3e8b95f1a3c7b690fbd755dbc670244f60f442811d322d753
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4310_c2 ===
+action a=0 b=(4, 3, 1, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 3, 3, 9, 9, 12, 12], all <= 12
+119 orbit variables, 176396 clauses regenerated; z3sq/a0_b4310_c2.cnf has 176396 clauses (176396 distinct), sha256 72238433399d0f1c7519134b019b67252d035b2d9ec6a9e45dc8f3810e1f10d1
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4322_c1 ===
+action a=0 b=(4, 3, 2, 2) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 6, 6, 9, 9, 12, 12], all <= 12
+125 orbit variables, 148242 clauses regenerated; z3sq/a0_b4322_c1.cnf has 148242 clauses (148242 distinct), sha256 4fc957ff1b1ea00733fa2815f84860cf47ccfb523de8a7aac5f870e604831aa4
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4331_c1 ===
+action a=0 b=(4, 3, 3, 1) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 9, 9, 9, 9, 12, 12], all <= 12
+127 orbit variables, 150446 clauses regenerated; z3sq/a0_b4331_c1.cnf has 150446 clauses (150446 distinct), sha256 8696f3d04d20469a293b50c462b10bdfcb2c128fbf873759a1e3d3017fbfc150
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4400_c2 ===
+action a=0 b=(4, 4, 0, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 0, 0, 12, 12, 12, 12], all <= 12
+125 orbit variables, 180116 clauses regenerated; z3sq/a0_b4400_c2.cnf has 180116 clauses (180116 distinct), sha256 ea6db025239c7ac7a1566aacac09046caca3b586eb734bc24eaa3a85dc4d2fc1
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4421_c1 ===
+action a=0 b=(4, 4, 2, 1) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 6, 6, 12, 12, 12, 12], all <= 12
+129 orbit variables, 152606 clauses regenerated; z3sq/a0_b4421_c1.cnf has 152606 clauses (152606 distinct), sha256 0dc76c5251ad82c85c5e726fe09aee73857d47426298c3ca1197a5dce86b1d20
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4430_c1 ===
+action a=0 b=(4, 4, 3, 0) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [0, 0, 9, 9, 12, 12, 12, 12], all <= 12
+133 orbit variables, 157454 clauses regenerated; z3sq/a0_b4430_c1.cnf has 157454 clauses (157454 distinct), sha256 cdc05d0d6f6666c4089cd039333400593310d22aabf3443866f0a838dfc324d4
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4433_c0 ===
+action a=0 b=(4, 4, 3, 3) c=0: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [9, 9, 9, 9, 12, 12, 12, 12], all <= 12
+141 orbit variables, 72650 clauses regenerated; z3sq/a0_b4433_c0.cnf has 72650 clauses (72650 distinct), sha256 d5b80593382f50f3b1c7dba2789d84753af88d0bdee8308ce53833413de5994f
+formula: regenerated clause set matches the file exactly
+
+=== a0_b4442_c0 ===
+action a=0 b=(4, 4, 4, 2) c=0: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 12, 12, 12, 12, 12, 12], all <= 12
+143 orbit variables, 76986 clauses regenerated; z3sq/a0_b4442_c0.cnf has 76986 clauses (76986 distinct), sha256 2e6f9a89223f2c8767c57506ef6dd63137686664f1dde8a5422e197c88d8a6e5
+formula: regenerated clause set matches the file exactly
+
+=== a3_b1000_c4 ===
+action a=3 b=(1, 0, 0, 0) c=4: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 3, 3, 6, 6], all <= 12
+101 orbit variables, 186468 clauses regenerated; z3sq/a3_b1000_c4.cnf has 186468 clauses (186468 distinct), sha256 d5269259779b4f5b3761422372d97417bbe3cb1edaf02d87fa5ec5a8517986e7
+formula: regenerated clause set matches the file exactly
+
+=== a3_b1111_c3 ===
+action a=3 b=(1, 1, 1, 1) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 6, 6, 6, 6, 6, 6], all <= 12
+109 orbit variables, 181612 clauses regenerated; z3sq/a3_b1111_c3.cnf has 181612 clauses (181612 distinct), sha256 7617eac33f07b8562de245722ee279e8bab16dac4ced6f807d4b5d7ccd2c7cfc
+formula: regenerated clause set matches the file exactly
+
+=== a3_b2110_c3 ===
+action a=3 b=(2, 1, 1, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 6, 6, 6, 6, 9, 9], all <= 12
+111 orbit variables, 182100 clauses regenerated; z3sq/a3_b2110_c3.cnf has 182100 clauses (182100 distinct), sha256 12ff2ff1652f93ee3a7966563f893c9d0c17c80dcd71e0afe2f68993ea05f32b
+formula: regenerated clause set matches the file exactly
+
+=== a3_b2200_c3 ===
+action a=3 b=(2, 2, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 9, 9, 9, 9], all <= 12
+113 orbit variables, 182644 clauses regenerated; z3sq/a3_b2200_c3.cnf has 182644 clauses (182644 distinct), sha256 f4068572b102b1b46ab42cc51d073ddcce60e9f827ec6deed27f1cd454b4bb85
+formula: regenerated clause set matches the file exactly
+
+=== a3_b2221_c2 ===
+action a=3 b=(2, 2, 2, 1) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 9, 9, 9, 9, 9, 9], all <= 12
+123 orbit variables, 173762 clauses regenerated; z3sq/a3_b2221_c2.cnf has 173762 clauses (173762 distinct), sha256 d356bcd7e4e6a4802b224ce73697442d4a8741214f9e7b276d57323e2662f5ad
+formula: regenerated clause set matches the file exactly
+
+=== a3_b3100_c3 ===
+action a=3 b=(3, 1, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 3, 3, 6, 6, 12, 12], all <= 12
+115 orbit variables, 183176 clauses regenerated; z3sq/a3_b3100_c3.cnf has 183176 clauses (183176 distinct), sha256 204c271764a2b395afa54ce918da87375e6e5e19655f44a1e9e02669ed3170ce
+formula: regenerated clause set matches the file exactly
+
+=== a3_b3211_c2 ===
+action a=3 b=(3, 2, 1, 1) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 6, 6, 9, 9, 12, 12], all <= 12
+125 orbit variables, 174834 clauses regenerated; z3sq/a3_b3211_c2.cnf has 174834 clauses (174834 distinct), sha256 e3526e7c6de73d2ea10e6c0ee2acaaf658f592c6ddd329ecf6affd5b5c77f6eb
+formula: regenerated clause set matches the file exactly
+
+=== a3_b3220_c2 ===
+action a=3 b=(3, 2, 2, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 9, 9, 9, 9, 12, 12], all <= 12
+127 orbit variables, 176018 clauses regenerated; z3sq/a3_b3220_c2.cnf has 176018 clauses (176018 distinct), sha256 e0ad1416318b1004a1121d650af61b848e5c7ca1d9f27eddf7a86aa5bc92290e
+formula: regenerated clause set matches the file exactly
+
+=== a3_b3310_c2 ===
+action a=3 b=(3, 3, 1, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [3, 3, 6, 6, 12, 12, 12, 12], all <= 12
+129 orbit variables, 177274 clauses regenerated; z3sq/a3_b3310_c2.cnf has 177274 clauses (177274 distinct), sha256 259807be5c75befb5065e2020ddf75ce1983e8400bfe8cbab38b939b182b62bd
+formula: regenerated clause set matches the file exactly
+
+=== a3_b3322_c1 ===
+action a=3 b=(3, 3, 2, 2) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [9, 9, 9, 9, 12, 12, 12, 12], all <= 12
+141 orbit variables, 151410 clauses regenerated; z3sq/a3_b3322_c1.cnf has 151410 clauses (151410 distinct), sha256 c14d817d7fb0a8f58fc15bc26085700833ee8e733b69777069f9b4a56675d9b8
+formula: regenerated clause set matches the file exactly
+
+=== a3_b3331_c1 ===
+action a=3 b=(3, 3, 3, 1) c=1: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 12, 12, 12, 12, 12, 12], all <= 12
+143 orbit variables, 153966 clauses regenerated; z3sq/a3_b3331_c1.cnf has 153966 clauses (153966 distinct), sha256 9c8631cbe2bb00ccaff6abbda9aded40a82cd906da5f9c94daa0ab81f5a9711e
+formula: regenerated clause set matches the file exactly
+
+=== a6_b0000_c4 ===
+action a=6 b=(0, 0, 0, 0) c=4: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 6, 6, 6, 6, 6, 6], all <= 12
+109 orbit variables, 186288 clauses regenerated; z3sq/a6_b0000_c4.cnf has 186288 clauses (186288 distinct), sha256 4120d0e7aa2afadc51aac3c77275447093e5ccd4292db899f89f8aacef6a7846
+formula: regenerated clause set matches the file exactly
+
+=== a6_b1110_c3 ===
+action a=6 b=(1, 1, 1, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 9, 9, 9, 9, 9, 9], all <= 12
+123 orbit variables, 182658 clauses regenerated; z3sq/a6_b1110_c3.cnf has 182658 clauses (182658 distinct), sha256 8defeeeadf56a7e561aa6122cf1317488aa23d56eb3b37e7d69e293fbe496b17
+formula: regenerated clause set matches the file exactly
+
+=== a6_b2100_c3 ===
+action a=6 b=(2, 1, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 6, 6, 9, 9, 12, 12], all <= 12
+125 orbit variables, 183314 clauses regenerated; z3sq/a6_b2100_c3.cnf has 183314 clauses (183314 distinct), sha256 8845e04a7206cbd6d9e90a38ed1385b7f4b1f6c4bb915ebef1c1d78f74b9b0b6
+formula: regenerated clause set matches the file exactly
+
+=== a6_b2211_c2 ===
+action a=6 b=(2, 2, 1, 1) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [9, 9, 9, 9, 12, 12, 12, 12], all <= 12
+141 orbit variables, 176462 clauses regenerated; z3sq/a6_b2211_c2.cnf has 176462 clauses (176462 distinct), sha256 6e86a882dbf97b382488562cc3eb2a26b8859a82dd0077e95d88011488e8875c
+formula: regenerated clause set matches the file exactly
+
+=== a6_b2220_c2 ===
+action a=6 b=(2, 2, 2, 0) c=2: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [6, 6, 12, 12, 12, 12, 12, 12], all <= 12
+143 orbit variables, 177894 clauses regenerated; z3sq/a6_b2220_c2.cnf has 177894 clauses (177894 distinct), sha256 71c2e8947789cd7885e2bc45acb5fe275578ea33f37dd7aecc595a22e70105b8
+formula: regenerated clause set matches the file exactly
+
+=== a9_b1100_c3 ===
+action a=9 b=(1, 1, 0, 0) c=3: faithful Z_3 x Z_3 (group order 9) on 42 points; fixed points of the 8 non-identity elements [9, 9, 9, 9, 12, 12, 12, 12], all <= 12
+141 orbit variables, 184142 clauses regenerated; z3sq/a9_b1100_c3.cnf has 184142 clauses (184142 distinct), sha256 8d74dc78646e9d0fecd66de188eb2109c32715d85172c5b6376c141655d60a3d
+formula: regenerated clause set matches the file exactly
+
+SUMMARY: 39 of 39 actions rebuilt and their formulas matched exactly
