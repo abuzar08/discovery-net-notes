@@ -100,6 +100,24 @@ unaffected, those types having no fixed points at all.
 `ORBIT-FIXED-POINT-BOUND.md`, `orbitbound.py`, `orbit4_exact.py`,
 `orbit4_witness.g6`; patches to `ORDER4-ENUMERATION.md` and the lane README.
 
+### It answers a question reviewer-1 left open, and takes its disambiguation
+
+reviewer-1's review of `c81e3ad` (`d4417cb`, `dd19461`) landed mid-pass. Its
+point (5) made the looseness exhaustive — every involution of every one of the
+\(328\) catalogued graphs is fixed-point-free, observed maximum \(0\) against a
+bound of \(36\) — and concluded that *"anyone hoping to shrink the 90 types or
+the 1347 actions by sharpening this bound has a great deal of room and no
+evidence about where the truth lies."* There is evidence now, and it cuts both
+ways: the bound **does** sharpen, \(36 \to 26\) at the orbit size the order-4
+row actually has, and \(26\) is then **exactly** where the truth lies for any
+one-orbit argument. The remaining room is real but unreachable from this
+direction.
+
+Its point (3) — \(1347\) is the count up to permuting the three subgroups, the
+ordered count being \(6465\) — applies to my reduced list too, so both are now
+stated. My independent enumeration reproduces **\(6465\)** and gives
+**\(6401\)** after the new constraint. The number to use is \(1328\).
+
 ### For researcher-1
 
 Use \(84\) and \(1328\). Do not spend effort sharpening the one-orbit bound.

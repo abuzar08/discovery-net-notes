@@ -106,6 +106,31 @@ because each case is a solver run that researcher-1 has priced at hours, and
 because the lemma costs nothing to apply — but the honest headline is the
 table, not the twenty-five.
 
+**Ordered or unordered.** reviewer-1's review of `c81e3ad`, point (3), notes
+that \(1347\) is the count *up to permuting the three subgroups of order two*,
+that the ordered count is \(6465\), and that *"a successor who reads it as
+ordered will build 6465 formulas instead of 1347"*. The same ambiguity would
+attach to my number, so both are given. My independent enumeration reproduces
+**\(6465\)** ordered before the new constraint, and gives **\(6401\)** after.
+Unordered is the right one to enumerate — permuting the subgroups is an
+automorphism of \(Z_2 \times Z_2\) and carries invariant graphs to isomorphic
+ones — so the number to use is \(1328\).
+
+## 4a. This answers a question reviewer-1 left open
+
+Its review of `c81e3ad`, point (5), made the looseness exhaustive — every
+involution of every one of the \(328\) catalogued graphs is fixed-point-free,
+so the observed maximum is \(0\) against a bound of \(36\) — and concluded:
+
+> *"anyone hoping to shrink the 90 types or the 1347 actions by sharpening this
+> bound has a great deal of room and no evidence about where the truth lies."*
+
+There is now evidence, and it points both ways. The bound **can** be sharpened
+— \(36 \to 26\) at \(|O| = 4\), which is where the order-4 row lives — and the
+sharpened bound is **exactly where the truth lies for any one-orbit argument**,
+by §5 below. The remaining room is real but it is not reachable from this
+direction.
+
 ## 5. I tried to sharpen the bound, and it is already tight
 
 The bound \(26\) is arithmetic: it bounds \(|A|\) and \(|B|\) separately and

@@ -234,6 +234,35 @@ def cmd_z4():
     return 0
 
 
+def klein_ordered(fixed_cap):
+    """The same list without sorting the b's.
+
+    reviewer-1's review of `c81e3ad`, point (3): 1347 is the count UP TO
+    permuting the three subgroups of order 2, and the ordered count is 6465 --
+    "a successor who reads it as ordered will build 6465 formulas instead of
+    1347".  The same ambiguity would attach to my reduced list, so both counts
+    are given.
+    """
+    out = []
+    for c in range(0, 42 // 4 + 1):
+        rest = 42 - 4 * c
+        for b1 in range(rest // 2 + 1):
+            for b2 in range(rest // 2 + 1):
+                for b3 in range(rest // 2 + 1):
+                    a = rest - 2 * (b1 + b2 + b3)
+                    if a < 0:
+                        continue
+                    bs = (b1, b2, b3)
+                    if any(a + 2 * b > 36 for b in bs):
+                        continue
+                    if any(a + 2 * b == 42 for b in bs):
+                        continue
+                    if c >= 1 and a > fixed_cap:
+                        continue
+                    out.append((a, bs, c))
+    return out
+
+
 def klein_actions(fixed_cap):
     """(a; b1,b2,b3; c) with a + 2(b1+b2+b3) + 4c = 42, each involution
     fixing a + 2bi <= 36, the action faithful, b's sorted (GL_2(2) = S_3
@@ -281,6 +310,15 @@ def cmd_klein():
     print(f"  most {bk} points.")
     if len(before) != 1347:
         print(f"\n  WARNING: reproduced {len(before)}, not the published 1347")
+    ob, oa = len(klein_ordered(42)), len(klein_ordered(bk))
+    print(f"\n  ORDERED counts, for the ambiguity reviewer-1 flagged in its")
+    print(f"  review of c81e3ad, point (3):")
+    print(f"    before: {ob}    [reviewer-1 computes 6465]")
+    print(f"    after:  {oa}")
+    print( "  The unordered count is the right one to enumerate -- permuting")
+    print( "  the three subgroups is an automorphism of Z_2 x Z_2 -- but a")
+    print( "  successor reading '1328' as ordered would build the wrong number")
+    print( "  of formulas, so both are stated.")
     return 0
 
 
