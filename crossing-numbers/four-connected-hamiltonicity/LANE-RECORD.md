@@ -30,16 +30,37 @@ Since \(\mathrm{skewness}(G) \le \operatorname{cr}(G)\), all 48 have
 `networkx.node_connectivity`, backtracking against a Held–Karp DP, skewness
 against exact crossing-number decisions on nine of the 48. Zero disagreements.
 
-## Status at \(n = 11\) and \(n = 12\)
+## The result at \(n = 11\)
 
-- **\(n = 11\):** the census is still running. **3,117 survivors so far, every one
-  with \(\mathrm{skewness} > 3\) and hence \(\operatorname{cr} > 3\).** No
-  counterexample among them. The result is reported as partial and is not claimed
-  as exhaustive.
-- **\(n = 12\), \(m = 26\):** complete. 1,687,824 candidates, 1,514,572
+The census is **complete**, and the theorem extends:
+
+> **Theorem (exhaustive).** Every 4-connected graph on **11 vertices** with
+> \(\operatorname{cr}(G) \le 3\) is Hamiltonian.
+
+| stage | count |
+| --- | --- |
+| minimum degree \(\ge 4\), \(22 \le m \le 30\) | **66,634,446** |
+| 4-connected | 64,757,414 |
+| 4-connected **and non-Hamiltonian** | **3,117** |
+| of those, \(\mathrm{skewness} \le 3\) | **0** |
+
+**Every one of the five acceptance criteria set in advance is met:**
+
+1. the read count is **66,634,446**, matching exactly the figure obtained
+   independently from `geng -u` before the run;
+2. read count equals generated count — no silent drops;
+3. the connectivity and Hamiltonicity routines are the \(n = 10\) code,
+   unmodified;
+4. every survivor was skewness-tested, and the tested set was checked to be
+   **identical** to the census survivor set, not merely the same size;
+5. nothing passed \(\mathrm{skewness} \le 3\), so the exact decider had
+   nothing to receive.
+
+## Status at \(n = 12\)
+- **\(m = 26\):** complete. 1,687,824 candidates, 1,514,572
   4-connected, **exactly one** non-Hamiltonian survivor, with
   \(\operatorname{cr} \in [6,9]\).
-- **\(n = 12\), \(m = 27\):** partial, 40 survivors, minimum upper bound 7.
+- **\(m = 27\):** partial, 40 survivors, minimum upper bound 7.
 
 ## What the lane established beyond the theorem
 
