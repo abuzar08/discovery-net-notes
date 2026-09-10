@@ -4061,3 +4061,84 @@ prose form of this very table went stale between passes (defect 14).
    guarantee or triangles taken across the \(L\)/\(R\) split.
 3. Verify the twenty-seven queued contributions commit once the chain resumes;
    query first, do not blindly resubmit.
+
+## 2026-09-10 — pass 50
+
+### Graph state at start of pass
+`last_block_height` still 3443 — stall now about **5.2 days**. RPC reachable, no
+block production. Queue **twenty-eight** after this pass, all bodies durable in
+git. No review of the pass-48/49 work yet; reviewer-1 is on other lanes.
+
+### Established: three disjoint triangles are the method's exact domain
+\(\theta(H)\le28\) holds iff some packing has \(2t_3+t_2\ge30\),
+\(3t_3+2t_2\le58\), \(t_3+t_2\le28\). Substituting \(t_2\ge30-2t_3\) into the
+second gives \(60-t_3\le58\), so **every** one of the seventy families has
+\(t_3\ge2\); and \((2,26)\) is the **unique** family with \(t_3=2\), which is
+exactly what the branch hypothesis (TT) excludes.
+
+> The route applies **iff** every admissible \(H\) has three disjoint triangles.
+
+I had been treating the triangle test as a convenience gate in front of the
+Tutte machinery. It is the machinery's **domain**. No sharpening of the seven
+inequalities can ever reach a configuration without three disjoint triangles,
+because for such an \(H\) no admissible family exists at all.
+
+### The exact guarantee
+Two low vertices are \(H\)-adjacent exactly when they share no block, so give
+each vertex its **type** — the set of blocks containing it — and a triangle of
+\(H[L]\) is three vertices with pairwise disjoint types. The old guarantee used
+only private vertices (singleton types) with a worst-case knapsack; both are
+lossy, since a cut vertex of type \(\{Q_3,Q_4\}\) is usable against private
+vertices of \(Q_1,Q_2\), and the worst case is not attained by every block at
+once. `packing58.py` enumerates the realisable Gallai forests (cut vertex joining
+\(b\) blocks costs \(b-1\) of \(\mathrm{extra}\); incidence acyclic) and certifies
+\(k\) triangles when some pairwise-disjoint types have
+\(\sum_j\min(k,n_{S_j})\ge3k\).
+
+### The result — a scope gain and a clean negative
+**925** of the 4601 out-of-scope configurations come into scope. They then
+survive all seven inequalities, so **the closure count does not move**: 2294,
+order 58 unchanged at **6341**. What changes is the description of the residual:
+
+| | count |
+|---|---|
+| a parameter point survives the seven inequalities | 2343 |
+| three disjoint triangles not guaranteed — **beyond the approach** | 3676 |
+| **clique-block total** | **6019** |
+
+Certified packing of the 3676: 0 on 753, 1 on 1459, **2 on 1464**. That last
+group is the sharp one — for them the only applicable family would be \((2,26)\),
+which is the branch hypothesis itself.
+
+### What this means for the lane
+Every remaining unit of work on the seven inequalities is confined to **2343**
+configurations, 39% of what is left, not 100%. Sharpening the count inequality —
+still the highest-value single target — would now close 2343, not 6019. The
+other **3676 need a different tool**: the crossing ladder, the residue, or a
+route that does not pass through a clique cover of \(H\).
+
+### Published
+- GitHub commit `e8aff4e`: new `packing58.py`, `tuttegen.py` wired to the exact
+  guarantee, expected outputs, README and METHODS in LaTeX, `SHA256SUMS`
+  (96/96). All five scripts reproduce from the mirror.
+- Discovery Net: FINDING `bafkreifekhs5awrpg3henhvb56jzs3mfxx4ey2p4ygzea7rwcccldzk4ya`,
+  tx `8DC868EC8BAC6F567B5394E9ED32D3329572A85DB4C823F7F5EAA91208B54F8A`,
+  `check_tx_code` 0. Body durable at `agents/researcher-2/pending/pass50.md`.
+
+### Blocked
+- Ledger stalled ~5.2 days at block 3443; **twenty-eight** contributions queued.
+- \(r=29\) is **not** proved. Order 58 open in 6341 configurations.
+- No background computations left running.
+
+### Next step (concrete)
+1. **The 3676 need a different tool, and that is now the majority of the lane.**
+   The 1464 with certified packing exactly 2 are the place to start: for them
+   \(\nu_\triangle(H)\le2\) means \(H\) minus six vertices is **triangle-free**,
+   which is a far stronger structural handle than \(K_4\)-free and is not yet
+   used anywhere. Mantel on \(H-B'\) plus the \(L\)/\(R\) edge identity is the
+   obvious first count.
+2. **The 2343 remain the seven inequalities' business.** The shape-reading method
+   still applies; the surviving points now clear inequality 6 by 0, so report the
+   per-point margin and aim at the tightest.
+3. Verify the twenty-eight queued contributions commit once the chain resumes;
+   query first, do not blindly resubmit.

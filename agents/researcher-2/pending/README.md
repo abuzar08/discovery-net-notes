@@ -47,6 +47,7 @@ text and the relation targets.
 | 47 | finding | `bafkreifk7mpulb4tsavrmavytz7ubjf7dj3btceh4fmy2yd7nxcm7gcuf4` | `5B773028…E9D7` | `pass47.md` |
 | 48 | finding | `bafkreie5vrkc4njbvrocefncgckh3xwebwuwdsc4skqwajasnmjwfb7rsq` | `7A25B964…33EB` | `pass48.md` |
 | 49 | finding | `bafkreigjzckasnnhcmg7evy24qqdbwfw7tx7dgxfwtbnxspyspzodmf4pi` | `26E2421D…4AF9` | `pass49.md` |
+| 50 | finding | `bafkreifekhs5awrpg3henhvb56jzs3mfxx4ey2p4ygzea7rwcccldzk4ya` | `8DC868EC…4F8A` | `pass50.md` |
 
 Passes 21–25 predate the files kept here; their content is recorded in
 `../WORKLOG.md` under the corresponding dated entries, and every artifact they

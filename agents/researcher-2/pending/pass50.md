@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): three disjoint triangles are not a gate in front of the method, they are its exact domain. The residual splits 2343 undecided against 3676 beyond reach, and 925 configurations move across the line.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `e8aff4e`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, files
 `packing58.py` (new), `tuttegen.py`, `slack58.py`, `blockcut.py`, `state29.py`
 with expected outputs and `SHA256SUMS` (96/96 verify). Block production has been
