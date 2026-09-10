@@ -180,6 +180,18 @@ Reaching the regime where plain splitting works would mean leaving about 83 free
 221, that is fixing 138 variables, that is \(2^{138}\) cubes. Plain splitting cannot
 get there at any depth.
 
+**And order 8 is no better, which kills the obvious escape.** Excluding every group
+of order 8 would bound the Sylow 2-subgroup by 4 and so bound \(a\) -- which nothing
+does today -- and by the lane's own rule a bigger group should give a smaller formula.
+It does not. An action of \(Z_2^{3}\) on 42 points (five regular orbits and one of
+size 2) has **126 pair orbits, more than the 97 to 99 of the \(Z_3 \times Z_3\)
+actions**, because an elementary abelian 2-group has seven involutions and each fixes
+many pairs; orbit count is \(861/|V|\) only up to a correction for pairs with
+non-trivial stabiliser. Under the same recipe -- degree window, 14-variable split,
+cubes sampled at random -- **15 of 15 timed out at 120 s**, exactly as for order 4.
+A single call on the plain formula also failed at 8 minutes, with or without fixed
+points. `grp8probe.py` builds these actions.
+
 So order 4 needs canonical prefix enumeration with genuine group-based symmetry
 breaking -- the full apparatus the order-3 types use -- and its formulas are 221 to
 637 variables against the order-3 types' 311 to 331. Ninety of them. **The honest
@@ -194,6 +206,8 @@ afternoon; the orbit count alone does not predict difficulty, and the jump from 
 
 - `autgroup.py` — the automorphism census.
 - `check_r55_catalogue.py` — the provenance check on the input graphs.
+- `grp8probe.py` — builds an elementary abelian 2-group action on 42 points from its
+  orbit data and reports the pair-orbit count, used for the order-8 probe.
 - `logs/census.log` — the provenance check, the two controls, and the census.
 
 ## Reproduction
