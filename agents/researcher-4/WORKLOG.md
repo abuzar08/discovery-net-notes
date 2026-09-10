@@ -3836,3 +3836,75 @@ a linearly larger region, which fails the comparison against the \(n = 13\)
 crossing-critical census that settled an entire order for 124 core-hours. Not
 autonomous, four items: the \(C_3 \square C_3\) note to Marcus Schaefer, three
 DS21 corrections, and reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 57
+
+**1. Three rules added to the tooling note**, as directed: *a speed-up is not a
+speed-up until it is timed*; *do not estimate what a running exact computation
+will shortly tell you — that is duplicated work competing for the same cores*;
+and the `res/mod` refinement, spelled out because applying my earlier advice
+literally reproduces the bias it was meant to remove (each class is its own
+subtree with its own dense prefix, so only classes run **to completion** de-bias
+an estimate).
+
+**2. The successor lane's gate** (`SUCCESSOR-GATE.md`).
+
+**The literature gate did not bind, and the alternative is better.** Ozeki and
+Zamfirescu's \(\operatorname{cr} \ge 6\) construction has **no arXiv version**, so
+it is not obtainable. It does not matter: the census produced **my own** examples
+— 48 at \(n = 10\) and 3,117 at \(n = 11\) — each verified 4-connected and
+non-Hamiltonian by two independent implementations. Material in hand and
+checkable from graph6 strings beats a construction behind a paywall.
+
+**What must be preserved, and what is free.** A candidate needs
+\(\kappa \ge 4\), non-Hamiltonicity, and \(\operatorname{cr} \le 3\). The lower
+bound \(\operatorname{cr} \ge 3\) is **free** from Ozeki and Zamfirescu, so the
+first two conditions supply it and only \(\operatorname{cr} \le 3\) must be
+established — a candidate meeting all three has \(\operatorname{cr} = 3\)
+exactly.
+
+**The instrument argument that favours this successor, which is not obvious.**
+The exact decider answers "\(\operatorname{cr} \le 3\)?" by searching for a
+drawing, so **True terminates at once while False must exhaust the depth-3 tree**
+— about 2.5 minutes per graph. The census spent all its time on False answers. A
+construction lane asks the question only of candidates believed positive, which
+is the direction the instrument is fast in.
+
+**Cheapest falsifier:** skewness \(\le 3\) at 0.5–0.9 s, with the Euler window
+\(2n \le m \le 3n-3\) free before it.
+
+**3. The gate measurement, and it changed the plan.** Before attempting any
+reduction I measured how far the known examples actually are from
+\(\operatorname{cr} = 3\).
+
+- \(n = 10\), all 48: minimum **8**, distribution 8:6, 9:10, 10:15, 11:3, 12:11,
+  13:1, 15:2. **A gap of five.**
+- \(n = 11\), 300 sampled: minimum **6**, with **ten examples at 7 or below**,
+  where \(n = 10\) had none below 8. **A gap of three.**
+
+**So the minimum crossing number among 4-connected non-Hamiltonian graphs falls
+as \(n\) grows.** That argues **against** the reduction route — every surgical
+move risks one of the two properties that must be preserved — and **for**
+following the trend to larger orders.
+
+It also localises the search: the minimum-crossing examples at both orders sit at
+the **bottom of the edge range** — 23 edges at \(n = 10\) against a permitted 27,
+26 at \(n = 11\) against 30. That is a far smaller region than the full census
+and it is where the instrument is fastest.
+
+**Stated as a measurement, not a theorem:** two orders, upper bounds rather than
+exact values, and the \(n=11\) figure from a sample. It says where to look; it
+does not say anything is there.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (1 background computation).** The \(n = 11\) census, at
+2h20m elapsed and 122 minutes of CPU.
+
+**Next step (concrete).** Finish the census, skewness-test the remaining
+survivors, publish \(n = 11\) either way, and stop the census line. Then open the
+successor on the localised region the gate identified — the sparse end at larger
+\(n\) — rather than on reduction. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.

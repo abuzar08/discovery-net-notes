@@ -71,9 +71,15 @@ Upper bounds over the 48 examples at \(n = 10\):
 **Minimum 8 — a gap of five**, and consistent with Ozeki and Zamfirescu's
 examples sitting at \(\operatorname{cr} \ge 6\).
 
-At \(n = 11\) the picture changes. Over a sample of the survivors the minimum
-drops to **\(\operatorname{cr} \le 6\)** — a gap of three — on
-\(K\)-free 11-vertex graphs with 26 edges.
+At \(n = 11\) the picture changes. Over a sample of 300 survivors:
+
+| \(\operatorname{cr} \le\) | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| count | **1** | 9 | 25 | 43 | 52 | 60 | 40 | 42 | 15 | 7 | 5 | 1 |
+
+The minimum drops to **\(\operatorname{cr} \le 6\)** — a gap of three — on an
+11-vertex graph with 26 edges (`J??FeY{^F}?`), and **ten examples sit at 7 or
+below**, where \(n = 10\) had none below 8.
 
 **So the minimum crossing number among 4-connected non-Hamiltonian graphs falls
 as \(n\) grows: 8 at \(n = 10\), at most 6 at \(n = 11\).**
