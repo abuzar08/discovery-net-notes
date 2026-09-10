@@ -1,0 +1,12 @@
+families (t_3, t_2) with 2t_3+t_2 >= 30, 3t_3+2t_2 <= 58, t_3+t_2 <= 28: 70 (published 70)
+   minimum t_3 over families: 2
+   families with t_3 = 2: [(2, 26)]
+   algebra: t_2 >= 30 - 2t_3 into 3t_3 + 2t_2 <= 58 gives 60 - t_3 <= 58, so t_3 >= 2
+
+the three conditions re-derived from theta(H) <= 28 on 58 vertices with H K_4-free:
+   a clique cover uses t_3 triangles, t_2 edges and s singletons with 3t_3 + 2t_2 + s = 58
+   s >= 0 gives 3t_3 + 2t_2 <= 58
+   t_3 + t_2 + s <= 28 gives 58 - 2t_3 - t_2 <= 28, i.e. 2t_3 + t_2 >= 30
+   t_3 + t_2 <= 28 since the non-singleton cliques are part of the cover
+
+composition: 2343 undecided + 3676 beyond reach = 6019 clique-block; plus 15 + 307 = 6341 (published 6341)
