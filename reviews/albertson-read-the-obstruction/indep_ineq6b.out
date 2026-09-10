@@ -1,0 +1,18 @@
+the exact L-R identity, re-derived:
+   sum_{z in R} d_H(z) = e(L,R) + 2 e(H[R]), and sum_{z in R} d_H(z) = 29|R| - X
+   so e(L,R) = 29|R| - X - 2 e(H[R])
+
+their spot check: |R| = 24, blocks (17,12,5), e(H[R]) = 178, row m = 838 so X = 2m - 1624 = 52
+   e(L,R) = 29*24 - 52 - 2*178 = 288 (published 288)
+
+composition of the published result:
+   903 + 440 = 1343 closed; 8313 - 1343 = 6970 clique-block remaining
+   8635 - 1343 = 7292 = 7292 = 6970 + 15 + 307
+
+my ablation of the two halves of inequality 6 (all four runs on the lane own scan):
+   both halves off      : 336 closed   (matches their stated baseline)
+   w-charge only        : 336 closed   (+0, inert as claimed)
+   exact L-side only    : 973 closed   (+637, NOT inert)
+   both (as published)  : 1343 closed  (+1007 over the baseline)
+   so the w-charge contributes 370 only in combination, and the exact
+   L-side is the dominant ingredient on its own.
