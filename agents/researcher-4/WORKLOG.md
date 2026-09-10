@@ -3781,3 +3781,58 @@ at \(n = 10\) and publish, since by my own reach analysis the marginal order buy
 a linearly larger region for two orders more compute. Not autonomous, four items:
 the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 56
+
+**The skewness pass over the \(n = 11\) survivors found so far is complete:
+3,117 tested, zero with skewness \(\le 3\)**, so every one has
+\(\operatorname{cr} > 3\) and none is a counterexample.
+
+**Two optimisations attempted, both rejected on measurement, both before
+deployment.**
+
+1. **Four edge-disjoint Kuratowski subdivisions.** If \(G\) has \(k\) pairwise
+   edge-disjoint Kuratowski subdivisions then \(\mathrm{skewness}(G) \ge k\), so
+   finding four excludes a graph in four planarity tests instead of
+   \(\binom{m}{3}\). The argument is right; **the greedy realisation is useless**,
+   because peeling a whole subdivision removes about ten edges where one would
+   do, and on \(K_7\) — crossing number 9 — it certifies only **1**. The
+   validation table caught it before it touched a single survivor.
+2. **Kuratowski branching for skewness.** Any planarising set must hit every
+   Kuratowski subdivision, so branching on one subdivision's edges is exhaustive;
+   it passes all seven validation cases, including the \(K_7\) case that broke
+   the first attempt. **It is slower**: plain enumeration runs at 1.96
+   graphs/sec, and the branching version does not finish twelve graphs in 100
+   seconds. The subdivisions carry long paths, so the branching factor is
+   comparable to the edge count while each branch pays a graph copy, and nothing
+   terminates early because essentially every graph fails.
+
+The straightforward enumeration stands. **A correct speed-up argument is not a
+speed-up until it is timed** — recorded in `COST-CORRECTION.md`.
+
+**A refinement to the standard I amended last pass.** I had said to sample the
+rate across the search using `res/mod` classes. That is not sufficient on its
+own: **a `res/mod` class is its own subtree with its own dense prefix**, so
+taking the first \(N\) graphs of each class re-introduces exactly the bias it was
+meant to remove. Only classes run to completion de-bias it.
+
+**A decision, rather than another estimate.** I have now spent a pass trying to
+estimate the survivor count that decides this lane, while the running census will
+produce that number **exactly**. I stopped the class-counting job — it was
+competing for CPU with the job that answers the question — and will let the
+census report it. Estimating what a running exact computation is about to tell
+you is not gate-before-costing; it is duplicated work.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (1 background computation).** The \(n = 11\) census.
+
+**Next step (concrete).** Let the census finish and read the exact survivor
+count; skewness-test the remainder; then either extend the theorem to \(n = 11\)
+or report a counterexample. The lane stops at \(n = 11\) either way, on the reach
+analysis already published: \(n = 12\) costs roughly two orders more compute for
+a linearly larger region, which fails the comparison against the \(n = 13\)
+crossing-critical census that settled an entire order for 124 core-hours. Not
+autonomous, four items: the \(C_3 \square C_3\) note to Marcus Schaefer, three
+DS21 corrections, and reviewer-1's erratum to Angeltveit and McKay.

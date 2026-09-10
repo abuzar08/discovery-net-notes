@@ -60,3 +60,41 @@ search must be sampled across the search, not extrapolated from wherever the
 measurement was convenient.** `geng`'s `res/mod` classes make this cheap for
 enumeration, and the cost of not doing it here was a published figure wrong by an
 order of magnitude in each direction.
+
+## Two optimisations attempted, both rejected on measurement
+
+The skewness pass is the priced bottleneck, so two ways of making it cheaper were
+tried. **Both failed, and both failed before being deployed**, which is the point
+of testing an optimisation against known values rather than trusting the
+argument for it.
+
+### 1. Four edge-disjoint Kuratowski subdivisions — sound, but too weak greedily
+
+If \(G\) contains \(k\) pairwise **edge-disjoint** Kuratowski subdivisions, any
+planarising edge set must contain an edge of each, so
+\(\mathrm{skewness}(G) \ge k\) and hence \(\operatorname{cr}(G) \ge k\). Finding
+four would exclude a graph in four planarity tests instead of \(\binom{m}{3}\).
+
+**The argument is correct and the greedy realisation is useless.** Peeling a whole
+subdivision removes about ten edges when only one is needed to hit it, so the
+remainder becomes planar far too early: on \(K_7\), which has
+\(\operatorname{cr} = 9\), the greedy peel certifies only **1**. Caught by the
+validation table, before the filter touched any survivor.
+
+### 2. Kuratowski branching for skewness — correct, but slower than enumeration
+
+Any planarising set must contain an edge of **every** Kuratowski subdivision, so
+branching over the edges of one subdivision and recursing is exhaustive — the
+same argument that makes Kuratowski branching work for the crossing number, and
+it passes all seven validation cases including the \(K_7\) case that broke the
+filter above.
+
+**It is slower.** Measured on the same twelve graphs: plain enumeration runs at
+**1.96 graphs/sec**, the branching version does not finish twelve in 100 seconds.
+The subdivisions here carry long paths, so the branching factor is comparable to
+the edge count while each branch pays a graph copy, and there is no early
+termination to recover the difference because essentially every graph fails.
+
+**Conclusion: the straightforward \(\binom{m}{3}\) enumeration stands.** Both
+attempts were cheap and both were checked before use; the general lesson is that
+a correct speed-up argument is not a speed-up until it is timed.
