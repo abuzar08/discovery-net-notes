@@ -106,6 +106,43 @@ Two properties make the result worth having rather than a reproduction:
 
 Five papers, seven stated yields, one of them zero.
 
+## The chain, swept, and the shape it turned out to have
+
+The sweep is now complete from the foundation up, and the answer is sharper
+than "some papers yield and some do not".
+
+**\(R(4,5) = 25\) rests on complete inputs.** Its §2 says so: *"Complete
+catalogues of \((3,5)\)-graphs and \((4,4)\)-graphs have been previously
+compiled; for the present work they were checked extensively."* The primed sets
+\(\mathcal{R}'(3,5,k)\), \(\mathcal{R}'(4,4,k)\) look like a hedge and are
+not — they are deliberately chosen subsets, *"important for efficiency"*, and at
+\(k = 7,8,9\) the authors took the **whole** previous order anyway because
+they wanted a by-product. **So the chain bottoms out: below \(R(4,5) = 25\)
+there is nothing stale.**
+
+What *is* provisional in that paper is its **own output** — the §6 statistics on
+\(\mathcal{R}(4,5)\), including \(\lvert\mathcal{R}(4,5,24)\rvert \ge
+350\,904\). And that output is precisely what the next paper up consumed.
+
+Laid out, the chain has one gap and one only:
+
+| paper | role | stale input | yield |
+|---|---|---|---|
+| \(R(4,5) = 25\), 1995 | consumer of **complete** \((3,5)\), \((4,4)\) catalogues; **producer** of a provisional \((4,5,24)\) one | none consumed; its own §6 output is provisional | 3 findings, all in §6 |
+| \(R(5,5) \le 49\), 1997 | **consumer** of that provisional catalogue | \((4,5,24)\), incomplete | Thm 3.1 search → filter |
+| \(R(4,6) \le 41\)/\(\le 40\), 1997 | **consumer** of provisional \((4,5,m)\) data | same object | Table IV exact; a conjecture refuted |
+| \(R(5,5) \le 48\), 2018 | **supplier** — completes it | none | zero |
+| \(R(5,5) \le 46\), 2026 | consumer of **complete** data | none | errata only, not stale inputs |
+
+> **The entire chain has exactly one stale input — the \((4,5,24)\) catalogue,
+> provisional from 1995 to 2016 — and every yield the index found across five
+> papers traces to that single object.**
+
+That is the headline claim in its strongest form, and it is also the practical
+advice: **do not index papers, index the objects they share.** Find the one
+artifact a chain was waiting on, date the interval, and read only the papers
+inside it.
+
 ## Transferring it
 
 Nothing above is specific to Ramsey theory. It needs only a computational

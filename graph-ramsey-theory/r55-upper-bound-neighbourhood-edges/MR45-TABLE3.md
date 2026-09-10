@@ -114,6 +114,23 @@ an informal expectation that fails by \(1462\); fourteen ranges collapsed to
 exact values with their LP halves' looseness measured; and the isolation of
 \(n = 23\) as the one order with a suboptimal construction.
 
+## And the chain bottoms out here
+
+Its §2: *"Complete catalogues of \((3,5)\)-graphs and \((4,4)\)-graphs have
+been previously compiled; for the present work they were checked extensively."*
+The primed sets \(\mathcal{R}'(3,5,k)\) and \(\mathcal{R}'(4,4,k)\) look
+like a hedge but are not — they are subsets chosen because *"the actual choice
+of these sets is important for efficiency"*, and at \(k = 7,8,9\) the authors
+took \(\mathcal{R}'(3,5,k) = \mathcal{R}(3,5,k-1)\), the whole previous
+order, because they wanted a by-product.
+
+**So there is nothing stale below this paper**, and the index stops. What is
+provisional here is the paper's own *output* — the §6 statistics — which is
+exactly what the next paper up consumed. The chain therefore has **one** stale
+input, the \((4,5,24)\) catalogue, provisional from 1995 to 2016, and every
+yield the index has found traces to it. See
+`../method-notes/STALE-INPUT-INDEX.md`.
+
 ## Trust boundary
 
 **Verified here:** that every 1995 range contains the value in `e45.json`, and
