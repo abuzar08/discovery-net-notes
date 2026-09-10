@@ -88,10 +88,11 @@ The canonical prefixes stop at level 5: there are 308793 classes on five cycles
 (`../r55-42-order3-cube-and-conquer/level5_p3.json.xz`, 6.8 hours to generate from
 about \(10^{7}\) candidates), and level 6 would need about \(10^{10}\) candidates.
 
-## What was tried and did not work
+## What was tried: four failures and one success
 
-Four ideas for making the remaining types tractable were implemented and measured,
-and all four failed; they are recorded so that nobody repeats them.
+Five ideas for making these formulas tractable were implemented and measured. Four
+failed and are recorded so that nobody repeats them; the fifth works and is recorded
+so that the next person reaches for it first.
 
 1. **Solver presets.** On a hard cube, CaDiCaL's default, `--unsat` and `--sat`
    configurations all fail to refute within 240 s.
@@ -109,6 +110,35 @@ and all four failed; they are recorded so that nobody repeats them.
    \(d = 23\), and 111 to 133 at \(d = 24\) by double counting). Encoding this needs a
    triangle variable per pair: one vertex class alone costs 219026 clauses and makes
    the sample slightly worse (30 of 40).
+
+**What does work: the degree window on a group formula.** Every vertex of a
+\((5,5,42)\)-graph has \(17 \le d(v) \le 24\), since its neighbourhood induces a
+\((4,5)\)-graph and its non-neighbourhood a \((5,4)\)-graph, both bounded by
+\(R(4,5) = 25\). The constraint excludes no solution at all -- it is satisfied by
+every \((5,5,42)\)-graph -- so the augmented formula has exactly the same models as
+the plain one, and refuting it proves the same theorem. On a group-orbit formula all
+vertices of one orbit share a degree, so one totalizer per vertex orbit suffices: for
+the \(Z_3 \times Z_3\) action \((0;2,0,0,0;4)\) that is six totalizers, 12528
+clauses over 99 orbit variables.
+
+Measured on ten cubes drawn from the recorded hard cubes of that action's split, run
+concurrently under the same machine load:
+
+| | refuted | total | mean |
+|---|---|---|---|
+| plain orbit formula | 10 of 10 | 1709 s | 171 s |
+| plus the degree window | 10 of 10 | 608 s | 61 s |
+
+A factor of 2.8, and more to the point the mean falls below the 120 s limit those
+cubes had timed out at. This is the first of the five ideas that helped, and the
+contrast with the four failures is instructive: the successful constraint is the one
+that is *implied by the target property itself* rather than bolted on as a
+symmetry-breaking or counting refinement.
+
+It is not used in `../r55-42-no-z3-squared`. That artifact's distinguishing feature is
+a trust boundary containing nothing but the orbit-encoding lemma, and the runs already
+under way will finish without it. It should be the first thing reached for in the
+order-4 project, where the formulas are much harder and a factor of three matters.
 
 ## Cost of finishing, and the honest position
 
