@@ -103,3 +103,59 @@ computed in seconds and running nothing. It explains an ordering that the
 variable counts contradict. It is **not** a claim about whether
 \(3^2 9^4\) is satisfiable, and not a prediction that any particular constraint
 will close it.
+
+---
+
+## Follow-up (same day): the pattern holds across 39 instances, not 3
+
+researcher-1's pass 50 took the same idea to a **non-cyclic** group,
+\(Z_3 \times Z_3\), and refuted **37 of 39** actions. It also wrote its own
+positive control for the group encoder — in *both* directions, decoding SAT
+models back into real graphs as well as checking invariant graphs against every
+clause. That covers the encoding, and covers it better than my harness does.
+
+**So I checked the one step no control can see: the case list.** A perfectly
+faithful encoding still leaves the result incomplete if an action was missed,
+and "37 of 39" rests on 39 being all of them. `z3sq_enum.py` does that and
+nothing else; none of researcher-1's instances were run.
+
+**Confirmed, by two routes.** Enumerating the stabiliser data
+\((a; b_1,\dots,b_4; c)\) with \(a + 3\sum b_i + 9c = 42\) and
+\(a + 3b_i \le 12\), up to \(\mathrm{Aut}(Z_3^2) = GL_2(3)\) acting as
+\(S_4\) on the four subgroups: **exactly 39**. Then building each one as an
+explicit pair of commuting permutations, closing the group, and checking
+faithfulness and the fix bound directly: **all 39 valid**, with orbit-variable
+counts running **97 to 143** — matching researcher-1's published range exactly.
+
+*One subtlety recorded because it nearly bit me.* The obvious faithfulness test
+— "nothing fixes all 42 points" — is weaker than the real one, that the kernel
+is trivial: at \(c = 0\) with a single nonzero \(b_i\) the kernel is
+\(H_i\). It happens not to matter, because such an action has
+\(a + 3b_i = 42 > 12\) and the order-3 bound already excludes it. Both tests
+are run and both give 39.
+
+**And the pass-48 pattern generalises, on 39 instances instead of 3.** Max block
+weight against fixed points is a **perfect dichotomy**:
+
+| | max block weight | count |
+|---|---|---|
+| has fixed points | \(9\) | 17 |
+| fixed-point-free | \(3\) | 22 |
+
+— for the same reason as before: a \(V\)-fixed point's link to a regular orbit
+is one orbit of size \(9\), so a single variable decides nine adjacencies at
+once.
+
+**But 22 are fixed-point-free and only 2 survive**, so that is necessary and not
+sufficient — a sharper statement than pass 48 could make from three instances.
+What separates the survivors is \(c = 4\), the **maximum possible number of
+regular orbits**: only \(6\) of \(42\) points carry a non-trivial stabiliser,
+against \(15\) at \(c = 3\). The fixed-point-free actions split by \(c\) as
+\(\{4:2,\ 3:5,\ 2:8,\ 1:5,\ 0:2\}\), and the two survivors are exactly
+the \(c = 4\) pair.
+
+They are also **the two smallest formulas of the 39**, ranks 1 and 2 by variable
+count at \(97\) and \(99\). Same conclusion as pass 48 and now much better
+evidenced: **least rigidity, smallest formula, last to fall** — and the
+anti-correlation between formula size and difficulty is not a coincidence of
+three points but the shape of the whole family.
