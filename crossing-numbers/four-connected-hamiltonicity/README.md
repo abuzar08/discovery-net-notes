@@ -78,6 +78,42 @@ here and non-Hamiltonicity is the one that does the work — 48 survivors from
 That is exactly the shape the pipeline was ordered for: the expensive exact
 crossing-number test runs on 48 graphs, not on 705,929.
 
+## Result at \(n = 10\)
+
+> **Theorem (exhaustive).** Every 4-connected graph on 10 vertices with
+> \(\operatorname{cr}(G) \le 3\) is Hamiltonian.
+
+All **48** four-connected non-Hamiltonian graphs on 10 vertices have
+\(\operatorname{cr} > 3\). The question is therefore not settled negatively at
+this order, and the known \(\operatorname{cr} \le 2\) theorem extends to
+\(\operatorname{cr} \le 3\) here.
+
+### The filter that produced it, and why it is better than the exact test
+
+The exact decider answers "is \(\operatorname{cr} \le 3\)?" but a *negative*
+answer costs a full depth-3 search — about 2.5 minutes per graph, two hours for
+the 48. A cheaper necessary condition settles all of them in 90 seconds:
+
+**Skewness.** Every crossing can be removed by deleting one of the two edges
+involved, so \(\mathrm{skewness}(G) \le \operatorname{cr}(G)\), and hence
+$$\mathrm{skewness}(G) > 3 \ \Longrightarrow\ \operatorname{cr}(G) > 3 .$$
+Testing \(\mathrm{skewness} \le 3\) is at most \(\binom{m}{3}\) planarity
+tests — about 2,900 at \(m = 27\).
+
+**All 48 fail it.** None has three edges whose deletion leaves a planar graph, so
+all have \(\operatorname{cr} > 3\) and none is a counterexample.
+
+This is also the **better certificate**. "No three edges whose deletion
+planarises this graph" is a finite check any reader can run with a planarity
+routine alone, needing no crossing-number code at all.
+
+*A validation note, recorded because the check earned its keep.* My first
+expected value for the skewness routine was wrong — I wrote
+\(\mathrm{skewness}(K_6) = 2\), and the validation failed. The code was right:
+\(K_6\) has 15 edges against a planar maximum of 12, so its skewness is at least
+3, and \(K_6\) minus a perfect matching is the octahedron \(K_{2,2,2}\), which
+is planar — so it is exactly 3. The instrument caught the author.
+
 ## Status
 
 The pipeline is built and validated, and the decider is revalidated against
@@ -85,20 +121,15 @@ The pipeline is built and validated, and the decider is revalidated against
 \(\operatorname{cr}(K_{3,3}) = 1\), \(\operatorname{cr}(K_{4,4}) = 4\) before any
 graph is tested.
 
-The \(n = 10\) census is complete and the decisive test is running on all 48
-survivors. On the first nine, \(\operatorname{cr} \le 3\) is **false** for
-every one, with heuristic upper bounds of 8 to 12 — far from 3, and consistent
-with Ozeki and Zamfirescu's counterexamples sitting at \(\operatorname{cr} \ge 6\).
+\(n = 10\) is closed, above. The nine survivors that were also put through the
+exact decider agree with the skewness verdict — \(\operatorname{cr} \le 3\)
+false for every one, with heuristic upper bounds of 8 to 12, far from 3 and
+consistent with Ozeki and Zamfirescu's counterexamples at
+\(\operatorname{cr} \ge 6\). Two independent routes, same answer.
 
-**What either outcome gives.** A single graph with \(\operatorname{cr} \le 3\)
-settles a question open since 2018, with a certificate anyone can check. An
-exhaustive negative gives the first theorem of the region:
-
-> Every 4-connected graph on 10 vertices with \(\operatorname{cr}(G) \le 3\) is
-> Hamiltonian.
-
-which is a real if narrow strengthening of the known \(\operatorname{cr} \le 2\)
-result at that order, and it is exhaustive rather than sampled.
+**\(n = 11\) is running**: 66,634,446 candidates, about 2.6 core-hours for the
+filter at the measured rate of 7,000 graphs per second, then a skewness test on
+whatever survives.
 
 Source: `ham4.py` (filters), `crtest.py` (the decisive test), `crk2.py`
 (exact decider), `ubound.py` (upper bounds).
