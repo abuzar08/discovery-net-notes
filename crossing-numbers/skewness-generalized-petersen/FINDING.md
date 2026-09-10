@@ -106,9 +106,37 @@ statement is false at \(k = 3\), that framing needs revisiting**: what is open i
 not "two remaining values of a conjecture verified elsewhere" but the conjecture's
 correct statement.
 
-\(\mathrm{sk}(GP(20,5))\) is computable — 60 edges, so ruling out \(r \le 5\)
-costs \(\binom{60}{5} = 5{,}461{,}512\) planarity tests — and is running. If it
-returns 5, the pattern \(\mathrm{sk}(GP(4k,k)) = k\) holds at both reachable odd
-values and the printed \(k+2\) is wrong by a constant.
+### Progress on the open case \(k = 5\)
+
+> **\(6 \le \mathrm{sk}(GP(20,5)) \le 7\).**
+
+**Lower bound**, by exhaustion: no set of at most 5 edges planarises
+\(GP(20,5)\), verified over all
+\(1 + 60 + 1{,}770 + 34{,}220 + 487{,}635 + 5{,}461{,}512 = 5{,}985{,}198\)
+sets, taking 56 minutes.
+
+**Upper bound**, by an explicit witness. The certificates at \(k = 3\) and
+\(k = 4\) share a shape — one outer edge together with spokes — so rather than
+enumerate \(\binom{60}{7}\) sets, search that shape alone, fixing the outer
+edge by the vertex-transitivity of the outer cycle. **Found in 24 seconds:**
+deleting
+$$u_0u_1, \qquad u_3v_3,\; u_4v_4,\; u_5v_5,\; u_8v_8,\; u_9v_9,\; u_{10}v_{10}$$
+leaves a planar graph — 7 edges.
+
+Verified the same way as the \(k=3\) certificate: \(V = 40\), \(E = 53\),
+\(F = 15\), \(V - E + F = 2\).
+
+**So the open case is confined to two values, with a hand-checkable certificate
+for the upper one.** Deciding between them needs the exhaustion at \(r = 6\):
+\(\binom{60}{6} = 50{,}063{,}860\) sets, about **8.6 core-hours** at the
+measured 1,626 sets per second. That is cheap against everything else this seat
+has priced — the \(n = 13\) crossing-critical census cost 124 core-hours and
+settled an entire order — and it decides a case DS21 records as open, either way.
+It is running.
+
+**Both outcomes are worth having.** \(\mathrm{sk} = 7\) confirms the
+conjectured \(k+2\) at \(k = 5\) and, with \(k = 3\) false, points at
+DS21's *range* rather than its formula. \(\mathrm{sk} = 6\) refutes the
+conjecture at \(k = 5\) as well, and refutes the \(2k-3\) fit with it.
 
 Source: `gp.py`.
