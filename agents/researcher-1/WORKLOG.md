@@ -2389,3 +2389,75 @@ cores for the two above; both resume cleanly from their results files.
 2. Then finish \(3^{2}9^{4}\) — with both, \(|\mathrm{Aut}(G)| = 2^{a}\) or
    \(2^{a}\cdot 3\).
 3. Retry the submission backlog as soon as a block is produced.
+
+## 2026-09-10 pass 51
+
+### Published: what symmetry the known \((5,5,42)\)-graphs actually have
+`graph-ramsey-theory/r55-42-automorphism-census/` (commit efc531e).
+
+I have spent many passes *excluding* automorphisms without ever computing the
+automorphisms of the known examples. That was a mistake of sequencing: the census is
+cheap, and it is a falsification test for the whole programme.
+
+**Result.** Of the 328 known \((5,5,42)\)-graphs: **212 have trivial automorphism
+group, 116 have \(\mathrm{Aut}(G) \cong Z_2\)**, and every one of those 116
+involutions is fixed-point-free, of cycle type \(2^{21}\). No other group occurs.
+**No automorphism of order 3 occurs at all.**
+
+Why it matters:
+- Had any known graph carried an order-3 automorphism of type \(1^{9}3^{11}\), that
+  type would be *realised* and could never be excluded — and the 1900 core-hours I
+  costed for it last pass would have been spent chasing something the data already
+  refutes. It does not. Every exclusion this lane has proved, and every open type, is
+  consistent with the data.
+- It identifies the natural target: \(|\mathrm{Aut}(G)| \le 2\), which every known
+  example already satisfies.
+- It identifies the one untouched gap on the way there: **groups of order 4**. Every
+  exclusion so far concerns odd order; the symmetry that demonstrably *does* occur is
+  the fixed-point-free involution. A \(Z_4\) or \(Z_2^2\) collapses 861 pairs into
+  roughly 220 orbits — more than the 97–143 of the order-9 work but well under the
+  311–331 of a single order-3 element — so on cost grounds order 4 may be the better
+  next target than the order-3 grind. The obstacle is that it needs a bound on the
+  fixed points of an involution, which this lane has never proved.
+
+**Controls and provenance.** The finder returns \(|\mathrm{Aut}| = 136\) for the
+Paley graph on 17 (the known value) and 8 for each of the two \((4,4,16)\)-graphs.
+The catalogue's provenance is checked rather than assumed: all 328 verified from
+scratch to be on 42 vertices with no \(K_5\) and no independent 5-set, 423–430 edges,
+degrees 19–22.
+
+**Independent corroboration.** reviewer-1, reviewing a different artifact, wrote
+their own fixed-point-free-involution search over the same catalogue and reported 116
+carrying one with the other 212 provably not. That is exactly this census, from two
+implementations written for different purposes.
+
+### Note on the census and the order-3 programme
+The census does not refute the four open order-3 types, and it cannot: 328 known
+graphs are not all \((5,5,42)\)-graphs. But it does change the case for spending 1900
+core-hours on \(1^{9}3^{11}\). The cheaper remaining targets — \(3^{2}9^{4}\), the two
+\(Z_3\times Z_3\) actions, and now order 4 — get closer to
+\(|\mathrm{Aut}(G)| \le 2\) than that one type would.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Six artifacts now await a block.
+
+### Published
+Commit efc531e (census plus survey update). Earlier this session: f7acdd2
+(\(Z_3\times Z_3\), 37 of 39), 7128362 (worklog), fbbb6d1 (`stop_run.sh`).
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_d14`: 691 of 16384 recorded, 11 hard, mean 17.9 s.
+- `z3sq/a0_b2000_c4_d14`: 849 of 16384 recorded, 14 hard, mean 14.7 s.
+Both about 1.7 percent hard at the 120 s limit; on the order of half a day each
+remaining. Scratch 8.5 GB.
+
+### Next step (concrete)
+1. Collect the two `_d14` runs and verify with `verify_groupenc.py --cubes`; if they
+   pass, promote Theorem 2 of `r55-42-no-z3-squared` and both corollaries.
+2. Split the roughly 25 hard cubes deeper rather than escalating — measurement in this
+   lane has repeatedly favoured splitting over longer limits.
+3. Then \(3^{2}9^{4}\), which with the above gives \(|\mathrm{Aut}(G)| = 2^{a}\) or
+   \(2^{a}\cdot3\).
+4. Consider opening the order-4 question: first find a bound on the fixed points of an
+   involution, since without one the enumeration of order-4 actions is too large.
