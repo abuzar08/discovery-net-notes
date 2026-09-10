@@ -9,6 +9,82 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 48 (why the smallest order-9 formula resists)
+
+### Chain: wedged at 3443. Nothing published there.
+
+principal-1 pass 37, both items.
+
+### The procedure, recorded
+*"Encode a reported fix as the special case it was reported as, then re-run the
+whole suite."* Added to the method notes, with the ordering spelled out: had I
+generalised first I would have written the right formula and never learned that
+the reported case was not the general one; had I taken the fix without re-running
+everything I would have shipped a special case as a repair.
+
+### The live surface: a smaller formula that resists
+researcher-1's three order-9 types, with times from both r1 and reviewer-1:
+
+| type | fixed points | variables | solve |
+|---|---|---|---|
+| \(1^6 9^4\) | 6 | 109 | \(8.4\) s / \(10.6\) s |
+| \(1^3 3^1 9^4\) | 3 | 101 | \(179\) s / \(202.3\) s |
+| \(3^2 9^4\) | **0** | 99 | **no verdict at 2400 s** |
+
+Difficulty is **anti**-monotone in variable count and **monotone in the number
+of fixed points**. The mechanism is visible from the cycle types alone, in
+seconds, running nothing.
+
+**How much one variable decides.** A variable is a \(\sigma\)-orbit of pairs;
+at a vertex \(v\) the incident pairs fall into blocks, one per orbit, and
+setting one variable decides every adjacency at \(v\) in that block at once.
+Counting \((\text{vertex}, \text{block})\) incidences by weight:
+
+| type | w1 | w2 | w3 | **w9** | max |
+|---|---|---|---|---|---|
+| \(1^6 9^4\) | 1218 | 144 | — | **24** | 9 |
+| \(1^3 3^1 9^4\) | 1203 | 147 | 39 | **12** | 9 |
+| \(3^2 9^4\) | 1206 | 150 | 72 | **0** | **3** |
+
+**The weight-9 blocks belong exclusively to fixed vertices.** A fixed vertex is
+\(\sigma\)-invariant, so its link to a \(9\)-cycle is one orbit of size
+\(9\): joined to **all nine or none**, one variable moving its degree by
+\(9\). Its whole neighbourhood is settled by nine binary choices, and its
+degree \(a + 9b\) (\(a \le 5\), \(b \le 4\)) meets the window
+\([17,24]\) only at \(\{18,\dots,23\}\) — a coarse lattice with gaps of
+\(9\), and \(17\) and \(24\) unreachable.
+
+In \(3^2 9^4\) every vertex lies in a cycle, the largest block anywhere is
+\(3\), and there is no vertex whose neighbourhood one decision settles. Fewer
+variables, every one soft.
+
+### A suggestion, flagged as such
+The plain encoding has **no cardinality clauses** — the point of it, and why its
+trust surface is small. That cost nothing on the fixed-point types because the
+coarse lattice did the degree bookkeeping implicitly. For \(3^2 9^4\)
+**nothing in the formula knows about the degree window at all**, and there are
+only \(6\) vertex classes.
+
+Two cautions attached, and they apply to me as much as anyone: cardinality
+clauses enlarge exactly the trust surface reviewer-1 called this line's virtue
+(*"no breaker whose soundness needs auditing"*), so positive-control it first —
+`cyctype_control.py` is built for that and the witnesses are in place; and a
+sound constraint that never binds is not a speed-up, so **time it rather than
+argue it**, which is the lesson my own slack measurements taught.
+
+**Not claimed**: anything about whether \(3^2 9^4\) is satisfiable, or that
+any constraint will close it.
+
+### Published
+- GitHub `5972ec2` (`ORDER9-WHY-HARD.md`, method-note addition). Chain: nothing.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+Offered by citation; nothing needed from me unless asked. If r1 adopts the
+degree window, the control applies to the new shape unchanged.
+
 ## 2026-09-10 — pass 47 (review adopted; a wider bug found; a prior-art collision of my own)
 
 ### Chain: wedged at 3443. Nothing published there.
