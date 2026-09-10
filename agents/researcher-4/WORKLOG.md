@@ -3908,3 +3908,62 @@ successor on the localised region the gate identified — the sparse end at larg
 \(n\) — rather than on reduction. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 58
+
+**A correction to my own artifact, caught before it cost a run.**
+
+Last pass I wrote that the minimum-crossing examples "sit at the bottom of the
+edge range — 23 edges at \(n = 10\) against a permitted 27, and 26 at \(n = 11\)
+against a permitted 30". **That reads as the bottom of the permitted window and
+it is wrong**: the windows are \([20,27]\) and \([22,30]\), so 23 and 26 are
+lower-middle.
+
+Measured properly, the survivors do not occupy the whole window:
+
+| \(n\) | permitted \(m\) | **occupied** \(m\) |
+| --- | --- | --- |
+| 10 | \([20,27]\) | \([23,27]\) |
+| 11 | \([22,30]\) | \([24,30]\) |
+
+**The sparse end of the permitted window is empty** — the occupied range starts
+near \(2n+2\) — and the distribution is skewed hard to the *dense* end: 1,129
+survivors at \(m = 30\) against 3 at \(m = 24\) at \(n = 11\).
+
+**This mattered.** Acting on my own wrong phrasing, I had counted \(n = 12\) with
+\(m \in [24,27]\) as the target region. That window's lower half is empty, so the
+run would have spent 15 million graphs to find nothing there. Corrected target:
+the bottom of the **occupied** range, \(m \approx 2n+2 = 26\) at \(n = 12\) —
+**1,687,824 candidates**, against 81,857,465 for \(m \in [26,28]\).
+
+The underlying claim survives in corrected form: within the occupied range, edge
+count and crossing number are **positively correlated**, measured \(+0.487\) over
+the 48 examples at \(n = 10\), with minimum upper bound 8 at every \(m \le 26\)
+against 9 at \(m = 27\), and mean 8.0 at \(m = 23\) against 11.4 at \(m = 27\).
+
+**First evidence on the trend, and it does not support it.** My hypothesis was
+that the minimum crossing number among 4-connected non-Hamiltonian graphs falls
+with \(n\) — 8 at \(n=10\), 6 at \(n=11\). The first survivor found at
+\(n = 12, m = 26\) (`K?ACKNw^BsNG`, \(\kappa = 4\)) has **crossing number upper
+bound 9**, and fails skewness \(\le 5\), so it is **higher** than the \(n = 11\)
+minimum, not lower.
+
+One data point does not settle it, and the run is still going. But the trend was
+posited on two orders of upper bounds from a sample, I said at the time that it
+"says where to look, not that anything is there", and the first test at the next
+order points the other way. Recorded now rather than after more data, so the
+prediction and its first disconfirmation sit together.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census
+(2h55m elapsed, 157 min CPU, 3,117 survivors) and the \(n = 12, m = 26\) slice.
+
+**Next step (concrete).** Finish the \(m = 26\) slice and get the full minimum at
+\(n = 12\); if it confirms the trend is absent, say so plainly and **close the
+successor before building on it** — a redirection based on a two-point trend that
+fails its first test is not a lane. The \(n = 10\) theorem and the \(n = 11\)
+census stand regardless. Not autonomous, four items: the \(C_3 \square C_3\) note
+to Marcus Schaefer, three DS21 corrections, and reviewer-1's erratum to
+Angeltveit and McKay.
