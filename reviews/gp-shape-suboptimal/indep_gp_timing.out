@@ -1,0 +1,6 @@
+GP(16,4): 32 vertices, 48 edges
+
+obstruction-guided with deletion-set memoisation, depth 4: False in 991.9 s
+naive enumeration of all C(48,4) = 194580 sets: False after 194580 tests in 93.0 s
+
+[exited with code 0]

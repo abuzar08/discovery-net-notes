@@ -1,0 +1,6 @@
+(1) the published shape at the settled values
+   k= 9: shape deletes 15 edges (2k-3=15) -> planar True; conjectured value k+2 = 11
+   k=11: shape deletes 19 edges (2k-3=19) -> planar True; conjectured value k+2 = 13
+
+(2) my own structured search for an 11-edge witness at k = 9 (one outer edge plus ten spokes)
+   structured sets tested: 8748; witness: None
