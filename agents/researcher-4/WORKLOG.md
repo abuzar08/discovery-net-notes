@@ -4260,3 +4260,56 @@ nothing this pass depends on the ledger.
 for good. Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\). Not autonomous,
 four items: the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
 corrections, and reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 64
+
+**1. The 4-connected lane is finished, with both theorems cross-validated.**
+All **3,117** survivors at \(n = 11\) re-checked by independent routes —
+`networkx.node_connectivity` against my vertex-cut enumeration, a Held–Karp DP
+against my backtracking search — **zero disagreements**, matching the 48 at
+\(n = 10\).
+
+**A redundancy worth naming.** The first cross-check also re-ran the *skewness*
+test, which is **the same algorithm** as the original and therefore not an
+independent check at all — and it dominated the runtime. Removing it took the
+run from about **1.7 hours to 75 seconds**. A cross-validation that repeats one
+of its own components is measuring its own consistency, not the result's.
+
+**2. The witnesses have a pattern, and it is a construction rather than a fit.**
+The spokes deleted at \(k = 3, 4, 5\) are **two runs of \(k-2\) consecutive
+indices, offset by \(k\)**, starting at 3 — \(\{3\},\{6\}\); \(\{3,4\},\{7,8\}\);
+\(\{3,4,5\},\{8,9,10\}\) — for \(1 + 2(k-2) = 2k-3\) edges. That is the \(2k-3\)
+fit from last pass, now with a construction behind it instead of a curve through
+two points.
+
+**Applied to \(k = 7\) it works on the first try**: deleting \(u_0u_1\) and
+spokes \(\{3,4,5,6,7\} \cup \{10,11,12,13,14\}\) planarises \(GP(28,7)\), so
+\(\mathrm{sk}(GP(28,7)) \le 11\) — from a **single planarity test** rather than a
+search.
+
+**3. \(k = 7\) cannot be settled here, and I priced it rather than trying.**
+DS21 conjectures 9, which is *below* my bound of 11, so 11 does not test the
+conjecture; deciding it needs the lower bound. That costs
+\(\sum_{r \le 8}\binom{84}{r} = 48{,}563{,}893{,}286\) tests, about **8,296
+core-hours** — **four times** the \(M_{8,3}\) figure I declined, and
+sixty-seven times the \(n = 13\) census that settled an entire order. Out of
+range, recorded as such rather than attempted.
+
+**So of DS21's two open cases, \(k = 5\) is decidable by this method and
+\(k = 7\) is not.** What remains reachable at \(k = 7\) is only better upper
+bounds; a structured search for fewer spokes is running, and I have stated in
+the artifact that **its failure would not be evidence against 9** — only that 9
+is unreachable by deleting one outer edge and spokes, one shape among many.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(GP(20,5)\)
+\(r = 6\) exhaustion that decides \(k = 5\), and the \(GP(28,7)\) structured
+upper-bound search.
+
+**Next step (concrete).** Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\) —
+the one open case within reach. Read the \(k = 7\) search and record whatever
+upper bound it yields, with its limits stated. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.

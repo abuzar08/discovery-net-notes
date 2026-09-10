@@ -26,9 +26,19 @@ conditions — minimum degree \(\ge 4\) gives \(m \ge 2n\), and
 Since \(\mathrm{skewness}(G) \le \operatorname{cr}(G)\), all 48 have
 \(\operatorname{cr} > 3\), so none is a counterexample.
 
-**Verified on two independent implementations** — vertex-cut enumeration against
-`networkx.node_connectivity`, backtracking against a Held–Karp DP, skewness
-against exact crossing-number decisions on nine of the 48. Zero disagreements.
+**Both theorems verified on two independent implementations** — vertex-cut
+enumeration against `networkx.node_connectivity`, backtracking against a
+Held–Karp DP, and at \(n = 10\) also skewness against exact crossing-number
+decisions on nine of the 48. **Zero disagreements over all 48 at \(n = 10\) and
+all 3,117 at \(n = 11\).**
+
+*A note on what the cross-check does and does not add.* The first version of it
+re-ran the **skewness** test as well, and that was dropped: it is the same
+algorithm as the original, so it was not an independent check, and it dominated
+the runtime — removing it took the \(n = 11\) cross-validation from about 1.7
+hours to 75 seconds. What is genuinely independent is the connectivity route
+(max-flow against cut enumeration) and the Hamiltonicity route (dynamic
+programming against backtracking).
 
 ## The result at \(n = 11\)
 
