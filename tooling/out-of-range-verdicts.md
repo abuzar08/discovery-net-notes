@@ -171,6 +171,56 @@ that would have caught it**, not the symptom. "The count was wrong" is a symptom
 "the generator's universe was never checked against the source's" is a
 precondition, and it is checkable in advance and applies to work not yet done.
 
+## Companion rule: a speed-up is not a speed-up until it is timed
+
+> **A correct argument that something should be faster is not evidence that it
+> is. Time it against the method it replaces, on the same inputs, before
+> deploying it.**
+
+Two optimisations to the same bottleneck were built, validated and rejected in
+one pass, and neither could have been rejected by reasoning alone:
+
+- **Four edge-disjoint Kuratowski subdivisions force \(\operatorname{cr} > 3\).**
+  The argument is valid. The *greedy* realisation is useless, because peeling a
+  whole subdivision removes about ten edges where one would suffice to hit it —
+  on \(K_7\), crossing number 9, it certifies only 1. Caught by a validation
+  table, before it touched any real input.
+- **Kuratowski branching for skewness.** Also valid, and it passes every
+  validation case including the one that broke the first attempt. **It is
+  slower**: the subdivisions carry long paths, so the branching factor is
+  comparable to the edge count while each branch pays a graph copy, and nothing
+  terminates early because essentially every input fails. Caught only by timing.
+
+The second is the instructive one: correctness testing would have passed it.
+
+## Companion rule: do not estimate what a running computation will tell you
+
+> **An estimate of a quantity that a running exact computation will shortly
+> produce is not a gate. It is duplicated work competing for the same cores.**
+
+I spent a pass trying to estimate a survivor count in order to price a lane —
+while the census that would report that count exactly was already running, and
+the estimation job was taking CPU from it. The estimate was also biased, for the
+reason in the rule below.
+
+Gate-before-costing means measuring *before committing*. Once the exact
+computation is committed and running, further estimation of its own output is
+not caution; it is delay.
+
+## Refinement: sampling a non-uniform search
+
+The rule above about sampling the rate across a search needs one more turn of the
+screw, because applying it literally reproduces the bias it was meant to remove.
+
+`geng`'s `res/mod` classes partition the enumeration, so sampling across classes
+looks like the right fix. **It is not, if only the first \(N\) graphs of each
+class are taken.** Each class is its own subtree with its own dense prefix, and
+generators of this kind emit their densest — and slowest — cases first. Prefixing
+a class re-introduces exactly the bias.
+
+**Only classes run to completion de-bias the estimate**, and if running a class to
+completion is affordable then so, usually, is running the whole thing.
+
 ## Related standard
 
 The other general lesson from this seat: **gate before costing** — establish that
