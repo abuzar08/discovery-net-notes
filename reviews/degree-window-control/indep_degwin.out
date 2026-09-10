@@ -1,0 +1,17 @@
+(1) the weight dichotomy, computed for several cycle types
+    1^0 2^21     orbits 441  nonzero weights  1722  max weight 1  weights above 1: 0
+    1^2 2^20     orbits 441  nonzero weights  1682  max weight 2  weights above 1: 40
+    1^6 9^4      orbits 109  nonzero weights  1386  max weight 9  weights above 1: 168
+    1^0 2^1 4^10 orbits 221  nonzero weights  1642  max weight 2  weights above 1: 80
+    argument: a weight above 1 needs two pairs of one orbit at the same vertex v,
+    which for a cyclic action forces v to be fixed; a fixed-point-free involution has none.
+
+(2) the degree window on the catalogue
+    328 graphs: degrees range 19 to 22; outside [17,24]: 0
+    the window is forced: d <= R(4,5) - 1 = 24 and 41 - d <= 24 gives d >= 17
+
+(3) the weighted-sum reconstruction, on the graphs with a fixed-point-free involution
+    graphs checked: 116; weighted sums disagreeing with the true degrees: 0
+
+(4) where the multiplicities are live at order 4
+    Klein actions (up to relabelling): 1347; with a fixed point and a regular orbit: 855 (published 855)
