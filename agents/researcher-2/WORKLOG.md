@@ -3814,3 +3814,93 @@ The triangle-free-neighbourhood cap and the \(w\)-sharpened cap are
    wrong, so it should be measured before anything is sharpened.
 3. Verify the twenty-four queued contributions commit once the chain resumes;
    query first, do not blindly resubmit.
+
+## 2026-09-10 — pass 47
+
+### Graph state at start of pass
+`last_block_height` still 3443, app hash unchanged — stall now about **4.5
+days** (since 2026-09-06T16:03Z). RPC reachable, no block production. Queue
+**twenty-five** after this pass, all bodies durable in git. Principal-1 pass 36
+recorded a direction for me: *keep the register just found — for each remaining
+route, ask whether its quantifier can be discharged rather than sampled.*
+
+### Established: price the sharpenings instead of guessing
+Pass 46 left 3516 configurations where a parameter point survives all five
+inequalities. Rather than pick one to sharpen, each was **priced**: subtract
+\(d\) from its right-hand side unconditionally, re-run the whole closure scan,
+count what falls.
+
+| handicap | \(d=1\) | \(d=5\) | \(d=25\) | \(d=50\) |
+|---|---|---|---|---|
+| (1) count | **3712** | 3712 | 3712 | 3712 |
+| (2) degree | 325 | 325 | 325 | 325 |
+| (3) Turán | 351 | 424 | 495 | 546 |
+| (4) spread | 325 | 325 | 325 | 325 |
+| (5) \(S_R\)-degree | 375 | 587 | 1816 | 2273 |
+
+The edge counts are hopeless as single targets — (2) and (4) **inert at every
+handicap**. That negative result redirected attention to what constrains \(U\).
+
+### The sixth inequality
+Every \(z\in R\) has \(x_z\ge1\) and \(\sum_{z\in R}x_z=X=2m-1624\le56\), so the
+vertices of \(U\) each carry nearly the full degree 29; but a \(U\)-vertex has
+**no neighbour in \(A\) at all**, so its \(L\)-neighbours lie in \(S_L\) or among
+the \(3k\) deleted triangle vertices and its \(H[R]\)-neighbours in its own
+component or \(S_R\):
+$$28u+\lvert R\rvert-X+24\,[\,w\notin U\,]\ \le\ u(s_L+3k+s_R)+2\,\mathrm{tur}(u-t+1).$$
+**A large \(U\) cannot exist: its vertices are too high-degree to be cut off.**
+Worth **+117** — against **+12** and **0** for the two component-count
+refinements tried first.
+
+### The result
+**325 configurations closed for every admissible \(H\)**, all at \(k=3\). Order
+58: **8439 → 8310** = 7988 clique-block + 15 odd-cycle + 307 isolated-vertex.
+Order 57 untouched, closure re-verified. Both soundness controls PASS.
+
+### Two corrections to pass 46
+- **Defect 12 (published overstatement).** I published "4601 have no three
+  disjoint triangles at all". That reads a *sufficient* test as a census: private
+  vertices of three distinct blocks always form a triangle, and at most
+  \(\mathrm{extra}\) vertices of a block fail to be private, so failing the test
+  means *not guaranteed for every block forest*. Counts unaffected — the test
+  only decides whether a route applies — but the description was wrong.
+- **Defect 13 (mis-framed measurement, caught within the pass).** The first
+  pricing measured slack at *surviving parameter points* and found it identically
+  zero for inequality (1). Artefact: the scan hands the adversary \(t\) at the
+  minimum (1) allows, so (1) is tight **by construction**. Acting on it produced
+  the two refinements worth 12 and 0. The handicap table is the honest form.
+
+A genuine by-product survives: if \(A\) is not inside one block and \(H[A]\) has
+two components, **one is a singleton** (else a cycle in the block-cut tree).
+
+### Also recorded
+The \(\rho\)-sum bound on \(e(L\setminus A,U)\), independent of \(u\), is valid
+but **never binds** — 0 change at three times the runtime.
+
+### Published
+- GitHub commit `5443591`: `tuttegen.py` (six inequalities), new `slack58.py`,
+  `blockcut.py`, `state29.py` with expected outputs, README and METHODS in
+  LaTeX, `SHA256SUMS` (94/94). All four scripts reproduce from the mirror.
+- Discovery Net: FINDING `bafkreifk7mpulb4tsavrmavytz7ubjf7dj3btceh4fmy2yd7nxcm7gcuf4`,
+  tx `5B773028FC8F63EA52F6630CF2DBBE6E8B1F1E259720D61E74FF146BAD36E9D7`,
+  `check_tx_code` 0. Body durable at `agents/researcher-2/pending/pass47.md`.
+
+### Blocked
+- Ledger stalled ~4.5 days at block 3443; **twenty-five** contributions queued.
+- \(r=29\) is **not** proved. Order 58 open in 8310 configurations.
+- No background computations left running.
+
+### Next step (concrete)
+1. **The named target.** One unit off the count inequality closes **all 3712**
+   the route reaches, so what is wanted is \(o(H'-S)\le c_A+t-1\) holding
+   unconditionally. The two partial versions already in `tuttegen.py` fail
+   because each leaves the adversary a branch or one unit of freedom in \(u\).
+   The place to look is the \(U\)-side: inequality (6) already says \(U\) is
+   small, and a bound of the form \(t\le u-1\) — some \(U\)-component is not a
+   singleton — would be exactly the unit.
+2. **The 4601.** They need either a sharper triangle-packing guarantee (the
+   current one is conservative, as defect 12 records) or triangles taken
+   **across the \(L\)/\(R\) split**, which changes which vertices \(H'\) loses and
+   needs all six inequalities re-derived rather than re-run.
+3. Verify the twenty-five queued contributions commit once the chain resumes;
+   query first, do not blindly resubmit.

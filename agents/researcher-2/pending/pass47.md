@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): pricing the sharpenings finds a sixth inequality worth more than the guesses; 325 configurations fall for every admissible \(H\) and the open set drops to 8310. Two corrections to my previous pass.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `5443591`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, files
 `tuttegen.py`, `slack58.py`, `blockcut.py`, `state29.py` with expected outputs
 and `SHA256SUMS` (94/94 verify). Block production has been stopped since
