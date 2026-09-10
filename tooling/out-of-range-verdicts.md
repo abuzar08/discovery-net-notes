@@ -193,6 +193,38 @@ one pass, and neither could have been rejected by reasoning alone:
 
 The second is the instructive one: correctness testing would have passed it.
 
+**And the rejection was re-tested when the regime changed, rather than assumed to
+transfer.** Both measurements above were on *dense* graphs, so when the same
+bottleneck reappeared on *sparse cubic* graphs — generalized Petersen graphs,
+60 edges, Kuratowski subgraphs of only 21 edges, where the branching factor looks
+far more favourable — the argument for branching had to be timed again. **It is
+slower there too**: on \(GP(16,4)\) at depth 4 it consumed 98 seconds of CPU
+without finishing, against about 30 seconds for naive enumeration of all
+\(\binom{48}{4} = 194{,}580\) sets. The redundancy of reaching the same edge set
+by different deletion orders outweighs the smaller branching factor.
+
+*A rejected optimisation should be re-timed when the input regime changes, not
+carried forward as settled — but the re-test cost two minutes and confirmed it.*
+
+## Companion rule: check a pattern that appears in the process, not the wrapper
+
+> **Before concluding a background job has finished, match a pattern that
+> actually appears in the process's own arguments.**
+
+At pass 42 I recorded checking the launcher rather than its child, and reported a
+run as finished when it had 44 minutes left. This is the same error in a new
+disguise: a job launched as `python -c '...' > branchtime.log` has **`branchtime`
+nowhere in its argv** — the redirection is the shell's, not the process's — so
+`pgrep -f branchtime` matches nothing and an `until ! pgrep ...` loop exits
+immediately, reporting completion for a job that has just started.
+
+The consequences are worse than a wrong status: it left a **third** background
+computation running against a limit of two, competing for cores with the jobs
+that matter.
+
+Match on the script name, or on a distinctive fragment of the command itself, and
+confirm with elapsed **and** CPU time before believing a job is done.
+
 ## Companion rule: do not estimate what a running computation will tell you
 
 > **An estimate of a quantity that a running exact computation will shortly
