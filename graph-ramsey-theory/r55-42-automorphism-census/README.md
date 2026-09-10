@@ -153,12 +153,40 @@ on hard cubes -- **does not change that**: the same type still resists a single 
 for 10 minutes with the window in place. So the window is a constant-factor speed-up,
 not a qualitative one, and order 4 needs cube-and-conquer.
 
-The machinery for it is now in place and controlled:
+The machinery for it is in place and controlled:
 `../r55-42-order-9-automorphisms/cyctype_deg.py` builds an arbitrary-cycle-type
 formula with the degree window, and `verify_cyctype.py --degree` regenerates the
 totalizers with its own implementation and rejects a single flipped literal inside
-one of them. What remains is the prefix enumeration and the sweep, which is a
-dedicated effort rather than a spare-capacity one. So order 4 is a real project needing cube-and-conquer, not another
+one of them.
+
+**But the machinery is not the obstacle, and a second probe says so.** Everywhere
+else in this lane a formula that resists a single call has yielded to a plain case
+split on the commonest orbit variables -- 14 of them settled the two hard
+\(Z_3 \times Z_3\) actions down to a 1 to 4 percent hard fraction. Applying exactly
+that recipe here, with the degree window and a split on 14 variables, and sampling
+**100 cubes at random from the \(2^{14}\)** rather than taking the front of the file:
+of the first 15 drawn, **15 timed out at 120 s -- a 100 percent hard fraction**.
+
+The reason is arithmetic, and it is worth stating because it bounds the whole
+approach:
+
+| | orbit variables | fixed by a 14-split | left free |
+|---|---|---|---|
+| \(Z_3 \times Z_3\), \((0;1,1,0,0;4)\) | 97 | 14 | 83 |
+| \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\) | 99 | 14 | 85 |
+| \(Z_4\), \(1^{0} 2^{1} 4^{10}\) | 221 | 14 | **207** |
+
+Reaching the regime where plain splitting works would mean leaving about 83 free of
+221, that is fixing 138 variables, that is \(2^{138}\) cubes. Plain splitting cannot
+get there at any depth.
+
+So order 4 needs canonical prefix enumeration with genuine group-based symmetry
+breaking -- the full apparatus the order-3 types use -- and its formulas are 221 to
+637 variables against the order-3 types' 311 to 331. Ninety of them. **The honest
+estimate is that order 4 is comparable to or worse than the order-3 grind, not
+cheaper**, and the survey's cost table has been corrected accordingly. It is not the
+cheap next target the census first suggested; the cheap targets are the two
+\(Z_3 \times Z_3\) actions and the order-9 type \(3^{2}9^{4}\). So order 4 is a real project needing cube-and-conquer, not another
 afternoon; the orbit count alone does not predict difficulty, and the jump from about
 100 orbits to about 220 is evidently where this method stops being cheap.
 

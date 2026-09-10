@@ -52,8 +52,8 @@ measured where the text says so and estimated where it does not.
 | 2 of the 39 \(Z_3 \times Z_3\) actions | running; about a day | every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic, hence \(b \le 2\) — where \(b\) has **no bound at all** today |
 | the order-9 type \(3^{2} 9^{4}\) | a cube-and-conquer run | no automorphism of order 9; with the row above, \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
-| 90 \(Z_4\) cycle types | encoder and checker ready; needs prefix enumeration and a sweep | no automorphism of order 4 |
-| 1347 \(Z_2 \times Z_2\) actions | larger than the row above | with it, \(a \le 1\) |
+| 90 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 90** — see below | no automorphism of order 4 |
+| 1347 \(Z_2 \times Z_2\) actions | larger still | with it, \(a \le 1\) |
 
 Two things follow that are worth stating rather than leaving to be inferred.
 
@@ -64,6 +64,16 @@ computation. The four order-3 types cost some thousands of core-hours and delive
 already reduced \(b\) to at most 1. Anyone allocating effort should finish the cheap
 rows first and then decide whether \(b \le 1 \to b = 0\) is worth thousands of
 core-hours.
+
+The order-4 row was costed optimistically when it was first added, on the strength of
+the encoder and checker being ready. A measured probe has since corrected it: the
+plain case split that works everywhere else in this lane leaves **100 percent** of a
+random sample of cubes unrefuted at 120 s for the smallest \(Z_4\) type, because
+fixing 14 of its 221 orbit variables leaves 207 free where the \(Z_3 \times Z_3\)
+actions leave 83. Reaching that regime would need \(2^{138}\) cubes. Order 4
+therefore needs canonical prefix enumeration with group-based symmetry breaking, on
+formulas larger than the order-3 ones, ninety times over. Details in
+`../r55-42-automorphism-census`.
 
 **The destination is \(|\mathrm{Aut}(G)| \le 2\).** All five rows closed would give
 exactly that, and `../r55-42-automorphism-census` shows every one of the 328 known
