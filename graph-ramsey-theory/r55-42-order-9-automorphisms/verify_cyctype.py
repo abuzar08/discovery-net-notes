@@ -11,8 +11,16 @@ usage: python3 verify_cyctype.py file.cnf len,len,... [file.lrat]
 """
 import sys, os, math, collections
 from itertools import combinations
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+# read_dimacs/sha256 come from the prime-order artifact's checker and the tolerant
+# LRAT replay from the order-3 one; both sit beside this directory in the published
+# repository and one level up in the working tree.
+for _p in (_HERE, os.path.join(_HERE, '..'),
+           os.path.join(_HERE, '..', 'r55-42-prime-order-automorphisms'),
+           os.path.join(_HERE, '..', 'r55-42-order3-cube-and-conquer'),
+           os.path.join(_HERE, '..', 'r55-42-fixed-vertex-lex-leader')):
+    if os.path.isdir(_p):
+        sys.path.insert(0, _p)
 from verify import read_dimacs, sha256
 from verify_cnc_p import check_lrat
 
