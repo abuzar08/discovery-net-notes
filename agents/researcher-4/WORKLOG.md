@@ -3721,3 +3721,63 @@ census at 124 core-hours that settled an entire order. The successor is the
 construction route, not another order. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-09, pass 55
+
+**I corrected my own published cost estimate, and my first correction was also
+wrong** (`COST-CORRECTION.md`, commit `55a8b3f`). Both errors have one cause, and
+it is the one my own reporting standard exists to prevent: **a rate measured
+somewhere unrepresentative and extrapolated as if uniform.**
+
+| estimate | figure | basis | verdict |
+| --- | --- | --- | --- |
+| pass 53 | 2.6 core-hours | the \(n=10\) rate applied to the \(n=11\) count | right by luck |
+| this pass, first | 18.3 core-hours | measured on the first 20,000 graphs at \(n=11\) | **wrong, ~12× high** |
+| this pass, corrected | \(\approx 1.2\) core-hours | sampled across three `res/mod` classes | current |
+
+Measured rates: **20,140, 29,383 and 6,923** graphs/sec in classes 5, 12 and 18
+of 20, against **1,271/sec** in the opening prefix.
+
+**Why the prefix misleads.** `geng` emits the **densest graphs first** — the first
+20,000 at \(n=11\) have edge counts massed at 29 and 30, the top of the allowed
+range. Dense graphs here are exactly the 4-connected non-Hamiltonian ones: 15.6%
+of the prefix against \(7 \times 10^{-5}\) across all of \(n = 10\). And
+**proving** non-Hamiltonicity is expensive because the search must be exhausted,
+while *finding* a Hamiltonian cycle succeeds at once. So the prefix is at once
+the slowest region and the least typical.
+
+**The same structure explains something I had not noticed: all 48 survivors of
+the completed \(n = 10\) census lie in the first 20,000 graphs of 705,929.** The
+entire result was fixed in the first half-second of a run that took minutes.
+
+**The term I had not priced at all.** Both figures above are for the *census*,
+and the census is not the expensive part. Survivor density in the sampled middle
+classes is **52, 137 and 349 per 20,000**, so survivors are not confined to the
+prefix, and each needs a skewness test at a measured 0.9 s. At \(10^5\) survivors
+that pass alone is of order **25 core-hours** — twenty times the census. **I do
+not yet know the survivor count, and it is the term that decides whether \(n=11\)
+is affordable.**
+
+**The standard is amended**, since the violated checklist item was mine: the node
+rate must be **sampled across the search, not taken at one convenient point**.
+`res/mod` classes make that cheap for enumerations, and not doing it cost a
+published figure wrong by an order of magnitude in each direction.
+
+**Also this pass.** The skewness pass over the 3,117 survivors found so far is at
+2,593 with **zero hits** — no graph yet has three edges whose deletion planarises
+it, so none is a counterexample.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census and
+the skewness pass over its survivors so far.
+
+**Next step (concrete).** Run **one `res/mod` class to completion** rather than
+sampled, to get the survivor count that decides the lane — this is the
+measurement that should have preceded the estimate. If the projected survivor
+total puts the skewness pass beyond a few core-hours, the honest move is to stop
+at \(n = 10\) and publish, since by my own reach analysis the marginal order buys
+a linearly larger region for two orders more compute. Not autonomous, four items:
+the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.
