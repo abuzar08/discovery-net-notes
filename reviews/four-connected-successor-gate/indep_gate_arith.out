@@ -1,0 +1,5 @@
+4-connectivity rate at n = 10 from my own census: 672249 / 705929 = 0.9523
+their figure: 95.2%
+
+their upper-bound distribution over the 48: 6+10+15+3+11+1+2 = 48
+their n=11 survivor claim: 3117 (my own n=11 census not yet run)
