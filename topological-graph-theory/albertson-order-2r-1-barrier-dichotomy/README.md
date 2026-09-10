@@ -2091,6 +2091,42 @@ and checked against all five, and a negative control re-runs the scan at \(D=1\)
 where an obstruction provably exists since \(n'=49\) is odd — a scan reporting
 infeasible there would prove an inequality false.
 
+### Three disjoint triangles are the exact domain (`packing58.py`)
+
+\(\theta(H)\le28\) with \(H\) \(K_4\)-free holds iff some packing has
+\(2t_3+t_2\ge30\), \(3t_3+2t_2\le58\), \(t_3+t_2\le28\).  Substituting
+\(t_2\ge30-2t_3\) into the second gives \(60-t_3\le58\), so **every** one of
+the seventy families has \(t_3\ge2\); and the family with \(t_3=2\) is
+**unique**, namely \((2,26)\), which the branch hypothesis (TT) excludes.
+
+> The clique-cover route applies to a configuration **if and only if** every
+> admissible \(H\) for it contains three vertex-disjoint triangles.
+
+That is not a convenience gate in front of the Tutte machinery — it is the
+machinery's exact domain.  **No sharpening of the seven inequalities can ever
+touch a configuration where three disjoint triangles are not guaranteed**,
+because for such an \(H\) no admissible family exists at all.
+
+The guarantee itself is now exact rather than a knapsack.  Two low vertices are
+\(H\)-adjacent exactly when they share no block, so giving each vertex its
+**type** — the set of blocks containing it — a triangle of \(H[L]\) is three
+vertices with pairwise disjoint types.  `packing58.py` enumerates the realisable
+Gallai forests (a cut vertex joining \(b\) blocks contributes \(b-1\) to
+\(\mathrm{extra}\); the block-cut incidence must be acyclic) and certifies
+\(k\) triangles whenever some pairwise-disjoint types have
+\(\sum_j\min(k,n_{S_j})\ge3k\).  The old test was the special case where every
+type is a singleton, and it missed that a cut vertex of type \(\{Q_3,Q_4\}\) is
+just as usable against private vertices of \(Q_1\) and \(Q_2\).
+
+**It brings 925 configurations into scope and closes none of them** — so the
+residual is now described exactly rather than lumped together:
+
+| | count |
+|---|---|
+| a parameter point survives the seven inequalities | 2343 |
+| three disjoint triangles not guaranteed — **beyond the approach** | 3676 |
+| **clique-block total** | **6019** |
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -2120,6 +2156,7 @@ bears on `r >= 30`.
 | `blockcut.py` | the block-forest lemma behind the bound on c_A, brute-forced |
 | `tuttegen.py` | **every Tutte set at once: the (k, 30-2k) routes on all admissible H** |
 | `slack58.py` | how strong a sharpening would have to be, priced by re-running the scan |
+| `packing58.py` | **three disjoint triangles are the exact domain of the route**, and the exact guarantee |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
 | `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
@@ -2162,6 +2199,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 routes58.py     | diff -u EXPECTED_OUTPUT_ROUT
 PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 blockcut.py     | diff -u EXPECTED_OUTPUT_BLOCKCUT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 tuttegen.py     | diff -u EXPECTED_OUTPUT_TUTTEGEN.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 packing58.py    | diff -u EXPECTED_OUTPUT_PACKING58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -

@@ -1,0 +1,23 @@
+Three disjoint triangles: the exact guarantee
+
+PART 1   why three is the exact requirement
+   (t_3,t_2) families: 70;  minimum t_3 = 2
+   families with t_3 = 2: [(2, 26)]  -- unique, and excluded by (TT)
+   so the route applies exactly when THREE disjoint triangles are
+   guaranteed; the seven inequalities cannot reach anything else.
+
+PART 2   the exact guarantee against the knapsack it replaces
+   route-unavailable configurations tested: 4601
+   brought INTO scope by the exact guarantee: 925
+   still out of scope: 3676
+   certified packing number of those still out: [(0, 753), (1, 1459), (2, 1464)]
+
+CONCLUSION
+   The gate is not a convenience, it is the domain of the whole
+   clique-cover approach: (2,26) is the only family with t_3 = 2 and
+   the branch hypothesis excludes it, so three disjoint triangles are
+   necessary.  Configurations that cannot guarantee them are beyond
+   the reach of tuttegen.py no matter how its inequalities improve,
+   and need a different tool entirely.
+
+   r = 29 is NOT proved.

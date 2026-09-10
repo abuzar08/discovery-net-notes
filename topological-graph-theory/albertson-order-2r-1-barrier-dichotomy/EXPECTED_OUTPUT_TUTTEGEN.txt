@@ -25,7 +25,7 @@ PART 1   the scan over all surviving configurations
    closed by |R|: [(19, 11), (20, 35), (21, 94), (22, 198), (23, 261), (24, 326), (25, 366), (26, 335), (27, 306), (28, 185), (29, 97), (30, 53), (31, 21), (32, 6)]
    still open by |R|: [(11, 5), (14, 2), (15, 1), (21, 24), (22, 117), (23, 244), (24, 494), (25, 689), (26, 793), (27, 927), (28, 910), (29, 643), (30, 593), (31, 304), (32, 273)]
 
-   why the open ones are open: [('a parameter point survives', 1418), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 4119)]
+   why the open ones are open: [('a parameter point survives', 2343), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 3194)]
    the k that closed them: [(3, 2201), (4, 93)]
 
 CONCLUSION

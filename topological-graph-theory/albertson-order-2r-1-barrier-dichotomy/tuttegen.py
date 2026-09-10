@@ -137,6 +137,7 @@ import turan58 as T
 import residue58 as R58
 import blockr58 as BR
 from order2r import RCHI, Z
+import packing58 as PK
 
 r = RCHI
 DEG = r - 1
@@ -355,7 +356,12 @@ def route_closed(RSZ, mult, eHR, X=56):
     # two (blocks of a Gallai forest meet in at most one vertex).  Vertices of
     # different blocks that are not those cut vertices share no block, so they
     # are H-adjacent.
-    kmax = kmax_guaranteed(mult, NL)
+    # The exact guarantee: minimum over realisable Gallai forests of the
+    # certified triangle packing (packing58.py).  This is not a convenience
+    # gate -- (2,26) is the only clique-cover family with t_3 = 2 and the branch
+    # hypothesis excludes it, so three disjoint triangles are exactly the
+    # domain of everything below.
+    kmax = PK.kmax_exact(list(mult), NL)
     ks = list(range(3, kmax + 1))
     if not ks:
         return False, "three disjoint triangles not guaranteed"
