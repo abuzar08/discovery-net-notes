@@ -139,4 +139,46 @@ conjectured \(k+2\) at \(k = 5\) and, with \(k = 3\) false, points at
 DS21's *range* rather than its formula. \(\mathrm{sk} = 6\) refutes the
 conjecture at \(k = 5\) as well, and refutes the \(2k-3\) fit with it.
 
-Source: `gp.py`.
+## The witnesses have a pattern, and it predicts
+
+The certificates at \(k = 3, 4, 5\) are not merely "one outer edge plus spokes".
+The spokes are **two runs of \(k-2\) consecutive indices, offset by \(k\)**,
+starting at 3:
+
+| \(k\) | spokes deleted | total edges |
+| --- | --- | --- |
+| 3 | \(\{3\},\ \{6\}\) | 3 |
+| 4 | \(\{3,4\},\ \{7,8\}\) | 5 |
+| 5 | \(\{3,4,5\},\ \{8,9,10\}\) | 7 |
+
+which is \(1 + 2(k-2) = 2k-3\) edges — the fit recorded above, now with a
+construction behind it rather than a curve through two points.
+
+**Applied to \(k = 7\) it works on the first try.** Deleting \(u_0u_1\) and
+the spokes \(\{3,4,5,6,7\} \cup \{10,11,12,13,14\}\) planarises
+\(GP(28,7)\), so
+
+> \(\mathrm{sk}(GP(28,7)) \le 11\),
+
+obtained from a **single planarity test** rather than a search.
+
+## \(k = 7\) cannot be settled here, and the number says why
+
+DS21 conjectures \(k+2 = 9\), which is *below* the bound above, so 11 does not
+test the conjecture. Deciding \(k = 7\) needs the lower bound, and that is out
+of range by a wide margin:
+
+$$\sum_{r \le 8} \binom{84}{r} = 48{,}563{,}893{,}286 \ \text{ tests} \ \approx\ \mathbf{8{,}296 \text{ core-hours}}$$
+
+at the measured 1,626 tests per second — **four times** the \(M_{8,3}\) figure
+declined earlier in this campaign, and sixty-seven times the \(n = 13\)
+crossing-critical census that settled an entire order.
+
+**So \(k = 5\) is decidable here and \(k = 7\) is not.** What remains
+reachable at \(k = 7\) is only better upper bounds: a search over the same
+structured shape for fewer spokes is running, to see whether 9 is achievable
+within it. **A failure there would not be evidence against 9** — it would show
+only that 9 is unreachable by deleting one outer edge and spokes, which is one
+shape among many.
+
+Source: `gp.py`, `gp28.py`.
