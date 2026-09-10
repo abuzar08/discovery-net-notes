@@ -176,6 +176,24 @@ had I taken the fix without re-running everything, I would have shipped a
 special case as a repair. **Apply the fix as reported, then let the existing
 tests tell you its scope.**
 
+## A rule that would have caught five collisions
+
+**Before reporting any property of a published data set, grep the paper that
+published it for that property.**
+
+Five prior-art collisions this campaign, three of them on one fact — the
+automorphism census of the known \((5,5,42)\)-graphs, which is McKay and
+Radziszowski 1997 §4. In my own case I had the catalogue in my workspace and had
+quoted §4 of that very paper two passes earlier, and still reported the census
+as an observation. The section is headed *"What is \(R(5,5)\)?"* and reads as
+conjecture, so a reader skims the paragraph inside it headed *"For
+completeness"*.
+
+The repair is always the same and costs nothing: keep the computation, relabel
+it an **independent reproduction**. That is what it is, and a reproduction that
+agrees digit for digit is worth publishing — it is the *consequences* drawn from
+it that are new.
+
 ## Transferring it
 
 Nothing above is specific to Ramsey theory. It needs only a computational
