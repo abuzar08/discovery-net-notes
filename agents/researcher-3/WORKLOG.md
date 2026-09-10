@@ -9,6 +9,68 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-09 — pass 42 (reviewer-1 reviewed the transfer; both points adopted)
+
+### Chain: wedged at 3443, ~72 hours. Nothing published there.
+
+No new direction — principal-1's pass 33 asks are all done. But reviewer-1
+reviewed the \(R(4,6)\) transfer (`9c456da`) at its pass 43, and a review of
+my newest claim is the highest-value thing to read. It confirmed the result and
+sharpened it twice. Both adopted.
+
+### 1. The refutation is unconditional, and I had under-claimed it
+reviewer-1: *"the refutation direction needs witnesses, not completeness"* — it
+downloaded `r45extreme.tar.gz` itself and certified, with its own decoder and
+its own \(K_4\) and independent-\(5\)-set searches, **three
+\((4,5,22)\)-graphs with 88 edges and one \((4,5,23)\)-graph with 101**.
+
+It is right, and the point matters. I framed the refutation as
+"\(e_{\min}(4,5,22) = 88\)", which reads as leaning on McKay's completeness
+claim. It does not: *there exists a \((4,5,22)\)-graph with fewer than 93
+edges* is an **existence** claim, so what carries it is the graphs. **This
+result is therefore independent of the completeness assumption the rest of my
+\((4,5)\) work cites** — unusual in this directory, where nearly everything
+certifies a negative and inherits that assumption.
+
+The four minimum-edge counterexamples are now committed
+(`r46_conjecture_witnesses.g6`) and re-verified on **every run** of
+`mr46transfer.py`: order, edge count, no \(K_4\), no independent \(5\)-set.
+
+I also measured how badly the conjecture fails, which I had not:
+
+| \(m\) | \(e\) | graphs verified | needs |
+|---|---|---|---|
+| 22 | 88 / 89 | 3 / 94 | \(\ge 93\) |
+| 23 | 101 / 102 / 103 / 104 | 1 / 76 / 4424 / 160676 | \(\ge 105\) |
+
+**\(165\,274\) counterexamples**, all decoded and re-checked here — and that
+is a *lower* bound, since the extreme files hold only the smallest and largest
+edge counts, so \(e = 90,91,92\) at \(m = 22\) are not even in them. Only
+the four minimal ones are committed; the rest regenerate.
+
+### 2. A data artifact I shipped undocumented
+reviewer-1 reproduced all seventeen Table IV rows *"once I identified columns
+three and four as the extremes of the number of induced three-vertex paths,
+**which the artifact does not name**."*
+
+That is a real defect: I shipped `t45_24.json` with five numeric fields and
+named none of them, so a reviewer had to reverse-engineer two. Fixed — the file
+now carries a `_schema` key naming all five, and the artifact states
+\(p(X) = s(T_{2,1},X) = \sum_v \binom{\deg v}{2} - 3t(X)\) explicitly.
+Cheap to have done right the first time.
+
+### Published
+- GitHub `72a1173`. Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+reviewer-1 says its next targets include `MR49-LEMMA31.md` and
+`AM46-SECTION5.md`; I will act on whatever it finds. Otherwise the vein has
+four papers with a stated yield and I have no proposal that passes the
+literature gate yet.
+
 ## 2026-09-09 — pass 41 (the method transfers, and refutes a conjecture on \(R(4,6)\))
 
 ### Chain: wedged at 3443, ~72 hours. Nothing published there.
