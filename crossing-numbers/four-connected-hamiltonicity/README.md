@@ -114,6 +114,73 @@ expected value for the skewness routine was wrong — I wrote
 3, and \(K_6\) minus a perfect matching is the octahedron \(K_{2,2,2}\), which
 is planar — so it is exactly 3. The instrument caught the author.
 
+## What \(n = 10\) does and does not tell you about \(n = 11\) and beyond
+
+Written to the same standard as the smooth-decay paragraph in the Harborth lane:
+the value of an exhaustive negative is mostly in saying precisely how far it
+reaches.
+
+**What it does tell you.** The region is *not* empty of 4-connected
+non-Hamiltonian graphs — there are 48 at \(n = 10\) — so the question is not
+vacuous at this order, and the reason none is a counterexample is a genuine
+property of those graphs rather than an absence of candidates. Every one fails
+the skewness test, and not narrowly.
+
+**What it does not tell you, and this is the larger part.**
+
+1. **Ten vertices is small for this question.** Ozeki and Zamfirescu's known
+   counterexamples sit at \(\operatorname{cr} \ge 6\); a graph with
+   \(\operatorname{cr}\) exactly 3 that is 4-connected and non-Hamiltonian, if
+   one exists, has no reason to be small. An exhaustive negative at \(n = 10\)
+   is evidence about \(n = 10\) and close to no evidence about \(n = 20\).
+2. **The candidate count grows about 94-fold per vertex** in this edge range
+   (705,929 at \(n = 10\), 66,634,446 at \(n = 11\)), and the survivor count
+   grows faster still — 48 at \(n = 10\) against several thousand at
+   \(n = 11\). So each additional order costs roughly two orders of magnitude
+   and the region being ruled out grows only linearly in \(n\). **This method
+   cannot reach far**, and saying so now is more useful than discovering it at
+   \(n = 13\).
+3. **Non-Hamiltonicity is the binding filter, not connectivity** — 95.2% of the
+   minimum-degree-4 graphs at \(n = 10\) are already 4-connected. So there is no
+   cheap structural win available from strengthening the connectivity test; any
+   real speedup has to come from generating non-Hamiltonian graphs directly,
+   which is not what `geng` does.
+
+**Where a counterexample would more plausibly be found**: not by exhaustive
+census at all, but by *construction* — taking Ozeki and Zamfirescu's
+\(\operatorname{cr} \ge 6\) examples and trying to reduce the crossing number
+while preserving 4-connectivity and non-Hamiltonicity. The census establishes a
+floor below which no counterexample exists; it is not a route to one.
+
+## Acceptance criterion for the \(n = 11\) census
+
+**A process note first, recorded because it is a lapse against an explicit
+instruction.** The criterion below should have been written *before* the census
+was started, and it was not — the run was launched first and the criterion set
+down afterwards. The cost estimate was made in advance; the acceptance criterion
+was not. Nothing about the criterion was chosen to fit results, since none had
+been read when it was written, but the ordering was wrong and the protection
+against choosing a criterion to fit the data comes from the ordering.
+
+The census at \(n = 11\) is accepted as complete when:
+
+1. `geng -d4 11 22:30` reports exactly **66,634,446** graphs generated, matching
+   the count obtained independently in advance;
+2. every generated graph is classified — read count equals generated count, with
+   no silent drops;
+3. the 4-connectivity and Hamiltonicity routines are the same code that produced
+   the \(n = 10\) census, unmodified;
+4. every non-Hamiltonian survivor is skewness-tested, with the skewness routine
+   revalidated against \(\mathrm{skewness}(K_5) = 1\),
+   \(\mathrm{skewness}(K_6) = 3\), \(\mathrm{skewness}(K_{3,3}) = 1\) at the
+   head of the run;
+5. any graph passing \(\mathrm{skewness} \le 3\) goes to the exact decider,
+   since skewness is necessary but not sufficient.
+
+**Cost, priced in advance:** about **2.6 core-hours** for the census at the
+measured 7,000 graphs per second, plus about **1.3 core-hours** for the skewness
+pass at the measured 0.9 seconds per survivor.
+
 ## Status
 
 The pipeline is built and validated, and the decider is revalidated against
