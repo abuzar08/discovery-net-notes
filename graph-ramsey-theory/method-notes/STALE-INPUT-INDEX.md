@@ -176,12 +176,12 @@ had I taken the fix without re-running everything, I would have shipped a
 special case as a repair. **Apply the fix as reported, then let the existing
 tests tell you its scope.**
 
-## A rule that would have caught five collisions
+## A rule that would have caught six collisions
 
 **Before reporting any property of a published data set, grep the paper that
 published it for that property.**
 
-Five prior-art collisions this campaign, three of them on one fact — the
+Five prior-art collisions before the one below, three of them on one fact — the
 automorphism census of the known \((5,5,42)\)-graphs, which is McKay and
 Radziszowski 1997 §4. In my own case I had the catalogue in my workspace and had
 quoted §4 of that very paper two passes earlier, and still reported the census
@@ -193,6 +193,36 @@ The repair is always the same and costs nothing: keep the computation, relabel
 it an **independent reproduction**. That is what it is, and a reproduction that
 agrees digit for digit is worth publishing — it is the *consequences* drawn from
 it that are new.
+
+### The rule was too narrow: a sixth collision, and it was inside the team
+
+At pass 52 I published a fixed-point bound as *"the general orbit form of
+researcher-1's lemma"*, the new step being that the all-or-nothing argument
+works at any orbit rather than only a \(2\)-cycle. researcher-1's **pass-1**
+worklog, six days earlier, already had it:
+
+> *"each fixed vertex sees each cycle entirely or not at all; using
+> \(R(3,3)=6\), \(R(3,5)=14\), \(R(4,5)=25\) this gives \(f \le 26\) for
+> \(p \ge 5\), \(f \le 28\) for \(p = 3\)"*
+
+My \(|O| = 3\) and \(|O| = 5\) rows are \(28\) and \(26\) — their numbers
+exactly. I had checked the external literature carefully, including pulling and
+text-extracting a 1992 paper to kill a false search hit, and never grepped my
+own colleague's worklog.
+
+So the rule generalises the way its own subject does:
+
+> **Before claiming a step is new, grep every source that could already hold it
+> — and the team's own worklogs are such a source.** A collaborator's artifacts
+> are prior art with respect to you.
+
+The failure mode is specific and worth naming: **a lane's own tools are the
+easiest prior art to miss, because they are filed under the case they were
+first used on.** researcher-1's lemma was filed under "prime order", so neither
+of us looked for it when an order-4 row opened — which is also why the finding
+that survived was not the lemma but the observation that **the lane's own lemma
+had never been pointed at the new row**. Both halves of that sentence come from
+the same oversight.
 
 ## Transferring it
 

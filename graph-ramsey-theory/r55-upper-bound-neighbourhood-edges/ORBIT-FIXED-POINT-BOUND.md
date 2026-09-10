@@ -1,4 +1,4 @@
-# How many points can a group fix? The general orbit form of researcher-1's lemma
+# How many points can a group fix? researcher-1's pass-1 lemma, carried to arbitrary orbits and pointed at the order-4 row
 
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-10.
 Checkers: `orbitbound.py`, `orbit4_exact.py`. Witness: `orbit4_witness.g6`.
@@ -9,25 +9,68 @@ principal-1, pass 39: *"The order-4 row is where the completeness work now
 lives."* The thing that makes that row finite is a fixed-point bound, so that
 is what I checked — and it generalises.
 
-## 1. What researcher-1 proved, and the one line that generalises it
+## 0. Prior art, and I should have found it before publishing
 
-researcher-1's lemma: **an involution of a \((5,5,42)\)-graph fixes at most
-\(36\) points.** For a \(2\)-cycle \(\{u, \sigma u\}\), a fixed vertex is
-joined to both or to neither, so the fixed set splits as \(F = A \sqcup B\);
+> **The core observation is researcher-1's, from its pass 1, and I did not cite
+> it in the first draft of this note.** Its worklog entry of 2026-09-04 reads:
+>
+> > *"Analytic lemma ("fixed vertex vs cycle"): for sigma of prime order p with
+> > f fixed points, **each fixed vertex sees each cycle entirely or not at
+> > all**; using \(R(3,3)=6\), \(R(3,5)=14\), \(R(4,5)=25\) this gives
+> > **\(f \le 26\) for \(p \ge 5\), \(f \le 28\) for \(p = 3\)**, and excludes
+> > 19 of the 43 cycle types."*
+>
+> That is the all-or-nothing step and the Ramsey arithmetic built on it, six
+> days before this note. My \(|O| = 3\) row is \(28\) and my \(|O| = 5\) row is
+> \(26\) — **their numbers exactly**, which is now a cross-check of both rather
+> than a discovery of mine. This is my fifth prior-art collision of the
+> campaign and the first one *inside the team*: I checked the external
+> literature and did not grep my own colleague's worklog. My own rule needs
+> widening — *before reporting any property of a published data set, grep the
+> paper that published it* now has to include the team's own artifacts.
+
+**What survives as mine**, stated narrowly:
+
+1. researcher-1's version is about the **cycles of a single element of prime
+   order**. This one is about **any orbit of any group**, which is what reaches
+   \(|O| = 4\), where the group is \(Z_4\) or \(Z_2^2\) and the orbit size is
+   composite. Their statement does not cover it.
+2. The **closed form** \(R(s-\omega,t)-1 + R(s,t-\alpha)-1\), which replaces a
+   per-case hand argument by something a machine evaluates for every orbit
+   shape at once. Side by side (`orbitbound.py priorart`):
+
+   | \(p\) | 3 | 5 | 7 | 11 | 13 |
+   |---|---|---|---|---|---|
+   | this note | 28 | 26 | **17** | **13** | **13** |
+   | researcher-1, pass 1 | 28 | 26 | 26 | 26 | 26 |
+
+   Agreement at \(p = 3, 5\) is an independent cross-check of both
+   derivations; theirs is uniform in \(p\) and this one is not, so it is
+   sharper by 9 and 13 at \(p \ge 7\).
+3. **Applying it to the order-4 row at all.** researcher-1 has had this tool
+   since pass 1 and used \(36\) for order 4 six days later. The finding is
+   less "a new lemma" than **"the lane's own lemma was never pointed at the new
+   row"**, which is a completeness observation and squarely this seat's job.
+4. §5 (the bound is exactly tight), §6 (the control), and the corollaries.
+
+## 1. The all-or-nothing step
+
+researcher-1's involution lemma: **an involution of a \((5,5,42)\)-graph fixes
+at most \(36\) points.** For a \(2\)-cycle \(\{u, \sigma u\}\), a fixed vertex
+is joined to both or to neither, so the fixed set splits as \(F = A \sqcup B\);
 \(A\) is triangle-free, \(B\) has no independent \(4\)-set, \(13 + 24 = 37\),
 and \(f\) is even, so \(f \le 36\). Re-derived at pass 51 and correct.
 
-The proof uses a \(2\)-cycle, but **nothing in it is about \(2\)-cycles.** Let
-\(G \le \operatorname{Aut}(F)\) and let \(O\) be *any* \(G\)-orbit. If \(w\) is
-fixed by all of \(G\) and \(x, y \in O\), pick \(g \in G\) with \(gx = y\);
-then
+The step generalises from cycles to orbits. Let \(G \le \operatorname{Aut}(F)\)
+and let \(O\) be *any* \(G\)-orbit. If \(w\) is fixed by all of \(G\) and
+\(x, y \in O\), pick \(g \in G\) with \(gx = y\); then
 
 $$
 w \sim x \iff gw \sim gx \iff w \sim y ,
 $$
 
 so \(w\) is joined to all of \(O\) or to none of it — for every orbit at once,
-whatever its size.
+whatever its size, and for groups that are not cyclic of prime order.
 
 ## 2. The lemma
 
@@ -218,11 +261,16 @@ one, \(0\) mismatches.
 
 ## 7. What this establishes and what it does not
 
-**Establishes.** The lemma, for every \((s,t)\), every group and every orbit;
-the table for \((5,5)\); Corollaries A and B; the reduced case lists \(84\) and
-\(1328\), with the pre-reduction counts reproducing researcher-1's \(90\) and
-\(1347\); and that the \(|O| = 4\) bound cannot be improved by a one-orbit
-argument, with an audited witness.
+**Establishes.** The lemma, for every \((s,t)\), every group and every orbit —
+**the all-or-nothing step being researcher-1's from pass 1, see §0**; the table
+for \((5,5)\); Corollaries A and B; the reduced case lists \(84\) and \(1328\),
+with the pre-reduction counts reproducing researcher-1's \(90\) and \(1347\);
+and that the \(|O| = 4\) bound cannot be improved by a one-orbit argument, with
+an audited witness.
+
+**Not mine.** The all-or-nothing observation and the \(26\)/\(28\) values at
+prime order, which researcher-1 published in its pass-1 worklog on
+2026-09-04.
 
 **Does not establish.** The witness of §5 is a \(30\)-vertex configuration, not
 a \((5,5,42)\)-graph with a \(Z_4\) automorphism fixing \(26\) points. It shows
@@ -251,6 +299,12 @@ the evidence — a defect reviewer-1 caught in another lane).
 
 ## 9. For researcher-1
 
+0. **This is your pass-1 lemma.** See §0 — you had the all-or-nothing step and
+   the \(26\)/\(28\) values on 2026-09-04, stated for prime order, and used
+   \(36\) for the order-4 row six days later. The useful part of this note is
+   not that the lemma is new but that **it was never pointed at the new row**.
+   Worth a standing habit: when a row opens, re-run the analytic filters the
+   lane already owns before sizing it.
 1. **Use \(84\) and \(1328\), not \(90\) and \(1347\)** — the removed cases are
    listed in §4 and the code prints them.
 2. **Do not spend effort sharpening the one-orbit bound**; §5 shows it is

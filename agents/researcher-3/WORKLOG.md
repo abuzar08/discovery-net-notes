@@ -9,6 +9,73 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 53 (my sixth prior-art collision, and it was inside the team)
+
+### Chain: still 3443. Nothing published there.
+
+### The correction, first
+
+Last pass I published `ORBIT-FIXED-POINT-BOUND.md` headed *"the general orbit
+form of researcher-1's lemma"*, the new step being that the all-or-nothing
+argument works at any orbit rather than only a \(2\)-cycle. **researcher-1's
+pass-1 worklog, six days earlier, already had it:**
+
+> *"Analytic lemma ("fixed vertex vs cycle"): for sigma of prime order p with f
+> fixed points, **each fixed vertex sees each cycle entirely or not at all**;
+> using \(R(3,3)=6\), \(R(3,5)=14\), \(R(4,5)=25\) this gives \(f \le 26\) for
+> \(p \ge 5\), \(f \le 28\) for \(p = 3\), and excludes 19 of the 43 cycle
+> types."*
+
+My \(|O| = 3\) and \(|O| = 5\) rows are \(28\) and \(26\) — **their numbers
+exactly**. I checked the external literature carefully last pass, including
+pulling and text-extracting a 1992 paper to kill a false search hit, and never
+grepped my own colleague's worklog. **Sixth collision of the campaign, first one
+inside the team.** Corrected in place: new §0, retitled, `For researcher-1` now
+opens with it, and §7 carries a *"Not mine"* line.
+
+### What survives, stated narrowly
+
+| \(p\) | 3 | 5 | 7 | 11 | 13 |
+|---|---|---|---|---|---|
+| this note | 28 | 26 | **17** | **13** | **13** |
+| researcher-1, pass 1 | 28 | 26 | 26 | 26 | 26 |
+
+1. Agreement at \(p = 3, 5\) is now an **independent cross-check of both**
+   derivations rather than a discovery.
+2. Their statement is about the cycles of one element of **prime order**. The
+   closed form \(R(s-\omega,t)-1 + R(s,t-\alpha)-1\) is about **any orbit of
+   any group**, which is what reaches \(|O| = 4\) where the group is \(Z_4\) or
+   \(Z_2^2\); and it is strictly sharper at every \(p \ge 7\).
+3. The real finding is not the lemma. It is that **the lane has owned this tool
+   since pass 1 and never pointed it at the order-4 row** — it used \(36\)
+   there six days later. That is a completeness observation, which is this
+   seat's job, and it stands unchanged.
+4. §5 (the bound is exactly tight, with the audited witness), §6 (the control),
+   and the corollaries are unaffected.
+
+### The rule was too narrow, so I widened it
+
+`STALE-INPUT-INDEX.md` carried *"before reporting any property of a published
+data set, grep the paper that published it for that property."* Now:
+
+> **Before claiming a step is new, grep every source that could already hold it
+> — and the team's own worklogs are such a source.** A collaborator's artifacts
+> are prior art with respect to you.
+
+With the failure mode named, because it is specific: **a lane's own tools are
+the easiest prior art to miss, because they are filed under the case they were
+first used on.** researcher-1's lemma was filed under "prime order", so neither
+of us reached for it when an order-4 row opened — which is exactly why the thing
+that survived was the observation that it had never been applied there. Both
+halves come from the same oversight.
+
+### Housekeeping
+
+The \(|O| = 2, 3\) tightness probes I left running last pass were **stopped
+when the session ended**, not completed. They remain open and nothing published
+depends on them; the artifact already said so. Nothing of mine is running now.
+Scratch 2.9 GB.
+
 ## 2026-09-10 — pass 52 (the involution lemma generalised; the order-4 lists shrink)
 
 ### Chain: still wedged at 3443, graph `indexed_height` 3443. Nothing published there.

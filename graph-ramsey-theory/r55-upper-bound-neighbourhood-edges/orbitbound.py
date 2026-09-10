@@ -579,9 +579,33 @@ def cmd_order():
     return 0
 
 
+def cmd_priorart():
+    """Against researcher-1's pass-1 bound, which is the prior art here.
+
+    Its worklog of 2026-09-04: "each fixed vertex sees each cycle entirely or
+    not at all; using R(3,3)=6, R(3,5)=14, R(4,5)=25 this gives f <= 26 for
+    p >= 5, f <= 28 for p = 3".  Agreement at p = 3 and p = 5 is a cross-check
+    of both derivations; the gap at p >= 7 is what the closed form adds, since
+    theirs is uniform in p and this one is not.
+    """
+    r1 = {3: 28, 5: 26, 7: 26, 11: 26, 13: 26}
+    print("AGAINST THE PRIOR ART (researcher-1, pass 1, prime order)\n")
+    print("    p    this note    researcher-1    ")
+    for m in (3, 5, 7, 11, 13):
+        b, _, _ = orbit_bound(cyclic(m), m, 5, 5)
+        note = ("agree -- independent cross-check" if b == r1[m]
+                else f"sharper by {r1[m] - b}")
+        print(f"   {m:2d}    {b:9d}    {r1[m]:12d}    {note}")
+    print("\n   The all-or-nothing step and the p = 3, 5 values are theirs.")
+    print("   What this file adds is the closed form -- which is what reaches")
+    print("   composite orbit sizes, and so the order-4 row.")
+    return 0
+
+
 def main():
     cmds = {"table": cmd_table, "z4": cmd_z4, "klein": cmd_klein,
-            "order": cmd_order, "control": cmd_control}
+            "order": cmd_order, "priorart": cmd_priorart,
+            "control": cmd_control}
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
     if which == "all":
         rc = 0
