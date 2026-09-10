@@ -1,0 +1,10 @@
+n = 9: read 11260, 4-connected 10331, 4-connected and non-Hamiltonian 9
+   H?B~vrw  m=20  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vr{  m=21  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vr}  m=22  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vr~  m=23  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vzy  m=22  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vz}  m=23  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vz|  m=23  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~vz~  m=24  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample
+   H?B~v~}  m=24  alpha=5  skewness >= 4: True -> cr >= 4, not a counterexample

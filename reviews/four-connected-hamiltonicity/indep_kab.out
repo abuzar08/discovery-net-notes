@@ -1,0 +1,6 @@
+n = 9 survivors: 9
+   all contain a spanning complete bipartite K_{4,alpha}: True ; alphas [5]
+n = 10 survivors: 48 ; alpha=6: 7 ; alpha=5: 41
+   every alpha=6 one contains K_{4,6}: True
+   alpha=5 ones with alpha = n-5, so the K_{4,alpha} argument does not apply: 41
+Zarankiewicz: cr(K_{4,5}) = 8, cr(K_{4,6}) = 12

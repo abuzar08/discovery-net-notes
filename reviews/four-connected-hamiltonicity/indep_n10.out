@@ -1,0 +1,6 @@
+shards: 6
+n = 10 aggregate: read 705929 (acceptance criterion 705929: PASS)
+   4-connected 672249; 4-connected non-Hamiltonian 48; survivor detail lines 48
+   independence numbers: {5: 41, 6: 7}
+   edge counts: {23: 1, 24: 5, 25: 10, 26: 15, 27: 17}
+   excluded by skewness >= 4: 48 of 48
