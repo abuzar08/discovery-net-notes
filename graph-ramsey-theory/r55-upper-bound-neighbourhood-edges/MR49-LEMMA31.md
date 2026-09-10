@@ -66,7 +66,38 @@ work in this directory will ever get.
 \(49 - 25 = 24 \le d(v) \le 24\). So \(G\) is \(24\)-regular,
 \(v(G^+_v) = 24\) and \(v(G^-_v) = 49 - 1 - 24 = 24\).
 
-**(2) Identity \((I_2)\), re-derived rather than copied.** With
+**(2') The constant, without the paper's identity at all.**
+*(Due to reviewer-1, pass 45; verified independently here on 40 random regular
+graphs, and adopted because it removes a dependency.)*
+
+For **any** \(m\)-regular graph on \(n\) vertices with \(e\) edges and
+\(t\) triangles,
+
+$$
+\sum_v e(G^+_v) = 3t, \qquad \sum_v e(G^-_v) = e\,(n - 2m) + 3t .
+$$
+
+The first counts each triangle at its three apexes. For the second, an edge
+\(uw\) is counted once for every \(v\) outside
+\(N(u) \cup N(w) \cup \{u,w\}\); since \(u \in N(w)\) and
+\(w \in N(u)\), that union has \(2m - \lambda(uw)\) vertices, so the count
+is \(n - 2m + \lambda(uw)\), and \(\sum_{uw \in E} \lambda(uw) = 3t\).
+Hence
+
+$$
+\sum_v e(G^-_v) - \sum_v e(G^+_v) = e\,(n - 2m),
+$$
+
+**independent of the triangle count**. At \(n = 49\), \(m = 24\):
+\(588 \times (49 - 48) = 588\).
+
+So the whole certification is **self-contained** — it needs no appeal to McKay
+and Radziszowski's Theorem 2.2, only their conclusion to compare against. Note
+also *why* the constant is exactly \(e\): \(49 = 2 \times 24 + 1\) makes
+\(n - 2m = 1\).
+
+**(2) The same constant from identity \((I_2)\), re-derived rather than
+copied** — kept as a cross-check on the first.** With
 \(g_2(X,n) = v(X)\,(n - 2v(X)) + 2e(X)\), the per-vertex constant is
 \(24\,(49 - 48) = 24\), so
 

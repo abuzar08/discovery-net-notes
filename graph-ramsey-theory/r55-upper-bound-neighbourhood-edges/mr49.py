@@ -61,6 +61,67 @@ def automorphisms(n, adj):
     return perms
 
 
+def regular_double_count(trials=40, seed=20260910):
+    """(2') The 588 without the paper's identity, by direct double counting.
+
+    Due to reviewer-1 (pass 45), verified independently here.  For ANY
+    m-regular graph on n vertices with e edges and t triangles:
+
+        sum_v e(G^+_v) = 3t                      (each triangle at 3 apexes)
+        sum_v e(G^-_v) = e (n - 2m) + 3t
+
+    The second: an edge uw is counted once for each v outside
+    N(u) u N(w) u {u,w}; since u in N(w) and w in N(u), that union has
+    d(u) + d(w) - |N(u) n N(w)| = 2m - lambda(uw) vertices, so the count is
+    n - 2m + lambda(uw), and summing lambda over edges gives 3t.  Hence
+
+        sum_v e(G^-_v) - sum_v e(G^+_v) = e (n - 2m),
+
+    INDEPENDENT of the triangle count.  At n = 49, m = 24 this is
+    588 * (49 - 48) = 588 -- the paper's constant, with no appeal to its
+    Theorem 2.2.  Checked below on random regular graphs.
+    """
+    import itertools
+    import random
+    rng = random.Random(seed)
+    tested = 0
+    for _ in range(trials * 3):
+        n = rng.randint(5, 12)
+        m = rng.randint(2, n - 2)
+        if (n * m) % 2:
+            continue
+        deg, edges = [0] * n, set()
+        for _ in range(400):
+            a, b = rng.sample(range(n), 2)
+            k = (min(a, b), max(a, b))
+            if deg[a] < m and deg[b] < m and k not in edges:
+                edges.add(k)
+                deg[a] += 1
+                deg[b] += 1
+        if any(x != m for x in deg):
+            continue
+        adj = [0] * n
+        for a, b in edges:
+            adj[a] |= 1 << b
+            adj[b] |= 1 << a
+        sp = sm = 0
+        for v in range(n):
+            N = [u for u in range(n) if u != v and (adj[v] >> u) & 1]
+            M = [u for u in range(n) if u != v and not (adj[v] >> u) & 1]
+            sp += sum(1 for a, b in itertools.combinations(N, 2)
+                      if (adj[a] >> b) & 1)
+            sm += sum(1 for a, b in itertools.combinations(M, 2)
+                      if (adj[a] >> b) & 1)
+        t = sum(1 for a, b, c in itertools.combinations(range(n), 3)
+                if (adj[a] >> b) & 1 and (adj[a] >> c) & 1 and (adj[b] >> c) & 1)
+        if sp != 3 * t or sm - sp != len(edges) * (n - 2 * m):
+            raise SystemExit(f"double count FAILS at n={n}, m={m}")
+        tested += 1
+        if tested >= trials:
+            break
+    return tested
+
+
 def am48_opening():
     """The opening arithmetic of Angeltveit-McKay, R(5,5) <= 48 (arXiv:1703.08768).
 
@@ -110,6 +171,21 @@ def main():
           f"    [paper: 588]  ->  {'MATCH' if const == 588 else 'MISMATCH'}")
     if const != 588:
         raise SystemExit("constant does not match")
+
+    tt = regular_double_count()
+    e49 = N * d // 2
+    print("(2') the same constant WITHOUT the paper's identity, by direct "
+          "double counting")
+    print(f"     (reviewer-1, pass 45; verified independently here on {tt} "
+          f"random regular graphs):")
+    print("     sum_v e(G^+_v) = 3t and sum_v e(G^-_v) = e(n-2m) + 3t, so the "
+          "difference is")
+    print(f"     e(n-2m) = {e49} x {N - 2 * d} = {e49 * (N - 2 * d)}, "
+          f"independent of the triangle count.")
+    if e49 * (N - 2 * d) != const:
+        raise SystemExit("the two derivations of the constant disagree")
+    print("     Agrees with (2).  So this certification needs no appeal to "
+          "their Theorem 2.2.")
 
     # (3) complement step
     C = m * (m - 1) // 2
