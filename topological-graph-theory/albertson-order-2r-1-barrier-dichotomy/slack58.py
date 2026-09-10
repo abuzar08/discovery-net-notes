@@ -81,22 +81,35 @@ def main():
         rows.append(row)
         print("   %-16s %s" % (name, "  ".join("%-7d" % v for v in row)))
     print()
-    best = max(range(5), key=lambda j: rows[j][0])
-    print("   The count inequality is the whole story: one unit off its")
-    print("   right-hand side closes every configuration the route reaches,")
-    print("   while the four edge counts need 50 to gain a few hundred and the")
-    print("   spread inequality is inert at every handicap.")
+    total = base + sum(1 for m, RSZ, mult, eHR in cfgs
+                       if not G.route_closed(RSZ, list(mult), eHR,
+                                             2 * m - G.N58 * G.DEG)[0]
+                       and G.kmax_guaranteed(list(mult), G.N58 - RSZ) >= 3)
+    print("   configurations the route reaches at all: %d" % total)
     print()
-    print("   Read that as a NEGATIVE result about the edge counts, and as a")
-    print("   precise target otherwise: what is needed is a theorem of the form")
-    print("   o(H' - S) <= c_A + t - 1 -- the component bound is never attained")
-    print("   -- holding unconditionally.  Two partial versions of exactly that")
-    print("   (the singleton refinement of c_A, and the parity of the odd")
-    print("   components) are already in tuttegen.py and are not enough,")
-    print("   because each leaves the adversary another branch or one unit of")
-    print("   freedom in u to absorb it.")
+    # Everything below is DERIVED from the table.  An earlier revision stated
+    # the conclusions in prose, and they went stale the moment the inequalities
+    # changed underneath them -- the same trap as defect 14.
+    full = [NAMES[j] for j in range(5) if rows[j][0] >= total]
+    inert = [NAMES[j] for j in range(5) if rows[j][-1] == base]
+    order = sorted(range(5), key=lambda j: -rows[j][0])
+    if full:
+        print("   One unit is already decisive for: %s -- a single"
+              % ", ".join(full))
+        print("   unconditional unit there closes every configuration the")
+        print("   route reaches.")
+    if inert:
+        print("   Inert at every handicap tried: %s." % ", ".join(inert))
+    print("   Ranked by yield at d = 1: %s"
+          % ", ".join("%s %d" % (NAMES[j], rows[j][0]) for j in order))
     print()
-    print("   Cheapest single target by yield at d = 1: %s" % NAMES[best])
+    print("   Read the small numbers as a NEGATIVE result: an inequality whose")
+    print("   d = 50 column is near the baseline will not be worth sharpening,")
+    print("   however natural the sharpening looks.  Read the large ones as")
+    print("   targets, and note that they move as the other inequalities move")
+    print("   -- the spread inequality was inert on the six-inequality scan of")
+    print("   the previous pass and is not inert here, so this table is only")
+    print("   ever a statement about the current set.")
     print()
     print("   r = 29 is NOT proved.")
 

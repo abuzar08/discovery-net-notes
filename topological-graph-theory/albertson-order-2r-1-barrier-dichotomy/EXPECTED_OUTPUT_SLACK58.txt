@@ -2,31 +2,30 @@ How strong would a sharpening have to be?  Priced by re-running the
 closure scan with each inequality handicapped.
 
    configurations scanned: 8313
-   closed with no handicap: 325
+   closed with no handicap: 1343
 
    Configurations closed when inequality j holds with d to spare:
 
    inequality       d=1      d=5      d=25     d=50   
    (1) count        3712     3712     3712     3712   
-   (2) degree       325      325      325      325    
-   (3) Turan        351      424      495      546    
-   (4) spread       325      325      325      325    
-   (5) S_R-degree   375      587      1816     2273   
+   (2) degree       1343     1343     1458     2495   
+   (3) Turan        1348     1373     1718     1849   
+   (4) spread       2871     2871     2871     2871   
+   (5) S_R-degree   1348     1373     1940     3111   
 
-   The count inequality is the whole story: one unit off its
-   right-hand side closes every configuration the route reaches,
-   while the four edge counts need 50 to gain a few hundred and the
-   spread inequality is inert at every handicap.
+   configurations the route reaches at all: 3712
 
-   Read that as a NEGATIVE result about the edge counts, and as a
-   precise target otherwise: what is needed is a theorem of the form
-   o(H' - S) <= c_A + t - 1 -- the component bound is never attained
-   -- holding unconditionally.  Two partial versions of exactly that
-   (the singleton refinement of c_A, and the parity of the odd
-   components) are already in tuttegen.py and are not enough,
-   because each leaves the adversary another branch or one unit of
-   freedom in u to absorb it.
+   One unit is already decisive for: (1) count -- a single
+   unconditional unit there closes every configuration the
+   route reaches.
+   Ranked by yield at d = 1: (1) count 3712, (4) spread 2871, (3) Turan 1348, (5) S_R-degree 1348, (2) degree 1343
 
-   Cheapest single target by yield at d = 1: (1) count
+   Read the small numbers as a NEGATIVE result: an inequality whose
+   d = 50 column is near the baseline will not be worth sharpening,
+   however natural the sharpening looks.  Read the large ones as
+   targets, and note that they move as the other inequalities move
+   -- the spread inequality was inert on the six-inequality scan of
+   the previous pass and is not inert here, so this table is only
+   ever a statement about the current set.
 
    r = 29 is NOT proved.

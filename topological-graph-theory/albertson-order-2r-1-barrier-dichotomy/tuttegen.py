@@ -8,8 +8,8 @@ adv58.py then answered it on a handful of explicit graphs by computing nu.
 Neither quantifies over all Tutte sets and all admissible H at once.
 
 This does.  It parameterises an ARBITRARY Tutte set by six integers and derives
-six counting inequalities that every Tutte set of every admissible H must
-satisfy.  If no value of the six satisfies all six, the configuration has no
+seven counting inequalities that every Tutte set of every admissible H must
+satisfy.  If no value of the six satisfies all seven, the configuration has no
 obstructing Tutte set at all, the route succeeds on EVERY admissible H, and
 theta(H) <= 28 against theta(H) = 29 -- so the configuration is impossible.
 
@@ -36,7 +36,9 @@ THE BLOCK-FOREST BOUNDS ON c_A (blockcut.py).  Three low vertices that pairwise
 share a block share a COMMON block, because the block-cut tree is acyclic and
 two blocks meet in at most one vertex.  Hence
 
-        A inside one block        A is independent in H,  c_A <= iso + p
+        A inside one block        A is independent in H,
+                                  c_A <= min(iso + p, a)   -- every component
+                                  meeting A holds a vertex of A
         A not inside one block    H[A] has at most 2 components,  c_A <= 2
         blocks partition L        H[L] is complete multipartite,  c_A = 1
 
@@ -47,6 +49,12 @@ shared a block, and extending that over both parts puts all of A inside one
 block.  So c_A = 2 costs the adversary something concrete: the singleton is a
 separate component of H' - S only if it has no W-neighbour at all (making it one
 of the iso vertices, which needs rho <= s_R) or the W-vertices split, p >= 2.
+
+It costs more than that.  The singleton {v} is a component of H[A], so every
+OTHER vertex of A is a G-neighbour of v inside L, giving a - 1 <= D_v; and v is
+a LOW vertex, so d_G(v) = 28 and D_v <= 28, while v lies in j blocks only if
+j - 1 of them are gluings.  So c_A = 2 forces a <= singleton_reach(mult, extra),
+a bounded knapsack over the block sizes.
 
 ==============================================================================
 THE SIX INEQUALITIES.  Each follows from the class constraints alone -- no
@@ -70,16 +78,33 @@ turan(x) = floor(x^2/3) and rho_i = q_i + |R| - 29.
        max(0, sum_i a_i rho_i - (a - iso)|W|)
           + e(H[R]) - turan(|W| - p + 1) - turan(u - t + 1)   <=   28 s_R.
 
- (6) U-DEGREE.  28u + |R| - X + 24*[w not in U]
-                     <=  u(s_L + 3k + s_R) + 2 turan(u - t + 1).
+ (6) U-DEGREE.  With u' = u - [w in U],
+       28u + |R| - X + 24*[w not in U]
+             <=  min( u'(s_L + 3k), e(L,R) - sum_i a_i rho_i )
+                 + u' s_R + 2 turan(u - t + 1) + 4*[w in U].
      Every z in R has x_z >= 1 and sum_{z in R} x_z = X = 2m - 1624 <= 56, so
      the vertices of U carry nearly the full degree 29 each; but a vertex of U
      has NO neighbour in A, so its L-neighbours lie in S_L or among the 3k
      deleted triangle vertices, and its H[R]-neighbours lie in its own component
      or in S_R.  A LARGE U CANNOT EXIST: its vertices are too high-degree to be
      cut off.  This was found by pricing the sharpenings (slack58.py) rather
-     than by guessing, and it is worth more than the two component-count
-     refinements put together.
+     than by guessing.
+
+     TWO REFINEMENTS THAT ONLY WORK TOGETHER.  (a) When w lies in U it must not
+     be charged a full 28: d_H(w) <= 4, so charge u - 1 vertices and add 4.
+     (b) The L-side has a budget that does not grow with u at all: every A-R
+     edge lands outside U, so e(L - A, U) <= e(L,R) - e(A,R), and e(L,R) is
+     EXACT from the lane's own identity,
+             e(L,R) = sum_{z in R} d_H(z) - 2 e(H[R]) = 29|R| - X - 2 e(H[R]) ,
+     while sum_i a_i rho_i bounds e(A,R) below.  Neither refinement alone
+     changes the closure count by one configuration; together they take it from
+     336 to 1343.  An earlier pass measured (b) alone, found it "never binds",
+     and removed it -- correctly at the time and wrongly in hindsight.
+
+ (7) DISJOINT NEIGHBOURHOODS.  (c_A - iso) max(0, rho_A - s_R)  <=  |W|.
+     A vertex v of A has none of its rho_v R-neighbours in U, so at least
+     rho_v - s_R of them lie in W, and all of those lie inside v's OWN component
+     of H' - S.  Components meeting A have pairwise disjoint W-parts.
 
 Since x_w >= 25 gives d_H(w) <= 4, a degree cap over a set containing w is 24
 smaller; the adversary's placement of w among S_R, W and U is scanned, and (2),
@@ -96,7 +121,10 @@ and a feasible scan proves nothing.  Getting the direction wrong here would be
 the twelfth defect, so the inequalities are tested rather than trusted: part 0
 takes the explicit admissible H of adv58.py, computes its Gallai-Edmonds set --
 a genuine Tutte set attaining the true deficiency -- reads all six parameters
-off it and checks every inequality against the real set; part 0b re-runs the
+off it and checks every inequality against the real set -- and the identity
+for e(L,R) is confirmed independently against adv58.py's explicitly built
+admissible H, where it gives 288, exactly that graph's L-R edge count; part 0b
+re-runs the
 scan at D = 1, where an obstruction provably exists because n' = 49 is odd, so a
 scan reporting INFEASIBLE there would prove an inequality false.
 
@@ -167,8 +195,34 @@ def max_rho_sum(n, cells):
     return tot
 
 
-def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3):
-    """The six inequalities at one point of the parameter space.
+def singleton_reach(mult, extra):
+    """1 + max D_v over the low vertices v that could be the singleton.
+
+    If c_A = 2 the singleton {v} is a component of H[A], so every OTHER vertex
+    of A shares a block with v -- i.e. is a G-neighbour of v inside L.  Hence
+    a - 1 <= D_v, where D_v = sum over the blocks containing v of (q_i - 1) is
+    the number of G-neighbours of v in L.  Two things cap D_v:
+
+      * v is a low vertex, so d_G(v) = 28 and therefore D_v <= 28;
+      * v lies in j blocks only if j - 1 of them are gluings, so j <= extra + 1.
+
+    So D_v is a bounded knapsack over the block sizes, and c_A = 2 forces
+    a <= 1 + D_max.  There are at most five blocks, so this is exact by
+    enumeration rather than by a bound."""
+    n = len(mult)
+    best = 0
+    for mask in range(1, 1 << n):
+        if bin(mask).count("1") > extra + 1:
+            continue
+        tot = sum(mult[i] - 1 for i in range(n) if mask >> i & 1)
+        if tot <= 28:
+            best = max(best, tot)
+    return best + 1
+
+
+def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3,
+        rhoA=0):
+    """The seven inequalities at one point of the parameter space.
 
     The singleton w has x_w >= 25, so d_H(w) <= 4 while every other z in R has
     only x_z >= 1 and d_H(z) <= 28.  A degree cap over a set containing w is
@@ -188,6 +242,13 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3):
     if cAodd + todd - HANDICAP[0] < sL + sR + D:                    # (1)
         return False
     if rsum > a * (RSZ - u) - HANDICAP[3]:                          # (4)
+        return False
+    # (7) DISJOINT NEIGHBOURHOODS.  A vertex v of A has none of its rho_v
+    # R-neighbours in U, so at least rho_v - s_R of them lie in W, and they all
+    # lie inside v's OWN component of H' - S.  Components meeting A have
+    # pairwise disjoint W-parts, so each of the c_A - iso components holding a
+    # vertex of A that is not isolated eats at least rho_A - s_R vertices of W.
+    if (cA - iso) * max(0, rhoA - sR) > W:                          # (7)
         return False
     ein = turan(u - t + 1)
     ew = turan(W - p + 1)
@@ -214,7 +275,21 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3):
     # and MEASURED: it never binds -- taking the minimum of the two changes the
     # closure count by nothing at all, at three times the runtime.  Recorded so
     # a successor does not re-derive it.
-    hi6 = u * (sL + 3 * k + sR) + 2 * ein
+    # The L-side budget is EXACT, and taken from the lane's own identity rather
+    # than re-derived from the multiset: sum_{z in R} d_H(z) = 29|R| - X and
+    # that sum is e(L,R) + 2e(H[R]), so e(L,R) = 29|R| - X - 2e(H[R]).  Since
+    # every A-R edge lands outside U, e(L - A, U) <= e(L,R) - e(A,R) and
+    # sum_i a_i rho_i is a lower bound on e(A,R).
+    lbudget = max(0, 29 * RSZ - X - 2 * eHR - rsum)
+    # (6) is charged per vertex of U.  When w lies in U it must NOT be charged
+    # a full 28: d_H(w) <= 4.  And the L-side is bounded twice over -- by
+    # u'(s_L + 3k) and by sum_{v in L - A} rho_{b(v)} = lcap, which does not
+    # grow with u at all -- so take the smaller.  NEITHER refinement alone does
+    # anything; together they are what closes the surviving shape.
+    def _hi6(win):
+        uu = u - 1 if win else u
+        lt = min(uu * (sL + 3 * k), lbudget)
+        return lt + uu * sR + 2 * ein + (CW if win else 0)
     h2, h5 = HANDICAP[1], HANDICAP[4]
     for where, cap2, cap5 in (("S", 28 * (RSZ - u) - 24 - h2, 28 * sR - 24 - h5),
                               ("W", 28 * (RSZ - u) - 24 - h2, 28 * sR - h5),
@@ -225,7 +300,8 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3):
             continue
         if where == "U" and u < 1:
             continue
-        if 28 * u + RSZ - X + (0 if where == "U" else 24) > hi6:
+        if (28 * u + RSZ - X + (0 if where == "U" else 24)
+                > _hi6(where == "U")):
             continue                                                 # (6)
         if lhs2 <= cap2 and lhs5 <= cap5:                     # (2) and (5)
             return True
@@ -261,7 +337,7 @@ def route_closed(RSZ, mult, eHR, X=56):
 
 
 def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
-    """True if some parameter point satisfies all six inequalities.
+    """True if some parameter point satisfies all seven inequalities.
 
     False is a proof that no Tutte set of any admissible H obstructs the
     (k, 30-2k) route, hence that theta(H) <= 28 and the configuration is
@@ -313,6 +389,7 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
     # has no W-neighbour at all (then v is one of the iso vertices, which needs
     # rho_v <= s_R) or the W-vertices split, forcing p >= 2.
     minrho = min((rho for rho, cap in cells if cap > 0), default=0)
+    reach = singleton_reach(mult, extra)      # c_A = 2 needs a <= reach
     for a in range(2, LP + 1):
         rsum = min_rho_sum(a, cells, 2 if part else 1)
         if rsum is None:
@@ -320,7 +397,7 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
         sL = LP - a
         for sR in range(0, RSZ + 1):
             branches = [(1, 0, 1)]
-            if not part:
+            if not part and a <= reach:
                 if minrho <= sR:
                     branches.append((2, 1, 1))       # singleton isolated
                 branches.append((2, 0, 2))           # W splits, p >= 2
@@ -333,7 +410,7 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
                         continue
                     tt = max(t, 1 if u else 0)
                     if _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, tt, p, cA,
-                           D, X, k):
+                           D, X, k, minrho):
                         return True
     # case B: A inside a single block, c_A <= iso + p
     for rh, cap in cells:
@@ -351,8 +428,10 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
                     for t in range(0, tp + 1):
                         p = tp - t
                         for u in range(t if t else 0, RSZ - sR - p + 1):
+                            # every component meeting A contains a vertex of
+                            # A, so c_A <= a as well as c_A <= iso + p
                             if _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p,
-                                   iso + p, D, X, k):
+                                   min(iso + p, a), D, X, k, rh):
                                 return True
     return False
 
@@ -389,7 +468,7 @@ def configurations():
 
 
 def part0():
-    """Soundness: the six inequalities hold on a genuine Tutte set."""
+    """Soundness: the seven inequalities hold on a genuine Tutte set."""
     print("PART 0   the inequalities tested on a real Tutte set")
     import adv58
     from matching import max_matching, size, check_matching, odd_components
@@ -481,7 +560,7 @@ def part0():
     print("   u = %d, t = %d, |W| = %d, p = %d, c_A = %d, sum a_i rho_i = %d"
           % (u, t, len(Wset), p, cA, rsum))
     good = _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, defi)
-    print("   all six inequalities hold on a genuine Tutte set: %s"
+    print("   all seven inequalities hold on a genuine Tutte set: %s"
           % ("PASS" if good else "FAIL -- an inequality is false"))
     print()
     return good and defi == nk - 2 * nu
@@ -537,7 +616,7 @@ def main():
     print("   the k that closed them: %s" % sorted(used.items()))
     print()
     print("CONCLUSION")
-    print("   The six inequalities are necessary conditions on an ARBITRARY")
+    print("   The seven inequalities are necessary conditions on an ARBITRARY")
     print("   Tutte set, so an infeasible scan closes the configuration for")
     print("   every admissible H, not for a sample.  %d of %d configurations"
           % (len(closed), len(cfgs)))

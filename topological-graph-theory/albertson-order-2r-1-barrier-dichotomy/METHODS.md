@@ -22,10 +22,10 @@ open**, in the single class \(b=6\), \(c=(51,1)\):
 
 | | count |
 |---|---|
-| clique blocks | 7988 |
+| clique blocks | 6970 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8310** |
+| **total** | **7292** |
 
 ## The method inventory
 
@@ -52,11 +52,15 @@ Each row is a method, what it was applied to, and the measured outcome.
 | **\(w\)-sharpened Turán cap** \(e(H[R])\le\lfloor(\lvert R\rvert-1)^2/3\rfloor+4\) (`wturan58.py`) | removes **310**; found by failing to build an adversary |
 | Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0. Reviewer-1 (`reviews/albertson-triangle-free-neighbourhood/`) confirms the derivation and the zero-removal on the whole survivor set, and records that this cap and the \(w\)-sharpened cap are **incomparable**: apply \(\min\) of the two, never one in place of the other |
 | Block-forest lemma for \(c_A\) (`blockcut.py`) | three low vertices that pairwise share a block share a **common** block, since the block-cut tree is acyclic and two blocks meet in at most one vertex. Hence \(A\) not inside one block \(\Rightarrow\) \(H[A]\) has at most two components. Checked on 6768 Gallai forests and 719597 subsets |
-| **General Tutte obstruction count** (`tuttegen.py`) | **removes 325** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
+| **General Tutte obstruction count** (`tuttegen.py`) | **removes 1343** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
 | \(U\)-degree inequality (6) (`tuttegen.py`) | \(\sum_{z\in R}x_z=X\le56\) makes every \(U\)-vertex nearly of degree 29, while a \(U\)-vertex has no \(A\)-neighbour at all: **a large \(U\) cannot exist**. Worth **+117**, more than the two component-count refinements together. Found by pricing, not by guessing |
 | Singleton refinement of \(c_A\) | if \(A\) is not inside one block and \(H[A]\) has two components, one is a **singleton**; \(c_A=2\) then needs an isolated \(A\)-vertex or \(p\ge2\). Worth **+12** |
 | Odd-component parity in (1) | \(o\) counts odd components, and the two families have forced parities. **No change at all**: the adversary absorbs it by shifting \(u\) or \(t\) by one |
-| \(\rho\)-sum bound on \(e(L\setminus A,U)\) | valid and independent of \(u\), but **never binds** — taking the minimum with \(u(s_L+3k)\) changes the count by 0 at three times the runtime |
+| \(\rho\)-sum bound on \(e(L\setminus A,U)\), **loose form** | choosing the \(\lvert L\rvert-a\) most expensive slots freely: valid, but **never binds**, 0 change |
+| \(\rho\)-sum bound, **exact form** | the same idea taken from the lane's own identity, \(e(L,R)=29\lvert R\rvert-X-2e(H[R])\), so \(e(L\setminus A,U)\le e(L,R)-\sum_i a_i\rho_i\). Combined with charging \(w\) only \(d_H(w)\le4\) inside \(U\): **336 → 1343**. Neither half alone changes the count by one |
+| \(c_A\le a\) | every component meeting \(A\) holds a vertex of \(A\). **No change alone** |
+| Singleton reach for \(c_A=2\) | the singleton is a \(G\)-neighbour of every other \(A\)-vertex in \(L\), so \(a-1\le D_v\le28\): a bounded knapsack over block sizes. **+11** |
+| Disjoint-neighbourhood inequality (7) | \((c_A-\mathrm{iso})\max(0,\rho_A-s_R)\le\lvert W\rvert\). **0 closures alone**, but it changes the surviving shape, and the shape it exposes is what the exact \(\rho\)-sum bound then kills |
 | **Priced sensitivity table** (`slack58.py`) | how strong a sharpening must be: one unit off inequality (1) closes **all 3712** the route reaches; (2) and (4) are **inert at every handicap**; (3) and (5) need 50 to reach 546 and 2273 |
 
 **Where the two obstructions stand** (`profile58.py`): the absorption shortfall
@@ -98,7 +102,7 @@ Now parameterise an arbitrary Tutte set \(S\) by six integers — \(a=\lvert
 L'\setminus S\rvert\), \(s_R\), the size \(u\) and number \(t\) of the components
 of \(H'-S\) missing \(A\), the number \(p\) of components of \(H[W]\) on the
 remaining high vertices, and the number \(\mathrm{iso}\) of vertices of \(A\)
-whose \(R\)-neighbours all lie in \(S_R\) — and six inequalities hold for
+whose \(R\)-neighbours all lie in \(S_R\) — and seven inequalities hold for
 **every** admissible \(H\):
 
 1. **count**, \(c_A^{\mathrm{odd}}+t^{\mathrm{odd}}\ge s_L+s_R+D\);
@@ -106,7 +110,9 @@ whose \(R\)-neighbours all lie in \(S_R\) — and six inequalities hold for
 3. **Turán**, \(e(H[R])\le\binom{\lvert R\rvert}{2}-\binom{\lvert R\rvert-s_R}{2}+\mathrm{tur}\bigl((\lvert R\rvert-s_R)-(t+p)+1\bigr)\);
 4. **spread**, \(\sum_i a_i\rho_i\le a(\lvert R\rvert-u)\);
 5. **\(S_R\)-degree**, \(\max\bigl(0,\sum_i a_i\rho_i-(a-\mathrm{iso})\lvert W\rvert\bigr)+e(H[R])-\mathrm{tur}(\lvert W\rvert-p+1)-\mathrm{tur}(u-t+1)\le 28s_R\);
-6. **\(U\)-degree**, \(28u+\lvert R\rvert-X+24\,[\,w\notin U\,]\le u(s_L+3k+s_R)+2\,\mathrm{tur}(u-t+1)\).
+6. **\(U\)-degree**, with \(u'=u-[\,w\in U\,]\),
+   \[28u+\lvert R\rvert-X+24\,[\,w\notin U\,]\ \le\ \min\bigl(u'(s_L+3k),\ e(L,R)-\textstyle\sum_i a_i\rho_i\bigr)+u's_R+2\,\mathrm{tur}(u-t+1)+4\,[\,w\in U\,];\]
+7. **disjoint neighbourhoods**, \((c_A-\mathrm{iso})\max(0,\rho_A-s_R)\le\lvert W\rvert\).
 
 Inequality 5 bites because isolating many vertices of \(A\) drives their whole
 \(R\)-neighbourhood into \(S_R\), and \(S_R\) must then also carry nearly every
@@ -128,9 +134,9 @@ re-runs the scan at \(D=1\), where an obstruction provably exists because
 \(n'=49\) is odd — a scan reporting infeasible there would prove an inequality
 false.
 
-**Result: 325 configurations closed for every admissible \(H\)**, so order 58
-falls from 8635 to **8310**. Of the 7988 remaining, 3387 admit a parameter point
-the counts cannot rule out — which is not the same as an obstruction existing —
+**Result: 1343 configurations closed for every admissible \(H\)** — 903 at
+\(k=3\) and 440 at \(k=4\) — so order 58 falls from 8635 to **7292**. Of the
+6970 remaining, 2369 admit a parameter point the counts cannot rule out — which is not the same as an obstruction existing —
 and 4601 are ones for which **three disjoint triangles are not guaranteed**.
 
 **A correction to the previous pass.** That count was published as "4601 have no
@@ -153,15 +159,51 @@ and count what falls.
 | handicap | \(d=1\) | \(d=5\) | \(d=25\) | \(d=50\) |
 |---|---|---|---|---|
 | (1) count | **3712** | 3712 | 3712 | 3712 |
-| (2) degree | 325 | 325 | 325 | 325 |
-| (3) Turán | 351 | 424 | 495 | 546 |
-| (4) spread | 325 | 325 | 325 | 325 |
-| (5) \(S_R\)-degree | 375 | 587 | 1816 | 2273 |
+| (2) degree | 1343 | 1343 | 1458 | 2495 |
+| (3) Turán | 1348 | 1373 | 1718 | 1849 |
+| (4) spread | **2871** | 2871 | 2871 | 2871 |
+| (5) \(S_R\)-degree | 1348 | 1373 | 1940 | 3111 |
 
-So **one unit off the count inequality closes every configuration the route
-reaches**, inequalities 2 and 4 are inert at every handicap, and 3 and 5 need 50
-to gain a few hundred. The precise target is a theorem of the form
-\(o(H'-S)\le c_A+t-1\) holding unconditionally.
+Baseline 1343; the route reaches 3712 configurations in all. **One unit off the
+count inequality still closes every one of them**, and the precise target remains
+a theorem \(o(H'-S)\le c_A+t-1\) holding unconditionally.
+
+**The table moves when the inequalities move, and this is worth stating.** On the
+six-inequality scan of the previous pass the spread inequality was *inert at
+every handicap*; here one unit of it is worth **+1528**. A pricing table is only
+ever a statement about the current set, so `slack58.py` now derives its
+conclusions from the measured rows instead of asserting them in prose — the
+prose form went stale the moment the inequalities changed underneath it, which is
+the same shape as defects 13 and 14.
+
+## The two halves of inequality 6, and a lesson about non-binding bounds
+
+Inequality 6 as first published charged every vertex of \(U\) a full degree 28
+and bounded the \(L\)-side by \(u(s_L+3k)\). Both are loose:
+
+- \(w\) lies in \(U\) in the surviving configurations, and \(d_H(w)\le4\), so it
+  must be charged 4 and not 28;
+- every \(A\)–\(R\) edge lands outside \(U\), so
+  \(e(L\setminus A,U)\le e(L,R)-e(A,R)\), and \(e(L,R)\) is **exact** from the
+  lane's own identity \(e(L,R)=\sum_{z\in R}d_H(z)-2e(H[R])=29\lvert R\rvert-X-2e(H[R])\).
+
+Applied separately, **neither changes the closure count by a single
+configuration**. Applied together they take it from 336 to **1343**.
+
+That is a correction to a published methodological claim. A loose form of the
+\(\rho\)-sum bound — choosing the \(\lvert L\rvert-a\) most expensive slots
+freely, rather than reading \(e(L,R)\) off the identity — was implemented last
+pass, measured, found never to bind, and removed with the note "0 change at three
+times the runtime". That measurement was true of what was implemented, and the
+inference drawn from it, that the idea was worthless, was wrong twice over: the
+bound was in its loose form, and it was being asked to work alone. **Measuring a
+weak form of a constraint and concluding the constraint does not matter is a
+trap**, and it is the same shape as defect 13. Recorded as defect 14.
+
+The identity itself is checked independently rather than trusted: at
+\(\lvert R\rvert=24\), blocks \((17,12,5)\), \(e(H[R])=178\) it gives
+\(e(L,R)=288\), which is exactly the \(L\)–\(R\) edge count of the explicitly
+constructed admissible \(H\) in `adv58.py`.
 
 **A framing that was wrong, and is withdrawn.** The first version of this
 measurement reported, for each surviving parameter point, the slack
@@ -191,7 +233,7 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Thirteen items were found, eleven of one family, all of the same shape — *a step verified on
+Fourteen items were found, eleven of one family, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -208,7 +250,8 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 10 | "needs a dependency" framing of the matching question | mis-framed a decision | withdrawn above |
 | 11 | first `tuttegen.py` used \(c_A=1\) where blocks overlap | **would have over-claimed** | caught pre-publication; 6536 of 8313 configurations affected |
 | 12 | "4601 have no three disjoint triangles at all" | **published overstatement** | corrected above; a sufficient test read as a census. Counts unaffected |
-| 13 | slack-at-surviving-points as a sharpening guide | mis-framed a measurement | withdrawn above; cost two refinements worth 12 and 0 |
+| 13 | slack-at-surviving-points as a sharpening guide | mis-framed a measurement | withdrawn; cost two refinements worth 12 and 0 |
+| 14 | "the \(\rho\)-sum bound never binds" | **published, misleading** | true of the loose form measured alone; the exact form, paired with the \(w\) charge, is worth 336 → 1343 |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.

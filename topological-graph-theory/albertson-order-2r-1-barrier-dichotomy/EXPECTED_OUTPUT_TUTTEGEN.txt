@@ -8,7 +8,7 @@ PART 0   the inequalities tested on a real Tutte set
    deficiency = 1  (equals n - 2 nu = 1): PASS
    read off the real S: a = 25, iso = 2, s_L = 0, s_R = 0,
    u = 0, t = 0, |W| = 24, p = 1, c_A = 1, sum a_i rho_i = 231
-   all six inequalities hold on a genuine Tutte set: PASS
+   all seven inequalities hold on a genuine Tutte set: PASS
 
 PART 0b  negative control: D = 1 must always be reachable
    for k = 3 the graph H' has 49 vertices, so its deficiency is odd
@@ -19,20 +19,20 @@ PART 0b  negative control: D = 1 must always be reachable
 PART 1   the scan over all surviving configurations
    configurations scanned: 8313
    NO Tutte set can obstruct -- the route succeeds on EVERY
-   admissible H, so the configuration is IMPOSSIBLE: 325
-   the counts still permit an obstruction: 7988
+   admissible H, so the configuration is IMPOSSIBLE: 1343
+   the counts still permit an obstruction: 6970
 
-   closed by |R|: [(19, 5), (20, 6), (21, 12), (22, 32), (23, 58), (24, 73), (25, 71), (26, 28), (27, 37), (28, 2), (29, 1)]
-   still open by |R|: [(11, 5), (14, 2), (15, 1), (19, 6), (20, 29), (21, 106), (22, 283), (23, 447), (24, 747), (25, 984), (26, 1100), (27, 1196), (28, 1093), (29, 739), (30, 646), (31, 325), (32, 279)]
+   closed by |R|: [(19, 11), (20, 26), (21, 58), (22, 113), (23, 171), (24, 198), (25, 228), (26, 171), (27, 174), (28, 91), (29, 59), (30, 27), (31, 13), (32, 3)]
+   still open by |R|: [(11, 5), (14, 2), (15, 1), (20, 9), (21, 60), (22, 202), (23, 334), (24, 622), (25, 827), (26, 957), (27, 1059), (28, 1004), (29, 681), (30, 619), (31, 312), (32, 276)]
 
-   why the open ones are open: [('a parameter point survives', 3387), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 4119)]
-   the k that closed them: [(3, 325)]
+   why the open ones are open: [('a parameter point survives', 2369), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 4119)]
+   the k that closed them: [(3, 903), (4, 440)]
 
 CONCLUSION
-   The six inequalities are necessary conditions on an ARBITRARY
+   The seven inequalities are necessary conditions on an ARBITRARY
    Tutte set, so an infeasible scan closes the configuration for
-   every admissible H, not for a sample.  325 of 8313 configurations
-   fall; 7988 do not, and for those the counts do not decide --
+   every admissible H, not for a sample.  1343 of 8313 configurations
+   fall; 6970 do not, and for those the counts do not decide --
    which is not the same as an obstruction existing.
 
    Soundness controls: real Tutte set PASS; D = 1 negative control PASS
