@@ -147,9 +147,18 @@ the reason they are the symmetry that actually occurs.
 of them tried. \(1^{0} 2^{1} 4^{10}\), with 221 pair orbits and 424084 clauses -- a
 smaller formula than any open order-3 type -- **did not fall to a single CaDiCaL call
 within the 10 minutes it was given**, unlike the order-9 types, which fell in 8 and
-179 seconds at 109 and 101 orbits. The natural next step is not a longer
-single call but a case split, which is what has worked everywhere else in this lane;
-that is left for a dedicated effort. So order 4 is a real project needing cube-and-conquer, not another
+179 seconds at 109 and 101 orbits. Adding the redundant degree
+window \(17 \le d(v) \le 24\) -- which elsewhere in this lane gives a factor of 2.8
+on hard cubes -- **does not change that**: the same type still resists a single call
+for 10 minutes with the window in place. So the window is a constant-factor speed-up,
+not a qualitative one, and order 4 needs cube-and-conquer.
+
+The machinery for it is now in place and controlled:
+`../r55-42-order-9-automorphisms/cyctype_deg.py` builds an arbitrary-cycle-type
+formula with the degree window, and `verify_cyctype.py --degree` regenerates the
+totalizers with its own implementation and rejects a single flipped literal inside
+one of them. What remains is the prefix enumeration and the sweep, which is a
+dedicated effort rather than a spare-capacity one. So order 4 is a real project needing cube-and-conquer, not another
 afternoon; the orbit count alone does not predict difficulty, and the jump from about
 100 orbits to about 220 is evidently where this method stops being cheap.
 

@@ -11,16 +11,8 @@ usage: python3 verify_cyctype.py file.cnf len,len,... [file.lrat]
 """
 import sys, os, math, collections
 from itertools import combinations
-_HERE = os.path.dirname(os.path.abspath(__file__))
-# read_dimacs/sha256 come from the prime-order artifact's checker and the tolerant
-# LRAT replay from the order-3 one; both sit beside this directory in the published
-# repository and one level up in the working tree.
-for _p in (_HERE, os.path.join(_HERE, '..'),
-           os.path.join(_HERE, '..', 'r55-42-prime-order-automorphisms'),
-           os.path.join(_HERE, '..', 'r55-42-order3-cube-and-conquer'),
-           os.path.join(_HERE, '..', 'r55-42-fixed-vertex-lex-leader')):
-    if os.path.isdir(_p):
-        sys.path.insert(0, _p)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from verify import read_dimacs, sha256
 from verify_cnc_p import check_lrat
 
@@ -62,7 +54,7 @@ def regenerate(lengths):
         M = tuple(sorted({var[e] for e in combinations(S, 2)}))
         clauses.add(M)
         clauses.add(tuple(sorted(-x for x in M)))
-    return len(roots), clauses
+    return len(roots), clauses, var
 
 def check_cubes(cls, icnf, outd):
     """Check a plain case split: the cubes must be all 2^m sign patterns of m
@@ -114,15 +106,74 @@ def check_cubes(cls, icnf, outd):
     print('RESULT: all checks passed')
     return 0
 
+class VTot:
+    """Totalizer, reimplemented here rather than imported from the generator, so
+    that a transcription error shows up as a clause-set mismatch."""
+    def __init__(self, nv): self.nv = nv; self.cls = []
+    def fresh(self): self.nv += 1; return self.nv
+    def unary(self, lits):
+        m = len(lits)
+        if m == 1: return list(lits)
+        left = self.unary(lits[:m // 2]); right = self.unary(lits[m // 2:])
+        out = [self.fresh() for _ in range(len(left) + len(right))]
+        A = [None] + left; B = [None] + right
+        for i in range(len(left) + 1):
+            for j in range(len(right) + 1):
+                if i + j >= 1:
+                    self.cls.append([x for x in (-A[i] if i else None,
+                                                 -B[j] if j else None,
+                                                 out[i + j - 1]) if x is not None])
+                if i + j < len(out):
+                    self.cls.append([x for x in (-out[i + j],
+                                                 A[i + 1] if i + 1 <= len(left) else None,
+                                                 B[j + 1] if j + 1 <= len(right) else None)
+                                     if x is not None])
+        return out
+
+def degree_clauses(lengths, var, nv, lo=17, hi=24):
+    """The redundant degree window, regenerated.
+
+    Every vertex of a (5,5,42)-graph has lo <= d(v) <= hi, since N(v) induces a
+    (4,5)-graph and its complement a (5,4)-graph and R(4,5) = 25. The constraint
+    excludes no solution, so the augmented formula has the same models as the plain
+    one. Vertices of one cycle share a degree, so one totalizer per cycle.
+    """
+    n = sum(lengths)
+    reps, base = [], 0
+    for L in lengths:
+        reps.append(base); base += L
+    tot = VTot(nv)
+    E = lambda u, w: var[(u, w) if u < w else (w, u)]
+    for v in reps:
+        outs = tot.unary([E(v, u) for u in range(n) if u != v])
+        tot.cls.append([-outs[hi]])
+        tot.cls.append([outs[lo - 1]])
+    return reps, tot.cls
+
+
 def main():
     cnf = sys.argv[1]
     lengths = [int(x) for x in sys.argv[2].split(',')]
-    lrat = sys.argv[3] if len(sys.argv) > 3 else None
-    nv, want = regenerate(lengths)
+    # positional argument after the cycle type is the certificate;
+    # skip flags and, for --cubes, its two values
+    rest, i, argv = [], 3, sys.argv
+    while i < len(argv):
+        if argv[i].startswith('--'):
+            i += 3 if argv[i] == '--cubes' else 1
+            continue
+        rest.append(argv[i]); i += 1
+    lrat = rest[0] if rest else None
+    nv, want, var = regenerate(lengths)
     ct = collections.Counter(lengths)
     order = math.lcm(*lengths)
     print('permutation on %d points: cycle type %s, order %d'
           % (sum(lengths), ' '.join(f'{L}^{c}' for L, c in sorted(ct.items())), order))
+    if '--degree' in sys.argv:
+        reps, dcls = degree_clauses(lengths, var, nv)
+        want |= {tuple(sorted(cl)) for cl in dcls}
+        print(f'degree window 17..24 on {len(reps)} vertex orbits: {len(dcls)} clauses '
+              f'regenerated (redundant: satisfied by every (5,5,42)-graph, so the '
+              f'augmented formula has the same models as the plain one)')
     _, cls = read_dimacs(cnf)
     got = {tuple(sorted(c)) for c in cls}
     print(f'cycle type {lengths}: {nv} orbit variables, {len(want)} clauses regenerated; '
