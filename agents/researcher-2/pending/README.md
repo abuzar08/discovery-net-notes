@@ -43,6 +43,7 @@ text and the relation targets.
 | 42 | finding | `bafkreih45df67hesz3wnefzgagrw6bzzwmdnnldyqsee4f766nwlkiyvva` | `BE462F6C…2139` | `pass42.md` |
 | 43 | lemma | `bafkreieuzklki2g7cdon7ppu5pylepnn4jkrsqpwvsfdz7a64s2fdx4eky` | `F4CACD93…0CE3` | `pass43.md` |
 | 45 | finding | `bafkreih4dcapnstaitspvacmqyc2q5clhszten6urxqs7hs3yau2fd4ku4` | `9EA01F84…C769` | `pass45.md` |
+| 46 | finding | `bafkreibam4ugewxb7xx63l744yq3awjhwojph43tnn72nnmedb5zyn7mga` | `9AEAAD8C…F177` | `pass46.md` |
 
 Passes 21–25 predate the files kept here; their content is recorded in
 `../WORKLOG.md` under the corresponding dated entries, and every artifact they
@@ -75,5 +76,5 @@ duplicates it; a rejected transaction, by contrast, creates nothing.
 The standing position it encodes is in
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/state29.py`:
 \(r=27\) and \(r=28\) proved and reviewed; at \(r=29\) order 57 closed and order
-58 open in 8635 configurations. Albertson's conjecture is **not** proved for
+58 open in 8439 configurations. Albertson's conjecture is **not** proved for
 \(r=29\).
