@@ -1,7 +1,7 @@
 # Albertson at \(r=29\): what was tried, what it gave, and where it stops
 
-This is the method inventory for the \(r=29\) lane. It is a **stopping point, not
-a proof**. `state29.py` recomputes the standing position end to end and asserts
+This is the method inventory for the \(r=29\) lane. It is **not a proof**, and it
+is no longer a stopping point — see the closing note. `state29.py` recomputes the standing position end to end and asserts
 every claim in it; this document records what was attempted around that position,
 so that a successor does not repeat it.
 
@@ -49,6 +49,8 @@ Each row is a method, what it was applied to, and the measured outcome.
 | Stehlík's partition of \(H-x\) | yields only \(\lvert R\rvert\le61\), \(q_1\le28\); never binding |
 | \(\theta(H)\ge\omega(G)\) | gives \(\omega(G)\le29\); never forces a \(K_{30}\) |
 | \(L\)/\(R\) split scored by sampling | 6213–6550 against 8281; the block sum beats it twofold |
+| **\(w\)-sharpened Turán cap** \(e(H[R])\le\lfloor(\lvert R\rvert-1)^2/3\rfloor+4\) (`wturan58.py`) | removes **310**; found by failing to build an adversary |
+| Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0 |
 
 **Where the two obstructions stand** (`profile58.py`): the absorption shortfall
 reaches **1**, with 3326 configurations within one unit; the crossing shortfall
@@ -81,15 +83,26 @@ is whether **some other** Tutte set obstructs. It is not decided by
 \(R\)–\(R\) edges, but not their **placement**.
 
 Answering it means fixing a placement — building \(H\) — and computing
-\(\nu(H-T_1-T_2-T_3)\) on 49 vertices. That needs general (non-bipartite) maximum
-matching, which is **not available in this environment** (no `networkx`), so it
-needs either a new dependency or a hand-written Blossom implementation. **That is
-a decision for the principal, not for me**, which is why this lane stops here
-rather than guessing.
+\(\nu(H-T_1-T_2-T_3)\) on 49 vertices.
+
+**An earlier version of this document said that needed a new dependency and put
+the choice to the principal. That was wrong, and is withdrawn.** Writing a
+matching routine is not adding a dependency; `matching.py` now provides one,
+standard library only, verified against brute force, and both of its answers are
+self-certifying — \(\nu\ge k\) by exhibiting \(k\) disjoint edges,
+\(\nu\le k\) by a Tutte set. The lane did not need to stop there.
+
+What the tool has produced so far is not a matching computation but a theorem:
+the first attempt to build an admissible adversary failed, and the reason it
+failed is the \(w\)-sharpened Turán cap above. **Constructing has been more
+productive here than arguing** — every defect below was found by re-deriving an
+argument, three of them only after publication, whereas the errors caught in
+passes 42–43 and the cap itself all came from a computation disagreeing with an
+expectation.
 
 ## The defect record
 
-Seven items of one family were found, all of the same shape — *a step verified on
+Ten items of one family were found, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -101,8 +114,11 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 5 | \(k_{\mathrm{eff}}\) form with unbalanced blocks | **over-claimed** | latent; 0 wrongly closed |
 | 6 | absorption into a triangle colour class | over-claimed | latent; 0 wrongly closed |
 | 7 | Tutte obstruction checked only at \(Q_1\) | **over-claimed** | 6829 → 2116 |
+| 8 | Tutte family C omitted the \(H[R]\)-neighbourhood cost | mis-stated | caught by computation, unpublished |
+| 9 | first adversarial \(H\) violated \(d_H(z)\le28\) | inadmissible | caught by computation, unpublished |
+| 10 | "needs a dependency" framing of the matching question | mis-framed a decision | withdrawn above |
 
-Order 57 is unaffected by all seven: \(\delta_0\ge17\) there, and its enumeration
+Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.
 
 ## Reproduction
@@ -112,9 +128,16 @@ PYTHONDONTWRITEBYTECODE=1 python3 state29.py   | diff -u EXPECTED_OUTPUT_STATE29
 shasum -a 256 -c SHA256SUMS
 ```
 
-Expected: empty diff, `Controls: all PASS`, and OK for all 81 hashes. The full
+Expected: empty diff, `Controls: all PASS`, and OK for all 86 hashes. The full
 per-file reproduction list is in `README.md`.
 
 > **Albertson's conjecture is not proved for \(r=29\).** Order 57 is closed;
 > order 58 is open in 8635 configurations, with one named live route and a
-> precisely stated question that this method cannot answer.
+> precisely stated question.
+>
+> This was written as a stopping point and should no longer be read as one. The
+> matching routine exists, the construction approach has already produced one
+> theorem, and the concrete next step is to repeat it on a configuration that
+> survives the \(w\)-sharpened cap: either the construction completes, and the
+> \((3,24)\) route gets a checked answer, or it fails again and the reason is a
+> further necessary condition.
