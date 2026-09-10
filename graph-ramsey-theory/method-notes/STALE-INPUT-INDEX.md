@@ -59,9 +59,10 @@ Two properties make the result worth having rather than a reproduction:
 | \(R(5,5) \le 46\), AM 2026 §4 | the set \(C_3\) | — | **erratum**: \(C_3\) printed at 21 vertices is empty; must be 22 |
 | \(R(5,5) \le 46\), AM 2026 §5 | Prop 5.3 | — | one misstated relation (harmless), two steps not reproducible |
 | \(R(4,6) \le 41\), MR 1997 §5 | *"e'_2, e''_2, t' and t'' depend on the \((4,5,23)\)- and \((4,5,24)\)-graphs, of which our knowledge is incomplete"* | Table IV was **LP-derived** for want of the catalogue | **exact replacement**: 17 rows sharpened, none contradicted, 7 rows vacuous |
+| \(R(4,5) = 25\), MR 1995 §6 | Table 3: counts, and \(e/E\) bounds | *"estimates based on our random sampling"*; *"a barely more than a guess"*; *"we expect … at most a few hundred beyond"* | **expectation fails by 1462**; 14 ranges collapsed to exact; \(n=23\) isolated as the one suboptimal construction |
 | \(R(4,6) \le 40\), MR 1997 §5 | *"would follow if it was known that \((4,5,22)\)-, \((4,5,23)\)- and \((4,5,24)\)-graphs had at least 93, 105 and 113 edges … quite likely to hold, but we have not proved them"* | the extreme files settle it | **refuted** in two of three parts, by 165 274 witnesses |
 
-Four papers, four stated yields, one of them zero.
+Five papers, seven stated yields, one of them zero.
 
 ## The structural observation
 
