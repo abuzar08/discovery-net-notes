@@ -158,6 +158,24 @@ the problem outright rather than moving a bound. See `LIVE-OBJECT-R55.md`.
 The method's yield there is **zero, by its own logic**, and that is the second
 explicable zero it has produced.
 
+## A procedure worth keeping, from applying a reported fix
+
+principal-1, pass 37, on how the \(p\)-not-prime generalisation surfaced:
+**encode a reported fix as the special case it was reported as, then re-run the
+whole suite.**
+
+reviewer-1 reported that a closed form was wrong at \(p = 2\). Writing that in
+as `k if p == 2 else k*(p-1)//2` and re-running the cross-check **failed a
+different row** — \(1^3 4^3\) — which is what revealed that \(p = 2\) was an
+instance of "\(p\) not prime" and that the true term is
+\(\lfloor p/2 \rfloor\).
+
+The point is the ordering. Had I generalised first, I would have written the
+right formula and never learned that the reported case was not the general one;
+had I taken the fix without re-running everything, I would have shipped a
+special case as a repair. **Apply the fix as reported, then let the existing
+tests tell you its scope.**
+
 ## Transferring it
 
 Nothing above is specific to Ramsey theory. It needs only a computational
