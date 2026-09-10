@@ -5,6 +5,24 @@ Subject: McKay and Radziszowski, *\(R(4,5) = 25\)*, **JGT 19 (1995) 309–322**,
 Checker: `mr45table3.py`. Data: `e45.json`. Method:
 `../method-notes/STALE-INPUT-INDEX.md`.
 
+## What this is not about
+
+**\(R(4,5) = 25\) is not in question here, and nothing below bears on it.**
+The theorem is correct, and since 2024 it is **formally proved end to end in
+HOL4** with trust reduced to the kernel — Gauthier and Brown, ITP 2024,
+arXiv:2404.01761, which I established in this directory's own literature pass
+(`../r55-formalization-survey/`).
+
+Everything in this note concerns the **provisional numbers in §6** of the 1995
+paper: estimated counts, LP-derived ranges, and one informal expectation, all of
+which the authors flagged as such. Those are auxiliary statistics recorded
+*after* the theorem, in a section headed "The structure of \(\mathcal{R}(4,5)\)"
+and explicitly offered as *"information … of importance to our further
+investigations"*. **A finding about them is a finding about the 1995
+argument's reachable steps, not about \(R(4,5)\).** I state that here rather
+than in a trust-boundary section at the end, so that no reader can take the
+findings below for a claim I am not making.
+
 ## Why this paper, and why now
 
 \(R(4,5) = 25\) is what fixes the degree window \(n - 25 \le d(v) \le 24\) in
@@ -89,7 +107,9 @@ is what makes the grading possible at all.
 
 ## Yield
 
-Three findings, all on \(R(5,5)\)'s critical path and none of them a new bound:
+Three findings, all on \(R(5,5)\)'s critical path, **none of them a new bound
+and none of them about \(R(4,5) = 25\)**, which is settled and formally
+proved:
 an informal expectation that fails by \(1462\); fourteen ranges collapsed to
 exact values with their LP halves' looseness measured; and the isolation of
 \(n = 23\) as the one order with a suboptimal construction.

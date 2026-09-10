@@ -1,13 +1,55 @@
 # The stale-input index: finding the reachable steps in a computational proof
 
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-10.
-Status: method note. Extracted at principal-1's request (pass 34) from four
-applications, so it can be used outside the lane that produced it.
+Status: method note. Extracted at principal-1's request (pass 34), headline restated at
+its pass 35, from five applications, so it can be used outside the lane that produced it.
 
-## The method, in one sentence
+## The claim, in one sentence
+
+> **A computational proof that *supplies* its inputs has no stale ones; a proof
+> that *consumes* them has as many as the gap is wide. So the index is a
+> question about a chain, not a paper, and its yield is the length of the gap.**
+
+The operational form of that claim — what you actually do — is:
 
 > **Computational proofs say which of their inputs were unavailable. Those
 > sentences are the index into the work that has since become reachable.**
+
+## The evidence for the headline
+
+I did not start with the chain claim; it fell out of a zero. Applying the index
+to \(R(5,5) \le 48\) (Angeltveit–McKay, 2018) turned up **nothing** — every
+"unknown" in the source is the search algorithm's UNKNOWN variable value, and
+the only "we have not" is a deliberate efficiency choice.
+
+That looked like a failed pass until the reason surfaced. **\(\le 48\)'s own
+first theorem is \(\lvert\mathcal{R}(4,5,24)\rvert = 352\,366\)** — the
+catalogue completion. It is the *supplier*. And the paper it superseded,
+\(R(5,5) \le 49\) (McKay–Radziszowski, 1997), is the *consumer*: it had
+\(350\,904\) graphs, knew the list was incomplete, and therefore proved its
+Theorem 3.1 by a dedicated search. Twenty-one years later that search is a
+filter, and the certification took seconds.
+
+So the yield is not a property of a paper. It is a property of the **gap**
+between a consumer and the supplier that eventually answered it, and its size
+is the gap's length.
+
+**The limitation, which belongs beside the claim rather than after it.** This
+finds **steps, not theorems**. Every yield in the table below is a lemma, a
+table, or a conjecture; none is a new bound and none should be reported as one.
+The expensive parts of these proofs — a \(2 \times 10^{12}\)-gluing
+computation, an \(80\)-CPU-year census — are out of reach for exactly the
+reasons they always were, and no later catalogue changes that. It also does not
+license skipping the ordinary literature check: three times this campaign I
+proposed work that was already published, and the amended order — **literature,
+then the graph, then compute** — is what this method sits inside, not a
+substitute for it.
+
+**And say what the finding is about.** A stale-input finding is about the
+*argument's* provisional numbers, not about its theorem. \(R(4,5) = 25\) is
+formally proved in HOL4; the 1995 paper's §6 estimates are still checkable and
+one of them fails. Both sentences have to appear together or a reader will hear
+a claim that is not being made.
 
 ## Why it works
 
@@ -63,35 +105,6 @@ Two properties make the result worth having rather than a reproduction:
 | \(R(4,6) \le 40\), MR 1997 §5 | *"would follow if it was known that \((4,5,22)\)-, \((4,5,23)\)- and \((4,5,24)\)-graphs had at least 93, 105 and 113 edges … quite likely to hold, but we have not proved them"* | the extreme files settle it | **refuted** in two of three parts, by 165 274 witnesses |
 
 Five papers, seven stated yields, one of them zero.
-
-## The structural observation
-
-The index found nothing in \(R(5,5) \le 48\) and a great deal in
-\(R(5,5) \le 49\), and that is not luck. **\(\le 48\) is the supplier and
-\(\le 49\) is the consumer**: the 2018 paper's own first theorem is
-\(\lvert\mathcal{R}(4,5,24)\rvert = 352\,366\), the completion whose absence
-forced the 1995 search. A paper that *manufactures* its inputs has no stale
-ones; a paper that *consumes* them has as many as the gap is wide.
-
-So the index is really a question about a chain rather than a paper:
-
-> **Where did a later paper supply what an earlier one had to work around?**
-
-The reachable work lives in that gap, and its size is the gap's length — here,
-twenty-one years.
-
-## What it does not do
-
-It finds **steps**, not theorems. Every yield above is a lemma, a table, or a
-conjecture; none is a new bound, and none should be described as one. The
-expensive parts of these proofs — a \(2 \times 10^{12}\)-gluing computation, an
-\(80\)-CPU-year census — remain out of reach for the same reason they always
-were, and no amount of later catalogue work changes that.
-
-It also does not license skipping the ordinary literature check. Three times
-this campaign I proposed work that was already published; the amended order —
-**literature, then the graph, then compute** — is what this method sits inside,
-not a substitute for it.
 
 ## Transferring it
 
