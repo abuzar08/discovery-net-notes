@@ -216,15 +216,51 @@ This is a negative, and it is the useful kind: it says where to stop. Improving
 the order-4 case list further needs an argument that uses the global count
 \(n = 42\), not a better one-orbit argument.
 
-**And the obvious next try does not work either.** A type such as
-\((c_1,c_2,c_4) = (26,4,2)\) has *two* \(4\)-orbits, so one might hope to split
-\(F\) twice and intersect. For \(f = 26\) both splits must be \(13 + 13\), and
-at \(13\) the \((3,5)\)-graph is unique, so each orbit forces \(F = A \sqcup B\)
-with \(A\) the unique \((3,5,13)\)-graph and \(B\) its complement. But
-**nothing forces the two splits to be different**, and if the second orbit
-induces the same partition it adds no constraint at all. So the two-orbit
-argument has no content here unless one can first rule out \(A' = A\), which
-the orbit structure does not do.
+**And the obvious next try does not work either — though not for the reason I
+first gave.** A type such as \((c_1,c_2,c_4) = (26,4,2)\) has *two*
+\(4\)-orbits, so one might hope to split \(F\) twice and intersect. The first
+draft of this section said the two-orbit argument "has no content" because
+nothing forces the two partitions to differ. That reason is wrong:
+**researcher-1's Corollary 5** (`r55-42-prime-order-automorphisms`) shows the
+two splits do interact —
+
+> *"the fixed vertices adjacent to all of \(C_i\) and to none of \(C_j\) are
+> triangle-free and \(I_3\)-free, hence at most 5 \((R(3,3) = 6)\)"*
+
+— so \(|A_i \cap B_j| \le 5\), a genuine constraint I had not accounted for.
+It simply does not produce a contradiction: at \(f = 26\) it forces
+\(|A_i \cap A_j| \ge 8\), and \(A_i = A_j\) satisfies that comfortably. So the
+conclusion stands and the reasoning behind it is now the right one.
+
+## 5a. The rest of the lane's analytic toolkit, audited against order 4
+
+§0's lesson is that a lane's own tools get filed under the case they were first
+used on. The fix is a habit, and a habit has to be applied to the *whole*
+toolkit, not only to the filter that turned out to have been missed. So: every
+analytic filter in `r55-42-prime-order-automorphisms`, pointed at the order-4
+row (`orbitbound.py audit`).
+
+| filter | what it gives at \(|O| = 4\) |
+|---|---|
+| Fact 0, degree window | already in use, and it is what makes the thresholds below |
+| Facts 1 and 3, the split | this note's §1–2 |
+| Corollary 4, \(f \le 26 / 28\) | this note's table — the one that had been missed |
+| **Corollary 5, profiles** | best bound over all 84 types is \(\mathbf{36}\), never below the \(26\) in hand; **excludes 0 types** |
+| Corollary 6(a) | needs \(|O| \ge 25\) |
+| Corollary 6(b), (c) | need \(|O| \ge 19\) |
+| Corollary 6(d), (e) | need \(|O| \ge 13\) |
+
+Every one of the hand exclusions is a degree-window argument whose force comes
+from the **orbit being large**: each needs one orbit to fill a constant
+fraction of a \(24\)-vertex neighbourhood. A \(4\)-orbit fills a sixth of it, so
+none of them fires — and the thresholds are not close.
+
+That is researcher-1's own observation showing up on the analytic side. It
+wrote that the orbit *encoding* is weakest where symmetry is small; the same is
+true of the lane's *hand arguments*, for the same reason and with numbers
+attached. **So the analytic route to the order-4 row is closed at both ends**:
+the one-orbit bound is exactly tight (§5), and nothing else in the toolkit
+bites. Order 4 has to be done case by case with a solver.
 
 ## 6. Positive control
 

@@ -69,6 +69,37 @@ of us reached for it when an order-4 row opened — which is exactly why the thi
 that survived was the observation that it had never been applied there. Both
 halves come from the same oversight.
 
+### Then I applied the habit to myself: the whole toolkit, audited at order 4
+
+A habit has to reach the whole toolkit, not just the filter that was missed. So
+every analytic filter in `r55-42-prime-order-automorphisms` was pointed at the
+order-4 row (`orbitbound.py audit`):
+
+| filter | at \(|O| = 4\) |
+|---|---|
+| Corollary 4, \(f \le 26/28\) | the one that had been missed — now applied |
+| **Corollary 5, profiles** | best bound over all \(84\) types is \(\mathbf{36}\), never below \(26\); **excludes 0** |
+| Corollary 6(a) | needs \(|O| \ge 25\) |
+| Corollary 6(b), (c) | need \(|O| \ge 19\) |
+| Corollary 6(d), (e) | need \(|O| \ge 13\) |
+
+Every hand exclusion is a degree-window argument whose force comes from the
+orbit being **large** — each needs one orbit to fill a constant fraction of a
+\(24\)-vertex neighbourhood, and a \(4\)-orbit fills a sixth. None fires, and
+the thresholds are not close. **So the analytic route to order 4 is closed at
+both ends**: the one-orbit bound is exactly tight, and nothing else bites.
+Order 4 is solver work, case by case.
+
+### And Corollary 5 corrected my own reasoning from last pass
+
+§5 said the two-orbit argument "has no content" because nothing forces the two
+splits to differ. That reason is **wrong**: Corollary 5 gives
+\(|A_i \cap B_j| \le 5\), a real interaction I had not accounted for. It simply
+does not yield a contradiction — at \(f = 26\) it forces
+\(|A_i \cap A_j| \ge 8\), which \(A_i = A_j\) satisfies. Conclusion unchanged,
+reasoning now correct. Second thing this pass that researcher-1's lane already
+knew and I had reasoned around.
+
 ### Housekeeping
 
 The \(|O| = 2, 3\) tightness probes I left running last pass were **stopped

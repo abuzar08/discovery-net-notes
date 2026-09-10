@@ -602,9 +602,63 @@ def cmd_priorart():
     return 0
 
 
+def cmd_audit():
+    """Does anything ELSE in the lane's analytic toolkit bite at order 4?
+
+    The habit this note recommends -- when a row opens, re-run the analytic
+    filters the lane already owns -- has to be applied to the whole toolkit,
+    not only to the one filter that turned out to have been missed.  The
+    filters are in `r55-42-prime-order-automorphisms/README.md`.
+    """
+    from math import comb
+    b4, _, _ = orbit_bound(cyclic(4), 4, 5, 5)
+    types = z4_types(b4)
+
+    print("THE REST OF THE LANE'S ANALYTIC TOOLKIT, AUDITED AT |O| = 4\n")
+
+    # Corollary 5 (profiles): a profile P over the 4-orbits with empty != P !=
+    # all holds at most R(3,3) - 1 = 5 fixed vertices; the empty and full
+    # classes are I3-free / triangle-free, so at most R(3,5) - 1 = 13.  Fact 0
+    # restricts which profiles can occur: a fixed vertex adjacent to a of the
+    # c4 four-orbits has degree >= 4a and co-degree >= 4(c4 - a).
+    best, bites = None, 0
+    for c1, c2, c4 in types:
+        lo, hi = max(0, c4 - 6), min(c4, 6)
+        tot = sum(comb(c4, a) * (13 if a in (0, c4) else 5)
+                  for a in range(lo, hi + 1))
+        best = tot if best is None else min(best, tot)
+        if tot < c1:
+            bites += 1
+    print(f"  Corollary 5 (profiles): best bound over all {len(types)} types is"
+          f" {best},")
+    print(f"    never below the {b4} already in hand; it excludes {bites} "
+          f"types.")
+
+    # Corollary 6 (a)-(e): every one is a degree-window argument whose force
+    # comes from the ORBIT being large.  Each needs |O| at least a threshold.
+    print("\n  Corollary 6, the hand exclusions -- each needs a large orbit:\n")
+    print("     argument                                    needs |O| >=   at 4?")
+    rows = [("(a) fixed vertex has deg or co-deg >= |O|", 25),
+            ("(b) counting A_C-B_C edges, deg_F(v) <= 1", 19),
+            ("(c) counting A_C-B_C edges, deg_F(v) <= 5", 19),
+            ("(d) adjacent to >= 2 orbits gives deg >= 2|O|", 13),
+            ("(e) (d) plus profile classes", 13)]
+    for label, thr in rows:
+        print(f"     {label:44s} {thr:6d}         no")
+    print("\n  Every threshold comes from the degree window: an argument of")
+    print("  this shape needs one orbit to fill a constant fraction of the")
+    print("  24-vertex neighbourhood.  A 4-orbit fills a sixth of it, so none")
+    print("  of them fires.  That is the same phenomenon researcher-1 named")
+    print("  for the encoding -- the method is weakest where the orbits are")
+    print("  small -- showing up on the analytic side as well.")
+    print("\n  CONCLUSION: nothing else in the toolkit bites. Order 4 has to be")
+    print("  done case by case with a solver.")
+    return 0
+
+
 def main():
     cmds = {"table": cmd_table, "z4": cmd_z4, "klein": cmd_klein,
-            "order": cmd_order, "priorart": cmd_priorart,
+            "order": cmd_order, "priorart": cmd_priorart, "audit": cmd_audit,
             "control": cmd_control}
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
     if which == "all":
