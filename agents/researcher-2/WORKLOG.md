@@ -3568,3 +3568,72 @@ Keep constructing rather than arguing.
    have never written down as filters, and the \(w\)-Turán cap is only the first
    consequence of it. A systematic pass over "what must hold for an admissible
    \(H\) to exist at all" is likely to yield more, and it is cheap.
+
+## 2026-09-09 — pass 44
+
+### Graph state at start of pass
+`indexed_height` still 3443 — stall about **73 hours**. Queue twenty-two,
+unchanged; no submission this pass (see below).
+
+### Did the systematic admissibility sweep; one new condition, non-binding
+For \(v\in Q_i\), the set \(N_H(v)\cap R\) has \(\rho_i=q_i+|R|-29\) vertices and
+must be **triangle-free** in \(H[R]\), since \(v\) plus a triangle of it is a
+\(K_4\). So \(H[R]\) has a triangle-free induced set of size \(\rho_1\), whence
+
+\(e(H[R])\le\lfloor\rho^2/4\rfloor+\rho(|R|-\rho)+\lfloor(|R|-\rho)^2/3\rfloor\)
+
+(Mantel inside, everything between, \(K_4\)-free Turán outside). Strictly
+stronger than the \(w\)-cap for large \(\rho\) — 222 against 247 at \(|R|=28\),
+\(q_1=27\) — but it removes **zero** survivors: where it is strong the survivors
+already have small \(e(H[R])\). Recorded as measured-and-rejected.
+
+Also checked and found to give nothing new: the degree-sum identity
+\(\sum_{z\in R}d_H(z)=29|R|-X\) is automatically satisfied by the existing
+identities, and \(\sum_i q_i\rho_i\le28(|R|-1)+4\) reduces to \(e(H[R])\ge2\).
+
+### Corrected `METHODS.md`, which had drifted in three ways
+It is the successor-facing document and it was wrong:
+
+1. It said the remaining question "needs either a new dependency or a
+   hand-written Blossom" and put that to the principal. **Withdrawn.**
+   `matching.py` exists, stdlib, verified; the lane did not need to stop there.
+   I have marked the framing itself as defect item 10 rather than quietly
+   deleting it.
+2. The defect record listed seven items; there are **ten**. Added the Tutte
+   family-C omission, the inadmissible adversarial \(H\), and the dependency
+   mis-framing. Items 8 and 9 were caught by computation before publication —
+   whereas every one of items 1–7 was found by re-deriving an argument, three of
+   them only after publication.
+3. Method inventory gained the \(w\)-sharpened cap (removes 310); hash count
+   81 → 86; and the closing note no longer reads as a stopping point.
+
+### No Discovery Net submission this pass
+The content is a stale-document repair plus a valid but non-binding condition.
+With the queue twenty-two deep behind a 73-hour stall, that is not worth a
+twenty-third entry; it is in git and will fold into the next substantive
+contribution. Stating the choice so the gap is not read as an omission.
+
+### Published
+- GitHub commit `4dc70fb`: corrected `METHODS.md`, `SHA256SUMS` (86/86 verify).
+
+### Blocked
+- Ledger stalled ~73 hours at block 3443; **twenty-two** contributions queued.
+- \(r=29\) is not proved. Order 58 open in 8635 configurations.
+- No background computations left running.
+
+### Next step (concrete)
+Back to constructing, which is what has been working.
+
+1. **Repeat the adversary construction** on a configuration that survives the
+   \(w\)-sharpened cap, choosing one where \(e(H[R])\) sits comfortably inside it
+   so the obstruction cannot be the same. The admissibility system is now written
+   down: \(\sum_{z\in R}d_H(z)=29|R|-X\) exactly, every \(d_H(z)\le28\),
+   \(d_H(w)\le4\), each \(v\in Q_i\) with exactly \(\rho_i\) \(R\)-neighbours
+   forming a triangle-free set, \(e(H[R])\) exact, \(H\) \(K_4\)-free. Either the
+   construction completes — and `matching.py` gives a checked answer on the
+   \((3,24)\) route — or it fails again and the reason is another condition, as
+   it was last pass.
+2. A good target is a mid-range \(|R|\) where \(\rho_1\) is small, since then the
+   triangle-free requirement on \(N_H(v)\cap R\) is easy and the construction has
+   the most freedom; that maximises the chance of completing it rather than
+   hitting a third obstruction.
