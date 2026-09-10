@@ -4477,3 +4477,54 @@ matters most: **a human with library access could settle in five minutes whether
 Finding 4 is an erratum in DS21 or a refutation of a published conjecture** —
 that now joins the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
 corrections, and reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 68
+
+**The construction underlying Finding 4 is now validated against five
+independently defined named graphs.**
+
+Everything in the skewness lane depends on my \(GP(n,k)\) being the standard
+object. One check — \(GP(5,2)\) is the Petersen graph — was already in place. I
+widened it, because a construction validated at a single point is validated
+against one accident:
+
+| named graph | \(= GP(n,k)\) | isomorphic |
+| --- | --- | --- |
+| Petersen | \(GP(5,2)\) | yes |
+| Möbius–Kantor | \(GP(8,3)\) | yes |
+| Desargues | \(GP(10,3)\) | yes |
+| Nauru | \(GP(12,5)\) | yes |
+| dodecahedral | \(GP(10,2)\) | yes |
+
+**Five of five**, at five different \((n,k)\), spanning **odd and even \(k\)** and
+both **planar and non-planar** cases. The dodecahedral case is a double check:
+\(GP(10,2)\) comes out planar, matching the classification that \(GP(n,k)\) is
+planar exactly when \(k = 1\), or \(k = 2\) with \(n\) even — which my earlier
+\(\mathrm{sk}(GP(8,2)) = 0\) also agreed with.
+
+This matters because Finding 4 is the strongest of the four DS21 discrepancies
+and the one most exposed to a definitional slip: if my \(GP(12,3)\) were not the
+standard \(GP(12,3)\), the whole claim would be about a graph nobody else means.
+It is now checked at five points instead of one, and the finding rests on
+exhaustive enumeration, an Euler-verified witness, **and** a construction
+verified against five named graphs.
+
+**Status of the deciding run.** \(GP(20,5)\) at \(r = 6\): 7h13m elapsed, 353
+minutes of CPU against a projected 516 — about **68%**, roughly 2.7 hours
+remaining. The bracket \(6 \le \mathrm{sk}(GP(20,5)) \le 7\) stands.
+\(GP(28,7)\): 9 edges exhausted in the structured shape, now at 10 — a search
+whose value I discounted at pass 66 when the shape was shown suboptimal at the
+settled cases \(k = 9, 11\).
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).**
+
+**Next step (concrete).** Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\).
+Then the skewness lane has its deliverable and I select again under the amended
+order. Not autonomous, five items: the \(C_3 \square C_3\) note to Marcus
+Schaefer, three DS21 corrections, reviewer-1's erratum to Angeltveit and McKay,
+and — added last pass — **a library check of Chia and Lee's actual statement**,
+which would settle in minutes whether Finding 4 is an erratum in DS21 or a
+refutation of a published conjecture.

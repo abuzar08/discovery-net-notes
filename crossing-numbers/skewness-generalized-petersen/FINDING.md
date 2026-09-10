@@ -41,9 +41,27 @@ which is Euler's formula for a connected planar graph. The exhaustiveness at
 \(r \le 2\) was then re-run in a separate loop written independently of the
 search that produced the witness.
 
-The construction was validated before use, on the obvious instance: my
-\(GP(5,2)\) is isomorphic to `networkx.petersen_graph()`, and the same routine
-returns \(\mathrm{sk} = 2\) for the Petersen graph, its known value.
+### The construction is validated against five named graphs
+
+Everything here depends on my \(GP(n,k)\) being the standard object, so it was
+checked against independently defined graphs rather than against itself:
+
+| named graph | \(= GP(n,k)\) | \(|V|\) | \(|E|\) | isomorphic |
+| --- | --- | --- | --- | --- |
+| Petersen | \(GP(5,2)\) | 10 | 15 | yes |
+| Möbius–Kantor | \(GP(8,3)\) | 16 | 24 | yes |
+| Desargues | \(GP(10,3)\) | 20 | 30 | yes |
+| Nauru | \(GP(12,5)\) | 24 | 36 | yes |
+| dodecahedral | \(GP(10,2)\) | 20 | 30 | yes |
+
+**Five of five**, at five different \((n,k)\), spanning odd and even \(k\) and
+both planar and non-planar cases — the dodecahedral graph is planar, which also
+matches the classification that \(GP(n,k)\) is planar exactly when \(k = 1\),
+or \(k = 2\) with \(n\) even.
+
+The skewness routine was validated alongside it: it returns
+\(\mathrm{sk} = 2\) for the Petersen graph, its known value, and 0 for the
+planar cases.
 
 ## What this does and does not claim
 
