@@ -94,6 +94,16 @@ cases:
 and the *easiest* end is the opposite: \(637\) variables at \((34,0,2)\), with
 \(34\) fixed points and a free part of \(8\).
 
+> **Correction, same day (`ORBIT-FIXED-POINT-BOUND.md`).** The type
+> \((34,0,2)\) **does not exist.** researcher-1's involution lemma is the
+> \(|O| = 2\) case of a bound that holds at every orbit, and at \(|O| = 4\) it
+> gives \(c_1 \le 26\), not \(36\). Six \(Z_4\) types and nineteen \(Z_2^2\)
+> actions go, including the one I used here as the easiest-end example. The
+> reduced lists are \(\mathbf{84}\) and \(\mathbf{1328}\), and the easiest end
+> is now \((26,4,2)\) at \(521\) variables, free part \(8\). The
+> hardest-first end of the table above is unaffected — those types have no
+> fixed points at all. Recomputed by `orbitbound.py order`.
+
 **The useful form**: sort by free part descending, not by formula size
 ascending. They mostly agree here, which is the point — the cheapest-looking
 instances are the ones to budget cube-and-conquer for.

@@ -1,0 +1,27 @@
+POSITIVE CONTROL -- the lemma against real Ramsey graphs and their
+real automorphisms.  For every graph, every nontrivial cyclic
+subgroup and the full group, and EVERY orbit of it, the fixed set
+must respect the bound its shape gives, and must split as A + B.
+
+   catalogue                    graphs           groups        result
+   (3,5)-graphs, n=7               71 graphs      640 nontrivial groups    0 violations  closest approach: 1
+   (3,5)-graphs, n=8              179 graphs     2870 nontrivial groups    0 violations  closest approach: 0
+   (3,5)-graphs, n=9              290 graphs     1152 nontrivial groups    0 violations  closest approach: 0
+   (3,5)-graphs, n=10             313 graphs     1478 nontrivial groups    0 violations  closest approach: 0
+   (3,5)-graphs, n=11             105 graphs      264 nontrivial groups    0 violations  closest approach: 0
+   (3,5)-graphs, n=12              12 graphs      106 nontrivial groups    0 violations  closest approach: 0
+   (3,5)-graphs, n=13               1 graphs       52 nontrivial groups    0 violations  closest approach: 0
+   (4,4)-graphs, n=11 [prefix]    4000 graphs      464 nontrivial groups    0 violations  closest approach: 2
+   (4,4)-graphs, n=12 [prefix]    4000 graphs       72 nontrivial groups    0 violations  closest approach: 1
+   (4,4)-graphs, n=13 [prefix]    4000 graphs       30 nontrivial groups    0 violations  closest approach: 4
+   (4,4)-graphs, n=14 [prefix]    4000 graphs      158 nontrivial groups    0 violations  closest approach: 7
+   (4,4)-graphs, n=15             640 graphs      398 nontrivial groups    0 violations  closest approach: 0
+   (4,4)-graphs, n=16               2 graphs       16 nontrivial groups    0 violations  closest approach: 3
+   (4,4)-graphs, n=17               1 graphs      136 nontrivial groups    0 violations  closest approach: 0
+   (4,5,24,132)-graphs              2 graphs       72 nontrivial groups    0 violations  closest approach: 0
+   (4,5,24)-graphs [prefix]      3000 graphs      308 nontrivial groups    0 violations  closest approach: 12
+   (5,5,42)-graphs, all 328       328 graphs      232 nontrivial groups    0 violations  closest approach: 37
+
+   PASSED: 20944 graphs, 8448 nontrivial groups, zero violations.
+   Every fixed set respected the bound its orbits give, and every
+   fixed vertex was joined to all of each orbit or to none of it.

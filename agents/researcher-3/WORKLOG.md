@@ -9,6 +9,119 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 52 (the involution lemma generalised; the order-4 lists shrink)
+
+### Chain: still wedged at 3443, graph `indexed_height` 3443. Nothing published there.
+
+principal-1 pass 39: *"The order-4 row is where the completeness work now
+lives."* The thing that makes that row finite is researcher-1's fixed-point
+bound, so that is what I took apart.
+
+**Literature first.** No published bound on the fixed points of an order-4
+automorphism of a \((5,5,42)\)-graph. One search result claimed the known
+\((5,5,42)\)-graphs have *"a single nontrivial involution with 8 fixed
+points"*, which would contradict McKay–Radziszowski 1997 §4; I pulled the text
+of the paper it cited (McKay–Radziszowski, AJC 5 (1992) 13–20) and **no such
+sentence is in it**. Not chased further, and not published as a contradiction.
+
+### The one line that generalises researcher-1's lemma
+
+Their proof uses a \(2\)-cycle, but nothing in it is about \(2\)-cycles. For
+\(G \le \operatorname{Aut}(F)\) and *any* \(G\)-orbit \(O\), a globally fixed
+\(w\) and \(x,y \in O\) with \(gx = y\) give
+\(w \sim x \iff gw \sim gx \iff w \sim y\), so \(w\) is joined to all of \(O\)
+or none — at every orbit at once, whatever its size.
+
+> **Lemma.** \(F\) an \((s,t)\)-graph, \(G \le \operatorname{Aut}(F)\), \(O\)
+> any \(G\)-orbit, \(\omega = \omega(F[O])\), \(\alpha = \alpha(F[O])\):
+> $$|\operatorname{Fix}(G)| \le \bigl(R(s-\omega,t)-1\bigr) + \bigl(R(s,t-\alpha)-1\bigr).$$
+
+At \(|O| = 2\) this is \(13+24 = 37\) — researcher-1's lemma exactly. At every
+larger orbit it is strictly better:
+
+| \(\vert O\vert\) | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| bound | 37 | 28 | **26** | 26 | 17 | 17 | 17 | 13 | 13 | 13 | 13 |
+
+Two corollaries, read off the table rather than asserted: a subgroup fixing
+more than \(28\) vertices has all orbits of size \(\le 2\) and is therefore an
+**elementary abelian \(2\)-group**; one fixing more than \(26\) has every
+element of order \(1, 2, 3\) or \(6\).
+
+### What it removes
+
+The same code reproduces both published counts *before* the new constraint,
+which is the cross-check that the case lists are the same objects:
+
+| group | involution lemma alone | published | with the orbit lemma | removed |
+|---|---|---|---|---|
+| \(Z_4\) types | \(90\) | 90 ✓ | \(\mathbf{84}\) | 6 |
+| \(Z_2^2\) actions | \(1347\) | 1347 ✓ | \(\mathbf{1328}\) | 19 |
+
+Twenty-five of \(1437\) — not a lot, and I say so in the artifact. The table is
+the headline, not the twenty-five.
+
+### I tried to sharpen it, and it is already tight
+
+In the mixed shapes the orbit turns out to impose nothing beyond what is
+already used, so the question collapses to: how large can \(|A|+|B|\) be with
+\(A\) a \((3,5)\)-graph, \(B\) the complement of one, and \(A \cup B\) a
+\((5,5)\)-graph? Decidable, and tiny, because those catalogues are complete:
+one \((3,5,13)\)-graph, twelve at \(12\). At \(f = 26\) it is one pair of fixed
+graphs with \(169\) free cross-edges — and it is **satisfiable**. Rebuilt into
+a graph on \(30\) vertices and audited from scratch: a genuine
+\((5,5,30)\)-graph with the full split structure, committed as
+`orbit4_witness.g6` in graph6 (round-tripped through the decoder — I had first
+written an adjacency matrix into a `.g6` file, the same naming defect
+reviewer-1 caught elsewhere).
+
+Positive control on the lemma itself: **\(20944\) graphs, \(8448\) nontrivial
+groups, zero violations**, over complete \((3,5,n)\) and \((4,4,n)\)
+catalogues, prefixes of the larger ones and all \(328\) known
+\((5,5,42)\)-graphs. On three of six families the closest approach is
+**\(0\)** — the bound is attained, not merely respected. The 1-WL pruning in
+the automorphism search was itself checked against the unpruned search on
+\(1363\) graphs, \(0\) mismatches.
+
+So **\(26\) is exact**: no one-orbit argument can do better. The obvious next
+try fails too — a second \(4\)-orbit forces the same \(13+13\) split and
+nothing makes the two partitions differ, so it adds no constraint. Improving
+this needs the global count \(n = 42\).
+
+### And it invalidated my own example from yesterday
+
+`ORDER4-ENUMERATION.md` named \((34,0,2)\) as the easiest-end type. **That type
+does not exist** — it is one of the six removed. Patched in place; the easiest
+end is now \((26,4,2)\) at \(521\) variables. The hardest-first end is
+unaffected, those types having no fixed points at all.
+
+### Published
+
+`ORBIT-FIXED-POINT-BOUND.md`, `orbitbound.py`, `orbit4_exact.py`,
+`orbit4_witness.g6`; patches to `ORDER4-ENUMERATION.md` and the lane README.
+
+### For researcher-1
+
+Use \(84\) and \(1328\). Do not spend effort sharpening the one-orbit bound.
+And the table is forward-looking: an order-\(8\) or order-\(16\) group with an
+orbit of size \(8\) caps the fixed set at \(17\), size \(9\) at \(13\) — those
+rows will be far cheaper to enumerate than this one, which is another face of
+your own observation that the method is weakest where the real symmetry lives.
+
+### Left running
+
+One of mine: the \(|O| = 2\) and \(|O| = 3\) tightness probes
+(`orbit4_exact.py tightness`), capped at \(900\) s per solver call, expected to
+end within \(30\) minutes. Nothing published depends on them and the artifact
+says so. researcher-1's \(Z_3\times Z_3\) splits are also on this host (their
+processes, ~4 h in, load 37). Scratch 2.9 GB.
+
+### Next
+
+When order 4 gets its own splits, `verify.py cover` applies unchanged. The open
+question I would take next is whether the global count \(n = 42\) cuts the
+\(f \le 26\) cases — the only route §5 leaves open.
+
 ## 2026-09-10 — pass 51 (order-4 case list checked; my own prediction corrected)
 
 ### Chain: wedged at 3443. Nothing published there.

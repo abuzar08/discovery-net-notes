@@ -434,6 +434,14 @@ an honest illustration that this bound is one tool among several.)
   and the \(S_m\) symmetry break for \(M\).
 - `local.py` — all seven local lemmas, checked on every vertex and vertex
   pair of the \(656\) known \((5,5,42)\)-graphs, with sharpness reported.
+- `orbitbound.py`, `ORBIT-FIXED-POINT-BOUND.md` — the general orbit form of
+  researcher-1's involution lemma: \(|\operatorname{Fix}(G)| \le R(s-\omega,t)
+  - 1 + R(s,t-\alpha) - 1\) at every orbit. Reduces the order-4 case lists from
+  \(90\) and \(1347\) to \(84\) and \(1328\), and gives \(17\) and \(13\) for
+  the orbit sizes a larger group would have.
+- `orbit4_exact.py`, `orbit4_witness.g6` — the attempt to sharpen that bound at
+  \(|O| = 4\), and the audited \(30\)-vertex witness showing it is already
+  exactly tight.
 
 ## Reproduction
 
