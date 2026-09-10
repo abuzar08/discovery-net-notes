@@ -433,28 +433,55 @@ def sweep_fast(f, n, cap, warm=None, log=None):
     pres, work = {}, os.path.join(SCRATCH, "fixmax", f"fast_f{f}_n{n}")
     os.makedirs(work, exist_ok=True)
     cnf = os.path.join(work, "x.cnf")
+
+    # RESUME.  This sweep has now been lost three times to a session ending
+    # mid-run, each time discarding hundreds of completed refutations.  Every
+    # per-pair verdict is appended to a journal and replayed on restart, so a
+    # sweep costs only the pairs nobody has done yet.
+    jpath = os.path.join(work, "journal.txt")
+    done = {}
+    if os.path.exists(jpath):
+        with open(jpath) as fh:
+            for line in fh:
+                t = line.split()
+                if len(t) == 4:
+                    done[(int(t[0]), int(t[1]), int(t[2]))] = int(t[3])
+    if done and log:
+        print(f"        resuming: {len(done)} pairs already decided",
+              flush=True)
+    jfh = open(jpath, "a")
+
     for k, (a, ia, ib) in enumerate(order):
         b = f - a
-        if (a, b) not in pres:
-            pres[(a, b)] = precompute(n, "C4", a, b)
-        A = X.load35(a)[ia]
-        B = X.complement(b, X.load35(b)[ib])
-        r = specialise(pres[(a, b)], bits_of(A, a), bits_of(B, b))
-        if r is None:
-            continue                       # already contains a K_5 or I_5
-        nv, cls = r
-        with open(cnf, "w") as fh:
-            fh.write(f"p cnf {nv} {len(cls)}\n")
-            for c in cls:
-                fh.write(" ".join(map(str, c)) + " 0\n")
-        rc = subprocess.run(["timeout", str(cap), CAD, "-q", cnf],
-                            capture_output=True, text=True).returncode
+        rc = done.get((a, ia, ib))
+        if rc is None:
+            if (a, b) not in pres:
+                pres[(a, b)] = precompute(n, "C4", a, b)
+            A = X.load35(a)[ia]
+            B = X.complement(b, X.load35(b)[ib])
+            r = specialise(pres[(a, b)], bits_of(A, a), bits_of(B, b))
+            if r is None:
+                rc = 20                    # already contains a K_5 or I_5
+            else:
+                nv, cls = r
+                with open(cnf, "w") as fh:
+                    fh.write(f"p cnf {nv} {len(cls)}\n")
+                    for c in cls:
+                        fh.write(" ".join(map(str, c)) + " 0\n")
+                rc = subprocess.run(["timeout", str(cap), CAD, "-q", cnf],
+                                    capture_output=True, text=True).returncode
+            if rc in (10, 20):             # only record settled verdicts
+                jfh.write(f"{a} {ia} {ib} {rc}\n")
+                jfh.flush()
         if rc == 10:
+            jfh.close()
             return ("SAT", (a, ia, ib), k + 1, len(order))
         if rc != 20:
+            jfh.close()
             return ("NO-VERDICT", (a, ia, ib), k + 1, len(order))
         if log and (k + 1) % 50 == 0:
             print(f"        {k+1}/{len(order)} refuted", flush=True)
+    jfh.close()
     return ("UNSAT", None, len(order), len(order))
 
 
