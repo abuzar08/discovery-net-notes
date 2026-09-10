@@ -2461,3 +2461,72 @@ remaining. Scratch 8.5 GB.
    \(2^{a}\cdot3\).
 4. Consider opening the order-4 question: first find a bound on the fixed points of an
    involution, since without one the enumeration of order-4 actions is too large.
+
+## 2026-09-10 pass 52
+
+### Published: a bound for involutions, and the order-4 question sized
+Added to `graph-ramsey-theory/r55-42-automorphism-census/` (commits c81e3ad,
+48cfc5d). The census note had said this lane "needs a bound on the fixed points of an
+involution and has never proved one". It does now.
+
+**Lemma.** An involution of a \((5,5,42)\)-graph has at most 36 fixed points.
+
+Proof in the artifact. For a 2-cycle \(C = \{u, \sigma u\}\) every fixed vertex is
+joined to both or to neither, so \(F = A_C \sqcup B_C\). If \(u \sim \sigma u\), a
+triangle in \(A_C\) plus \(u, \sigma u\) is a \(K_5\), so \(A_C\) is a
+\((3,5)\)-graph and \(|A_C| \le 13\); an independent 4-set in \(B_C\) plus \(u\) is an
+independent 5-set, so \(B_C\) is a \((5,4)\)-graph and \(|B_C| \le 24\). The
+complement handles the non-edge case, and \(f\) is even, so \(f \le 36\).
+
+The bound is weak — every involution in the census is fixed-point-free — but it is
+what makes the order-4 enumeration finite: **90 \(Z_4\) cycle types** and **1347
+\(Z_2 \times Z_2\) actions**.
+
+### Why involutions themselves are not excludable, structurally
+Worth recording because it explains the shape of this whole lane. A single involution
+collapses the 861 vertex pairs into only **441 to 747** orbits — *more* than the 311
+to 331 of a single order-3 element, and far more than the 97 to 143 of the order-9
+work. The orbit encoding gets its power from collapse, so the involution is exactly
+the case where the method has least to offer. And the involution is precisely the
+symmetry that actually occurs. That is not a coincidence: the method is cheap where
+symmetry is large, and large symmetry is what extremal graphs do not have.
+
+### Measured: order 4 is a project, not an afternoon
+I sized all 90 \(Z_4\) types (221 to 637 pair orbits) and probed the smallest,
+\(1^{0}2^{1}4^{10}\) — 221 orbits, 424084 clauses, a *smaller* formula than any open
+order-3 type. It **did not fall to a single CaDiCaL call in the 10 minutes it was
+given**, against 8 s and 179 s for the order-9 types at 109 and 101 orbits. So the
+jump from about 100 orbits to about 220 is where this method stops being cheap, and
+the orbit count alone does not predict difficulty. Order 4 needs cube-and-conquer.
+
+I started a longer probe and then stopped it: a longer single call would not change
+the strategic conclusion, and the scratch discipline allows two background
+computations, which the two \(Z_3\times Z_3\) splits already are. The text in the
+artifact says only what was measured.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Six artifacts await a block.
+
+### Published
+Commits c81e3ad (involution bound, order-4 sizing) and 48cfc5d (a claim corrected to
+what was actually measured, after I had written "40 minutes" on the strength of a
+10-minute observation).
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_d14`: 961 of 16384 recorded, 49 hard, mean 29.4 s.
+- `z3sq/a0_b2000_c4_d14`: 1253 of 16384 recorded, 77 hard, mean 23.2 s.
+The hard fraction is rising with depth (3.4 to 5.1 percent) and the mean solve time
+with it, so the earlier "half a day each" was optimistic; on current throughput these
+are roughly a day each. Scratch 8.5 GB.
+
+### Next step (concrete)
+1. Collect the two `_d14` runs, verify with `verify_groupenc.py --cubes`, and promote
+   Theorem 2 of `r55-42-no-z3-squared` with both corollaries.
+2. The roughly 130 hard cubes across the two runs should be split deeper rather than
+   escalated; that has been the right call every time in this lane.
+3. Then \(3^{2}9^{4}\), which with the above gives \(|\mathrm{Aut}(G)| = 2^{a}\) or
+   \(2^{a}\cdot3\).
+4. Order 4 is now enumerable and sized but needs a cube-and-conquer effort. Note the
+   existing `cyctype.py` and `verify_cyctype.py` already handle arbitrary cycle types,
+   so the \(Z_4\) case needs no new encoder — only the prefix machinery.
