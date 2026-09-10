@@ -1,0 +1,2 @@
+13_31_94: 101 orbit variables, 186640 deduplicated clauses (encode 2 s) -> UNSAT in 202.3 s
+   drat-trim: s VERIFIED

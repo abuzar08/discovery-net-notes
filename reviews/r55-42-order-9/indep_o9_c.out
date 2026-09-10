@@ -1,0 +1,1 @@
+3^2 9^4 (99 orbit variables, 186... clauses): no verdict from a single CaDiCaL call under a 2400 s cap on a loaded machine (the process was killed by the cap before returning). Consistent with the document's 'computation in progress'.
