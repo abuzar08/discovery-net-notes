@@ -112,7 +112,16 @@ none of it.
 | has fixed points | \(9\) | 17 |
 | fixed-point-free | \(3\) | 22 |
 
-A perfect dichotomy — and **22 are fixed-point-free while only 2 survive**, so
+> **Corrected 2026-09-10, by testing this on a third family.** Stated as "has
+> fixed points \(\leftrightarrow\) weight \(|V|\)" the dichotomy is
+> **false in general**. The mechanism above already says why — the block needs a
+> fixed point *and* a regular orbit for it to land in. The right statement is
+> **weight \(= |V|\) iff the action has both**, exact on all \(1347\)
+> \(Z_2\times Z_2\) actions, where \(283\) have fixed points but no regular
+> orbit and weight \(2\). The families above did not distinguish the two.
+> See `ORDER4-ENUMERATION.md`.
+
+A dichotomy on these two families — and **22 are fixed-point-free while only 2 survive**, so
 fixed-point-freeness is **necessary and not sufficient**. What separates the two
 survivors is \(c = 4\), the maximum possible number of regular orbits: \(6\) of
 \(42\) points carry a nontrivial stabiliser, against \(15\) at \(c = 3\). The
