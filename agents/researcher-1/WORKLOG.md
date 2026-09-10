@@ -2530,3 +2530,90 @@ are roughly a day each. Scratch 8.5 GB.
 4. Order 4 is now enumerable and sized but needs a cube-and-conquer effort. Note the
    existing `cyctype.py` and `verify_cyctype.py` already handle arbitrary cycle types,
    so the \(Z_4\) case needs no new encoder — only the prefix machinery.
+
+## 2026-09-10 pass 53
+
+### Measured, then acted on: the degree window is the first speed-up that works
+The survey's "what was tried" section listed four failures. It now lists a success,
+and I changed a decision on the strength of it (commits 53627c2, 2c0190f).
+
+**The constraint.** Every vertex of a \((5,5,42)\)-graph has \(17 \le d(v) \le 24\),
+since \(N(v)\) induces a \((4,5)\)-graph and its complement a \((5,4)\)-graph and
+\(R(4,5) = 25\). It excludes no solution, so the augmented formula has exactly the
+same models as the plain one. On a group-orbit formula all vertices of one orbit
+share a degree, so one totalizer per vertex orbit suffices — six for a
+\(Z_3 \times Z_3\) action, 12528 clauses over 99 orbit variables.
+
+**The measurement.** Ten cubes drawn from the recorded hard cubes of
+\((0;2,0,0,0;4)\), run concurrently under the same machine load:
+
+| | refuted | total | mean |
+|---|---|---|---|
+| plain orbit formula | 10 of 10 | 1709 s | 171 s |
+| plus the degree window | 10 of 10 | 608 s | 61 s |
+
+A factor of 2.8, and the mean falls below the 120 s limit those cubes had timed out
+at. The contrast with the four failures is instructive: the constraint that helps is
+the one *implied by the target property itself* rather than bolted on as a
+symmetry-breaking or counting refinement.
+
+### A decision reversed within the pass, and why
+Having measured this, I first decided **not** to adopt it — the \(Z_3\times Z_3\)
+artifact's distinguishing feature is a trust boundary containing nothing but the
+orbit-encoding lemma, and I judged the running plain-formula sweeps would finish
+anyway. I published that reasoning.
+
+Then I looked at the hard-cube fraction **by index band** instead of in aggregate:
+
+```
+cubes     0- 249:  0.0% hard        cubes  750- 999: 18.8% hard
+cubes   250- 499:  2.4% hard        cubes 1000-1249:  7.6% hard
+cubes   500- 749:  2.0% hard        cubes 1250-1749: 17.6-19.5% hard
+```
+
+The first 250 cubes were 0 percent hard. The projection my judgement rested on was
+built on exactly the easy front of the file I have twice before warned myself about,
+and the real fraction is 10 to 20 percent — around 2500 timeouts per run rather than
+a few hundred. So I reversed: stopped both sweeps, rebuilt with the degree window,
+and restarted from scratch on the augmented formula. The trust boundary grows by
+exactly one cited lemma, the same one every other artifact in this lane already uses.
+
+The lesson is not "the degree window is good" but that I keep reading aggregate hard
+fractions when the quantity is drifting with cube index. Band it.
+
+### Verification for the new constraint
+`verify_groupenc.py --degree` regenerates the totalizers with its own implementation
+rather than importing the generator's, so a transcription error surfaces as a
+clause-set mismatch. Five negative controls all reject as they should: wrong orbit
+data; data that is not an action on 42 points; a literal flipped inside one degree
+clause (1 absent, 1 unexpected); the degree clauses deleted (12520 absent); and an
+augmented file checked without `--degree` (12520 unexpected). Also fixed an argument
+parser that was taking `--fmax`'s value as a certificate path.
+
+### stop_run.sh strengthened
+It missed pool workers caught *between* cubes — nothing names those, since the match
+is on the cube being solved. It now also sweeps orphaned spawn workers whose working
+directory is this workspace.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Seven artifacts await a block.
+
+### Published
+Commits 53627c2 (the measurement) and 2c0190f (adopting it, with the reversal and its
+reason recorded in the artifact itself).
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 16384 cubes on the augmented formula, 7 workers, 120 s.
+- `z3sq/a0_b2000_c4_deg`: same.
+Both restarted from scratch; 117 and 347 cubes in, no timeouts yet — but those are the
+easy front of the file and I am not projecting from them. Scratch 8.5 GB.
+
+### Next step (concrete)
+1. Collect both runs, verify with `verify_groupenc.py --degree --cubes`, and promote
+   Theorem 2 of `r55-42-no-z3-squared` with both corollaries.
+2. Report the hard fraction **by index band**, not in aggregate.
+3. Then \(3^{2}9^{4}\), which with the above gives \(|\mathrm{Aut}(G)| = 2^{a}\) or
+   \(2^{a}\cdot3\).
+4. Order 4 remains sized and enumerable; start it with the degree window, which is
+   where a factor of three will matter far more than it did here.
