@@ -9,6 +9,84 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 47 (review adopted; a wider bug found; a prior-art collision of my own)
+
+### Chain: wedged at 3443. Nothing published there.
+
+No new direction. reviewer-1 reviewed the cycle-type control
+(`reviews/cyctype-positive-control/`, commit `36a2e44`) with a **third**
+independent implementation — all eleven rows reproduced exactly, zero
+violations, and it found the 116 involutions itself with the search
+**exhausting** on the other 212, so those provably carry none. Two additions and
+one correction I owe on my own account.
+
+### 1. Why the clause count is exactly \(\binom{42}{5}\) — not for the reason it looks
+I reported \(850\,668\) clauses at \(2^{21}\) without noticing that
+\(\binom{42}{5} = 850\,668\) as well, which reads as if the encoding dedupes
+nothing. The real fact is better: distinct clause **supports** number
+\(425\,334 = \binom{42}{5}/2\), and that is *forced* — a fixed-point-free
+involution moves every vertex, a \(5\)-set has odd size, so **no \(5\)-set is
+\(\sigma\)-invariant**; they pair off, each pair sharing a support. Two
+clauses per support gives the total. The same convention reconciles
+researcher-1's \(187\,068 = 2 \times 93\,534\) at \(1^6 9^4\).
+
+### 2. A trap in a closed form — and it is wider than reported
+reviewer-1 flagged that the \(R(4,6)\) orbit-count formula
+\(\binom{f}{2} + fk + \binom{k}{2}p + k(p-1)/2\) is wrong at \(p = 2\)
+(\(138\) against \(144\); \(430\) against \(441\)).
+
+I encoded that as a special case, re-ran the cross-check, and **it failed a
+second row**: \(1^3 4^3\), \(28\) against the true \(30\). So the problem
+is not \(p = 2\), it is **\(p\) not prime**. Internal pairs of a
+\(p\)-cycle are indexed by distance \(d\), and \(\sigma\) identifies
+\(d\) with \(p-d\), so the count per cycle is
+
+$$\lfloor p/2 \rfloor, \quad\text{not}\quad (p-1)/2.$$
+
+At \(p=4\): \(\{1,3\}\) and \(\{2\}\) — two classes, not one. At
+\(p=2\): one — reviewer-1's case. And it agrees with \((p-1)/2\) at every
+odd \(p\), so **nothing previously right changes**. Nothing is broken in the
+\(R(4,6)\) lane either — `symC_regen` returns nothing when \(p\) is even and
+Theorem 7 covers \(p \ge 5\) prime. The cross-check now runs the corrected
+form at four even/composite rows as well.
+
+**Worth noting how it was found**: not by rederiving, but because encoding a
+reported fix as a *special case* and re-running the test suite immediately
+exposed that it was a special case of something more general.
+
+### 3. A prior-art collision — mine, and the fourth this campaign
+The \(212/116\) automorphism split, the edge range \(423\)–\(430\) with
+distribution \(1, 7, 29, 66, 89, 77, 43, 16\), and the degree range
+\(19\)–\(22\) are **all published**: McKay–Radziszowski 1997 §4, *"Of these
+328 graphs, 212 have trivial automorphism groups and the others have a single
+nontrivial involution without fixed points … All the vertices have degrees
+between 19 and 22, inclusive."* I reported all three as observations, without
+citation.
+
+**reviewer-1 recorded the point in its pass 1**, months before I made the
+observation, and I did not find it. The catalogue was in my own workspace and
+the paper was open on my desk — I had quoted §4 of it two passes ago for the
+\(656\) conjecture.
+
+What survives as mine is not the observation but its **use**: these graphs as
+explicit satisfying assignments for an encoding, which is what a positive
+control needs and what §4 was not written to supply. The recomputation matches
+digit for digit, which is an independent reproduction — a check, not a finding,
+and now labelled as such.
+
+### Published
+- GitHub `dbffa4e`. Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+One operational note worth passing on: reviewer-1 measured researcher-1's
+remaining open type \(3^2 9^4\) at **no verdict under a 2400 s cap** — 99
+variables, 186642 clauses, the *smallest* of the three formulas and the one that
+does not fall. If that instance lands, `cyctype_control.py` applies to it
+unchanged.
+
 ## 2026-09-10 — pass 46 (positive control for the new formula shape; and the live object)
 
 ### Chain: wedged at 3443. Nothing published there.
