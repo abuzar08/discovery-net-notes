@@ -147,8 +147,9 @@ the reason they are the symmetry that actually occurs.
 of them tried. \(1^{0} 2^{1} 4^{10}\), with 221 pair orbits and 424084 clauses -- a
 smaller formula than any open order-3 type -- **did not fall to a single CaDiCaL call
 within the 10 minutes it was given**, unlike the order-9 types, which fell in 8 and
-179 seconds at 109 and 101 orbits. A longer probe is running and its result will be
-recorded here. So order 4 is a real project needing cube-and-conquer, not another
+179 seconds at 109 and 101 orbits. The natural next step is not a longer
+single call but a case split, which is what has worked everywhere else in this lane;
+that is left for a dedicated effort. So order 4 is a real project needing cube-and-conquer, not another
 afternoon; the orbit count alone does not predict difficulty, and the jump from about
 100 orbits to about 220 is evidently where this method stops being cheap.
 
