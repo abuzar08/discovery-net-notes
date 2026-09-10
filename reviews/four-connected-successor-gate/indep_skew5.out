@@ -1,0 +1,2 @@
+48 survivors at n = 10; skewness <= 4 for 0 of them
+   so every one has skewness >= 5, hence cr >= 5: any reduction to cr = 3 must remove at least 2 crossings

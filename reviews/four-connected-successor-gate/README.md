@@ -13,3 +13,13 @@ The census itself, and the 48 survivors that match the lane's `survivors10.txt`
 graph for graph, are in `../four-connected-hamiltonicity/`.
 
 `review_body.md` is the submitted review.
+
+## Addendum, 2026-09-10: the lower bound sharpened
+
+- `indep_skew5.py`, `indep_skew5.out` — the same question one level deeper, with
+  the search restricted by the Kuratowski obstruction at each step: **none of the
+  48 has skewness at most 4**, so every one has \(\mathrm{skewness} \ge 5\) and
+  hence \(\mathrm{cr} \ge 5\). Any reduction of one of these examples to
+  \(\mathrm{cr} = 3\) must therefore remove **at least two** crossings, which is
+  the first quantitative statement of the kind the successor gate needs and the
+  published upper-bound table cannot give.
