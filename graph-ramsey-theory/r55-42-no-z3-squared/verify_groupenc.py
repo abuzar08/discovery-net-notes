@@ -125,21 +125,97 @@ def regenerate(a, b, c, fmax):
         M = tuple(sorted({var[e] for e in combinations(S, 2)}))
         clauses.add(M)
         clauses.add(tuple(sorted(-x for x in M)))
-    return len(roots), clauses, (fixes, len(G))
+    return len(roots), clauses, (fixes, len(G), sig, tau, var)
+
+class VTot:
+    """Totalizer, reimplemented here rather than imported, so that a transcription
+    error in the generator shows up as a clause-set mismatch."""
+    def __init__(self, nv):
+        self.nv = nv
+        self.cls = []
+
+    def fresh(self):
+        self.nv += 1
+        return self.nv
+
+    def unary(self, lits):
+        m = len(lits)
+        if m == 1:
+            return list(lits)
+        left = self.unary(lits[:m // 2])
+        right = self.unary(lits[m // 2:])
+        out = [self.fresh() for _ in range(len(left) + len(right))]
+        A = [None] + left
+        B = [None] + right
+        for i in range(len(left) + 1):
+            for j in range(len(right) + 1):
+                if i + j >= 1:
+                    self.cls.append([x for x in (-A[i] if i else None,
+                                                 -B[j] if j else None,
+                                                 out[i + j - 1]) if x is not None])
+                if i + j < len(out):
+                    self.cls.append([x for x in (-out[i + j],
+                                                 A[i + 1] if i + 1 <= len(left) else None,
+                                                 B[j + 1] if j + 1 <= len(right) else None)
+                                     if x is not None])
+        return out
+
+def degree_clauses(sig, tau, var, nv, n=42, lo=17, hi=24):
+    """The redundant degree window, regenerated.
+
+    Every vertex of a (5,5,42)-graph has lo <= d(v) <= hi, because N(v) induces a
+    (4,5)-graph and its complement a (5,4)-graph and R(4,5) = 25. The constraint
+    excludes no solution, so the augmented formula has the same models as the plain
+    one. Vertices in one orbit share a degree, so one totalizer per vertex orbit.
+    """
+    seen, reps = set(), []
+    for v in range(n):
+        if v in seen:
+            continue
+        orb, stack = set(), [v]
+        while stack:
+            x = stack.pop()
+            if x in orb:
+                continue
+            orb.add(x)
+            stack += [sig[x], tau[x]]
+        seen |= orb
+        reps.append(v)
+    tot = VTot(nv)
+    E = lambda u, w: var[(u, w) if u < w else (w, u)]
+    for v in reps:
+        outs = tot.unary([E(v, u) for u in range(n) if u != v])
+        tot.cls.append([-outs[hi]])
+        tot.cls.append([outs[lo - 1]])
+    return reps, tot.cls, tot.nv
+
 
 def main():
     cnf = sys.argv[1]
     a = int(sys.argv[2]); b = [int(x) for x in sys.argv[3].split(',')]; c = int(sys.argv[4])
-    rest = [x for x in sys.argv[5:] if not x.startswith('--')]
+    # positional argument after c is the certificate; skip flags and their values
+    FLAGVAL = {'--fmax', '--cubes'}
+    rest, i, argv = [], 5, sys.argv
+    while i < len(argv):
+        if argv[i].startswith('--'):
+            i += 2 if argv[i] == '--fmax' else (3 if argv[i] == '--cubes' else 1)
+            continue
+        rest.append(argv[i]); i += 1
     lrat = rest[0] if rest else None
     fmax = int(sys.argv[sys.argv.index('--fmax') + 1]) if '--fmax' in sys.argv else 12
     nv, want, info = regenerate(a, b, c, fmax)
     if nv is None:
         print(f'ACTION REJECTED: {info}')
         return 1
-    fixes, order = info
+    fixes, order, sig, tau, var = info
     print(f'action a={a} b={tuple(b)} c={c}: faithful Z_3 x Z_3 (group order {order}) on 42 points; '
           f'fixed points of the 8 non-identity elements {fixes}, all <= {fmax}')
+    if '--degree' in sys.argv:
+        reps, dcls, _ = degree_clauses(sig, tau, var, nv)
+        want |= {tuple(sorted(cl)) for cl in dcls}
+        print(f'degree window 17..24 on {len(reps)} vertex orbits: {len(dcls)} clauses '
+              f'regenerated (redundant: satisfied by every (5,5,42)-graph, so the '
+              f'augmented formula has the same models as the plain one)')
     _, cls = read_dimacs(cnf)
     got = {tuple(sorted(cl)) for cl in cls}
     print(f'{nv} orbit variables, {len(want)} clauses regenerated; {cnf} has {len(cls)} clauses '

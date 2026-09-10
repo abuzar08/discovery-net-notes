@@ -103,11 +103,32 @@ on the chain. Nothing here depends on the second section of
 
 ## Method
 
-Each action is attacked on the plain orbit encoding of the *group*, with no redundant
-cardinality constraints and no symmetry-breaking clauses. Thirty-seven fall to a
-single solver call; the remaining two are split by a plain case distinction on 14
-Booleans, which needs no group argument and whose exhaustiveness the checker verifies
-directly.
+Thirty-seven of the 39 actions are refuted on the plain orbit encoding of the
+*group*, with no redundant cardinality constraints and no symmetry-breaking clauses,
+each by a single solver call.
+
+The remaining two need more, and get two things. First, a plain case distinction on
+14 Booleans -- all \(2^{14}\) sign patterns of the 14 orbit variables occurring in
+the most clauses -- which needs no group argument and whose exhaustiveness the checker
+verifies directly. Second, the redundant **degree window**: every vertex of a
+\((5,5,42)\)-graph has \(17 \le d(v) \le 24\), because \(N(v)\) induces a
+\((4,5)\)-graph and its complement a \((5,4)\)-graph, and \(R(4,5) = 25\). This
+excludes no solution -- every \((5,5,42)\)-graph satisfies it -- so the augmented
+formula has exactly the same models as the plain one and refuting it proves the same
+statement. All vertices of one orbit share a degree, so one totalizer per vertex
+orbit suffices: six of them, 12528 clauses.
+
+That last addition is a deliberate reversal, and the reason is worth recording.
+These two actions were first run on the plain formula, and I judged the extra
+constraint not worth the enlarged trust boundary because the runs would finish
+anyway. Then the hard-cube fraction by index band showed the first 250 cubes at
+0 percent hard against 10 to 20 percent in later bands -- the early cubes were simply
+the easy front of the file -- so the projection the judgement rested on was wrong. On
+ten cubes drawn from the recorded hard ones, run concurrently under the same load,
+the plain formula took 1709 s and the augmented one 608 s, both refuting all ten;
+the mean fell from 171 s to 61 s, below the 120 s limit at which those cubes had
+timed out. The trust boundary grows by exactly one cited lemma, the same degree
+window every other artifact in this lane already uses.
 
 The lemma of `../r55-42-order-9-automorphisms` holds verbatim with the cyclic group
 replaced by any group \(V\) of automorphisms: the edge relation of a \(V\)-invariant
@@ -229,8 +250,11 @@ and the 37 certificates were each replayed to the empty clause
 
 **Negative controls.** The checker was confirmed to reject, rather than pass
 silently: a formula checked against the wrong orbit data (reported as a clause-set
-mismatch in both directions), and orbit data that does not describe an action on 42
-points (rejected before any formula work). The certificate replay inherits the
+mismatch in both directions); orbit data that does not describe an action on 42
+points (rejected before any formula work); a literal flipped inside one degree
+clause (one clause absent, one unexpected); the degree clauses deleted (12520
+absent); and an augmented formula checked without `--degree`, so that the degree
+clauses are unexpected (12520 unexpected). The certificate replay inherits the
 controls recorded in `../r55-42-order-9-automorphisms` -- a deleted clause, a flipped
 literal, a truncated proof and an empty proof are all rejected -- since it is the same
 replay code.
@@ -298,7 +322,11 @@ Theorem 5.4.10, used in Corollary 1.
 - `z3sq_types.py` — enumerates the 39 actions from the fixed-point bound.
 - `groupenc.py` — the generator: builds the action from its orbit data, the pair
   orbits under the group, and the two clauses per 5-set orbit.
-- `verify_groupenc.py` — the independent checker described above.
+- `verify_groupenc.py` — the independent checker described above. Its `--degree`
+  mode also regenerates the degree-window totalizers, with its own totalizer
+  implementation rather than the generator's, so a transcription error shows up as a
+  clause-set mismatch.
+- `groupenc_deg.py` — the generator with the degree window added.
 - `groupenc_control.py` — the positive control, which exercises the published
   generator functions at parameters where witnesses exist.
 - `logs/verify_actions.log` — for all 39 actions, the check that the object built is

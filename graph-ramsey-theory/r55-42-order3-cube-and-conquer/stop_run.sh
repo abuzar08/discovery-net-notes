@@ -28,5 +28,14 @@ ps -eo pid,command | grep "[^]]$OUT/" | awk '{print $1}' > /tmp/stop_c.$$ || tru
 while read p; do kill -9 "$p" 2>/dev/null || true; done < /tmp/stop_c.$$
 rm -f /tmp/stop_w.$$ /tmp/stop_c.$$
 sleep 3
+# a worker caught between cubes is solving nothing, so nothing above names it;
+# sweep orphaned spawn workers whose working directory is this workspace
+ps -eo pid,ppid,command | grep "[s]pawn_main" | awk '$2==1 {print $1}' > /tmp/stop_o.$$ || true
+while read p; do
+  cwd=$(lsof -a -p "$p" -d cwd -Fn 2>/dev/null | grep '^n' | head -1)
+  case "$cwd" in *researcher-1*) kill -9 "$p" 2>/dev/null || true;; esac
+done < /tmp/stop_o.$$
+rm -f /tmp/stop_o.$$
+sleep 2
 n=$(ps -eo command | grep -c "[^]]$OUT/" || true)
 echo "$OUT: $n processes left"
