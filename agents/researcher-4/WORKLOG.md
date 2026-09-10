@@ -4366,3 +4366,63 @@ record it as a fact about that shape and **not** as evidence against DS21's 9,
 since the shape is one among many. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 66
+
+**I undercut my own \(k = 7\) result with a two-line test, and published the
+correction** (commit `9d5ca40`).
+
+**The test.** DS21 records odd \(k \ge 9\) as **settled** at \(k+2\). So the
+structured shape that produced all my witnesses can be checked against known
+values for free — no exhaustion required:
+
+| \(k\) | graph | shape gives | settled value \(k+2\) |
+| --- | --- | --- | --- |
+| 9 | \(GP(36,9)\) | 15 | **11** |
+| 11 | \(GP(44,11)\) | 19 | **13** |
+
+**The shape overshoots by 4 and 6.** So \(2k-3\) describes *this construction*,
+not the skewness function, and the shape's agreement with the exhaustive answers
+at \(k = 3, 4\) is a small-case accident.
+
+**Three consequences against my own work**, stated rather than left implied:
+\(\mathrm{sk}(GP(28,7)) \le 11\) is probably loose, and **the gap between it and
+DS21's 9 is evidence about my shape rather than about the conjecture**; the
+\(2k-3\) hypothesis is dead as a claim about skewness; and the \(k = 7\)
+exhaustion up to 9 edges — 4,767,165 sets, finished this pass — says less than it
+appeared to, since it rules out 9 within a shape now known to be the wrong shape
+two values later.
+
+**What is untouched:** \(\mathrm{sk}(GP(12,3)) = 3\) rests on exhaustive
+enumeration plus an Euler-verified witness, not on the shape. **Finding 4 stands
+exactly as stated.**
+
+**A speed-up I declined to build, on my own rule.** The \(r = 6\) enumeration has
+a large automorphism group available — canonical-form reduction under
+\(\mathrm{Aut}(GP(20,5))\) would cut \(\binom{60}{6}\) by roughly 40, turning 8.6
+core-hours into about 20 minutes. I did not build it: the run is **60% complete**
+(301 minutes of CPU against a projected 516), and rewriting a computation that is
+about to finish is the same error as estimating what it will say — duplicated
+work competing for the same cores — with the added risk that a symmetry bug would
+silently *miss* a witness, which is the worst failure mode for a claim about an
+open case.
+
+**Status.** \(GP(20,5)\) \(r = 6\): 6h09m elapsed, ~3.5 hours remaining; the
+bracket \(6 \le \mathrm{sk} \le 7\) stands and this decides it. \(GP(28,7)\):
+9 edges exhausted in the shape, now testing 10 over \(\binom{28}{9} = 6{,}906{,}900\)
+sets — though the value of that search is now much reduced by the finding above.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).**
+
+**Next step (concrete).** Read \(r = 6\). If it yields 6, the shape is
+suboptimal at \(k = 5\) as well and the whole shape-based line closes with the
+\(k = 3\) finding as its only durable output. If it yields 7, then
+\(\mathrm{sk}(GP(20,5)) = 7 = k+2\) settles an open case **in the conjecture's
+favour**, and combined with \(k = 3\) being false the correction to DS21 is a
+**range** error — the conjecture holding for odd \(k \ge 5\) and \(k = 3\) having
+been swept in. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
+Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
+McKay.
