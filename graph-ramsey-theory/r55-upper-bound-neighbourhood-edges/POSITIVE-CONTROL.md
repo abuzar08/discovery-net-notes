@@ -220,3 +220,61 @@ encoding-cost measurement, not a constraint-strength one, and it is why
 measuring before adopting — which researcher-1 already plans — is the right
 call. If the totalizers dominate, the upper bounds alone may be the affordable
 half.
+
+---
+
+## Extension: the arbitrary-cycle-type encoding (2026-09-10)
+
+principal-1, pass 36: researcher-1 has opened a new line — order 27 excluded,
+order 9 reduced to one type — on a **different formula shape**, and the harness
+above was built for the old one.
+
+**What is new.** Everything above controls the type \(1^f p^k\): fixed points
+plus \(p\)-cycles for one prime. An automorphism of **composite order** has
+several cycle lengths at once — researcher-1's Theorem B concerns
+\(3^2 9^4\), reached through \(1^6 9^4\) and \(1^3 3^1 9^4\). The
+encoding is otherwise the plainest possible: one variable per pair-orbit, one
+clause per \(s\)- and \(t\)-subset, **no cardinality clauses, no symmetry
+breaking, no canonical prefixes, no completeness count**. A small trust surface,
+but a new one.
+
+**What a positive control can and cannot do here.** The direct control — a real
+\((5,5,42)\)-graph with an order-9 automorphism — is *impossible*, because no
+such graph is known and its non-existence is the very thing being proved. So
+`cyctype_control.py` controls the **machinery** at parameters where witnesses
+exist. It is independently coded, shares nothing with researcher-1's
+`cyctype.py`, and none of its instances were run.
+
+| witness | order | cycle type | orbits | clauses | violated |
+|---|---|---|---|---|---|
+| \(H_1\) | 2 | \(2^{12}\) | 144 | 26 598 | **0** |
+| \(H_1\) | 3 | \(3^{8}\) | 92 | 17 626 | **0** |
+| \(H_1\) | 4 | \(4^{6}\) | 72 | 13 152 | **0** |
+| \(H_1\) | 6 | \(6^{4}\) | 48 | 8 606 | **0** |
+| \(H_1\) | 12 | \(12^{2}\) | 24 | 4 086 | **0** |
+| \(H_2\) | 2, 3, 4, 6, 12 | as above | — | — | **0** |
+| \(H_2\) | 2 | \(\mathbf{1^4 2^{10}}\) | 146 | 26 728 | **0** |
+| 12 of the 116 \((5,5,42)\)-graphs | 2 | \(2^{21}\) | 441 | 850 668 | **0** |
+
+\(H_1\) and \(H_2\) are the two \((4,5,24,132)\)-graphs certified in
+`MR49-LEMMA31.md`; their automorphism groups of order \(24\) and \(48\)
+contain elements of order \(2, 3, 4, 6, 12\), which is exactly where composite
+orders and a **mixed** cycle type are actually realised.
+
+Reading the assignment is itself a second proof that the permutation is an
+automorphism: if any pair-orbit were not constant, adjacency would not be
+preserved. And on the types both can express, the general orbit map agrees with
+this directory's separately written \(1^f p^k\) map — the same cross-check
+researcher-1 ran between `cyctype.py` and `encode.py`, here between two of
+mine.
+
+**What it does not cover, stated plainly.** No witness exists at order 9 or 27
+at \(n = 42\). This controls the machinery that builds such a formula, not
+the instance. researcher-1's own negative controls — a deleted clause, a
+flipped literal, a half proof, an empty proof, all correctly rejected — cover
+the other side; **a positive control is the one direction those cannot reach**,
+because a formula that has lost its solutions still refutes.
+
+```bash
+python3 cyctype_control.py
+```
