@@ -19,20 +19,20 @@ PART 0b  negative control: D = 1 must always be reachable
 PART 1   the scan over all surviving configurations
    configurations scanned: 8313
    NO Tutte set can obstruct -- the route succeeds on EVERY
-   admissible H, so the configuration is IMPOSSIBLE: 1343
-   the counts still permit an obstruction: 6970
+   admissible H, so the configuration is IMPOSSIBLE: 2294
+   the counts still permit an obstruction: 6019
 
-   closed by |R|: [(19, 11), (20, 26), (21, 58), (22, 113), (23, 171), (24, 198), (25, 228), (26, 171), (27, 174), (28, 91), (29, 59), (30, 27), (31, 13), (32, 3)]
-   still open by |R|: [(11, 5), (14, 2), (15, 1), (20, 9), (21, 60), (22, 202), (23, 334), (24, 622), (25, 827), (26, 957), (27, 1059), (28, 1004), (29, 681), (30, 619), (31, 312), (32, 276)]
+   closed by |R|: [(19, 11), (20, 35), (21, 94), (22, 198), (23, 261), (24, 326), (25, 366), (26, 335), (27, 306), (28, 185), (29, 97), (30, 53), (31, 21), (32, 6)]
+   still open by |R|: [(11, 5), (14, 2), (15, 1), (21, 24), (22, 117), (23, 244), (24, 494), (25, 689), (26, 793), (27, 927), (28, 910), (29, 643), (30, 593), (31, 304), (32, 273)]
 
-   why the open ones are open: [('a parameter point survives', 2369), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 4119)]
-   the k that closed them: [(3, 903), (4, 440)]
+   why the open ones are open: [('a parameter point survives', 1418), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 4119)]
+   the k that closed them: [(3, 2201), (4, 93)]
 
 CONCLUSION
    The seven inequalities are necessary conditions on an ARBITRARY
    Tutte set, so an infeasible scan closes the configuration for
-   every admissible H, not for a sample.  1343 of 8313 configurations
-   fall; 6970 do not, and for those the counts do not decide --
+   every admissible H, not for a sample.  2294 of 8313 configurations
+   fall; 6019 do not, and for those the counts do not decide --
    which is not the same as an obstruction existing.
 
    Soundness controls: real Tutte set PASS; D = 1 negative control PASS

@@ -22,10 +22,10 @@ open**, in the single class \(b=6\), \(c=(51,1)\):
 
 | | count |
 |---|---|
-| clique blocks | 6970 |
+| clique blocks | 6019 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **7292** |
+| **total** | **6341** |
 
 ## The method inventory
 
@@ -52,7 +52,7 @@ Each row is a method, what it was applied to, and the measured outcome.
 | **\(w\)-sharpened Turán cap** \(e(H[R])\le\lfloor(\lvert R\rvert-1)^2/3\rfloor+4\) (`wturan58.py`) | removes **310**; found by failing to build an adversary |
 | Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0. Reviewer-1 (`reviews/albertson-triangle-free-neighbourhood/`) confirms the derivation and the zero-removal on the whole survivor set, and records that this cap and the \(w\)-sharpened cap are **incomparable**: apply \(\min\) of the two, never one in place of the other |
 | Block-forest lemma for \(c_A\) (`blockcut.py`) | three low vertices that pairwise share a block share a **common** block, since the block-cut tree is acyclic and two blocks meet in at most one vertex. Hence \(A\) not inside one block \(\Rightarrow\) \(H[A]\) has at most two components. Checked on 6768 Gallai forests and 719597 subsets |
-| **General Tutte obstruction count** (`tuttegen.py`) | **removes 1343** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
+| **General Tutte obstruction count** (`tuttegen.py`) | **removes 2294** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
 | \(U\)-degree inequality (6) (`tuttegen.py`) | \(\sum_{z\in R}x_z=X\le56\) makes every \(U\)-vertex nearly of degree 29, while a \(U\)-vertex has no \(A\)-neighbour at all: **a large \(U\) cannot exist**. Worth **+117**, more than the two component-count refinements together. Found by pricing, not by guessing |
 | Singleton refinement of \(c_A\) | if \(A\) is not inside one block and \(H[A]\) has two components, one is a **singleton**; \(c_A=2\) then needs an isolated \(A\)-vertex or \(p\ge2\). Worth **+12** |
 | Odd-component parity in (1) | \(o\) counts odd components, and the two families have forced parities. **No change at all**: the adversary absorbs it by shifting \(u\) or \(t\) by one |
@@ -60,8 +60,11 @@ Each row is a method, what it was applied to, and the measured outcome.
 | \(\rho\)-sum bound, **exact form** | the same idea taken from the lane's own identity, \(e(L,R)=29\lvert R\rvert-X-2e(H[R])\), so \(e(L\setminus A,U)\le e(L,R)-\sum_i a_i\rho_i\). Combined with charging \(w\) only \(d_H(w)\le4\) inside \(U\): **336 → 1343**. Neither half alone changes the count by one |
 | \(c_A\le a\) | every component meeting \(A\) holds a vertex of \(A\). **No change alone** |
 | Singleton reach for \(c_A=2\) | the singleton is a \(G\)-neighbour of every other \(A\)-vertex in \(L\), so \(a-1\le D_v\le28\): a bounded knapsack over block sizes. **+11** |
+| Singleton reach, **with the fit condition** | \(A\) must also *fit* inside \(v\)'s blocks: a block \(Q_j\) not containing \(v\) keeps \(\ge q_j-\mathrm{extra}\) private vertices of which only \(\mathrm{rem}_j\) are deleted with the triangles, so \(s_L\ge\sum_{j\notin B}\max(0,q_j-\mathrm{extra}-\mathrm{rem}_j)\). Without it the knapsack lets \(v\) reach blocks it cannot cover |
+| \(\min(\rho_v,u)\) cap on the \(L\)-budget | an \(L\setminus A\) vertex sends at most \(\min(\rho_v,u)\) edges into \(U\), not \(\rho_v\). In case B the \(q_A-a\) leftover block-mates each lose \(\max(0,\rho_A-u)\); when the blocks partition \(L\) the whole sum is exact block by block. Together with the fit condition: **1343 → 2294** |
+| Witness mode in the scan | the surviving points are now collected by `obstructed` itself. A previous pass kept a second copy of the enumeration for this, it drifted out of step with `_ok`, and two runs were wasted on the stale copy |
 | Disjoint-neighbourhood inequality (7) | \((c_A-\mathrm{iso})\max(0,\rho_A-s_R)\le\lvert W\rvert\). **0 closures alone**, but it changes the surviving shape, and the shape it exposes is what the exact \(\rho\)-sum bound then kills |
-| **Priced sensitivity table** (`slack58.py`) | how strong a sharpening must be: one unit off inequality (1) closes **all 3712** the route reaches; (2) and (4) are **inert at every handicap**; (3) and (5) need 50 to reach 546 and 2273 |
+| **Priced sensitivity table** (`slack58.py`) | how strong a sharpening must be. Its rows **move as the other inequalities move**, so it is only ever a statement about the current set; `slack58.py` therefore derives its conclusions from the measured rows rather than asserting them |
 
 **Where the two obstructions stand** (`profile58.py`): the absorption shortfall
 reaches **1**, with 3326 configurations within one unit; the crossing shortfall
@@ -159,18 +162,19 @@ and count what falls.
 | handicap | \(d=1\) | \(d=5\) | \(d=25\) | \(d=50\) |
 |---|---|---|---|---|
 | (1) count | **3712** | 3712 | 3712 | 3712 |
-| (2) degree | 1343 | 1343 | 1458 | 2495 |
-| (3) Turán | 1348 | 1373 | 1718 | 1849 |
-| (4) spread | **2871** | 2871 | 2871 | 2871 |
-| (5) \(S_R\)-degree | 1348 | 1373 | 1940 | 3111 |
+| (2) degree | 2294 | 2294 | 2323 | 2720 |
+| (3) Turán | 2299 | 2324 | 2538 | 2689 |
+| (4) spread | **2937** | 2937 | 2937 | 2937 |
+| (5) \(S_R\)-degree | 2299 | 2324 | 2588 | 3259 |
 
-Baseline 1343; the route reaches 3712 configurations in all. **One unit off the
+Baseline 2294; the route reaches 3712 configurations in all. **One unit off the
 count inequality still closes every one of them**, and the precise target remains
 a theorem \(o(H'-S)\le c_A+t-1\) holding unconditionally.
 
-**The table moves when the inequalities move, and this is worth stating.** On the
-six-inequality scan of the previous pass the spread inequality was *inert at
-every handicap*; here one unit of it is worth **+1528**. A pricing table is only
+**The table moves when the inequalities move, and this is worth stating.** On the six-inequality scan two passes ago the spread inequality was *inert at
+every handicap*; it is now worth **+643** at one unit, having been **+1528** one
+pass ago — the same row, three different verdicts, purely because the rest of
+the set moved. A pricing table is only
 ever a statement about the current set, so `slack58.py` now derives its
 conclusions from the measured rows instead of asserting them in prose — the
 prose form went stale the moment the inequalities changed underneath it, which is

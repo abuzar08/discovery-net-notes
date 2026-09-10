@@ -195,7 +195,7 @@ def max_rho_sum(n, cells):
     return tot
 
 
-def singleton_reach(mult, extra):
+def singleton_reach(mult, extra, LP=None, rem=None):
     """1 + max D_v over the low vertices v that could be the singleton.
 
     If c_A = 2 the singleton {v} is a component of H[A], so every OTHER vertex
@@ -208,20 +208,34 @@ def singleton_reach(mult, extra):
 
     So D_v is a bounded knapsack over the block sizes, and c_A = 2 forces
     a <= 1 + D_max.  There are at most five blocks, so this is exact by
-    enumeration rather than by a bound."""
+    enumeration rather than by a bound.
+
+    A also has to FIT: every vertex of A lies in one of v's blocks, so every
+    L'-vertex outside their union is in S_L.  A block Q_j not containing v keeps
+    at least q_j - extra private vertices, of which only rem[j] are deleted with
+    the triangles, so s_L >= sum_{j not in B} max(0, q_j - extra - rem[j]) and
+    hence a <= |L'| minus that.  Without this the knapsack alone permits v to
+    reach blocks it cannot actually cover.
+    """
     n = len(mult)
     best = 0
     for mask in range(1, 1 << n):
         if bin(mask).count("1") > extra + 1:
             continue
         tot = sum(mult[i] - 1 for i in range(n) if mask >> i & 1)
-        if tot <= 28:
-            best = max(best, tot)
-    return best + 1
+        if tot > 28:
+            continue
+        cand = tot + 1
+        if LP is not None and rem is not None:
+            outside = sum(max(0, mult[j] - extra - rem[j])
+                          for j in range(n) if not (mask >> j & 1))
+            cand = min(cand, LP - outside)
+        best = max(best, cand)
+    return best
 
 
 def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3,
-        rhoA=0):
+        rhoA=0, caseB=False, lcapB=None):
     """The seven inequalities at one point of the parameter space.
 
     The singleton w has x_w >= 25, so d_H(w) <= 4 while every other z in R has
@@ -281,6 +295,21 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3,
     # every A-R edge lands outside U, e(L - A, U) <= e(L,R) - e(A,R) and
     # sum_i a_i rho_i is a lower bound on e(A,R).
     lbudget = max(0, 29 * RSZ - X - 2 * eHR - rsum)
+    # A vertex of L - A sends at most min(rho_v, u) edges into U, not rho_v.
+    # In case B the composition of L - A is known: A lies inside one block, so
+    # q_A - a of that block's vertices are outside A and each has rho_v >= rho_A,
+    # hence loses at least max(0, rho_A - u) from the budget.  Without this the
+    # budget lets four vertices of rho 14 each spend 14 on a U of size 6.
+    if caseB and rhoA > 0:
+        qA = rhoA + 29 - RSZ
+        lbudget = max(0, lbudget
+                      - max(0, qA - a) * max(0, rhoA - u))
+    if lcapB is not None:
+        # When the blocks PARTITION L every vertex of block j has rho_v = rho_j
+        # exactly, so sum_{v in L - A} min(rho_v, u) is known block by block.
+        # That is the exact form of the cap above and is what the surviving
+        # shape needs: it survived inequality (6) by exactly zero without it.
+        lbudget = min(lbudget, lcapB)
     # (6) is charged per vertex of U.  When w lies in U it must NOT be charged
     # a full 28: d_H(w) <= 4.  And the L-side is bounded twice over -- by
     # u'(s_L + 3k) and by sum_{v in L - A} rho_{b(v)} = lcap, which does not
@@ -336,12 +365,26 @@ def route_closed(RSZ, mult, eHR, X=56):
     return False, "a parameter point survives"
 
 
-def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
+def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56,
+               witness=None):  # noqa: C901
     """True if some parameter point satisfies all seven inequalities.
 
     False is a proof that no Tutte set of any admissible H obstructs the
     (k, 30-2k) route, hence that theta(H) <= 28 and the configuration is
-    impossible."""
+    impossible.
+
+    Pass witness=[] to collect EVERY surviving point instead of stopping at the
+    first; the list is filled with dicts and the return value is then
+    bool(witness), which agrees with the early-exit answer.
+    Reading those points is how three of this pass's sharpenings were found, and
+    collecting them HERE rather than in a second file is deliberate: a previous
+    pass kept a separate copy of this enumeration, it drifted out of step with
+    _ok's signature, and two runs were wasted on the stale copy."""
+    def _hit(**kw):
+        if witness is None:
+            return True
+        witness.append(kw)
+        return False
     if NL is None:
         NL = N58 - RSZ
     extra = sum(mult) - NL
@@ -361,21 +404,25 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
     # cheapest blocks -- at most k from any one, which is exactly when k
     # disjoint triangles with that distribution exist -- leaves the surviving
     # low vertices as expensive as possible, which is what (2) and (5) want.
-    need, red = 3 * k, []
+    need, red, take_of = 3 * k, [], {}
     for rho, q, av in cells:
         take = min(need, k, av)
         red.append((rho, q - take))
+        take_of[(rho, q)] = take
         need -= take
     if need > 0:
         return True                      # k disjoint triangles unavailable
     cells = red
+    rem = [take_of.get((max(0, q + RSZ - 29), q), 0) for q in mult]
 
     # a = 0: every vertex of R - S_R lies in U, so W is empty
     for sR in range(0, RSZ + 1):
         u = RSZ - sR
         for t in range(1 if u else 0, u + 1):
             if _ok(RSZ, eHR, 0, 0, 0, LP, sR, u, t, 0, 0, D, X, k):
-                return True
+                if _hit(case="a0", a=0, iso=0, sL=LP, sR=sR, u=u, t=t,
+                        W=RSZ - sR - u, p=0, cA=0):
+                    return True
     # case A: A is NOT inside a single block.  In a Gallai forest three
     # vertices that pairwise share a block share a COMMON block, since the
     # block-cut tree has no cycle; so if A is not inside one block, the
@@ -389,7 +436,7 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
     # has no W-neighbour at all (then v is one of the iso vertices, which needs
     # rho_v <= s_R) or the W-vertices split, forcing p >= 2.
     minrho = min((rho for rho, cap in cells if cap > 0), default=0)
-    reach = singleton_reach(mult, extra)      # c_A = 2 needs a <= reach
+    reach = singleton_reach(mult, extra, LP, rem)   # c_A = 2 needs a <= reach
     for a in range(2, LP + 1):
         rsum = min_rho_sum(a, cells, 2 if part else 1)
         if rsum is None:
@@ -411,8 +458,11 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
                     tt = max(t, 1 if u else 0)
                     if _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, tt, p, cA,
                            D, X, k, minrho):
-                        return True
+                        if _hit(case="A", a=a, rsum=rsum, iso=iso, sL=sL,
+                                sR=sR, u=u, t=tt, W=RSZ - sR - u, p=p, cA=cA):
+                            return True
     # case B: A inside a single block, c_A <= iso + p
+    part_q = {max(0, q + RSZ - 29): q for q in mult} if part else {}
     for rh, cap in cells:
         for a in range(1, min(cap, LP) + 1):
             rsum = a * rh
@@ -430,10 +480,20 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56):  # noqa: C901
                         for u in range(t if t else 0, RSZ - sR - p + 1):
                             # every component meeting A contains a vertex of
                             # A, so c_A <= a as well as c_A <= iso + p
+                            lb = None
+                            if part and rh in part_q:
+                                qi = part_q[rh]
+                                lb = (max(0, qi - a) * min(rh, u)
+                                      + sum(q * min(max(0, q + RSZ - 29), u)
+                                            for q in mult if q != qi))
                             if _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p,
-                                   min(iso + p, a), D, X, k, rh):
-                                return True
-    return False
+                                   min(iso + p, a), D, X, k, rh, True, lb):
+                                if _hit(case="B", a=a, rho=rh, rsum=rsum,
+                                        iso=iso, sL=sL, sR=sR, u=u, t=t,
+                                        W=RSZ - sR - u, p=p,
+                                        cA=min(iso + p, a)):
+                                    return True
+    return bool(witness) if witness is not None else False
 
 
 def configurations():

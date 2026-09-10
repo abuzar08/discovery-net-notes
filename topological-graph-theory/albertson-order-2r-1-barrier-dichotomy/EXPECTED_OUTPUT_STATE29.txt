@@ -15,9 +15,9 @@ PART 2   order 57 is closed, and unaffected by every repair
    vertices outright, so neither gap ever touched order 57.
 
 PART 3   order 58, recomputed
-   row (58,838):  1682 clique-block configurations,   33 with an isolated low vertex
-   row (58,839):  2345 clique-block configurations,  102 with an isolated low vertex
-   row (58,840):  2943 clique-block configurations,  172 with an isolated low vertex
+   row (58,838):  1371 clique-block configurations,   33 with an isolated low vertex
+   row (58,839):  2013 clique-block configurations,  102 with an isolated low vertex
+   row (58,840):  2635 clique-block configurations,  172 with an isolated low vertex
 ITEM 2   the odd-cycle blocks never enumerated
    Constraint C forces |R| >= 26, and alpha(C_q) = (q-1)/2 with alpha <= 3
    forces q <= 7.  So the gap is |R| in [26, Rmax] with one C_5 or
@@ -38,7 +38,7 @@ ITEM 2   the odd-cycle blocks never enumerated
 
    odd-cycle configurations, all three rows: 15
 
-   ORDER 58 OPEN SET: 6970 + 15 + 307 = 7292
+   ORDER 58 OPEN SET: 6019 + 15 + 307 = 6341
 
 PART 4   soundness controls
    crminus.g <= Z(n), g(n,0) = crK(n), monotone in f : PASS
@@ -49,8 +49,8 @@ CONCLUSION
    reviewed on the ledger.
 
    r = 29: orders <= 56 impossible; ORDER 57 CLOSED (all five rows,
-   re-verified above); order 58 OPEN in 7292 configurations
-   -- 6970 with clique blocks, 15 with an odd-cycle block, 307 with an
+   re-verified above); order 58 OPEN in 6341 configurations
+   -- 6019 with clique blocks, 15 with an odd-cycle block, 307 with an
    isolated low vertex -- in the single class b = 6, c = (51,1).
 
    ALBERTSON'S CONJECTURE IS NOT PROVED FOR r = 29.  The superseded

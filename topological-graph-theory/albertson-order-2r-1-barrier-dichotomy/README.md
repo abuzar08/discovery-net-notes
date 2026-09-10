@@ -1542,10 +1542,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 6970 |
+| clique blocks | 6019 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **7292** |
+| **total** | **6341** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -2059,15 +2059,17 @@ on 6768 Gallai forests and 719597 subsets.  The first version of `tuttegen.py`
 used \(c_A=1\) everywhere, which is false on the 6536 configurations with
 overlapping blocks; that would have over-claimed, and is recorded as defect 11.
 
-**Result.**  **1343** configurations are closed **for every admissible \(H\)** —
-903 at \(k=3\) and 440 at \(k=4\) — so order 58 falls from 8635 to **7292**.  The configuration of `adv58.py` is among
+**Result.**  **2294** configurations are closed **for every admissible \(H\)** —
+2201 at \(k=3\) and 93 at \(k=4\) — so order 58 falls from 8635 to **6341**.  The configuration of `adv58.py` is among
 them, which is consistent with the \(\nu=24\) measured there directly.
 
 **The sixth inequality, and how it was found.**  Rather than guess which
 inequality to sharpen, each is **priced** (`slack58.py`): subtract \(d\) from its
-right-hand side and re-run the whole scan.  That said the edge counts were
-hopeless — 2 and 4 inert at every handicap, 3 and 5 needing 50 to gain a few
-hundred — and sent attention to what constrains \(U\).  Since \(x_z\ge1\) for
+right-hand side and re-run the whole scan.  That said the edge counts were then hopeless — 2 and 4 inert at every handicap
+— and sent attention to what constrains \(U\).  (Those verdicts have since
+moved as the inequality set grew; the table is only ever a statement about the
+current set, which is why `slack58.py` derives its conclusions from the measured
+rows.)  Since \(x_z\ge1\) for
 every \(z\in R\) and \(\sum_{z\in R}x_z=X\le56\), the vertices of \(U\) each
 carry nearly the full degree 29; but a vertex of \(U\) has **no neighbour in
 \(A\)**, so
@@ -2078,7 +2080,7 @@ component-count refinements tried first.
 
 **Scope, and the direction of the risk.**  The five inequalities are *necessary*
 conditions, so an infeasible scan is a proof and a feasible scan proves nothing;
-of the 6970 remaining, 2369 admit a parameter point the counts cannot rule out,
+of the 6019 remaining, 1418 admit a parameter point the counts cannot rule out,
 which is **not** the same as an obstruction existing, and 4601 are ones for which
 three disjoint triangles are **not guaranteed**.  The previous revision said
 those 4601 "have no three disjoint triangles at all"; that overstates a
@@ -2093,8 +2095,8 @@ infeasible there would prove an inequality false.
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 6970 configurations with clique blocks, 15 with an odd-cycle
-block and 307 carrying an isolated low vertex, **7292** in all.  Nothing here
+is **not** closed: 6019 configurations with clique blocks, 15 with an odd-cycle
+block and 307 carrying an isolated low vertex, **6341** in all.  Nothing here
 bears on `r >= 30`.
 
 ## Files and reproduction
