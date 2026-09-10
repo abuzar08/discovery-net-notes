@@ -1542,10 +1542,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 8117 |
+| clique blocks | 7988 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8439** |
+| **total** | **8310** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -2059,16 +2059,31 @@ on 6768 Gallai forests and 719597 subsets.  The first version of `tuttegen.py`
 used \(c_A=1\) everywhere, which is false on the 6536 configurations with
 overlapping blocks; that would have over-claimed, and is recorded as defect 11.
 
-**Result.**  196 configurations are closed **for every admissible \(H\)** — 193
-at \(k=3\), 3 at \(k=4\) — so order 58 falls from 8635 to **8439**.  The
-configuration of `adv58.py` is among them, which is consistent with the \(\nu=24\)
-measured there directly.
+**Result.**  **325** configurations are closed **for every admissible \(H\)**, so
+order 58 falls from 8635 to **8310**.  The configuration of `adv58.py` is among
+them, which is consistent with the \(\nu=24\) measured there directly.
+
+**The sixth inequality, and how it was found.**  Rather than guess which
+inequality to sharpen, each is **priced** (`slack58.py`): subtract \(d\) from its
+right-hand side and re-run the whole scan.  That said the edge counts were
+hopeless — 2 and 4 inert at every handicap, 3 and 5 needing 50 to gain a few
+hundred — and sent attention to what constrains \(U\).  Since \(x_z\ge1\) for
+every \(z\in R\) and \(\sum_{z\in R}x_z=X\le56\), the vertices of \(U\) each
+carry nearly the full degree 29; but a vertex of \(U\) has **no neighbour in
+\(A\)**, so
+\[28u+\lvert R\rvert-X+24\,[\,w\notin U\,]\ \le\ u(s_L+3k+s_R)+2\,\mathrm{tur}(u-t+1).\]
+A large \(U\) cannot exist: its vertices are too high-degree to be cut off.  That
+single inequality is worth **+117**, against **+12** and **0** for the two
+component-count refinements tried first.
 
 **Scope, and the direction of the risk.**  The five inequalities are *necessary*
 conditions, so an infeasible scan is a proof and a feasible scan proves nothing;
-of the 8117 remaining, 4601 have no three disjoint triangles at all and 3516
-admit a parameter point the counts cannot rule out, which is **not** the same as
-an obstruction existing.  Because the whole risk lies in that direction, it is
+of the 7988 remaining, 3387 admit a parameter point the counts cannot rule out,
+which is **not** the same as an obstruction existing, and 4601 are ones for which
+three disjoint triangles are **not guaranteed**.  The previous revision said
+those 4601 "have no three disjoint triangles at all"; that overstates a
+*sufficient* test and is corrected — see `METHODS.md`, defect 12.  The closure
+count is unaffected, since the test only ever decides whether a route applies.  Because the whole risk lies in that direction, it is
 measured: the explicit \(H\) of `adv58.py` has its Gallai–Edmonds set read off
 and checked against all five, and a negative control re-runs the scan at \(D=1\),
 where an obstruction provably exists since \(n'=49\) is odd — a scan reporting
@@ -2078,8 +2093,8 @@ infeasible there would prove an inequality false.
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 8117 configurations with clique blocks, 15 with an odd-cycle
-block and 307 carrying an isolated low vertex, **8439** in all.  Nothing here
+is **not** closed: 7988 configurations with clique blocks, 15 with an odd-cycle
+block and 307 carrying an isolated low vertex, **8310** in all.  Nothing here
 bears on `r >= 30`.
 
 ## Files and reproduction
@@ -2102,6 +2117,7 @@ bears on `r >= 30`.
 | `adv58.py` | an admissible H built explicitly, and the (3,24) route checked |
 | `blockcut.py` | the block-forest lemma behind the bound on c_A, brute-forced |
 | `tuttegen.py` | **every Tutte set at once: the (k, 30-2k) routes on all admissible H** |
+| `slack58.py` | how strong a sharpening would have to be, priced by re-running the scan |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
 | `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
@@ -2144,6 +2160,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 routes58.py     | diff -u EXPECTED_OUTPUT_ROUT
 PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 blockcut.py     | diff -u EXPECTED_OUTPUT_BLOCKCUT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 tuttegen.py     | diff -u EXPECTED_OUTPUT_TUTTEGEN.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -

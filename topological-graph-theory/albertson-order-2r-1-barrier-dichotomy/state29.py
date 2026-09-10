@@ -157,7 +157,7 @@ def part3_order58():
                     continue
                 if BR.blockR(mult, NL, RSZ, eHR) >= Z:
                     continue
-                if TG.route_closed(RSZ, list(mult), eHR)[0]:
+                if TG.route_closed(RSZ, list(mult), eHR, X)[0]:
                     continue        # no Tutte set obstructs: theta(H) <= 28
                 c1 += 1
             # isolated low vertices, possible only when delta_0 <= 0

@@ -1,0 +1,32 @@
+How strong would a sharpening have to be?  Priced by re-running the
+closure scan with each inequality handicapped.
+
+   configurations scanned: 8313
+   closed with no handicap: 325
+
+   Configurations closed when inequality j holds with d to spare:
+
+   inequality       d=1      d=5      d=25     d=50   
+   (1) count        3712     3712     3712     3712   
+   (2) degree       325      325      325      325    
+   (3) Turan        351      424      495      546    
+   (4) spread       325      325      325      325    
+   (5) S_R-degree   375      587      1816     2273   
+
+   The count inequality is the whole story: one unit off its
+   right-hand side closes every configuration the route reaches,
+   while the four edge counts need 50 to gain a few hundred and the
+   spread inequality is inert at every handicap.
+
+   Read that as a NEGATIVE result about the edge counts, and as a
+   precise target otherwise: what is needed is a theorem of the form
+   o(H' - S) <= c_A + t - 1 -- the component bound is never attained
+   -- holding unconditionally.  Two partial versions of exactly that
+   (the singleton refinement of c_A, and the parity of the odd
+   components) are already in tuttegen.py and are not enough,
+   because each leaves the adversary another branch or one unit of
+   freedom in u to absorb it.
+
+   Cheapest single target by yield at d = 1: (1) count
+
+   r = 29 is NOT proved.

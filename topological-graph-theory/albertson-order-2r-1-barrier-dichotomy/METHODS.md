@@ -22,10 +22,10 @@ open**, in the single class \(b=6\), \(c=(51,1)\):
 
 | | count |
 |---|---|
-| clique blocks | 8117 |
+| clique blocks | 7988 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8439** |
+| **total** | **8310** |
 
 ## The method inventory
 
@@ -52,7 +52,12 @@ Each row is a method, what it was applied to, and the measured outcome.
 | **\(w\)-sharpened Turán cap** \(e(H[R])\le\lfloor(\lvert R\rvert-1)^2/3\rfloor+4\) (`wturan58.py`) | removes **310**; found by failing to build an adversary |
 | Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0. Reviewer-1 (`reviews/albertson-triangle-free-neighbourhood/`) confirms the derivation and the zero-removal on the whole survivor set, and records that this cap and the \(w\)-sharpened cap are **incomparable**: apply \(\min\) of the two, never one in place of the other |
 | Block-forest lemma for \(c_A\) (`blockcut.py`) | three low vertices that pairwise share a block share a **common** block, since the block-cut tree is acyclic and two blocks meet in at most one vertex. Hence \(A\) not inside one block \(\Rightarrow\) \(H[A]\) has at most two components. Checked on 6768 Gallai forests and 719597 subsets |
-| **General Tutte obstruction count** (`tuttegen.py`) | **removes 196** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
+| **General Tutte obstruction count** (`tuttegen.py`) | **removes 325** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
+| \(U\)-degree inequality (6) (`tuttegen.py`) | \(\sum_{z\in R}x_z=X\le56\) makes every \(U\)-vertex nearly of degree 29, while a \(U\)-vertex has no \(A\)-neighbour at all: **a large \(U\) cannot exist**. Worth **+117**, more than the two component-count refinements together. Found by pricing, not by guessing |
+| Singleton refinement of \(c_A\) | if \(A\) is not inside one block and \(H[A]\) has two components, one is a **singleton**; \(c_A=2\) then needs an isolated \(A\)-vertex or \(p\ge2\). Worth **+12** |
+| Odd-component parity in (1) | \(o\) counts odd components, and the two families have forced parities. **No change at all**: the adversary absorbs it by shifting \(u\) or \(t\) by one |
+| \(\rho\)-sum bound on \(e(L\setminus A,U)\) | valid and independent of \(u\), but **never binds** — taking the minimum with \(u(s_L+3k)\) changes the count by 0 at three times the runtime |
+| **Priced sensitivity table** (`slack58.py`) | how strong a sharpening must be: one unit off inequality (1) closes **all 3712** the route reaches; (2) and (4) are **inert at every handicap**; (3) and (5) need 50 to reach 546 and 2273 |
 
 **Where the two obstructions stand** (`profile58.py`): the absorption shortfall
 reaches **1**, with 3326 configurations within one unit; the crossing shortfall
@@ -93,20 +98,27 @@ Now parameterise an arbitrary Tutte set \(S\) by six integers — \(a=\lvert
 L'\setminus S\rvert\), \(s_R\), the size \(u\) and number \(t\) of the components
 of \(H'-S\) missing \(A\), the number \(p\) of components of \(H[W]\) on the
 remaining high vertices, and the number \(\mathrm{iso}\) of vertices of \(A\)
-whose \(R\)-neighbours all lie in \(S_R\) — and five inequalities hold for
+whose \(R\)-neighbours all lie in \(S_R\) — and six inequalities hold for
 **every** admissible \(H\):
 
-1. **count**, \(c_A+t\ge s_L+s_R+D\);
+1. **count**, \(c_A^{\mathrm{odd}}+t^{\mathrm{odd}}\ge s_L+s_R+D\);
 2. **degree**, \(\sum_i a_i\rho_i+e(H[R])-\mathrm{tur}(u-t+1)\le 28(\lvert R\rvert-u)\);
 3. **Turán**, \(e(H[R])\le\binom{\lvert R\rvert}{2}-\binom{\lvert R\rvert-s_R}{2}+\mathrm{tur}\bigl((\lvert R\rvert-s_R)-(t+p)+1\bigr)\);
 4. **spread**, \(\sum_i a_i\rho_i\le a(\lvert R\rvert-u)\);
-5. **\(S_R\)-degree**, \(\max\bigl(0,\sum_i a_i\rho_i-(a-\mathrm{iso})\lvert W\rvert\bigr)+e(H[R])-\mathrm{tur}(\lvert W\rvert-p+1)-\mathrm{tur}(u-t+1)\le 28s_R\).
+5. **\(S_R\)-degree**, \(\max\bigl(0,\sum_i a_i\rho_i-(a-\mathrm{iso})\lvert W\rvert\bigr)+e(H[R])-\mathrm{tur}(\lvert W\rvert-p+1)-\mathrm{tur}(u-t+1)\le 28s_R\);
+6. **\(U\)-degree**, \(28u+\lvert R\rvert-X+24\,[\,w\notin U\,]\le u(s_L+3k+s_R)+2\,\mathrm{tur}(u-t+1)\).
 
-Inequality 5 is the one that bites: isolating many vertices of \(A\) drives their
-whole \(R\)-neighbourhood into \(S_R\), and \(S_R\) must then also carry nearly
-every edge of \(H[R]\), which its degree cap forbids. Since \(x_w\ge25\), any
+Inequality 5 bites because isolating many vertices of \(A\) drives their whole
+\(R\)-neighbourhood into \(S_R\), and \(S_R\) must then also carry nearly every
+edge of \(H[R]\), which its degree cap forbids. **Inequality 6 is the strongest
+of the six**: since \(x_z\ge1\) for every \(z\in R\) and
+\(\sum_{z\in R}x_z=X=2m-1624\le56\), the vertices of \(U\) each carry nearly the
+full degree 29 — but a vertex of \(U\) has **no neighbour in \(A\) at all**, so its
+\(L\)-neighbours lie in \(S_L\) or among the \(3k\) deleted triangle vertices and
+its \(H[R]\)-neighbours in its own component or \(S_R\). A large \(U\) cannot
+exist: its vertices are too high-degree to be cut off. Since \(x_w\ge25\), any
 degree cap over a set containing \(w\) is 24 smaller, and the adversary's best
-placement of \(w\) is scanned.
+placement of \(w\) is scanned in 2, 5 and 6 alike.
 
 These are **necessary** conditions, so an infeasible scan is a proof and a
 feasible scan proves nothing. That direction is the whole risk, so it is
@@ -116,11 +128,52 @@ re-runs the scan at \(D=1\), where an obstruction provably exists because
 \(n'=49\) is odd — a scan reporting infeasible there would prove an inequality
 false.
 
-**Result: 196 configurations closed for every admissible \(H\)** (193 at
-\(k=3\), 3 at \(k=4\)), so order 58 falls from 8635 to 8439. Of the 8117
-remaining, 4601 have no three disjoint triangles at all and 3516 admit a
-parameter point the counts cannot rule out — which is not the same as an
-obstruction existing.
+**Result: 325 configurations closed for every admissible \(H\)**, so order 58
+falls from 8635 to **8310**. Of the 7988 remaining, 3387 admit a parameter point
+the counts cannot rule out — which is not the same as an obstruction existing —
+and 4601 are ones for which **three disjoint triangles are not guaranteed**.
+
+**A correction to the previous pass.** That count was published as "4601 have no
+three disjoint triangles at all". That overstates it. The test is a *sufficient*
+condition — private vertices of three distinct blocks always form a triangle,
+and at most \(\mathrm{extra}=\sum_iq_i-\lvert L\rvert\) vertices of any block
+fail to be private — so its failure means *not guaranteed for every block
+forest*, not *non-existent*. For two large blocks joined by a bridge \(H[L]\)
+genuinely is triangle-free, which is where the wrong generalisation came from.
+The closure count is unaffected either way, since the test is only ever used to
+decide whether a route is available; only the description of the residual was
+wrong. Recorded as defect 12.
+
+## How strong would a sharpening have to be? (`slack58.py`)
+
+Rather than guess which inequality to sharpen, each one is **priced**: subtract
+\(d\) from its right-hand side unconditionally, re-run the whole closure scan,
+and count what falls.
+
+| handicap | \(d=1\) | \(d=5\) | \(d=25\) | \(d=50\) |
+|---|---|---|---|---|
+| (1) count | **3712** | 3712 | 3712 | 3712 |
+| (2) degree | 325 | 325 | 325 | 325 |
+| (3) Turán | 351 | 424 | 495 | 546 |
+| (4) spread | 325 | 325 | 325 | 325 |
+| (5) \(S_R\)-degree | 375 | 587 | 1816 | 2273 |
+
+So **one unit off the count inequality closes every configuration the route
+reaches**, inequalities 2 and 4 are inert at every handicap, and 3 and 5 need 50
+to gain a few hundred. The precise target is a theorem of the form
+\(o(H'-S)\le c_A+t-1\) holding unconditionally.
+
+**A framing that was wrong, and is withdrawn.** The first version of this
+measurement reported, for each surviving parameter point, the slack
+\(\mathrm{RHS}_j-\mathrm{LHS}_j\), and found it identically zero for
+inequality 1. That is an artefact: the scan hands the adversary \(t\) at the
+minimum inequality 1 allows, so 1 is met with equality *by construction*, and a
+slack of zero there measures the search order rather than the mathematics. Two
+genuine strengthenings of the component count were implemented on the strength
+of that reading — the singleton refinement of \(c_A\) and the odd-component
+parity — and they moved the closure count by **12 and 0**. The handicap table
+above is the honest form of the question, and it is what located inequality 6,
+worth **+117**.
 
 **An earlier version of this document said this needed a new dependency and put
 the choice to the principal. That was wrong, and is withdrawn.** Writing a
@@ -138,7 +191,7 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Eleven items of one family were found, all of the same shape — *a step verified on
+Thirteen items were found, eleven of one family, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -154,6 +207,8 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 9 | first adversarial \(H\) violated \(d_H(z)\le28\) | inadmissible | caught by computation, unpublished |
 | 10 | "needs a dependency" framing of the matching question | mis-framed a decision | withdrawn above |
 | 11 | first `tuttegen.py` used \(c_A=1\) where blocks overlap | **would have over-claimed** | caught pre-publication; 6536 of 8313 configurations affected |
+| 12 | "4601 have no three disjoint triangles at all" | **published overstatement** | corrected above; a sufficient test read as a census. Counts unaffected |
+| 13 | slack-at-surviving-points as a sharpening guide | mis-framed a measurement | withdrawn above; cost two refinements worth 12 and 0 |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.
@@ -165,7 +220,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 state29.py   | diff -u EXPECTED_OUTPUT_STATE29
 shasum -a 256 -c SHA256SUMS
 ```
 
-plus `tuttegen.py` and `blockcut.py` against their own expected outputs.
+plus `tuttegen.py`, `blockcut.py` and `slack58.py` against their own expected
+outputs.
 
 Expected: empty diff, `Controls: all PASS`, `Soundness controls: real Tutte set
 PASS; D = 1 negative control PASS`, `VERDICT: all PASS` for the block-forest
@@ -179,6 +235,9 @@ lemma, and OK for every hash. The full per-file reproduction list is in
 > This was written as a stopping point and should no longer be read as one. The
 > \((k,30-2k)\) routes now have a decision procedure that quantifies over every
 > admissible \(H\), and it closes 196 configurations. The concrete next step is
-> to widen it: 4601 of the survivors have no three disjoint triangles at all and
-> need a different family of the seventy, and on the 3516 the counts do not
-> decide the question is which of the five inequalities is slack.
+> to widen it. The sensitivity table above says where: **not** in the edge
+> counts, which are inert or need improvements of 50, but in the component
+> bound, where a single unconditional unit closes every configuration the route
+> reaches. Separately, 4601 survivors have no *guaranteed* three disjoint
+> triangles and need either a sharper triangle-packing guarantee or a different
+> family of the seventy.
