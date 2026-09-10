@@ -1046,3 +1046,32 @@ re-shard and BORS finding; collect researcher-3's p=2 estimate for pass 7.
 
 ### Next step
 - Pass 41: the two restarted Z3xZ3 runs (b <= 2), the r=6 skewness verdict, and whether researcher-2's obstruction-reading method keeps producing.
+
+## 2026-09-10 — pass 41 (11:05Z–12:15Z)
+
+### Operational
+- Chain still frozen at 3443; dead 92 h 08 m. Mempool 64. Twenty-third pass recommending restart of `discovery-node-local-application-1`.
+- Measured the host myself: **14 `cadical` + 3 other compute-bound jobs on 15 physical cores**. Nobody is over the two-job cap. Flagged to researcher-1 that its 12-hour rebalance projection was measured when its own workers were most of the demand; each now gets ~0.83 core. 1-min load 59 exceeds the runnable count, so I did not attribute the remainder.
+- Read-only pass apart from this entry and `scratch/reports/20260910T121500Z.md`.
+
+### Two corrections to my own pass-40 report
+- **Attribution.** I credited researcher-3 with generalising researcher-1's involution lemma. researcher-3 corrected me (`db02cd0`): the all-or-nothing step and the 26/28 values are **researcher-1's, from its pass-1 worklog**. researcher-3's are the closed form, its reach to composite orbit sizes, and pointing the lemma at the new row. I took a derivation chain from one agent's report without checking the other's worklog — the exact failure researcher-3's grep-the-source rule addresses and which I said I had adopted. I moved r3 to rank 3 partly on that basis; **the rank stands on this pass's theorem instead**.
+- **Measurement.** I repeated r2's "separately neither half changes the count by one configuration". reviewer-1 re-ran the ablations: 336 both off, 336 w-charge alone, **973 with the exact L-side budget alone** — the exact identity is worth **+637 alone and is dominant**. My executive claim rested on two examples and one was a mis-measurement I passed on without independent figures. **Narrower lesson, about my practice: do not report an agent's ablation numbers as established when only that agent has run them.**
+- The non-additivity claim survives on better evidence: r2's spread row returned **three verdicts on three passes** (inert / +1528 / +643) with the inequality unchanged.
+
+### Established
+- researcher-3 (`8bb26dc`, `4bc2939`): reviewer-1 refuted its "weight above 1 needs a fixed point" (false above order 2; 80 weights of 2 with no fixed point at 1^0 2^1 4^10). r3 reproduced all three figures and found the **true mechanism, neither its own nor reviewer-1's**: weight >1 at v needs g fixing v, or g swapping so x->v->y lies in one g-cycle (some element with a cycle of length >=3 through v). All 1722 weights are 1 **because the orbits are 2-cycles**. Strengthens the conclusion: **all 84 Z4 types and all 1315 Z2^2 actions have weights above 1**, so the control is needed everywhere. Published theorem untouched. — Then the assigned exactness question, answered: **n* = 30** (n=30 SAT rebuilt+audited, n=31 UNSAT, both shapes, LRAT-certified). **Theorem: |Fix(H)| <= 25 with a 4-orbit, <= 24 when every nontrivial orbit is even — the whole order-4 row.** Homogeneous shapes need no solver (I_4 orbit gives 3f + (n-100) <= 0, so f <= 19 at n=42); controlled at (4,5,24), 300 graphs, zero violations. Case lists 84 -> **81**, 1328 -> **1315**. Noted (26,4,2) removed — its own easiest-end example, twice invalidated at the same end of the same table by its own next result.
+- researcher-2 (`06bce6c`, `46aaf74`): **order 58 from 7292 to 6341**, 2294 closed (+877, +74). Shape A: A must *fit*, not merely be small enough — reach 29 -> 24. Shape B: at most min(rho_v, u) edges into U. Fixed the tooling defect behind it (a second copy of the scan's enumeration that drifted, costing two runs). Flags: the surviving point cleared inequality 6 by **exactly zero**, so margin is now the quantity to watch; and the **4601 configurations with no guaranteed triangle packing are three quarters of the residual and untouched**.
+- researcher-4 (`c249321`, `d817882`): lane complete, both theorems cross-validated — 3117 n=11 survivors by independent routes (max-flow vs vertex-cut; Held-Karp vs backtracking), zero disagreements. Caught that its own cross-check re-ran the **skewness test, the same algorithm** — not an independent check, and dominating runtime: **1.7 h -> 75 s**. Spoke **construction** replaces the 2k-3 fit (two runs of k-2 offset by k); works at k=7 first try: **sk(GP(28,7)) <= 11 from a single planarity test**. **Priced k=7 out and declined**: 48,563,893,286 tests ~ **8,296 core-hours**, 4x M_{8,3}. Third self-applied decline on my standard. Stated that its running search failing would not be evidence against DS21's 9.
+- researcher-1 (`92e68d6`, `30b974b`): survey refreshed (said "four artifacts" when there are eight) with a cost-vs-payoff table over five open items, and two stated conclusions: the two cheap rows dominate (|Aut| = 2^a or 2^a*3 for ~a day, vs thousands of core-hours to go b<=1 -> b=0), and **the destination is |Aut(G)| <= 2**, unimprovable to 1 since 116 known examples carry an involution. Rebalanced both runs on measured throughput (7+7 -> 10+4, ~21 h -> ~12 h), resumed correctly past 2170/4600 cubes, and pre-checked the invalidators: formulas regenerate, cube files are exactly the 2^14 sign patterns, 6770 results with zero cube-literal mismatches.
+- reviewer-1 (`24f93ee`, `6d0819b`, `ea3d73a`, `69c3127`, `12ea109`): two reviews, each with a correction the author wanted. Reproduced r2's 1343 exactly (94/94 hashes, byte-identical) and then refuted its separability claim; rebuilt r3's weight arithmetic independently (116 witnesses, zero disagreements) and refuted its fixed-point rule. Klein count exactly 855 of 1347.
+
+### Report
+- `scratch/reports/20260910T121500Z.md`. **Ranks held** (r2, r1, r3, r4). r1 stays at 2 on cumulative despite an operational window — its runs are ~12 h from b <= 2, and survey/integrity work while a decisive computation runs is correct, not slow. r3 is closing; I will not move it twice on the same axis in consecutive passes.
+- Window health signal: three published statements refuted by someone other than their author, every refutation strengthening the result.
+
+### Blocked
+- 64 contributions uncitable; ledger five days behind.
+
+### Next step
+- Pass 42: the two Z3xZ3 runs (b <= 2), the r=6 skewness verdict, whether f=24 survives to n=42, and whether researcher-2 turns to the 4601.
