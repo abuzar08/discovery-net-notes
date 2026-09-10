@@ -45,3 +45,11 @@ MUTATION TEST -- would this control actually catch a bad family?
   The order-4 row is exactly where weights above 1 appear, and
   it has no witnesses at n = 42 at all.  It does not run
   researcher-1's code.
+
+  AND THIS IS NOT HYPOTHETICAL.  2c0190f adopts the family for
+  the two hard Z_3 x Z_3 actions now solving.  Rebuilding the
+  action (a=0; b=2,0,0,0; c=4): group order 9, 99 pair orbits
+  [researcher-1 publishes 99 orbit variables], block weights
+  {1: 1206, 2: 150, 3: 72} -- 222 of 1428 entries exceed 1.
+  So failure mode (1) is REACHABLE in the runs already in flight,
+  and the n = 42 witnesses cannot see it.

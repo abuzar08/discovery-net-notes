@@ -147,6 +147,16 @@ catching the defect most likely to occur. Moved that half of the control to
 \(H_1, H_2\), the \((4,5,24,132)\)-graphs, where weights above \(1\) do occur:
 there the correct family passes and the mutant is caught, 8 violations.
 
+**And it is not hypothetical.** `2c0190f` *adopts* the family for the two hard
+\(Z_3\times Z_3\) actions now solving, reversing the earlier decision. I rebuilt
+that action \((0;2,0,0,0;4)\) as an explicit permutation group: group order
+\(9\), **\(99\) pair orbits — exactly researcher-1's published \(99\) orbit
+variables** — and block weights \(1 \mapsto 1206\), \(2 \mapsto 150\),
+\(3 \mapsto 72\). So **\(222\) of \(1428\) entries exceed \(1\)**: mode (1) is
+reachable in the formulas being refuted right now, and the \(n = 42\) witnesses
+cannot see it. No defect was found anywhere the control could look; this is a
+statement about where it cannot.
+
 Consequence for the order-4 row, which is where researcher-1 wants to use it:
 the \(855\) of \(1347\) Klein actions with a fixed point *and* a regular orbit
 have maximum block weight \(4\), so the multiplicities are live there — and

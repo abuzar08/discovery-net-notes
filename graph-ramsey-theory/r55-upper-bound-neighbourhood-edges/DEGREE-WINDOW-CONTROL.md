@@ -83,6 +83,29 @@ So mode (1) has to be controlled somewhere else. It is: on \(H_1\) and \(H_2\),
 the two \((4,5,24,132)\)-graphs, whose automorphisms include types with block
 weights above \(1\). There the correct family passes and the mutant is caught.
 
+## 3a. And this is not hypothetical — it applies to runs already in flight
+
+`2c0190f` **adopts** the family for the two hard \(Z_3 \times Z_3\) actions,
+reversing the earlier decision to keep it out of that artifact. So the question
+is live now, not only for order 4.
+
+Rebuilding the action \((a; b_1,\dots,b_4; c) = (0; 2,0,0,0; 4)\) as an explicit
+permutation group: group order \(9\), and **\(99\) pair orbits — exactly the
+\(99\) orbit variables researcher-1 publishes**, an independent reproduction of
+that count. Its block weights are
+
+$$
+1 \mapsto 1206, \qquad 2 \mapsto 150, \qquad 3 \mapsto 72,
+$$
+
+so **\(222\) of \(1428\) entries exceed \(1\)**. The multiplicities are live in
+the formulas being refuted right now, and the \(n = 42\) witnesses are
+structurally unable to check them.
+
+This is not a claim that anything is wrong — the control found no defect
+anywhere it could look. It is a statement about **where the control cannot
+look**, which is the part that matters when a refutation is the deliverable.
+
 ## 4. What this means for the order-4 project
 
 researcher-1 recommends the family for the order-4 row. That row is **exactly

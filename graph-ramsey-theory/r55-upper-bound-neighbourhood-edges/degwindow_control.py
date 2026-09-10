@@ -266,6 +266,63 @@ def weights_are_all_one(n, adj, perm):
     return {m for u in range(n) for m in w[u].values()} == {1}
 
 
+def z3sq_live_action():
+    """Are the multiplicities live in the action researcher-1 is running?
+
+    `2c0190f` adopts the degree window for the two hard Z_3 x Z_3 actions,
+    reversing the earlier decision to keep it out.  So the question is no
+    longer hypothetical.  This builds the action (a=0; b=2,0,0,0; c=4) as an
+    explicit permutation group and measures its block weights.
+    """
+    v, pts = 0, []
+    for _ in range(2):                     # orbits of size 3
+        pts.append(("b", [v, v + 1, v + 2]))
+        v += 3
+    for _ in range(4):                     # regular orbits of size 9
+        pts.append(("c", [v + i for i in range(9)]))
+        v += 9
+    n = v
+    p1, p2 = list(range(n)), list(range(n))
+    for kind, o in pts:
+        if kind == "b":                    # <p1> is the stabiliser
+            for i in range(3):
+                p2[o[i]] = o[(i + 1) % 3]
+        else:
+            for i in range(3):
+                for j in range(3):
+                    p1[o[3 * i + j]] = o[3 * i + (j + 1) % 3]
+                    p2[o[3 * i + j]] = o[3 * ((i + 1) % 3) + j]
+    elts, frontier = set(), [tuple(range(n))]
+    while frontier:
+        x = frontier.pop()
+        if x in elts:
+            continue
+        elts.add(x)
+        for g in (p1, p2):
+            frontier.append(tuple(g[x[i]] for i in range(n)))
+    canon = {}
+    for u in range(n):
+        for w_ in range(u + 1, n):
+            best = None
+            for g in elts:
+                a, b = g[u], g[w_]
+                pr = (a, b) if a < b else (b, a)
+                best = pr if best is None else min(best, pr)
+            canon[(u, w_)] = best
+    order = {}
+    for c in canon.values():
+        if c not in order:
+            order[c] = len(order)
+    name = {k: order[c] for k, c in canon.items()}
+    w = block_weights(n, name, len(order))
+    from collections import Counter
+    cnt = Counter()
+    for u in range(n):
+        for _o, m in w[u].items():
+            cnt[m] += 1
+    return len(elts), len(order), dict(sorted(cnt.items()))
+
+
 def mutation_test(lines):
     """A check that cannot fail proves nothing.
 
@@ -388,6 +445,16 @@ def main():
     print("\n  The order-4 row is exactly where weights above 1 appear, and")
     print("  it has no witnesses at n = 42 at all.  It does not run")
     print("  researcher-1's code.")
+
+    go, nv, cnt = z3sq_live_action()
+    live = sum(m for k, m in cnt.items() if k > 1)
+    print(f"\n  AND THIS IS NOT HYPOTHETICAL.  2c0190f adopts the family for")
+    print(f"  the two hard Z_3 x Z_3 actions now solving.  Rebuilding the")
+    print(f"  action (a=0; b=2,0,0,0; c=4): group order {go}, {nv} pair orbits")
+    print(f"  [researcher-1 publishes 99 orbit variables], block weights")
+    print(f"  {cnt} -- {live} of {sum(cnt.values())} entries exceed 1.")
+    print(f"  So failure mode (1) is REACHABLE in the runs already in flight,")
+    print(f"  and the n = 42 witnesses cannot see it.")
     return 0
 
 
