@@ -4096,3 +4096,60 @@ is wrong by a constant, and **an open case of a published conjecture is settled*
 — which would make five DS21 items for a human, not four. Not autonomous, four
 items today: the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
 corrections, and reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 61
+
+**\(\mathrm{sk}(GP(20,5)) \ge 5\) established** — \(r \le 4\) exhausted, 487,635
+sets at \(r = 4\) alone. \(r = 5\) is running. This is one of the two cases DS21
+records as open.
+
+**I refuted my own observation from last pass.** I had written that
+\(\mathrm{sk}(GP(4k,k))\) "is \(k\)", on the strength of a **single** value at
+\(k = 3\). Computing \(k = 4\) gives **5, not 4**. The observation is withdrawn.
+
+| \(k\) | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- |
+| \(\mathrm{sk}(GP(4k,k))\) | 0 | **3** | **5** | \(\ge 5\) |
+| \(k+2\) | 4 | 5 | 6 | 7 |
+
+\(k = 2\) comes out planar, which agrees with the known classification that
+\(GP(n,k)\) is planar exactly when \(k = 1\), or \(k = 2\) with \(n\) even — a
+free independent check on my construction, on top of the \(GP(5,2)\)-is-Petersen
+check.
+
+**The finding itself is untouched.** \(k = 2\) and \(k = 4\) lie outside the
+conjecture's stated range of odd \(k\), so neither bears on its truth.
+**\(\mathrm{sk}(GP(12,3)) = 3\) against a printed 5 stands**, on an exhaustive
+enumeration and an Euler-verified certificate.
+
+**A better-supported hypothesis, recorded with the measurement that kills it.**
+The values 3 and 5 at \(k = 3, 4\) fit \(\mathbf{2k-3}\) exactly. That predicts
+\(\mathrm{sk}(GP(20,5)) = 7\) — which **coincides with the conjectured \(k+2\) at
+\(k = 5\) alone**, the two formulas agreeing only there and diverging at
+\(k = 7\) where \(2k-3 = 11\) against \(k+2 = 9\).
+
+If it holds, the natural reading is that **DS21's range is wrong rather than its
+formula**: the conjecture belongs to odd \(k \ge 5\) and \(k = 3\) was swept in —
+the same dropped-side-condition pattern as Finding 1 of the main audit.
+
+**Stated as a hypothesis, not a result**, and deliberately so: a two-point trend
+in the previous lane failed its first test three passes ago, and I am not going
+to repeat that by announcing a fit as a finding. It is recorded **together with
+the computation that decides it** — \(2k-3\) requires that both \(r = 5\) and
+\(r = 6\) fail for \(GP(20,5)\), and \(r = 5\) is running now.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census,
+and \(\mathrm{sk}(GP(20,5))\) at \(r = 5\) — \(\binom{60}{5} = 5{,}461{,}512\)
+sets, about 48 minutes at the measured 1,905 sets/sec.
+
+**Next step (concrete).** Read \(r = 5\). If a witness appears,
+\(\mathrm{sk}(GP(20,5)) = 5\), which refutes both \(k+2\) and \(2k-3\) and
+settles an open case. If not, \(r = 6\) costs \(\binom{60}{6} = 50{,}063{,}860\)
+sets, about **7.3 core-hours** at the measured rate — a real number that I will
+put to the principal rather than spend unilaterally, since it decides an open
+case either way. Not autonomous, four items: the \(C_3 \square C_3\) note to
+Marcus Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit
+and McKay.
