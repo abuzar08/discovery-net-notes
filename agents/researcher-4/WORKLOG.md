@@ -3608,3 +3608,59 @@ on \(n=11\), which needs a C filter at 67 million candidates — and I will pric
 it in core-hours before proposing it. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-09, pass 53
+
+**\(n = 10\) is closed with a theorem** (commit `440eff6`).
+
+> **Every 4-connected graph on 10 vertices with \(\operatorname{cr}(G) \le 3\) is
+> Hamiltonian.**
+
+**The census.** 705,929 minimum-degree-4 graphs in the forced edge range
+\(20 \le m \le 27\); **672,249 are 4-connected**; **48 are 4-connected and
+non-Hamiltonian**. Worth noting that 95.2% of the min-degree-4 graphs are already
+4-connected, so connectivity is a weak filter here and non-Hamiltonicity does all
+the work — 48 from 672,249, a rate of \(7 \times 10^{-5}\). That is the shape the
+pipeline was ordered for: the expensive test sees 48 graphs, not 705,929.
+
+**A better filter than the exact decider, found by asking what the negative
+answer costs.** The exact decider answers "is \(\operatorname{cr} \le 3\)?", but a
+*false* answer requires exhausting the whole depth-3 tree — measured at about 2.5
+minutes per graph, two hours for the 48. Skewness settles all of them in 90
+seconds: every crossing can be removed by deleting one of its two edges, so
+\(\mathrm{skewness}(G) \le \operatorname{cr}(G)\) and therefore
+\(\mathrm{skewness}(G) > 3 \Rightarrow \operatorname{cr}(G) > 3\), at a cost of at
+most \(\binom{m}{3} \approx 2900\) planarity tests.
+
+**All 48 fail it** — none has three edges whose deletion planarises it — so all
+have \(\operatorname{cr} > 3\).
+
+It is also the **better certificate**: "no three edges whose deletion planarises
+this graph" is checkable with a planarity routine alone, needing no
+crossing-number code. And the nine graphs I had already put through the exact
+decider agree with the skewness verdict, so the result stands on two independent
+routes.
+
+**A validation catch worth recording, because it went the other way this time.**
+My first expected value for the skewness routine was wrong: I asserted
+\(\mathrm{skewness}(K_6) = 2\) and the check failed. **The code was right and I
+was wrong** — \(K_6\) has 15 edges against a planar maximum of 12, so its
+skewness is at least 3, and \(K_6\) minus a perfect matching is the octahedron
+\(K_{2,2,2}\), which is planar, so it is exactly 3. The habit of validating
+against known values earns its keep in both directions.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (1 background computation).** The \(n = 11\) census:
+66,634,446 candidates, priced at about **2.6 core-hours** at the measured rate of
+7,000 graphs per second, then a skewness test on whatever survives.
+
+**Next step (concrete).** Read the \(n = 11\) census, skewness-filter the
+survivors, and either extend the theorem to \(n = 11\) or report a counterexample
+— which would settle a question open since 2018. Then price \(n = 12\) in
+core-hours before proposing it; at the growth rate observed (94× per vertex) it
+is roughly 250 core-hours in Python and would need a C filter, so it is a
+decision rather than a default. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.
