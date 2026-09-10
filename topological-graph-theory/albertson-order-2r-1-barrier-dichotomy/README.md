@@ -1984,6 +1984,48 @@ object and failing, which in this lane has been the more reliable direction: the
 nine defects before it were all found by re-deriving arguments, three of them
 only after publication.
 
+### An admissible \(H\), built explicitly, and the route checked on it (`adv58.py`)
+
+The first computation in this lane on a graph that actually satisfies every
+constraint of the class, rather than on parameters.
+
+**\(K_4\)-freeness across the \(L\)/\(R\) split needs three conditions, not
+one.**  Writing them down is the main content; the first construction imposed
+only the first and was not \(K_4\)-free.
+
+1. For each \(v\in L\), \(N_H(v)\cap R\) is **triangle-free** in \(H[R]\) —
+   else \(v\) plus that triangle is a \(K_4\).
+2. For each edge \(\{a,b\}\) of \(H[R]\), the \(L\)-vertices adjacent to
+   **both** lie in a **single block** — else two of them from different blocks
+   are \(H\)-adjacent to each other and to \(a\) and \(b\).  **This is what the
+   first attempt violated.**
+3. Each \(z\in R\) has \(L\)-neighbours in at most **two** blocks — else one
+   vertex from each of three blocks is a triangle of \(H\) that \(z\) completes.
+
+Condition 2 is satisfied here without constraining \(Q_1\): if every
+\(Q_2\)-vertex takes its \(\rho_2=7\) neighbours *inside one part* of
+\(H[R]\), no \(Q_2\)-vertex sees both ends of an \(H[R]\)-edge, so only
+\(Q_1\) contributes and \(Q_1\) is one block.  Condition 3 is free because
+\(\rho_3=0\).
+
+**The construction.**  For \(m=838\), \(\lvert R\rvert=24\), blocks
+\((17,12,5)\), \(\rho=(12,7,0)\), \(e(H[R])=178\): take \(H[R]=K_{8,8,7}\)
+on \(Z\) minus two edges with \(w\) attached to the four loose ends, giving
+\(w\) degree 4; \(H\)-degrees over \(R\) are nineteen 28s, four 27s and
+\(w\) at 4, summing to \(29\lvert R\rvert-X=644\).  Every count, cap and
+\(K_4\)-freeness is **checked, not asserted** — all PASS.
+
+**Result.**  Removing three disjoint triangles leaves 49 vertices with
+\(\nu=24\), deficiency 1: the \((3,24)\) route **succeeds**, giving
+\(\theta(H)\le28\) against \(\theta(H)=29\).  A search over 120 seeds produced
+3 admissible placements, all with \(\nu=24\).
+
+**Scope.**  This does *not* close the configuration — it is a handful of explicit
+graphs, the greedy placement is fragile, and closing it needs the statement for
+every admissible \(H\).  What it shows is that an admissible \(H\) exists at
+all, that the route is not vacuous, and that constructing reaches a **checked**
+answer where the parameter arguments could not.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
@@ -2008,6 +2050,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `EXPECTED_OUTPUT_ROUTES58.txt` | its expected output |
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
 | `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
+| `adv58.py` | an admissible H built explicitly, and the (3,24) route checked |
+| `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
 | `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
 | `matching.py` | maximum matching, stdlib, with certificates |

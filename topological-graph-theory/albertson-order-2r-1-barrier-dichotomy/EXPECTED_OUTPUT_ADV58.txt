@@ -1,0 +1,37 @@
+An admissible H at order 58, and the (3,24) route checked on it
+m = 838, |R| = 24, blocks (17, 12, 5), rho (12, 7, 0), e(H[R]) = 178
+
+ADMISSIBILITY of the reference placement
+   e(H[R]) exact            PASS
+   e_H(L,R) exact           PASS
+   sum d_H over R exact     PASS
+   every d_H(z) <= 28       PASS
+   d_H(w) <= 4              PASS
+   block R-degrees exact    PASS
+   K_4-free                 PASS
+
+THE (3,24) ROUTE on it
+   n' = 49 after removing three disjoint triangles
+   nu = 24, deficiency 1;  the route needs nu >= 24
+   -> SUCCEEDS: theta(H) <= 28, contradicting theta(H) = 29
+
+SEARCH for an admissible placement with nu <= 23
+   3 of 120 seeds produced an ADMISSIBLE placement; smallest nu
+   found among them = 24.  The greedy placement is fragile, so this
+   is a small sample, not a systematic exploration of the
+   admissible placements -- stated so it is not read as one.
+
+CONCLUSION
+   The three cross conditions for K_4-freeness -- triangle-free
+   neighbourhoods, one block per H[R]-edge, at most two blocks per
+   R-vertex -- are what an admissible H must satisfy, and only the
+   first had been used.  With all three imposed an H exists, and on
+   each of the few admissible placements found the (3,24) route
+   SUCCEEDS with nu = 24 and deficiency 1.
+
+   This does NOT close the configuration: it is a finite sample, and
+   closing it needs the statement for every admissible H.  It does
+   show the route is not vacuous, and that constructing reaches a
+   checked answer where the parameter arguments could not.
+
+   r = 29 is NOT proved.
