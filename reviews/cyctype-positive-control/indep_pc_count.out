@@ -1,0 +1,4 @@
+of 328 graphs: 116 carry a fixed-point-free involution, 212 provably do not, 0 inconclusive at the node cap (0 s)
+the lane states 116 of them carry one -> match
+graph 4 as a (5,5,42)-graph, my own searches: K_5 present False / independent 5-set present False (0 s)
+edges 424 degrees [19, 20, 21, 22]

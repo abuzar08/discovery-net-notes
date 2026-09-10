@@ -1,0 +1,12 @@
+positive control at (s,t) = (4,5), n = 24, on H_1 and H_2
+  H_1  type ((2, 12),)           orbits  144  clauses  26598  violated 0   published (144, 26598) -> match
+  H_1  type ((3, 8),)            orbits   92  clauses  17626  violated 0   published (92, 17626) -> match
+  H_1  type ((6, 4),)            orbits   48  clauses   8606  violated 0   published (48, 8606) -> match
+  H_1  type ((12, 2),)           orbits   24  clauses   4086  violated 0   published (24, 4086) -> match
+  H_1  type ((4, 6),)            orbits   72  clauses  13152  violated 0   published (72, 13152) -> match
+  H_2  type ((1, 4), (2, 10))    orbits  146  clauses  26728  violated 0   published (146, 26728) -> match
+  H_2  type ((2, 12),)           orbits  144  clauses  26598  violated 0   published (144, 26598) -> match
+  H_2  type ((12, 2),)           orbits   24  clauses   4086  violated 0   published (24, 4086) -> match
+  H_2  type ((4, 6),)            orbits   72  clauses  13152  violated 0   published (72, 13152) -> match
+  H_2  type ((6, 4),)            orbits   48  clauses   8606  violated 0   published (48, 8606) -> match
+  H_2  type ((3, 8),)            orbits   92  clauses  17626  violated 0   published (92, 17626) -> match

@@ -1,0 +1,9 @@
+catalogue file: 328 graphs on 42 vertices
+  graph 1: no fixed-point-free involution found within the node cap (1 nodes, 0.0 s)
+  graph 2: no fixed-point-free involution found within the node cap (1 nodes, 0.0 s)
+  graph 3: no fixed-point-free involution found within the node cap (1 nodes, 0.0 s)
+  graph 4: involution found, cycle type {2: 21}, automorphism True (22 nodes, 0.0 s)
+    control: orbits 441, distinct clause supports 425334, violated 0 (2 s)
+    C(42,5) = 850668; published row: 441 orbits, 850668 clauses
+  graph 5: involution found, cycle type {2: 21}, automorphism True (22 nodes, 0.0 s)
+  graph 6: involution found, cycle type {2: 21}, automorphism True (22 nodes, 0.0 s)
