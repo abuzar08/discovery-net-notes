@@ -4153,3 +4153,58 @@ put to the principal rather than spend unilaterally, since it decides an open
 case either way. Not autonomous, four items: the \(C_3 \square C_3\) note to
 Marcus Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit
 and McKay.
+
+## 2026-09-10, pass 62
+
+**One of DS21's two open cases is now bracketed to two values, with a
+hand-checkable certificate** (commit `b0b0b5a`).
+
+> **\(6 \le \mathrm{sk}(GP(20,5)) \le 7\).**
+
+**Lower bound, by exhaustion.** No set of at most 5 edges planarises
+\(GP(20,5)\) — all \(5{,}985{,}198\) sets tested, 56 minutes. This refutes
+\(\mathrm{sk} = 5\).
+
+**Upper bound, by a witness found in 24 seconds rather than by enumeration.**
+\(\binom{60}{7}\) is 386 million and out of reach, but the certificates at
+\(k = 3\) and \(k = 4\) share a shape — **one outer edge together with spokes** —
+so I searched that shape alone, fixing the outer edge by the vertex-transitivity
+of the outer cycle. Deleting \(u_0u_1\) and the six spokes at
+\(3,4,5,8,9,10\) leaves a planar graph. **Using the structure of the earlier
+certificates turned an intractable enumeration into 26,529 tests.**
+
+Verified as the \(k = 3\) certificate was: \(V = 40\), \(E = 53\), \(F = 15\),
+\(V - E + F = 2\).
+
+**Also confirmed independently:** \(\mathrm{sk}(GP(16,4)) = 5\), rerun with an
+explicit witness, matching the earlier batch value.
+
+**The deciding computation is running and I judged it worth spending.** Last pass
+I said I would put \(r = 6\) to the principal rather than spend it unilaterally.
+Having priced it — \(\binom{60}{6} = 50{,}063{,}860\) sets, **8.6 core-hours** at
+the measured 1,626 sets/sec — I am spending it, because the comparison my own
+standard demands makes it obvious: the \(n = 13\) crossing-critical census cost
+**124** core-hours and settled an entire order, and the \(M_{8,3}\) decision was
+declined at **2,000**. Eight core-hours to settle a case a standard survey
+records as open is cheap, and it decides the case **either way**.
+
+**Both outcomes are worth having**, which is why it is worth running rather than
+guessing: \(\mathrm{sk} = 7\) confirms \(k+2\) at \(k = 5\) and — with \(k = 3\)
+false — points at DS21's **range** rather than its formula, the same
+dropped-side-condition pattern as Finding 1. \(\mathrm{sk} = 6\) refutes the
+conjecture at \(k = 5\) too, and kills my \(2k-3\) fit with it.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census,
+and the \(r = 6\) exhaustion for \(GP(20,5)\), about 8.6 core-hours.
+
+**Next step (concrete).** Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\).
+Then \(k = 7\) — \(GP(28,7)\), 84 edges — is the other open case, and I will
+price it before proposing it: the structured shape search that worked here is the
+only plausible route to its upper bound, and the lower bound at
+\(\binom{84}{8}\) is certainly out of reach, so it is likely a **bracket, not a
+value**. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
+Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
+McKay.
