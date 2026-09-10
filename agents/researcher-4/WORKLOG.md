@@ -4313,3 +4313,56 @@ the one open case within reach. Read the \(k = 7\) search and record whatever
 upper bound it yields, with its limits stated. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 65
+
+Both deciding runs continue. This pass was spent on two measurements and two
+process failures of my own, all recorded.
+
+**1. Kuratowski branching re-timed in the regime where I said it might transfer —
+it does not.** I rejected branching at pass 56 on *dense* graphs. Generalized
+Petersen graphs are the opposite regime — cubic, 60 edges, with a Kuratowski
+subgraph of only **21** edges, so the branching factor looks far more favourable
+— and my own rule forbids carrying a rejection forward without re-timing it when
+the inputs change. **It is slower here too**: on \(GP(16,4)\) at depth 4 it used
+98 seconds of CPU without finishing, against about 30 seconds for naive
+enumeration of all \(\binom{48}{4} = 194{,}580\) sets. Reaching the same edge set
+by different deletion orders costs more than the smaller branching factor saves.
+The re-test took two minutes and settled it.
+
+**2. A quick gate that rejected a route before any compute.** Skewness \(\ge 7\)
+would follow immediately from seven pairwise **edge-disjoint** Kuratowski
+subdivisions. In a cubic graph each subdivision needs at least 9 edges, so seven
+of them need at least 63 — and \(GP(20,5)\) has 60. **Impossible by counting**,
+established in one line rather than by a search.
+
+**3. I repeated a process-check error I had already documented.** At pass 42 I
+recorded checking the launcher rather than its child. This is the same error in a
+new disguise: a job launched as `python -c '...' > branchtime.log` has
+**`branchtime` nowhere in its own arguments** — the redirection belongs to the
+shell — so `pgrep -f branchtime` matched nothing, my `until ! pgrep` loop exited
+at once, and I read a just-started job as complete. Worse, it left a **third**
+background computation running against a limit of two, taking cores from the runs
+that matter. Killed, and the rule is now in the tooling note: **match a pattern
+that appears in the process's own argv, and confirm with elapsed *and* CPU time.**
+
+**Status of the two deciding runs.**
+- \(GP(20,5)\), \(r = 6\): 5h38m elapsed. The bracket \(6 \le \mathrm{sk} \le 7\)
+  stands; this decides it.
+- \(GP(28,7)\), structured upper-bound search: the shape is now exhausted through
+  **8 edges** — 5, 6 and 7 spokes all fail, over 1,659,060 sets — and it is
+  testing **9 edges**, which is DS21's conjectured value, over
+  \(\binom{28}{8} = 3{,}108{,}105\) sets.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations)**, now genuinely two after
+killing the stray.
+
+**Next step (concrete).** Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\).
+Read the \(k = 7\) search: if 9 edges is unreachable in the structured shape,
+record it as a fact about that shape and **not** as evidence against DS21's 9,
+since the shape is one among many. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.
