@@ -2617,3 +2617,69 @@ easy front of the file and I am not projecting from them. Scratch 8.5 GB.
    \(2^{a}\cdot3\).
 4. Order 4 remains sized and enumerable; start it with the degree window, which is
    where a factor of three will matter far more than it did here.
+
+## 2026-09-10 pass 54
+
+### The degree window worked, read by band as I resolved to
+Both \(Z_3\times Z_3\) runs restarted on the augmented formula last pass. Reading the
+hard fraction by cube-index band rather than in aggregate:
+
+```
+a0_b2000_c4   0-499: 0.4%   500-999: 2.2%   1000-1499: 0.6%
+             1500-1999: 2.2%   2000-2499: 0.0%   2500-3999: 0.6-2.0%
+a0_b1100_c4   0-499: 2.0%   500-999: 4.4%   1000-1499: 4.2%   1500-1999: 2.3%
+```
+
+Against 10 to 20 percent and **rising** on the plain formula. The fraction is now low
+and, more importantly, **flat** across bands — which is the property that makes a
+projection trustworthy at all. Means fell to 13.1 s and 31.5 s.
+
+### Order 4: machinery built, and a second negative datum
+`cyctype_deg.py` adds the degree window to an arbitrary-cycle-type formula (one
+totalizer per cycle), and `verify_cyctype.py --degree` regenerates those totalizers
+with its own implementation. Negative controls: a literal flipped inside one degree
+clause is rejected, and an augmented file checked without `--degree` is rejected.
+
+The probe result is negative and worth recording. The smallest \(Z_4\) type,
+\(1^{0}2^{1}4^{10}\), still **does not fall to a single call in 10 minutes with the
+degree window in place**, having failed the same way without it. So the window is a
+constant-factor speed-up — 2.8 on hard cubes — not a qualitative one, and order 4
+needs cube-and-conquer. That is now a machinery-ready project rather than an open
+question: what is missing is the prefix enumeration and the sweep, not any encoder or
+checker.
+
+### A regression I introduced and caught
+Copying the scratch `verify_cyctype.py` over the published one in 4a9f10e replaced the
+sibling-directory import search with the two-line scratch layout, so the *published*
+checker could no longer import `verify.py` or `verify_cnc_p.py` and died with
+`ModuleNotFoundError` when run from its own directory — exactly the reproduction path
+its README documents. Found by running the published copy from the artifact directory
+rather than assuming the copy was safe. Fixed in 19f2728, and the robust search is now
+in both copies so a future copy in either direction cannot reintroduce it.
+
+The same argument-parsing flaw appeared in both checkers: a flag was taken as the
+certificate path. Fixed in both.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Seven artifacts await a block.
+
+### Published
+Commits 4a9f10e (order-4 machinery and the extended probe) and 19f2728 (the import
+regression).
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 1643 of 16384, 68 hard (about 4 percent, flat).
+- `z3sq/a0_b2000_c4_deg`: 3893 of 16384, 45 hard (about 1 percent, flat).
+The second is running roughly twice as fast; on flat-band throughput it is around 11
+hours and the first around a day. Scratch 9.3 GB.
+
+### Next step (concrete)
+1. When `a0_b2000_c4_deg` finishes, move its seven workers onto the slower run rather
+   than leaving them idle.
+2. Verify both with `verify_groupenc.py --degree --cubes` and promote Theorem 2 of
+   `r55-42-no-z3-squared` with both corollaries.
+3. Then \(3^{2}9^{4}\); with the above, \(|\mathrm{Aut}(G)| = 2^{a}\) or
+   \(2^{a}\cdot3\).
+4. Order 4 when a slot frees: the encoder and checker are ready and controlled, so the
+   work is prefix enumeration plus sweep.
