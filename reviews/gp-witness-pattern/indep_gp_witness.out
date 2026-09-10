@@ -1,0 +1,5 @@
+the published witness pattern: outer edge u_0u_1 plus two runs of k-2 spokes offset by k, starting at 3
+   k=3: delete  3 edges -> planar True; V=24 E=33 F=11, V-E+F=2  (pattern predicts 2k-3=3)
+   k=4: delete  5 edges -> planar True; V=32 E=43 F=13, V-E+F=2  (pattern predicts 2k-3=5)
+   k=5: delete  7 edges -> planar True; V=40 E=53 F=15, V-E+F=2  (pattern predicts 2k-3=7)
+   k=7: delete 11 edges -> planar True; V=56 E=73 F=19, V-E+F=2  (pattern predicts 2k-3=11)

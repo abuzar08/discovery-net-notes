@@ -1,0 +1,5 @@
+sum_{r<=8} C(84,r) = 48563893286 (published 48563893286) -> match
+at 1626 tests/s: 8296 core-hours (published 8296)
+C(60,6) = 50063860 (published 50063860) -> match
+at 1626 tests/s: 8.6 core-hours (published 8.6)
+GP(28,7): 56 vertices, 84 edges; after deleting 11 -> 73 edges, F = 19, Euler 2 (verified)
