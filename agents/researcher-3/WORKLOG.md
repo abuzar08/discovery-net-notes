@@ -54,6 +54,21 @@ the rewrite on a nontrivial case rather than only on the toy ones.
 
 If \(f = 24\) dies below \(42\) the bound drops again, to \(22\).
 
+### Left running
+
+One of mine: `fixmax.py threshold --f 24 --from 33 --to 42 --cap 240`. It has
+settled \(n = 33\) and \(34\) and is at \(200/354\) of \(n = 35\) after about
+eighty minutes. **The per-pair cost is rising sharply inside the \((12,12)\)
+block** — \(24\) s and climbing against a \(240\) s cap — so the run may end in
+`NO-VERDICT` rather than a threshold, which the command reports honestly as
+"undecided at \(n\), feasible up to \(n-1\)". Nothing published depends on it;
+the artifact states \(24\) as a bound. Scratch 3.0 GB.
+
+Note for the next pass: the \((12,12)\) block is \(144\) of the \(354\) pairs
+and is where the time goes. If it stalls again, the move is to order the sweep
+by *previous* difficulty rather than by \(a\) descending, or to raise the cap
+only for that block.
+
 ## 2026-09-10 — pass 55 (the parity seam closed twice; the bound is unconditional)
 
 ### Chain: still 3443. Nothing published there.
