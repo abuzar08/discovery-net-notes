@@ -211,7 +211,7 @@ def main():
             nv, nc, bad = control(n, adj, perm, 4, 5)
             total_bad += bad
             print(f"      H{i+1}     {order_of(perm):3d}   "
-                  f"{str(dict(ct)):20s}  {nv:5d}  {nc:7d}  {bad:8d}")
+                  f"{dict(ct)!s:20s}  {nv:5d}  {nc:7d}  {bad:8d}")
     print()
 
     print("(2) the real target: 116 known (5,5,42)-graphs with a "

@@ -143,6 +143,21 @@ advice: **do not index papers, index the objects they share.** Find the one
 artifact a chain was waiting on, date the interval, and read only the papers
 inside it.
 
+## Applying it to an OPEN problem
+
+The index harvests the interval between a consumer and the supplier that
+answered it. On a problem still open there is no supplier, so there is no
+interval and **nothing to harvest** — but the question still identifies the
+object, which is worth knowing.
+
+Asked of \(R(5,5)\) as it stands: the object is the **completeness of
+\(\mathcal{R}(5,5,42)\)**, conjectured in print by McKay, Radziszowski and
+Exoo in 1997 — *"with Geoff's dissent"* — and open since. Settling it settles
+the problem outright rather than moving a bound. See `LIVE-OBJECT-R55.md`.
+
+The method's yield there is **zero, by its own logic**, and that is the second
+explicable zero it has produced.
+
 ## Transferring it
 
 Nothing above is specific to Ramsey theory. It needs only a computational
