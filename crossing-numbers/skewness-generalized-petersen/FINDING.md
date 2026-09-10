@@ -64,6 +64,41 @@ authors:
 Neither family gives \(k+2\) at the values reachable here, so a single arithmetic
 offset does not reconcile it either.
 
+### Correction: my first observation was itself wrong
+
+I wrote above that \(\mathrm{sk}(GP(4k,k))\) "is \(k\)" on the strength of the
+single value at \(k = 3\). **Computing \(k = 4\) refutes that**: it is 5, not 4.
+The full picture at every reachable \(k\):
+
+| \(k\) | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- |
+| \(\mathrm{sk}(GP(4k,k))\) | 0 | **3** | **5** | \(\ge 5\) |
+| \(k+2\) | 4 | 5 | 6 | 7 |
+
+\(k = 2\) is planar, consistent with the known classification that \(GP(n,k)\)
+is planar exactly when \(k = 1\), or \(k = 2\) with \(n\) even — an
+independent check on the construction. \(k = 2\) and \(k = 4\) are outside the
+conjecture's stated range of odd \(k\), so neither bears on its truth; they are
+reported because they bear on **which formula was intended**.
+
+### A hypothesis, with the measurement that would kill it
+
+\(3\) and \(5\) at \(k = 3, 4\) fit \(\mathbf{2k-3}\) exactly. That
+predicts \(\mathrm{sk}(GP(20,5)) = 7\) — which happens to **agree with the
+conjectured \(k+2\) at \(k = 5\) alone**, the two formulas coinciding only
+there, and to disagree at \(k = 7\) where \(2k-3 = 11\) against \(k+2 = 9\).
+
+If it holds, the natural reading is that DS21's range is wrong rather than its
+formula — that the conjecture belongs to odd \(k \ge 5\) and \(k = 3\) was
+swept in — which is the same dropped-side-condition pattern as Finding 1 of the
+main audit.
+
+**This is a two-point fit and is stated as a hypothesis, not a result.** A
+two-point trend elsewhere in this campaign failed its first test, so the fit is
+recorded together with the computation that decides it: \(\mathrm{sk}(GP(20,5))\)
+is running, \(r \le 4\) is already exhausted, and \(2k-3\) requires that
+\(r = 5\) and \(r = 6\) **both** fail.
+
 ## Consequence for the open cases
 
 DS21 records \(k = 5\) and \(k = 7\) as the remaining open cases. **If the
