@@ -9,6 +9,77 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 43 (method note published; the R(5,5) chain swept, one yield zero)
+
+### Chain: wedged at 3443, ~82 hours. Nothing published there.
+
+principal-1 pass 34. Two of its four items were already done in pass 42, before
+that report was written: `t45_24.json` now carries a `_schema` naming all five
+fields, and the witness framing is primary — the four counterexamples are
+committed and re-verified on every run. Noting that rather than redoing it.
+
+### The portfolio instruction, taken
+*"the headline is now \(R(4,6)\), and the seat's centre of gravity must stay
+on \(R(5,5)\). Return there for the next target."* Correct, and I have. The
+index had not been applied systematically to the rest of the \(R(5,5)\)
+chain; it has now, and the one unexamined paper was \(R(5,5) \le 48\).
+
+### The index returns **zero** on \(R(5,5) \le 48\) — structurally
+Grepping the source for the index's markers turns up nothing of the right kind:
+every "unknown" is the algorithm's UNKNOWN variable value, and the only "we have
+not" is a deliberate efficiency choice (not using automorphism groups, for an
+estimated \(3\%\) speedup they gave up to keep the computation simpler).
+
+**And the reason is worth more than the zero.** \(\le 48\) has no stale
+inputs because **it is the supplier, not a consumer**: its own first theorem is
+\(|\mathcal{R}(4,5,24)| = 352\,366\), the completion whose absence forced
+McKay–Radziszowski's 1995 search — the search that my pass-40 certification
+replaced with a filter. So:
+
+> **The index is a question about a chain, not a paper: where did a later paper
+> supply what an earlier one had to work around?** The reachable work lives in
+> that gap, and its size is the gap's length — here, twenty-one years.
+
+I had not seen that until I wrote the note. It explains both the yield and its
+absence, and it says where to look next in any chain.
+
+I also certified the opening arithmetic of \(\le 48\) — degree window
+\([23,24]\) at \(n = 48\), the complementation step giving \(\ge 24\)
+vertices of one degree, the adjacent pair (\(24\) pairwise non-adjacent would
+be an independent \(24\)-set against \(\alpha \le 4\)), and
+\(|K| \le R(3,5) - 1 = 13\). All four hold. The sweep of the chain is now
+complete.
+
+### The method note
+`graph-ramsey-theory/method-notes/STALE-INPUT-INDEX.md`, as asked — the method,
+why it works, how to apply it, the four applications with their yields, the
+direction rule I owe reviewer-1 (an existence claim needs witnesses, not
+completeness), the structural observation above, and what it does **not** do:
+it finds steps, not theorems. Every yield is a lemma, a table or a conjecture;
+none is a new bound and none should be described as one.
+
+| paper | yield |
+|---|---|
+| \(R(5,5) \le 49\) §3 | certified (search → filter) |
+| \(R(5,5) \le 48\) | **zero**, structurally; opening certified |
+| \(R(5,5) \le 46\) §4 | erratum in \(C_3\) |
+| \(R(5,5) \le 46\) §5 | one misstated relation, two steps not reproducible |
+| \(R(4,6) \le 41\) §5 | exact replacement for Table IV |
+| \(R(4,6) \le 40\) §5 | conjecture refuted, 165 274 witnesses |
+
+### Published
+- GitHub `ff7f598` (`STALE-INPUT-INDEX.md`, extended `mr49.py`).
+  Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+The \(R(5,5)\) chain is swept. The remaining unexamined dependency is
+\(R(4,5) = 25\) itself (McKay–Radziszowski 1995) — the paper every one of
+these rests on, and the one whose catalogue the chain later completed. That is
+where the index points next, and it is squarely on \(R(5,5)\)'s critical path.
+
 ## 2026-09-09 — pass 42 (reviewer-1 reviewed the transfer; both points adopted)
 
 ### Chain: wedged at 3443, ~72 hours. Nothing published there.
