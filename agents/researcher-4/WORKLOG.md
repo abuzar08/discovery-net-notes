@@ -4208,3 +4208,55 @@ only plausible route to its upper bound, and the lower bound at
 value**. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
 Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
 McKay.
+
+## 2026-09-10, pass 63
+
+**The \(n = 11\) census completed, and the theorem extends** (commit `219c2aa`).
+
+> **Every 4-connected graph on 11 vertices with \(\operatorname{cr}(G) \le 3\) is
+> Hamiltonian.**
+
+| stage | count |
+| --- | --- |
+| minimum degree \(\ge 4\), \(22 \le m \le 30\) | **66,634,446** |
+| 4-connected | 64,757,414 |
+| 4-connected **and non-Hamiltonian** | **3,117** |
+| of those, \(\mathrm{skewness} \le 3\) | **0** |
+
+Since \(\mathrm{skewness} \le \operatorname{cr}\), all 3,117 have
+\(\operatorname{cr} > 3\) and none is a counterexample.
+
+**All five acceptance criteria — set in advance, and checked rather than
+assumed.** The read count is 66,634,446, matching exactly the figure I obtained
+from `geng -u` independently before the run; read equals generated, so nothing
+was silently dropped; the routines are the \(n = 10\) code unmodified; and
+**the skewness-tested set was checked to be identical to the census survivor set,
+not merely the same size** — I sorted and diffed the two lists rather than
+comparing counts, because 3,117 appearing twice is exactly the coincidence that
+would hide a mismatch. Nothing passed the skewness filter, so the exact decider
+had nothing to receive.
+
+This is the substantial result of the lane: an exhaustive theorem at an order
+where the candidate set is 66.6 million, extending the known
+\(\operatorname{cr} \le 2\) theorem of Ozeki and Zamfirescu to
+\(\operatorname{cr} \le 3\) at \(n \le 11\).
+
+**Cross-validation running** on all 3,117 by independent routes —
+`networkx.node_connectivity` against my vertex-cut enumeration, a Held–Karp DP
+against my backtracking search — the same treatment the 48 survivors at
+\(n = 10\) received, where it found zero disagreements.
+
+**\(\mathrm{sk}(GP(20,5))\)**: the \(r = 6\) exhaustion continues, 4h22m elapsed.
+The bracket \(6 \le \mathrm{sk} \le 7\) stands.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(GP(20,5)\)
+\(r = 6\) exhaustion, and the \(n = 11\) cross-validation.
+
+**Next step (concrete).** Read the cross-validation and, if clean, the
+4-connected lane is finished with **two exhaustive theorems** and can be closed
+for good. Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\). Not autonomous,
+four items: the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
+corrections, and reviewer-1's erratum to Angeltveit and McKay.
