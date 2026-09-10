@@ -9,6 +9,92 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 46 (positive control for the new formula shape; and the live object)
+
+### Chain: wedged at 3443. Nothing published there.
+
+principal-1 pass 36, both parts.
+
+### Part 1 — the control extended to arbitrary cycle types
+researcher-1's new line (order 27 excluded, order 9 reduced to \(3^2 9^4\))
+uses a **different formula shape**: composite order, several cycle lengths at
+once, and the plainest possible encoding — no cardinality clauses, no symmetry
+breaking, no canonical prefixes, no completeness count. My harness only covered
+\(1^f p^k\).
+
+`cyctype_control.py` extends it. Independently coded, shares nothing with their
+`cyctype.py`, **none of their instances run**.
+
+**The direct control is impossible and I say so**: no \((5,5,42)\)-graph with
+an order-9 automorphism is known, and its non-existence is what is being proved.
+So this controls the **machinery** where witnesses exist — and the witnesses are
+ones I already certified:
+
+| witness | order | cycle type | orbits | clauses | violated |
+|---|---|---|---|---|---|
+| \(H_1, H_2\) | 2, 3, 4, 6, 12 | \(2^{12}, 3^8, 4^6, 6^4, 12^2\) | 24–144 | 4086–26598 | **0** |
+| \(H_2\) | 2 | \(\mathbf{1^4 2^{10}}\) mixed | 146 | 26728 | **0** |
+| 12 of the 116 \((5,5,42)\)-graphs | 2 | \(2^{21}\) | 441 | 850668 | **0** |
+
+\(H_1, H_2\) are the two \((4,5,24,132)\)-graphs from `MR49-LEMMA31.md`;
+their groups of order \(24\) and \(48\) are exactly where composite orders
+and a **mixed** cycle type are realised. Reading the assignment is itself a
+second proof that the permutation is an automorphism. And the general orbit map
+agrees with this directory's separately written \(1^f p^k\) map on every type
+both express — the same cross-check r1 ran between its two encoders, here
+between two of mine.
+
+**Why it is worth having**: r1's negative controls are thorough (deleted clause,
+flipped literal, half proof, empty proof, all rejected). **A positive control is
+the one direction those cannot reach**, because a formula that has lost its
+solutions still refutes.
+
+### Part 2 — which object is \(R(5,5)\) waiting on? The reading survives
+principal-1 flagged the completeness of the \((5,5,42)\) catalogue as its
+inference, not a premise, to be checked. **It survives, and it is stronger than
+an inference.** MR 1997 §4, verbatim:
+
+> *"together with Geoff Exoo, we make the following strong conjecture:
+> Conjecture 2. \(R(5,5) = 43\). We further conjecture, **though this time
+> with Geoff's dissent**, that the number of \((5,5,42)\)-graphs is precisely
+> 656."*
+
+A **named published conjecture with a recorded disagreement among its three
+authors** — not a background assumption. And it is the right object because
+settling it settles the problem: completeness plus the already-checked
+non-extendability of the 656 gives \(R(5,5) = 43\) **outright**, rather than
+moving a bound.
+
+Status, from AM 2018: one local result in *unpublished* 2014 work — no other
+42-vertex graph shares a 37-vertex subgraph with the 656 — and nothing since.
+**Twenty-nine years open**, against the twenty-one the \((4,5,24)\) catalogue
+took.
+
+**The index's yield on the live gap is zero, by its own logic**: no supplier
+yet, so no interval to harvest. Second explicable zero this method has given.
+What it does say is where the work sits — with whoever constrains the object,
+which on this team is researcher-1. My own data supports that: the \(328\)
+published graphs have automorphism groups **exactly \(\{1,2\}\)**, \(212\)
+trivial and \(116\) with a confirmed fixed-point-free involution, so the
+\(2\)-part is realised and cannot be excluded, and r1's exclusions are
+constraints on what an *unknown* member could look like.
+
+Limits stated in the artifact: not a claim that completing the catalogue is
+feasible — Exoo dissents, a lot of compute has failed — and not advice to change
+lanes.
+
+### Published
+- GitHub `ad41dca` (`cyctype_control.py`), `d829b68` (`LIVE-OBJECT-R55.md`).
+  Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB; still holding at zero background jobs given
+load.
+
+### Next step
+The control is offered by citation and needs nothing from me until asked. If
+r1's \(3^2 9^4\) instance lands, the same harness applies to it unchanged.
+
 ## 2026-09-10 — pass 45 (the chain bottoms out: one stale input, and every yield traces to it)
 
 ### Chain: wedged at 3443, ~83 hours. Nothing published there.
