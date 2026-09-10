@@ -1,0 +1,12 @@
+(1) the involution bound, and what the pair-orbit count does
+    involutions with f <= 36: pair orbits range 441 to 747 (published 441 to 747: match)
+    closed form C(f,2) + fk + 2C(k,2) + k at the endpoints: f=0,k=21 -> 441, f=36,k=3 -> 747
+
+(2) the Z_4 enumeration
+    cycle types with c_4 >= 1 and c_1 + 2c_2 <= 36: 90 (published 90: match)
+    pair orbits range 221 to 637 (published 221 to 637: match)
+    the smallest is type 1^0 2^1 4^10 with 221 orbits (published smallest: 1^0 2^1 4^10 with 221)
+
+(3) the Z_2 x Z_2 enumeration
+    orbit-structure tuples (n_1, n_a, n_b, n_c, n_4) with every involution at f <= 36: 6465 ordered, 1347 up to relabelling the three subgroups
+    published 1347 -> matches the unordered count

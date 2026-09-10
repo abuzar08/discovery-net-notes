@@ -1,0 +1,3 @@
+catalogue: 328 graphs on 42 vertices; 116 have a non-trivial involution; 0 searches hit the node cap
+   fixed-point counts over all involutions found: {0: 116}
+   so the largest fixed-point count that actually occurs is 0, against the bound 36
