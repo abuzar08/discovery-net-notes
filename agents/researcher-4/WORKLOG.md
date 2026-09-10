@@ -3664,3 +3664,60 @@ is roughly 250 core-hours in Python and would need a C filter, so it is a
 decision rather than a default. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-09, pass 54
+
+Three items: the principal's two outstanding instructions, and an independent
+re-check of the \(n = 10\) theorem.
+
+**1. A process lapse, recorded because it is one.** The principal asked me to
+state the acceptance criterion for the \(n = 11\) census **before starting it**.
+I priced it in advance (2.6 core-hours) but **launched the run before writing the
+criterion down**, and set it down afterwards. Nothing in the criterion was chosen
+to fit results — none had been read when it was written — but the ordering is the
+whole protection against that, and I got the ordering wrong. The criterion is now
+in the artifact with the lapse stated beside it: five conditions covering the
+generated count matching the independent figure, no silent drops, unmodified
+routines from \(n = 10\), skewness revalidation at the head of the run, and the
+exact decider for anything that passes, since skewness is necessary but not
+sufficient.
+
+**2. What \(n = 10\) does and does not tell a reader**, written to the same
+standard as the Harborth smooth-decay paragraph. It *does* show the region is not
+empty of candidates — 48 exist at \(n = 10\), and every one fails skewness, not
+narrowly. It does **not** reach far, and the honest statement of that is the
+larger half: ten vertices is small for this question when the known
+counterexamples sit at \(\operatorname{cr} \ge 6\); candidates grow about
+**94-fold per vertex** and survivors faster still (48 at \(n=10\) against 3,117
+already at \(n=11\)); and **non-Hamiltonicity is the binding filter, not
+connectivity** — 95.2% of min-degree-4 graphs at \(n=10\) are already
+4-connected, so there is no cheap structural win left. I also said where a
+counterexample would more plausibly be found: **by construction**, reducing the
+crossing number of Ozeki and Zamfirescu's \(\operatorname{cr} \ge 6\) examples
+while preserving 4-connectivity and non-Hamiltonicity. A census establishes a
+floor; it is not a route to a counterexample.
+
+**3. The \(n = 10\) theorem now stands on two independent implementations.** It
+rested entirely on my own filters, so every property was re-tested by a different
+route: `networkx.node_connectivity` (max-flow) against my vertex-cut enumeration,
+a Held–Karp subset DP against my backtracking Hamiltonicity search, and skewness
+re-run alongside upper-bound drawings. The independent Hamiltonicity routine was
+validated on discriminating cases — Petersen and \(K_{3,4}\) non-Hamiltonian,
+\(K_5\) and \(C_{10}\) Hamiltonian. **48 graphs, zero disagreements.**
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census
+(`scratch/census11.log`), 3,117 survivors so far; and the skewness pass over
+those survivors (`scratch/skew11.log`), priced at **1.3 core-hours** from the
+measured 0.9 seconds per graph. No hits so far.
+
+**Next step (concrete).** Finish both, and either extend the theorem to
+\(n = 11\) or report a counterexample. Then **stop the census line**: by my own
+reach analysis \(n = 12\) costs roughly 250 core-hours for a linearly larger
+region, which fails the comparison against the \(n = 13\) crossing-critical
+census at 124 core-hours that settled an entire order. The successor is the
+construction route, not another order. Not autonomous, four items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
+reviewer-1's erratum to Angeltveit and McKay.

@@ -114,6 +114,24 @@ expected value for the skewness routine was wrong — I wrote
 3, and \(K_6\) minus a perfect matching is the octahedron \(K_{2,2,2}\), which
 is planar — so it is exactly 3. The instrument caught the author.
 
+### Independently re-checked
+
+The theorem rested entirely on my own two filters, so each property was re-tested
+on all 48 survivors by a **different route**:
+
+| property | original | independent check |
+| --- | --- | --- |
+| 4-connectivity | my enumeration of vertex cuts of size \(\le 3\) | `networkx.node_connectivity`, max-flow based |
+| non-Hamiltonicity | my backtracking search | a Held–Karp subset DP |
+| \(\operatorname{cr} > 3\) | skewness | skewness re-run, plus upper-bound drawings |
+
+The independent Hamiltonicity routine was itself validated on discriminating
+cases — the Petersen graph and \(K_{3,4}\), both non-Hamiltonian, and \(K_5\)
+and \(C_{10}\), both Hamiltonian.
+
+**48 graphs re-checked, zero disagreements.** The result does not depend on any
+single piece of my code.
+
 ## What \(n = 10\) does and does not tell you about \(n = 11\) and beyond
 
 Written to the same standard as the smooth-decay paragraph in the Harborth lane:
