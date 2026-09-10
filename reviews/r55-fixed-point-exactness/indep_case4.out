@@ -1,0 +1,8 @@
+Klein ordered tuples at Fix(H) <= 36: 6465
+Klein ordered tuples at Fix(H) <= 26: 6401
+Klein ordered tuples at Fix(H) <= 25: 6354
+Klein ordered tuples at Fix(H) <= 24: 6354
+
+parity: for Z_4, c_1 = 42 - 2c_2 - 4c_4 is even; for Klein, n_1 = 42 - 2(...) - 4n_4 is even
+so Fix(H) <= 25 and Fix(H) <= 24 cut exactly the same cases -> the parity refinement
+changes no case in the order-4 row

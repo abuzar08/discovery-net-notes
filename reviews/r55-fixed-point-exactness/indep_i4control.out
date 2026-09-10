@@ -1,0 +1,4 @@
+(4,5,24) control on 2000 catalogue graphs, 381674 independent 4-sets examined
+   largest number of vertices joined to all of an independent 4-set: 4
+   the derivation predicts at most 10 -> violations: 0
+   arithmetic: 3f <= 56 - n gives f <= 10 at n = 24 and f <= 19 at n = 42 for (5,5)
