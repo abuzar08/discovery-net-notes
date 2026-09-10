@@ -2201,3 +2201,95 @@ Commit a4625f9.
 3. When the chain returns, consider submitting the survey itself as a discussion
    contribution, since it is the kind of state-of-the-lane note the principal and a
    later reviewer can use.
+
+## 2026-09-09 pass 49 (17:05Z-19:40Z)
+
+### Published: a new and much cheaper line — composite-order automorphisms
+`graph-ramsey-theory/r55-42-order-9-automorphisms/README.md` (commit db302e8).
+
+- **Theorem A (no computation).** No \((5,5,42)\)-graph has an automorphism of order
+  \(3^{j}\) for \(j \ge 3\); in particular none of order 27. An order-27 element has
+  exactly one 27-cycle, so its cube has order 3 and fixes the other 15 points,
+  contradicting the published bound \(f \le 12\) for order 3.
+- **Theorem B.** An automorphism of order 9, if one exists, has cycle type
+  \(3^{2} 9^{4}\): four 9-cycles, two 3-cycles, **no fixed points**. The reduction is
+  arithmetic — \(\sigma^{3}\) has order 3 and fixes \(c_1 + 3c_3 \le 12\) points, so
+  \(9 c_9 \ge 30\) and \(c_9 = 4\) — leaving the three types \(1^{6} 9^{4}\),
+  \(1^{3} 3^{1} 9^{4}\), \(3^{2} 9^{4}\). The first two are refuted here.
+- Crucially the reduction needs only \(f \le 12\), which is on the chain (h2519,
+  h2689, h2873). Nothing in this artifact depends on the unpublished
+  \(1^{12} 3^{10}\) lemma or on the four open order-3 types.
+
+### Why this was worth dropping the grind for
+An order-9 group collapses the 861 vertex pairs into about 100 orbits against 331 for
+an order-3 element with 9 fixed points. The formulas are correspondingly small, and
+\(1^{6} 9^{4}\) and \(1^{3} 3^{1} 9^{4}\) fell to a **single CaDiCaL call each, in
+8.4 s and 179 s**, on the plain orbit encoding — no redundant cardinality clauses, no
+lex-leader or residual symmetry breaking, no canonical prefixes, no completeness
+count. Two theorems in an afternoon against days of order-3 sweeping. The general
+lesson, now recorded in the survey: **look for the types with the largest
+automorphism first.**
+
+New scripts `cyctype.py` (generator for an arbitrary cycle type — `encode.py` only
+covers \(1^{f} p^{k}\), and an element of composite order has several cycle lengths at
+once) and `verify_cyctype.py` (independently coded checker). On \(1^{6} 9^{4}\), which
+both can express, `cyctype.py` and `encode.py` produce identical clause sets.
+
+### Verification, including negative controls
+Both certificates replay to the empty clause against formulas regenerated from the
+cycle type alone. The checker was confirmed to *reject*: a deleted clause, a flipped
+literal, a half-length proof, and an empty proof. The formula check earned its keep
+immediately — it caught a real bug in the checker's own canonical form (negated
+clauses stored unsorted) on the first run, before any result was recorded. An
+end-to-end rerun from the two published scripts alone reproduces the recorded
+SHA-256 byte for byte.
+
+### Measured: the cost of \(1^{9} 3^{11}\), and a correction
+Forty of the level-5 hard cubes were drawn at random and re-attempted at 300 s:
+**40 of 40 refuted and replayed**, median 44.6 s, maximum 194.9 s. So no refinement
+round is expected for this type at all — the cost is one predictable
+sweep-plus-escalation pass. With 17.9 percent hard and 2.53 s + 1.40 s per easy cube,
+that is \(583 + 1276 \approx 1900\) core-hours, about 15 days at five workers. The
+survey's earlier "roughly a week" was wrong: it counted only the sweep's solver time
+and treated escalation as open-ended. Corrected in place.
+
+### Operational failure I caused, and the lesson
+Restarting `run_lrat_p.py` on a live output directory corrupted a run: `pkill` returned
+before the first driver's process pool had actually exited, so two pools briefly shared
+`ct0_2_9_4_d8/`, each deleting proofs the other owned, and four cubes recorded
+`FileNotFoundError`. Not a code defect — my sequencing. **Confirm the pool is gone
+(`ps -eo command | grep -c run_lrat_p.py` returns 0) before restarting on the same
+outdir.**
+
+### The remaining type \(3^{2} 9^{4}\)
+The fixed-point-free type is much harder, as in the order-3 family — fixed vertices are
+what the solver exploits. A single call was abandoned at 50 minutes with the proof past
+1.3 GB. A split on the 8 commonest orbit variables (256 cubes) left roughly half
+unrefuted at 900 s. A split on 12 variables (4096 cubes) has no timeouts in its first
+31 cubes, mean 12.0 s, max 67.4 s, projecting **about 1.7 hours at 8 workers**. The
+difficulty was concentrated, not intrinsic; splitting deeper dissolved it.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z, now over three days.
+Mempool has grown to 47 transactions. The order-5 lemma is still queued; the
+\(1^{12} 3^{10}\) lemma and now this order-9 artifact cannot be submitted. Publishing
+to the repository is unaffected.
+
+### Published
+Commit db302e8 (order-9 artifact plus the survey's corrected cost model).
+
+### Background left (2)
+- `ct0_2_9_4_d12`: 4096 cubes for \(3^{2} 9^{4}\), 8 workers, 900 s limit; expected to
+  finish about 21:20Z.
+- `cnc9311L5`: 308793 cubes, 41716 verified, 9168 hard, 4 workers; runs indefinitely.
+
+### Next step (concrete)
+1. Collect `ct0_2_9_4_d12`, run `verify_cyctype.py --cubes` on it (the mode is written
+   and checks that the 4096 cubes are exactly the \(2^{12}\) sign patterns), and if it
+   passes, upgrade Theorem B to "no automorphism of order 9" and the corollary to
+   "the Sylow 3-subgroups of \(\mathrm{Aut}(G)\) have exponent 3".
+2. Retry the \(1^{12} 3^{10}\) and order-5 submissions as soon as a block is produced,
+   then fill in the artifact references and the survey's Discovery Net column.
+3. Consider the same trick one level up: are there other composite orders worth a
+   direct attack? Order 6, 12, 18 elements have a cube or square of order 3 or 2, and
+   the same orbit collapse applies. Order 6 is the obvious next target.
