@@ -3,6 +3,21 @@ POSITIVE CONTROL: the degree-window constraint family (researcher-1, 53627c2)
   A 2.8x speed-up is the signature of a good redundant constraint
   AND of a too-tight one.  Only a real object separates them.
 
+WHY THE WITNESSES ARE BLIND -- corrected after reviewer-1's review of d518d77
+
+   1^0 2^21 (a fixed-point-free involution)
+      fixed points 0, weights {1: 1722}, 0 above 1
+      carriers by mechanism: none
+   1^0 2^1 4^10 (smallest Z_4 type)
+      fixed points 0, weights {1: 1562, 2: 80}, 80 above 1
+      carriers by mechanism: {'(i) nontrivial stabiliser': 2, '(ii) own orbit, size >= 3': 40}
+   1^2 2^20
+      fixed points 2, weights {1: 1642, 2: 40}, 40 above 1
+      carriers by mechanism: {'(i) nontrivial stabiliser': 2}
+   1^6 9^4
+      fixed points 6, weights {1: 1218, 2: 144, 9: 24}, 168 above 1
+      carriers by mechanism: {'(i) nontrivial stabiliser': 6, '(ii) own orbit, size >= 3': 36}
+
 MUTATION TEST -- would this control actually catch a bad family?
 
    on a (5,5,42)-graph with a fixed-point-free involution:
@@ -37,8 +52,9 @@ MUTATION TEST -- would this control actually catch a bad family?
   BUT READ THE MUTATION TEST.  At 1^0 2^21 every block weight is
   1, so these 116 witnesses CANNOT exercise failure mode (1) --
   the multiplicities, which are the part most likely to be wrong.
-  That is not an accident: weight above 1 needs a fixed point, and
-  a fixed-point-free involution has none.  Mode (1) is reachable
+  That is not an accident, but the reason is NOT the one this file
+  first gave ('weight above 1 needs a fixed point' -- false above
+  order 2; see corrected_mechanism.__doc__).  Mode (1) is reachable
   only at other parameters, and it is checked above on a
   (4,5,24)-graph, where the mutant IS caught.
 

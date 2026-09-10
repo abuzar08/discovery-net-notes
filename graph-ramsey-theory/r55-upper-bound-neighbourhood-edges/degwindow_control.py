@@ -230,6 +230,89 @@ def check_one(n, adj, perm, lo, hi, sabotage=None):
     return bad, degs, ncls
 
 
+def corrected_mechanism(verbose=True):
+    """WHY the 116 witnesses have no multiplicities -- corrected.
+
+    This file first said: *"weight above 1 needs a fixed point, and a
+    fixed-point-free involution has none."*  reviewer-1's review of `d518d77`
+    refuted that, point (4): at 1^0 2^1 4^10 -- the smallest Z_4 type, the one
+    the order-4 probe runs on -- there are 80 weights equal to 2 with no fixed
+    point anywhere.  Reproduced here exactly.
+
+    The true mechanism.  A weight above 1 at v means two pairs at v lie in one
+    orbit, i.e. some g with g{v,x} = {v,y} != {v,x}.  There are exactly two
+    ways for that to happen:
+
+      (i)  g fixes v -- a nontrivial stabiliser G_v -- and gx = y;
+      (ii) g swaps, gv = y and gx = v.  This happens INSIDE v's own orbit
+           whenever that orbit has size >= 3, because the pairs at distance k
+           and at distance -k are then identified while both contain v.
+
+    A fixed-point-free involution has neither: every stabiliser is trivial, and
+    every orbit has size 2 whose single internal pair gives weight 1.  So all
+    1722 weights are 1 **because the orbits are 2-cycles**, not because there
+    are no fixed points.
+
+    reviewer-1's own explanation covers only (i) -- it gives the 2-cycle of an
+    order-4 element, whose stabiliser is <sigma^2>.  But at 1^0 2^1 4^10 only 2
+    of the 42 vertices lie in that 2-cycle, while 40 lie in 4-cycles with
+    TRIVIAL stabiliser and still carry weight 2, by (ii).  Both halves are
+    needed to explain the 80.
+    """
+    import cyctype_control as CC
+    from math import gcd
+    from collections import Counter
+
+    def perm_of(cyc):
+        p, v = [], 0
+        for L in cyc:
+            p.append(tuple(range(v, v + L)))
+            v += L
+        img = list(range(v))
+        for c in p:
+            for i, x in enumerate(c):
+                img[x] = c[(i + 1) % len(c)]
+        return tuple(img)
+
+    rows = [("1^0 2^21 (a fixed-point-free involution)", [2] * 21),
+            ("1^0 2^1 4^10 (smallest Z_4 type)", [2] + [4] * 10),
+            ("1^2 2^20", [1, 1] + [2] * 20),
+            ("1^6 9^4", [1] * 6 + [9] * 4)]
+    out = []
+    for label, cyc in rows:
+        n = sum(cyc)
+        perm = perm_of(cyc)
+        name, nv = CC.pair_orbits(n, perm)
+        w = block_weights(n, name, nv)
+        cnt = Counter()
+        for u in range(n):
+            for _o, m in w[u].items():
+                cnt[m] += 1
+        order = 1
+        for L in cyc:
+            order = order * L // gcd(order, L)
+        cl, v = {}, 0
+        for L in cyc:
+            for i in range(L):
+                cl[v + i] = L
+            v += L
+        # split the carriers by the two mechanisms
+        by = Counter()
+        for u in range(n):
+            if max(w[u].values()) > 1:
+                by["(i) nontrivial stabiliser" if order // cl[u] > 1
+                   else "(ii) own orbit, size >= 3"] += 1
+        fixed = sum(1 for L in cyc if L == 1)
+        above = sum(v_ for k, v_ in cnt.items() if k > 1)
+        out.append((label, fixed, dict(sorted(cnt.items())), above, dict(by)))
+        if verbose:
+            print(f"   {label}")
+            print(f"      fixed points {fixed}, weights "
+                  f"{dict(sorted(cnt.items()))}, {above} above 1")
+            print(f"      carriers by mechanism: {dict(by) or 'none'}")
+    return out
+
+
 def weighted_witnesses():
     """(graph, automorphism) pairs whose block weights are NOT all 1.
 
@@ -330,6 +413,10 @@ def mutation_test(lines):
     catch, are injected and the control must report violations for both.  If a
     mutant passes, the control is decorative.
     """
+    print("WHY THE WITNESSES ARE BLIND -- corrected after reviewer-1's review "
+          "of d518d77\n")
+    corrected_mechanism()
+    print()
     print("MUTATION TEST -- would this control actually catch a bad family?\n")
     n, adj = R.g6_decode(lines[0])
     perm = None
@@ -438,8 +525,9 @@ def main():
     print("\n  BUT READ THE MUTATION TEST.  At 1^0 2^21 every block weight is")
     print("  1, so these 116 witnesses CANNOT exercise failure mode (1) --")
     print("  the multiplicities, which are the part most likely to be wrong.")
-    print("  That is not an accident: weight above 1 needs a fixed point, and")
-    print("  a fixed-point-free involution has none.  Mode (1) is reachable")
+    print("  That is not an accident, but the reason is NOT the one this file")
+    print("  first gave ('weight above 1 needs a fixed point' -- false above")
+    print("  order 2; see corrected_mechanism.__doc__).  Mode (1) is reachable")
     print("  only at other parameters, and it is checked above on a")
     print("  (4,5,24)-graph, where the mutant IS caught.")
     print("\n  The order-4 row is exactly where weights above 1 appear, and")

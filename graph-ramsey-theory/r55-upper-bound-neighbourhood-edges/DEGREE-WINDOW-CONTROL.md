@@ -69,15 +69,61 @@ every single one equal to \(1\) — so the weighted sum degenerates to an
 unweighted one and the mutation is a no-op. The \(116\) witnesses *cannot*
 exercise failure mode (1) at all.
 
-That is not bad luck, and my own published result says why. From
-`ORDER4-ENUMERATION.md`:
+That is not bad luck. **My first explanation of it was wrong, and reviewer-1
+refuted it.**
 
-> Max block weight equals \(|V|\) **iff the action has both a fixed point and a
-> regular orbit.**
+> **Correction (reviewer-1's review of `d518d77`, point 4).** This note first
+> said *"weight above 1 needs a fixed point, and a fixed-point-free involution
+> has none."* That is **false above order 2**. At \(1^0 2^1 4^{10}\) — the
+> smallest \(Z_4\) type, the one the order-4 probe runs on — there are
+> \(\mathbf{80}\) weights equal to \(2\) with **no fixed point anywhere**.
+> Reproduced here exactly, along with their other two figures (\(40\) at
+> \(1^2 2^{20}\); \(168\) at \(1^6 9^4\), maximum \(9\)).
 
-A fixed-point-free involution has no fixed point, so its maximum block weight
-is below \(|V| = 2\), i.e. exactly \(1\). **The one cycle type at \(n = 42\)
-where witnesses exist is precisely the type where the multiplicities vanish.**
+The true mechanism, which is neither what I wrote nor quite what the review
+gives. A weight above \(1\) at \(v\) means two pairs at \(v\) lie in one orbit,
+i.e. some \(g\) with \(g\{v,x\} = \{v,y\} \ne \{v,x\}\). Exactly two ways:
+
+- **(i)** \(g\) fixes \(v\) — a nontrivial stabiliser \(G_v\) — and \(gx = y\);
+- **(ii)** \(g\) *swaps*: \(gv = y\), \(gx = v\). Then \(x \to v \to y\) are
+  three distinct points of one \(g\)-cycle, so **(ii) fires exactly when some
+  group element has a cycle of length \(\ge 3\) through \(v\)** — the pairs at
+  distance \(k\) and \(-k\) along that cycle are identified while both contain
+  \(v\). For \(Z_4\) the \(4\)-cycles do it; for \(Z_2 \times Z_2\), where
+  every element is an involution, **(ii) never fires** and every weight above
+  \(1\) comes from (i).
+
+A fixed-point-free involution has neither: every stabiliser is trivial, and
+every orbit is a \(2\)-cycle whose *single* internal pair gives weight \(1\).
+**So all \(1722\) weights are \(1\) because the orbits are \(2\)-cycles, not
+because there are no fixed points.** Measured, with the carriers split by
+mechanism:
+
+| cycle type | fixed pts | weights | above 1 | carriers by (i) | by (ii) |
+|---|---|---|---|---|---|
+| \(1^0 2^{21}\) | 0 | \(\{1{:}1722\}\) | 0 | — | — |
+| \(1^0 2^1 4^{10}\) | 0 | \(\{1{:}1562,\,2{:}80\}\) | 80 | 2 | **40** |
+| \(1^2 2^{20}\) | 2 | \(\{1{:}1642,\,2{:}40\}\) | 40 | 2 | — |
+| \(1^6 9^4\) | 6 | \(\{1{:}1218,\,2{:}144,\,9{:}24\}\) | 168 | 6 | 36 |
+
+reviewer-1's explanation covers only **(i)** — the \(2\)-cycle of an order-4
+element, whose stabiliser is \(\langle \sigma^2 \rangle\). But only \(2\) of the
+\(42\) vertices lie in that \(2\)-cycle, while **\(40\) lie in \(4\)-cycles
+with trivial stabiliser and still carry weight \(2\)**, by (ii). Both halves
+are needed to account for the \(80\).
+
+**My published theorem is untouched**, because it is about a different
+quantity: `ORDER4-ENUMERATION.md` says *max* block weight equals \(|V|\) iff
+the action has both a fixed point and a regular orbit, and at
+\(1^0 2^1 4^{10}\) the max is \(2 \ne 4 = |V|\) with no fixed point, exactly as
+that theorem predicts. What was wrong was the looser sentence I wrote here,
+which conflated "weight \(= |V|\)" with "weight \(> 1\)".
+
+**And the correction strengthens the conclusion**, as the review says:
+multiplicities are live at order 4 not only in the \(855\) Klein actions with a
+fixed point and a regular orbit, but in \(Z_4\) types with **no fixed points at
+all**. The set of order-4 instances whose weight arithmetic no positive control
+guards is **larger** than my criterion suggested.
 
 So mode (1) has to be controlled somewhere else. It is: on \(H_1\) and \(H_2\),
 the two \((4,5,24,132)\)-graphs, whose automorphisms include types with block
@@ -109,19 +155,33 @@ look**, which is the part that matters when a refutation is the deliverable.
 ## 4. What this means for the order-4 project
 
 researcher-1 recommends the family for the order-4 row. That row is **exactly
-where the multiplicities stop being trivial**: by the dichotomy above, the
-\(855\) of \(1347\) \(Z_2 \times Z_2\) actions with both a fixed point and a
-regular orbit have maximum block weight \(4\), and so do the \(Z_4\) types with
-fixed points. And there is **no known \((5,5,42)\)-graph with an order-4
-automorphism at all**, so no direct positive control is possible there — ever,
-unless one is found.
+where the multiplicities stop being trivial** — and, after §3's correction,
+more thoroughly than I first said. Computed over the whole reduced row rather
+than argued:
+
+> **Every one of the \(84\) \(Z_4\) types and every one of the \(1328\)
+> \(Z_2^2\) actions has block weights above \(1\)** — not merely the \(855\)
+> with a fixed point and a regular orbit. There is no order-4 instance whose
+> weight arithmetic is trivial.
+
+Maximum block weight over the reduced lists: \(Z_4\) gives \(\{2 : 9,\,
+4 : 75\}\), \(Z_2^2\) gives \(\{2 : 492,\, 4 : 836\}\). The \(Z_2^2\) figure
+differs from pass 51's \(855\) by exactly \(19\) — the actions the orbit lemma
+removed — which is an internal check that the two computations are about the
+same objects. \(Z_4\) reaches weight \(> 1\) by both mechanisms, \(Z_2^2\) only
+by (i).
+
+And there is **no known \((5,5,42)\)-graph with an order-4 automorphism at
+all**, so no direct positive control is possible there — ever, unless one is
+found.
 
 Concretely:
 
 1. The family is **safe to use at \(1^0 2^{21}\)**, verified.
-2. Before using it on any type with fixed points, run the mode-(1) control at
-   \((4,5,24)\) — `degwindow_control.py` does this — because the \(n = 42\)
-   witnesses are provably incapable of catching that defect.
+2. Before using it on **any** order-4 type — not only those with fixed points,
+   which was my earlier and wrong criterion — run the mode-(1) control at
+   \((4,5,24)\); `degwindow_control.py` does this. The \(n = 42\) witnesses are
+   provably incapable of catching that defect.
 3. The first order-4 instance is the one most likely to be silently wrong, and
    it is also the one whose answer nobody can check against a known object.
 
