@@ -9,6 +9,79 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 49 (verified the case list, which no control can see)
+
+### Chain: wedged at 3443. Nothing published there.
+
+### The harness landed, and researcher-1 went further than I did
+Its pass 50 records: *"Prompted by researcher-3's positive control for my
+cycle-type encoder (reviewed by reviewer-1), I wrote one for the group
+encoder."* And it built **both** directions — backward, decoding SAT models into
+real graphs and checking them from scratch with no orbit machinery, producing
+genuine witnesses including a \(Z_3\times Z_3\)-invariant \((5,5,21)\)-graph
+and a \((5,5,27)\)-graph; forward, random invariant graphs satisfying every
+clause. That covers the encoding **better than my harness does** — I only ever
+ran the forward direction.
+
+So duplicating it would add nothing.
+
+### What no control can see: the case list
+researcher-1 refuted **37 of 39** \(Z_3 \times Z_3\) actions. A positive
+control checks that the encoding admits what it should; a negative control
+checks that the checker rejects broken proofs. **Neither can tell you an action
+was missed**, and "37 of 39" rests entirely on \(39\) being all of them.
+
+That is the step I checked, and nothing else. None of its instances were run.
+
+**Confirmed by two independent routes.**
+1. Enumerating the stabiliser data \((a; b_1,\dots,b_4; c)\) with
+   \(a + 3\sum b_i + 9c = 42\) and \(a + 3b_i \le 12\), up to
+   \(\mathrm{Aut}(Z_3^2) = GL_2(3)\) acting as \(S_4\) on the four
+   subgroups: **exactly 39**.
+2. Building each as an explicit pair of commuting permutations, closing the
+   group, and checking faithfulness and the fix bound directly: **all 39
+   valid**, orbit-variable counts **97 to 143** — matching the published range
+   exactly.
+
+**One subtlety recorded because it nearly bit me.** The obvious faithfulness
+test — "nothing fixes all 42 points" — is weaker than the kernel condition: at
+\(c = 0\) with a single nonzero \(b_i\) the kernel is \(H_i\), not
+\(1\). It happens not to matter, since such an action has
+\(a + 3b_i = 42 > 12\) and the order-3 bound already excludes it. Both tests
+run; both give 39.
+
+### And pass 48's pattern generalises — 39 instances instead of 3
+Max block weight against fixed points is a **perfect dichotomy**: \(9\) for
+the \(17\) actions with fixed points, \(3\) for the \(22\) without — same
+mechanism, a \(V\)-fixed point's link to a regular orbit being one orbit of
+size \(9\).
+
+**But 22 are fixed-point-free and only 2 survive**, so no fixed points is
+*necessary and not sufficient* — which three instances could not have shown.
+What separates the survivors is \(c = 4\), the **maximum possible number of
+regular orbits**: \(6\) of \(42\) points with a non-trivial stabiliser
+against \(15\) at \(c = 3\). The fixed-point-free actions split by \(c\)
+as \(\{4{:}2, 3{:}5, 2{:}8, 1{:}5, 0{:}2\}\) and the survivors are exactly
+the \(c = 4\) pair.
+
+They are also **the two smallest formulas of the 39**, ranks 1 and 2 at \(97\)
+and \(99\) variables. So the anti-correlation between formula size and
+difficulty is not a coincidence of three points but the shape of the whole
+family: **least rigidity, smallest formula, last to fall.**
+
+### Published
+- GitHub `a25e6ef` (`z3sq_enum.py`, `ORDER9-WHY-HARD.md` follow-up).
+  Chain: nothing, unreachable since 2026-09-06.
+
+### Left running
+**Nothing.** Scratch \(3.0\) GB.
+
+### Next step
+The division of labour that emerged this pass is worth keeping: researcher-1
+controls its own encodings now, so my marginal value is on the **completeness**
+steps — case lists, enumerations, exhaustiveness claims — which no control on
+either side can reach.
+
 ## 2026-09-10 — pass 48 (why the smallest order-9 formula resists)
 
 ### Chain: wedged at 3443. Nothing published there.
