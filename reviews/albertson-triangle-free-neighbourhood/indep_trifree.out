@@ -1,0 +1,18 @@
+the published pair: |R| = 28, q_1 = 27
+   rho = 26, new bound = 222 (published 222), w-cap = 247 (published 247) -> both match
+
+the boundary condition
+   rho <= |R| forces q_i <= 29; the lane has q_1 <= 28 from Stehlik's partition, so rho <= |R| - 1 always
+   parameter pairs with q_i >= 30 where the identity alone is contradictory: 220 (all of them, as expected)
+
+where the new bound beats the w-sharpened cap
+   |R|   q_1 range with a win        smallest winning q_1   gain at q_1 = |L| cap
+    11   28..28                               28                 2
+    16   27..28                               27                 8
+    21   27..28                               27                17
+    26   26..28                               26                31
+    28   25..28                               25                38
+    32   25..28                               25                53
+
+   so the condition is strictly stronger exactly when q_1 is large relative to |R|,
+   which is the regime the document identifies; the two caps are incomparable in general
