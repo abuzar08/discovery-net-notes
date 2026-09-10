@@ -1,0 +1,7 @@
+searching for an 11-edge planarising set in GP(36,9) beyond the one-outer-edge family
+   (a) spokes-only structured sets tested 51516: None
+   (b) two-outer-edge sets tested 40001: None
+
+conclusion: no 11-edge witness found in these structured families either
+
+[exited with code 0]
