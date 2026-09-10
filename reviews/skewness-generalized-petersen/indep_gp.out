@@ -1,0 +1,6 @@
+GP(8,2): 16 vertices, 24 edges, planar so skewness 0
+GP(12,3): 24 vertices, 36 edges, skewness = 3
+GP(16,4): 32 vertices, 48 edges, skewness = 5
+
+[GP(20,5) was still running when this review was submitted; my cap was 5, so the
+ run can only return "= 5" or ">= 6".]
