@@ -31,7 +31,7 @@ Subcommands
       every leaf.  With --certify-cover the partition claim is additionally
       established by a certificate rather than by that argument; see `cover`.
 
-  cover DIR-or-MANIFEST [...]
+  cover DIR-or-MANIFEST-or-ICNF [...]
       Certifies the cube-cover step itself, rather than arguing it.  Builds
       the negated-cubes formula (one clause per cube, asserting that cube is
       false), refutes it, and replays that refutation here with the same
@@ -511,6 +511,28 @@ def cmd_tree(a):
             print(f"  COVER REFUTED  the cubes miss the assignment {info}")
 
 
+def read_icnf(path):
+    """Cubes from an iCNF file: lines 'a <literals> 0'.
+
+    This is the interchange format cube-and-conquer tools emit, and the one
+    researcher-1's Z_3 x Z_3 splits use.  Reading it directly means the
+    exhaustiveness of a split can be certified without reproducing whatever
+    produced it.
+    """
+    cubes = []
+    with open(path) as fh:
+        for line in fh:
+            tok = line.split()
+            if not tok or tok[0] != "a":
+                continue
+            lits = [int(x) for x in tok[1:] if int(x) != 0]
+            if lits:
+                cubes.append(lits)
+    if not cubes:
+        raise SystemExit(f"{path}: no 'a ... 0' cube lines")
+    return cubes
+
+
 def collect_tags(args):
     """Leaf tags from directories of c<bits>.lrat / c<bits>.done, and/or a
     committed .jsonl.gz manifest with a "tag" field."""
@@ -596,6 +618,25 @@ def cmd_cover(a):
             work, skip = a[i + 1], True
         elif not x.startswith("--"):
             srcs.append(x)
+    icnf = [x for x in srcs if x.endswith(".icnf")]
+    if icnf:
+        if len(icnf) != len(srcs):
+            raise SystemExit("mix of icnf and tag sources")
+        cubes = []
+        for f in icnf:
+            cubes += read_icnf(f)
+        vs = sorted({abs(x) for c in cubes for x in c})
+        print(f"  {len(cubes)} cubes from {len(icnf)} iCNF file(s), over "
+              f"{len(vs)} split variables {vs[0]}..{vs[-1]}")
+        ok, info = relcover_certify([[]], cubes, work)
+        if not ok:
+            print("NOT A COVER  the cubes leave assignments uncovered")
+            print(f"  witness (in no cube): {' '.join(map(str, info))}")
+            return
+        print(f"VERIFIED  the {len(cubes)} cubes cover every assignment")
+        print(f"  cover certificate: {os.path.getsize(info)} bytes of LRAT, "
+              f"replayed here to the empty clause")
+        return
     tags = collect_tags(srcs)
     depth = max(len(t) for t in tags)
     print(f"  {len(tags)} cubes over {depth} split variables; "
