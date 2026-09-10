@@ -54,6 +54,7 @@ This table is the thing whose absence produced four defects in five passes.
   (W)  e(H[R]) <= floor((|R|-1)^2/3)+4  needs (K) and (X)  all of order 58
   (TT) no two disjoint triangles T   branch hypothesis   all of order 58
        with H - T_1 - T_2 having a perfect matching
+  (GT) c_A <= 2, and = 1 on a partition  Gallai block forest   clique blocks
 
 delta_0 := 28 - |R|.  At order 57 the theory is applied only at |R| <= 11, so
 delta_0 >= 17 and (C1),(C2),(C3) all hold with room; ORDER 57 IS UNAFFECTED BY
@@ -69,6 +70,7 @@ import alpha58 as A
 import turan58 as T
 import residue58 as R58
 import blockr58 as BR
+import tuttegen as TG
 from order2r import RCHI, Z
 
 r = RCHI
@@ -155,6 +157,8 @@ def part3_order58():
                     continue
                 if BR.blockR(mult, NL, RSZ, eHR) >= Z:
                     continue
+                if TG.route_closed(RSZ, list(mult), eHR)[0]:
+                    continue        # no Tutte set obstructs: theta(H) <= 28
                 c1 += 1
             # isolated low vertices, possible only when delta_0 <= 0
             if d0 <= 0:

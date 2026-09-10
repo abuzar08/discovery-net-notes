@@ -22,10 +22,10 @@ open**, in the single class \(b=6\), \(c=(51,1)\):
 
 | | count |
 |---|---|
-| clique blocks | 8313 |
+| clique blocks | 8117 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8635** |
+| **total** | **8439** |
 
 ## The method inventory
 
@@ -50,7 +50,9 @@ Each row is a method, what it was applied to, and the measured outcome.
 | \(\theta(H)\ge\omega(G)\) | gives \(\omega(G)\le29\); never forces a \(K_{30}\) |
 | \(L\)/\(R\) split scored by sampling | 6213–6550 against 8281; the block sum beats it twofold |
 | **\(w\)-sharpened Turán cap** \(e(H[R])\le\lfloor(\lvert R\rvert-1)^2/3\rfloor+4\) (`wturan58.py`) | removes **310**; found by failing to build an adversary |
-| Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0 |
+| Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0. Reviewer-1 (`reviews/albertson-triangle-free-neighbourhood/`) confirms the derivation and the zero-removal on the whole survivor set, and records that this cap and the \(w\)-sharpened cap are **incomparable**: apply \(\min\) of the two, never one in place of the other |
+| Block-forest lemma for \(c_A\) (`blockcut.py`) | three low vertices that pairwise share a block share a **common** block, since the block-cut tree is acyclic and two blocks meet in at most one vertex. Hence \(A\) not inside one block \(\Rightarrow\) \(H[A]\) has at most two components. Checked on 6768 Gallai forests and 719597 subsets |
+| **General Tutte obstruction count** (`tuttegen.py`) | **removes 196** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
 
 **Where the two obstructions stand** (`profile58.py`): the absorption shortfall
 reaches **1**, with 3326 configurations within one unit; the crossing shortfall
@@ -74,35 +76,69 @@ Tutte obstructions to it (`tutte324.py`):
 - **an \(R\)-set cut off from \(L'\)** — unreachable **everywhere**, since it
   would need \(Sx\ge29+\lvert Z\rvert-1\ge38\) against \(Sx\le31\).
 
-## The precise open question
+## From "some other Tutte set" to every Tutte set
 
-On the 2116 where both decidable families are unreachable, the remaining question
-is whether **some other** Tutte set obstructs. It is not decided by
-\((\lvert R\rvert,\text{multiset},e(H[R]))\): those fix \(H[L]\) completely
-(complete multipartite on the blocks) and fix the *counts* of the \(L\)–\(R\) and
-\(R\)–\(R\) edges, but not their **placement**.
+The question left by `tutte324.py` was whether **some other** Tutte set — outside
+the two hand-picked families — obstructs. That question is now answered by a
+count rather than by sampling placements, in `tuttegen.py`.
 
-Answering it means fixing a placement — building \(H\) — and computing
-\(\nu(H-T_1-T_2-T_3)\) on 49 vertices.
+Generalise the family from \((3,24)\) to \((k,30-2k)\): removing \(k\) disjoint
+triangles of \(H\) leaves \(n'=58-3k\) vertices needing a matching of \(30-2k\),
+i.e. Tutte–Berge deficiency at most \(k-2\). The deficiency has the parity of
+\(n'\), which is the parity of \(k\), so an obstruction needs a Tutte set of
+deficiency exactly \(D=k\) or more — **a larger \(k\) asks the adversary for
+more**, at the cost of deleting more of \(L\).
 
-**An earlier version of this document said that needed a new dependency and put
+Now parameterise an arbitrary Tutte set \(S\) by six integers — \(a=\lvert
+L'\setminus S\rvert\), \(s_R\), the size \(u\) and number \(t\) of the components
+of \(H'-S\) missing \(A\), the number \(p\) of components of \(H[W]\) on the
+remaining high vertices, and the number \(\mathrm{iso}\) of vertices of \(A\)
+whose \(R\)-neighbours all lie in \(S_R\) — and five inequalities hold for
+**every** admissible \(H\):
+
+1. **count**, \(c_A+t\ge s_L+s_R+D\);
+2. **degree**, \(\sum_i a_i\rho_i+e(H[R])-\mathrm{tur}(u-t+1)\le 28(\lvert R\rvert-u)\);
+3. **Turán**, \(e(H[R])\le\binom{\lvert R\rvert}{2}-\binom{\lvert R\rvert-s_R}{2}+\mathrm{tur}\bigl((\lvert R\rvert-s_R)-(t+p)+1\bigr)\);
+4. **spread**, \(\sum_i a_i\rho_i\le a(\lvert R\rvert-u)\);
+5. **\(S_R\)-degree**, \(\max\bigl(0,\sum_i a_i\rho_i-(a-\mathrm{iso})\lvert W\rvert\bigr)+e(H[R])-\mathrm{tur}(\lvert W\rvert-p+1)-\mathrm{tur}(u-t+1)\le 28s_R\).
+
+Inequality 5 is the one that bites: isolating many vertices of \(A\) drives their
+whole \(R\)-neighbourhood into \(S_R\), and \(S_R\) must then also carry nearly
+every edge of \(H[R]\), which its degree cap forbids. Since \(x_w\ge25\), any
+degree cap over a set containing \(w\) is 24 smaller, and the adversary's best
+placement of \(w\) is scanned.
+
+These are **necessary** conditions, so an infeasible scan is a proof and a
+feasible scan proves nothing. That direction is the whole risk, so it is
+measured, not trusted: the explicit admissible \(H\) of `adv58.py` has its
+Gallai–Edmonds set read off and checked against all five, and a negative control
+re-runs the scan at \(D=1\), where an obstruction provably exists because
+\(n'=49\) is odd — a scan reporting infeasible there would prove an inequality
+false.
+
+**Result: 196 configurations closed for every admissible \(H\)** (193 at
+\(k=3\), 3 at \(k=4\)), so order 58 falls from 8635 to 8439. Of the 8117
+remaining, 4601 have no three disjoint triangles at all and 3516 admit a
+parameter point the counts cannot rule out — which is not the same as an
+obstruction existing.
+
+**An earlier version of this document said this needed a new dependency and put
 the choice to the principal. That was wrong, and is withdrawn.** Writing a
-matching routine is not adding a dependency; `matching.py` now provides one,
-standard library only, verified against brute force, and both of its answers are
-self-certifying — \(\nu\ge k\) by exhibiting \(k\) disjoint edges,
-\(\nu\le k\) by a Tutte set. The lane did not need to stop there.
+matching routine is not adding a dependency; `matching.py` provides one, standard
+library only, verified against brute force, and both of its answers are
+self-certifying — \(\nu\ge k\) by exhibiting \(k\) disjoint edges, \(\nu\le k\)
+by a Tutte set. The lane did not need to stop there.
 
-What the tool has produced so far is not a matching computation but a theorem:
-the first attempt to build an admissible adversary failed, and the reason it
-failed is the \(w\)-sharpened Turán cap above. **Constructing has been more
-productive here than arguing** — every defect below was found by re-deriving an
-argument, three of them only after publication, whereas the errors caught in
-passes 42–43 and the cap itself all came from a computation disagreeing with an
-expectation.
+**Constructing has been more productive here than arguing** — every defect below
+was found by re-deriving an argument, three of them only after publication,
+whereas the \(w\)-sharpened cap, the three cross conditions for \(K_4\)-freeness,
+and the errors caught in passes 42–45 all came from a computation disagreeing
+with an expectation. The count above is the pay-off: it was reachable only after
+building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Ten items of one family were found, all of the same shape — *a step verified on
+Eleven items of one family were found, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -117,6 +153,7 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 8 | Tutte family C omitted the \(H[R]\)-neighbourhood cost | mis-stated | caught by computation, unpublished |
 | 9 | first adversarial \(H\) violated \(d_H(z)\le28\) | inadmissible | caught by computation, unpublished |
 | 10 | "needs a dependency" framing of the matching question | mis-framed a decision | withdrawn above |
+| 11 | first `tuttegen.py` used \(c_A=1\) where blocks overlap | **would have over-claimed** | caught pre-publication; 6536 of 8313 configurations affected |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.
@@ -128,16 +165,20 @@ PYTHONDONTWRITEBYTECODE=1 python3 state29.py   | diff -u EXPECTED_OUTPUT_STATE29
 shasum -a 256 -c SHA256SUMS
 ```
 
-Expected: empty diff, `Controls: all PASS`, and OK for all 86 hashes. The full
-per-file reproduction list is in `README.md`.
+plus `tuttegen.py` and `blockcut.py` against their own expected outputs.
+
+Expected: empty diff, `Controls: all PASS`, `Soundness controls: real Tutte set
+PASS; D = 1 negative control PASS`, `VERDICT: all PASS` for the block-forest
+lemma, and OK for every hash. The full per-file reproduction list is in
+`README.md`.
 
 > **Albertson's conjecture is not proved for \(r=29\).** Order 57 is closed;
 > order 58 is open in 8635 configurations, with one named live route and a
 > precisely stated question.
 >
 > This was written as a stopping point and should no longer be read as one. The
-> matching routine exists, the construction approach has already produced one
-> theorem, and the concrete next step is to repeat it on a configuration that
-> survives the \(w\)-sharpened cap: either the construction completes, and the
-> \((3,24)\) route gets a checked answer, or it fails again and the reason is a
-> further necessary condition.
+> \((k,30-2k)\) routes now have a decision procedure that quantifies over every
+> admissible \(H\), and it closes 196 configurations. The concrete next step is
+> to widen it: 4601 of the survivors have no three disjoint triangles at all and
+> need a different family of the seventy, and on the 3516 the counts do not
+> decide the question is which of the five inequalities is slack.

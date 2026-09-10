@@ -1,0 +1,19 @@
+The block-forest facts behind tuttegen.py, checked by brute force
+
+   Gallai forests of cliques on 3..7 vertices: 6768
+   subsets A tested: 719597
+
+   LEMMA   three pairwise-sharing vertices share a common block
+           counterexamples: 0 -> PASS
+   COR 1   A not inside one block => complement has <= 2 components
+           counterexamples: 0 -> PASS
+   COR 2   A inside one block => A independent in the complement
+           counterexamples: 0 -> PASS
+
+   Both bounds tuttegen.py uses for c_A are therefore sound on every
+   small Gallai forest of cliques, and the proofs above cover the
+   general case.  The partition case (no cut vertex at all) gives
+   the stronger c_A = 1, since the complement of a disjoint union of
+   cliques is complete multipartite and hence connected.
+
+   VERDICT: all PASS

@@ -1542,10 +1542,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 8313 |
+| clique blocks | 8117 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **8635** |
+| **total** | **8439** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -2026,12 +2026,61 @@ every admissible \(H\).  What it shows is that an admissible \(H\) exists at
 all, that the route is not vacuous, and that constructing reaches a **checked**
 answer where the parameter arguments could not.
 
+### Every Tutte set at once (`tuttegen.py`, `blockcut.py`)
+
+The previous section answers the \((3,24)\) question on a *sample* of explicit
+graphs.  This answers it by a **count that quantifies over every admissible
+\(H\)**, and it is what the explicit construction made reachable: only after
+building one did it become clear what an admissible \(H\) must satisfy.
+
+Generalise the family to \((k,30-2k)\).  Removing \(k\) disjoint triangles of
+\(H\) leaves \(n'=58-3k\) vertices needing a matching of \(30-2k\), i.e.
+deficiency at most \(k-2\); the deficiency has the parity of \(n'\), hence of
+\(k\), so an obstruction needs a Tutte set of deficiency \(D=k\).  **A larger
+\(k\) asks the adversary for more.**
+
+An arbitrary Tutte set \(S\) is then described by six integers, and five
+inequalities — count, degree, Turán, spread and \(S_R\)-degree, stated in full in
+`METHODS.md` — hold for every admissible \(H\).  The one that bites is the
+\(S_R\)-degree bound: isolating many low vertices drives their whole
+\(R\)-neighbourhood into \(S_R\), and \(S_R\) must then also carry nearly every
+edge of \(H[R]\), which its degree cap forbids.  Since \(x_w\ge25\), a degree cap
+over a set containing \(w\) is 24 smaller, and the adversary's best placement of
+\(w\) is scanned.
+
+**The structural input** (`blockcut.py`).  The bound on the number \(c_A\) of
+components meeting the surviving low vertices needs a fact about Gallai forests:
+*three low vertices that pairwise share a block share a common block*, because
+the block-cut tree is acyclic and two blocks meet in at most one vertex.  Hence
+if \(A\) does not lie inside one block, \(H[A]\) has at most two components, so
+\(c_A\le2\); when the blocks **partition** \(L\) the complement of a disjoint
+union of cliques is complete multipartite and \(c_A=1\).  Checked by brute force
+on 6768 Gallai forests and 719597 subsets.  The first version of `tuttegen.py`
+used \(c_A=1\) everywhere, which is false on the 6536 configurations with
+overlapping blocks; that would have over-claimed, and is recorded as defect 11.
+
+**Result.**  196 configurations are closed **for every admissible \(H\)** — 193
+at \(k=3\), 3 at \(k=4\) — so order 58 falls from 8635 to **8439**.  The
+configuration of `adv58.py` is among them, which is consistent with the \(\nu=24\)
+measured there directly.
+
+**Scope, and the direction of the risk.**  The five inequalities are *necessary*
+conditions, so an infeasible scan is a proof and a feasible scan proves nothing;
+of the 8117 remaining, 4601 have no three disjoint triangles at all and 3516
+admit a parameter point the counts cannot rule out, which is **not** the same as
+an obstruction existing.  Because the whole risk lies in that direction, it is
+measured: the explicit \(H\) of `adv58.py` has its Gallai–Edmonds set read off
+and checked against all five, and a negative control re-runs the scan at \(D=1\),
+where an obstruction provably exists since \(n'=49\) is odd — a scan reporting
+infeasible there would prove an inequality false.
+
 ## What this does not do
 
 For `r = 29` see the partial section above: order 57 is closed, and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 8638 configurations without an isolated low vertex together
-with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
+is **not** closed: 8117 configurations with clique blocks, 15 with an odd-cycle
+block and 307 carrying an isolated low vertex, **8439** in all.  Nothing here
+bears on `r >= 30`.
 
 ## Files and reproduction
 
@@ -2051,6 +2100,8 @@ with 307 carrying one, 8945 in all.  Nothing here bears on `r >= 30`.
 | `exhaust58.py` | the absorption route at order 58 is exhausted |
 | `EXPECTED_OUTPUT_EXHAUST58.txt` | its expected output |
 | `adv58.py` | an admissible H built explicitly, and the (3,24) route checked |
+| `blockcut.py` | the block-forest lemma behind the bound on c_A, brute-forced |
+| `tuttegen.py` | **every Tutte set at once: the (k, 30-2k) routes on all admissible H** |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
 | `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
@@ -2091,6 +2142,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 tutte324.py     | diff -u EXPECTED_OUTPUT_TUTT
 PYTHONDONTWRITEBYTECODE=1 python3 route324.py     | diff -u EXPECTED_OUTPUT_ROUTE324.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 routes58.py     | diff -u EXPECTED_OUTPUT_ROUTES58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHAUST58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 blockcut.py     | diff -u EXPECTED_OUTPUT_BLOCKCUT.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 tuttegen.py     | diff -u EXPECTED_OUTPUT_TUTTEGEN.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 alpha58.py      | diff -u EXPECTED_OUTPUT_ALPHA58.txt -

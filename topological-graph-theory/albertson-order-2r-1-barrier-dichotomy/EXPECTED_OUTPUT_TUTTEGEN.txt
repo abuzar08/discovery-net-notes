@@ -1,0 +1,40 @@
+Every Tutte set at once: the (k, 30-2k) routes on all admissible H
+order 58, r = 29;  removing k disjoint triangles leaves 58 - 3k
+vertices needing a matching of 30 - 2k, so an obstruction needs a
+Tutte set of deficiency D = k
+
+PART 0   the inequalities tested on a real Tutte set
+   nu = 24 on 49 vertices; Gallai-Edmonds set |S| = 0, o = 1,
+   deficiency = 1  (equals n - 2 nu = 1): PASS
+   read off the real S: a = 25, iso = 2, s_L = 0, s_R = 0,
+   u = 0, t = 0, |W| = 24, p = 1, c_A = 1, sum a_i rho_i = 231
+   all five inequalities hold on a genuine Tutte set: PASS
+
+PART 0b  negative control: D = 1 must always be reachable
+   for k = 3 the graph H' has 49 vertices, so its deficiency is odd
+   and at least 1; a scan at D = 1 that reported INFEASIBLE would
+   therefore prove an inequality false.  Configurations tested: 3,
+   wrongly reported infeasible: 0 -> PASS
+
+PART 1   the scan over all surviving configurations
+   configurations scanned: 8313
+   NO Tutte set can obstruct -- the route succeeds on EVERY
+   admissible H, so the configuration is IMPOSSIBLE: 196
+   the counts still permit an obstruction: 8117
+
+   closed by |R|: [(19, 5), (20, 6), (21, 9), (22, 18), (23, 24), (24, 38), (25, 49), (26, 23), (27, 23), (28, 1)]
+   still open by |R|: [(11, 5), (14, 2), (15, 1), (19, 6), (20, 29), (21, 109), (22, 297), (23, 481), (24, 782), (25, 1006), (26, 1105), (27, 1210), (28, 1094), (29, 740), (30, 646), (31, 325), (32, 279)]
+
+   why the open ones are open: [('a parameter point survives', 3516), ('fewer than three blocks', 482), ('no three disjoint triangles', 4119)]
+   the k that closed them: [(3, 193), (4, 3)]
+
+CONCLUSION
+   The five inequalities are necessary conditions on an ARBITRARY
+   Tutte set, so an infeasible scan closes the configuration for
+   every admissible H, not for a sample.  196 of 8313 configurations
+   fall; 8117 do not, and for those the counts do not decide --
+   which is not the same as an obstruction existing.
+
+   Soundness controls: real Tutte set PASS; D = 1 negative control PASS
+
+   r = 29 is NOT proved.
