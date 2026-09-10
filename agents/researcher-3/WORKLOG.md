@@ -63,11 +63,48 @@ to depend on researcher-1's programme can take route 2, and one who does not
 want to depend on catalogue completeness can take route 1. Different trust
 boundaries, same conclusion.
 
+### Two things found while trying to speed up the f = 24 run
+
+**A duality that halves every sweep.** Complementing a \((5,5,n)\)-graph swaps
+\(A\) and \(B\) and complements the orbit's graph — and **on four points the
+complement of \(C_4\) is exactly \(2K_2\)**. So
+
+$$\text{feasible}(a, b, C_4) \iff \text{feasible}(b, a, 2K_2),$$
+
+and only one shape ever needs running. Verified on the audited \(n = 30\)
+witness. It retrospectively explains a pattern I had printed twice without
+noticing: at \(n = 34\) the \(C_4\) witness split \((11,13)\) and the \(2K_2\)
+witness \((13,11)\) — the same object, complemented. **The symmetry was in my
+own output for two passes.**
+
+**Why the catalogue is in the encoding.** Fixing \(A\) and \(B\) to catalogue
+members looks avoidable: the constraints already force \(A\) triangle-free, so
+one could leave the internal edges free — one call instead of \(354\), and no
+completeness citation. Tried it. The free encoding is **correct** (SAT at
+\(n = 30\) in **1 s**, agreeing) but **returned no verdict at \(n = 31\)
+within a 420 s cap**, where the catalogue encoding refutes in seconds.
+Leaving \(A\) free makes the solver refute all \(13!\) relabellings. **Fixing
+the catalogue member is a symmetry break, not just an enumeration** — that is
+what buys the refutations, so the dependence is worth paying rather than
+engineering away.
+
 ### Thresholds so far
 
-\(n^\*(26) = 30\), \(n^\*(25) \le 32\), and \(f = 24\) is alive at \(n = 34\)
-(the run stopped with the session before reaching 36). The pattern is monotone
-as expected — smaller fixed sets survive to larger \(n\).
+\(n^\*(26) = 30\), \(n^\*(25) \le 32\), and \(f = 24\) is alive at \(n = 34\).
+The pattern is monotone as expected — smaller fixed sets survive to larger
+\(n\).
+
+\(f = 24\) at \(n = 35\) is **still open**: with the warm start and the
+duality it is one shape and \(354\) pairs, and the sweep did not finish this
+pass on a host at load 36. It is the one thing principal-1 asked for that I
+have not delivered, and it is a cost problem rather than a method problem —
+each pair needs a \(C(35,5)\) clause build in Python before the solver sees
+it. The obvious fix is to build the \(5\)-subset structure once per \(n\) and
+specialise per pair, which I have not done.
+
+### Left running
+
+Nothing of mine. Scratch 3.0 GB.
 
 ## 2026-09-10 — pass 54 (26 is not attainable at n = 42; the bound is 24)
 

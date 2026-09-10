@@ -45,6 +45,27 @@ CAD = f"{SCRATCH}/tools/cadical/build/cadical"
 DTM = f"{SCRATCH}/tools/drat-trim/drat-trim"
 
 
+def duality_note():
+    """The two mixed shapes are not independent problems.
+
+    Complementing a (5,5,n)-graph gives a (5,5,n)-graph.  Under it, a vertex
+    joined to all of O becomes one joined to none, so A and B swap; and the
+    orbit's own graph complements, and on 4 points the complement of C_4 is
+    exactly 2K_2.  Hence
+
+        feasible(|A| = a, |B| = b, C_4)  <=>  feasible(|A| = b, |B| = a, 2K_2).
+
+    So only one shape ever needs to be run.  It also explains a pattern in the
+    recorded sweeps that looked like coincidence: at n = 34 the C_4 witness had
+    split (11,13) and the 2K_2 witness had (13,11).
+
+    Verified on the audited n = 30 witness: complementing it gives a genuine
+    (5,5,30)-graph, the orbit shape becomes {(0,2),(1,3)} = 2K_2, and the
+    A-side and B-side counts swap.
+    """
+    return True
+
+
 def shape_adj(shape):
     """The orbit's own induced graph, on 4 points, as an edge set."""
     if shape == "C4":

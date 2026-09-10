@@ -1,0 +1,2 @@
+CROSS-CHECK: catalogue-free encoding vs answers already obtained
+  n=30 |A|=13 |B|=13: SAT        [catalogue said SAT]  agrees  325 vars, 133562 clauses, 1s

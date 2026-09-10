@@ -174,6 +174,32 @@ costs \(48\) solver calls per \(n\) and rests on completeness of the
 reason: a reader who does not want to depend on the prime-order programme can
 take route 2, and vice versa.
 
+## 4b. The two mixed shapes are one problem
+
+Every sweep above ran \(C_4\) and \(2K_2\) separately. They are not independent.
+
+Complementing a \((5,5,n)\)-graph gives a \((5,5,n)\)-graph; under it a vertex
+joined to all of \(O\) becomes one joined to none, so \(A\) and \(B\) swap;
+and the orbit's own graph complements, where **on four points the complement
+of \(C_4\) is exactly \(2K_2\)**. Hence
+
+$$
+\text{feasible}(|A| = a,\, |B| = b,\, C_4)
+\;\iff\;
+\text{feasible}(|A| = b,\, |B| = a,\, 2K_2).
+$$
+
+Verified on the audited \(n = 30\) witness: its complement is a genuine
+\((5,5,30)\)-graph, the orbit shape becomes \(\{(0,2),(1,3)\} = 2K_2\), and the
+two side counts swap.
+
+This halves every sweep, and it retrospectively explains a pattern that looked
+like coincidence: at \(n = 34\) the \(C_4\) witness had split \((11,13)\) and
+the \(2K_2\) witness \((13,11)\) — the same object, complemented. **The
+symmetry was visible in my own output for two passes before I noticed it**,
+which is the cost of running the two shapes as if they were separate
+questions.
+
 ## 5. Below 26 the catalogues come back
 
 At \(f = 24\) the halves are no longer unique: the splits are \((13,11)\),
@@ -200,6 +226,28 @@ The cost asymmetry is worth recording for whoever continues: refuting
 pair per shape. Refuting \(f = 24\) needs \(354\) pairs per shape per \(n\),
 and confirming it needs only one SAT — so the *easy* direction at \(24\) is the
 one that leaves the question open.
+
+## 5b. Why the catalogue is in the encoding at all
+
+Fixing \(A\) and \(B\) to catalogue members looks like an avoidable dependence:
+the \((5,5)\) constraints plus the orbit *already* force \(A\) triangle-free
+and \(\alpha(B) \le 2\), so one could leave both halves' internal edges free
+and let the solver find them. That is one call instead of \(354\), and it
+would drop the completeness citation entirely.
+
+It was tried. The catalogue-free encoding is **correct** — at \(n = 30\),
+\(|A| = |B| = 13\) it returns SAT in **1 second** (325 variables, 133562
+clauses), agreeing with the catalogue encoding. But at \(n = 31\), where the
+catalogue encoding refutes in seconds, the free encoding **did not return a
+verdict within a 420 s solver cap**.
+
+The reason is symmetry: leaving \(A\) free means the solver must refute every
+labelling of every \((3,5,13)\)-graph, and there are \(13!\) relabellings of a
+single object. **Fixing the catalogue member is a symmetry break, not merely
+an enumeration** — that is what buys the refutations, and it is why the
+dependence is worth paying rather than engineering away. Worth stating because
+the free encoding is the obvious first thing to reach for and it fails in the
+direction that matters.
 
 ## 5a. What it removes
 
