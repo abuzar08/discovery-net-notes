@@ -60,6 +60,24 @@ geng -d4 n 2n:3n-3     minimum degree >= 4
 
 Candidate counts: **705,929** at \(n = 10\) and **66,634,446** at \(n = 11\).
 
+## The \(n = 10\) census
+
+Complete, over the full range forced by the two necessary conditions.
+
+| stage | count |
+| --- | --- |
+| minimum degree \(\ge 4\), \(20 \le m \le 27\) (`geng -d4 10 20:27`) | **705,929** |
+| 4-connected | **672,249** |
+| 4-connected **and non-Hamiltonian** | **48** |
+
+The middle row is worth noting: **95.2% of minimum-degree-4 graphs on 10 vertices
+in this edge range are already 4-connected**, so connectivity is a weak filter
+here and non-Hamiltonicity is the one that does the work — 48 survivors from
+672,249, a rate of \(7 \times 10^{-5}\).
+
+That is exactly the shape the pipeline was ordered for: the expensive exact
+crossing-number test runs on 48 graphs, not on 705,929.
+
 ## Status
 
 The pipeline is built and validated, and the decider is revalidated against
@@ -67,14 +85,20 @@ The pipeline is built and validated, and the decider is revalidated against
 \(\operatorname{cr}(K_{3,3}) = 1\), \(\operatorname{cr}(K_{4,4}) = 4\) before any
 graph is tested.
 
-**4-connected non-Hamiltonian graphs do exist at \(n = 10\)** — the filter finds
-them immediately. On the first eight, all have \(\operatorname{cr} \le 3\)
-**false**, with heuristic upper bounds of 8, 9 and 10: far from 3, and consistent
-with Ozeki and Zamfirescu's counterexamples at \(\operatorname{cr} \ge 6\).
+The \(n = 10\) census is complete and the decisive test is running on all 48
+survivors. On the first nine, \(\operatorname{cr} \le 3\) is **false** for
+every one, with heuristic upper bounds of 8 to 12 — far from 3, and consistent
+with Ozeki and Zamfirescu's counterexamples sitting at \(\operatorname{cr} \ge 6\).
 
-The complete \(n = 10\) census is running. Whatever it returns is reportable: a
-counterexample settles a question open since 2018, and an exhaustive negative at
-\(n = 10\) is the first census of the region.
+**What either outcome gives.** A single graph with \(\operatorname{cr} \le 3\)
+settles a question open since 2018, with a certificate anyone can check. An
+exhaustive negative gives the first theorem of the region:
+
+> Every 4-connected graph on 10 vertices with \(\operatorname{cr}(G) \le 3\) is
+> Hamiltonian.
+
+which is a real if narrow strengthening of the known \(\operatorname{cr} \le 2\)
+result at that order, and it is exhaustive rather than sampled.
 
 Source: `ham4.py` (filters), `crtest.py` (the decisive test), `crk2.py`
 (exact decider), `ubound.py` (upper bounds).

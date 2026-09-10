@@ -99,5 +99,5 @@ if __name__ == "__main__":
         if hamiltonian(n, adj): continue
         nonham += 1
         out.append(line.strip())
-        if nonham <= 20: print("NONHAM", line.strip(), flush=True)
+        print("NONHAM", line.strip(), flush=True)
     print(f"read {seen}, 4-connected {c4}, 4-connected non-Hamiltonian {nonham}")
