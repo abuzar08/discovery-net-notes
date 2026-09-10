@@ -34,6 +34,7 @@ import itertools
 import os
 import subprocess
 import sys
+import time
 
 import r45bounds as R
 import orbit4_exact as X
@@ -150,6 +151,100 @@ def build(n, shape, A=None, B=None):
                 return None, None, None
             cls.append(tuple(sorted(set(c))))
     return nv, sorted(set(cls)), var
+
+
+def precompute(n, shape, a, b):
+    """Build the 5-subset structure ONCE for given (n, shape, a, b).
+
+    `build` re-enumerates all C(n,5) subsets for every catalogue pair, and at
+    n = 35 with 354 pairs that is the whole cost of the sweep -- the solver is
+    not the bottleneck, the clause construction is.  Everything except the
+    A-internal and B-internal pair values is the same for every pair, so it
+    can be done once.
+
+    For each 5-subset we record the A-internal and B-internal pairs as
+    bitmasks, whether some pair is already fixed False (then no K_5 clause is
+    ever needed) or fixed True (then no I_5 clause is), and the free variables.
+    Specialising to a pair is then four integer operations per subset.
+    """
+    ai = {}
+    for k, (u, v) in enumerate(itertools.combinations(range(a), 2)):
+        ai[(u, v)] = k
+    bi = {}
+    for k, (u, v) in enumerate(itertools.combinations(range(b), 2)):
+        bi[(a + u, a + v)] = k
+    Oe = shape_adj(shape)
+    o0 = a + b
+
+    var, nv = {}, 0
+    for u in range(n):
+        for v in range(u + 1, n):
+            if (u, v) in ai or (u, v) in bi:
+                continue
+            if o0 <= u and v < o0 + 4:
+                continue
+            if u < a and o0 <= v < o0 + 4:
+                continue
+            if a <= u < o0 and o0 <= v < o0 + 4:
+                continue
+            nv += 1
+            var[(u, v)] = nv
+
+    k5, i5 = [], []
+    for S in itertools.combinations(range(n), 5):
+        am = bm = 0
+        ftrue = ffalse = False
+        free = []
+        for u, v in itertools.combinations(S, 2):
+            if (u, v) in ai:
+                am |= 1 << ai[(u, v)]
+            elif (u, v) in bi:
+                bm |= 1 << bi[(u, v)]
+            elif o0 <= u and v < o0 + 4:
+                if (u - o0, v - o0) in Oe:
+                    ftrue = True
+                else:
+                    ffalse = True
+            elif u < a and o0 <= v < o0 + 4:
+                ftrue = True
+            elif a <= u < o0 and o0 <= v < o0 + 4:
+                ffalse = True
+            else:
+                free.append(var[(u, v)])
+        fr = tuple(sorted(set(free)))
+        if not ffalse:
+            k5.append((am, bm, fr))
+        if not ftrue:
+            i5.append((am, bm, fr))
+    return nv, k5, i5
+
+
+def specialise(pre, Abits, Bbits):
+    """Clause list for one catalogue pair, from the precomputed structure."""
+    nv, k5, i5 = pre
+    cls = set()
+    for am, bm, fr in k5:                    # forbid K_5: need a non-edge
+        if (am & ~Abits) or (bm & ~Bbits):
+            continue                         # already has one
+        if not fr:
+            return None
+        cls.add(tuple(sorted(-x for x in fr)))
+    for am, bm, fr in i5:                    # forbid I_5: need an edge
+        if (am & Abits) or (bm & Bbits):
+            continue
+        if not fr:
+            return None
+        cls.add(fr)
+    return nv, sorted(cls)
+
+
+def bits_of(g, m):
+    """Edge bitmask of an m-vertex graph, indexed as in `precompute`."""
+    out = 0
+    for k, (u, v) in enumerate(itertools.combinations(range(m), 2)):
+        if (g[u] >> v) & 1:
+            out |= 1 << k
+    return out
 
 
 def run(n, shape, cap, certify):
@@ -314,6 +409,90 @@ def sweep_f(f, n, shape, cap, verbose=False):
     return ("UNSAT", None, done, total)
 
 
+def sweep_fast(f, n, cap, warm=None, log=None):
+    """One f, one n, shape C_4 only (2K_2 follows by the duality).
+
+    Uses precompute/specialise, and tries the previous n's witness first --
+    feasibility is monotone, so if anything is still satisfiable it is usually
+    that one, and the sweep ends on the first call.
+    """
+    splits = []
+    for a in range(min(13, f), max(0, f - 13) - 1, -1):
+        b = f - a
+        if 0 <= b <= 13:
+            splits.append((a, b))
+    order = []
+    if warm:
+        order.append(warm)
+    for a, b in splits:
+        for ia in range(len(X.load35(a))):
+            for ib in range(len(X.load35(b))):
+                if (a, ia, ib) != warm:
+                    order.append((a, ia, ib))
+
+    pres, work = {}, os.path.join(SCRATCH, "fixmax", f"fast_f{f}_n{n}")
+    os.makedirs(work, exist_ok=True)
+    cnf = os.path.join(work, "x.cnf")
+    for k, (a, ia, ib) in enumerate(order):
+        b = f - a
+        if (a, b) not in pres:
+            pres[(a, b)] = precompute(n, "C4", a, b)
+        A = X.load35(a)[ia]
+        B = X.complement(b, X.load35(b)[ib])
+        r = specialise(pres[(a, b)], bits_of(A, a), bits_of(B, b))
+        if r is None:
+            continue                       # already contains a K_5 or I_5
+        nv, cls = r
+        with open(cnf, "w") as fh:
+            fh.write(f"p cnf {nv} {len(cls)}\n")
+            for c in cls:
+                fh.write(" ".join(map(str, c)) + " 0\n")
+        rc = subprocess.run(["timeout", str(cap), CAD, "-q", cnf],
+                            capture_output=True, text=True).returncode
+        if rc == 10:
+            return ("SAT", (a, ia, ib), k + 1, len(order))
+        if rc != 20:
+            return ("NO-VERDICT", (a, ia, ib), k + 1, len(order))
+        if log and (k + 1) % 50 == 0:
+            print(f"        {k+1}/{len(order)} refuted", flush=True)
+    return ("UNSAT", None, len(order), len(order))
+
+
+def cmd_threshold(args):
+    """The threshold n*(f): the largest n carrying an f-point fixed set."""
+    def opt(name, default):
+        return int(args[args.index(name) + 1]) if name in args else default
+    f = opt("--f", 24)
+    lo, hi = opt("--from", 35), opt("--to", 42)
+    cap = opt("--cap", 240)
+    warm = None
+    print(f"THRESHOLD SEARCH for f = {f}\n")
+    print("   Shape C_4 only; 2K_2 follows by the complementation duality.")
+    print("   Warm-started from the previous n's witness.  Feasibility is")
+    print("   monotone in n, so the first UNSAT settles every larger n.\n")
+    print("      n   tried/total   seconds   verdict")
+    for n in range(lo, hi + 1):
+        t0 = time.time()
+        v, where, tried, tot = sweep_fast(f, n, cap, warm, log=True)
+        el = time.time() - t0
+        note = ""
+        if v == "SAT":
+            a, ia, ib = where
+            note = f"  |A|={a}, |B|={f-a}, catalogue pair ({ia},{ib})"
+            warm = where
+        print(f"     {n:3d}   {tried:5d}/{tot:<5d} {el:8.0f}   {v}{note}",
+              flush=True)
+        if v == "UNSAT":
+            print(f"\n   => f = {f} is impossible at every n >= {n}, "
+                  f"hence at 42.")
+            return 0
+        if v == "NO-VERDICT":
+            print(f"\n   => undecided at n = {n}; feasible up to {n-1}.")
+            return 0
+    print(f"\n   => f = {f} survives to n = {hi}.")
+    return 0
+
+
 def cmd_seam(args):
     """Close the gap between 25 and 24 without a parity hypothesis.
 
@@ -470,6 +649,8 @@ def main():
     if "cascade" in args:
         extension_control()
         return cmd_cascade(args)
+    if "threshold" in args:
+        return cmd_threshold(args)
     if "seam" in args:
         extension_control()
         homogeneous_bound()

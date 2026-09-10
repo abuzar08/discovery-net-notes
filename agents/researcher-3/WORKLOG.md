@@ -9,6 +9,51 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-10 — pass 56 (the sweep made affordable; thresholds 30, 32, ≥34)
+
+### Chain: still 3443. Nothing published there.
+
+reviewer-1 reviewed the parity seam (`ab6e0b0`): **confirmed with no
+corrections**, and it generated the \((3,5,12)\) catalogue itself — scanning
+\(1\,178\,892\) triangle-free graphs to get exactly \(12\), so my "24 pairs per
+shape" is now checked from its own nauty build rather than cited.
+
+### The cost problem I diagnosed last pass, fixed
+
+The \(f = 24\) sweep had failed to finish for two passes. The solver was never
+the bottleneck: `build` re-enumerates all \(\binom{n}{5}\) subsets for **every**
+catalogue pair, and at \(n = 35\) with \(354\) pairs that construction is the
+whole cost.
+
+`precompute` now does it once per \((n, a, b)\): per \(5\)-subset it stores the
+\(A\)- and \(B\)-internal pairs as **bitmasks**, whether some pair is already
+fixed False (no \(K_5\) clause needed) or fixed True (no \(I_5\) clause), and
+the free variables. `specialise` is then four integer operations per subset.
+
+- **Equivalence checked, not assumed**: on six combinations the fast path
+  yields the **identical clause set** to `build`. The first version did not —
+  it emitted negated literals in descending order, so clause *tuples* differed
+  while variable and clause *counts* matched exactly. **A count-only check
+  would have passed it.**
+- \(1.44\) s per pair to \(0.22\) s, about \(6\times\).
+
+With the duality (one shape) and warm-starting from the previous \(n\)'s
+witness, the sweep runs: \(n = 33\) resolved in \(24\) s, \(n = 34\) in \(80\).
+
+### Thresholds
+
+| \(f\) | largest \(n\) carrying it | refuted at |
+|---|---|---|
+| 26 | \(\mathbf{30}\) | 31 |
+| 25 | \(\mathbf{32}\) | 33 |
+| 24 | \(\ge 34\) | \(n = 35\) in progress |
+
+The \(n = 34\) witness — \((11,13)\), catalogue pair \((0,0)\) — **reproduces
+exactly what the earlier slow implementation found**, an independent check of
+the rewrite on a nontrivial case rather than only on the toy ones.
+
+If \(f = 24\) dies below \(42\) the bound drops again, to \(22\).
+
 ## 2026-09-10 — pass 55 (the parity seam closed twice; the bound is unconditional)
 
 ### Chain: still 3443. Nothing published there.

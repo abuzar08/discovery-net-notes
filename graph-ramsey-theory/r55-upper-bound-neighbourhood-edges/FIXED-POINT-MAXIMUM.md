@@ -209,23 +209,57 @@ anywhere means \(f = 24\) survives; excluding it needs **every** pair to be
 UNSAT, so **completeness of those catalogues becomes load-bearing here**, as it
 is not for §3.
 
-| \(f\) | \(n\) | shape | verdict |
-|---|---|---|---|
-| 26 | 31 | \(C_4\), \(2K_2\) | **UNSAT** (both) — dead |
-| 24 | 31 | \(C_4\), \(2K_2\) | SAT, split \(|A| = 13\), \(|B| = 11\) |
-| 24 | 32 | \(C_4\), \(2K_2\) | SAT, same split |
-| 24 | 34 | — | **running at the time of writing** |
+The thresholds established so far, shape \(C_4\) (and so both, by §4b):
 
-So \(f = 24\) is alive at least to \(n = 32\) and the cascade does not continue
-past \(26\) on present evidence. **\(24\) is therefore the published bound, not
-a value known to be attained** — whether it survives to \(42\) is open, and the
-run that would answer it is in flight.
+| \(f\) | largest \(n\) carrying it | first \(n\) refuted |
+|---|---|---|
+| 26 | \(\mathbf{30}\) | 31, one forced pair per shape |
+| 25 | \(\mathbf{32}\) | 33, all 24 pairs |
+| 24 | \(\ge 34\) | not yet reached |
+
+At \(f = 24\) the witnesses found are \(n = 31, 32\) with \(|A| = 13\),
+\(|B| = 11\); \(n = 33\) with \((12,12)\), catalogue pair \((2,2)\), found at
+attempt 132 of 354 in 24 s; and \(n = 34\) with \((11,13)\), pair \((0,0)\),
+at attempt 250 in 80 s. **The \(n = 34\) witness reproduces exactly what the
+earlier slow implementation found**, which is a cross-check of the fast path
+against the original on a nontrivial case.
+
+\(n = 35\) is in progress. **\(24\) remains a bound, not a value known to be
+attained**; if \(f = 24\) dies below \(42\) the bound drops again — to \(22\),
+since \(f\) is even in both order-4 families.
 
 The cost asymmetry is worth recording for whoever continues: refuting
 \(f = 26\) took **two solver calls**, because uniqueness at \(13\) leaves one
 pair per shape. Refuting \(f = 24\) needs \(354\) pairs per shape per \(n\),
 and confirming it needs only one SAT — so the *easy* direction at \(24\) is the
 one that leaves the question open.
+
+## 5c. Making the sweep affordable
+
+The \(f = 24\) sweep did not finish for two passes, and the reason was not the
+solver. `build` re-enumerates all \(\binom{n}{5}\) subsets for **every**
+catalogue pair, and at \(n = 35\) with \(354\) pairs that construction is the
+whole cost.
+
+Everything except the \(A\)-internal and \(B\)-internal pair values is the
+same for every pair, so `precompute` does it once: per \(5\)-subset it records
+the \(A\)- and \(B\)-internal pairs as **bitmasks**, whether some pair is
+already fixed False (then no \(K_5\) clause is ever needed) or fixed True
+(then no \(I_5\) clause is), and the free variables. `specialise` is then four
+integer operations per subset.
+
+- **Checked for equivalence, not assumed**: on six \((n, \text{shape}, a, b,
+  \text{pair})\) combinations the fast path produces the **identical clause
+  set** to `build` — same variable count, same clauses, verified as sets. The
+  first version did not: it emitted negated literals in descending order, so
+  the clause tuples differed while the counts matched. That is exactly the
+  kind of difference a count-only check misses.
+- **Cost**: \(1.44\) s per pair down to \(0.22\) s, about \(6\times\), with a
+  one-off \(1.2\) s. At \(n = 35\) the \(105\)-pair block goes from \(151\) s
+  to \(25\) s.
+
+With that plus the duality (one shape, not two) and warm-starting from the
+previous \(n\)'s witness, the sweep runs.
 
 ## 5b. Why the catalogue is in the encoding at all
 
