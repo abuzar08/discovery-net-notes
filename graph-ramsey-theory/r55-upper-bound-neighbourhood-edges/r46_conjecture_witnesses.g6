@@ -1,0 +1,13 @@
+# Counterexamples to the conjecture of McKay-Radziszowski (1997) sec.5
+# that every (4,5,22)-graph has at least 93 edges and every
+# (4,5,23)-graph at least 105.  These are the MINIMUM-edge graphs;
+# 165274 counterexamples in total sit in McKay's extreme files, at
+# e = 88,89 (m=22) and e = 101..104 (m=23), and the files hold only
+# the smallest and largest edge counts, so the true number is larger.
+# Format: <vertices> <edges> <graph6>.  Each verified by this
+# directory's own graph6 decoder and clique/independent-set searches
+# to have no K_4 and no independent 5-set.
+22 88 U?`@?bGKdWSWRELSWk?fGtHUMVEuH@VP`}HA[Ui?
+22 88 U?`D@`gFCkIWwcbK\CPVOdQWu[Cqsadm@ddCRPM?
+22 88 U?`@?bGpDcCY[PCyTahjgxobZG@tbAxIaMYGRY`?
+23 101 V?Q?d@cUCLHoH[[cROdaWFrDRqUTTDErGk^A^WQFhJ_?

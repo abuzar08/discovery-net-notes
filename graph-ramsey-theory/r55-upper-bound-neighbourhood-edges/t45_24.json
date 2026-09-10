@@ -1,4 +1,18 @@
 {
+"_schema": {
+"key": "e = number of edges of a (4,5,24)-graph",
+"value": [
+"t_min",
+"t_max",
+"p_min",
+"p_max",
+"count"
+],
+"t": "number of triangles, s(K_3, X)",
+"p": "number of INDUCED three-vertex paths, s(T_{2,1}, X), computed as sum_v C(deg v, 2) - 3t",
+"count": "number of graphs in the complete 352366-graph catalogue with that edge count",
+"note": "columns named at reviewer-1's request (pass 43): it had to identify p_min/p_max by inspection"
+},
 "124": [
 140,
 154,

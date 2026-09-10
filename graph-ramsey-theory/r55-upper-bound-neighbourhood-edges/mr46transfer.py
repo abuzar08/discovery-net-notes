@@ -33,6 +33,8 @@ import json
 import os
 import sys
 
+import r45bounds as R
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # The conjecture of Section 5: every (4,5,i)-graph has at least this many edges.
@@ -50,6 +52,27 @@ TABLE_IV_24 = {
     125: (127, 165), 126: (130, 168), 127: (133, 169), 128: (135, 170),
     129: (138, 172), 130: (142, 173), 131: (146, 174), 132: (176, 176),
 }
+
+
+def check_witnesses():
+    """Re-verify every committed counterexample: order, edge count, and that it
+    really is a (4,5)-graph.  The refutation is an existence claim, so these
+    graphs -- not the catalogue's completeness -- are what carries it."""
+    path = os.path.join(HERE, "r46_conjecture_witnesses.g6")
+    n_ok = 0
+    with open(path) as fh:
+        for line in fh:
+            if line.startswith("#") or not line.strip():
+                continue
+            m, e, g6 = line.split()
+            n, adj = R.g6_decode(g6)
+            ec = sum(bin(a).count("1") for a in adj) // 2
+            if n != int(m) or ec != int(e) or not R.is_good(n, adj, 4, 5):
+                raise SystemExit(f"witness {g6} does not check out")
+            n_ok += 1
+    if not n_ok:
+        raise SystemExit("no witnesses found")
+    return n_ok
 
 
 def main():
@@ -73,9 +96,19 @@ def main():
               f"{'holds' if ok else 'FALSE, by ' + str(h - t)}")
     print()
     if refuted:
-        print(f"    REFUTED at i = {refuted}.  There are (4,5,{refuted[0]})-"
-              f"graphs with only {emin[refuted[0]]} edges,")
-        print("    so the condition is false and this route to R(4,6) <= 40 "
+        print(f"    REFUTED at i = {refuted}, by WITNESSES.")
+        print(f"    There are (4,5,{refuted[0]})-graphs with only "
+              f"{emin[refuted[0]]} edges; here they are, re-verified:")
+        n_ok = check_witnesses()
+        print(f"      {n_ok} explicit graphs: correct order, correct edge "
+              f"count, no K_4, no independent 5-set.")
+        print("    The refutation is an EXISTENCE claim, so it needs witnesses "
+              "and not completeness:")
+        print("    it does not depend on McKay's completeness claim at all.  "
+              "(Point due to reviewer-1,")
+        print("    pass 43, which certified the same four graphs independently "
+              "with its own decoder.)")
+        print("    So the condition is false and this route to R(4,6) <= 40 "
               "is closed.")
         print("    (The bound R(4,6) <= 41 is unaffected -- it does not use "
               "the condition -- and")
@@ -96,7 +129,8 @@ def main():
           "values")
     tpath = os.path.join(HERE, "t45_24.json")
     with open(tpath) as fh:
-        exact = {int(k): v for k, v in json.load(fh).items()}
+        exact = {int(k): v for k, v in json.load(fh).items()
+                 if not k.startswith("_")}
     print("      e    Table IV [t',t'']    exact [t_min,t_max]    status")
     vacuous, sharper = [], 0
     for e in sorted(TABLE_IV_24):

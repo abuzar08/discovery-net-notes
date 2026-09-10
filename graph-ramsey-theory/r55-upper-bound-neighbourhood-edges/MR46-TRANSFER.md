@@ -58,6 +58,44 @@ There are \((4,5,22)\)-graphs with \(88\) edges and \((4,5,23)\)-graphs with
 \(101\). **So the stated sufficient condition does not hold, and that route to
 \(R(4,6) \le 40\) is closed.**
 
+### The refutation is unconditional — it needs witnesses, not completeness
+
+*(Sharpening due to reviewer-1, pass 43, which certified the same graphs
+independently with its own decoder and its own \(K_4\) and independent-5-set
+searches. Adopted here because it removes a trust dependency I had left in.)*
+
+I first stated this as "\(e_{\min}(4,5,22) = 88\)", which reads as leaning on
+McKay's completeness claim. It does not. The refutation is an **existence**
+claim — *there is* a \((4,5,22)\)-graph with fewer than \(93\) edges — so
+what carries it is the graphs themselves. `r46_conjecture_witnesses.g6` holds
+the four minimum-edge counterexamples, and `mr46transfer.py` re-verifies each
+one on every run: correct order, correct edge count, no \(K_4\), no
+independent \(5\)-set.
+
+**So this refutation is independent of the completeness claim that the rest of
+this directory's \((4,5)\) work cites.** That is worth stating because it is
+unusual here: nearly everything else in this repository certifies a negative
+and inherits a completeness assumption; this one certifies a positive and does
+not.
+
+And the conjecture fails by a wide margin rather than at a single point.
+Verified across McKay's extreme-edge files:
+
+| \(m\) | \(e\) | graphs, all verified | conjecture needs |
+|---|---|---|---|
+| 22 | 88 | 3 | \(\ge 93\) |
+| 22 | 89 | 94 | \(\ge 93\) |
+| 23 | 101 | 1 | \(\ge 105\) |
+| 23 | 102 | 76 | \(\ge 105\) |
+| 23 | 103 | 4424 | \(\ge 105\) |
+| 23 | 104 | 160676 | \(\ge 105\) |
+
+**\(165\,274\) counterexamples**, every one decoded and re-checked here — and
+that is a lower bound on the true number, because the extreme files hold only
+the smallest and largest edge counts, so \(e = 90, 91, 92\) at \(m = 22\)
+are not even in them. Only the four minimum-edge graphs are committed; the rest
+regenerate from `r45extreme.tar.gz`.
+
 Scope, precisely: \(R(4,6) \le 41\) is **unaffected** — it does not use the
 condition. And \(R(4,6) \le 40\) is true, obtained later by Angeltveit and
 McKay, so this is a historical clarification of one route rather than a
@@ -81,7 +119,11 @@ Their \(e''_2(24) = 132\) was already exact, which is Theorem 3.1's input.
 ### Table IV, the triangle bounds, now exact at \(n = 24\)
 
 Table IV gives \(t'(i,j) \le t(X) \le t''(i,j)\) for \((4,5,n,e)\)-graphs,
-derived by LP because the catalogue was incomplete. The complete
+derived by LP because the catalogue was incomplete. Its columns three and four
+are the extremes of the number of **induced three-vertex paths**,
+\(p(X) = s(T_{2,1}, X) = \sum_v \binom{\deg v}{2} - 3t(X)\) — reviewer-1 had
+to identify that by inspection, so `t45_24.json` now carries a `_schema` key
+naming all five fields. The complete
 \(352\,366\)-graph catalogue gives them exactly (`t45_24.json`, computed in
 \(22\) s):
 
