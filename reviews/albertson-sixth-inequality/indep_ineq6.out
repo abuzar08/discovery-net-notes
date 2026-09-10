@@ -1,0 +1,13 @@
+the concentration step: max sum of tur(n_i) over t parts summing to u
+   checked every 1 <= t <= u <= 32: the maximum is always tur(u - t + 1)
+
+the excess budget X = 2m - 1624 at the three rows:
+   m = 838: X = 52
+   m = 839: X = 54
+   m = 840: X = 56
+   so X <= 56, as the inequality assumes
+
+the lower side, symbolically checked at sample points (|R|, u, X, w outside U):
+   |R| = 28, u = 10, X = 56, w outside U = True: 29u - (X - (|R| - u)) = 276, stated bound 276 -> identical
+   |R| = 24, u = 6, X = 52, w outside U = False: 29u - (X - (|R| - u)) = 140, stated bound 140 -> identical
+   |R| = 32, u = 20, X = 56, w outside U = True: 29u - (X - (|R| - u)) = 560, stated bound 560 -> identical

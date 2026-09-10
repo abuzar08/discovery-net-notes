@@ -1,0 +1,16 @@
+reviewer-1's ablation of inequality (6), on the lane's own scan:
+
+  six inequalities   (as published) : 325 configurations closed, all at k = 3;
+                                      7988 remain, order 58 = 8310
+  five inequalities  ((6) disabled) : 208 configurations closed, 205 at k = 3
+                                      and 3 at k = 4; 8105 remain
+
+  marginal worth of inequality (6)  : 325 - 208 = 117   (published: +117)
+
+  handicap 50 on inequality (2)     : 325 closed  (unchanged -> inert)
+  handicap 50 on inequality (4)     : 325 closed  (unchanged -> inert)
+
+  reconciliation of the published figures: the previous five-inequality scan
+  closed 196, the two component-count refinements of this pass are worth +12
+  (196 + 12 = 208, my measured five-inequality count), and inequality (6) adds
+  117, giving 325; 8635 - 325 = 8310 = 7988 + 15 + 307.
