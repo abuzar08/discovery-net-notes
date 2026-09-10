@@ -4025,3 +4025,74 @@ and the next pass is a **selection pass** under the amended order — literature
 first, then the graph, then compute. Not autonomous, four items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, three DS21 corrections, and
 reviewer-1's erratum to Angeltveit and McKay.
+
+## 2026-09-10, pass 60
+
+**1. The 4-connected lane terminates with its record published**
+(`LANE-RECORD.md`, commit `80fca0f`): the \(n = 10\) theorem, the structural
+facts about where these graphs live, the reach analysis, and the successor's
+closure. The \(n = 11\) census continues in the background and is reported as
+**partial, not exhaustive** — 3,117 survivors, all with \(\operatorname{cr} > 3\).
+
+**A cost record I put in the artifact because my own standard demands it.** Three
+estimates for that census — 2.6, 18.3, and \(\approx 1.2\) core-hours — against
+an actual of **more than 3.7 core-hours and still running**. Every one was taken
+from a *prefix* of something, and the third was made **after** I had identified
+that failure mode and still fell into it, because a `res/mod` class has its own
+prefix. I did not make a fourth estimate.
+
+**2. Selection pass, literature first — and a target rejected on the gate.**
+OEIS A110507, the smallest order of a cubic graph with crossing number \(n\),
+first open at \(a(12)\): settling it needs a **lower** bound of 12 on a crossing
+number, which is far outside my exact decider and which a one-sided heuristic
+cannot supply. No amount of compute makes it admissible evidence.
+
+**3. New lane, and it produced a fourth DS21 discrepancy immediately**
+(`notes/crossing-numbers/skewness-generalized-petersen/FINDING.md`, commit
+`9a4128e`).
+
+DS21 states, verbatim and re-extracted at page fidelity:
+
+> Chia and Lee [207] conjectured that \(\mathrm{sk}(GP(4k,k)) = k+2\) for odd
+> \(k \ge 3\) ... mostly settled in [208], but cases \(k = 5\) and \(k = 7\)
+> remain open.
+
+At \(k = 3\) that asserts \(\mathrm{sk}(GP(12,3)) = 5\), inside the range DS21
+calls settled. **It is 3.** Deleting \(u_0u_1\), \(u_3v_3\), \(u_6v_6\) leaves a
+planar graph, and no set of at most two edges does — exhausting all
+\(1 + 36 + 630 = 667\).
+
+**Verified rather than asserted.** The witness was checked by extracting a planar
+embedding and traversing its faces: \(V = 24\), \(E = 33\), \(F = 11\),
+\(V - E + F = 2\). The exhaustiveness was re-run in a loop written separately
+from the search that found the witness. And the construction was validated
+before use on the obvious instance — my \(GP(5,2)\) is isomorphic to
+`networkx.petersen_graph()`, and the routine returns \(\mathrm{sk} = 2\) for it,
+the known value.
+
+**This is the most robust of the four DS21 findings**, because it rests on an
+exhaustive computation with a hand-checkable certificate rather than on notation
+or on the survey's internal arithmetic — and the symbol is plain \(\mathrm{sk}\),
+so the diacritic hazard does not apply.
+
+**What I do not claim.** Nothing about what Chia and Lee actually conjectured;
+[207] is unread. The likeliest explanation is the pattern seen twice already in
+this survey — a family or side condition altered in transcription. Two
+measurements point that way: \(\mathrm{sk}(GP(4k,k)) = 3 = k\) at \(k = 3\), and
+\(\mathrm{sk}(GP(3k,k))\) is \(2\) and \(4\) at \(k = 3, 5\), which is \(k-1\)
+both times. No single offset reconciles \(k+2\) with either.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** The \(n = 11\) census,
+and \(\mathrm{sk}(GP(20,5))\) — one of the two cases DS21 records as **open**.
+\(r \le 3\) is already exhausted; \(r = 5\) costs \(\binom{60}{5} = 5{,}461{,}512\)
+planarity tests, about 45 minutes.
+
+**Next step (concrete).** Read \(\mathrm{sk}(GP(20,5))\). If it returns 5, then
+\(\mathrm{sk}(GP(4k,k)) = k\) at both reachable odd values, the printed \(k+2\)
+is wrong by a constant, and **an open case of a published conjecture is settled**
+— which would make five DS21 items for a human, not four. Not autonomous, four
+items today: the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
+corrections, and reviewer-1's erratum to Angeltveit and McKay.
