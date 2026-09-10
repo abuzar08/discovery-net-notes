@@ -181,4 +181,32 @@ within it. **A failure there would not be evidence against 9** — it would show
 only that 9 is unreachable by deleting one outer edge and spokes, which is one
 shape among many.
 
+### The structured search at \(k = 7\): 9 is unreachable in that shape
+
+Exhausted: **no set of one outer edge plus at most 8 spokes planarises
+\(GP(28,7)\)** — 5, 6, 7 and 8 spokes all fail, over
+\(98{,}280 + 376{,}740 + 1{,}184{,}040 + 3{,}108{,}105 = 4{,}767{,}165\) sets.
+
+**This is not evidence against DS21's conjectured 9**, and it was declared not to
+be before the run started. It shows only that 9 is unreachable **by that shape**,
+which is one family of edge sets among many, and the true skewness could be 9 by
+some set the shape does not contain.
+
+### Whether the shape is optimal at all is about to be tested
+
+The shape gives the exact value at \(k = 3\) (3, matching the exhaustive
+answer) and at \(k = 4\) (5, matching). At \(k = 5\) it gives **7**, while
+exhaustion has so far shown only \(\mathrm{sk} \ge 6\).
+
+**So the running \(r = 6\) computation tests two things at once.** If it finds a
+witness, then \(\mathrm{sk}(GP(20,5)) = 6\) and **the structured shape is not
+optimal** — in which case my \(\le 11\) at \(k = 7\) is probably loose too,
+and the gap between it and DS21's 9 would be a defect of the shape rather than
+evidence about the conjecture. If it finds nothing, \(\mathrm{sk}(GP(20,5)) = 7\),
+the shape is optimal at every value tested, and the \(k = 7\) bound of 11 gains
+standing.
+
+That is worth saying plainly: **the value of the \(k = 7\) upper bound depends
+on a computation about \(k = 5\)**, and neither number should be read on its own.
+
 Source: `gp.py`, `gp28.py`.
