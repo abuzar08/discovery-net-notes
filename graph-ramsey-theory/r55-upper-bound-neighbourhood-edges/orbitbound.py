@@ -555,7 +555,9 @@ def cmd_order():
     of the six the orbit lemma removes, so the example has to be replaced --
     my own artifact, invalidated by my own result.
     """
-    b4, _, _ = orbit_bound(cyclic(4), 4, 5, 5)
+    # The operative bound is no longer the arithmetic 26 but the 24 that
+    # FIXED-POINT-MAXIMUM.md gets from the global count n = 42.
+    b4 = 24
     rows = []
     for c1, c2, c4 in z4_types(b4):
         # "free part" as in ORDER4-ENUMERATION.md: the points lying in REGULAR
@@ -573,9 +575,11 @@ def cmd_order():
         print(f"   {i:4d}   {free:4d}   {nv:4d}   {t}")
     print(f"\n   easiest end is now {rows[-1][2]}: {rows[-1][1]} variables, "
           f"free part {rows[-1][0]}.")
-    print("   ORDER4-ENUMERATION.md named (34,0,2) with free part 8 -- that")
-    print("   type is one of the six this lemma removes, so the example was")
-    print("   invalidated by my own result and is replaced here.")
+    print("   The easiest-end example has now been invalidated TWICE by my own")
+    print("   results: ORDER4-ENUMERATION.md first named (34,0,2), removed by")
+    print("   the orbit lemma; the replacement (26,4,2) is removed by the")
+    print("   global count in FIXED-POINT-MAXIMUM.md.  Both were the extreme")
+    print("   of the list, which is exactly where a tightened bound bites.")
     return 0
 
 

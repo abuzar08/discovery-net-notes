@@ -104,6 +104,16 @@ and the *easiest* end is the opposite: \(637\) variables at \((34,0,2)\), with
 > hardest-first end of the table above is unaffected — those types have no
 > fixed points at all. Recomputed by `orbitbound.py order`.
 
+> **Second correction, same day (`FIXED-POINT-MAXIMUM.md`).** The replacement
+> easiest-end type \((26,4,2)\) **also does not exist.** The \(26\)-point
+> configuration is realisable on \(30\) vertices and on no more — refuted at
+> \(n = 31\), certified to LRAT — so at \(n = 42\) a group with a \(4\)-orbit
+> fixes at most \(\mathbf{24}\) points. The lists are now \(\mathbf{81}\) and
+> \(\mathbf{1315}\), and the easiest end is \((24,5,2)\) at \(497\) variables.
+> Twice invalidated at the same end of the same table, which is where a
+> tightened bound always bites — the hardest-first end has no fixed points and
+> is untouched by any of this.
+
 **The useful form**: sort by free part descending, not by formula size
 ascending. They mostly agree here, which is the point — the cheapest-looking
 instances are the ones to budget cube-and-conquer for.

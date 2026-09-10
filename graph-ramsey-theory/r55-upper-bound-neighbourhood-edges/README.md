@@ -603,3 +603,7 @@ still cannot decide even once.
 That is the same pincer as before, located precisely: covers are the right
 tool when instances are easy and numerous, which is Gauthier and Brown's
 situation at \(25\) vertices and is not mine at \(45\).
+- `fixmax.py`, `FIXED-POINT-MAXIMUM.md` — the global-count route: the
+  \(26\)-point configuration lives on \(30\) vertices and on no more, so at
+  \(n = 42\) a group with a \(4\)-orbit fixes at most \(24\) points. Case lists
+  \(81\) and \(1315\).
