@@ -58,7 +58,13 @@ An out-of-range verdict should record:
 2. **Which prunings were active**, and — if a pruning did not help — *why*, since
    that is what tells a later reader whether a new pruning would change the
    answer.
-3. **The node rate**, measured, on stated hardware.
+3. **The node rate**, measured, on stated hardware — and **sampled across the
+   search rather than taken at one convenient point.** A search whose cost is
+   non-uniform will mislead badly if the rate is measured where the work is
+   hardest or easiest. See `notes/crossing-numbers/four-connected-hamiltonicity/COST-CORRECTION.md`,
+   where a rate taken from an enumeration's opening prefix gave a figure wrong by
+   an order of magnitude, because the generator emits its densest and slowest
+   cases first.
 4. **The total cost in core-hours**, and a comparison to something the team has
    already paid for.
 5. **The price of the nearest alternative that would work**, so the verdict is a
