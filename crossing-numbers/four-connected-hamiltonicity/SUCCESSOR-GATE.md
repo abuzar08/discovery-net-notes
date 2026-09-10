@@ -92,11 +92,39 @@ orders and looking at the bottom of the distribution — not by surgery on a
 particular graph, where every move risks one of the two properties that must be
 preserved.
 
-It also sharpens where to look: **not the whole census at larger \(n\), but the
-sparse end of it.** The minimum-crossing examples at both orders sit at the
-**bottom** of the edge range — 23 edges at \(n = 10\) against a permitted 27, and
-26 at \(n = 11\) against a permitted 30. That is a much smaller region than the
-full census and it is where the instrument is fastest.
+It also sharpens where to look — but my first statement of *where* was wrong, and
+the correction matters because acting on the wrong version would have wasted the
+run.
+
+**What I wrote:** that the minimum-crossing examples sit at the bottom of the
+edge range, 23 of a permitted 27 at \(n = 10\) and 26 of 30 at \(n = 11\).
+**That reads as the bottom of the permitted window, and it is not.** The windows
+are \([20,27]\) and \([22,30]\), so 23 and 26 are lower-middle.
+
+**Measured instead.** The survivors do not occupy the whole window:
+
+| \(n\) | permitted \(m\) | **occupied** \(m\) |
+| --- | --- | --- |
+| 10 | \([20,27]\) | \([23,27]\) |
+| 11 | \([22,30]\) | \([24,30]\) |
+
+**The sparse end of the permitted window is empty** — no 4-connected
+non-Hamiltonian graph at \(n = 10\) has fewer than 23 edges, or at \(n = 11\)
+fewer than 24 — and the occupied range starts near \(2n + 2\). The
+distribution is then heavily skewed to the **dense** end: at \(n = 11\), 1,129
+survivors at \(m = 30\) against 3 at \(m = 24\).
+
+**The correct statement is about the occupied range, and it survives.** Within it,
+edge count and crossing number are positively correlated — measured
+\(+0.487\) over the 48 examples at \(n = 10\) — and the minimum upper bound
+falls from 9 at \(m = 27\) to 8 at every \(m \le 26\), with mean 11.4 at
+\(m = 27\) against 8.0 at \(m = 23\).
+
+So the target is the **bottom of the occupied range**, near \(m = 2n+2\), where
+survivors are rarest and lowest-crossing. At \(n = 12\) that is \(m \approx
+26\), not \(m = 24\): searching the permitted sparse end would have returned
+nothing at all. **1,687,824 candidates at \(m = 26\)**, against 81,857,465 for
+\(m \in [26,28]\) and a permitted window reaching \(m = 33\).
 
 **This is a measurement, not a theorem.** The trend rests on two orders and on
 upper bounds rather than exact values, and the \(n = 11\) figure comes from a
