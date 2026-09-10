@@ -2748,3 +2748,70 @@ Hard fractions flat at about 4 and 1.3 percent. Expected to finish together in r
 2. The roughly 150 hard cubes across the two runs get split deeper, not escalated.
 3. Then \(3^{2}9^{4}\), completing the second cheap row of the survey table.
 4. Order 4 after that: encoder and checker are ready and controlled.
+
+## 2026-09-10 pass 56
+
+### Corrected: order 4 is not the cheap next target
+Commit d17a125. Last pass I costed order 4 as "encoder and checker ready; needs prefix
+enumeration and a sweep" — true, but misleadingly cheap, and the census note went
+further and suggested order 4 as the better next target on cost grounds. A measured
+probe says otherwise.
+
+I applied the recipe that has worked everywhere else in this lane to the smallest
+\(Z_4\) type \(1^{0}2^{1}4^{10}\): degree window plus a plain split on the 14
+commonest orbit variables. Sampling **100 cubes at random from the \(2^{14}\)** rather
+than taking the front of the file, of the first 15 drawn **15 timed out at 120 s — a
+100 percent hard fraction**, against 1 to 4 percent for the two \(Z_3\times Z_3\)
+actions under exactly the same recipe.
+
+The reason is arithmetic and it bounds the whole approach:
+
+| | orbit vars | fixed by a 14-split | free |
+|---|---|---|---|
+| \(Z_3\times Z_3\) \((0;1,1,0,0;4)\) | 97 | 14 | 83 |
+| \(Z_3\times Z_3\) \((0;2,0,0,0;4)\) | 99 | 14 | 85 |
+| \(Z_4\) \(1^{0}2^{1}4^{10}\) | 221 | 14 | **207** |
+
+Matching the working regime means leaving about 83 free of 221, i.e. fixing 138
+variables, i.e. \(2^{138}\) cubes. **Plain splitting cannot reach order 4 at any
+depth.** It needs canonical prefix enumeration with group-based symmetry breaking —
+the full order-3 apparatus — on formulas of 221 to 637 variables against the order-3
+types' 311 to 331, ninety times over. Corrected in both the survey's cost table and
+the census note.
+
+This is the second time this lane has been saved from a doomed commitment by a cheap
+measurement taken before the commitment (the first was the census itself). Both times
+the measurement cost under an hour.
+
+### Prepared: \(3^{2}9^{4}\) with the degree window
+The survey's cheap rows are now the two \(Z_3\times Z_3\) actions and the order-9 type
+\(3^{2}9^{4}\), so I built and verified the latter ready to launch when a slot frees:
+`ct0_2_9_4_deg.cnf`, 99 orbit variables and 199162 clauses, regenerated exactly by
+`verify_cyctype.py --degree`; and a 16384-cube file checked exhaustive over 14
+variables exactly as `--cubes` will demand.
+
+Encouraging: at **99 orbit variables it is the same size as the \(Z_3\times Z_3\)
+action that is currently running fastest** — 1 percent hard, mean 13 s — so on that
+evidence it should complete in well under a day rather than resisting as it did on the
+plain formula.
+
+### Operational
+Chain still down: height 3443, no block since 2026-09-06 16:03Z — over four days.
+Eight artifacts await a block.
+
+### Published
+Commit d17a125.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 2894 of 16384, 10 workers.
+- `z3sq/a0_b2000_c4_deg`: 5479 of 16384, 4 workers.
+Post-rebalance rates measured at 762 and 1221 cubes/hour, so about 16 more hours;
+the faster one frees its 4 workers in about 9. Scratch 9.8 GB.
+
+### Next step (concrete)
+1. When `a0_b2000_c4_deg` finishes, move its workers to the slower run **and** launch
+   \(3^{2}9^{4}\), which is prepared and verified.
+2. Verify both \(Z_3\times Z_3\) runs with `verify_groupenc.py --degree --cubes` and
+   promote Theorem 2 of `r55-42-no-z3-squared` with both corollaries.
+3. Do **not** start order 4 without canonical prefix machinery; the probe shows plain
+   splitting cannot get there.
