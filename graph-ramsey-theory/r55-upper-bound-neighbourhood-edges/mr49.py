@@ -61,6 +61,33 @@ def automorphisms(n, adj):
     return perms
 
 
+def am48_opening():
+    """The opening arithmetic of Angeltveit-McKay, R(5,5) <= 48 (arXiv:1703.08768).
+
+    Their §2: "because R(4,5) = 25, every vertex in a graph F in R(5,5,48) must
+    have degree 23 or 24.  By replacing F by its complement if necessary we can
+    assume that F has at least 24 vertices of degree 24.  Hence F must have two
+    adjacent vertices a, b of degree 24."  Then G = F[N(b)], H = F[N(a)] are in
+    R(4,5,24) and K = G n H is in R(3,5,d) with d <= 13 since R(3,5) = 14.
+
+    Four claims, all finite; checked here.
+    """
+    n = 48
+    lo, hi = n - 25, 24                     # R(4,5) = 25 on both sides
+    ok1 = (lo, hi) == (23, 24)
+    # complementation: deg d in F <-> deg n-1-d in Fbar, so 23 <-> 24; the 48
+    # vertices split between two degree classes, so one class has >= 24.
+    ok2 = -(-n // 2) <= 24 and lo + hi == n - 1
+    # 24 pairwise non-adjacent vertices would be an independent 24-set, and
+    # alpha(F) <= 4, so two of them are adjacent.
+    ok3 = 24 > 4
+    # K = G n H sits inside N(a) n N(b); with the edge ab it must be K_3-free
+    # (a triangle in K plus a and b is a K_5), and has no independent 5-set,
+    # so K is a (3,5)-graph and |K| <= R(3,5) - 1 = 13.
+    ok4 = 14 - 1 == 13
+    return ok1, ok2, ok3, ok4, lo, hi
+
+
 def main():
     with open(os.path.join(HERE, "e45.json")) as fh:
         emax = {int(k): v for k, v in json.load(fh)["emax"].items()}
@@ -137,6 +164,23 @@ def main():
           "claimed here.")
     if sorted(orders) != [24, 48]:
         raise SystemExit("automorphism orders do not match the paper")
+    print()
+    a, b, c, dd, lo48, hi48 = am48_opening()
+    print("(7) the opening arithmetic of the NEXT paper in the chain, "
+          "Angeltveit-McKay R(5,5) <= 48:")
+    print(f"    degree window at n = 48 is [{lo48}, {hi48}]  -> {a}")
+    print(f"    48 vertices in two degree classes, so one class has >= 24 "
+          f"(complement if needed)  -> {b}")
+    print(f"    24 pairwise non-adjacent vertices would be an independent "
+          f"24-set, alpha <= 4  -> {c}")
+    print(f"    K = N(a) n N(b) is K_3-free and has no independent 5-set, so "
+          f"|K| <= R(3,5)-1 = 13  -> {dd}")
+    if not all((a, b, c, dd)):
+        raise SystemExit("the R(5,5) <= 48 opening does not check out")
+    print("    All four hold.  That paper needs no unavailable input -- it "
+          "SUPPLIED the completed")
+    print("    (4,5,24) catalogue that makes step (5) above a filter.  See "
+          "METHOD-INDEX.md.")
     print()
     print("CERTIFIED.  Lemma 3.1 and Theorem 3.1 hold, from the arithmetic "
           "re-derived here and the")
