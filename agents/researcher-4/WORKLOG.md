@@ -4426,3 +4426,54 @@ favour**, and combined with \(k = 3\) being false the correction to DS21 is a
 been swept in. Not autonomous, four items: the \(C_3 \square C_3\) note to Marcus
 Schaefer, three DS21 corrections, and reviewer-1's erratum to Angeltveit and
 McKay.
+
+## 2026-09-10, pass 67
+
+**Literature work on whether Finding 4 is a survey erratum or a refuted
+conjecture.** My \(k = 3\) result has been framed throughout as "DS21's printed
+statement is false", carefully not as "Chia and Lee's conjecture is false",
+because I had not read the source. This pass tried to close that gap.
+
+**Both attempts refused.** Reference [207] is paywalled beyond its abstract;
+[208] returned HTTP 403. Recorded in the artifact so the limit is visible rather
+than implied.
+
+**The abstract does say one useful thing**, and it sharpens the framing:
+
+> "In this paper, we **determine** the skewness of the generalized Petersen graph
+> \(P(4k,k)\)..."
+
+The word is theirs. DS21 presents the same family's skewness as a **conjecture**,
+value \(k+2\) for odd \(k \ge 3\), with \(k = 5\) and \(k = 7\) open. A
+determined value and an open conjecture are different things, so at least one of
+these holds and I cannot tell which from outside the paywall: DS21's **range** is
+wrong and \(k = 3\) lies outside it; DS21's **formula** is wrong; or DS21 renders
+as conjectural something the source states as determined, with the open cases
+belonging to a different question.
+
+**None of that changes the finding.** The printed sentence asserts
+\(\mathrm{sk}(GP(12,3)) = 5\) and the value is **3**, on exhaustive enumeration
+plus an Euler-verified witness.
+
+**A speed-up declined again, on the same rule.** The \(r = 6\) enumeration would
+admit a hitting-set reformulation — any planarising 6-set must meet every
+Kuratowski subdivision, and the one measured has only 21 of the 60 edges — which
+should beat brute force substantially. I did not build it: the run is **63%
+complete** (327 minutes of CPU against a projected 516), and replacing a
+computation that is about to finish is duplicated work competing for the same
+cores. The idea is recorded for the next case that needs it rather than spent
+here.
+
+**Operational.** Chain still frozen at **3443**. Eleven contributions absent;
+nothing this pass depends on the ledger.
+
+**Running between passes (2 background computations).** \(GP(20,5)\) at
+\(r = 6\), ~3 hours remaining; \(GP(28,7)\) structured search at 10 edges.
+
+**Next step (concrete).** Read \(r = 6\) and settle \(\mathrm{sk}(GP(20,5))\).
+Whichever way it falls, the skewness lane then has its deliverable and I select
+again under the amended order. Not autonomous, and this is where the paywall
+matters most: **a human with library access could settle in five minutes whether
+Finding 4 is an erratum in DS21 or a refutation of a published conjecture** —
+that now joins the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
+corrections, and reviewer-1's erratum to Angeltveit and McKay.

@@ -52,7 +52,29 @@ this is checkable from DS21 together with the certificate above.
 
 **It does not claim** anything about what Chia and Lee actually conjectured.
 Reference [207] — *Skewness of generalized Petersen graphs and related graphs*,
-Front. Math. China **7**.3 (2012) — has not been read. The likeliest explanation
+Front. Math. China **7**.3 (2012) — is paywalled and has not been read, and the
+follow-up [208] returned HTTP 403. Two access attempts, both refused; recorded so
+the limit is visible rather than implied.
+
+**One thing the abstract of [207] does say**, and it sharpens the framing without
+settling it:
+
+> "In this paper, we determine the skewness of the generalized Petersen graph
+> \(P(4k,k)\) and hence a lower bound for the crossing number of \(P(4k,k)\)."
+
+They **determine** it — the word is theirs. DS21 presents the same family's
+skewness as a **conjecture** with the value \(k+2\) for odd \(k \ge 3\), and
+records \(k = 5\) and \(k = 7\) as open. A determined value and an open
+conjecture are different things, so at least one of the following holds, and I
+cannot tell which from outside the paywall:
+
+- the range in DS21 is wrong and \(k = 3\) lies outside the conjecture;
+- the formula in DS21 is wrong;
+- DS21 renders as conjectural something the source states as determined, with
+  the open cases belonging to a different question.
+
+**What does not depend on resolving that:** the printed sentence asserts
+\(\mathrm{sk}(GP(12,3)) = 5\), and the value is 3. The likeliest explanation
 is the pattern already seen twice in this survey: **a family or a side condition
 altered in transcription.** Two observations point that way rather than at the
 authors:
