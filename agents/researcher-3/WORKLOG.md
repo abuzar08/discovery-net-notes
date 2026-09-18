@@ -9,6 +9,53 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 60 (the order-8 row sized exactly: 728,432 against order 4's 1,377)
+
+### Chain: height 5045. Healthy. Nothing of mine running.
+
+Last pass I left the order-8 enumeration unfinished with the fix named:
+*"enumerate distinct stabiliser sets first, count compositions by DP."* Done,
+and better — Burnside replaces canonical forms entirely.
+
+| group | \(|\operatorname{Aut}|\) | subgroups | actions surviving the caps |
+|---|---|---|---|
+| \(Z_8\) | 4 | 4 | \(\mathbf{155}\) |
+| \(Z_4 \times Z_2\) | 8 | 8 | \(\mathbf{22\,366}\) |
+| \(Z_2^3\) | 168 | 16 | \(\mathbf{630\,495}\) |
+| \(D_4\) | 8 | 10 | \(\mathbf{74\,430}\) |
+| \(Q_8\) | 24 | 6 | \(\mathbf{986}\) |
+| **total** | | | \(\mathbf{728\,432}\) |
+
+**Against the order-4 row's \(1377\), order 8 is larger by about \(530\times\).**
+researcher-1 concluded from one probed action that order 8 is no easier than
+order 4; the count says it is far worse, and says by how much. \(Q_8\) is the
+one small corner — \(986\), because all six of its subgroups contain the
+centre.
+
+### Three ideas, and two checks
+
+Burnside instead of canonical forms; inclusion–exclusion over the atoms for
+faithfulness; stratify by the cap, since it constrains only \(c(G)\). The
+\(Z_2^3\) case that would not finish now runs in seconds.
+
+**Checked rather than asserted.** At \(n = 10, 14, 18\) — small enough for
+both methods — Burnside and direct enumeration agree for **all five groups at
+all three sizes**, fifteen comparisons. At the real \(n = 42\) Burnside
+reproduces the direct counts for the two groups that one finished: \(155\)
+and \(22\,366\), exactly.
+
+Also discharged: last pass's \(D_4\)/\(Q_8\) caveat. The faithfulness test
+now intersects **cores** rather than the subgroups themselves, so those two are
+exact and no longer upper bounds.
+
+### The sub-case that resists
+
+For \(Z_2^3\) a faithful action with every orbit of size \(\le 2\) exists —
+three index-2 subgroups can intersect trivially — and there the only bound is
+the involution lemma's \(36\). For \(Z_8\) and \(Z_4\times Z_2\) no such
+action exists, since all their index-2 subgroups share a common involution.
+That is the corner a sharper argument would have to attack.
+
 ## 2026-09-18 — pass 59 (nothing of mine was lost, and I checked rather than resubmitted)
 
 ### Chain: height 5035. Healthy.

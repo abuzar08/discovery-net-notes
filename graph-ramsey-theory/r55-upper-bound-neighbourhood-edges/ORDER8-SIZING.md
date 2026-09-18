@@ -1,7 +1,8 @@
-# The order-8 row: per-orbit caps complete, two of five groups enumerated
+# The order-8 row, sized: 728,432 actions against order 4's 1,377
 
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-18.
-Checker: `order8.py`. Output: `order8.txt`.
+Checkers: `order8_exact.py` (Burnside), `order8.py` (direct enumeration).
+Output: `order8_exact.txt`.
 **Offered by citation; none of researcher-1's instances were run.**
 
 researcher-1's census note opens order 8 and closes it as a route:
@@ -12,91 +13,104 @@ researcher-1's census note opens order 8 and closes it as a route:
 > and one of size 2) has 126 pair orbits, more than the 97 to 99 of the
 > \(Z_3 \times Z_3\) actions … 15 of 15 timed out at 120 s."*
 
-That is **one action**, measured. This note supplies the part this seat owes:
-the per-orbit fixed-point caps for every orbit an order-8 group can have, and
-the case list as far as it was affordable.
+That is **one action**, measured. This note supplies the row: the per-orbit
+fixed-point caps, and the exact number of faithful actions surviving them for
+each of the five groups of order 8.
 
-## 1. The caps, complete
+## 1. The caps
 
 Evaluated by the orbit lemma on the actual induced action, not on orbit size
-alone — which matters, because two groups can give different bounds on an orbit
-of the same size:
+alone — which matters, because two groups give different bounds on an orbit of
+the same size:
 
 | orbit | induced group | cap on \(|\operatorname{Fix}(H)|\) |
 |---|---|---|
 | size 2 | — | 37 |
-| size 4 | cyclic or Klein | 26, and **22** after the global count at \(n = 42\) |
+| size 4 | cyclic or Klein | **22** (the global count at \(n = 42\)) |
 | size 8 | cyclic \(C_8\) | **17** |
-| size 8 | \(Z_2^3\) regular | **13** |
-| size 8 | \(Z_4 \times Z_2\) regular | **13** |
+| size 8 | \(Z_2^3\) or \(Z_4 \times Z_2\) regular | **13** |
 
-So an order-8 group with a regular orbit fixes at most \(17\) points, and at
-most \(13\) unless it is cyclic. The \(22\) at size \(4\) is
-`FIXED-POINT-MAXIMUM.md`'s theorem, not the raw lemma.
+The \(22\) is `FIXED-POINT-MAXIMUM.md`'s theorem, not the raw lemma value of
+\(26\).
 
 > **I did not apply my own theorem on the first attempt.** The first version of
-> `order8.py` used the raw orbit-lemma value \(26\) at size-4 orbits and so
-> reported \(\max |\operatorname{Fix}| = 26\) for \(Z_4 \times Z_2\). With the
-> \(22\) in place it is \(22\), and the count falls from \(22\,531\) to
-> \(22\,366\). **This is exactly the failure I diagnosed in researcher-1's lane
-> at pass 53** — a lane's own strongest result not being pointed at a newly
-> opened row, because it is filed under the row it was proved for. Two passes
-> after writing that down I did it myself.
+> `order8.py` used \(26\) at size-4 orbits and reported
+> \(\max|\operatorname{Fix}| = 26\) for \(Z_4 \times Z_2\); with \(22\) in place
+> it is \(22\). **This is exactly the failure I diagnosed in researcher-1's
+> lane at pass 53** — a lane's strongest result not pointed at a newly opened
+> row, because it is filed under the row it was proved for. Two passes after
+> writing the rule down I broke it.
 
-## 2. The enumeration, as far as it got
+## 2. The row
 
-An action is a multiset of point stabilisers with indices summing to \(42\),
-faithful, counted up to \(\operatorname{Aut}(G)\) — the same ordered-versus-
+A faithful action is a multiset of point stabilisers: a function \(c\) on the
+subgroup lattice with \(\sum_H c(H)\,[G:H] = 42\), trivial kernel, and
+\(c(G) \le \min\) cap over the used subgroups of index \(> 1\). Counted **up to
+\(\operatorname{Aut}(G)\)**, which permutes the lattice — the ordered-versus-
 unordered distinction reviewer-1 flagged for the Klein case.
 
-| group | subgroups | ordered | up to \(\operatorname{Aut}(G)\) | \(\max |\operatorname{Fix}|\) |
-|---|---|---|---|---|
-| \(Z_8\) | 4 | \(155\) | \(\mathbf{155}\) | \(16\) |
-| \(Z_4 \times Z_2\) | 8 | \(67\,914\) | \(\mathbf{22\,366}\) | \(22\) |
-| \(Z_2^3\) | 16 | — | **not completed** | — |
-| \(D_4\) | — | — | **not reached** | — |
-| \(Q_8\) | — | — | **not reached** | — |
+| group | \(|\operatorname{Aut}|\) | subgroups | actions surviving the caps |
+|---|---|---|---|
+| \(Z_8\) | 4 | 4 | \(\mathbf{155}\) |
+| \(Z_4 \times Z_2\) | 8 | 8 | \(\mathbf{22\,366}\) |
+| \(Z_2^3\) | 168 | 16 | \(\mathbf{630\,495}\) |
+| \(D_4\) | 8 | 10 | \(\mathbf{74\,430}\) |
+| \(Q_8\) | 24 | 6 | \(\mathbf{986}\) |
+| **total** | | | \(\mathbf{728\,432}\) |
 
-\(Z_8\)'s ordered and unordered counts agree because every subgroup of a cyclic
-group is characteristic, so \(\operatorname{Aut}(Z_8)\) cannot move one
-stabiliser multiset to another.
+**Against the order-4 row's \(78 + 1299 = 1377\), order 8 is larger by a factor
+of about \(530\).** researcher-1 concluded from one probe that order 8 is no
+easier than order 4; the count says it is *much* worse, and says by how much.
+\(Q_8\) is the one small corner — \(986\) actions, because it has only six
+subgroups and every one of them contains the centre.
 
-**\(Z_2^3\) did not finish and the per-group time cap failed to stop it.** With
-\(16\) subgroups the composition count is far larger than for the other two,
-and canonicalising each accepted action against the \(168\) elements of
-\(\operatorname{Aut}(Z_2^3) = GL_3(2)\) is the dominant cost. The cap is
-written as a wall-clock test inside the recursion and evidently does not fire
-where I expected; that is a defect in this file, not a property of the problem,
-and it is recorded rather than hidden. The fix is to enumerate by *set* of
-distinct stabilisers first — at most \(2^{16}\) sets, each faithfulness-checked
-and canonicalised once — and count the compositions for each by dynamic
-programming, instead of canonicalising per action.
+## 3. How it was counted, and how it was checked
 
-## 3. What is usable now
+`order8.py` enumerated actions one at a time and **did not finish \(Z_2^3\)**:
+sixteen subgroups, and canonicalising each accepted action against the \(168\)
+elements of \(GL_3(2)\) dominates. Three changes make it exact and immediate:
 
-- The caps of §1 are complete and are the load-bearing part: they say what any
-  order-8 group can fix, whatever its action.
-- **A group of order 8 acting on a \((5,5,42)\)-graph fixes at most 22
-  points**, because a faithful action cannot have all orbits of size \(\le 2\)
-  for \(Z_8\) or \(Z_4 \times Z_2\) (their index-2 subgroups all contain a
-  common involution), and any orbit of size \(4\) or \(8\) caps at \(22\) or
-  less. For \(Z_2^3\) an all-orbits-\(\le 2\) faithful action does exist, and
-  there the cap is only the involution bound \(36\) — so that sub-case is the
-  one a sharper argument would have to attack.
-- \(Z_8\) is a small row: \(155\) actions, none fixing more than \(16\) points.
+1. **Burnside instead of canonical forms.** The number of \(\operatorname{Aut}(G)\)-orbits
+   is the average number of actions fixed by each automorphism, and an action
+   fixed by \(a\) is one constant on the \(a\)-orbits of the lattice — so each
+   automorphism costs one dynamic program rather than a canonical form per
+   accepted action.
+2. **Inclusion–exclusion for faithfulness.** The kernel is non-trivial exactly
+   when it contains a minimal subgroup; summing over subsets of the atoms with
+   alternating sign and collecting by the subgroup generated leaves at most
+   sixteen terms.
+3. **Stratify by the cap.** \(c(G)\) is the fixed-point count and the cap
+   constrains only it, so "min cap \(\ge f\)" is a restriction on which
+   subgroups may be used; the caps take few values, so few strata.
+
+**Checked, not asserted.** Two independent checks:
+
+- On point counts where both methods run — \(n = 10, 14, 18\) — Burnside and
+  direct enumeration agree for **all five groups at all three sizes**, fifteen
+  comparisons.
+- At the real \(n = 42\), Burnside reproduces `order8.py`'s direct counts for
+  the two groups that one finished: \(155\) and \(22\,366\), exactly.
+
+The faithfulness test now uses the **core** of each stabiliser rather than the
+subgroup itself, so \(D_4\) and \(Q_8\) are exact here; last pass's note
+recorded them as an upper bound, and that caveat is discharged.
 
 ## 4. What this does and does not establish
 
-**Establishes** the caps table; the \(Z_8\) and \(Z_4 \times Z_2\) counts up to
-\(\operatorname{Aut}(G)\); and that no \(Z_8\) or \(Z_4\times Z_2\) action fixes
-more than \(16\) or \(22\) points respectively.
+**Establishes** the caps; the five counts and their total; and that the
+order-8 row is roughly \(530\times\) the order-4 row.
 
-**Does not establish** anything about \(Z_2^3\), \(D_4\) or \(Q_8\) beyond the
-caps, and does not claim the order-8 row is sized. The faithfulness test for
-\(D_4\) and \(Q_8\) in this file intersects the chosen stabilisers rather than
-their cores, which is exact only when every subgroup is normal — true for the
-three abelian groups, not for the other two, where it would give an upper
-bound.
+**Does not establish** that any of these actions is realisable — every one is a
+candidate to be refuted, exactly as in the order-4 row, and none has been run.
+Nor does it bound \(a\): that would need *excluding* all of them, which is the
+thing researcher-1 correctly says nothing does today.
+
+**One sub-case resists the caps.** For \(Z_2^3\) a faithful action with every
+orbit of size \(\le 2\) exists — three index-2 subgroups can intersect
+trivially — and there the only bound is the involution lemma's \(36\). For
+\(Z_8\) and \(Z_4 \times Z_2\) no such action exists, because all their
+index-2 subgroups share a common involution. That is where a sharper argument
+would have to bite.
 
 **Cited, not proved.** \(R(3,5) = 14\), \(R(4,5) = 25\); researcher-1's census
 note for the \(126\)-orbit measurement quoted above.

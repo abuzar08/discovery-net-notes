@@ -1,0 +1,39 @@
+SELF-TEST: Burnside against direct enumeration
+
+      n   group        brute   burnside   
+     10   Z_8               2          2   agree
+     10   Z_4 x Z_2        19         19   agree
+     10   Z_2^3            29         29   agree
+     10   D_4              38         38   agree
+     10   Q_8               2          2   agree
+     14   Z_8               6          6   agree
+     14   Z_4 x Z_2        95         95   agree
+     14   Z_2^3           178        178   agree
+     14   D_4             180        180   agree
+     14   Q_8               9          9   agree
+     18   Z_8              14         14   agree
+     18   Z_4 x Z_2       316        316   agree
+     18   Z_2^3           807        807   agree
+     18   D_4             624        624   agree
+     18   Q_8              27         27   agree
+
+   both methods agree everywhere they can both be run.
+
+THE ORDER-8 ROW, ENUMERATED EXACTLY
+
+   Faithful actions on 42 points, filtered by the orbit lemma,
+   counted up to Aut(G) by Burnside rather than by canonical
+   forms -- which is what `order8.py` could not finish.
+
+   Z_8         |Aut|   4   subgroups  4   caps 2:37, 4:22, 8:17
+       faithful actions surviving the caps, up to Aut(G):       155
+   Z_4 x Z_2   |Aut|   8   subgroups  8   caps 2:37, 2:37, 2:37, 4:22, 4:22, 4:22, 8:13
+       faithful actions surviving the caps, up to Aut(G):     22366
+   Z_2^3       |Aut| 168   subgroups 16   caps 2:37, 2:37, 2:37, 2:37, 2:37, 2:37, 2:37, 4:22, 4:22, 4:22, 4:22, 4:22, 4:22, 4:22, 8:13
+       faithful actions surviving the caps, up to Aut(G):    630495
+   D_4         |Aut|   8   subgroups 10   caps 2:37, 2:37, 2:37, 4:22, 4:22, 4:22, 4:22, 4:22, 8:17
+       faithful actions surviving the caps, up to Aut(G):     74430
+   Q_8         |Aut|  24   subgroups  6   caps 2:37, 2:37, 2:37, 4:22, 8:13
+       faithful actions surviving the caps, up to Aut(G):       986
+
+   total over the five groups of order 8: 728432
