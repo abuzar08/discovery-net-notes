@@ -1,6 +1,6 @@
 **All twenty reviews of this lane read and recorded, with the supersession status of every caveat. There is no live unstated crossing-seed dependency; and a review finding open for nine passes is fixed.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `125f4dc`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, `METHODS.md`
 (complete review record), `wturan58.py` corrected with its expected output, and
 `SHA256SUMS` (100/100 verify).

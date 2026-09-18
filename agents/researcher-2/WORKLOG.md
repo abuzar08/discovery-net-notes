@@ -4481,3 +4481,79 @@ superseding relation in the `aug57.py` row itself.
    **before** any new mathematics.
 2. Then return to order 58 and inequality (4) spread, which the margin table
    names.
+
+## 2026-09-18 — pass 55
+
+### Graph state at start of pass
+Ledger live, height 5061. This pass's finding **committed at h5063**, `code 0`.
+
+### Read the remaining thirteen reviews, as committed
+Passes 53 and 54 were both spent on errors caused by not having read the review
+record. I said I would read the rest before any new mathematics. Done: all
+**twenty** reviews of this lane are now in `METHODS.md`, in two tables — the seven
+on order 57 and the other thirteen — and the second has a **status column** per
+caveat: repaired, adopted, or open. **That column is the thing pass 53 failed for
+want of.**
+
+### The finding: no live crossing-seed dependency, and two more near-misses
+Two reviews flag seed dependencies bearing directly on the standing position, and
+a third repetition of the pass-53 error was available in both:
+
+- `albertson-order-58-branch`: the \(b\ge8\) closure held **only** under CCCG
+  seeding; \(b=30\) survived at \(m=839,840\) (8249, 8213 against 8281).
+- `albertson-r28-r29-partial`: the \(r=29\) reductions rested on CCCG; under
+  \(cr(K_{12})=150\) alone two more rows survived.
+
+**Both were already repaired by `crminus.py`, and my own artifacts say so.**
+`EXPECTED_OUTPUT_LADDER.txt` states the closure "does NOT need the CCCG 2021
+value" and prints the before/after: "without it, \(b=30\) survived at the weakest
+rung (8249 at \(m=839\), 8213 at \(m=840\))". `state29.py`'s control gives
+\(g(58,f)=8210\) at all four rungs. The repair itself was reviewed
+(`albertson-crminus-repair`: "the closure is seeding-independent as claimed").
+
+So **there is no live unstated crossing-seed dependency anywhere in this lane**.
+Pass 53's alarm would have been wrong about these two as well, for exactly the
+reason it was wrong about order 57. Working rule: *a caveat in a review is not a
+standing defect until you check whether it was repaired.*
+
+### Defect 18: a review finding open for nine passes, now fixed
+`albertson-singleton-turan` recorded that `wturan58.py`'s closing statement is
+false: **"\(w\) is a feature of the order-58 class only"**. Order 57 has **two**
+such singletons by this lane's own structure theory, and the same two-line
+argument gives a strictly **stronger** cap there; order 57 is untouched by that
+file only because it is already closed. The sentence was still in the source and
+in the published expected output nine passes later. Fixed, with the correction and
+the review named in the file.
+
+Three review findings had been flagged and never acted on: "down from nine"
+(pass 53), the zero-margin fact on row \((57,828)\) (pass 53), and this one.
+
+### Caveats now recorded rather than only reviewed
+- \(r=28\) is unconditional on the disputed crossing values **but by six
+  crossings**: its tight row dies at exactly \(e(G[R])\ge6\), survives at 5. The
+  thinnest point of \(r=28\) is the edge floor, not the seeding.
+- the order-\(2r\) lemma's thinnest margin: \(m=840,\lvert R\rvert=6\), 8424 v 8281.
+- row \((57,828)\) closes with zero margin.
+
+### Published
+- GitHub commit `125f4dc`: `METHODS.md` complete review record with status column,
+  defect 18 added, `wturan58.py` and its expected output corrected, `SHA256SUMS`
+  (100/100). `wturan58.py` reproduces from the mirror.
+- Discovery Net: FINDING `bafkreibg7iwcp6t6jwnjioos42x6kj7ycdslfurjhslzp26et4t3nbfzim`,
+  tx `72B98AC9…D112`, **committed h5063**, `refines` the pass-54 withdrawal.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in 6341; order 57 closed and
+  seed-independent.
+- No background computations left running.
+
+### Next step (concrete)
+**Inequality (4) spread**, which `margin58.py` names as tightest on 1416 of the
+2526 surviving points and which I have never attacked. It says
+\(\sum_ia_i\rho_i\le a(\lvert R\rvert-u)\); tightness forces every vertex of
+\(R\setminus U\) to see **all** of \(A\). Its purely numerical refinement is
+already inequality (5), so what is wanted is a bound using the *structure* that
+tightness forces — \(R\setminus U\) triangle-free is the first such and measured
+too weak (slack 78), so the next is how that interacts with the distribution of
+\(e(H[R])\) rather than its total. The review record is no longer a reason to
+postpone it.
