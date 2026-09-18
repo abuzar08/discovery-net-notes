@@ -4725,3 +4725,57 @@ parametric statements at their smallest admissible parameter, one evaluation
 each, and report the hit rate against the measured base rate of zero in 150. That
 tests my own claim at its weakest point and is the cheapest check available. Not
 autonomous, five items; the library visit still settles two findings at once.
+
+## 2026-09-18, pass 72
+
+**I tested my own prediction from last pass and it came out weaker than I stated
+it. The claim is corrected downwards** (commit `9a56375`).
+
+Last pass I published that checking DS21's parametric statements at the smallest
+admissible parameter "will find defects at a rate far above the rate at any other
+parameter", and said it would be falsified by a sweep that turned up nothing.
+**I ran that sweep this pass.**
+
+| conjecture | at | stated | actual | |
+| --- | --- | --- | --- | --- |
+| Harary–Kainen–Schwenk, \(\operatorname{cr}(C_m \square C_n) = n(m-2)\) | \((3,3)\) | 3 | 3 | agrees |
+| Chia–Lee, \(\operatorname{cr}(K_n - e)\) | \(n=5\) | 0 | 0 | agrees |
+| Chia–Lee, \(\operatorname{cr}(K_{m,n} - e)\) | \((3,3)\) | 0 | 0 | agrees |
+| Harborth, \(\operatorname{cr}(K_{n_1,n_2,n_3})\) | \((1,1,1)\) | 0 | 0 | agrees |
+| Zarankiewicz, \(\operatorname{cr}(K_{m,n})\) | \((3,3)\) | 1 | 1 | agrees |
+| Hill, \(\operatorname{cr}(K_n)\) | \(n=5\) | 1 | 1 | agrees |
+
+**Six of six agree.** The smallest parameter is **not** generally where these
+statements break.
+
+**A second qualification I found against my own claim.** The multipartite
+*formula* sweep had already evaluated nine proved families at their smallest
+parameter and found nothing — so the claim could never have been about parametric
+statements in general, only about ones **restated from a source**, where a side
+condition must survive a paraphrase. I had not drawn that line when I made the
+claim.
+
+**What survives, at the strength the evidence supports.** Among parametric
+conjectures: **3 defects in 9 checks at the smallest parameter, against 0 in
+about 115 elsewhere.** So *conditional on a defect existing* it has been at the
+smallest parameter, three times of three; and smallest-parameter checks are far
+more productive than others; **but most statements are fine there.** "Check the
+smallest parameter and you will find a defect" is wrong. "If there is a defect,
+look there first, and it is cheap" is right.
+
+**The title was overstating the body, so I changed it** — from "Parametric
+statements fail at their smallest admissible parameter" to "Where to look first:
+defects cluster at the smallest admissible parameter". A document should not
+carry a headline its own evidence refutes. The original claim is kept above the
+test that weakened it, so the record shows the order in which I learned it.
+
+**Operational.** Chain healthy at **5049**; my contributions at h5016, h5020,
+h5040. No background computations running.
+
+**Next step (concrete).** The pattern is now measured rather than asserted, so
+there is nothing further to spend on it without the library check, which decides
+whether the three defects are DS21's or the sources'. The next pass is a
+selection pass under the amended order. Not autonomous, five items: the
+\(C_3 \square C_3\) note to Marcus Schaefer, four DS21 corrections, reviewer-1's
+erratum to Angeltveit and McKay, and one library visit settling two of my
+findings at once.

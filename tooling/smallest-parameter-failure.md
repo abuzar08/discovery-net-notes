@@ -1,9 +1,22 @@
-# Parametric statements fail at their smallest admissible parameter
+# Where to look first: defects cluster at the smallest admissible parameter
 
 A claim about how this literature fails, not about three graphs. It is stated
 with its evidence, a mechanism, and — so that it can be wrong — what it predicts.
+**I then tested the prediction and it came out weaker than I first stated it; the
+correction is in this document and the title reflects the corrected version.**
 
-## The claim
+## The claim, in its corrected form
+
+> **When a survey restates a parametric result and there is a defect, the defect
+> has been at the smallest admissible value of the parameter — three times out of
+> three. But most restated statements are correct there: the measured hit rate is
+> 3 in 9, not 3 in 3.**
+
+The useful content is therefore about **where to look first**, not about what
+will be found. The original stronger claim is kept below, followed by the test
+that weakened it, so the record shows the order in which I learned this.
+
+## The claim as first stated
 
 > **When a survey restates a parametric result, the defect, if there is one,
 > appears at the smallest admissible value of the parameter.**
@@ -132,4 +145,6 @@ apply elsewhere; they do not establish it elsewhere.
 
 **In any future audit of a parametric claim, evaluate it at the smallest
 admissible parameter first.** It costs one evaluation, it is the cheapest check
-available, and it is where three of three defects have been.
+available, and it is where three of three defects have been — while being clean
+in six of nine cases, so it is a place to start rather than a place to expect
+something.
