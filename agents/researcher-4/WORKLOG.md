@@ -4952,3 +4952,63 @@ apply wherever a parametric claim about small graphs is made; the binding
 constraint has been **access**, since two of my four DS21 corrections cannot be
 attributed without a library and the same wall would recur elsewhere. Not
 autonomous, five items unchanged.
+
+## 2026-09-18, pass 76
+
+**Selection made, and it produced a result in the same pass.** Last pass I
+reported DS21 exhausted for my instruments and named **access** as the binding
+constraint. The fix was already on my disk: **Clancy, Haythorpe and Newcombe,
+arXiv:1901.05155** — a second crossing-number survey, 95 pages, **open access**,
+which I had downloaded months ago for Harborth's formula. A source I can read in
+full removes the constraint that blocks two of my four DS21 corrections.
+
+**Gated first.** It is a catalogue of known values rather than open questions —
+83 conjecture mentions, almost no open problems — so it is the wrong source for
+*settling* questions and the right source for *auditing*. It carries **20
+parametric claims with explicit ranges**, which is exactly the shape my
+smallest-parameter pattern is about, and my pattern document had explicitly
+deferred testing on an independent survey.
+
+**Two of its values confirmed, exactly, by a route worth naming.**
+Clancy states \(\operatorname{cr}(S_3 \square C_n) = 1\) and
+\(\operatorname{cr}(S_4 \square C_n) = 2\) at \(n = 3\), where \(S_m = K_{1,m}\)
+— the very family I proved a skewness theorem about last pass.
+
+**A skewness theorem is a crossing-number lower bound**, since
+\(\mathrm{sk} \le \operatorname{cr}\). So my \(\mathrm{sk} = m-2\) supplies the
+lower half and the heuristic the upper, and they meet: \(\operatorname{cr} = 1\)
+and \(2\) **exactly**, confirming Clancy independently — the lower bound coming
+from a theorem about a different quantity. That reach beyond skewness is the
+answer to the principal's gate question that I did not have last pass.
+
+**The quantities separate at \(m = 5\)**: \(\mathrm{sk}\) grows linearly, the
+crossing number quadratically, so this route gives exact values only at
+\(m \le 4\).
+
+**A conjecture, with a structural reason rather than a fitted curve.**
+Writing \(X(m) = \lfloor m/2\rfloor\lfloor (m-1)/2\rfloor\):
+
+> \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\).
+
+Drawings attain \(X(m)\) exactly at \(m = 3,4,5,6,7,11\), sit one above at
+\(8,9,10\), and **never fall below it**. The reason it should be \(X\):
+**contracting each leaf triangle — the same contraction that proves my skewness
+lower bound — gives exactly \(K_{1,1,1,m}\)** (verified \(m = 3,4,5,6\)), and
+Harborth's theorem gives \(\operatorname{cr}(K_{1,1,1,m}) = X(m)\). The
+conjecture says the contraction does not change the crossing number.
+
+**Stated with the direction of the inequality, because it matters.** Crossing
+number is **not** minor-monotone, so the contraction does *not* give
+\(\operatorname{cr}(K_{1,1,1,m}) \le \operatorname{cr}(K_{1,m} \square C_3)\).
+The lower bound is open; what is proved is only \(\operatorname{cr} \ge m-2\).
+
+**Operational.** Chain healthy at **5063**; contributions at h5016, h5020, h5040,
+h5054. No background computations running.
+
+**Next step (concrete).** Two threads, in order. **(1)** Audit Clancy's twenty
+parametric claims at their smallest admissible parameter — the independent-survey
+test my pattern document deferred, which either generalises the claim beyond DS21
+or bounds it to DS21. **(2)** Attack the conjectured lower bound
+\(\operatorname{cr}(K_{1,m} \square C_3) \ge X(m)\); the contraction is suggestive
+but not valid in that direction, so it needs a different argument. Not autonomous,
+five items unchanged.
