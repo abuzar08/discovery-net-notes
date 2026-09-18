@@ -1,10 +1,65 @@
-cover57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/cover57.py'
-cover57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/cover57.py'
-aug57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/aug57.py'
-aug57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/aug57.py'
-close57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/close57.py'
-close57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/close57.py'
-residue57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/residue57.py'
-residue57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/residue57.py'
-hall57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/hall57.py'
-hall57.py: ERROR FileNotFoundError: [Errno 2] No such file or directory: '/Users/abuzark/.discovery-research-team/workspaces/reviewer-1/hall57.py'
+--- cover57.py under CCCG 2021 (cr(K13)=225):
+    827    7     50     [581,594]     8081     8721       none   none          impossible
+    827    8     49     [555,573]     7354     7994       none   none          impossible
+    828    7     50     [580,593]     8081     8721       none   none          impossible
+    828    8     49     [554,572]     7354     7994       none   none          impossible
+    row (57, 824) was already eliminated
+    row (57, 825) was already eliminated
+    row (57, 826) is ELIMINATED
+    Open (row, |R|) cases at order 57: 4, down from 9 before aug57.py.
+--- cover57.py under counting only (cr(K13)>=217):
+    827    7     50     [581,594]     7806     8424       none   none          impossible
+    827    8     49     [555,573]     7104     7722       none   none          impossible
+    828    7     50     [580,593]     7806     8424       none   none          impossible
+    828    8     49     [554,572]     7104     7722       none   none          impossible
+    row (57, 824) was already eliminated
+    row (57, 825) was already eliminated
+    row (57, 826) is ELIMINATED
+    Open (row, |R|) cases at order 57: 4, down from 9 before aug57.py.
+--- aug57.py under CCCG 2021 (cr(K13)=225):
+    826    7     50      582     7856    8343     8343   (27, 22, 2, 2) impossible
+    827    7     50      581     7521    8081     8343   (27, 22, 2, 2) impossible
+    row (57, 826) is ELIMINATED
+    Order-57 open rows: 2, down from 3.
+--- aug57.py under counting only (cr(K13)>=217):
+    Order-57 open rows: 3, down from 3.
+--- close57.py under CCCG 2021 (cr(K13)=225):
+    Albertson r = 29, order 57: the pinned |R| = 9 cases are impossible
+    5 available >= 4 needed  ->  IMPOSSIBLE
+    5 available >= 5 needed  ->  IMPOSSIBLE
+    5 available >= 5 needed  ->  IMPOSSIBLE
+    Both pinned |R| = 9 cases are impossible.
+    Row (57, 827) had |R| = 9 as its only open case, so it is
+    ELIMINATED.  Row (57, 828) reduces to |R| in [10, 11].
+    Order 57 open (row, |R|) cases: 2, down from 4.
+--- close57.py under counting only (cr(K13)>=217):
+    Albertson r = 29, order 57: the pinned |R| = 9 cases are impossible
+    5 available >= 4 needed  ->  IMPOSSIBLE
+    5 available >= 5 needed  ->  IMPOSSIBLE
+    5 available >= 5 needed  ->  IMPOSSIBLE
+    Both pinned |R| = 9 cases are impossible.
+    Row (57, 827) had |R| = 9 as its only open case, so it is
+    ELIMINATED.  Row (57, 828) reduces to |R| in [10, 11].
+    Order 57 open (row, |R|) cases: 2, down from 4.
+--- residue57.py under CCCG 2021 (cr(K13)=225):
+    (24, 22, 2)    e(H[R])=7  thr=(6,4)  caps k1<=2 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+    (25, 21)       e(H[R])=5  thr=(7,3)  caps k1<=1 k2<=5 ; dichot survivors none  ->  IMPOSSIBLE
+    (25, 21, 2)    e(H[R])=4  thr=(7,3)  caps k1<=1 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+    (26, 20)       e(H[R])=0  thr=(8,2)  caps k1<=0 k2<=0 ; dichot survivors [(1, 0), (1, 1), (1, 2)]  ->  IMPOSSIBLE
+    impossible, so the row is ELIMINATED.
+    ORDER 57 AT r = 29 IS CLOSED: all five rows of the frontier
+    (57,824) ... (57,828) are eliminated.
+    What remains of r = 29 is order 58 alone, and there a single
+--- residue57.py under counting only (cr(K13)>=217):
+    (24, 22, 2)    e(H[R])=7  thr=(6,4)  caps k1<=2 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+    (25, 21)       e(H[R])=5  thr=(7,3)  caps k1<=1 k2<=5 ; dichot survivors none  ->  IMPOSSIBLE
+    (25, 21, 2)    e(H[R])=4  thr=(7,3)  caps k1<=1 k2<=4 ; dichot survivors none  ->  IMPOSSIBLE
+    (26, 20)       e(H[R])=0  thr=(8,2)  caps k1<=0 k2<=0 ; dichot survivors [(1, 0), (1, 1), (1, 2), (1, 3)]  ->  IMPOSSIBLE
+    impossible, so the row is ELIMINATED.
+    ORDER 57 AT r = 29 IS CLOSED: all five rows of the frontier
+    (57,824) ... (57,828) are eliminated.
+    What remains of r = 29 is order 58 alone, and there a single
+--- hall57.py under CCCG 2021 (cr(K13)=225):
+    (4,6), (6,4), (5,5)}.  That is the entire remaining obstruction,
+--- hall57.py under counting only (cr(K13)>=217):
+    (4,6), (6,4), (5,5)}.  That is the entire remaining obstruction,
