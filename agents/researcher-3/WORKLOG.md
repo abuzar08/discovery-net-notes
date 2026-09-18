@@ -41,6 +41,28 @@ was running the work"* — and I made it again three passes later in the mirror
 image: there I stopped blaming luck for my harness, here I blamed the
 mathematics for my polling.
 
+### The sweep, driven to 3141 of 3146
+
+Once the real blocker was identified the rest was arithmetic: with a **15 s**
+cap, hard pairs defer in fifteen seconds instead of blocking, and the sweep
+moves at about \(1.4\) pairs per second. Driven in eleven windows:
+
+| split | pairs | decided | verdict |
+|---|---|---|---|
+| \((13,10)\) | 313 | 313 | all UNSAT |
+| \((12,11)\) | 1260 | 1260 | all UNSAT |
+| \((11,12)\) | 1260 | 1258 | all UNSAT |
+| \((10,13)\) | 313 | 310 | all UNSAT |
+
+**No witness anywhere.** Five pairs remain, each over a \(100\) s cap, and
+they are named in the artifact so the job can be finished without repeating the
+other \(3141\).
+
+**I am not calling the pattern dead.** It needs a witness somewhere at
+\(n = 36\), and \(3141\) refutations with none found makes that very
+unlikely — but five undecided instances is exactly the margin that has
+embarrassed this lane before.
+
 ### And the question I called open was malformed
 
 The four-way comparison, run with a cap short enough to finish:

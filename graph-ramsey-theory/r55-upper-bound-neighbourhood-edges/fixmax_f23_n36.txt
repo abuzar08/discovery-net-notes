@@ -1,0 +1,41 @@
+THRESHOLD SEARCH for f = 23
+
+   Shape C_4 only; 2K_2 follows by the complementation duality.
+   Warm-started from the previous n's witness.  Feasibility is
+   monotone in n, so the first UNSAT settles every larger n.
+
+      n   tried/total   seconds   verdict
+        resuming: 3141 pairs already decided
+        50/3146 refuted
+        100/3146 refuted
+        150/3146 refuted
+        200/3146 refuted
+        250/3146 refuted
+        300/3146 refuted
+        350/3146 refuted
+        400/3146 refuted
+        450/3146 refuted
+        500/3146 refuted
+        550/3146 refuted
+        600/3146 refuted
+        650/3146 refuted
+        700/3146 refuted
+        750/3146 refuted
+        800/3146 refuted
+        850/3146 refuted
+        900/3146 refuted
+        950/3146 refuted
+        1000/3146 refuted
+        1050/3146 refuted
+        1100/3146 refuted
+        1150/3146 refuted
+        1200/3146 refuted
+        1250/3146 refuted
+        1300/3146 refuted
+        1350/3146 refuted
+        1400/3146 refuted
+        1450/3146 refuted
+        1500/3146 refuted
+        1550/3146 refuted
+        1600/3146 refuted
+        1650/3146 refuted

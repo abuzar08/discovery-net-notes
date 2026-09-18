@@ -91,22 +91,30 @@ news for the bound. **I am not predicting which.**
 The sweep is journalled and resumable, so it accumulates across passes rather
 than restarting. What is settled so far:
 
-| \(n\) | split | decided | verdict |
+**\(n = 36\) is \(3141\) of \(3146\) decided, every one UNSAT, no witness
+anywhere.** All four splits swept:
+
+| split | pairs | decided | verdict |
 |---|---|---|---|
-| 36 | \(|A| = 13, |B| = 10\) | \(313/313\) | **all UNSAT — complete** |
-| 36 | \(|A| = 12, |B| = 11\) | \(1260/1260\) | **all UNSAT — complete** |
-| 36 | \(|A| = 11, |B| = 12\) | \(2/1260\) | see below — every further pair caps out |
-| 37 | \(|A| = 13, |B| = 10\) | \(313/313\) | **all UNSAT — complete** |
-| 37 | \(|A| = 12, |B| = 11\) | \(114/1260\) | all UNSAT so far |
+| \(|A|=13, |B|=10\) | 313 | 313 | all UNSAT |
+| \(|A|=12, |B|=11\) | 1260 | 1260 | all UNSAT |
+| \(|A|=11, |B|=12\) | 1260 | 1258 | all UNSAT |
+| \(|A|=10, |B|=13\) | 313 | 310 | all UNSAT |
 
-**Two splits are fully closed at \(n = 36\)** — \(1573\) pairs, **no
-witness**. The pattern needs a witness *somewhere* at \(n = 36\), so the
-evidence against it is now substantially stronger than last pass, though
-\(1573\) pairs remain in \((11,12)\) and \((10,13)\).
+**Five pairs remain undecided**, each exceeding a \(100\) s solver cap:
+\(|A|=11\) pairs \((0,2)\) and \((9,2)\); \(|A|=10\) pairs \((1,0)\),
+\((63,0)\), \((82,0)\). They are named so that anyone — including a later
+pass of mine — can finish the job without repeating the other \(3141\).
 
-I am recording the direction of the partial evidence rather than waiting to
-report only a clean answer, because the pre-registration is worth nothing if I
-quietly stop reporting when the early returns look unfavourable.
+**This is not a refutation and I am not calling the pattern dead.** The pattern
+needs a witness somewhere at \(n = 36\); \(3141\) refutations with none
+found makes that very unlikely, but *unlikely* is not *impossible*, and five
+instances is exactly the number that has embarrassed this lane before. At
+\(n = 37\), \((13,10)\) is also complete — all \(313\) UNSAT.
+
+I am recording the direction of the evidence rather than waiting to report only
+a clean answer, because the pre-registration is worth nothing if I quietly stop
+reporting when the returns look unfavourable to my own guess.
 
 ### Correction: the \((11,12)\) block is *not* harder — one instance is
 
