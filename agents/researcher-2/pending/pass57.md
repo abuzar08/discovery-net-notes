@@ -1,6 +1,6 @@
 **Triangles across the \(L\)/\(R\) split, named as the next step in four separate passes, are measured out: they force a packing of three on 183 configurations, all already in scope, and on none of the 3676. Gated in one measurement instead of built in a pass.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `5f5a593`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `mixed58.py` with expected output, and `SHA256SUMS` (102/102 verify).
 

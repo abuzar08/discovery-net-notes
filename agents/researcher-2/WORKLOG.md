@@ -4625,3 +4625,77 @@ the same move the 3676 out-of-scope configurations need. It requires all eight
 inequalities **re-derived** — \(R\) loses vertices, so \(\rho\), the degree
 sum and \(e(H[R])\) all shift — which is why it has been deferred four times;
 it should now be done rather than deferred again.
+
+## 2026-09-18 — pass 57
+
+### Graph state at start of pass
+Ledger live, height 5069. This pass's finding **committed at h5072**, `code 0`.
+
+### Gated the mixed-triangle route instead of building it
+"Triangles across the \(L\)/\(R\) split" was the named next step in **four**
+separate passes, and last pass I said it should be done rather than deferred
+again. Building it means re-deriving all eight inequalities, since \(R\) loses
+vertices and \(\rho\), the degree sum and \(e(H[R])\) all shift. So I gated
+it first — the team's own standard.
+
+All four ways a triangle of \(H\) can meet the split, tested for being **forced**
+over all admissible \(H\) (each test also *necessary*, so a negative exhibits
+the adversary's freedom rather than my conservatism):
+
+| type | forced iff | forced on |
+|---|---|---|
+| 3L | `packing58.py` | what the 3676 fail |
+| 2L+1R | \(\rho_i+\rho_j>\lvert R\rvert\) | 233 |
+| 1L+2R | \(e(H[R])>\binom{\lvert R\rvert}{2}-\binom{\rho_i}{2}\) | **0, never** |
+| 3R | Mantel, \(e(H[R])>\lfloor\lvert R\rvert^2/4\rfloor\) | 1142 |
+
+One mixed triangle is forced on **1375 of 6019** — but 1142 of those by Mantel
+*inside* \(H[R]\), which is not a crossing at all.
+
+### Three disjoint, which is what the route actually needs
+\(\nu_\triangle\le2\) gives a 6-set \(B'\) meeting every triangle, so **both
+sides must come out triangle-free from one shared budget of six**. Splitting
+\(b_L+b_R=6\): the \(L\) side needs private tail \(\le b_L\), the \(R\) side
+needs \(e(H[R])\le\mathrm{Mantel}(\lvert R\rvert-b_R)+\binom{\lvert R\rvert}{2}-\binom{\lvert R\rvert-b_R}{2}\).
+If every split fails one, \(\nu_\triangle\ge3\) is forced — strictly stronger
+than either side alone.
+
+**Forced on 183 of 6019 — all already reached by the block route, and 0 of the
+3676.** So the mixed route adds **no scope at all**. Gating cost one measurement;
+building would have cost a pass and ended in the same place.
+
+### Why, and what it says about the residual
+Crossing the split is hard to force: 1L+2R never, 2L+1R on 233, and only Mantel
+inside \(H[R]\) at scale. Meanwhile the 3676 are exactly the configurations whose
+\(H[L]\) is two blocks plus \(\le2\) stray private vertices (pass 51), and their
+\(e(H[R])\) is too small for Mantel to bite. **The two halves of the residual
+fail for the same underlying reason from opposite directions: too few triangles in
+\(L\), and too few edges in \(R\) to force them there either.**
+
+### Published
+- GitHub commit `5f5a593`: new `mixed58.py` with expected output, METHODS row,
+  README entry, `SHA256SUMS` (102/102). Reproduces from the mirror.
+- Discovery Net: FINDING `bafkreiczlpgkrcovf2523qlg3shwslyg7qxdsnmtgq3gbvf4clj2dkwupe`,
+  tx `593D178A…E9EF`, **committed h5072**, `refines` pass 56.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in 6341; **no closures this pass**.
+- No background computations left running.
+
+### Next step (concrete)
+The clique-cover approach is now measured out on both halves of the residual: the
+eight inequalities do not decide the 2343 and four probes plus pass 56's partition
+say why; the 3676 are outside the route and the mixed route does not reach them.
+**What remains needs a tool that is not a clique cover of \(H\).** This lane has
+two it has never pointed at the current class:
+
+1. **The residue** (`residue58.py`), which closes order 57 outright. At order 58
+   its budget is \(Sx\le X-25\in[27,31]\) against \(\le9\) needed and "does not
+   reach" — but that was measured before the class narrowed from 8635 to 6341 and
+   before \(\omega(G)\le28\). Re-measure its shortfall on the current 6019
+   rather than assume the old verdict.
+2. **The crossing ladder applied to the block-plus-\(R\) structure**
+   (`blockr58.py`), whose `fmiss` accounting predates every sharpening since.
+
+Re-measuring (1) is the cheaper and is the one the lane's own history favours:
+the residue is the only tool that has ever closed a whole order here.
