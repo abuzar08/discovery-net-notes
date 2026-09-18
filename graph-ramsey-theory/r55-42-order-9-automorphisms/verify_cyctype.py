@@ -112,7 +112,17 @@ def check_cubes(cls, icnf, outd, refine=None):
     for i, c in enumerate(leaves):
         path = os.path.join(outd, f'c{i}.lrat')
         if os.path.exists(path):
-            if not check_lrat([list(x) for x in cls] + [[l] for l in c], path):
+            # A malformed proof must be rejected, not crash the checker: a file can be
+            # truncated by a killed run, or still being written by a live one. Either
+            # way it is not a certificate, and verification should be run against a
+            # directory whose computation has finished.
+            try:
+                ok = check_lrat([list(x) for x in cls] + [[l] for l in c], path)
+            except Exception as e:
+                print(f'cube {i}: certificate {path} is malformed ({type(e).__name__}: {e}); '
+                      f'if a run is still writing it, verify after it finishes')
+                return 1
+            if not ok:
                 print(f'cube {i}: REPLAY FAILED')
                 return 1
             replayed += 1

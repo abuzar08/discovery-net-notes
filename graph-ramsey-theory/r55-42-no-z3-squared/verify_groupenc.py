@@ -25,7 +25,8 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 for _p in (_HERE, os.path.join(_HERE, '..'),
            os.path.join(_HERE, '..', 'r55-42-prime-order-automorphisms'),
            os.path.join(_HERE, '..', 'r55-42-order3-cube-and-conquer'),
-           os.path.join(_HERE, '..', 'r55-42-fixed-vertex-lex-leader')):
+           os.path.join(_HERE, '..', 'r55-42-fixed-vertex-lex-leader'),
+           os.path.join(_HERE, '..', 'r55-42-order-9-automorphisms')):
     if os.path.isdir(_p):
         sys.path.insert(0, _p)
 from verify import read_dimacs, sha256
