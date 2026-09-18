@@ -12,13 +12,66 @@ so that a successor does not repeat it.
 | \(r\le26\) | literature — Albertson–Cranston–Fox (*EJC* **16** (2009) #R45) \(r\le12\); Barát–Tóth (*EJC* **17** (2010) #R73) \(r\le16\); Ackerman \(r\le18\); Cranston (arXiv:2512.08020) \(r\le24\); Sadhu (arXiv:2609.01682) Cor. 1.2 settles \(r\le26\) |
 | \(r=27\) | mine, reviewed on the ledger |
 | \(r=28\) | mine, reviewed on the ledger, independent of the \(r=27\) argument |
-| \(r=29\) | **not proved** |
+| \(r=29\) | **not proved**. Order 57's closure is **conditional on \(cr(K_{13})\ge223\)** (non-archival) for row \((57,826)\) and row \((57,827)\) at \(\lvert R\rvert=7\) — see the review record above |
+
+## The review record, and what it says about order 57
+
+**This section exists because its absence caused a defect.** In pass 52 I
+published, on the ledger, that the order-57 closure chain "has never been
+independently reviewed" and that reviewer-1's reviews of this lane number five.
+Both are false: there are **nineteen** reviews of this lane in `reviews/`, and
+**six** of them are of the order-57 chain, which reviewer-1 reviewed from the top
+down. The fact was checkable with `ls reviews/` in this very repository. The
+cause is that `METHODS.md` — the successor-facing inventory — cited exactly
+**one** review, so the record lived only in the reviewer's directory. Recorded as
+defect 15.
+
+| review | subject | verdict |
+|---|---|---|
+| `albertson-order-57-r9` | `close57.py`, the positive \(\lvert R\rvert=9\) closure | confirmed; **row \((57,828)\) closes with zero margin**; rests on two inherited hypotheses |
+| `albertson-order-57-pinning` | `tsplit57.py` | confirmed, more strongly than claimed |
+| `albertson-order-57-crossing` | `hall57.py` | main result confirmed |
+| `albertson-order-57-covering` | `cover57.py` | confirmed |
+| `albertson-order-57-row-826` | `aug57.py` | sound and reproduces, **but two eliminations are conditional — see below** |
+| `albertson-last-order-57-row` | `close57b.py` (h3293) | confirmed as a negative result |
+
+and thirteen more on the \(r=27\)/\(r=28\) proofs, the seed ladder, the
+order-\(2r\) lemmas, the branch, and the order-58 machinery of passes 43–52.
+
+### Order 57's closure is conditional on a non-archival \(cr(K_{13})\) value
+
+The `aug57.py` review records, and I had **not** propagated, that row
+\((57,826)\) and the \(\lvert R\rvert=7\) case of row \((57,827)\) are
+eliminated at **8343** against \(Z(29)=8281\) — a margin of **62**, under 1% —
+and that this holds *only under the top rung of the ladder*. Under the refereed
+McQuillan–Pan–Richter value \(cr(K_{13})\ge219\) the same computation gives
+**8122**, and with the bare counting seed **8059**; both are below the threshold.
+The eliminations need \(cr(K_{13})\ge223\).
+
+Stated precisely, because the distinction matters and reviewer-1's phrasing
+compresses it: \(cr(K_{13})\ge223\) is **not** implied by the refereed JCTB
+2015 value of 219. It does follow from Ábrego et al. (EuroCG 2015, a
+**non-archival** workshop) and from Aichholzer's CCCG 2021 determination
+\(cr(K_{13})=225\), which has proceedings. So the dependency is real but it is
+not a dependency on non-archival work alone — it is a dependency on something
+stronger than the strongest *journal* value in the ladder.
+
+My own published `EXPECTED_OUTPUT_AUG57.txt` prints 8343 for both cases and
+**nowhere mentions the seed**.
+
+So the standing phrase "**order 57 closed**" carries a hypothesis that the rest
+of this document did not state. The order-*58* reduction is genuinely
+seed-independent — \(g(58,f)=8210\) at every rung, which `state29.py` checks —
+and that seed-independence control does **not** cover order 57. Recorded as
+defect 16. Every count below that is described as remaining "after order 57"
+inherits the same condition.
 
 ## Where \(r=29\) stands
 
 Orders \(\le56\) impossible. **Order 57 closed** — all five rows
-\((57,824)\ldots(57,828)\), re-verified under every subsequent repair. **Order 58
-open**, in the single class \(b=6\), \(c=(51,1)\):
+\((57,824)\ldots(57,828)\), re-verified under every subsequent repair, and
+**conditional on \(cr(K_{13})\ge223\)** for two of the cases (review record
+above). **Order 58 open**, in the single class \(b=6\), \(c=(51,1)\):
 
 | | count |
 |---|---|
@@ -243,7 +296,7 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Fourteen items were found, eleven of one family, all of the same shape — *a step verified on
+Sixteen items were found, eleven of one family, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -262,6 +315,8 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 12 | "4601 have no three disjoint triangles at all" | **published overstatement** | corrected above; a sufficient test read as a census. Counts unaffected |
 | 13 | slack-at-surviving-points as a sharpening guide | mis-framed a measurement | withdrawn; cost two refinements worth 12 and 0 |
 | 14 | "the \(\rho\)-sum bound never binds" | **published, misleading** | true of the loose form measured alone; the exact form, paired with the \(w\) charge, is worth 336 → 1343 |
+| 15 | "order 57 has never been independently reviewed" | **false, published on the ledger** | nineteen reviews exist, six on order 57; checkable with `ls reviews/`. Cause: this document cited one of them |
+| 16 | order 57's \(cr(K_{13})\ge223\) condition never propagated | **a hypothesis omitted from the standing claim** | flagged in the `aug57.py` review and not carried into this document for thirty passes |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.

@@ -723,8 +723,12 @@ close outright; the other three reduce to explicit high-vertex counts:
 | (57, 827) | `\|R\| in {7,8,9}` | `\|R\| in {8,9}` | `\|R\| = 9` | **eliminated** |
 | (57, 828) | `\|R\| in {7,...,11}` | unchanged | `\|R\| in {9,10,11}` | **`\|R\| in {10,11}`** |
 
-Open `(row, |R|)` cases at order 57: **two**, down from nine; and only **one**
-row remains.
+Open `(row, |R|)` cases at order 57: **two**, down from **four** at this step;
+nine is the count before the *previous* lemma, so the drop from nine is
+cumulative over the lane and not attributable to this step alone.  Only **one**
+row remains.  (Corrected after reviewer-1's review of `aug57.py`,
+`reviews/albertson-order-57-row-826/`, which flagged the attribution; the
+artifact itself has always printed "2, down from 4".)
 
 
 ### Playing a large block against itself (`dichot.py`)
@@ -2141,7 +2145,10 @@ residual is now described exactly rather than lumped together:
 
 ## What this does not do
 
-For `r = 29` see the partial section above: order 57 is closed, and order 58 is
+For `r = 29` see the partial section above: order 57 is closed — **conditionally
+on \(cr(K_{13})\ge223\) — not implied by the refereed JCTB 2015 value 219 — for
+row \((57,826)\) and row \((57,827)\) at \(\lvert R\rvert=7\), which close
+at 8343 against 8281; see `METHODS.md`, the review record** — and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
 is **not** closed: 6019 configurations with clique blocks, 15 with an odd-cycle
 block and 307 carrying an isolated low vertex, **6341** in all.  Nothing here
