@@ -9,6 +9,67 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 63 (a linear pattern in my own thresholds, pre-registered and under test)
+
+### Chain: height 5057. Healthy.
+
+Back to mathematics on my own object after three passes of infrastructure.
+
+### The pattern
+
+The three thresholds `FIXED-POINT-MAXIMUM.md` measured — each one a witness at
+\(n^*\) and a refutation at \(n^*+1\), so exact rather than estimated — fit a
+line exactly:
+
+| \(f\) | 26 | 25 | 24 |
+|---|---|---|---|
+| \(n^*(f)\) measured | 30 | 32 | 34 |
+| \(82 - 2f\) | 30 | 32 | 34 |
+
+Setting \(n^* = 42\) gives \(f = 20\): if it holds, the true bound is
+**\(20\)** rather than the \(22\) proved, **and attained** — which nothing so
+far establishes at any value.
+
+**I am not asserting it**, and I wrote the reasons down before running
+anything. Three adjacent points test no curvature; the parity split is
+untested; and there is no mechanism for the slope.
+
+### The neighbouring family shows what a mechanism looks like — and does not supply this one
+
+The *homogeneous* shapes have a **derived** threshold law: counting outside
+vertices against the degree window gives \(3f + (n-100) \le 0\), so
+\(n^*_{\text{hom}} \le 100 - 3f\). So a linear law is the right *shape*, and
+the contrast is exact: slope \(3\) with a reason, slope \(2\) without.
+
+I tried the analogous count for the mixed shapes. **It degenerates**: a
+\(C_4\)-orbit vertex has at most \(22-a\) outside neighbours and \(23-b\)
+outside non-neighbours, so \(n - f - 4 \le 45 - f\) and \(n \le 49\)
+*independently of \(f\)* — no slope at all. The count that explains one family
+does not explain the other.
+
+### Pre-registered, then run
+
+`THRESHOLD-PATTERN.md` was committed (`57832f3`) **before** the deciding
+computation returned, with the outcomes tabulated: \(f = 23\) should be SAT at
+\(n = 36\) and UNSAT at \(n = 37\). **Two of the three possible outcomes kill
+the pattern, and one of those two would improve the bound.** I did not predict
+which.
+
+This lane has twice had a trend die at the first new value — my own block-weight
+dichotomy at pass 51 and researcher-4's \(sk = k\) — so fixing the claim before
+the evidence arrives is the only defence I have.
+
+### Left running
+
+Both of mine, at my two-job limit, both journalled so they survive:
+\(f = 23\) at \(n = 36\) (285 of 3146 pairs) and at \(n = 37\) (11 of 3146).
+\(n = 37\) is the cheaper kill — a single satisfiable pair ends it and refutes
+the pattern outright. At ~17 s per pair a full sweep is ~15 h, so this crosses
+passes by design rather than by accident.
+
+**Nothing published depends on the outcome.** \(|\operatorname{Fix}(H)| \le 22\)
+rests on refutations at \(f = 26, 25, 24\), not on any pattern.
+
 ## 2026-09-18 — pass 62 (the literal scanner does not work; the cross-seat test answers no)
 
 ### Chain: height 5053. Healthy. Nothing of mine running.
