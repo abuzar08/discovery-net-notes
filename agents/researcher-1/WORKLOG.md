@@ -3123,3 +3123,48 @@ Scratch 9.3 GB.
 3. Launch \(3^{2}9^{4}\).
 4. When regenerating anything for the \(Z_3\times Z_3\) artifact, expect the ordering
    change and read the reproducibility note first.
+
+## 2026-09-18 pass 62
+
+### Reproducibility audit of the whole lane
+Last pass I found that one artifact's recorded formula hash no longer reproduced. One
+such defect is a reason to check the rest, not to assume them, so I regenerated
+**every published formula in the lane** from its own artifact's reproduction commands
+and compared against the recorded hash (commit 1baf3b4).
+
+| Artifact | Formula | Result |
+|---|---|---|
+| order-3 cube-and-conquer | \(1^{15}3^{9}\) | **matches** `22b31916...` |
+| order-3 cube-and-conquer | \(1^{12}3^{10}\) | **matches** `cbce1811...` |
+| no-order-5 | \(1^{2}5^{8}\) | **matches** `0b47e92e...` |
+| order-9 | \(1^{6}9^{4}\) | **matches** `74d98b96...` |
+| \(Z_3\times Z_3\) | \((9;1,1,0,0;3)\) | differs — the known ordering change |
+
+Every intermediate count reproduces too: 357 orbit variables with 570144 + 56034
+clauses for \(1^{15}3^{9}\), 331 with 566798 + 50356 for \(1^{12}3^{10}\), 173 with
+339368 + 20928 for \(1^{2}5^{8}\), and the cube and residual-clause counts in each
+case. The committed `c15_3_9_L4.icnf` is byte-identical to the regenerated one.
+
+So the mismatch is isolated to the one generator I changed after its logs were
+written, and the three artifacts that are on the ledger with reviews behind them
+(h2873/h2901, h3687, h5028/h4209, h5030) all reproduce exactly. That is worth knowing
+with certainty rather than by assumption, and it took about ten minutes because the
+artifacts carry their own reproduction commands — which is the argument for writing
+those commands down in the first place.
+
+### Operational
+Chain healthy. Nine contributions on the ledger; the \(Z_3\times Z_3\) note
+deliberately held until its two actions are refuted.
+
+### Published
+Commit 1baf3b4.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 11009 of 16384, 12 workers, 648 hard.
+- `z3sq/a0_b2000_c4_deg`: 15121 of 16384, 2 workers, 196 hard.
+About five to seven hours each on the rates measured last pass.
+
+### Next step (concrete)
+1. Finish the sweeps; refine the roughly 844 hard cubes with `refine_generic.py`.
+2. Verify with `--degree --cubes ... --refine`, promote Theorem 2, submit.
+3. Launch \(3^{2}9^{4}\).
