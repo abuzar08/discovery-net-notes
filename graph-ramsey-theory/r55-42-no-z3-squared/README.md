@@ -245,6 +245,47 @@ negative controls -- applies to all 39 alike; only those two certificates are
 outstanding. Corollaries 1 and 2 are stated for the full theorem and become
 unconditional when they land.
 
+## What the computation costs, and why the raw total overstates it
+
+For the \((0;2,0,0,0;4)\) action, whose sweep is complete: 16384 cubes, of which
+16238 are refuted with a replayed certificate at the time of writing, at a raw cost of
+**100.7 core-hours** of solve plus replay and about 646 GB of proof produced, replayed
+and deleted.
+
+That raw figure overstates the work, and the reason is worth recording because it
+would otherwise be taken as a property of the problem.
+
+**131 of the 16452 records — eight tenths of one percent, and a contiguous block of
+them — account for 14 percent of the total time.** Inside that block the mean solve is
+282 s against 13.5 s outside, and the *median* is 11 s against 3.1 s. A block of
+consecutive cubes all costing several times the norm is not a property of those cubes;
+it is the machine. During that window the host was running more CPU-bound solvers than
+it has cores, with replay processes holding large proofs in memory, and under that load
+wall-clock times inflate across the board.
+
+The same window contains records that should be impossible: cubes exiting
+**UNSAT after 1015 s under a 600 s `timeout`**, and one record of 3060 s. GNU
+`timeout` measures wall clock and delivers SIGTERM at the deadline, so a process
+finishing normally 70 percent past it means the timeout's own signal delivery was
+delayed — which is what severe oversubscription does. So the limit is soft under load,
+not just the times.
+
+**Nothing about the result depends on any of this.** Every cube counted as refuted
+carries a certificate that was replayed to the empty clause against the regenerated
+formula; how long the solver took, and whether a limit was enforced punctually, does
+not enter the proof. What it affects is the cost figures and the hard-cube counts, and
+those should be read as follows:
+
+| | raw | excluding the contended window |
+|---|---|---|
+| solve + replay | 100.7 core-h | **86.2 core-h** |
+| mean per refuted cube | 15.6 s | **13.5 s** |
+| median per refuted cube | 3.1 s | **3.1 s** |
+| maximum | 1974 s | **404 s** |
+
+The median is the statistic to trust: it is unchanged at 3.1 s, because contention
+inflated a small block rather than shifting the distribution.
+
 ## Verification
 
 `verify_groupenc.py` rebuilds everything from the orbit data alone and by a different
@@ -275,6 +316,10 @@ formula: regenerated clause set matches the file exactly
 
 and the 37 certificates were each replayed to the empty clause
 (`logs/verify_certificates.log`).
+
+The SHA-256 in that quoted block is from before the generator's clause ordering
+changed and will **not** reproduce today; the clause set will. See *Reproducibility
+note* below before comparing hashes.
 
 **Negative controls.** The checker was confirmed to reject, rather than pass
 silently: a formula checked against the wrong orbit data (reported as a clause-set
