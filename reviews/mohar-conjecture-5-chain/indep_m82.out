@@ -1,0 +1,4 @@
+M_82 exhaustive two-page search (all 2520 cyclic orders, pages optimised with 10 restarts):
+   minimum crossings found: 12  (1 s)
+   so cr(M_82) <= 12; with the counting bound cr >= 10 the value lies in [10, 12]
+   an 11-crossing two-page drawing would have refuted the conjecture here; none exists in the two-page family

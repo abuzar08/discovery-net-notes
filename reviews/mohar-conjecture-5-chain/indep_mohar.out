@@ -1,0 +1,24 @@
+(1) DS21 rendering at n = 5: reduction term (2-1)(2-2) = 0, so the
+    rendering asserts cr(K_5 - M) = H(5) = 1 for every matching M
+    K_5 minus a 1-matching: planar = True, so cr = 0
+    K_5 minus a 2-matching: planar = True, so cr = 0
+
+(2) n = 6, k = 3: the conjecture predicts 3 - t for t = 0..3
+    t = 0: 15 edges, Euler lower bound 3, two-page upper bound 3 -> exact 3   (predicted 3)
+    t = 1: 14 edges, Euler lower bound 2, two-page upper bound 2 -> exact 2   (predicted 2)
+    t = 2: 13 edges, Euler lower bound 1, two-page upper bound 1 -> exact 1   (predicted 1)
+    t = 3: 12 edges, Euler lower bound 0, two-page upper bound 0 -> exact 0   (predicted 0)
+
+(3) the two inputs to the n = 8, t = 2 lower bound, verified from scratch
+    K_7 - e: vertex-deleted subgraphs are two copies of K_6 (cr 3) and five of K_6 - e (cr 2)
+      counting bound: 3 cr >= 16, so cr >= 6; two-page upper bound 6
+    K_7 - 2e: 19 edges, Euler lower bound 4, two-page upper bound 4
+
+(4) the counting bound at n = 8, t = 2
+    M_82: 8 vertices, 26 edges, degrees [6, 6, 6, 6, 7, 7, 7, 7]
+    four covered vertices give K_7 - e (6), four uncovered give K_7 - 2e (4): 4 cr >= 40, so cr >= 10
+    independent edge pairs: 181 (published 181)
+    Euler lower bound alone: 8
+
+(5) K_2222 at n = 8, t = 4, attributed to Ho (2008)
+    24 edges, Euler lower bound 6; the value 6 therefore needs no citation for its lower half

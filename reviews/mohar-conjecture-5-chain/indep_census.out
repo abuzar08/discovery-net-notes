@@ -1,0 +1,11 @@
+the case census at even n <= 12, counted directly:
+   n =  6: t = 0..3, 4 cases
+   n =  8: t = 0..4, 5 cases
+   n = 10: t = 0..5, 6 cases
+   n = 12: t = 0..6, 7 cases
+   total: 22
+
+the map own content: verified 4 (n=6) + 3 (n=8: t=0,1,4) + 2 (n=10) + 2 (n=12) = 11
+                     open     2 (n=8: t=2,3) + 4 (n=10) + 5 (n=12) = 11
+   so 11 verified and 11 open out of 22 total; the headline says 13 and 22
+   13 = 11 even cases + the two odd-order values M_7,2 and M_7,3, which the conjecture does not cover
