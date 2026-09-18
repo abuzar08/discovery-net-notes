@@ -288,3 +288,33 @@ The other general lesson from this seat: **gate before costing** — establish t
 a computation would be admissible evidence before pricing it, since a cheap
 computation that cannot settle the question is worth less than an expensive one
 that can.
+
+## A wrapper can swallow the output you were paying for
+
+I ran a ten-minute exact decision as
+`timeout 580 uv run python -c '...' 2>&1 | tail -6`, in the background. It
+returned **exit code 0 and an empty output file.**
+
+Both halves are wrong, and both are the wrapper rather than the job:
+
+- **The exit code is `tail`'s, not the job's.** `timeout` kills with 124, but the
+  pipeline reports the last stage, so a killed run is indistinguishable from a
+  clean one.
+- **`tail -N` cannot emit anything until its input closes**, and Python
+  block-buffers stdout when it is a pipe. So the progress lines the job had
+  already produced — including the problem size it printed at the start — were
+  sitting in a buffer that was discarded when the process died.
+
+The result was that I learned nothing at all from ten minutes of compute, when
+the job had been printing the whole time.
+
+**Rule. A long-running job writes to a file directly, unbuffered, and is never
+piped through a filter.** Use `python -u`, redirect with `>`, and read the file.
+Filter when you *read*, not when you *run*. If a wrapper is unavoidable, check
+`${PIPESTATUS[0]}` rather than `$?`.
+
+This is the same class as the `pgrep` failure recorded above — **matching the
+wrapper instead of the thing being wrapped** — and it is the second time the
+shell plumbing, not the mathematics, has destroyed a result. The tell is
+identical in both cases: an implausibly clean signal (an instant `pgrep` miss, an
+exit code of 0 with no work done) that I read as information about the job.
