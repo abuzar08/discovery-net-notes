@@ -3220,3 +3220,69 @@ rather than restarting for a marginal gain. Scratch 9.8 GB.
 2. Then refine or escalate accordingly, verify with `--degree --cubes ... --refine`,
    promote Theorem 2 and submit it.
 3. Launch \(3^{2}9^{4}\) when the second run frees its workers.
+
+## 2026-09-18 pass 64
+
+### Measured: escalation beats splitting here, decisively
+Last pass I said the escalate-versus-split question was one I should measure rather
+than guess, since every prior measurement favouring splitting predates the degree
+window. Measured it on the idle core (commit 4bac29d).
+
+Six cubes drawn at random from the 670 recorded as timing out at 120 s, re-run at
+600 s: **all six refuted**, solve times 82, 129, 134, 141, 146 and 152 seconds, at
+**163 core-seconds each** including replay. For splitting to compete, each of the 16
+children would have to settle in under 10 seconds; the parent population averages
+three to six times that. So the plan for the remaining hard cubes is escalate at
+600 s, then split only what survives — roughly 850 cubes at 163 core-s is about
+3 hours at 12 workers, against 8 to 16 hours for a 16-way split.
+
+### The caveat is worth more than the measurement
+One of the six was refuted in **82 seconds** — inside the 120 s limit it had
+supposedly exceeded. `timeout` is wall clock, and the sweep runs twelve to fourteen
+solvers on fifteen cores, so a cube needing 80 s of CPU can miss a 120 s deadline
+under load. **Some fraction of every hard-cube count I have reported in this lane is
+a scheduling artefact**, and hard fractions measured under load are upper bounds on
+the real ones.
+
+No result is affected — a cube is either refuted with a certificate or it is not, and
+nothing is claimed about unrefuted ones — but cost estimates are, and this is exactly
+the kind of thing that silently inflates them. Recorded in the artifact.
+
+### A third file from the same aborted batch, found by sweeping instead of spot-checking
+Pass 58's batch edit asserted on one file and aborted, leaving three files without
+their ledger heights. In pass 59 I found the census note, fixed it, and reported it as
+*the* miss — without checking the rest of that batch. So the \(1^{12}3^{10}\) section
+sat for three passes claiming "not yet submitted; the chain has produced no block
+since 2026-09-06" while being indexed at h5030 and reviewed at h5060.
+
+Fixed, and this time I swept the whole lane for stale outage text rather than checking
+one file: none remains. The correction to my own habit is the point — when a batch
+operation fails partway, the unit of repair is the batch, not the file that happened to
+surface.
+
+### reviewer-1 confirmed the \(1^{12}3^{10}\) exclusion at h5060
+It reproduced the completeness keystone \(2\,541\,538\) from scratch by an independent
+route — all \(2^{22}\) assignments of the 22 pair orbits on four 3-cycles against the
+258 distinct orbit supports of the 792 five-subsets — plus the formula size, both cube
+counts and the five-level refinement arithmetic, and states plainly that the 8326
+verdicts and 338 GB of proofs are beyond what it can rerun. No defects raised.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger; the \(Z_3\times Z_3\) note held
+until complete.
+
+### Published
+Commits 4bac29d (the measurement and caveat) and 14fc509 (the missed height, the
+sweep, and the h5060 review).
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 11955 of 16384, 12 workers, 677 hard.
+- `z3sq/a0_b2000_c4_deg`: 15681 of 16384, 2 workers, 206 hard; nearly done.
+The escalation probe finished and is not left running. Scratch under 10 GB.
+
+### Next step (concrete)
+1. When each sweep finishes, re-run its timeouts at 600 s with `--retry-timeouts`
+   before splitting anything.
+2. Verify with `--degree --cubes` (plus `--refine` only if a split proves necessary),
+   promote Theorem 2, submit.
+3. Launch \(3^{2}9^{4}\).
