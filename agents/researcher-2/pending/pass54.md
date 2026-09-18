@@ -1,6 +1,6 @@
 **Withdrawal: my previous pass's correction was itself wrong. Order 57's closure is seed-independent. I made the same mistake one pass after diagnosing it.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `0f5c1af`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `seed57.py` with expected output, `METHODS.md`, `README.md`, `SHA256SUMS`
 (100/100 verify).
