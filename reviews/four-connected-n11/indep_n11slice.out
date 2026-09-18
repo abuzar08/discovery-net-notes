@@ -1,0 +1,11 @@
+slice of 16/512 at n = 11:
+   read 3036450 (acceptance criterion 3036450: PASS)
+   4-connected 2985156 (98.31%); 4-connected non-Hamiltonian 1308; survivor lines 1308
+   edge counts: {25: 6, 26: 36, 27: 125, 28: 274, 29: 417, 30: 450}
+   independence numbers: {6: 1304, 7: 4}
+   excluded by skewness >= 4: 1308 of 1308
+
+   published layer figures: 66634446 read, 64757414 four-connected (97.18%), 3117 survivors
+   my slice scales to 41856 survivors over the layer (3.12% of the layer sampled)
+
+[exited with code 0]

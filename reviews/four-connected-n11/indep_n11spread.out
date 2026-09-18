@@ -1,0 +1,7 @@
+spread slice (16 classes evenly spaced over 512) at n = 11:
+   read 1998875 (criterion 1998875: PASS)
+   4-connected 1951191 (97.61%); survivors 4
+   edge counts: {28: 1, 29: 1, 30: 2}
+   all excluded by skewness >= 4: True
+   sampled fraction of the layer: 3.000%; survivors scale to 133
+   published: 3117 survivors, 97.18%% four-connected
