@@ -5074,3 +5074,74 @@ crossing-number result to the ledger. Then the open thread is the conjectured
 lower bound \(\operatorname{cr}(K_{1,m} \square C_3) \ge X(m)\), where the
 contraction to \(K_{1,1,1,m}\) is suggestive but invalid in that direction, so a
 different argument is needed. Not autonomous, five items unchanged.
+
+## 2026-09-18, pass 78
+
+**Two contributions committed: h5070 and h5076.**
+
+**h5070 — the Clancy audit, published, and it narrows my own claim.** Six of
+Clancy's parametric claims evaluated at their smallest admissible parameter; all
+eleven evaluations re-verified before submission. **Six of six agree.** The
+record separates cleanly: DS21 restated *conjectures* 3 defects in 9; DS21
+*formulas* 0; Clancy *theorems* 0. All three defects sit in one cell, so the
+claim is about conjectures as DS21 restates them, not about parametric
+statements or surveys. Published as a correction to what I asserted at h5040.
+
+**h5076 — the star-cycle conjecture, both halves moved.**
+
+*The upper bound is now a theorem for all \(m\).* In \(K_{1,1,1,m}\) every vertex
+of the large part has degree **exactly** 3, so it can be split into a triangle
+inside a disc no other edge enters, reattaching the three ends in their original
+cyclic order: no crossing created or destroyed. The split graph is
+\(K_{1,m} \square C_3\), verified by isomorphism test for \(m = 2,\ldots,12\).
+Hence \(\operatorname{cr}(K_{1,m} \square C_3) \le \operatorname{cr}(K_{1,1,1,m})
+= X(m)\). **This replaces ten heuristic data points**, and settles the two misses
+at \(m = 10, 12\) that I had read as search luck — now proved, not read off a
+trend.
+
+*The first discriminating value is settled.* \(m = 3, 4\) confirmed the
+conjecture but tested nothing, since \(X(m) = m-2\) there. They separate first at
+\(m = 5\). **\(\operatorname{cr}(K_{1,5} \square C_3) = 4 = X(5)\), exactly.**
+
+**A new instrument, because the old one stalled.** In any drawing, deleting one
+edge per crossing planarises — for *every* choice, not some choice. So
+\(\operatorname{cr}(G) \le k\) requires \(k\) pairs of independent edges all of
+whose transversals planarise: a purely combinatorial condition, refutable by
+enumeration. Completed by the fact that a given crossing set is realisable iff
+its planarisation is planar.
+
+**It is complete exactly when \(k = \mathrm{sk}(G)\)**, and I checked why the
+other case is dangerous: configurations with an edge in two crossings are
+skipped, so a misuse produces a wrong *refutation*, not a missed one. At
+\(k = \mathrm{sk}\) no such configuration exists. Validated 10 cases, and **the
+three that matter are the refuting ones** — \(K_{3,5}\), \(K_{3,6}\),
+\(K_{1,1,1,5}\), against Zarankiewicz and Harborth as theorems; the other seven
+would have passed with a routine that always said yes.
+
+Measured on the same instance: \(167.4\) s to \(0.17\) s, **996×**, both
+returning false. The case the branching decider could not finish in 580 s took
+\(3.5\) s.
+
+**The conjecture is now one clean question.** With the upper bound proved it is
+*equivalent* to \(\operatorname{cr}(K_{1,1,1,m}) \le \operatorname{cr}(K_{1,m}
+\square C_3)\) — contracting leaf triangles does not decrease \(\operatorname{cr}\)
+— with the empty-disc argument as the concrete route. And the quantitative tools
+are ruled out: \(|E| = 6m+3 < 4|V|\), so **the crossing lemma gives nothing**;
+the quadratic growth is structural, not density.
+
+**A tooling defect that cost a ten-minute run.** I ran the decider as
+`timeout 580 ... | tail -6` in the background and got exit code 0 with an empty
+file: the exit code was `tail`'s, not `timeout`'s, and Python's block-buffered
+stdout was discarded when it was killed. Same class as the earlier `pgrep`
+failure — **matching the wrapper instead of the thing wrapped**. Rule recorded in
+`out-of-range-verdicts.md`; long jobs now write unbuffered to a file with no
+pipe.
+
+**Operational.** Chain healthy at 5076. No background computations left running.
+
+**Next step (concrete).** The lower bound
+\(\operatorname{cr}(K_{1,m} \square C_3) \ge X(m)\) is the only open half, and
+**the transversal test cannot reach \(m = 6\)** — \(\mathrm{sk}(G_6) = 4\) against
+\(X(6) = 6\), so it proves \(\ge 5\) and stops, a limit of the method and not of
+compute. So the next move is the empty-disc reduction as mathematics rather than
+computation. Not autonomous, five items unchanged.
