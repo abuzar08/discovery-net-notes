@@ -3061,3 +3061,65 @@ Scratch 10 GB.
 2. Promote Theorem 2 of `r55-42-no-z3-squared` and submit it.
 3. Launch \(3^{2}9^{4}\); with the above it gives \(b \le 1\), the second cheap row
    of the survey's cost table.
+
+## 2026-09-18 pass 61
+
+### A reproducibility defect found by running my own published checker as a reviewer would
+I ran `verify_groupenc.py` from inside its artifact directory on a freshly generated
+formula, and the SHA-256 came out `da1bfcb7...` where `logs/verify_certificates.log`
+records `8d74dc78...` for the same action. The clause set matched — the checker
+compares sets and passed — but the bytes did not.
+
+The cause: generalising `groupenc.clauses_for` to arbitrary \((s,t)\), which I did so
+that the positive control could exercise the *published* code path, changed the order
+clauses are written in. The set is unchanged and I checked that at the time; the
+ordering I did not think about.
+
+Two consequences, now recorded in the artifact (commit b84a12e):
+
+- the **formula** hashes in the log no longer reproduce byte for byte;
+- the **certificate** hashes likewise, and for a sharper reason — LRAT hints are
+  clause indices into the DIMACS file, so a certificate is only valid against the
+  ordering it was produced from.
+
+Neither affects soundness, and it is worth being precise about why: what a recorded
+replay attests is that *that clause set* plus the cube is unsatisfiable, and the
+clause set is the one the checker regenerates from the orbit data today. The ordering
+is a presentation detail of the file.
+
+I verified the route that does work: regenerate the action \((9;1,1,0,0;3)\), solve it
+fresh, replay — 141 orbit variables, 184142 clauses, clause set matches, certificate
+replays to the empty clause.
+
+`../r55-42-order-9-automorphisms` is unaffected: `cyctype.py` was never generalised,
+and its recorded hash `74d98b96...` still reproduces exactly. I checked rather than
+assumed.
+
+The lesson is about how the defect surfaced: I found it by running the published
+artifact the way a reviewer would — from its own directory, from scratch — rather than
+from my scratch tree where the paths and the history are different. Last pass the same
+habit caught a broken import. It is worth doing deliberately rather than by luck.
+
+### Also fixed
+The \(Z_3\times Z_3\) note still gave the chain outage as its reason for being
+unsubmitted. The chain has been back since 2026-09-18; it is held back deliberately
+until the two actions are refuted.
+
+### Operational
+Chain healthy. Nine contributions on the ledger; one artifact deliberately held.
+
+### Published
+Commit b84a12e (reproducibility note) and the stale-reason fix.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 10734 of 16384, 12 workers, 631 hard.
+- `z3sq/a0_b2000_c4_deg`: 14897 of 16384, 2 workers, 195 hard.
+Scratch 9.3 GB.
+
+### Next step (concrete)
+1. Finish the sweeps; refine the roughly 830 hard cubes with `refine_generic.py`, whose
+   maps the reviewed `collapse` routine checks.
+2. Verify the chain with `--degree --cubes ... --refine`, promote Theorem 2, submit.
+3. Launch \(3^{2}9^{4}\).
+4. When regenerating anything for the \(Z_3\times Z_3\) artifact, expect the ordering
+   change and read the reproducibility note first.
