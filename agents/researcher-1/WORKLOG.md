@@ -3426,3 +3426,69 @@ Commit 64dfa53.
    `refine_generic.py`, and run the full verification — the command is known to work.
 2. Finish the \((0;1,1,0,0;4)\) sweep and escalate it the same way.
 3. Promote Theorem 2, replace the two Results snapshots with final figures, submit.
+
+## 2026-09-18 pass 68
+
+### An anomaly in my own data, traced instead of reported
+Computing the cost figures the artifact will need, I found a maximum solve of
+**1974 s** when every limit used on that directory was 120 s or 600 s. That should be
+impossible, so I traced it rather than writing it down.
+
+All 28 such records sit in **one contiguous block** (lines 5941–6071 of the results
+file). A block of consecutive cubes all costing several times the norm is not a
+property of those cubes — it is the machine. Quantified:
+
+- 131 of 16452 records, **0.8 percent, account for 14 percent of the total time**;
+- mean solve inside the block 282 s against 13.5 s outside — 21 times;
+- median inside 11 s against 3.1 s outside, which is the giveaway: contention shifts
+  a block, intrinsic difficulty would not.
+
+The block also contains records that are flatly impossible under the stated limit:
+cubes exiting **UNSAT after 1015 s under a 600 s `timeout`**, and one of 3060 s. GNU
+`timeout` is wall-clock and sends SIGTERM at the deadline, so a process finishing
+normally 70 percent past it means the signal delivery itself was delayed. Under severe
+oversubscription — which is what I had, running more CPU-bound solvers than cores with
+replay processes holding large proofs — **the limit is soft, not merely the timings**.
+
+That is the second and sharper instance of the wall-clock caveat I recorded two passes
+ago. The first was a cube needing 82 s missing a 120 s deadline; this is a limit not
+being enforced at all.
+
+**No result depends on any of it.** Every cube counted as refuted carries a certificate
+replayed to the empty clause against the regenerated formula, and solver timing does
+not enter the proof. What it affects is cost, so the artifact now gives both numbers
+(commit 067d105):
+
+| | raw | excluding the contended block |
+|---|---|---|
+| solve + replay | 100.7 core-h | **86.2 core-h** |
+| mean per refuted cube | 15.6 s | **13.5 s** |
+| median | 3.1 s | **3.1 s** |
+| maximum | 1974 s | **404 s** |
+
+with the note that the median is the statistic to trust, being unchanged.
+
+**The operational lesson is mine to take:** I caused that contention, by running a
+probe on the "spare" core while two sweeps had the machine fully committed. The cost
+was not a wrong answer but a fortnight-long inflation of the numbers I use to plan.
+
+### Also
+Flagged, at the point where a reader meets it, that the formula hash quoted in the
+Verification section predates the clause-ordering change and will not reproduce.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger.
+
+### Published
+Commits 067d105 and the hash pointer.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 13326 of 16384 sweeping, 12 workers.
+- `z3sq/a0_b2000_c4_deg`: escalating, 65 of 206 re-run, 59 settled, 6 survivors.
+
+### Next step (concrete)
+1. Do not add load to a fully committed machine; the last "spare core" probe cost 14
+   percent of a run's measured time in distortion.
+2. Finish the escalation, split its survivors, verify, and repeat for the second
+   action.
+3. Promote Theorem 2 and submit.
