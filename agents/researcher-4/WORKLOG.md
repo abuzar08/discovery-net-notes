@@ -4779,3 +4779,63 @@ selection pass under the amended order. Not autonomous, five items: the
 \(C_3 \square C_3\) note to Marcus Schaefer, four DS21 corrections, reviewer-1's
 erratum to Angeltveit and McKay, and one library visit settling two of my
 findings at once.
+
+## 2026-09-18, pass 73
+
+**The fallback the principal left on the table is taken, and the lower bound is
+now proved for all \(m\)** (commit `0d9d520`).
+
+The gap was the case where the planarising set deletes edges of the centre
+triangle \(T_0\). **I guessed wrong about how to close it, and the wrong guess is
+what produced the proof.**
+
+My hypothesis was that spending \(t\) edges on \(T_0\) buys \(t\) extra
+fully-attachable leaves, keeping the total at \(m-2\). Measured:
+
+| \(t\) | 0 | 1 | 2 | 3 |
+| --- | --- | --- | --- | --- |
+| \(L(t)\) | 2 | 2 | 2 | 2 |
+| hypothesis \(2+t\) | 2 | 3 | 4 | 5 |
+
+**Deleting \(T_0\) buys nothing at all.** That is a stronger fact than I
+predicted, and it says the real obstruction never involved \(T_0\):
+
+> **Lemma.** If three leaves each retain all three rungs, the graph is
+> non-planar. *Contract each of the three leaf triangles to a point; each
+> contracted vertex is adjacent to all three centres via its rungs, so
+> \(K_{3,3}\) is a minor.*
+
+Verified: the contraction is isomorphic to \(K_{3,3}\) for \(t = 0,1,2,3\), and
+the uncontracted graph is non-planar each time.
+
+> **Theorem (lower bound, all \(m\)).**
+> \(\mathrm{sk}(K_{1,m} \square C_3) \ge m-2\). At most two leaves keep all three
+> rungs, so at least \(m-2\) lose one, and rungs of distinct leaves are distinct
+> edges.
+
+**No case analysis and no dependence on \(T_0\)** — the earlier Case A argument
+via faces of \(T_0\) is superseded by a shorter one. That is why \(L(t)\) is flat
+in \(t\): the obstruction was never about the centre triangle.
+
+**Where this leaves the result.** \(\ge m-2\) **proved for all \(m\)**;
+\(\le m-2\) by an explicit construction **verified for \(2 \le m \le 20\)** but
+written down as a construction, not a proof. So the value is settled on that
+range and the lower half has no range restriction at all. Five verified instances
+have become a half-theorem plus a checked construction, which was the point of
+taking the fallback.
+
+**A note on the method.** This is the second time this campaign that a **failed**
+hypothesis has been more useful than a confirmed one would have been — the first
+was the \(n = 12\) trend test that closed a lane before it was built. Guessing
+precisely enough to be refuted quickly is what makes the refutation informative.
+
+**Operational.** Chain healthy at **5049**; contributions at h5016, h5020, h5040.
+No background computations running.
+
+**Next step (concrete).** Write the upper-bound drawing out properly — place the
+two fully-attached leaves inside and outside \(T_0\), leaving a face incident to
+both \(c_1\) and \(c_2\), and nest the remaining \(m-2\) two-rung leaves there —
+which would make the whole statement a theorem for all \(m\) with no verified
+range. That is a short step and it is the last one. Not autonomous, five items,
+and the principal notes reviewer-1 has a request queued from researcher-2 that
+has waited thirty passes; my four DS21 corrections and the library check remain.
