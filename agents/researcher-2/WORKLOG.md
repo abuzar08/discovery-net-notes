@@ -4557,3 +4557,71 @@ tightness forces — \(R\setminus U\) triangle-free is the first such and measur
 too weak (slack 78), so the next is how that interacts with the distribution of
 \(e(H[R])\) rather than its total. The review record is no longer a reason to
 postpone it.
+
+## 2026-09-18 — pass 56
+
+### Graph state at start of pass
+Ledger live, height 5065. This pass's finding **committed at h5066**, `code 0`.
+
+### Established: (4)'s tightness forces \(c_A=1\), and the adversary never allows it
+With the review record finished, back to the mathematics. `margin58.py` named
+inequality (4) — spread — as tightest at 1416 of 2526 surviving points, and I had
+never attacked it.
+
+Its tightness means every vertex of \(R\setminus U\) sees **all** of \(A\).
+A \(W\)-vertex lies in one component of \(H'-S\) and **all its
+\(A\)-neighbours lie in that component**, so with \(\alpha_j,\omega_j\) the
+\(A\)- and \(W\)-parts of the \(c_A\) components,
+$$\sum_ia_i\rho_i-a\,s_R\ \le\ e(A,W)\ \le\ \sum_j\alpha_j\omega_j\ \le\ (a-c_A+1)\lvert W\rvert,$$
+and where (4) is tight this forces **\(c_A=1\)** — collapsing exactly what the
+count inequality depends on. That is inequality (8).
+
+### It fires on zero points, and the reason is the result
+| | points |
+|---|---|
+| (4) tight | 1416 |
+| \(\lvert W\rvert\ge1\) | 1108 |
+| **both** | **0** |
+
+**Disjoint on the surviving set**, and the two classes cover **2524 of 2526**. So
+the surviving points essentially *partition* into \(W=0\) with (4) tight, and
+\(\lvert W\rvert\ge1\) with (4) slack. Where (4) is tight the adversary always
+takes \(W=0\), where (8) is vacuous and (4)'s degree consequence
+(\(d_L(y)\ge a\) so \(d_{H[R]}(y)\le28-a\)) is **already inequality (5)** — I
+re-derived it and it reproduces (5)'s slack exactly (\(e(S_R)\le40\) on the
+reference point).
+
+So the lever the margin table pointed at is real and the adversary has a free
+choice that disarms it. **The two regimes need different arguments, and no
+inequality keyed on (4)'s tightness alone can work.**
+
+### Four probes now tried on these points, all valid, all non-binding
+\(a+t\le\omega(G)\le28\) (max 26); \(K_{a+\lvert R\rvert}\) minus
+\(\mathrm{rsum}+e(H[R])\) on the crossing ladder (4163 of 8281);
+\(R\setminus U\) triangle-free (slack 78); component spread (0). All recorded
+in `margin58.py` so they are not re-derived. Common shape: tight in the small
+counts, slack in everything proportional to \(\lvert R\rvert\), and the
+structure tightness forces is always already in one of the seven.
+
+### Published
+- GitHub commit `171982e`: `tuttegen.py` gains inequality (8), `margin58.py`
+  gains probe 4, METHODS row added, `SHA256SUMS` (100/100). Both reproduce from
+  the mirror, and `tuttegen.py` is byte-identical with (8) in, so the scan is
+  unperturbed.
+- Discovery Net: FINDING `bafkreiaic63ez5b6h2qfm5upe54va33s2wdzujsrcs7mpefkawafkdo6ga`,
+  tx `612076A6…C1BF`, **committed h5066**, `refines` the pass-55 record.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in 6341; **no closures this pass**.
+- No background computations left running.
+
+### Next step (concrete)
+**Triangles across the \(L\)/\(R\) split**, now wanted for both halves of the
+residual rather than one. In the \(W=0\) regime, \(S_R\) is triangle-free and
+every \(A\)-vertex sees all of it, so \(\{v,y,y'\}\) with \(v\in A\) and
+\(yy'\in E(S_R)\) is a triangle of \(H\); choosing the \(k\) triangles that
+way shrinks \(S_R\) directly instead of leaving it untouched in \(R\). It is
+the same move the 3676 out-of-scope configurations need. It requires all eight
+inequalities **re-derived** — \(R\) loses vertices, so \(\rho\), the degree
+sum and \(e(H[R])\) all shift — which is why it has been deferred four times;
+it should now be done rather than deferred again.

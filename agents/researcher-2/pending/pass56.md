@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): inequality (4)'s tightness forces \(c_A=1\) — and the adversary never lets that be usable. The surviving points split into two disjoint regimes, and that partition is the finding.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `171982e`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`,
 `tuttegen.py` (inequality 8), `margin58.py` (probe 4) with expected outputs, and
 `SHA256SUMS` (100/100 verify).
