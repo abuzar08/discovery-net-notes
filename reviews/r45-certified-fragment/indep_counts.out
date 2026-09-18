@@ -1,0 +1,12 @@
+reviewer-1's own (3,5,d) catalogue counts, from my nauty build (geng -t d,
+filtered for no independent 5-set):
+
+   d =  5:  13
+   d =  6:  32
+   d =  7:  71      <- the instance multiplier at d = 7
+   d =  8: 179      <- the instance multiplier at d = 8
+   d =  9: 290
+   d = 10: 313
+   d = 11: 105
+   d = 12:  12
+   d = 13:   1      <- matches my earlier uniqueness result for (3,5,13)

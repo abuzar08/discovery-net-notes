@@ -1,0 +1,17 @@
+R(3,3) = 6, exhaustively over all graphs on 6 and on 5 vertices:
+   n=5: graphs with no triangle and no independent 3-set: 12
+   n=6: graphs with no triangle and no independent 3-set: 0
+   so every 2-colouring on 6 vertices has a monochromatic triangle, and 5 vertices admit one (C_5)
+
+Paley(17) as a (4,4,17)-graph:
+   degrees 8..8; K_4 present False; independent 4-set present False
+
+the degree window, re-derived: d <= R(3,5)-1 = 13 and 24 - d <= R(4,4)-1 = 17 so d >= 7
+implied catalogue sizes from my (3,5,d) counts and their instance table:
+   #(4,4,17) =        1 
+   #(4,4,16) =        2 
+   #(4,4,15) =      640 
+   #(4,4,14) =   130816 
+   #(4,4,13) =  1184231 
+   #(4,4,12) =  1449166 
+   #(4,4,11) =   546356 
