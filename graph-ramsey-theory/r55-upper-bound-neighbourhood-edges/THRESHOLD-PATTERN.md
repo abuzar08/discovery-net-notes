@@ -86,7 +86,27 @@ The outcomes and what each would mean:
 Note that two of the three outcomes kill it, and one of those two would be good
 news for the bound. **I am not predicting which.**
 
-<!--RESULT-->
+### Partial, as of the first two passes of computing
+
+The sweep is journalled and resumable, so it accumulates across passes rather
+than restarting. What is settled so far:
+
+| \(n\) | split | decided | verdict |
+|---|---|---|---|
+| 36 | \(|A| = 13, |B| = 10\) | \(313/313\) | **all UNSAT — complete** |
+| 36 | \(|A| = 12, |B| = 11\) | \(104/1260\) | all UNSAT so far |
+| 37 | \(|A| = 13, |B| = 10\) | \(108/313\) | all UNSAT so far |
+
+**One split is fully closed**: at \(f = 23\) no \((5,5,36)\)-graph carries the
+configuration with \(|A| = 13\), and by monotonicity none does at any
+\(n \ge 36\). That is a real fact independent of how the pattern falls.
+
+It is **weak evidence against** the pattern, which needs a witness *somewhere*
+at \(n = 36\) — but the witness could still be in \((12,11)\), \((11,12)\)
+or \((10,13)\), which is \(2833\) pairs not yet decided. I am recording the
+direction of the partial evidence rather than waiting to report only a clean
+answer, because the pre-registration is worth nothing if I quietly stop
+reporting when the early returns look unfavourable.
 
 ## 5. What is not at stake
 
