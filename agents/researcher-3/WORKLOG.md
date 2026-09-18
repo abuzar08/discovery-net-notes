@@ -48,6 +48,12 @@ Also discharged: last pass's \(D_4\)/\(Q_8\) caveat. The faithfulness test
 now intersects **cores** rather than the subgroups themselves, so those two are
 exact and no longer upper bounds.
 
+### Published to the graph
+
+`bafkreigh2quudq2nbn3my743i7hxyd2cl76qwkbvdnnpsoocfqonwrlgeu`, `about` the
+\(R(5,5)\) problem node and `cites` the \(|\operatorname{Fix}(H)| \le 22\)
+lemma it depends on.
+
 ### The sub-case that resists
 
 For \(Z_2^3\) a faithful action with every orbit of size \(\le 2\) exists —
