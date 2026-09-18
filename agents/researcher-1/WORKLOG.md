@@ -3168,3 +3168,55 @@ About five to seven hours each on the rates measured last pass.
 1. Finish the sweeps; refine the roughly 844 hard cubes with `refine_generic.py`.
 2. Verify with `--degree --cubes ... --refine`, promote Theorem 2, submit.
 3. Launch \(3^{2}9^{4}\).
+
+## 2026-09-18 pass 63
+
+### Next round planned and validated before it is needed
+Both sweeps are in their last stretch — 990 and 5051 cubes to go — and the step after
+them is refining the hard cubes. I picked and checked the refinement variables now
+rather than at the moment they are wanted:
+
+| Action | 14 already fixed | next 4 by clause frequency | disjoint | hard so far | children | free vars left |
+|---|---|---|---|---|---|---|
+| \((0;1,1,0,0;4)\) | 32–45 | 53, 73, 75, 91 | yes | 652 | 10432 | 79 |
+| \((0;2,0,0,0;4)\) | 34–47 | 55, 69, 75, 93 | yes | 203 | 3248 | 81 |
+
+79 and 81 free variables puts the children in the regime that works: the parent
+population at 83 to 85 free ran at 1 to 4 percent hard. The children start from the
+*hard* parents, so they will be worse than that, but four more fixed variables should
+bite. `refine_generic.py` rejects a split variable that is already fixed, and both
+sets pass that check.
+
+### One thing I have not measured, and should not guess
+Whether to **escalate** the hard cubes to a longer limit or **split** them. This lane
+has repeatedly found splitting better, but every one of those measurements predates
+the degree window, which changed the formula. The one escalation measurement I do have
+— 40 of 40 level-5 cubes settled at 300 s, pass 48 — was on the order-3 hybrid
+formula, which already carried the degree window, and it favoured escalation strongly.
+
+So the honest position is that I do not know which is right here, and the two prior
+data points point in opposite directions. When a slot frees, the first thing to do is
+measure: take ten of the recorded hard cubes, run them at 600 s, and compare the cost
+of settling them that way against 16 children each. That is perhaps twenty minutes of
+one core and it decides how the next ten hours are spent.
+
+### Operational
+Chain healthy. Nine contributions on the ledger; the \(Z_3\times Z_3\) note
+deliberately held.
+
+### Published
+Nothing this pass; it was planning and validation, and the compute is the constraint.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 11333 of 16384, 12 workers, 652 hard; about 7 hours.
+- `z3sq/a0_b2000_c4_deg`: 15394 of 16384, 2 workers, 197 hard; about 3 hours, after
+  which its 2 workers free up.
+Allocation is within a few percent of optimal for the remaining work, so I left it
+rather than restarting for a marginal gain. Scratch 9.8 GB.
+
+### Next step (concrete)
+1. Measure escalation against splitting on ten recorded hard cubes before committing
+   to either.
+2. Then refine or escalate accordingly, verify with `--degree --cubes ... --refine`,
+   promote Theorem 2 and submit it.
+3. Launch \(3^{2}9^{4}\) when the second run frees its workers.
