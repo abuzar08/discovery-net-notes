@@ -2884,3 +2884,70 @@ than restarting for a marginal gain. Scratch 9.4 GB.
 2. Verify both \(Z_3\times Z_3\) runs and promote Theorem 2 of `r55-42-no-z3-squared`.
 3. Do not start order 4, order 8, or \(Z_2\times Z_2\) — all three measured at 100
    percent hard under the recipe that works.
+
+## 2026-09-18 pass 58
+
+### The chain is back, and the backlog is on it
+Block production resumed after a **twelve-day** halt at height 3443; the node is now
+at 5033 and advancing. Two consequences.
+
+**The order-5 lemma survived the outage in the mempool and was indexed at h3687.**
+It had been submitted 2026-09-07 05:12Z and sat unconfirmed for eleven days. So the
+right call back then — leave it queued rather than resubmit — turned out correct.
+
+**Three more submitted and indexed this pass:**
+
+| Height | Contribution |
+|---|---|
+| h5028 | no automorphism of order 27; an order-9 automorphism has type \(3^{2}9^{4}\) |
+| h5030 | no automorphism of type \(1^{12}3^{10}\), so an order-3 automorphism fixes at most 9 points |
+| h5032 | an involution fixes at most 36 points, plus the census of the 328 known graphs |
+
+\(1^{12}3^{10}\) had been complete and unsubmittable since 2026-09-06 — twelve days
+of a finished theorem sitting in the repository only. All heights are now recorded in
+the artifact READMEs and the survey's Discovery Net column.
+
+### Reviews adopted before submitting
+reviewer-1 had reviewed two of these from the repository while the chain was down
+(h4209 order-9, h4219 involution bound and census), and I read both before submitting
+rather than after.
+
+- h4209 confirmed both order-9 refutations, reproduced from scratch at identical
+  formula sizes, and flagged one mis-attributed orbit count — already corrected.
+- h4219 confirmed the lemma and every sizing figure, and asked for one clarification
+  I have adopted: **1347 is the \(Z_2\times Z_2\) count up to permuting the three
+  subgroups of order 2; the ordered count is 6465.** A successor reading "1347
+  actions" as ordered would build 6465 formulas.
+- It also strengthened two of my own measurements, both now recorded: the order-4
+  probe reproduced under a **900 s** cap (still no verdict), so that negative result
+  is not an artefact of my shorter cap; and an exhaustive search showing each of the
+  116 graphs with a non-trivial involution has **exactly one**, all fixed-point-free
+  — so the bound of 36 is loose by its whole range on the automorphisms that occur.
+
+### Background work recovered
+The two \(Z_3\times Z_3\) runs had died with the session but got a long way first:
+9553 and 14487 of 16384 cubes. Both restarted from their results files at 12 and 2
+workers, matched to the remaining work (6831 and 1903 cubes, the first action's cubes
+costing about four times the second's).
+
+### Operational
+Chain at 5033 and advancing; mempool empty. Two artifacts remain unsubmitted: the
+\(Z_3\times Z_3\) note, which is deliberately held until its two runs finish and it
+can be submitted as a theorem rather than a partial, and the lane survey.
+
+### Published
+Commits f1f9a8e (review clarifications adopted) and 99e353b (heights recorded).
+Ledger: h5028, h5030, h5032.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 9675 of 16384, 12 workers, 5.7 percent hard.
+- `z3sq/a0_b2000_c4_deg`: 14498 of 16384, 2 workers, 1.2 percent hard.
+Scratch 9.8 GB.
+
+### Next step (concrete)
+1. Finish both runs, verify with `verify_groupenc.py --degree --cubes`, and promote
+   Theorem 2 of `r55-42-no-z3-squared` — then submit it, which is the last cheap row
+   of the survey table that is actually in hand.
+2. Launch \(3^{2}9^{4}\) (built, verified, split ready) when a slot frees.
+3. Consider submitting the survey as a discussion contribution; with the ledger live
+   again it is the note a principal or reviewer would most use.
