@@ -154,6 +154,7 @@ Each row is a method, what it was applied to, and the measured outcome.
 | Witness mode in the scan | the surviving points are now collected by `obstructed` itself. A previous pass kept a second copy of the enumeration for this, it drifted out of step with `_ok`, and two runs were wasted on the stale copy |
 | Disjoint-neighbourhood inequality (7) | \((c_A-\mathrm{iso})\max(0,\rho_A-s_R)\le\lvert W\rvert\). **0 closures alone**, but it changes the surviving shape, and the shape it exposes is what the exact \(\rho\)-sum bound then kills |
 | Component-spread inequality (8) (`tuttegen.py`) | a \(W\)-vertex's \(A\)-neighbours all lie in its own component, so \(\mathrm{rsum}-a\,s_R\le e(A,W)\le(a-c_A+1)\lvert W\rvert\). Where (4) is tight this **forces \(c_A=1\)** — apparently the lever, since (4) is tightest at most surviving points. **Fires on 0 points**, and the reason is measured: the two conditions it needs are **disjoint** on the surviving set — 1416 points have (4) tight, 1108 have \(\lvert W\rvert\ge1\), **none have both**, and those two classes cover 2524 of the 2526 points. Where (4) is tight the adversary always takes \(W=0\), and there its consequence is already inequality (5) |
+| **Mixed triangles across the \(L\)/\(R\) split** (`mixed58.py`) | named as the next step in four separate passes and **gated instead of built**. All four ways a triangle can meet the split are tested for being *forced*: 3L (`packing58.py`), 2L+1R (\(\rho_i+\rho_j>\lvert R\rvert\)), 1L+2R (\(e(H[R])>\binom{\lvert R\rvert}{2}-\binom{\rho_i}{2}\)), 3R (Mantel). One is forced on **1375** of 6019 — almost all by Mantel inside \(H[R]\); 1L+2R fires **never**. But the route needs **three disjoint**, and combining both sides against one shared budget of six forces that on only **183**, **all of which the block route already reaches, and 0 of the 3676**. **The mixed route adds no scope at all** |
 | **Margin at a surviving point** (`margin58.py`) | which inequality is *closest to failing* where the scan survives: **(4) spread on 1416 points, (6) \(U\)-degree on 1043, (3) Turán on 67**, and **1536 of 2526 points clear something by exactly zero**. Complementary to the handicap table, not a substitute — confusing the two is defect 13 |
 | \(a+t\le\omega(G)\le28\) from criticality | \(A\) is a clique of \(G\) and one vertex per \(U\)-component extends it; and a \(K_{29}\) in a 29-critical graph on 58 vertices would be a **proper** subgraph of chromatic number 29. Sharpens the table's \(\omega\le29\). **Measured: \(a+t\) never exceeds 26 — does not bite** |
 | Crossing ladder on the near-complete subgraph | at a case-B point with \(W=0\), \(u=t\): \(G\supseteq K_{a+\lvert R\rvert}\) minus **exactly** \(\sum_ia_i\rho_i+e(H[R])\) edges. **Measured: best bound 4163 against \(Z(29)=8281\), a 49% shortfall — does not bite**, because deleting ~half of \(K_{43}\) costs most of its crossing number |
@@ -379,7 +380,9 @@ lemma, and OK for every hash. The full per-file reproduction list is in
 > This was written as a stopping point and should no longer be read as one. The
 > \((k,30-2k)\) routes now have a decision procedure that quantifies over every
 > admissible \(H\), and it closes 196 configurations. The concrete next step is
-> to widen it. The sensitivity table above says where: **not** in the edge
+> to widen it. The mixed-triangle route is now measured out (`mixed58.py`): it
+> adds no configurations the block route does not already reach. The sensitivity
+> table below says where: **not** in the edge
 > counts, which are inert or need improvements of 50, but in the component
 > bound, where a single unconditional unit closes every configuration the route
 > reaches. Separately, 4601 survivors have no *guaranteed* three disjoint
