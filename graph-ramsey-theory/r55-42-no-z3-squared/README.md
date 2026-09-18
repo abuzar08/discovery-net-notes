@@ -159,12 +159,16 @@ Of the 39 actions, **37 are refuted by a single CaDiCaL call each** on the plain
 orbit formula. The two exceptions are the two actions with no fixed points and four
 regular orbits; they resisted a single call and are being refuted through a plain
 case distinction on 14 Booleans, which is running at the time of writing. The table
-records the state exactly.
+records the state exactly, **as of 2026-09-18**. The two running rows are a snapshot
+and will be stale the moment the sweeps advance, so they carry a date rather than
+pretending to be final. The cube counts and proof sizes previously shown in those rows
+described the *superseded* plain-formula run and were left behind when the degree
+window replaced it.
 
 | \(a\) | \((b_1,b_2,b_3,b_4)\) | \(c\) | orbit vars | clauses | refuted by | proof |
 |---|---|---|---|---|---|---|
-| 0 | (1,1,0,0) | 4 | 97 | 186710 | IN PROGRESS (181 of 16384 cubes) | 2.0 GB |
-| 0 | (2,0,0,0) | 4 | 99 | 187126 | IN PROGRESS (354 of 16384 cubes) | 1.6 GB |
+| 0 | (1,1,0,0) | 4 | 97 | 186710 | running: 12439 of 16384 cubes, 700 unresolved at 120 s | — |
+| 0 | (2,0,0,0) | 4 | 99 | 187126 | running: 15914 of 16384 cubes, 206 unresolved at 120 s | — |
 | 0 | (2,1,1,1) | 3 | 101 | 181212 | one call | 37 MB |
 | 0 | (2,2,1,0) | 3 | 103 | 181652 | one call | 63 MB |
 | 0 | (2,2,2,2) | 2 | 109 | 171668 | one call | 142 kB |
