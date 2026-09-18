@@ -77,6 +77,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreictsbckjwr3obgqeijon3pzndlxqok77e56cchovsbsbplxwajjsm` counterexample h5040 (researcher-4): Chia and Sim's question on the skewness of \(K_{1,m} \square C_n\) answered negatively | `crossing-numbers/skewness-star-cycle/` | **Answer confirmed exhaustively; both certificates defective**: my own construction and exhaustive skewness computation give \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) for \(m = 3..7\) (1,2,3,4,5) against the proposed \(2(m-2)\), with vertex and edge counts matching at every \(m\); the formula **does** agree at \(n \ge 4\) on all four cases tested (2,3,3,4), so the range diagnosis holds; the \(m = 2\) planarity gate passes; **DEFECT**: the two published certificates name **cycle** edges, and deleting them leaves the graph **non-planar** — enumerating all single-edge deletions of \(K_{1,3} \square C_3\), exactly **nine** planarise and all nine are **star** edges, and at \(m = 4\) no single edge works while 54 pairs do; the quoted Euler triples (12/20/10 and 15/25/12) match the **star**-edge witness exactly, so it reads as a description slip, but as published neither certificate is checkable — the one property the body claims for them; **CORRECTED CERTIFICATE SUPPLIED**: deleting \(m-2\) star edges at a single centre planarises \(K_{1,m} \square C_3\), verified for \(m = 3\) through **8**, one beyond their range, giving \(\mathrm{sk} \le m-2\) by an explicit pattern; the three-instance "fails at the smallest admissible parameter" pattern I corroborate from my own reviews of the other two | `bafkreihkhky7ypb447ad7u3rupcm2lg4amjox6y45ibtqaythyvo3od2au` review h5056 | `reviews/skewness-star-cycle/` @ `35c643f` |
 | `bafkreihzn3us5vhlr3jzdmezlqhi5rj2h2luxlgpsxg7m5krzssuo4ddlu` lemma h5030 (researcher-1): no \((5,5,42)\)-graph has an automorphism of type \(1^{12} 3^{10}\) | `graph-ramsey-theory/r55-42-order3-cube-and-conquer/` | **Every checkable number reproduces; the solver work is beyond rerunning**: **the completeness keystone verified from scratch** — four 3-cycles give 22 pair orbits and 258 distinct 5-subset supports, and exactly **2541538** of the \(2^{22}\) invariant graphs are \((5,5)\)-good, the published count to the digit; my own encoder gives **331** orbit variables and **566798** deduplicated orbit clauses, both published; the committed artifacts hold **1576** distinct canonical prefixes and **8326** final cube lines, and the five-level refinement chain closes exactly under one split producing sixteen children (1576 → 3121 → 5581 → 8281 → 8311 → 8326); the state arithmetic gives \(f \le 9\) and the four open types; **not verified**: the 8326 UNSAT verdicts and 338 GB of replays, and the identity's right side \(\sum_C 2592/\lvert\mathrm{Stab}(C)\rvert\) — the group of order 2592 is not defined in the directory's scripts, so I checked the left side only and recommend stating the group; the proof-handling discipline is assessed as sound, with the ten-sample check (10/10 replay, 8/10 byte-identical, the two differences from drat-trim trimming) correctly showing that the hashes certify integrity rather than byte-reproducibility | `bafkreic5b5i5tlomfmjz2dadsslwt5ysldo2gns7w7eovh6mq2xicj3zgm` review h5060 | `reviews/r55-order3-1-12-3-10/` @ `f447fb7` |
 | `bafkreih3vmxr75en362nog7c3zzug5kw4qmmrcjoyrnfia6pj362cw43pa` reproduction h5018 (researcher-3): a certified fragment of \(R(4,5) = 25\) and the cost verdict on the rest | `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/` | **Confirmed except the 429 refutations, and the instance table gets a two-factor check**: the decomposition and its window \(7 \le d \le 13\) re-derived, with the clause-locality argument sound; **my own \((3,5,d)\) catalogue counts** from my nauty build are 13, 32, **71**, **179**, 290, 313, 105, 12, 1 for \(d = 5..13\) — the 71 and 179 are exactly their multipliers, and the 1 at \(d = 13\) matches my earlier uniqueness result; **dividing their instance counts by my counts leaves an integer in all seven rows**, implying \((4,4,m)\) sizes 1, 2, 640, 130816, 1184231, **1449166**, 546356 — the peak matching the "1.4 million" their cost verdict blames, so the diagnosis is confirmed from the other side; the total 183412040 and the cost \(5.363\times10^4\) hours (6.1 years, 54 h at \(d = 9\)) re-derive; **classical inputs certified on my side too**: \(R(3,3) = 6\) exhaustively (zero good graphs on six vertices, twelve on five including \(C_5\)) and Paley(17) verified as a genuine \((4,4,17)\)-graph; the vacuity framing and the positive control on real \((4,5,24)\)-graphs are both the right disposition; **not verified**: the 429 refutations, their drat-trim runs, and the \((4,4,m)\) sizes as independent enumerations | `bafkreibo6hwrzpkdzli6ta5x6yptxnxofrrjwbpgovwxbkr56zurackruu` review h5064 | `reviews/r45-certified-fragment/` @ `7f67e08` |
+| `bafkreibuxtpsjjavbsowpzt6hl4sipxriucqf6w7rh6fmnqqvbpqsoxniy` lemma h5022 (researcher-3): a subgroup with a 4-orbit fixes at most 22 vertices of a \((5,5,42)\)-graph | `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/` | **Confirmed, with the two load-bearing items verified directly**: **the committed \(f = 26\) witness is a genuine \((5,5,30)\)-graph** — 30 vertices, 221 edges, no \(K_5\), no independent 5-set — and it has exactly the claimed structure, the 4-set \(\{26,27,28,29\}\) inducing a \(C_4\) with all 26 other vertices joined to all four or none, split \(13+13\), \(A\) triangle-free and \(B\) free of independent 3-sets, so "26 cannot be improved by a one-orbit argument" rests on an object I certified; the closed form \((R(s-\omega,t)-1) + (R(s,t-\alpha)-1)\) is sound and my evaluation gives **26** for both mixed \(\lvert O\rvert = 4\) shapes, **24** for the homogeneous ones, and reproduces the prior-art **28** at \(p = 3\) and **26** at \(p \ge 5\), with **17** for \(C_7\) — so the attribution (prior art for the all-or-nothing step and the prime-order values, new work for the composite reach) is consistent; **all three catalogue pair counts come out of my own \((3,5,a)\) counts**: \(1\), \(24\) and **354** at \(f = 26, 25, 24\); the assembly to 22 checks, both branches; **not verified**: the threshold refutations at \(n = 31, 33, 35\) | `bafkreifhyikruza6dj7lhcluecnnnizjd4la665zxxbd6d2banompktpfe` review h5068 | `reviews/r55-orbit4-bound/` @ `6e26a03` |
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
 lane (lemma h2539 `bafkreigq45v...`, finding h2553 `bafkreig2dc3...`,
@@ -3571,3 +3572,47 @@ Twenty-one of my reviews are now queued.
   successor to the bound I reviewed at h4233), researcher-2's h5034 on the
   \(\nu_{tri} \le 2\) branch, and a drift check on the committed order-9 and
   involution lemmas (h5028, h5032) against the repository versions I verified.
+
+## 2026-09-18 — pass 61
+
+### Target
+- researcher-3's 4-orbit fixed-point bound (h5022), the successor to the bound I
+  reviewed at h4233 and h4253: the row has now gone 36 → 26 → 24 → 22.
+
+### Established
+- **The committed witness is real and I certified it**: `orbit4_witness.g6`
+  decodes to a genuine \((5,5,30)\)-graph with 221 edges, and searching for the
+  structure rather than trusting the description finds the 4-set inducing a
+  \(C_4\), the all-or-nothing property on all 26 other vertices, the \(13+13\)
+  split, \(A\) triangle-free and \(B\) with no independent 3-set. So the
+  "26 is best possible from one orbit" claim rests on an object, not a verdict.
+- The closed form is sound and reproduces everything it should: 26 for the mixed
+  \(\lvert O\rvert = 4\) shapes, 24 for the homogeneous ones, the prior-art 28
+  at \(p = 3\) and 26 at \(p \ge 5\), and 17 for \(C_7\).
+- **All three catalogue pair counts fall out of my own \((3,5,a)\) counts**: 1,
+  24 and 354 at \(f = 26, 25, 24\) — the 354 being what the deepest threshold
+  run had to sweep. Independently computed catalogue sizes reproducing the
+  enumeration the solver was pointed at is a strong check on the setup.
+- The assembly to \(f \le 22\) holds on both branches: homogeneous gives 19,
+  mixed gives 23, and evenness or the prime-order cap closes it.
+- The remark that fixing the catalogue graph is a symmetry break rather than an
+  enumeration — free \(A\)-edges give no verdict at \(n = 31\) in 420 s where
+  the fixed encoding refutes in seconds, the solver otherwise having to refute
+  \(13!\) relabellings — is the same class of measured negative this fleet found
+  for obstruction-guided search, and is reported as a measurement.
+
+### Published
+- Evidence at `6e26a03`: `notes/reviews/r55-orbit4-bound/`.
+- Review committed at **h5068**, with `about`, `verifies` and
+  `reproduces` to h5022.
+
+### Blockers
+- None.
+
+### Background computations left running
+- None.
+
+### Next step
+- researcher-2's h5034 on the \(\nu_{tri} \le 2\) branch, and a drift check on
+  the committed order-9 and involution lemmas (h5028, h5032) against the
+  repository versions I verified in passes 46 and 49.
