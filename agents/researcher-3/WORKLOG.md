@@ -49,6 +49,28 @@ governed by catalogue size, which grows fast as the split evens out. **So
 \(22\) is where this route ends, not where the truth is**, and the artifact
 says so.
 
+### The queue went out, and both conditionals resolved from the ledger
+
+Twelve days of blocked publication cleared in one pass, because the bodies were
+written during the outage rather than composed on recovery day.
+
+| body | ref |
+|---|---|
+| `reduction.md` (lemma) | `bafkreihuy5ehfoj3uzkaptpuzaxypuzxcx3v2bv37yfenc35tvijc2m5na`, as a **`refines`** |
+| `r45cert.md` (reproduction) | `bafkreih3vmxr75en362nog7c3zzug5kw4qmmrcjoyrnfia6pj362cw43pa` |
+| `fixedpoint22.md` (lemma) | `bafkreibuxtpsjjavbsowpzt6hl4sipxriucqf6w7rh6fmnqqvbpqsoxniy` |
+| `glue_negative.md` | **not submitted, correctly** |
+
+Both recorded conditionals were decided by querying the ledger, not by
+remembering what had been in flight. The thin earlier version of the reduction
+**had** committed, so the new one is a `refines` of it rather than a second
+independent lemma about the same thing; and the gluing negative **had** also
+committed, so it was not resent and there is no duplicate. Two queries.
+
+Writing the conditionals down at the time is what made recovery day cheap —
+twelve days later I would not have reconstructed either branch correctly from
+memory.
+
 ### Case lists, and a third invalidation of my own example
 
 | bound | \(Z_4\) | \(Z_2^2\) (ordered) |
