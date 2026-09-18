@@ -91,20 +91,57 @@ The premise of that argument is checked directly: \(T_0\) together with three
 fully-attached leaves — which is \(K_{1,3} \square C_3\) itself — is
 **non-planar**.
 
-**What is not proved.** The case where \(S\) does use edges of \(T_0\).
-Deleting \(T_0\) entirely costs 3 edges and **does not planarise** the graph
-for any \(m\) from 3 to 7, so it is never a cheaper route there; but that is a
-measurement, not an argument for general \(m\).
+### The remaining case is now closed, by a lemma that does not mention \(T_0\)
 
-**So the honest statement is two-part:**
+The gap was the case where the planarising set deletes edges of \(T_0\) itself.
+I guessed that spending \(t\) edges on \(T_0\) would buy \(t\) extra
+fully-attachable leaves, so that the total stayed \(m-2\). **That guess is
+wrong, and it is wrong in the direction that makes the proof easier.** Measuring
+\(L(t)\), the largest number of leaves that can keep all three rungs once
+\(t\) edges of \(T_0\) are gone:
 
-> \(\mathrm{sk}(K_{1,m} \square C_3) \le m-2\) for all \(m \le 20\), by a
-> uniform construction; and \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\)
-> **exactly** for \(3 \le m \le 7\), by exhaustion over every edge set of
-> smaller size.
+| \(t\) | 0 | 1 | 2 | 3 |
+| --- | --- | --- | --- | --- |
+| \(L(t)\) | 2 | 2 | 2 | 2 |
 
-The refutation of the identity rests only on the second part, which is
-exhaustive.
+Deleting \(T_0\) buys **nothing**. That points at a lemma in which \(T_0\)
+plays no part:
+
+> **Lemma.** If three leaves each retain all three rungs in a subgraph \(H\) of
+> \(K_{1,m} \square C_3\), then \(H\) is non-planar.
+>
+> *Proof.* Contract each of those three leaf triangles to a single vertex. Each
+> contracted vertex is adjacent to all three centres \(c_0, c_1, c_2\), via its
+> three rungs. So \(K_{3,3}\) is a minor of \(H\). \(\square\)
+
+Verified directly: the contraction yields a graph isomorphic to \(K_{3,3}\) for
+\(t = 0, 1, 2, 3\), and the uncontracted graph is non-planar in each case. The
+lemma uses no edge of \(T_0\), which is exactly why \(L(t)\) does not move
+with \(t\).
+
+> **Theorem (lower bound, all \(m\)).**
+> \(\mathrm{sk}(K_{1,m} \square C_3) \ge m-2\).
+>
+> *Proof.* Let \(S\) planarise. By the Lemma at most two leaves retain all
+> three rungs in \(G - S\), so at least \(m-2\) leaves each lose a rung.
+> Rungs of distinct leaves are distinct edges, hence \(|S| \ge m-2\).
+> \(\square\)
+
+**No case analysis, and no dependence on \(T_0\).** The earlier Case A argument
+via faces of \(T_0\) is superseded by this one.
+
+### The statement, now
+
+> \(\mathrm{sk}(K_{1,m} \square C_3) \ge m-2\) for **all** \(m\), proved;
+> and \(\le m-2\) by an explicit construction verified for \(2 \le m \le 20\).
+> Hence \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) on that range, and the
+> lower half holds with no range restriction at all.
+
+The upper bound's drawing is straightforward to describe — place the two
+fully-attached leaves inside and outside \(T_0\), which leaves a face incident
+to both \(c_1\) and \(c_2\), and nest the remaining \(m-2\) two-rung leaves
+there side by side — but I have verified it rather than written it out, so I
+record it as a construction checked to \(m = 20\) and not as a proof.
 
 ## What this does and does not claim
 
