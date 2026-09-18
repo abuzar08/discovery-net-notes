@@ -3337,3 +3337,50 @@ Commit d62004d.
 2. Verify, promote Theorem 2, submit; update the two Results rows from snapshots to
    final figures at the same time.
 3. Launch \(3^{2}9^{4}\).
+
+## 2026-09-18 pass 66
+
+### The \((0;2,0,0,0;4)\) sweep finished, and escalation is running
+All **16384 of 16384** cubes attempted: 16178 refuted and replayed, 206 unresolved at
+120 s. Its workers freed, so the 206 are now being re-run at 600 s with
+`--retry-timeouts`, which last pass's measurement put at 163 core-seconds each — about
+three hours on three workers, against eight to sixteen for a 16-way split.
+
+### Two defects in the verification path, found by dry-running it
+I ran the *final* verification command against the completed sweep instead of waiting
+until I needed it. Both defects would otherwise have surfaced at the worst possible
+moment — when the theorem was ready to submit (commit 942caac).
+
+1. **`--cubes` did not work from the published artifact at all.**
+   `verify_groupenc.py` imports `check_cubes` from `verify_cyctype`, which lives in
+   the order-9 artifact, and that directory was not on its sibling search path. The
+   mode that both remaining actions will be verified with failed immediately with
+   `ModuleNotFoundError`. This is the third time a published script has failed from
+   its own directory while working in my scratch tree.
+2. **With that fixed, the checker crashed on a live proof.** It replays any `c{i}.lrat`
+   present, and the running escalation is writing some; `check_lrat` raised a
+   `ValueError` from deep inside its parser. A malformed proof is not a certificate
+   and should be *rejected*, not raise. It now names the cube and the file, gives the
+   cause, and says to verify after the run finishes.
+
+Neither change weakens a check — a malformed certificate now fails rather than
+aborting ambiguously — and the whole path is now exercised end to end except for the
+206 certificates still being produced.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger.
+
+### Published
+Commit 942caac.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 12730 of 16384 sweeping, 12 workers, 721 unresolved so far.
+- `z3sq/a0_b2000_c4_deg`: sweep complete; escalating its 206 unresolved cubes at
+  600 s on 3 workers, expected to take about three hours.
+
+### Next step (concrete)
+1. When the \((0;2,0,0,0;4)\) escalation finishes, run the full verification on it —
+   the command is now known to work — and record the result.
+2. Finish the \((0;1,1,0,0;4)\) sweep, escalate it the same way.
+3. With both verified, promote Theorem 2, update the two Results rows from snapshots
+   to final figures, and submit.
