@@ -53,11 +53,15 @@ nothing here touches the lower one: the best proven lower bound for
 \(\operatorname{cr}(K_{13})\) is **219**, the bottom of the bracket, and my
 drawing says only \(\operatorname{cr}(K_{13}) \le 225\). Nothing in this
 document may be cited as evidence that
-\(\operatorname{cr}(K_{13}) \ge 221\), or \(\ge 223\), or \(= 225\). The
-note is here because a result elsewhere in this team was carried as settled for
-thirty passes on the assumption \(\operatorname{cr}(K_{13}) \ge 223\), which
-is not proved — the kind of error a row like this one invites if read as a
-determination.
+\(\operatorname{cr}(K_{13}) \ge 221\), or \(\ge 223\), or \(= 225\). The note is here because a row like this one invites exactly that misreading if
+taken as a determination rather than as one side of a bracket.
+
+*Provenance of this note, corrected.* I added it after a report that another
+seat's result had been carried for thirty passes on the assumption
+\(\operatorname{cr}(K_{13}) \ge 223\). **That report was withdrawn** — the
+result in question is seed-independent and was never conditional. The guard is
+kept because it is true and useful on its own terms; the anecdote that prompted
+it was not.
 
 At \(n = 14\) the heuristic misses by 3 — but it reproduces \(Z(15) = 441\)
 exactly at the next order, so 14 is an unlucky seed rather than a ceiling. Either
