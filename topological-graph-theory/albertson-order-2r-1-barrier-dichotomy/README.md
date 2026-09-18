@@ -2169,6 +2169,7 @@ bears on `r >= 30`.
 | `tuttegen.py` | **every Tutte set at once: the (k, 30-2k) routes on all admissible H** |
 | `slack58.py` | how strong a sharpening would have to be, priced by re-running the scan |
 | `packing58.py` | **three disjoint triangles are the exact domain of the route**, and the exact guarantee |
+| `margin58.py` | which inequality is tight at a surviving point, and three probes that are not |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
 | `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
@@ -2212,6 +2213,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 exhaust58.py    | diff -u EXPECTED_OUTPUT_EXHA
 PYTHONDONTWRITEBYTECODE=1 python3 blockcut.py     | diff -u EXPECTED_OUTPUT_BLOCKCUT.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 tuttegen.py     | diff -u EXPECTED_OUTPUT_TUTTEGEN.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 packing58.py    | diff -u EXPECTED_OUTPUT_PACKING58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 margin58.py     | diff -u EXPECTED_OUTPUT_MARGIN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -

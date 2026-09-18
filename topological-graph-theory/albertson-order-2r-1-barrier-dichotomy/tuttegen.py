@@ -149,6 +149,11 @@ CW = 4
 
 HANDICAP = [0, 0, 0, 0, 0]      # sensitivity probe; see slack58.py
 
+# Slacks of the last point _ok accepted, recorded here rather than recomputed in
+# a second place.  Duplicating this arithmetic is how a previous pass wasted two
+# runs on a stale copy, so the witness machinery reads it from here.
+LAST_SLACK = {}
+
 
 def turan(x):
     """Maximum edges of a K_4-free graph on x vertices."""
@@ -334,6 +339,18 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3,
                 > _hi6(where == "U")):
             continue                                                 # (6)
         if lhs2 <= cap2 and lhs5 <= cap5:                     # (2) and (5)
+            LAST_SLACK.clear()
+            LAST_SLACK.update({
+                "1 count": (cAodd + todd) - (sL + sR + D),
+                "2 degree": cap2 - lhs2,
+                "3 turan": (full - rest * (rest - 1) // 2
+                            + turan(rest - (t + p) + 1)) - eHR,
+                "4 spread": a * (RSZ - u) - rsum,
+                "5 S_R-deg": cap5 - lhs5,
+                "6 U-deg": _hi6(where == "U") - (28 * u + RSZ - X
+                                                 + (0 if where == "U" else 24)),
+                "7 disjoint": W - (cA - iso) * max(0, rhoA - sR),
+            })
             return True
     return False
 
@@ -389,6 +406,7 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56,
     def _hit(**kw):
         if witness is None:
             return True
+        kw["slack"] = dict(LAST_SLACK)
         witness.append(kw)
         return False
     if NL is None:

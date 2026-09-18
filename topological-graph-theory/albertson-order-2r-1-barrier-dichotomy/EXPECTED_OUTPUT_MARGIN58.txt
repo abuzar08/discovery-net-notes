@@ -1,0 +1,34 @@
+Which inequality is tight at a surviving point
+
+   in scope and undecided: 2343
+   surviving points: 2526
+
+   tightest inequality at a surviving point (inequality (1) excluded,
+   since the scan pins it to equality by construction):
+      4 spread         1416
+      6 U-deg          1043
+      3 turan            67
+
+   distribution of that minimum slack (capped at 10): [(0, 1536), (1, 152), (2, 137), (3, 176), (4, 129), (5, 142), (6, 98), (7, 88), (8, 41), (9, 21), (10, 6)]
+   points clearing every inequality by EXACTLY ZERO somewhere: 1536 of 2526
+
+PROBE 1   a + t <= omega(G) <= 28 in case B
+   largest a + t over case-B points: 26
+   points violating it: 0  ->  does not bite
+
+PROBE 2   G contains K_{a+|R|} minus rsum + e(H[R]) edges
+   distinct (n, f) pairs scored: 102
+   best crossing bound obtained: 4163 against Z(29) = 8281
+   ->  does not bite
+
+CONCLUSION
+   The surviving points are tight in the SMALL counts and slack in
+   everything that scales with |R|.  Ranked by how often each is the
+   tightest: 4 spread 1416, 6 U-deg 1043, 3 turan 67.
+   Probe 2 reaches 4163 of the 8281 it needs, a shortfall of 4118 (49%);
+   probe 1 reaches 26 of its cap of 28.
+   Everything in this file is derived from the measurement rather
+   than asserted, because the prose form of exactly such a summary
+   went stale between passes once already (defect 14).
+
+   r = 29 is NOT proved.
