@@ -1,0 +1,21 @@
+the closed form (R(s-omega,t)-1) + (R(s,t-alpha)-1) at (s,t) = (5,5):
+   C_4 orbit                omega=2 alpha=2 -> 26
+   2K_2 orbit               omega=2 alpha=2 -> 26
+   I_4 orbit                omega=1 alpha=4 -> 24
+   K_4 orbit                omega=4 alpha=1 -> 24
+   triangle (p=3)           omega=3 alpha=1 -> 28
+   independent 3-set (p=3)  omega=1 alpha=3 -> 28
+   C_5 (p=5)                omega=2 alpha=2 -> 26
+   C_7 (p=7)                omega=2 alpha=3 -> 17
+
+   so |O| = 4 gives 26 for the mixed shapes and 24 for the homogeneous ones,
+   and the prior-art values 28 at p = 3 and 26 at p >= 5 are reproduced
+
+catalogue pairs at each f, from my own (3,5,a) counts:
+   f = 26: 1 x 1 = 1
+   f = 25: 12 x 1 + 1 x 12 = 24
+   f = 24: 105 x 1 + 12 x 12 + 1 x 105 = 354
+   published: one forced pair per shape at 26, 24 pairs at 25, 354 pairs at 24
+
+the homogeneous bound: 3f + (n - 100) <= 0 gives f <= 19 at n = 42
+the final step: mixed gives f <= 23, and evenness or the prime-order cap gives f <= 22

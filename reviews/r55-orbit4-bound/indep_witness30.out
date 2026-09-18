@@ -1,0 +1,4 @@
+graphs: 1
+   n = 30, edges 221 | K_5 False | independent 5-set False -> genuine (5,5,30)-graph
+      O = (26, 27, 28, 29) | |A| = 13, |B| = 13, edges in O = 4 (C_4: 4, 2K_2: 2)
+      A triangle-free: True | B has no independent 3-set: True | |A|+|B| = 26
