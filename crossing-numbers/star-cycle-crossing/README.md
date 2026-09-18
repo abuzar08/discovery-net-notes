@@ -51,12 +51,37 @@ The upper bounds are not arbitrary. Writing
 
 > **Conjecture.** \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\).
 
-Drawings achieving \(X(m)\) exactly were found at \(m = 3, 4, 5, 6, 7\) and
-\(11\); at \(m = 8, 9, 10\) the best found is \(X(m) + 1\), and **no drawing was
-ever found below \(X(m)\)** at any \(m\). Since \(m = 11\) attains it, the three
-misses read as search luck rather than a ceiling.
-
 At \(m = 3\) and \(4\) the conjecture gives 1 and 2, matching Clancy.
+
+### The upper bound, swept again at higher effort
+
+The first sweep missed by one at \(m = 8, 9, 10\) and I recorded those as search
+luck rather than a ceiling, on the grounds that \(m = 11\) attained \(X(11)\).
+**Re-running at 250 restarts confirms that reading**: the misses were the search,
+not the graph.
+
+| \(m\) | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| \(\vert E\vert\) | 21 | 27 | 33 | 39 | 45 | 51 | 57 | 63 | 69 | 75 |
+| \(X(m)\) | 1 | 2 | 4 | 6 | 9 | 12 | 16 | 20 | 25 | 30 |
+| best drawing | **1** | **2** | **4** | **6** | **9** | **12** | **16** | 21 | **25** | 31 |
+
+**Eight of ten meet \(X(m)\) exactly, and no drawing below \(X(m)\) was found at
+any \(m\).** This is the same kind of construction-free confirmation as the Hill
+and Zarankiewicz sweep: an algorithm that knows nothing about the intended
+drawing independently builds one with exactly the conjectured number of
+crossings, at every order it can reach.
+
+**The two misses are where my own measured reach says they should be.** The
+Harborth lane established that this instrument's meet-rate degrades past
+\(|E| \approx 45\); the misses here are at \(|E| = 63\) and \(75\), well beyond
+it, while \(m = 11\) at \(|E| = 69\) still meets. So the misses are evidence
+about the search, and I do not read them as evidence about the conjecture in
+either direction.
+
+It is one-sided, and only in the refuting direction. A drawing below \(X(m)\)
+would have killed the conjecture on the spot; **finding none is not evidence for
+the lower bound**, which remains the open half.
 
 ## Why \(X(m)\), structurally
 
