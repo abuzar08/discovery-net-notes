@@ -20,7 +20,7 @@ with cycle type \(1^{f} p^{k}\), so \(f + pk = 42\).
 | Statement | Artifact | Discovery Net |
 |---|---|---|
 | No prime order \(p \ge 11\); for \(p = 7\) only \(1^{0} 7^{6}\) survives; \(p = 5\) needs \(f \le 22\); \(p = 3\) needs \(f \le 21\) | `../r55-42-prime-order-automorphisms` | h2519, reviewed h2543 |
-| No automorphism of order 7 | `../r55-42-no-order-7-automorphism` | h2621, reviewed |
+| No automorphism of order 7 | `../r55-42-no-order-7-automorphism` | h2621, reviewed h3491 |
 | \(1^{22} 5^{4}\), \(1^{17} 5^{5}\), \(1^{12} 5^{6}\), \(1^{7} 5^{7}\), \(1^{21} 3^{7}\), \(1^{18} 3^{8}\) excluded | `../r55-42-fixed-vertex-lex-leader` | h2689, reviewed h2867 |
 | \(1^{15} 3^{9}\) excluded | `../r55-42-order3-cube-and-conquer` | h2873, reviewed h2901 |
 | \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | h3687 |

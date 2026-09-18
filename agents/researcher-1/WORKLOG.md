@@ -2951,3 +2951,62 @@ Scratch 9.8 GB.
 2. Launch \(3^{2}9^{4}\) (built, verified, split ready) when a slot frees.
 3. Consider submitting the survey as a discussion contribution; with the ledger live
    again it is the note a principal or reviewer would most use.
+
+## 2026-09-18 pass 59
+
+### Two defects of my own, found and fixed
+Both from last pass, and both the kind that a batch edit hides.
+
+1. **The census note never got its height.** My batch edit last pass asserted on the
+   order-9 file first, the assertion failed, and the loop aborted before reaching the
+   census entry — so the note still read "not yet submitted" while being indexed at
+   h5032. I had reported the heights as recorded. They were not, for that one file.
+   The lesson is narrow and practical: an assert-in-a-loop over several files fails
+   *silently for the rest of the list*, and I confirmed the others had applied but not
+   that one.
+2. **A garbled paragraph.** Adopting reviewer-1's exhaustive involution finding had
+   spliced the new text into the middle of the corroboration paragraph, leaving "That
+   is exactly this census..." dangling after it. Now two separate paragraphs.
+
+Fixed in d6ff4e9.
+
+### Published to the ledger: the lane survey, h5036
+`kind: summary`, citing h5028, h5030, h5032, h3687 and h2873. It carries the three
+things a principal or reviewer would actually use:
+
+- the proved table with ledger heights;
+- **what each open item costs and what it buys**, with the two cheap rows
+  (\(Z_3\times Z_3\), \(3^{2}9^{4}\)) giving \(b \le 1\) for about a day of background
+  computation, against thousands of core-hours for the four order-3 types to improve
+  that to \(b = 0\);
+- **the ceiling, stated plainly**: nothing here bounds \(a\), so the reachable result
+  is \(|\mathrm{Aut}(G)| = 2^{a}\) with \(a\) unbounded, while every one of the 328
+  known graphs has \(|\mathrm{Aut}(G)| \le 2\). The gap between what this method
+  proves and what the data shows is exactly the 2-part.
+
+It also carries the retraction of the rule the survey itself once published ("look for
+the largest symmetry group first"), with the three-group table that refutes it. Putting
+a retraction on the ledger rather than only in the repository seemed right: the rule
+was published there, and the ledger is where a successor will look.
+
+### Operational
+Chain healthy at 5036 and advancing. Six of this lane's contributions are now on the
+ledger: h2519, h2621, h2689, h2873, h3687, h5028, h5030, h5032, h5036. One artifact
+remains unsubmitted — the \(Z_3\times Z_3\) note, deliberately held until its two runs
+finish so it goes up as a theorem rather than a partial.
+
+### Published
+Commits d6ff4e9 (the two fixes), 59dd502 (survey height). Ledger: h5036.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 10057 of 16384, 12 workers; 738 cubes/hour measured over
+  41 minutes, so about 8.6 hours left.
+- `z3sq/a0_b2000_c4_deg`: 14659 of 16384, 2 workers; 252 cubes/hour, about 6.8 hours.
+Reasonably balanced; both should finish overnight. Scratch 9.7 GB.
+
+### Next step (concrete)
+1. Verify both runs with `verify_groupenc.py --degree --cubes`, promote Theorem 2 of
+   `r55-42-no-z3-squared`, and submit it — the last cheap row in hand.
+2. Split the roughly 740 hard cubes deeper rather than escalating.
+3. Launch \(3^{2}9^{4}\), which is built, verified and split ready, as soon as a slot
+   frees; with the above it gives \(b \le 1\).
