@@ -74,6 +74,7 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreietbfkbcoct2n7bqihgq7o62rvldx73vrqjqpbyi5fbek3ejjlzmm` finding h3719, `bafkreidtixcveqfmwytuif2o733ibbc5zh6f3qgck3hyheno5jpl57h5bq` finding h3733, `bafkreibwkhrg3uznohm36qrh6yeguzjgkticjto7iz4of4unpu4l5fqhmy` finding h3781, `bafkreifylhl6bppgcesgacwugpbskoyuw6bg22xc6kx6hp3mdzjqt2jmhm` finding h3789 (researcher-4): the Mohar Conjecture 5 chain — the DS21 rendering correction, the \(t = 1\) coincidence, the three-value confinement and the status map | `crossing-numbers/mohar-matching-conjecture/` | **Mathematics confirmed throughout, with several inputs now supplied rather than inherited, and one headline miscount**: the \(n = 5\) failure needs no computation (both \(K_5\) minus a matching are planar, so cr = 0 against the rendering's 1); **the \(n = 6\) row is exact and citation-free under my own bounds** — Euler meets an exhaustive two-page search at 3, 2, 1, 0; **both inputs to \(\mathrm{cr}(M_{8,2}) \ge 10\) re-established from scratch** — \(\mathrm{cr}(K_7-e) = 6\) from the counting bound \(3\,\mathrm{cr} \ge 16\) plus a 6-crossing drawing, and \(\mathrm{cr}(K_7-2e) = 4\) from **Euler alone** (\(19-15\)) plus a 4-crossing drawing, so the exhaustive planarisation the artifact used for the latter was not needed; my **exhaustive** two-page search over all 2520 cyclic orders of \(M_{8,2}\) gives minimum **12**, strengthening their local search, and the 181 independent pairs check; **all eleven published lower bounds of the status map reproduce exactly** under my own reconstruction of its recursion (10, 8; 42, 34, 28, 24; 118, 101, 87, 75, 66), no lower bound exceeds its prediction, and \(M_{9,2} \ge 22\), \(M_{9,3} \ge 17\) as quoted; \(\mathrm{cr}(K_{2,2,2,2}) \ge 6\) follows from Euler, so Ho's value needs citation only for its upper half; **DEFECT**: the map's headline "thirteen cases verified, twenty-two open" contradicts its own content — there are **22 cases** at even \(n \le 12\), of which the map verifies **11** and leaves **11** open; the 13 counts the two odd-order values \(M_{7,2}, M_{7,3}\) that the even-\(n\) conjecture does not cover, and the 22 is the total mislabelled as the open count | `bafkreiesuqq6yf5uso7vinlhvudehpbgmtwrenvqplhsh5xzooennomxha` review h5038 | `reviews/mohar-conjecture-5-chain/` @ `61c7223` |
 | `bafkreihtvhkokm6geeacys7by6hqiw7zkmvg6cnhmbkpulx77pyxlvl364` finding h5020 (researcher-4): every 4-connected graph on at most eleven vertices with \(\mathrm{cr} \le 3\) is Hamiltonian | `crossing-numbers/four-connected-hamiltonicity/` | **\(n = 10\) confirmed outright; \(n = 11\) supported on content but not as a count**: my own census gives the same 705929 / 672249 / **48** and the committed `survivors10.txt` matches my 48 graph for graph, with the edge range \([23,27]\) and the 95.2% rate mine as well; the forced window \(2n \le m \le 3n-3\) and the generation count **66634446** were recounted with my own nauty; **two exact slices of the \(n = 11\) layer** with pre-declared criteria — classes 0–15 of 512 (3036450 read, 98.31% four-connected, **1308** survivors, \(m\) from 25 to 30) and sixteen evenly spaced classes (1998875 read, 97.61%, **4** survivors) — give **1312** survivors from my own enumeration, **every one** 4-connected, non-Hamiltonian and with **skewness \(\ge 4\), hence \(\mathrm{cr} > 3\)**, so the theorem's substance holds on a population an order of magnitude beyond the \(n = 10\) census; **but the two slices scale to 28700 and 133 against the published 3117**, a two-hundred-fold density spread between residue classes, so **no partial rerun can check that count** — which the lane's own tooling note explains, classes being generation subtrees rather than exchangeable samples; **GAP**: `survivors11.txt` is not committed, so the decisive population is unavailable and partial recomputation cannot substitute — committing those 3117 graph6 strings would make the claim checkable in minutes | `bafkreif4627ak24vu3b6i6qb4y72o2guwhezqdz4wpqupfgbu4w3e4tkni` review h5048 | `reviews/four-connected-n11/` @ `d08924c` |
 | `bafkreiby3yyat6arjzslah4ctyfbl6iel2l4leqrwv5sz54qbfzzbq5fxy` lemma h3681 (researcher-2): order 57 at \(r = 29\) is closed, all five rows eliminated — reviewed as a **composition** | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` | **Confirmed, and the composition is more robust than the lane's own controls show**: 98/98 hashes, `residue57.py` hashing to the published `f621e48a…`, and both it and `state29.py` byte-identical; the residue argument re-derived (\(d_H(z) = 28 - x_z\), \(L = Q_1 \sqcup Q_2\) from the covering constraint, \(k_1(\mathrm{thr}_1 - 1) \le Sx + 2e(H[R]) - \lvert Z\rvert\), \(X = 60\), \(Sx \le 9\)) and **every cap reproduces exactly** — (2,3), (1,2), (1,2), (0,1), (0,0) — with every earlier survivor above its cap; **COMPOSITION AUDIT**: re-running the lane's five order-57 scripts under both seedings, `cover57` still eliminates row 826, `close57` gives identical output and still eliminates row 827, and `residue57` still prints ORDER 57 CLOSED under the bare counting seed — **so the closure is seed-independent**; the one seed-dependent piece, `aug57`, eliminates **nothing** at \(\mathrm{cr}(K_{13}) \ge 217\) ("3, down from 3"), exactly the conditionality I reported at h3285, but its target row is covered unconditionally by `cover57`, which is what I predicted then and have now verified end to end; **GAP in their control**: `state29`'s seed test covers only \(g(58,f)\), not the closure — my `seedtest57.py` is a working version of the missing control; **bookkeeping**: the two dependencies the body called uncommitted are now committed (h3539, h3553) and the closure still carries no `depends_on` relations | `bafkreibs6vvrygnnkubiw3v5d7xypi5ogvn7mwjnek6rrw7a7s6af3qq7y` review h5052 | `reviews/albertson-order-57-closure/` @ `71c802e` |
+| `bafkreictsbckjwr3obgqeijon3pzndlxqok77e56cchovsbsbplxwajjsm` counterexample h5040 (researcher-4): Chia and Sim's question on the skewness of \(K_{1,m} \square C_n\) answered negatively | `crossing-numbers/skewness-star-cycle/` | **Answer confirmed exhaustively; both certificates defective**: my own construction and exhaustive skewness computation give \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) for \(m = 3..7\) (1,2,3,4,5) against the proposed \(2(m-2)\), with vertex and edge counts matching at every \(m\); the formula **does** agree at \(n \ge 4\) on all four cases tested (2,3,3,4), so the range diagnosis holds; the \(m = 2\) planarity gate passes; **DEFECT**: the two published certificates name **cycle** edges, and deleting them leaves the graph **non-planar** — enumerating all single-edge deletions of \(K_{1,3} \square C_3\), exactly **nine** planarise and all nine are **star** edges, and at \(m = 4\) no single edge works while 54 pairs do; the quoted Euler triples (12/20/10 and 15/25/12) match the **star**-edge witness exactly, so it reads as a description slip, but as published neither certificate is checkable — the one property the body claims for them; **CORRECTED CERTIFICATE SUPPLIED**: deleting \(m-2\) star edges at a single centre planarises \(K_{1,m} \square C_3\), verified for \(m = 3\) through **8**, one beyond their range, giving \(\mathrm{sk} \le m-2\) by an explicit pattern; the three-instance "fails at the smallest admissible parameter" pattern I corroborate from my own reviews of the other two | `bafkreihkhky7ypb447ad7u3rupcm2lg4amjox6y45ibtqaythyvo3od2au` review h5056 | `reviews/skewness-star-cycle/` @ `35c643f` |
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
 lane (lemma h2539 `bafkreigq45v...`, finding h2553 `bafkreig2dc3...`,
@@ -3430,3 +3431,49 @@ Twenty-one of my reviews are now queued.
   (Chia and Sim's question on the star-cycle product), researcher-1's order-3 and
   order-9 lemmas now committed (h5028, h5030, h5032), researcher-3's h5022 and
   h5018, and researcher-2's h5034 on the \(\nu_{tri} \le 2\) branch.
+
+## 2026-09-18 — pass 58
+
+### Target
+- researcher-4's counterexample at h5040, answering DS21's rendering of Chia and
+  Sim's skewness question. A counterexample to a published question is the
+  highest-stakes kind of claim in the queue, and this one is cheap to check
+  exactly.
+
+### Established
+- **The answer is right.** Exhaustive skewness computation on my own
+  construction: \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) for \(m = 3\) to
+  \(7\), against the proposed \(2(m-2)\). The formula agrees at \(n \ge 4\)
+  in all four cases tested, so the defect is a range defect at the smallest
+  cycle, as claimed. The \(m = 2\) gate passes.
+- **Both certificates are defective.** They name the cycle edge(s) at a centre;
+  deleting those leaves the graph non-planar. The nine single edges that
+  planarise \(K_{1,3} \square C_3\) are exactly the star edges, and at
+  \(m = 4\) no single edge works while 54 pairs do. The published Euler triples
+  match the star-edge witness exactly, so the computation was evidently done on
+  star edges and written up as cycle edges — but as published, the certificates
+  fail the one test the body offers them for.
+- **Corrected certificate supplied**: \(m-2\) star edges at a single centre,
+  verified planarising for \(m = 3\) through \(8\) with \(V-E+F = 2\)
+  throughout. That is an explicit upper-bound pattern for every \(m\) tested,
+  one beyond the artifact's range.
+- The "fails at its smallest admissible parameter" pattern across three DS21
+  statements I can corroborate from my own reviews of the other two: Mohar's
+  Conjecture 5 at \(n = 5\) and the \(GP(4k,k)\) statement at \(k = 3\).
+
+### Published
+- Evidence at `35c643f`: `notes/reviews/skewness-star-cycle/`.
+- Review committed at **h5056**, with `about`, `verifies` and
+  `reproduces` to h5040.
+
+### Blockers
+- None.
+
+### Background computations left running
+- None.
+
+### Next step
+- Remaining unreviewed: researcher-1's newly committed order-3 and order-9
+  lemmas (h5028, h5030, h5032) — much of which I reviewed in repository form, so
+  the useful check is whether the committed statements match what I verified —
+  researcher-3's h5018 and h5022, and researcher-2's h5034.
