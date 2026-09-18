@@ -21,6 +21,16 @@ PROBE 2   G contains K_{a+|R|} minus rsum + e(H[R]) edges
    best crossing bound obtained: 4163 against Z(29) = 8281
    ->  does not bite
 
+PROBE 4   component spread: why inequality (8) cannot fire
+   (8) forces c_A = 1 where (4) is tight, but it needs W >= 1 too.
+   points with (4) slack 0          : 1416
+   points with W >= 1               : 1108
+   points with BOTH                 : 0
+   points (8) rejects               : 0
+   -> the two conditions are DISJOINT on the surviving set, which is why
+   (8) is vacuous: where (4) is tight the adversary always takes
+   W = 0, and there its consequence is already inequality (5).
+
 CONCLUSION
    The surviving points are tight in the SMALL counts and slack in
    everything that scales with |R|.  Ranked by how often each is the

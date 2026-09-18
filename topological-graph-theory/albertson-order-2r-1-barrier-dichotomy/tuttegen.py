@@ -263,6 +263,20 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3,
         return False
     if rsum > a * (RSZ - u) - HANDICAP[3]:                          # (4)
         return False
+    # (8) COMPONENT SPREAD.  A vertex of W lies in exactly one component of
+    # H' - S, and ALL of its A-neighbours lie in that same component.  So with
+    # alpha_j, omega_j the A- and W-parts of the c_A components,
+    #     e(A,W) <= sum_j alpha_j omega_j <= (a - c_A + 1)|W| ,
+    # the maximum being to put every W-vertex with the largest A-part, which has
+    # at most a - c_A + 1 vertices since every component holds an A-vertex.  On
+    # the other side every z in S_R has at most a neighbours in A, so
+    #     e(A,W) = e(A,R) - e(A,S_R) >= sum_i a_i rho_i - a s_R .
+    # Where inequality (4) is TIGHT this forces c_A = 1 outright: the adversary
+    # cannot have every vertex of R - U see all of A and still keep A spread
+    # over many components.  (4) is the tightest inequality at 1416 of the 2526
+    # surviving points (margin58.py), which is what pointed here.
+    if rsum - a * sR > (a - cA + 1) * W:                             # (8)
+        return False
     # (7) DISJOINT NEIGHBOURHOODS.  A vertex v of A has none of its rho_v
     # R-neighbours in U, so at least rho_v - s_R of them lie in W, and they all
     # lie inside v's OWN component of H' - S.  Components meeting A have

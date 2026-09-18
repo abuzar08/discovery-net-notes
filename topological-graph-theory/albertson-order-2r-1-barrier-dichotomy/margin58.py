@@ -44,6 +44,20 @@ to read off a subgraph of G directly:
        crossing number.  The exact figure is printed by main rather than
        quoted here.  Does not bite.
 
+  (P4) COMPONENT SPREAD, inequality (8) in tuttegen.py.  A vertex of W lies in
+       one component of H' - S and all of its A-neighbours lie in that same
+       component, so with alpha_j, omega_j the A- and W-parts of the c_A
+       components,
+            e(A,W) <= sum_j alpha_j omega_j <= (a - c_A + 1)|W| ,
+       while e(A,W) = e(A,R) - e(A,S_R) >= sum_i a_i rho_i - a s_R.  Where
+       inequality (4) is TIGHT this forces c_A = 1: the adversary cannot have
+       every vertex of R - U see all of A and still keep A spread over many
+       components.  Since (4) is the tightest inequality at most surviving
+       points, that looked like the lever.
+       MEASURED: it fires on ZERO points, and the reason is sharper than the
+       count -- the two conditions it needs are DISJOINT on the surviving set.
+       Part 4 below measures that.  Does not bite.
+
   (P3) R - U is triangle-free whenever some A-vertex sees all of it, since
        N_H(v) ^ R must be triangle-free or v closes a K_4.  That replaces the
        K_4-free Turan cap by Mantel on that part.  MEASURED on the tight points:
@@ -101,6 +115,7 @@ def main():
     tight, mins, npts = {}, {}, 0
     clique_max, clique_bad = 0, 0
     probe2 = []
+    t4 = wpos = both = fires = 0
     for m, RSZ, mult, eHR in und:
         for k, x in points(m, RSZ, mult, eHR):
             npts += 1
@@ -109,6 +124,15 @@ def main():
             v, n = min(cand)
             tight[n] = tight.get(n, 0) + 1
             mins[min(v, 10)] = mins.get(min(v, 10), 0) + 1
+            if sl["4 spread"] == 0:
+                t4 += 1
+            if x["W"] >= 1:
+                wpos += 1
+            if sl["4 spread"] == 0 and x["W"] >= 1:
+                both += 1
+            if (x.get("rsum", 0) - x["a"] * x["sR"]
+                    > (x["a"] - x["cA"] + 1) * x["W"]):
+                fires += 1
             if x["case"] == "B":
                 s = x["a"] + x["t"]
                 clique_max = max(clique_max, s)
@@ -147,6 +171,17 @@ def main():
     print("   ->  %s" % ("does not bite" if best < Z else "CLOSES SOME"))
     print()
 
+    print("PROBE 4   component spread: why inequality (8) cannot fire")
+    print("   (8) forces c_A = 1 where (4) is tight, but it needs W >= 1 too.")
+    print("   points with (4) slack 0          : %d" % t4)
+    print("   points with W >= 1               : %d" % wpos)
+    print("   points with BOTH                 : %d" % both)
+    print("   points (8) rejects               : %d" % fires)
+    print("   -> the two conditions are %s on the surviving set, which is why"
+          % ("DISJOINT" if both == 0 else "overlapping"))
+    print("   (8) is vacuous: where (4) is tight the adversary always takes")
+    print("   W = 0, and there its consequence is already inequality (5).")
+    print()
     print("CONCLUSION")
     rank = sorted(tight, key=lambda n: -tight[n])
     print("   The surviving points are tight in the SMALL counts and slack in")
