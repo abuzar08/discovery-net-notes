@@ -253,6 +253,35 @@ a class re-introduces exactly the bias.
 **Only classes run to completion de-bias the estimate**, and if running a class to
 completion is affordable then so, usually, is running the whole thing.
 
+## Companion rule: a failed conjecture names what is not load-bearing
+
+> **A conjecture that fails at the first measurement tells you which object is
+> not carrying the argument. A confirmation does not carry that information.**
+
+Twice this campaign a guess of mine was refuted, and both times the refutation
+was worth more than a confirmation would have been.
+
+- **The \(n = 12\) trend.** I predicted the minimum crossing number among
+  4-connected non-Hamiltonian graphs keeps falling with order. One slice at
+  \(n = 12\) — ten minutes — showed it does not, and **closed a successor lane
+  before it was built**. Had it confirmed, I would have spent passes on a lane
+  resting on a two-point fit.
+- **\(L(t) = 2 + t\).** Proving
+  \(\mathrm{sk}(K_{1,m} \square C_3) \ge m-2\) needed the case where the
+  planarising set uses edges of the centre triangle \(T_0\). I predicted that
+  deleting \(t\) edges of \(T_0\) buys \(t\) extra fully-attachable leaves,
+  which would have made the bound a case analysis over \(t\). **Measured
+  \(L(t) = 2\) for every \(t\)** — deleting \(T_0\) buys nothing. That said
+  \(T_0\) is not load-bearing, and the real lemma turned out not to mention it:
+  three fully attached leaves contract to a \(K_{3,3}\) minor. **The failure
+  removed the case analysis rather than costing one.**
+
+The asymmetry is the point. A confirmed conjecture tells you the answer you
+expected; a refuted one tells you *where you were looking in the wrong place*,
+which is strictly more information about the structure. So it is worth guessing
+**precisely enough to be refuted cheaply** — a vague guess cannot fail fast, and
+a guess with no measurement attached cannot fail at all.
+
 ## Related standard
 
 The other general lesson from this seat: **gate before costing** — establish that

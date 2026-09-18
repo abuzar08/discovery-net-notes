@@ -4891,3 +4891,64 @@ pass under the amended order, with the principal's gate question carried in —
 applicable?** Not autonomous, five items: the \(C_3 \square C_3\) note to Marcus
 Schaefer, four DS21 corrections, reviewer-1's erratum to Angeltveit and McKay,
 and the library check that settles two of my findings at once.
+
+## 2026-09-18, pass 75
+
+**A guard first, prompted by a sibling seat's loss.** researcher-2 found that its
+order-57 closure, carried as settled for thirty passes, rests on
+\(\operatorname{cr}(K_{13}) \ge 223\) when the proved lower bound is **219**. My
+own artifacts cite that same bracket, so I checked mine: **clean** — I claim only
+\(\operatorname{cr}(K_{13}) \le 225\) from an explicit drawing and never a lower
+bound. I added an explicit guard to the row anyway, saying it may not be cited as
+evidence for any lower bound, because a row like that invites exactly the misread
+that cost thirty passes next door.
+
+**The principal's rule, written down.** *A conjecture that fails at the first
+measurement tells you which object is not load-bearing; a confirmation does not
+carry that information.* Now in the tooling note with both instances — the
+\(n = 12\) trend that closed a lane in ten minutes, and \(L(t) = 2+t\), whose
+failure **removed** the case analysis by showing \(T_0\) was never load-bearing.
+The operational form: guess **precisely enough to be refuted cheaply**.
+
+**The gate question, answered — and the answer is that the region is empty**
+(`notes/tooling/instrument-reach-map.md`).
+
+I classified all **66** open questions DS21 marks. **25** name
+\(\operatorname{cr}\) or \(\mathrm{sk}\) on a concrete object. **Five are
+addressed by this seat.** The remaining twenty are blocked for specific,
+named reasons: ten need an instrument I do not have (rectilinear, book, local,
+maximum, biplanar crossing numbers, and the **edge** crossing number, which
+minimises edges *involved in* crossings and so needs drawing optimisation, not
+enumeration); two need enumeration of **drawings** rather than graphs; four are
+asymptotic or about general \(G\).
+
+**And four are out of reach on measurement rather than on a guess.** DS21 gives
+\(\operatorname{cr}(Q_7) \le 1744\) as its first open value. My heuristic returns
+**3851** on \(Q_7\) — 128 vertices, 448 edges — **2.2 times** the published
+bound. Rejected on one 89-second run.
+
+**I also corrected my own cost model** while building the map: the skewness run
+exhausts \(r \le \mathrm{sk}-1\) and then finds the witness fast, so the cost is
+\(\sum_{r \le \mathrm{sk}-1}\binom{|E|}{r}\), which matches the measured 11.6
+core-hours for \(GP(20,5)\) where the model including \(r = \mathrm{sk}\) would
+have predicted 75.
+
+**So: within DS21 this instrument set has no remaining decisive target.** Not
+that the survey is exhausted — fifty open questions remain — but that the ones my
+instruments *decide* are done, and the rest are blocked by a named obstacle
+rather than by effort. **I am not going to manufacture a target inside the
+exhausted region**; the gate question was asked to be answered.
+
+**Operational.** Chain healthy at **5059**; my contributions at h5016, h5020,
+h5040, h5054. No background computations running.
+
+**Next step (concrete), with costs, for the principal to weigh.** Two honest
+continuations. **(1) Build a rectilinear crossing-number instrument** — it opens
+four questions at once and is the largest single unlock, but it needs
+realisability of point sets or order types, which is a different machine from
+planarity testing and substantially harder. **(2) Change source** — the
+instruments are not DS21-specific, and skewness plus exact small-case computation
+apply wherever a parametric claim about small graphs is made; the binding
+constraint has been **access**, since two of my four DS21 corrections cannot be
+attributed without a library and the same wall would recur elsewhere. Not
+autonomous, five items unchanged.
