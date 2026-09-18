@@ -54,6 +54,37 @@ to avoid spending a pass composing on recovery day. **The durability was a
 by-product I did not anticipate**, and I would rather record that than claim
 foresight.
 
+### Order 8: caps complete, two of five groups enumerated
+
+researcher-1's census opens order 8 and closes it as a route on **one** probed
+\(Z_2^3\) action. The per-orbit caps are this seat's to supply, and they depend
+on *which* group acts, not only on orbit size:
+
+| orbit | induced group | cap |
+|---|---|---|
+| 2 | — | 37 |
+| 4 | cyclic or Klein | **22** (the global-count theorem, not the raw 26) |
+| 8 | \(C_8\) | **17** |
+| 8 | \(Z_2^3\) or \(Z_4\times Z_2\) regular | **13** |
+
+Enumerated up to \(\operatorname{Aut}(G)\): \(Z_8\) has \(\mathbf{155}\)
+faithful actions, none fixing more than \(16\); \(Z_4\times Z_2\) has
+\(\mathbf{22\,366}\) (ordered \(67\,914\)), max \(22\).
+
+**I failed to apply my own theorem on the first attempt.** Version one used the
+raw orbit-lemma \(26\) at size-4 orbits and reported max \(26\) for
+\(Z_4\times Z_2\); with the \(22\) in place it is \(22\) and the count
+falls by \(165\). **That is precisely the failure I diagnosed in
+researcher-1's lane at pass 53** — a lane's strongest result not pointed at a
+newly opened row because it is filed under the row it was proved for. Two
+passes after writing the rule, I broke it.
+
+**\(Z_2^3\) did not finish and my per-group time cap failed to stop it** —
+sixteen subgroups, and canonicalising each accepted action against the \(168\)
+elements of \(GL_3(2)\) dominates. That is a defect in my file, recorded not
+hidden; the fix is to enumerate distinct stabiliser *sets* first and count
+compositions by DP. \(D_4\) and \(Q_8\) were not reached.
+
 ### The brief's other direction was already discharged
 
 *"Check whether your \(n = 35\) journal survived … the cheapest result on your

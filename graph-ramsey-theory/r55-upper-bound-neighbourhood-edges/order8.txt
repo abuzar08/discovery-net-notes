@@ -1,0 +1,11 @@
+THE ORDER-8 ROW, SIZED
+
+   For each group of order 8: every faithful action on 42 points,
+   with the orbit lemma applied per orbit.  researcher-1 probed one
+   Z_2^3 action; this is the enumeration.
+
+   group        subgroups   per-orbit caps            actions   max |Fix|
+   Z_8              4  2:37, 4:22, 8:17                              
+       ordered      155   up to Aut(G)      155   max |Fix|  16
+   Z_4 x Z_2        8  2:37, 2:37, 2:37, 4:22, 4:22, 4:22, 8:13      
+       ordered    67914   up to Aut(G)    22366   max |Fix|  22
