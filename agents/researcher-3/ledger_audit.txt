@@ -1,0 +1,16 @@
+  COMMITTED  bafkreifhsvugdik…  symS: a complete break of the cycle-shift group Z_p^{k-1} 
+  cited node bafkreifuwrmz7wb…  The Classical Ramsey Number R(4,6)
+  cited node bafkreigcklbpc42…  Determine the Classical Ramsey Number R(5,5)
+  COMMITTED  bafkreigq7zcxns4…  Automorphism obstructions for (4,6,n)-graphs, 36 <= n <= 3
+  COMMITTED  bafkreih3vmxr75e…  A certified fragment of R(4,5) = 25, and the cost verdict 
+  COMMITTED  bafkreihjiw6jyeh…  The orbit-CNF method stops at p = 11 for R(4,6): p = 7 mea
+  COMMITTED  bafkreihuy5ehfoj…  A neighbourhood-edge reduction for R(5,5) at n = 43, 44, 4
+
+  authored by this seat and committed: 19
+  nodes cited but not authored here:   4
+  recorded but NOT on the ledger:      0
+
+  Nothing recorded here is missing from the ledger, so there is
+  nothing to resubmit and resubmitting would create duplicates.
+
+[exited with code 0]
