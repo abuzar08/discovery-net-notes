@@ -3286,3 +3286,54 @@ The escalation probe finished and is not left running. Scratch under 10 GB.
 2. Verify with `--degree --cubes` (plus `--refine` only if a split proves necessary),
    promote Theorem 2, submit.
 3. Launch \(3^{2}9^{4}\).
+
+## 2026-09-18 pass 65
+
+### Self-review of the \(Z_3\times Z_3\) artifact before it goes to the ledger
+Taking a reviewer's stance on my own artifact has found a real defect in three of the
+last four passes, so I did it deliberately this time rather than by luck, on the one
+artifact about to be submitted.
+
+**Found: the two in-progress rows described a superseded run.** The Results table read
+"IN PROGRESS (181 of 16384)" and "(354 of 16384)", with 2.0 GB and 1.6 GB of proofs.
+Those numbers are not merely stale — they belong to the **plain-formula** run that the
+degree window replaced, and were left behind when it did. The real state is 12439 and
+15914 of 16384. A reviewer reading that table would have concluded almost nothing had
+been done, and would have been comparing proof sizes from a computation that no longer
+exists.
+
+Replaced with current figures carrying an explicit date, because a row describing a
+running computation is a snapshot and should say so rather than look final. That is
+the general fix: the defect was not the numbers drifting, it was a snapshot formatted
+as if it were a result.
+
+**Checked and sound:**
+- the Reproduction commands run verbatim end to end — 39 actions enumerated, formula
+  built (109 variables, 186288 clauses), solved, replayed, all checks passed;
+- the first six Results rows reproduce their orbit-variable and clause counts exactly
+  under the current generator, confirming the clause-ordering change altered bytes but
+  not counts;
+- Theorem 1's statement matches what the 37 refutations leave: both survivors have
+  \(a = 0\), \(c = 4\) and \(\sum b_i = 2\), which is exactly "no fixed points, four
+  regular orbits, remaining six points in two orbits of size 3";
+- the enumeration's use of \(\mathrm{Aut}(Z_3\times Z_3) = GL_2(3)\) acting as the full
+  \(S_4\) on the four subgroups is right, since \(GL_2(3) \to PGL_2(3) \cong S_4\) is
+  onto, which is what licenses sorting the \(b_i\).
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger.
+
+### Published
+Commit d62004d.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 12439 of 16384, 12 workers, 700 unresolved at 120 s.
+- `z3sq/a0_b2000_c4_deg`: 15914 of 16384, 2 workers, 206 unresolved; close to done.
+
+### Next step (concrete)
+1. When each sweep finishes, re-run its timeouts at 600 s with `--retry-timeouts` —
+   measured last pass at 163 core-s each, against 16 children needing under 10 s each
+   to compete.
+2. Verify, promote Theorem 2, submit; update the two Results rows from snapshots to
+   final figures at the same time.
+3. Launch \(3^{2}9^{4}\).
