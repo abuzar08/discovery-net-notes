@@ -501,6 +501,7 @@ def sweep_fast(f, n, cap, warm=None, log=None):
         print(f"        resuming: {len(done)} pairs already decided",
               flush=True)
     jfh = open(jpath, "a")
+    deferred = []
 
     for k, (a, ia, ib) in enumerate(order):
         b = f - a
@@ -528,11 +529,20 @@ def sweep_fast(f, n, cap, warm=None, log=None):
             jfh.close()
             return ("SAT", (a, ia, ib), k + 1, len(order))
         if rc != 20:
-            jfh.close()
-            return ("NO-VERDICT", (a, ia, ib), k + 1, len(order))
+            # DEFER rather than abort.  A single pair that hits the cap used to
+            # stop the whole sweep, discarding the progress of every pair after
+            # it -- one hard instance blocking fifteen hundred decided ones.
+            # It is still not journalled, so a later run with a bigger cap
+            # retries it; but the sweep continues and reports how many are
+            # deferred, which turns a blocking failure into a measurement.
+            deferred.append((a, ia, ib))
+            continue
         if log and (k + 1) % 50 == 0:
             print(f"        {k+1}/{len(order)} refuted", flush=True)
     jfh.close()
+    if deferred:
+        return ("UNSAT-EXCEPT", deferred, len(order) - len(deferred),
+                len(order))
     return ("UNSAT", None, len(order), len(order))
 
 
@@ -558,11 +568,22 @@ def cmd_threshold(args):
             a, ia, ib = where
             note = f"  |A|={a}, |B|={f-a}, catalogue pair ({ia},{ib})"
             warm = where
+        elif v == "UNSAT-EXCEPT":
+            note = (f"  all decided UNSAT except {len(where)} that hit the "
+                    f"{cap} s cap")
         print(f"     {n:3d}   {tried:5d}/{tot:<5d} {el:8.0f}   {v}{note}",
               flush=True)
         if v == "UNSAT":
             print(f"\n   => f = {f} is impossible at every n >= {n}, "
                   f"hence at 42.")
+            return 0
+        if v == "UNSAT-EXCEPT":
+            print(f"\n   => every pair decided at n = {n} is UNSAT, but "
+                  f"{len(where)} hit the cap and are undecided.")
+            print( "      Not a refutation: re-run with a larger --cap to "
+                   "settle them.")
+            for t in where[:10]:
+                print(f"        deferred: |A|={t[0]}, pair ({t[1]},{t[2]})")
             return 0
         if v == "NO-VERDICT":
             print(f"\n   => undecided at n = {n}; feasible up to {n-1}.")

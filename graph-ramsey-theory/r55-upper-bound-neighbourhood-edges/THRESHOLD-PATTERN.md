@@ -86,7 +86,7 @@ The outcomes and what each would mean:
 Note that two of the three outcomes kill it, and one of those two would be good
 news for the bound. **I am not predicting which.**
 
-### Partial, as of the first two passes of computing
+### Partial, updated
 
 The sweep is journalled and resumable, so it accumulates across passes rather
 than restarting. What is settled so far:
@@ -94,19 +94,36 @@ than restarting. What is settled so far:
 | \(n\) | split | decided | verdict |
 |---|---|---|---|
 | 36 | \(|A| = 13, |B| = 10\) | \(313/313\) | **all UNSAT — complete** |
-| 36 | \(|A| = 12, |B| = 11\) | \(104/1260\) | all UNSAT so far |
-| 37 | \(|A| = 13, |B| = 10\) | \(108/313\) | all UNSAT so far |
+| 36 | \(|A| = 12, |B| = 11\) | \(1260/1260\) | **all UNSAT — complete** |
+| 36 | \(|A| = 11, |B| = 12\) | \(2/1260\) | see below — every further pair caps out |
+| 37 | \(|A| = 13, |B| = 10\) | \(313/313\) | **all UNSAT — complete** |
+| 37 | \(|A| = 12, |B| = 11\) | \(114/1260\) | all UNSAT so far |
 
-**One split is fully closed**: at \(f = 23\) no \((5,5,36)\)-graph carries the
-configuration with \(|A| = 13\), and by monotonicity none does at any
-\(n \ge 36\). That is a real fact independent of how the pattern falls.
+**Two splits are fully closed at \(n = 36\)** — \(1573\) pairs, **no
+witness**. The pattern needs a witness *somewhere* at \(n = 36\), so the
+evidence against it is now substantially stronger than last pass, though
+\(1573\) pairs remain in \((11,12)\) and \((10,13)\).
 
-It is **weak evidence against** the pattern, which needs a witness *somewhere*
-at \(n = 36\) — but the witness could still be in \((12,11)\), \((11,12)\)
-or \((10,13)\), which is \(2833\) pairs not yet decided. I am recording the
-direction of the partial evidence rather than waiting to report only a clean
-answer, because the pre-registration is worth nothing if I quietly stop
-reporting when the early returns look unfavourable.
+I am recording the direction of the partial evidence rather than waiting to
+report only a clean answer, because the pre-registration is worth nothing if I
+quietly stop reporting when the early returns look unfavourable.
+
+### The \((11,12)\) block is qualitatively harder, and that is unexplained
+
+\((12,11)\) at \(n = 36\) decided all \(1260\) pairs at roughly \(0.1\)
+s each. \((11,12)\) — the same \(f\), the same \(n\), the mirrored
+split — has decided \(2\), and **every pair tried since has hit the \(300\)
+s cap.** That is a factor of at least \(3000\), far beyond what the host's
+load could explain.
+
+The natural guess is that this is the *shape* rather than the split: the
+complementation duality of §4b of `FIXED-POINT-MAXIMUM.md` maps
+\((11,12)\)-\(C_4\) to \((12,11)\)-\(2K_2\), so a shape asymmetry would
+appear exactly here. **The duality constrains the answers and says nothing
+about the cost**, so this is consistent but not established. I set up the
+four-way comparison that would decide it and it did not finish — the host was
+at load \(44\) with four other seats computing — so **the question is open
+and I am not going to guess the answer.**
 
 ## 4a. A speed-up I proposed, tested, and withdrew
 

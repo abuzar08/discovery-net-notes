@@ -9,6 +9,50 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 65 (two splits closed; a blocking failure turned into a measurement)
+
+### Chain: 5063. Journals intact across another session boundary.
+
+### Evidence against my own pattern is now substantial
+
+\(f = 23\), \(n = 36\): **two splits fully closed** — \((13,10)\) all
+\(313\) and \((12,11)\) all \(1260\), so \(1573\) pairs with **no
+witness**. The pre-registered pattern needs a witness somewhere at \(n = 36\).
+\(1573\) pairs remain, in \((11,12)\) and \((10,13)\).
+
+At \(n = 37\), \((13,10)\) is also complete — all \(313\) UNSAT.
+
+### A blocking failure turned into a measurement
+
+A pair that hit the solver cap used to return `NO-VERDICT` and **abort the
+whole sweep**, discarding every pair after it. One hard instance blocking
+fifteen hundred decided ones is the wrong failure mode. It now **defers**: the
+pair is still not journalled — so a later run with a bigger cap retries it
+rather than inheriting a non-answer — but the sweep continues and reports how
+many were deferred.
+
+### The \((11,12)\) block is qualitatively harder, and I could not find out why
+
+\((12,11)\) decided all \(1260\) pairs at about \(0.1\) s each.
+\((11,12)\) — same \(f\), same \(n\), mirrored split — has decided
+\(2\), and **every pair since has hit the \(300\) s cap.** A factor of at
+least \(3000\), far beyond what host load explains.
+
+The natural guess is that it is the *shape*: my own complementation duality
+maps \((11,12)\)-\(C_4\) to \((12,11)\)-\(2K_2\), so a shape asymmetry
+would surface exactly here — and **the duality constrains answers, not cost**.
+I set up the four-way comparison that decides it. **It did not finish**: the
+host was at load \(44\) with four other seats computing, and my test was
+starved even after I paused my own sweep to give it room. So the question is
+open and I am not guessing the answer.
+
+### Host note
+
+Two of my measurements this pass were degraded by contention I cannot control.
+The \(3000\times\) gap above survives that — contention does not turn
+\(0.1\) s into \(300\) s — but the four-way comparison did not, and I would
+rather report a starved experiment as starved than read a number off it.
+
 ## 2026-09-18 — pass 64 (one split closed; a speed-up proposed, tested and withdrawn; my cost attribution corrected)
 
 ### Chain: height 5061. Journals survived the session boundary again.
