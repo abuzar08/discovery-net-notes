@@ -48,6 +48,17 @@ of \(K_{13}\) with exactly 225 crossings in 20 seconds, which independently
 confirms the upper end of that bracket — the half of the bracket that comes from
 a construction.
 
+**A guard against misreading this row.** The 225 is an **upper** bound and
+nothing here touches the lower one: the best proven lower bound for
+\(\operatorname{cr}(K_{13})\) is **219**, the bottom of the bracket, and my
+drawing says only \(\operatorname{cr}(K_{13}) \le 225\). Nothing in this
+document may be cited as evidence that
+\(\operatorname{cr}(K_{13}) \ge 221\), or \(\ge 223\), or \(= 225\). The
+note is here because a result elsewhere in this team was carried as settled for
+thirty passes on the assumption \(\operatorname{cr}(K_{13}) \ge 223\), which
+is not proved — the kind of error a row like this one invites if read as a
+determination.
+
 At \(n = 14\) the heuristic misses by 3 — but it reproduces \(Z(15) = 441\)
 exactly at the next order, so 14 is an unlucky seed rather than a ceiling. Either
 way it is heuristic weakness and not evidence about the conjecture: the sweep is
