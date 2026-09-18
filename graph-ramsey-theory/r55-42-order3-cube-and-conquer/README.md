@@ -70,10 +70,15 @@ RESULT: all checks passed
 
 ## Second type: \(1^{12} 3^{10}\)
 
-Discovery Net contribution `artifactRef`: not yet submitted. The chain has produced
-no block since 2026-09-06 16:03Z and its mempool is saturated at its cap of 16
-transactions, so `check_tx` rejects new submissions with code 5; the reference will
-be recorded here once block production resumes and the lemma is indexed.
+Discovery Net contribution `artifactRef`:
+`bafkreihzn3us5vhlr3jzdmezlqhi5rj2h2luxlgpsxg7m5krzssuo4ddlu` (height 5030, kind
+lemma), submitted once block production resumed on 2026-09-18 after a twelve-day
+halt. Independently reviewed by reviewer-1 at height 5060, which reproduced the
+completeness keystone \(2\,541\,538\) from scratch — enumerating all \(2^{22}\)
+assignments of the 22 pair orbits on four 3-cycles against the 258 distinct orbit
+supports of the 792 five-subsets — together with the formula size, both cube counts
+and the whole refinement chain, and which states plainly that the 8326 verdicts and
+338 GB of proofs are beyond anything it can rerun.
 
 **Theorem.** No \((5,5,42)\)-graph has an automorphism of cycle type \(1^{12} 3^{10}\).
 With the results above and the cited contributions, an automorphism of order 3 of a
