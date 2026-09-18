@@ -1,4 +1,4 @@
-# The true maximum: \(|\operatorname{Fix}(H)| \le 24\) at \(n = 42\), unconditionally
+# The true maximum: \(|\operatorname{Fix}(H)| \le 22\) at \(n = 42\), unconditionally
 
 Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-10.
 Checker: `fixmax.py`. Builds on `ORBIT-FIXED-POINT-BOUND.md` and
@@ -55,7 +55,8 @@ none with \(n = 42\), where \(12\) vertices sit outside the configuration.
 > even size — in particular whenever \(H\) is a \(2\)-group, which covers the
 > whole order-4 row — then \(|\operatorname{Fix}(H)| \le 24\).
 >
-> §4a removes the hypothesis: \(\le 24\) holds for **every** such \(H\).
+> §4a removes the hypothesis and §5 improves the number: the final statement
+> is \(|\operatorname{Fix}(H)| \le \mathbf{22}\) for **every** such \(H\).
 
 *Proof.* Suppose the orbit's shape is mixed and \(|\operatorname{Fix}(H)| = 26\).
 Then \(|A| = |B| = 13\), both halves are the unique graphs, and \(G\) restricted
@@ -155,7 +156,8 @@ without its hypothesis:
 
 > **Theorem (unconditional form).** Let \(G\) be a \((5,5,42)\)-graph and
 > \(H \le \operatorname{Aut}(G)\) a subgroup with an orbit of size \(4\). Then
-> \(|\operatorname{Fix}(H)| \le 24\).
+> \(|\operatorname{Fix}(H)| \le 24\). (§5 sharpens this to \(22\) once
+> \(f = 24\) is also refuted.)
 
 *Proof.* Homogeneous orbit shapes give \(f \le 19\) (§4). For a mixed shape,
 \(f = 26\) is impossible at \(n \ge 31\) (§3) and \(f = 25\) is impossible at
@@ -209,24 +211,39 @@ anywhere means \(f = 24\) survives; excluding it needs **every** pair to be
 UNSAT, so **completeness of those catalogues becomes load-bearing here**, as it
 is not for §3.
 
-The thresholds established so far, shape \(C_4\) (and so both, by §4b):
+The thresholds, shape \(C_4\) (and so both, by §4b), are now all settled:
 
-| \(f\) | largest \(n\) carrying it | first \(n\) refuted |
-|---|---|---|
-| 26 | \(\mathbf{30}\) | 31, one forced pair per shape |
-| 25 | \(\mathbf{32}\) | 33, all 24 pairs |
-| 24 | \(\ge 34\) | not yet reached |
+| \(f\) | largest \(n\) carrying it | refuted at | cost of the refutation |
+|---|---|---|---|
+| 26 | \(\mathbf{30}\) | 31 | one forced pair per shape |
+| 25 | \(\mathbf{32}\) | 33 | all 24 pairs |
+| 24 | \(\mathbf{34}\) | 35 | **all 354 pairs** |
 
-At \(f = 24\) the witnesses found are \(n = 31, 32\) with \(|A| = 13\),
-\(|B| = 11\); \(n = 33\) with \((12,12)\), catalogue pair \((2,2)\), found at
-attempt 132 of 354 in 24 s; and \(n = 34\) with \((11,13)\), pair \((0,0)\),
-at attempt 250 in 80 s. **The \(n = 34\) witness reproduces exactly what the
-earlier slow implementation found**, which is a cross-check of the fast path
-against the original on a nontrivial case.
+At \(f = 24\) the witnesses are \(n = 31, 32\) with \((13,11)\); \(n = 33\)
+with \((12,12)\), catalogue pair \((2,2)\), found at attempt 132 of 354 in
+24 s; and \(n = 34\) with \((11,13)\), pair \((0,0)\), at attempt 250 in 80 s.
+**The \(n = 34\) witness reproduces exactly what the earlier, slower
+implementation found** — a cross-check of the rewrite on a nontrivial case.
+At \(n = 35\) **every one of the 354 pairs is UNSAT.**
 
-\(n = 35\) is in progress. **\(24\) remains a bound, not a value known to be
-attained**; if \(f = 24\) dies below \(42\) the bound drops again — to \(22\),
-since \(f\) is even in both order-4 families.
+So a mixed \(4\)-orbit gives \(f \le 23\) at \(n = 42\), and:
+
+> **Theorem (final form).** Let \(G\) be a \((5,5,42)\)-graph and
+> \(H \le \operatorname{Aut}(G)\) a subgroup with an orbit of size \(4\). Then
+> $$|\operatorname{Fix}(H)| \;\le\; 22 .$$
+
+*Proof.* Homogeneous shapes give \(f \le 19\) (§4). For a mixed shape,
+\(f \in \{24, 25, 26\}\) is impossible at \(n = 42\) by the table, so
+\(f \le 23\). If every nontrivial \(H\)-orbit has even size then \(f\) is even,
+so \(f \le 22\); otherwise route 1 of §4a gives \(f \le 22\) directly. Either
+way \(f \le 22\). \(\square\)
+
+**Where this method stops.** Pushing to \(f = 22\) would need the splits
+\((13,9), (12,10), (11,11), (10,12), (9,13)\), and the \((3,5,n)\) catalogues
+have \(290\) members at \(9\), \(313\) at \(10\) and \(105\) at \(11\) — about
+\(19\,100\) pairs against \(354\). The cost is governed by the catalogue sizes,
+which grow fast as the split becomes even, so \(22\) is where this route ends
+rather than where the truth is.
 
 The cost asymmetry is worth recording for whoever continues: refuting
 \(f = 26\) took **two solver calls**, because uniqueness at \(13\) leaves one
@@ -289,16 +306,21 @@ direction that matters.
 |---|---|---|---|
 | \(f \le 36\) | researcher-1's involution lemma | 90 | 1347 (6465) |
 | \(f \le 26\) | the orbit lemma, `ORBIT-FIXED-POINT-BOUND.md` | 84 | 1328 (6401) |
-| \(\mathbf{f \le 24}\) | **the global count, this note** | \(\mathbf{81}\) | \(\mathbf{1315}\) (6354) |
+| \(f \le 24\) | \(f = 26, 25\) dead | 81 | 1315 (6354) |
+| \(\mathbf{f \le 22}\) | **\(f = 24\) dead too** | \(\mathbf{78}\) | \(\mathbf{1299}\) (6287) |
 
-The three \(Z_4\) types removed are \((26,0,4)\), \((26,2,3)\), \((26,4,2)\) —
-including \((26,4,2)\), which `ORDER4-ENUMERATION.md` currently names as the
-**easiest-end** type after the previous correction. That example is invalidated
-for the second time, by my own result again; it is patched there.
+The types removed on the way are \((26,0,4)\), \((26,2,3)\), \((26,4,2)\) and
+then \((24,1,4)\), \((24,3,3)\), \((24,5,2)\). Note \((26,4,2)\) — which
+`ORDER4-ENUMERATION.md` had named the **easiest-end** type after an earlier
+correction, and which was invalidated a second time by my own next result; and
+now \((24,5,2)\), its replacement, invalidated a **third** time the same way.
+The easiest end of that table has been wrong three passes running, always
+because the bound tightened, and always at the end where a tightened bound
+bites.
 
-Sixteen further cases out of \(1412\) is a small return, and the number to
-report is not that but the bound: **\(24\), from \(36\), by two independent
-routes that each closed the previous one's remaining slack.**
+Thirty-three cases out of \(1437\) is a small return. The number to report is
+not that but the bound: **\(22\), from \(36\), by two routes that each closed
+the previous one's slack.**
 
 ## 6. Controls
 
@@ -325,8 +347,8 @@ and \(n^\* \le 32\) for the \(25\)-point one; hence
 \(4\)-orbit in a \((5,5,42)\)-graph, improving the \(26\) of the arithmetic
 bound; and \(f \le 19\) for homogeneous shapes, by hand.
 
-**Does not establish.** That \(24\) is attained. §5 reports how far the
-cascade got. Nor does it say anything about orbits of other sizes — the
+**Does not establish.** That \(22\) is attained; the method stops there for
+the catalogue-size reason given in §5, not because \(22\) is the truth. Nor does it say anything about orbits of other sizes — the
 \(|O| = 2\) row, where researcher-1's \(36\) lives, is untouched by this and
 would need the same treatment with a much larger \(B\).
 

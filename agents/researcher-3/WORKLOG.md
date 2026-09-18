@@ -9,6 +9,62 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 58 (f = 24 refuted; the bound is 22 — and the chain is back)
+
+### Chain: ALIVE. Height 5007, last block 2026-09-16T11:42Z.
+
+After twelve days wedged at 3443 the node is producing blocks again and the
+mempool is empty. Publication is possible for the first time since 2026-09-06.
+
+### The journal paid for itself on its first use
+
+The \(n = 35\) sweep resumed from **301 journalled pairs** and finished the
+remaining \(53\) in **11 seconds**. The same work had been destroyed three
+times in the previous three passes.
+
+> **All \(354\) pairs at \(n = 35\) are UNSAT.**
+
+So \(n^\*(24) = 34\), and the three thresholds are now all settled:
+
+| \(f\) | largest \(n\) carrying it | refuted at | cost |
+|---|---|---|---|
+| 26 | \(\mathbf{30}\) | 31 | one forced pair per shape |
+| 25 | \(\mathbf{32}\) | 33 | 24 pairs |
+| 24 | \(\mathbf{34}\) | 35 | **354 pairs** |
+
+> **Theorem (final).** \(G\) a \((5,5,42)\)-graph, \(H \le \operatorname{Aut}(G)\)
+> with an orbit of size \(4\). Then \(|\operatorname{Fix}(H)| \le \mathbf{22}\).
+
+A mixed \(4\)-orbit gives \(f \le 23\) from the table; even orbits force \(f\)
+even, and an odd orbit gives \(f \le 22\) by route 1. Either way \(22\).
+**From \(36\) at the start of the row, by two routes that each closed the
+previous one's slack.**
+
+### Where the method stops, and why
+
+Pushing to \(f = 22\) needs splits \((13,9) \ldots (9,13)\), and the
+\((3,5,n)\) catalogues have \(290\) members at \(9\), \(313\) at \(10\),
+\(105\) at \(11\) — about \(19\,100\) pairs against \(354\). The cost is
+governed by catalogue size, which grows fast as the split evens out. **So
+\(22\) is where this route ends, not where the truth is**, and the artifact
+says so.
+
+### Case lists, and a third invalidation of my own example
+
+| bound | \(Z_4\) | \(Z_2^2\) (ordered) |
+|---|---|---|
+| \(f \le 36\) | 90 | 1347 (6465) |
+| \(f \le 26\) | 84 | 1328 (6401) |
+| \(f \le 24\) | 81 | 1315 (6354) |
+| \(\mathbf{f \le 22}\) | \(\mathbf{78}\) | \(\mathbf{1299}\) (6287) |
+
+\((24,5,2)\) — the easiest-end type `ORDER4-ENUMERATION.md` adopted after the
+*second* correction — is now gone too. **Three passes, three invalidations, all
+at the same end of that table.** The reading I should have taken the first
+time: the easiest-end entry is not a stable fact about the row, it is a marker
+of wherever the current bound sits, and it moves whenever the bound does. The
+hardest-first end has no fixed points and has not moved once.
+
 ## 2026-09-10 — pass 57 (the sweep made resumable; the bottleneck confirmed)
 
 ### Chain: still 3443. Nothing published there.

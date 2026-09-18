@@ -125,3 +125,15 @@ difficulty censored at whatever cap was used. Section 2 is exact combinatorics
 about block weights; section 3 remains a **heuristic with a mechanism**. It has
 now been confirmed once on a family it did not come from, and corrected once by
 one — which is the most that can be said for it.
+
+> **Third correction (`FIXED-POINT-MAXIMUM.md`, 2026-09-18).** \((24,5,2)\),
+> the easiest-end type after the second correction, **also does not exist**:
+> \(f = 24\) is refuted at \(n = 35\) across all \(354\) catalogue pairs,
+> so a group with a \(4\)-orbit fixes at most \(\mathbf{22}\) points at
+> \(n = 42\). The lists are \(\mathbf{78}\) and \(\mathbf{1299}\).
+> **Three passes, three invalidations, always at the same end of this table** —
+> which is the end a tightened bound removes, so the right reading is that the
+> easiest-end entry is not a stable fact about the row but a marker of wherever
+> the current bound happens to sit. The hardest-first end has no fixed points
+> and has not moved once.
+

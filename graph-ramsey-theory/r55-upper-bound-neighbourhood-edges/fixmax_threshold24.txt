@@ -1,0 +1,18 @@
+THRESHOLD SEARCH for f = 24
+
+   Shape C_4 only; 2K_2 follows by the complementation duality.
+   Warm-started from the previous n's witness.  Feasibility is
+   monotone in n, so the first UNSAT settles every larger n.
+
+      n   tried/total   seconds   verdict
+        resuming: 301 pairs already decided
+        50/354 refuted
+        100/354 refuted
+        150/354 refuted
+        200/354 refuted
+        250/354 refuted
+        300/354 refuted
+        350/354 refuted
+      35     354/354         11   UNSAT
+
+   => f = 24 is impossible at every n >= 35, hence at 42.
