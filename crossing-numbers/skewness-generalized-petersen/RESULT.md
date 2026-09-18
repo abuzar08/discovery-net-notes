@@ -51,6 +51,33 @@ Conjecture 5 was extended from even \(n = 2k\) to all \(n\) and became false at
 \(n = 5\). **A side condition lost when a source statement is restated in a
 survey's uniform notation** — twice, in the same survey, in unrelated entries.
 
+## Which reading the evidence supports, and which it cannot settle
+
+Stated plainly, because the distinction decides who the correction is addressed
+to.
+
+**What the evidence supports.** The printed sentence is **internally inconsistent
+with the mathematics**, and not merely wrong at one value. It says the conjecture
+was "mostly settled" with only \(k = 5\) and \(k = 7\) remaining open — so
+\(k = 3\) is claimed **settled** — while the formula it states gives 5 there
+and the value is **3**. A case cannot be settled under a formula that fails in
+it. Together with \(k = 5\) now coming out at exactly \(k+2\), the reading the
+evidence supports is that **the range is wrong and the formula is right**: the
+statement should begin at odd \(k \ge 5\).
+
+**What it cannot settle.** Whether that defect originates with Chia and Lee or
+with DS21's rendering of them. Reference [207] is paywalled and [208] returned
+HTTP 403; two access attempts, both refused. One piece of indirect evidence
+points at the rendering: the abstract of [207] says the authors **determine** the
+skewness of \(P(4k,k)\). If they determined it, they determined 3 at \(k = 3\),
+and would not then have conjectured 5 there — which would make the error DS21's.
+But that is an inference from an abstract, not a reading of the paper, and I will
+not present it as more.
+
+**So the correction is well founded either way, and its addressee is not.** A
+reader with library access settles that in minutes, which is why it is on the
+list of items needing a human.
+
 ## Standing of the two cases DS21 lists as open
 
 - **\(k = 5\): settled here**, at 7, in the conjecture's favour.
