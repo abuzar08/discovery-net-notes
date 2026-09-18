@@ -299,6 +299,44 @@ The two witnesses at \((5,5)\) are worth one further remark: they show that noth
 in the encoding *itself* forbids a \(Z_3 \times Z_3\)-invariant \((5,5)\)-graph.
 What forbids it is 42 vertices.
 
+## Reproducibility note: clause ordering changed after the logs were written
+
+`groupenc.py`'s `clauses_for` originally emitted, for each distinct support, the
+negative clause and then the positive one, interleaved as it walked the 5-sets. It was
+later generalised to arbitrary \((s,t)\) -- all the \(s\)-set clauses, then all the
+\(t\)-set clauses -- so that `groupenc_control.py` could exercise the *published*
+code path at parameters where witnesses exist. The clause **set** is unchanged, and
+that was checked explicitly at the time, but the clause **order** in the DIMACS file
+is not.
+
+Two consequences for anyone reproducing this work.
+
+- **The formula SHA-256 values in `logs/verify_certificates.log` will not reproduce
+  byte for byte.** Regenerating the action \((9; 1,1,0,0; 3)\) today gives
+  `da1bfcb70043e1e76910162f22211e7b8b3c1820533b7a619f621a67def706bb` where the log
+  records `8d74dc78646e9d0fecd66de188eb2109c32715d85172c5b6376c141655d60a3d`. The
+  checker compares clause *sets*, not bytes, so it passes either way.
+- **The certificate SHA-256 values likewise belong to the earlier ordering.** LRAT
+  hints are clause indices into the DIMACS file, so a certificate is only valid
+  against the ordering it was produced from. Regenerate the proof rather than
+  expecting the recorded hash.
+
+Neither affects soundness. What a recorded replay attests is that *that clause set*
+plus the cube is unsatisfiable, and the clause set is the same one the checker
+regenerates from the orbit data today; the ordering is a presentation detail of the
+file.
+
+**Checked today (2026-09-18).** Regenerating the action \((9; 1,1,0,0; 3)\) from
+`groupenc.py`, solving it fresh, and replaying with `verify_groupenc.py`: 141 orbit
+variables, 184142 clauses, the regenerated clause set matches the file exactly, and
+the certificate replays to the empty clause. So reproduction from scratch is the
+route that works, and it does work.
+
+For contrast, `../r55-42-order-9-automorphisms` is **not** affected: its generator
+`cyctype.py` was never generalised, and its recorded formula hash
+`74d98b969249a99b3d2606b1438f08fdc1f53b4836d4c75d7e6f1b41706b48fc` still reproduces
+exactly.
+
 ## Trust boundary
 
 Machine-checked: for each of the 39 actions, that the object encoded is a faithful
