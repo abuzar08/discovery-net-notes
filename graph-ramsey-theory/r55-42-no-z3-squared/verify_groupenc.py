@@ -198,7 +198,7 @@ def main():
     rest, i, argv = [], 5, sys.argv
     while i < len(argv):
         if argv[i].startswith('--'):
-            i += 2 if argv[i] == '--fmax' else (3 if argv[i] == '--cubes' else 1)
+            i += 2 if argv[i] in ('--fmax', '--refine') else (3 if argv[i] == '--cubes' else 1)
             continue
         rest.append(argv[i]); i += 1
     lrat = rest[0] if rest else None
@@ -228,8 +228,10 @@ def main():
         # a plain case distinction on m Booleans, checked exhaustive by
         # verify_cyctype.check_cubes; no group argument enters the split
         from verify_cyctype import check_cubes
+        ref = (sys.argv[sys.argv.index('--refine') + 1]
+               if '--refine' in sys.argv else None)
         return check_cubes(cls, sys.argv[sys.argv.index('--cubes') + 1],
-                           sys.argv[sys.argv.index('--cubes') + 2])
+                           sys.argv[sys.argv.index('--cubes') + 2], ref)
     if lrat is None:
         print('RESULT: formula checked, no certificate given')
         return 0

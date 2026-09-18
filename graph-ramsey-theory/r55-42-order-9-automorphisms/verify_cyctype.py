@@ -64,7 +64,7 @@ def regenerate(lengths):
         clauses.add(tuple(sorted(-x for x in M)))
     return len(roots), clauses, var
 
-def check_cubes(cls, icnf, outd):
+def check_cubes(cls, icnf, outd, refine=None):
     """Check a plain case split: the cubes must be all 2^m sign patterns of m
     variables (so the split is exhaustive with no group argument at all), and
     every cube must carry a certificate refuting formula + cube.
@@ -76,6 +76,18 @@ def check_cubes(cls, icnf, outd):
     """
     import json, itertools
     cubes = [[int(t) for t in l.split()[1:-1]] for l in open(icnf) if l.startswith('a ')]
+    leaves = cubes
+    if refine:
+        # Collapse the refinement levels one at a time, newest first, with the same
+        # reviewed routine that checks the order-3 and order-5 refinements. Each
+        # level is verified to be a complete 2^m split of the cubes it came from, so
+        # what reaches the exhaustiveness test below is the original cube set.
+        from verify_cnc_p import collapse
+        maps = refine.split(',')
+        cur = cubes
+        for lvl, mp in enumerate(reversed(maps), start=1):
+            cur = collapse(cur, json.load(open(mp)), len(maps) - lvl + 1)
+        cubes = cur
     varset = {abs(x) for c in cubes for x in c}
     m = len(varset)
     order = sorted(varset)
@@ -97,7 +109,7 @@ def check_cubes(cls, icnf, outd):
             if r['status'] == 'UNSAT-VERIFIED' and 'cube_lits' in r:
                 recorded[tuple(sorted(r['cube_lits'], key=abs))] = r
     replayed = matched = 0
-    for i, c in enumerate(cubes):
+    for i, c in enumerate(leaves):
         path = os.path.join(outd, f'c{i}.lrat')
         if os.path.exists(path):
             if not check_lrat([list(x) for x in cls] + [[l] for l in c], path):
@@ -110,7 +122,7 @@ def check_cubes(cls, icnf, outd):
             print(f'cube {i}: no certificate on disk and no recorded replay')
             return 1
     print(f'certificates: {replayed} replayed here, {matched} accepted from replays '
-          f'recorded by the driver ({replayed + matched} of {len(cubes)})')
+          f'recorded by the driver ({replayed + matched} of {len(leaves)})')
     print('RESULT: all checks passed')
     return 0
 
@@ -167,7 +179,7 @@ def main():
     rest, i, argv = [], 3, sys.argv
     while i < len(argv):
         if argv[i].startswith('--'):
-            i += 3 if argv[i] == '--cubes' else 1
+            i += 3 if argv[i] == '--cubes' else (2 if argv[i] == '--refine' else 1)
             continue
         rest.append(argv[i]); i += 1
     lrat = rest[0] if rest else None
@@ -192,8 +204,10 @@ def main():
         return 1
     print('formula: regenerated clause set matches the file exactly')
     if '--cubes' in sys.argv:
+        ref = (sys.argv[sys.argv.index('--refine') + 1]
+               if '--refine' in sys.argv else None)
         return check_cubes(cls, sys.argv[sys.argv.index('--cubes') + 1],
-                           sys.argv[sys.argv.index('--cubes') + 2])
+                           sys.argv[sys.argv.index('--cubes') + 2], ref)
     if lrat is None:
         print('RESULT: formula checked, no certificate given')
         return 0

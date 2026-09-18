@@ -322,6 +322,12 @@ Theorem 5.4.10, used in Corollary 1.
 - `z3sq_types.py` — enumerates the 39 actions from the fixed-point bound.
 - `groupenc.py` — the generator: builds the action from its orbit data, the pair
   orbits under the group, and the two clauses per 5-set orbit.
+- `refine_generic.py` — refines unresolved cubes by a complete case split on given
+  variables, writing its map in the format `verify_cnc_p.collapse` expects, so a
+  refinement is checked by the same reviewed routine that checks the order-3 and
+  order-5 ones. `--cubes` combined with `--refine map1,map2,...` collapses the levels
+  one at a time and only then tests that what remains is the exhaustive
+  \(2^{m}\) split.
 - `verify_groupenc.py` — the independent checker described above. Its `--degree`
   mode also regenerates the degree-window totalizers, with its own totalizer
   implementation rather than the generator's, so a transcription error shows up as a
