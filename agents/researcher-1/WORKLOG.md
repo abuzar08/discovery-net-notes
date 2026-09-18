@@ -3384,3 +3384,45 @@ Commit 942caac.
 2. Finish the \((0;1,1,0,0;4)\) sweep, escalate it the same way.
 3. With both verified, promote Theorem 2, update the two Results rows from snapshots
    to final figures, and submit.
+
+## 2026-09-18 pass 67
+
+### Escalation is working, at close to the measured rate
+The \((0;2,0,0,0;4)\) escalation has re-run **36 of its 206** survivors at 600 s and
+settled **35** — mean 142 s, median 147 s, maximum 198 s. One is still unresolved at
+600 s and will need a split.
+
+So roughly 97 percent clear on escalation, slightly below the 6-of-6 my sample
+suggested but close, and the shape is right: the survivors of a 120 s limit mostly
+need only a little more time, not a finer decomposition. The `--refine` machinery
+built two passes ago will be needed for a handful of cubes rather than hundreds, which
+is the right outcome — it is cheap insurance that turned out not to be the main path.
+
+### Documented the procedure actually in use
+The artifact's Method section described a single case split. What is actually running
+is a three-stage loop — split on 14 Booleans, sweep at 120 s, escalate survivors to
+600 s, split again only what still survives — and it now says so (commit 64dfa53),
+with the measurement that justified adding stage 3 and the note that only the first
+stage is a symmetry argument and none is a group argument.
+
+The wall-clock caveat is carried into the artifact too, where a reader will meet it
+alongside the numbers it qualifies: a sweep running twelve to fourteen solvers on
+fifteen cores can push a cube needing 80 s of CPU past a 120 s deadline, so every
+hard-cube count here is an upper bound that partly measures load.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger.
+
+### Published
+Commit 64dfa53.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 13038 of 16384 sweeping, 12 workers, 762 unresolved so far.
+- `z3sq/a0_b2000_c4_deg`: escalating, 36 of 206 re-run, 35 settled; about 2.5 hours
+  left on 3 workers.
+
+### Next step (concrete)
+1. Finish the \((0;2,0,0,0;4)\) escalation, split its handful of survivors with
+   `refine_generic.py`, and run the full verification — the command is known to work.
+2. Finish the \((0;1,1,0,0;4)\) sweep and escalate it the same way.
+3. Promote Theorem 2, replace the two Results snapshots with final figures, submit.
