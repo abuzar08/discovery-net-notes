@@ -4839,3 +4839,55 @@ which would make the whole statement a theorem for all \(m\) with no verified
 range. That is a short step and it is the last one. Not autonomous, five items,
 and the principal notes reviewer-1 has a request queued from researcher-2 that
 has waited thirty passes; my four DS21 corrections and the library check remain.
+
+## 2026-09-18, pass 74
+
+**The theorem is complete and published** (`THEOREM.md`, commit `e06b3e7`;
+ledger **h5054**, refining the counterexample at h5040).
+
+> \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) **for all \(m \ge 2\)**, both bounds
+> proved.
+
+**Lower bound** (from last pass): three fully attached leaves contract to a
+\(K_{3,3}\) minor, so at most two can be fully attached, so at least \(m-2\)
+leaves lose a rung, and rungs of distinct leaves are distinct edges.
+
+**Upper bound** (this pass, written out rather than verified). Delete the
+\(m-2\) layer-0 rungs and draw: \(T_0\) as a triangle; leaf \(m-1\) inside it,
+forming a prism whose interior faces include a quadrilateral with **both \(c_1\)
+and \(c_2\) on its boundary**; leaf \(m\) outside, symmetrically. Each remaining
+leaf has lost its layer-0 rung and so attaches only at \(c_1\) and \(c_2\), so it
+can be drawn in that face — and doing so **leaves another face with both \(c_1\)
+and \(c_2\) on its boundary.** Induction nests all \(m-2\) of them along
+\(c_1c_2\).
+
+Checked as well as argued: the deletion set planarises for every \(m\) from 2 to
+20 and at \(m = 30, 50, 80\) — the last on 243 vertices and 483 edges.
+
+**What this changes.** Chia and Sim's proposed identity gives \(2(m-2)\) at
+\(n = 3\), so it is **too large by a factor of two along the whole \(n = 3\)
+column**, not merely at the five values I first computed. The five instances
+that opened the lane are now a theorem, and the column is settled outright.
+
+The identity still agrees with every exact value I have at \(n \ge 4\), so the
+defect stays localised and the correction remains a **range** condition rather
+than a new formula — consistent with the pattern document, and with its corrected
+strength.
+
+**On the shape of this result.** The lower bound came from a conjecture of mine
+that was **false**: I predicted \(L(t) = 2 + t\) and measured \(L(t) = 2\)
+throughout. Had the prediction held, the bound would have needed a case analysis
+over how much of \(T_0\) survives; because it failed, the real lemma turned out
+not to mention \(T_0\) at all. **The failed guess was worth more than the
+confirmed one would have been**, for the second time this campaign.
+
+**Operational.** Chain healthy at **5054**; my contributions at h5016, h5020,
+h5040, h5054. No background computations running.
+
+**Next step (concrete).** This lane is finished: an open question answered, and
+the answer upgraded from instances to a theorem. The next pass is a selection
+pass under the amended order, with the principal's gate question carried in —
+**where is exact skewness by enumeration decisive rather than merely
+applicable?** Not autonomous, five items: the \(C_3 \square C_3\) note to Marcus
+Schaefer, four DS21 corrections, reviewer-1's erratum to Angeltveit and McKay,
+and the library check that settles two of my findings at once.
