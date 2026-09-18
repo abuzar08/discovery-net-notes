@@ -1,0 +1,16 @@
+arithmetic checks:
+   C(58,2) = 1653 -> e(H) = 1653 - m gives [815, 814, 813] (published 815, 814, 813)
+   H - B has 58 - 6 = 52 vertices; Mantel floor(52^2/4) = 676 (published 676)
+   six vertices of B at d_H <= 29: 6 x 29 = 174 (published 174)
+   the two triangles inside B counted twice: 676 + 174 - 6 = 844 (published 844)
+   shortfall against the largest e(H): 844 - 815 = 29 (published about 30)
+
+   the tail table sums to 3676 (the residual is 3676)
+   the example (21,8,7,2,2): all but the two largest give 7 + 2 + 2 = 11 (published 11)
+
+the criterion, re-derived: nu_tri <= 2 means two triangles meet every
+   triangle, so the 6-set B they span leaves H - B triangle-free;
+   private vertices of three distinct blocks form a triangle of H, so at
+   most two blocks keep a private vertex outside B and every other
+   block has its private vertices inside B, whence the tail is at most 6
+   and a tail of 7 or more certifies nu_tri >= 3
