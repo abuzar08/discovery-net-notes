@@ -27,7 +27,11 @@ CONCLUSION
    the range, by 3 at |R| = 11 rising to 17 at |R| = 32.
 
    Order 58 at r = 29: 8313 + 15 + 307 = 8635 configurations, against
-   8945 before.  Order 57 is untouched -- w is a feature of the
-   order-58 class only.
+   8945 before.  Order 57 is untouched here only because it is
+   already closed -- NOT because w is peculiar to order 58.  The
+   order-57 class at r = 29 has TWO singletons by this lane's own
+   structure theory, and the same two-line argument gives a strictly
+   STRONGER cap there.  The earlier wording said the opposite; it was
+   flagged in reviews/albertson-singleton-turan/, and corrected here.
 
    r = 29 is NOT proved.

@@ -44,6 +44,22 @@ isolated-vertex configurations are unaffected: all 307 already satisfy the
 sharper cap, as do the 15 with an odd-cycle block.  Order 58 falls from 8945 to
 8635.
 
+A CORRECTION TO THIS FILE'S EARLIER WORDING.  It used to end "Order 57 is
+untouched -- w is a feature of the order-58 class only".  The second half is
+FALSE: the order-57 class at r = 29 has TWO such singletons by this lane's own
+structure theory, and the same two-line argument gives a strictly STRONGER cap
+there.  Order 57 is untouched here only because it is already closed by other
+means.  Flagged in reviews/albertson-singleton-turan/ and not acted on until
+now.
+
+A CORRECTION TO THIS FILE'S EARLIER WORDING.  It used to end "Order 57 is
+untouched -- w is a feature of the order-58 class only".  The second half is
+FALSE: the order-57 class at r = 29 has TWO such singletons by this lane's own
+structure theory, and the same two-line argument gives a strictly stronger cap
+there.  Order 57 is untouched here only because it is already closed by other
+means.  Flagged in reviews/albertson-singleton-turan/ and not acted on until
+now.
+
 Note that this did not come from sharpening an argument.  It came from trying to
 exhibit an object and failing, which is a different and in this lane a more
 reliable way to find things: the previous nine defects were all found by
@@ -170,8 +186,12 @@ def main():
     print()
     print("   Order 58 at r = 29: %d + 15 + %d = %d configurations, against"
           % (alive, iso_alive, alive + 15 + iso_alive))
-    print("   8945 before.  Order 57 is untouched -- w is a feature of the")
-    print("   order-58 class only.")
+    print("   8945 before.  Order 57 is untouched here only because it is")
+    print("   already closed -- NOT because w is peculiar to order 58.  The")
+    print("   order-57 class at r = 29 has TWO singletons by this lane's own")
+    print("   structure theory, and the same two-line argument gives a strictly")
+    print("   STRONGER cap there.  The earlier wording said the opposite; it was")
+    print("   flagged in reviews/albertson-singleton-turan/, and corrected here.")
     print()
     print("   r = 29 is NOT proved.")
 

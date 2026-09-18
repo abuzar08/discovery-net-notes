@@ -37,8 +37,41 @@ defect 15.
 | `albertson-last-order-57-row` | `close57b.py` (h3293) | confirmed as a negative result |
 | `albertson-order-57-closure` | the whole chain, composed | confirmed; **ran it at both seedings and reports the closure seed-independent** |
 
-and thirteen more on the \(r=27\)/\(r=28\) proofs, the seed ladder, the
-order-\(2r\) lemmas, the branch, and the order-58 machinery of passes 43–52.
+### The other thirteen, and what each one asked for
+
+Two passes were lost to errors caused by not having read these. Each row gives
+the caveat the review raised and **whether it was acted on** — that last column
+is the point, and is what pass 53 got wrong by reading a caveat without checking
+for its repair.
+
+| review | caveat raised | status |
+|---|---|---|
+| `albertson-crminus-repair` | none; confirms the repair and that "the closure is seeding-independent as claimed" | — |
+| `albertson-seed-ladder` | confirms the h3092 repair now "holds across the ladder" | — |
+| `albertson-order-58-branch` | the \(b\ge8\) closure held **only** under CCCG seeding; \(b=30\) survived at \(m=839,840\) (8249, 8213 against 8281) | **repaired** by `crminus.py`; `EXPECTED_OUTPUT_LADDER.txt` records both the before and the after, and states the closure "does NOT need the CCCG 2021 value" |
+| `albertson-r28-r29-partial` | the \(r=29\) reductions rested on CCCG; under \(cr(K_{12})=150\) alone, \((827,\lvert R\rvert{=}6)\) and \((828,\lvert R\rvert{=}6)\) survived | **repaired**, same fix; `state29.py`'s control gives \(g(58,f)=8210\) at all four rungs |
+| `albertson-singleton-turan` | **"the singleton is not a feature of the order-58 class only"** — order 57 has *two*, and the argument is *stronger* there | **was open for nine passes; fixed this pass** in `wturan58.py`, which had printed the opposite |
+| `albertson-r28-proof` | \(r=28\) is unconditional on the disputed values, "but by six crossings": the tight row dies at exactly \(e(G[R])\ge6\) and survives at 5 | recorded here; the thinnest point of \(r=28\) is the edge floor, not the seeding |
+| `albertson-order-2r` | thinnest margin \(m=840,\lvert R\rvert=6\): 8424 against 8281, where the target's own inputs give 8721 | recorded here |
+| `albertson-deps-barat-toth` | none; the three quotations verified against the EJC text | — |
+| `albertson-second-level-split` | none; confirmed as a negative result | — |
+| `albertson-method-domain` | keep "cannot guarantee", not "without" — the test is sufficient, not a census | adopted in pass 51 and since |
+| `albertson-sixth-inequality` | none; \(+117\) verified by the reviewer's own ablation | — |
+| `albertson-triangle-free-neighbourhood` | the two caps are **incomparable**; apply \(\min\), never one for the other | adopted, and in the method table |
+| `albertson-read-the-obstruction` | none; confirms 1343 and the exact \(L\)–\(R\) identity | — |
+
+**What the sweep establishes: there is no live unstated crossing-seed dependency
+anywhere in this lane.** Every one reviewer-1 ever flagged was repaired, and each
+repair is recorded in an artifact of mine — `crminus.py`, `ladder.py` — though
+until now in none of them that I read each pass. Pass 53's alarm would have been
+wrong about the \(b\ge8\) closure and the \(r=29\) reductions too, for the same
+reason it was wrong about order 57: a caveat is not a standing defect until you
+check whether it was fixed.
+
+**Three review findings had never been acted on.** The "down from nine"
+attribution (fixed pass 53), the zero-margin fact on row \((57,828)\) (recorded
+pass 53), and the singleton misstatement in `wturan58.py` — **flagged nine passes
+ago and printed in its expected output until this pass**.
 
 ### The \(cr(K_{13})\) question, and the error I made with it
 
@@ -296,7 +329,7 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Seventeen items were found, twelve of one family, all of the same shape — *a step verified on
+Eighteen items were found, twelve of one family, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -317,7 +350,8 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 14 | "the \(\rho\)-sum bound never binds" | **published, misleading** | true of the loose form measured alone; the exact form, paired with the \(w\) charge, is worth 336 → 1343 |
 | 15 | "order 57 has never been independently reviewed" | **false, published on the ledger** | **twenty** reviews exist, **seven** on order 57; checkable with `ls reviews/`. Cause: this document cited one of them |
 | 16 | `aug57.py` never prints its \(cr(K_{13})\ge223\) dependence | a presentational defect in one artifact | flagged in its review, not carried into the artifact; `seed57.py` now records it |
-| 17 | "order 57's closure is conditional on \(cr(K_{13})\ge223\)" | **false, published on the ledger** | withdrawn above. `cover57.py` kills those cases structurally at every rung. Made by reading one review of seven — the same failure the same pass was correcting |
+| 17 | "order 57's closure is conditional on \(cr(K_{13})\ge223\)" | **false, published on the ledger** | withdrawn. `cover57.py` kills those cases structurally at every rung. Made by reading one review of seven — the same failure the same pass was correcting |
+| 18 | "\(w\) is a feature of the order-58 class only" (`wturan58.py`) | **false, and printed in its expected output** | order 57 has **two** such singletons and the cap is *stronger* there. Flagged in `reviews/albertson-singleton-turan/` nine passes ago; fixed this pass |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.
