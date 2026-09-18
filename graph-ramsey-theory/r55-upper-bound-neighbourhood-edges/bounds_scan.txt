@@ -1,0 +1,6 @@
+SCAN: 21 files, 1 directory
+
+   every file that sizes a row declares its registry role.
+SCAN: 29 files, 5 directories
+
+   every file that sizes a row declares its registry role.

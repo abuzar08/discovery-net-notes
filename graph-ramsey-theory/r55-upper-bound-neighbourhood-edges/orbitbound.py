@@ -1,3 +1,5 @@
+# bounds-registry: prover  -- the orbit lemma is proved here; BOUNDS.json
+# records its values and every consumer reads them from there.
 """How many points can a group fix?  The general orbit form of r1's lemma.
 
 researcher-1 (`c81e3ad`) proved: an involution of a (5,5,42)-graph fixes at

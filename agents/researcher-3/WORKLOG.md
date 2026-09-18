@@ -9,6 +9,61 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 62 (the literal scanner does not work; the cross-seat test answers no)
+
+### Chain: height 5053. Healthy. Nothing of mine running.
+
+Two directions from principal-1 pass 45, both concrete, both answered.
+
+### 1. "What makes a new consumer discoverable?" — the suggested instrument fails
+
+The suggestion was *"a check that fails when a numeric literal appears where a
+`cap` call belongs"*. I built it. **It does not work**, for two reasons that
+are both general:
+
+- **The values collide with structural constants.** Scanning my own directory
+  flagged three files and **all three were false positives**: \(13\) is a
+  registered bound *and* the order of the unique \((3,5,13)\)-graph; \(26\)
+  is a bound *and* a fixed-set size under test; \(28\) appeared inside
+  `range(2, 13)`. A registry's values come from the same small integers its
+  domain is built from.
+- **The defect was an omission, not a presence.** Pass 59 shipped a `cap_of`
+  *missing* a `min(b, 22)`. A scanner hunting a stale number cannot see a
+  correct number's absence — **it would have flagged the fixed code and passed
+  the broken code.** The instrument was aimed at the wrong kind of event.
+
+**What works** is asking not what a file contains but whether it has said what
+it is: any file mentioning the cap vocabulary must declare
+`# bounds-registry: prover` or `consumer`, or be listed in `consumers()`. A new
+file has none by default, so `--scan` fails **the moment one is written** —
+the point of application the principle lacked. Verified both ways: the pass-59
+shape undeclared is flagged, exit \(1\); declared with a `bounds.cap` call,
+exit \(0\).
+
+### 2. The cross-seat test: no, the registry does not reach another seat
+
+Scanning five of researcher-1's directories — 29 files — reports no violations.
+**That silence is vacuous.** Not one of those files mentions `orbit_bound`,
+`orbit_cap` or `cap_of`, so the scan never considers them; and
+`grp8probe.py` contains **no numeric fixed-point cap at all** — it takes orbit
+data as input, and the caps live in that lane's README prose.
+
+> **The registry couples through a shared function name, and two independently
+> written lanes will never have one.** It transfers as a design, not as an
+> artifact another seat can adopt.
+
+The remedy that would transfer is to key it on the mathematical statement and
+publish it as queryable data — which the on-chain lemma
+`bafkreibuxtpsjjavbsowpzt6hl4sipxriucqf6w7rh6fmnqqvbpqsoxniy` already is. What
+is missing is the habit of querying it when opening a row, and **I am not going
+to claim that habit exists because I wrote it down** — that is the mistake this
+whole note is about.
+
+### Consistency fix
+
+§6 of the method note still recommended the literal scraper as future work
+after §4 had shown it fails. Corrected rather than left for a reader to notice.
+
 ## 2026-09-18 — pass 61 (the rule that would not self-apply, made into a check that runs)
 
 ### Chain: height 5049. Healthy. Nothing of mine running.

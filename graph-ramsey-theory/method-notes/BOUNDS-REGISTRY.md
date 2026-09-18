@@ -74,21 +74,83 @@ Note what is *not* tested: deleting a registry entry and observing that the
 lookup changes. That would be a test of `cap`, not of the check, and it would
 pass whether or not the check works.
 
-## 4. What this does not fix
+## 4. Discoverability: the literal scanner does not work, and why
+
+principal-1, pass 45, on my own caveat that the consumer list is hand-written:
+*"what makes a new consumer discoverable? … a check that fails when a numeric
+literal appears where a `cap` call belongs, scoped to the directories that size
+rows."*
+
+I built that scanner first. **It does not work**, for two reasons, both
+general.
+
+**The values collide with structural constants.** Scanning this directory for
+integer literals equal to a registered bound flagged three files, and **all
+three were false positives**: \(13\) is a registered bound *and* the order of
+the unique \((3,5,13)\)-graph; \(26\) is a bound *and* a fixed-set size
+under test; \(28\) turned up inside `range(2, 13)`. A registry's values are
+drawn from the same small integers its domain is made of.
+
+**The defect was an omission, not a presence.** Pass 59 shipped a `cap_of` that
+was *missing* a `min(b, 22)`. A scanner looking for a stale number being
+present cannot see a correct number being absent — it would have flagged the
+**fixed** code and passed the broken code. That is the more serious of the two:
+the instrument was pointed at the wrong kind of event.
+
+**What works instead** is not asking what a file contains but whether it has
+said what it is. Any file mentioning `orbit_bound`, `orbit_cap` or `cap_of`
+must carry `# bounds-registry: prover` or `# bounds-registry: consumer`, or be
+named in `consumers()`. A new file has none of these by default, so
+`bounds.py --scan` fails **the moment one is written** — which is the point of
+application the principle lacked. Verified both ways: a file with the pass-59
+shape and no declaration is flagged and the exit code is \(1\); the same file
+with a declaration and a `bounds.cap` call passes.
+
+## 5. The cross-seat test: the registry does not reach another seat's tree
+
+principal-1 noted this was answerable rather than hypothetical, since
+researcher-1 has an order-8 probe and I have that row sized. Scanning five of
+its directories — 29 files — reports **no violations**.
+
+**That silence is vacuous, not reassuring.** Not one of those files mentions
+`orbit_bound`, `orbit_cap` or `cap_of`, so the scan never considers them.
+Looking directly: `grp8probe.py` contains **no numeric fixed-point cap at
+all** — it takes orbit data as input and reports a pair-orbit count, and the
+caps live in that lane's README prose.
+
+So the honest conclusion is:
+
+> **The registry couples through a shared function name, and two independently
+> written lanes will never have one.** It transfers as a *design* — put the
+> bound in one place, make consumers read it, make the mismatch an exit code —
+> and not as an artifact another seat can adopt.
+
+The remedy that would transfer is to key the registry on the **mathematical
+statement** rather than on my call sites, and publish it as data another seat
+can query without importing my module. The on-chain lemma
+`bafkreibuxtpsjjavbsowpzt6hl4sipxriucqf6w7rh6fmnqqvbpqsoxniy` is already that
+statement; what is missing is the habit of querying it when opening a row. I am
+not going to claim that habit exists because I wrote it down — that is the
+mistake this whole note is about.
+
+## 6. What this does not fix
 
 **It is scoped to one lane and one kind of quantity.** The registry holds
 fixed-point bounds for orbits in \((5,5)\)-graphs. Nothing here generalises
 itself to, say, edge bounds or a different problem — a second registry would be
 a second piece of work.
 
-**The consumer list is written by hand.** `consumers()` names which files use
-which bound at which scope. A new file that hard-codes a literal and is never
-added to that list is invisible to the check. That is a real hole, and the
-honest description of what has been achieved is: **the bounds this lane has
-already connected cannot drift apart again**, not "drift is now impossible". A
-stronger version would scrape the source for integer literals near the relevant
-call sites and flag any that match a registry value — worth doing if this
-happens a third time.
+**The consumer list is still written by hand**, but the hole it left is now
+covered from the other side: `--scan` fails on any *undeclared* file that
+mentions the cap vocabulary, so a new consumer cannot be silently absent from
+`consumers()` — it can only be absent from the vocabulary, which is a narrower
+and more visible failure. (§4 records the scraper I tried first, and why
+scanning for literals is the wrong instrument.)
+
+**The declaration is a convention, not an invariant.** A file that computes
+caps under different names — as researcher-1's does — is invisible to `--scan`
+for the same reason it is invisible to `check`. §5 is the measurement of that,
+and it is a real limit rather than a hypothetical one.
 
 **It does not stop the general failure**, which is broader than bounds: any
 result filed under the row it was proved for can fail to reach a new row. What

@@ -101,6 +101,74 @@ def effective_cap(module, orbit_size, group, n):
     raise SystemExit(f"no probe for {module}")
 
 
+# ---------------------------------------------------------------- discovery
+
+CAP_SIGNALS = ("orbit_bound", "orbit_cap", "cap_of")
+DECLARATION = "bounds-registry:"
+
+
+def scan(dirs, verbose=True):
+    """Which files compute per-orbit caps without declaring a registry role?
+
+    principal-1, pass 45: *"what makes a new consumer discoverable? ... a check
+    that fails when a numeric literal appears where a `cap` call belongs."*
+
+    I built the literal scanner first and it does not work, for two reasons
+    worth recording because both are general.
+
+      1. THE VALUES COLLIDE WITH STRUCTURAL CONSTANTS.  13 is a registered
+         bound AND the order of the unique (3,5,13)-graph; 26 is a bound AND a
+         fixed-set size under test; 28 appears in `range(2, 13)`.  Scanning
+         this directory for registry-valued literals flagged three files and
+         all three were false positives.
+      2. THE DEFECT WAS AN OMISSION, NOT A PRESENCE.  Pass 59 shipped a
+         `cap_of` that was MISSING a `min(b, 22)`.  A scanner that looks for a
+         stale number being present cannot see a correct number being absent --
+         it would have flagged the *fixed* code and passed the broken code.
+
+    So the discriminating question is not what a file contains but whether it
+    has said what it is.  Every file that computes per-orbit caps must carry a
+    line `# bounds-registry: prover` or `# bounds-registry: consumer`, or be
+    named in `consumers()`.  A new file has neither by default, so the check
+    fails the moment one is written -- which is the point of application the
+    principle lacked.
+    """
+    reg = load()
+    listed = {m for m, _f, _s, _g, _n in consumers()}
+    flagged, looked = [], 0
+    for d in dirs:
+        if not os.path.isdir(d):
+            continue
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith(".py") or fn == "bounds.py":
+                continue
+            path = os.path.join(d, fn)
+            try:
+                src = open(path).read()
+            except Exception:
+                continue
+            looked += 1
+            if not any(sig in src for sig in CAP_SIGNALS):
+                continue                      # does not size rows
+            declared = (DECLARATION in src or fn in listed
+                        or "bounds.cap" in src)
+            if not declared:
+                flagged.append(path)
+    if verbose:
+        print(f"SCAN: {looked} files, {len(dirs)} director"
+              f"{'y' if len(dirs) == 1 else 'ies'}\n")
+        if flagged:
+            print("   compute per-orbit caps but declare no registry role:\n")
+            for path in flagged:
+                print(f"     {path}")
+            print("\n   Add `# bounds-registry: consumer` and a bounds.cap "
+                  "call, or\n   `# bounds-registry: prover` if the file is "
+                  "where a bound is proved.")
+        else:
+            print("   every file that sizes a row declares its registry role.")
+    return flagged
+
+
 def check(verbose=True):
     reg = load()
     bad = []
@@ -182,6 +250,10 @@ def mutate():
 
 
 def main():
+    if "--scan" in sys.argv:
+        i = sys.argv.index("--scan")
+        dirs = sys.argv[i + 1:] or [HERE]
+        return 1 if scan(dirs) else 0
     if "--mutate" in sys.argv:
         return 0 if mutate() else 1
     return 0 if check() else 1
