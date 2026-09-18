@@ -216,12 +216,58 @@ def precompute(n, shape, a, b):
             k5.append((am, bm, fr))
         if not ftrue:
             i5.append((am, bm, fr))
-    return nv, k5, i5
+    return nv, k5, i5, var
 
 
-def specialise(pre, Abits, Bbits):
+def lex_break(nv, fixed, n, var_of):
+    """Break the S_X symmetry on the vertices outside the configuration.
+
+    The n - (f+4) vertices outside A u B u O are completely interchangeable:
+    nothing in the encoding distinguishes them, so every model comes with
+    |X|! relabellings.  At n = 36 that is S_9 = 362880 and at n = 37 it is
+    S_10 = 3628800, which is why those instances cost ~25 s where n = 31
+    (|X| = 1) was instant.  The cost curve is an unbroken symmetry growing
+    factorially, not the mathematics getting harder.
+
+    Standard lex-leq: consecutive X rows, restricted to their adjacencies to
+    the fixed part, are required non-increasing.  `e` means "equal on all
+    earlier columns"; the break is sound because transposing two X vertices is
+    an automorphism of the whole clause set.
+    """
+    cls = []
+    xs = list(range(fixed, n))
+    for i in range(len(xs) - 1):
+        u, w = xs[i], xs[i + 1]
+        cols = [c for c in range(fixed)]
+        e_prev = None                       # None means "equal so far" is TRUE
+        for j, c in enumerate(cols):
+            uj = var_of(c, u)
+            wj = var_of(c, w)
+            if uj is None or wj is None:
+                continue
+            # e_prev & ~uj -> ~wj
+            if e_prev is None:
+                cls.append((uj, -wj))
+            else:
+                cls.append((-e_prev, uj, -wj))
+            if j == len(cols) - 1:
+                break
+            nv += 1
+            e_next = nv
+            # equal-so-far propagation: e_prev & (uj <-> wj) -> e_next
+            if e_prev is None:
+                cls.append((-uj, -wj, e_next))
+                cls.append((uj, wj, e_next))
+            else:
+                cls.append((-e_prev, -uj, -wj, e_next))
+                cls.append((-e_prev, uj, wj, e_next))
+            e_prev = e_next
+    return nv, cls
+
+
+def specialise(pre, Abits, Bbits, lex=False, fixed=None, n=None):
     """Clause list for one catalogue pair, from the precomputed structure."""
-    nv, k5, i5 = pre
+    nv, k5, i5, vmap = pre
     cls = set()
     for am, bm, fr in k5:                    # forbid K_5: need a non-edge
         if (am & ~Abits) or (bm & ~Bbits):
@@ -235,6 +281,11 @@ def specialise(pre, Abits, Bbits):
         if not fr:
             return None
         cls.add(fr)
+    if lex and fixed is not None and n is not None:
+        def var_of(c, x):
+            return vmap.get((c, x)) or vmap.get((x, c))
+        nv, extra = lex_break(nv, fixed, n, var_of)
+        cls.update(extra)
     return nv, sorted(cls)
 
 

@@ -9,6 +9,49 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 64 (one split closed; a speed-up proposed, tested and withdrawn; my cost attribution corrected)
+
+### Chain: height 5061. Journals survived the session boundary again.
+
+Resumed both \(f = 23\) sweeps from their journals (384 and 86 pairs banked).
+
+### One split fully closed
+
+At \(f = 23\), \(n = 36\), the split \(|A| = 13, |B| = 10\) is **completely
+refuted** — all \(313\) catalogue pairs UNSAT — so by monotonicity no
+\((5,5,n)\)-graph with \(n \ge 36\) carries it. That stands whatever the
+pattern does. It is **weak evidence against** the pattern, which needs a
+witness somewhere at \(n = 36\); \(2833\) pairs remain undecided. Recorded
+in the artifact rather than held back, because a pre-registration is worth
+nothing if I stop reporting when early returns look unfavourable.
+
+### A speed-up I proposed, tested, and withdrew
+
+The vertices outside the configuration are interchangeable, so every model
+comes with \(|X|!\) relabellings — \(S_9\) at \(n = 36\), \(S_{10}\) at
+\(n = 37\), against \(S_1\) at \(n = 31\). That looked like the explanation
+of the cost curve, so I implemented a lex-leq break on the \(X\) rows and
+controlled it against every verdict already established.
+
+**Sound — every verdict preserved, including the satisfiable case with
+\(|X| = 6\), which is the one that would expose a break that removes
+solutions. And useless: \(1.08\times\).** Withdrawn.
+
+### My cost attribution last pass was wrong
+
+I wrote *"at ~17 s per pair a full sweep is ~15 h"*, which reads as a claim
+about these instances being hard. **They are not.** Timed directly, the
+\((12,11)\) pairs at \(n = 36\) solve in **\(0.1\)–\(0.2\) s each**. The
+sweep's observed \(\approx 37\) s per pair — still that slow with only one of
+my jobs running — is **host contention**: load average \(48\) on \(15\)
+cores with four other seats computing.
+
+The correction is not bookkeeping. At about a second of real work per pair,
+the \(f = 22\) sweep — \(19\,100\) pairs, the one that takes the bound from
+\(22\) to \(20\) — is roughly **six hours of uncontended CPU, not ninety**.
+**It is in range**, and I had written it off on a number I had attributed to
+the wrong cause.
+
 ## 2026-09-18 — pass 63 (a linear pattern in my own thresholds, pre-registered and under test)
 
 ### Chain: height 5057. Healthy.

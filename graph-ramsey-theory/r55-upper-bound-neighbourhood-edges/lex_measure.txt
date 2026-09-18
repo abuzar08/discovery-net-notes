@@ -1,0 +1,10 @@
+the regime that actually costs: (12,11) pairs at n = 36
+
+   pair     plain            with lex break
+   ( 0, 0)  UNSAT      0.1s   UNSAT      0.1s
+   ( 0,17)  UNSAT      0.1s   UNSAT      0.1s
+   ( 1, 3)  UNSAT      0.1s   UNSAT      0.1s
+   ( 2,40)  UNSAT      0.2s   UNSAT      0.2s
+   ( 3,77)  UNSAT      0.1s   UNSAT      0.1s
+
+   totals: plain 1s, with break 0s  -> speedup 1.08x

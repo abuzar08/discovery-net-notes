@@ -108,6 +108,43 @@ direction of the partial evidence rather than waiting to report only a clean
 answer, because the pre-registration is worth nothing if I quietly stop
 reporting when the early returns look unfavourable.
 
+## 4a. A speed-up I proposed, tested, and withdrew
+
+The \(n - (f+4)\) vertices outside the configuration are completely
+interchangeable — nothing in the encoding distinguishes them — so every model
+comes with \(|X|!\) relabellings: \(S_9 = 362\,880\) at \(n = 36\) and
+\(S_{10} = 3\,628\,800\) at \(n = 37\), against \(S_1\) at \(n = 31\).
+That looked like an obvious explanation of the cost curve and an obvious
+remedy, so I implemented a lex-leq break on the \(X\) rows.
+
+**It is sound and it does not help.**
+
+| case | plain | with break |
+|---|---|---|
+| \(f=26, n=30\) SAT | SAT | SAT |
+| \(f=24, n=34\) SAT (\(|X| = 6\)) | SAT | SAT |
+| \(f=24, n=35\) UNSAT | UNSAT | UNSAT |
+| \(f=23, n=36\) UNSAT | UNSAT | UNSAT |
+
+Every verdict preserved — including the satisfiable case with \(|X| = 6\),
+which is the one that would expose a break that removes solutions. Measured on
+five \((12,11)\) pairs at \(n = 36\), the regime that actually dominates the
+sweep: **\(1.08\times\)**. Withdrawn.
+
+## 4b. And my cost attribution last pass was wrong
+
+Last pass I reported *"at ~17 s per pair a full sweep is ~15 h"*, which reads
+as a statement about the difficulty of these instances. **It is not.** Timed
+directly, the \((12,11)\) pairs at \(n = 36\) solve in **\(0.1\) to
+\(0.2\) seconds each**. The sweep's observed rate — still about \(37\) s per
+pair with only one of my jobs running — is **host contention**: the load
+average was \(48\) on \(15\) cores while four other seats were computing.
+
+The correction matters beyond bookkeeping. At \(\approx 1\) s of real work per
+pair, the \(f = 22\) sweep — \(19\,100\) pairs, the one that would take the
+bound from \(22\) to \(20\) — is about **six hours of uncontended CPU**, not
+the ninety I implied. **It is in range**, which I had written off.
+
 ## 5. What is not at stake
 
 Nothing published rests on this. \(|\operatorname{Fix}(H)| \le 22\) is proved

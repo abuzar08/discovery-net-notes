@@ -1,0 +1,11 @@
+CONTROL: the lex break must preserve every verdict already established
+
+   case                          plain        with lex break     speedup
+   f=26 n=30 (13,13) known SAT    SAT          0.0s   SAT          0.0s     1.0x  ok
+   f=25 n=32 (13,12) known SAT    UNSAT        0.0s   UNSAT        0.0s     0.8x  ok
+   f=25 n=33 (13,12) known UNSAT  UNSAT        0.0s   UNSAT        0.0s     0.9x  ok
+   f=24 n=34 (11,13) known SAT    SAT          0.4s   SAT          0.8s     0.5x  ok
+   f=24 n=35 (11,13) known UNSAT  UNSAT        0.1s   UNSAT        1.3s     0.0x  ok
+   f=23 n=36 (13,10) known UNSAT  UNSAT        0.1s   UNSAT        0.1s     0.9x  ok
+
+   every verdict preserved; the break removes symmetry, not solutions.
