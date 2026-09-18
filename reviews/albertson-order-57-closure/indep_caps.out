@@ -1,0 +1,14 @@
+my own arithmetic for the residue-57 caps (order 57, m = 828):
+   X = 2m - 57*28 = 60 ; Sx = X - 54 + a with a <= 3, so Sx <= 9
+   |R|  multiset        e(H[R])  |Z|  thr1 thr2   my k1 cap  my k2 cap   published
+    10  (24, 23)            4     8     5    4         2          3    (2, 3)  agree
+    10  (24, 23, 2)         3     8     5    4         1          2    (1, 2)  agree
+    10  (25, 22)            2     8     6    3         1          2    (1, 2)  agree
+    10  (25, 22, 2)         1     8     6    3         0          1    (0, 1)  agree
+    11  (26, 20)            0     9     8    2         0          0    (0, 0)  agree
+
+   every earlier survivor exceeds its cap:
+     (24, 23, 2)     survivors [(3, 4)] against caps (1, 2) -> all above the cap
+     (25, 22)        survivors [(2, 5)] against caps (1, 2) -> all above the cap
+     (25, 22, 2)     survivors [(2, 0), (2, 1), (2, 2), (2, 3)] against caps (0, 1) -> all above the cap
+     (26, 20)        survivors [(1, 0), (1, 1), (1, 2)] against caps (0, 0) -> all above the cap
