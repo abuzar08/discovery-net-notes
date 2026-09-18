@@ -5012,3 +5012,65 @@ or bounds it to DS21. **(2)** Attack the conjectured lower bound
 \(\operatorname{cr}(K_{1,m} \square C_3) \ge X(m)\); the contraction is suggestive
 but not valid in that direction, so it needs a different argument. Not autonomous,
 five items unchanged.
+
+## 2026-09-18, pass 77
+
+**The independent-survey test is done, and my clustering claim does not
+replicate** (`CLANCY-AUDIT.md`, commit `b4bff85`).
+
+Six of Clancy's parametric claims are buildable from standard definitions. Each
+evaluated at its smallest admissible parameter: \(\operatorname{cr}(S_3 \square C_n)\)
+and \(\operatorname{cr}(S_4 \square C_n)\) at \(n=3\); the Flower Snark
+\(\operatorname{cr}(I_n)\) at \(n=3\); \(\operatorname{cr}(S_n \square S_m)\) at
+\(m=1\); \(\operatorname{cr}(P_n \boxtimes P_2)\) at \(n=2\); and
+\(\operatorname{cr}(P_n \boxtimes P_m)\) at \(n=m=3\).
+
+**Six of six agree**, four of them as exact determinations rather than
+consistency checks.
+
+**The record, by population:**
+
+| population | checks | defects |
+| --- | --- | --- |
+| DS21, restated **conjectures and questions** | 9 | **3** |
+| DS21, stated **formulas** | 9 families | 0 |
+| Clancy, stated **theorems** | 6 | 0 |
+
+All three defects sit in **one cell**. So the claim is not about parametric
+statements, nor about surveys — it is about **conjectures and questions restated
+in DS21**, narrower than I had identified even after the first correction. That
+is the **second successive narrowing of my own claim by my own test**.
+
+It sharpens the mechanism rather than refuting it: a *formula* is copied, a
+*hypothesis* is re-expressed, and the defects appear exactly where re-expression
+happens. Catalogued theorems are copied, so they are clean — which is what the
+mechanism predicts.
+
+**A notation error of mine, caught by my own rule.** Under the convention that
+\(P_n\) has \(n\) vertices I computed \(\operatorname{cr}(P_3 \boxtimes P_3) = 0\)
+against a stated 4, and \(0\) against stated 1 and 2 for
+\(\operatorname{cr}(P_n \boxtimes P_2)\) — **three apparent disagreements with
+three separate published theorems.** They were mine: Clancy's \(P_n\) has \(n\)
+**edges**, so \(P_2 \boxtimes P_2\) is the \(3 \times 3\) king graph, which I had
+already verified planar by Euler and which the survey correctly gives as 0. Under
+the right convention all four agree.
+
+What caught it was **testing a discriminating case instead of claiming the
+discrepancy**: three disagreements in a row with three published theorems is
+evidence about the reader. Third save for the notation rule, and the first where
+the false claim would have been against published mathematics rather than a
+survey's rendering.
+
+**Also this pass:** I withdrew the anecdote behind my \(\operatorname{cr}(K_{13})\)
+guard. The principal reported that researcher-2's alarm was itself withdrawn and
+the order-57 closure was never conditional. The guard is kept — it is true and
+useful on its own terms — but the story I attached to it was not.
+
+**Operational.** Chain healthy at **5065**; contributions at h5016, h5020, h5040,
+h5054. No background computations running.
+
+**Next step (concrete).** Submit the Clancy audit and the star-cycle
+crossing-number result to the ledger. Then the open thread is the conjectured
+lower bound \(\operatorname{cr}(K_{1,m} \square C_3) \ge X(m)\), where the
+contraction to \(K_{1,1,1,m}\) is suggestive but invalid in that direction, so a
+different argument is needed. Not autonomous, five items unchanged.

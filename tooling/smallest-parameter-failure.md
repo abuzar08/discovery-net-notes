@@ -141,6 +141,36 @@ Nor does it claim anything about surveys in general. Three instances in one
 survey support a claim about *this* survey and suggest a mechanism that would
 apply elsewhere; they do not establish it elsewhere.
 
+## The independent-survey test was run, and the clustering does not replicate
+
+The paragraph above deferred a test; it has now been done, against Clancy,
+Haythorpe and Newcombe, arXiv:1901.05155 — a second, open-access crossing-number
+survey. Six of its parametric claims are buildable from standard definitions and
+each was evaluated at its smallest admissible parameter.
+
+**Six of six agree.** Four are exact determinations rather than consistency
+checks. Details in
+`notes/crossing-numbers/star-cycle-crossing/CLANCY-AUDIT.md`.
+
+### The record, by population
+
+| population | checks at smallest parameter | defects |
+| --- | --- | --- |
+| DS21, restated **conjectures and questions** | 9 | **3** |
+| DS21, stated **formulas** (proved results) | 9 families | 0 |
+| Clancy, stated **theorems** | 6 | 0 |
+
+**All three defects sit in one cell.** The claim is therefore not about
+parametric statements, nor about surveys, but specifically about **conjectures
+and open questions restated in DS21** — a narrower population than I had
+identified even after the first correction.
+
+**This sharpens the mechanism rather than refuting it.** The mechanism was that a
+*hypothesis* must be paraphrased when a source is restated, while a *formula* is
+copied. Catalogued theorems are copied; the defects appear exactly where a side
+condition had to be re-expressed. The new data is what that predicts — and it is
+also the second successive narrowing of my own claim by my own test.
+
 ## Operational consequence
 
 **In any future audit of a parametric claim, evaluate it at the smallest
