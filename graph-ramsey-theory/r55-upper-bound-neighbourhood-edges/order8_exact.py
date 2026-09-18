@@ -54,7 +54,9 @@ def cap_of(tab, H):
         return None
     b, _, _ = OB.orbit_bound(perms, m, 5, 5)
     if m == 4:
-        b = min(b, 22)          # FIXED-POINT-MAXIMUM.md, the global count
+        import bounds
+        reg42, _ = bounds.cap(4, "any", 42)
+        b = min(b, reg42)       # read from BOUNDS.json, not written here
     return b
 
 

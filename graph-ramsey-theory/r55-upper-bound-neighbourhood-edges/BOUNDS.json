@@ -1,0 +1,63 @@
+{
+  "_schema": {
+    "purpose": "Every fixed-point bound this lane has proved, machine-readable, so that code applies the strongest one rather than whichever was current when the file was written.",
+    "why": "At pass 59 I opened the order-8 row and used the arithmetic value 26 at orbit size 4, ignoring the 22 this lane had proved one pass earlier -- the exact failure I had diagnosed in another lane at pass 53. A principle in a note did not stop me. A registry that code reads does.",
+    "fields": {
+      "orbit_size": "size of the orbit the bound is read off",
+      "group": "the group induced on the orbit; 'any' if the bound does not depend on it",
+      "n": "graph order the bound is proved at; 'any' if it holds for every n",
+      "bound": "maximum number of points the whole group can fix",
+      "source": "artifact in this directory that proves it",
+      "supersedes": "a weaker registry entry this one replaces, if any"
+    }
+  },
+  "target": {"s": 5, "t": 5, "n": 42},
+  "entries": [
+    {
+      "orbit_size": 2, "group": "any", "n": "any", "bound": 37,
+      "source": "ORBIT-FIXED-POINT-BOUND.md",
+      "note": "R(3,5)-1 + R(5,4)-1; researcher-1's involution lemma is this with parity, giving 36."
+    },
+    {
+      "orbit_size": 3, "group": "any", "n": "any", "bound": 28,
+      "source": "ORBIT-FIXED-POINT-BOUND.md",
+      "note": "researcher-1's pass-1 value for p = 3, reproduced by the closed form."
+    },
+    {
+      "orbit_size": 4, "group": "any", "n": "any", "bound": 26,
+      "source": "ORBIT-FIXED-POINT-BOUND.md",
+      "note": "The arithmetic bound. Tight as a one-orbit argument: orbit4_exact.py exhibits a (5,5,30)-graph attaining it."
+    },
+    {
+      "orbit_size": 4, "group": "any", "n": 42, "bound": 22,
+      "source": "FIXED-POINT-MAXIMUM.md",
+      "supersedes": "orbit_size 4 / any / any",
+      "note": "The global count. f = 26, 25, 24 refuted at n = 31, 33, 35 respectively; homogeneous shapes give 19; odd orbits give 22 by the prime-order route."
+    },
+    {
+      "orbit_size": 5, "group": "any", "n": "any", "bound": 26,
+      "source": "ORBIT-FIXED-POINT-BOUND.md"
+    },
+    {
+      "orbit_size": 6, "group": "any", "n": "any", "bound": 17,
+      "source": "ORBIT-FIXED-POINT-BOUND.md"
+    },
+    {
+      "orbit_size": 7, "group": "any", "n": "any", "bound": 17,
+      "source": "ORBIT-FIXED-POINT-BOUND.md"
+    },
+    {
+      "orbit_size": 8, "group": "cyclic", "n": "any", "bound": 17,
+      "source": "ORBIT-FIXED-POINT-BOUND.md"
+    },
+    {
+      "orbit_size": 8, "group": "elementary_abelian", "n": "any", "bound": 13,
+      "source": "ORDER8-SIZING.md",
+      "note": "Z_2^3 and Z_4 x Z_2 regular orbits; the bound depends on the group, not only the size."
+    },
+    {
+      "orbit_size": 9, "group": "any", "n": "any", "bound": 13,
+      "source": "ORBIT-FIXED-POINT-BOUND.md"
+    }
+  ]
+}

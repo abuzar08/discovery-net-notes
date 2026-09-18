@@ -1,0 +1,32 @@
+REGISTRY
+
+   orbit  group                 n     bound   source
+       2  any                  any        37   ORBIT-FIXED-POINT-BOUND.md
+       3  any                  any        28   ORBIT-FIXED-POINT-BOUND.md
+       4  any                  any        26   ORBIT-FIXED-POINT-BOUND.md
+       4  any                  42         22   FIXED-POINT-MAXIMUM.md   (supersedes orbit_size 4 / any / any)
+       5  any                  any        26   ORBIT-FIXED-POINT-BOUND.md
+       6  any                  any        17   ORBIT-FIXED-POINT-BOUND.md
+       7  any                  any        17   ORBIT-FIXED-POINT-BOUND.md
+       8  cyclic               any        17   ORBIT-FIXED-POINT-BOUND.md
+       8  elementary_abelian   any        13   ORDER8-SIZING.md
+       9  any                  any        13   ORBIT-FIXED-POINT-BOUND.md
+
+CONSUMERS
+
+   file                 orbit  group                 registry  in use
+   order8_exact.py          4  any                        22  22
+   order8_exact.py          8  cyclic                     17  17
+   order8_exact.py          8  elementary_abelian         13  13
+   order8.py                4  any                        22  22
+   orbitbound.py            4  any                        22  22
+
+   PASS: every consumer is using the strongest registered bound.
+MUTATION TEST -- would this check have caught the pass-59 defect?
+
+   unmutated:                          check passes: True
+   with the pass-59 defect reinstated: check FAILS:  True
+   after restoring:                    check passes: True
+
+   The check is discriminating: it passes on the real code,
+   fails on the exact defect that shipped, and recovers.

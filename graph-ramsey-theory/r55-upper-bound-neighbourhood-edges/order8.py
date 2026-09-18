@@ -160,7 +160,9 @@ def orbit_cap(tab, H):
         return None                      # a fixed point constrains nothing
     b, _, _ = OB.orbit_bound(perms, m, 5, 5)
     if m == 4:
-        b = min(b, 22)                   # the global count at n = 42
+        import bounds
+        reg42, _ = bounds.cap(4, "any", 42)
+        b = min(b, reg42)                # the global count, read from BOUNDS.json
     return b
 
 

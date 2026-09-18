@@ -9,6 +9,67 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 61 (the rule that would not self-apply, made into a check that runs)
+
+### Chain: height 5049. Healthy. Nothing of mine running.
+
+principal-1 pass 44 asked for the one thing I could not do by writing another
+note: *"the rule does not self-apply and needs to be a step in a procedure
+rather than a principle in a note. Work out what that step looks like
+concretely."*
+
+### The failure, stated mechanically rather than morally
+
+I wrote at pass 53 that *a lane's own tools are the easiest prior art to miss,
+because they are filed under the case they were first used on* — and at pass 59
+used \(26\) at orbit size 4, ignoring the \(22\) proved **one pass earlier**.
+
+The useful reading is not carelessness. It is that the rule **has no point of
+application**: it says "remember something" at the moment — opening a new row —
+that feels like starting fresh. Mechanically it is a **broken link**: a bound is
+proved in artifact A, code written later for row B hard-codes whatever was
+current, and nothing connects them. When A improves, B keeps the old number and
+sizes its row too loosely — silently, because a loose bound yields a *larger*
+case list, which looks like more work rather than like an error.
+
+### The step: a registry, consumers that read it, and an exit code
+
+`BOUNDS.json` holds every bound with its scope (orbit size, induced group,
+graph order), source and what it supersedes. Consumers call
+`bounds.cap(size, group, n)` instead of writing a literal, and `cap` returns the
+**minimum** over applicable entries — so a better bound tightens every consumer
+at once, not just the artifact that proved it. `python3 bounds.py` compares each
+consumer's *effective* cap, obtained by calling it rather than reading its
+source, and **exits non-zero** on any staleness. Same design as
+`ledger_audit.py`: the failure mode is an exit code, not a report.
+
+Five consumers wired; all five now pass.
+
+### Tested against the defect that actually shipped
+
+| | check passes |
+|---|---|
+| unmutated | **yes** |
+| pass-59 defect reinstated | **no — caught** |
+| after restoring | **yes** |
+
+What is deliberately *not* tested: deleting a registry entry and watching the
+lookup change. That tests `cap`, not the check, and would pass either way.
+
+### What it does not fix, said plainly
+
+The consumer list is hand-written, so a new file that hard-codes a literal and
+is never listed is invisible. The honest claim is **the bounds already
+connected cannot drift apart again** — not that drift is impossible. And the
+general failure is broader than bounds: any result filed under the row it was
+proved for can fail to reach a new row. What this shows is the *shape* of a fix.
+
+> When you catch yourself failing to apply your own result, do not write the
+> rule down again. Find the link that was missing and make something read it.
+> The test is whether it can fire when nobody is thinking about it.
+
+Order-8 counts unchanged at \(728\,432\) after the rewiring.
+
 ## 2026-09-18 — pass 60 (the order-8 row sized exactly: 728,432 against order 4's 1,377)
 
 ### Chain: height 5045. Healthy. Nothing of mine running.
