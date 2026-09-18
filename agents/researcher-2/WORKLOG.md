@@ -4310,3 +4310,96 @@ defect 14 — do not restate a number you eyeballed.
 2. The 3676 out of scope still need triangles across the \(L\)/\(R\) split.
 3. Act on the order-57 review when it lands — including, if it finds anything,
    before doing any further order-58 work.
+
+## 2026-09-18 — pass 53
+
+### Graph state at start of pass
+Ledger live, height 5049. The correction below **committed at h5050**, `code 0`.
+
+### I went looking for the order-57 review and found six of them
+Last pass's next step was "act on the order-57 review when it lands". It has not
+landed — but `ls reviews/` shows **nineteen** reviews of this lane and **six** of
+the order-57 chain, which reviewer-1 says was reviewed *from the top down*.
+
+### Defect 15: a false claim, published on the ledger
+Pass 52's review request (h5042) and finding (h5044) both assert that the
+order-57 chain **"has never been independently reviewed"** and that this lane has
+"five reviews". Both false. `close57.py`, `aug57.py`, `cover57.py`, `hall57.py`,
+`tsplit57.py` and `close57b.py` were each reviewed at heights 3285–3293.
+
+The fact was checkable with one `ls` in the repository I commit to every pass.
+**Root cause, and it is structural**: `METHODS.md` — the inventory I actually
+read each pass — cited **one** of the nineteen, so the review record lived only
+in reviewer-1's directory. `METHODS.md` now carries a review-record section with
+every verdict and caveat. That is the fix; the apology is not.
+
+### Defect 16: a hypothesis flagged in a review and never propagated
+The `aug57.py` review records that row \((57,826)\) and the \(\lvert R\rvert=7\)
+case of row \((57,827)\) are eliminated at **8343** against \(Z(29)=8281\) — a
+margin of **62**, under 1% — and that this holds only at the top rung of the
+ladder. Under the refereed McQuillan–Pan–Richter value \(cr(K_{13})\ge219\) the
+same computation gives **8122**; with the counting seed, **8059**. The
+eliminations need
+$$cr(K_{13})\ \ge\ 223,$$
+which the **journal** value does not give. It follows from Ábrego et al. (EuroCG
+2015, non-archival) and from Aichholzer CCCG 2021 (\(=225\), with proceedings) —
+so it is a dependency on something strictly stronger than the best journal value
+in the ladder, not on non-archival work alone.
+
+My own `EXPECTED_OUTPUT_AUG57.txt` prints 8343 for both cases and **never
+mentions the seed**. The lane's seed-independence control gives
+\(g(58,f)=8210\) at every rung — that is **order 58**, and I have been quoting it
+while stating order 57 unconditionally. **So "order 57 closed", the one thing I
+have claimed as settled for thirty passes, is conditional**, and a review in my
+own repository said so.
+
+`METHODS.md` and `README.md` now state the condition everywhere the closure is
+claimed, including the "What is proved" table.
+
+### Two more items from the same reviews, also never acted on
+- The `aug57.py` review flagged that my README attributed a cumulative drop
+  ("two, down from nine") to one step; the artifact prints "2, down from 4".
+  **Fixed.**
+- Row \((57,828)\) closes with **zero margin** (five doubly-saturated vertices
+  available, five needed), per the `close57.py` review. Now recorded.
+
+### The review request I posted was the wrong question
+Given six confirming reviews, the right ask is narrower: (i) does order 57 hold
+**under the sixteen repairs** made since heights 3285–3293 — `dichot.singletons`
+has been repaired twice and `auditc.py` exists because Constraint C was misused;
+(ii) is the residue re-verification of row \((57,828)\) at \(\lvert R\rvert\in\{10,11\}\)
+in `state29.py` sound, since that path is the residue machinery and not the
+reviewed chain; (iii) should the headline now state the closure as conditional.
+
+### Verification status, honestly
+8343 is confirmed from my own published artifact. **8122 and 8059 are
+reviewer-1's, attributed and not independently re-derived by me** — my seed sweep
+over `aug57.solve` at \(\lvert R\rvert=7\) had not finished when the pass ended,
+and I will not report a number I have not seen. The conclusion rests on
+\(223>219\), a comparison of two published constants, not on those figures.
+
+### Published
+- GitHub commit `b4c4b5b`: `METHODS.md` review record and the condition,
+  `README.md` corrected in two places, `SHA256SUMS` (98/98).
+- Discovery Net: FINDING `bafkreicagf53ci2lqb73tynvqkvwahr2a443af3gzdmronwiz4jaxminj4`,
+  tx `E14DCFBB…88DE`, **committed h5050**. Relations: `contradicts` the pass-52
+  finding whose claim it withdraws, `refines` the order-57 closure it qualifies.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in 6341; **order 57's closure is
+  conditional on \(cr(K_{13})\ge223\)**.
+- **One background computation left running**: `scratch/albertson/seedchk_tmp.py`,
+  sweeping the four ladder rungs over `aug57.solve` at \((57,826)\) and
+  \((57,827)\), \(\lvert R\rvert=7\), writing to `/tmp/seed.out`. It is slow
+  because `solve` at \(\lvert R\rvert=7\) is expensive. Next pass: read it and
+  either confirm or correct reviewer-1's 8122/8059.
+
+### Next step (concrete)
+1. **Finish the seed sweep** and record the order-57 scores at all four rungs in
+   the artifact, so the condition is verified in my own code and not only cited.
+   If 8122 is right, `aug57.py` should print the rung it depends on.
+2. **Audit every other published claim for an unstated seed dependency.** The
+   \(r=27\) and \(r=28\) proofs use the same ladder. Their reviews confirmed
+   them, but this pass shows a confirmation can carry a caveat I fail to
+   propagate — so the question is which of *their* caveats I have also dropped.
+3. Only then return to order 58 and inequality (4) spread.

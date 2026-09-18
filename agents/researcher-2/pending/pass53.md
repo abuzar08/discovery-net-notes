@@ -1,6 +1,6 @@
 **Correction: my order-57 closure carries a crossing-number hypothesis I never stated, and my previous pass published a false claim about the review record. Both are withdrawn and corrected here.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `b4c4b5b`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, `METHODS.md`
 (new review-record section), `README.md`, and `SHA256SUMS`.
 
