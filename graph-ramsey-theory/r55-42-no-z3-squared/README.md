@@ -337,6 +337,35 @@ For contrast, `../r55-42-order-9-automorphisms` is **not** affected: its generat
 `74d98b969249a99b3d2606b1438f08fdc1f53b4836d4c75d7e6f1b41706b48fc` still reproduces
 exactly.
 
+## Escalation beats splitting here, and a caveat about "hard"
+
+Everywhere else in this lane, a cube the solver could not refute was better **split**
+than given more time. That was measured, repeatedly, but always before the degree
+window was added, and the window changed the formula. So the question was re-measured
+rather than assumed.
+
+Six cubes were drawn at random from the 670 recorded as timing out at 120 s in the
+\((0;1,1,0,0;4)\) sweep and re-run with a 600 s limit. **All six were refuted**, with
+solve times of 82, 129, 134, 141, 146 and 152 seconds, at a cost of **163 core-seconds
+each** including replay. Splitting one of these into its \(2^{4} = 16\) children
+would have to settle each child in under 10 seconds to compete, and the parent
+population averages three to six times that. Escalation wins, and not narrowly.
+
+**The caveat is worth more than the measurement.** One of those six was refuted in
+**82 seconds** — comfortably inside the 120 s limit it had supposedly exceeded. The
+limit is wall clock, and the sweep runs twelve to fourteen solvers on fifteen cores,
+so a cube that needs 80 seconds of CPU can miss a 120-second wall-clock deadline under
+load. Some fraction of every "hard cube" count in this lane is therefore a scheduling
+artefact rather than a property of the formula, and hard fractions measured under load
+are upper bounds on the real ones.
+
+That does not affect any result — a cube is either refuted with a certificate or it is
+not, and nothing is claimed about the unrefuted ones — but it does affect planning,
+and it is the sort of thing that silently inflates a cost estimate. The procedure this
+artifact will use for the two remaining actions is therefore the escalate-then-split
+loop: sweep at 120 s, re-run every recorded timeout at 600 s, and split only what
+still survives.
+
 ## Trust boundary
 
 Machine-checked: for each of the 39 actions, that the object encoded is a faithful
