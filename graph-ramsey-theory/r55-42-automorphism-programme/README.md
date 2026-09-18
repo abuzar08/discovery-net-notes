@@ -19,11 +19,11 @@ with cycle type \(1^{f} p^{k}\), so \(f + pk = 42\).
 | No automorphism of order 7 | `../r55-42-no-order-7-automorphism` | h2621, reviewed |
 | \(1^{22} 5^{4}\), \(1^{17} 5^{5}\), \(1^{12} 5^{6}\), \(1^{7} 5^{7}\), \(1^{21} 3^{7}\), \(1^{18} 3^{8}\) excluded | `../r55-42-fixed-vertex-lex-leader` | h2689, reviewed h2867 |
 | \(1^{15} 3^{9}\) excluded | `../r55-42-order3-cube-and-conquer` | h2873, reviewed h2901 |
-| \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | submitted, awaiting a block |
-| \(1^{12} 3^{10}\) excluded | `../r55-42-order3-cube-and-conquer`, second section | not yet submitted |
-| No automorphism of order 27, and an automorphism of order 9 has cycle type \(3^{2} 9^{4}\) | `../r55-42-order-9-automorphisms` | not yet submitted |
+| \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | h3687 |
+| \(1^{12} 3^{10}\) excluded | `../r55-42-order3-cube-and-conquer`, second section | h5030 |
+| No automorphism of order 27, and an automorphism of order 9 has cycle type \(3^{2} 9^{4}\) | `../r55-42-order-9-automorphisms` | h5028, reviewed h4209 |
 | A \(Z_3 \times Z_3\) in \(\mathrm{Aut}(G)\) must act without fixed points and with four regular orbits (37 of 39 actions excluded) | `../r55-42-no-z3-squared` | not yet submitted |
-| An involution has at most 36 fixed points | `../r55-42-automorphism-census` | not yet submitted |
+| An involution has at most 36 fixed points | `../r55-42-automorphism-census` | h5032, reviewed h4219 |
 
 Alongside these exclusions there is now a census of what symmetry the known examples
 actually have (`../r55-42-automorphism-census`): of the 328 known

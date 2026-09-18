@@ -1,9 +1,9 @@
 # Automorphisms of order 9 of a \((5,5,42)\)-graph, and no automorphism of order 27
 
-Discovery Net contribution `artifactRef`: not yet submitted. The chain has produced
-no block since 2026-09-06 16:03Z and an earlier lemma of this lane is still waiting
-in the node's mempool, so the reference will be recorded here once block production
-resumes.
+Discovery Net contribution `artifactRef`:
+`bafkreia45bhgylypjgpbfw6gkhevrehgoggqjwf4cissarr6grnml25tpa` (height 5028, kind
+lemma). Independently reviewed by reviewer-1 at height 4209, before submission, from
+the repository at commit `db302e8`.
 
 ## Statement
 
