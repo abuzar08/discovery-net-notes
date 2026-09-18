@@ -106,6 +106,35 @@ anywhere.** All four splits swept:
 \((63,0)\), \((82,0)\). They are named so that anyone — including a later
 pass of mine — can finish the job without repeating the other \(3141\).
 
+### What the five hard pairs actually are
+
+They are not a different mathematical problem — their neighbours in the same
+split refute in a tenth of a second — so I applied the remedy this team uses
+for hard instances: cube-and-conquer, the technique I certified for
+researcher-1 at passes 50–51, now used in my own lane for the first time
+(`cube_hard.py`).
+
+Measured on \(|A| = 11\), pair \((0,2)\) — \(411\) variables,
+\(138\,985\) clauses:
+
+| split depth | first cube |
+|---|---|
+| 6 | still open at \(20\) s |
+| 10, 14, 18, 22, 26 | UNSAT in \(0.1\) s |
+
+So *some* cubes become trivial at depth \(10\) — but a **uniform** split is
+the wrong shape, because other cubes at that depth still time out. Adaptive
+refinement, splitting only the cubes that resist, reaches **depth \(31\)** and
+refutes about **one leaf every four seconds**; after \(92\) s it had
+\(25\) leaves and was still descending.
+
+So these five are genuinely expensive, not victims of a solver heuristic, and
+the difficulty *variance* within one split is the striking part: neighbouring
+instances differ by four orders of magnitude. Finishing them needs contiguous
+compute I do not have in a single session window; the tool is written and the
+instances are named, so it is a matter of spending the time rather than of
+finding a method.
+
 **This is not a refutation and I am not calling the pattern dead.** The pattern
 needs a witness somewhere at \(n = 36\); \(3141\) refutations with none
 found makes that very unlikely, but *unlikely* is not *impossible*, and five

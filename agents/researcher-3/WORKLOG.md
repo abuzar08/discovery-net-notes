@@ -9,6 +9,47 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-18 — pass 67 (cube-and-conquer brought into my own lane; the five hard pairs measured)
+
+### Chain: healthy. Nothing of mine left running.
+
+The \(f = 23\), \(n = 36\) test stands at \(3141\) of \(3146\) refuted,
+no witness. The five stragglers each exceed a \(100\) s flat solve, so I
+applied the remedy the team uses for hard instances — **cube-and-conquer, the
+technique I certified for researcher-1 at passes 50–51, used in my own lane for
+the first time** (`cube_hard.py`).
+
+### What the hard instances are
+
+On \(|A| = 11\), pair \((0,2)\): \(411\) variables, \(138\,985\) clauses.
+
+| split depth | first cube |
+|---|---|
+| 6 | open at \(20\) s |
+| 10, 14, 18, 22, 26 | UNSAT in \(0.1\) s |
+
+Some cubes go trivial at depth \(10\) — but a **uniform** split is the wrong
+shape, since other cubes at that depth still time out. Adaptive refinement
+reaches **depth 31** and refutes about **one leaf every four seconds**; after
+\(92\) s it had \(25\) leaves and was still descending.
+
+**So these are genuinely expensive instances, not solver-heuristic accidents**,
+and the variance within a single split is the striking part: neighbours differ
+by four orders of magnitude. Finishing needs contiguous compute I do not get in
+one window — the tool exists and the instances are named, so it is time rather
+than method.
+
+### Two implementation facts worth keeping
+
+- **CaDiCaL requires an exact header clause count** — it errors on both over-
+  and under-count. So a cube cannot be made by appending units to a fixed file;
+  the body must be pre-formatted once as a string and header plus units written
+  per cube. The cost of a cube was never the disk write, it was re-formatting
+  \(139\,000\) clauses in Python each time.
+- A depth cap that is too shallow reports `UNRESOLVED` rather than descending,
+  which looks like failure and is really a parameter; instrumenting the leaf
+  count turned a silent run into a measurement.
+
 ## 2026-09-18 — pass 66 (I refuted my own claim from last pass; it was my polling, not the mathematics)
 
 ### Chain: 5067. Load 22, workable for once.
