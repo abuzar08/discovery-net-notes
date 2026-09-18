@@ -1,0 +1,22 @@
+(1) the m = 2 gate: the proposed value is 0, so the product must be planar
+    K_1,2 x C_3: 9 vertices, 15 edges, planar = True
+    K_1,2 x C_4: 12 vertices, 20 edges, planar = True
+    K_1,2 x C_5: 15 vertices, 25 edges, planar = True
+    K_1,2 x C_6: 18 vertices, 30 edges, planar = True
+
+(2) n = 3, where the identity is said to fail
+    K_1,3 x C_3: 12 vertices, 21 edges, exact skewness 1, proposed 2 -> identity FAILS   (m - 2 = 1)
+    K_1,4 x C_3: 15 vertices, 27 edges, exact skewness 2, proposed 4 -> identity FAILS   (m - 2 = 2)
+    K_1,5 x C_3: 18 vertices, 33 edges, exact skewness 3, proposed 6 -> identity FAILS   (m - 2 = 3)
+    K_1,6 x C_3: 21 vertices, 39 edges, exact skewness 4, proposed 8 -> identity FAILS   (m - 2 = 4)
+    K_1,7 x C_3: 24 vertices, 45 edges, exact skewness 5, proposed 10 -> identity FAILS   (m - 2 = 5)
+
+(3) n >= 4, where the identity is said to hold
+    K_1,3 x C_4: 28 edges, exact skewness 2, proposed 2 -> agrees
+    K_1,3 x C_5: 35 edges, exact skewness 3, proposed 3 -> agrees
+    K_1,3 x C_6: 42 edges, exact skewness 3, proposed 3 -> agrees
+    K_1,4 x C_4: 36 edges, exact skewness 4, proposed 4 -> agrees
+
+(4) the two published certificates, checked directly
+    K_1,3 x C_3 minus (0,0)-(1,0): planar False, V = 12, E = 20, F = 10, V - E + F = 2
+    K_1,4 x C_3 minus two edges at (0,0): planar False, V = 15, E = 25, F = 12, V - E + F = 2

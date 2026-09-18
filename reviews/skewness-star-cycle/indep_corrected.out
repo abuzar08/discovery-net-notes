@@ -1,0 +1,11 @@
+corrected certificate: delete m-2 star edges at one centre of K_1,m x C_3
+   m=3: delete 1 star edges at centre (0,0) -> planar True; V=12 E=20 F=10, V-E+F=2
+   m=4: delete 2 star edges at centre (0,0) -> planar True; V=15 E=25 F=12, V-E+F=2
+   m=5: delete 3 star edges at centre (0,0) -> planar True; V=18 E=30 F=14, V-E+F=2
+   m=6: delete 4 star edges at centre (0,0) -> planar True; V=21 E=35 F=16, V-E+F=2
+   m=7: delete 5 star edges at centre (0,0) -> planar True; V=24 E=40 F=18, V-E+F=2
+   m=8: delete 6 star edges at centre (0,0) -> planar True; V=27 E=45 F=20, V-E+F=2
+
+their stated witnesses, re-tested:
+   m=3, deleting the cycle edge(s) at the centre: planar False
+   m=4, deleting the cycle edge(s) at the centre: planar False
