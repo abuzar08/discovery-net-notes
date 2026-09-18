@@ -1,0 +1,4 @@
+four 3-cycles on 12 vertices: 22 pair orbits (18 cross-cycle + 4 internal expected)
+   5-subsets: 792, distinct orbit supports: 258
+   labelled (5,5)-good Z_3-graphs on four cycles: 2541538
+   published completeness count: 2541538 -> match

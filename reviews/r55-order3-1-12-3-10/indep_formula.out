@@ -1,0 +1,14 @@
+type 1^12 3^10: 331 orbit variables (published 331)
+deduplicated orbit clauses: 566798 (published 566798) -> match
+   (2 s)
+
+the refinement arithmetic, each split replacing one cube by 16:
+    1576 + 103 x 15 =  3121
+    3121 + 164 x 15 =  5581
+    5581 + 180 x 15 =  8281
+    8281 +   2 x 15 =  8311
+    8311 +   1 x 15 =  8326
+   published chain: 1576 -> 3121 -> 5581 -> 8281 -> 8311 -> 8326; mine ends at 8326
+
+the state arithmetic: f = 42 - 3k so f is a multiple of 3; excluding f = 12 leaves f <= 9,
+   and the open types are 1^9 3^11, 1^6 3^12, 1^3 3^13, 1^0 3^14

@@ -1,0 +1,10 @@
+cube bookkeeping, checked against the committed artifacts:
+   level4_p3.json: 1576 entries, all distinct
+   c12_3_10_L4r5.icnf: 8326 cube lines
+   refinement chain with each split producing 16 children:
+       1576 + 103 x 15 =  3121
+       3121 + 164 x 15 =  5581
+       5581 + 180 x 15 =  8281
+       8281 +   2 x 15 =  8311
+       8311 +   1 x 15 =  8326
+   endpoint 8326 = the icnf cube count
