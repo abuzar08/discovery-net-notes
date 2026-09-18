@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): the \(\nu_\triangle\le2\) branch cannot be excluded by block counting, and that is measured. Plus: the ledger resumed and the whole 28-contribution backlog committed.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `6039351`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, files
 `packing58.py`, `tuttegen.py`, `slack58.py`, `blockcut.py`, `state29.py` with
 expected outputs and `SHA256SUMS` (96/96 verify).
