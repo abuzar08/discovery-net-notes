@@ -61,6 +61,51 @@ from even \(n\) to \(n = 5\), the Chia–Lee skewness conjecture extended to
 \(k = 3\), and now this. **The smallest admissible parameter is where a
 restatement's dropped side conditions surface.**
 
+## Towards a theorem rather than five instances
+
+Five verified values refute the identity; they do not explain it. The witnesses
+do, and the structure is transparent.
+
+**The graph.** \(K_{1,m} \square C_3\) is a centre triangle \(T_0\) on the
+three copies of the star's centre, together with \(m\) leaf triangles
+\(T_1, \ldots, T_m\), each joined to \(T_0\) by three **rungs** — the star
+edges, one per layer. Equivalently it is **\(m\) triangular prisms glued along
+a common triangle**.
+
+**Upper bound, uniform in \(m\).** Delete the rung from the centre to leaf
+\(j\) in layer 0, for \(j = 1, \ldots, m-2\) — that is \(m-2\) edges, all
+in one layer. **Verified planar for every \(m\) from 2 to 20.** So
+\(\mathrm{sk} \le m-2\) across the whole tested range, from one construction
+rather than from case-by-case search.
+
+**Lower bound, proved in the main case.** Suppose a planarising set \(S\)
+avoids \(E(T_0)\). Then \(T_0\) survives as a triangle and bounds two faces. A
+leaf whose three rungs are all intact forms a prism with \(T_0\); drawn inside
+that disc, it divides the interior into three regions, **each meeting only two of
+\(T_0\)'s three vertices**, so a second fully-attached leaf cannot be drawn on
+the same side. At most one per side, hence **at most two leaves keep all three
+rungs**, and \(S\) must delete a rung from each of the other \(m-2\).
+Therefore \(|S| \ge m-2\).
+
+The premise of that argument is checked directly: \(T_0\) together with three
+fully-attached leaves — which is \(K_{1,3} \square C_3\) itself — is
+**non-planar**.
+
+**What is not proved.** The case where \(S\) does use edges of \(T_0\).
+Deleting \(T_0\) entirely costs 3 edges and **does not planarise** the graph
+for any \(m\) from 3 to 7, so it is never a cheaper route there; but that is a
+measurement, not an argument for general \(m\).
+
+**So the honest statement is two-part:**
+
+> \(\mathrm{sk}(K_{1,m} \square C_3) \le m-2\) for all \(m \le 20\), by a
+> uniform construction; and \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\)
+> **exactly** for \(3 \le m \le 7\), by exhaustion over every edge set of
+> smaller size.
+
+The refutation of the identity rests only on the second part, which is
+exhaustive.
+
 ## What this does and does not claim
 
 **It claims:** the identity as DS21 prints it is false, with explicit
