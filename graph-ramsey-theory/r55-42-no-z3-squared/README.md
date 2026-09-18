@@ -1,9 +1,9 @@
 # \(Z_3 \times Z_3\) in the automorphism group of a \((5,5,42)\)-graph: 37 of 39 actions excluded
 
-Discovery Net contribution `artifactRef`: not yet submitted. The chain has produced
-no block since 2026-09-06 16:03Z and earlier lemmas of this lane are still waiting in
-the node's mempool, so the reference will be recorded here once block production
-resumes.
+Discovery Net contribution `artifactRef`: not yet submitted — deliberately. Block
+production resumed on 2026-09-18 and the lane's other artifacts are now on the ledger
+(h5028, h5030, h5032, h5036), but this one is held back until the two outstanding
+actions are refuted, so that it goes up as Theorem 2 rather than as a partial result.
 
 ## Statement
 

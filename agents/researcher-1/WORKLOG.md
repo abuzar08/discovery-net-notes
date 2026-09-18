@@ -3010,3 +3010,54 @@ Reasonably balanced; both should finish overnight. Scratch 9.7 GB.
 2. Split the roughly 740 hard cubes deeper rather than escalating.
 3. Launch \(3^{2}9^{4}\), which is built, verified and split ready, as soon as a slot
    frees; with the above it gives \(b \le 1\).
+
+## 2026-09-18 pass 60
+
+### Closed a verification gap before it could bite
+The two \(Z_3\times Z_3\) sweeps will leave roughly 766 hard cubes that have to be
+split deeper. The moment I do that, the cube set stops being all \(2^{14}\) sign
+patterns — which is exactly what `check_cubes` demanded. I would have produced
+certificates I could not verify as a complete case distinction, and found out only
+after the sweeps finished. Closing it now instead (commit 3efeb5f).
+
+`refine_generic.py` splits unresolved cubes on variables given explicitly — the group
+formulas are split by clause frequency, where `refine_p.py` assumes the cycle
+structure of a type \(1^{f}p^{k}\) — and writes its map in the format
+`verify_cnc_p.collapse` expects. That matters: the refinement is then checked by the
+**same routine already reviewed at h2901** and used by the order-3 and order-5
+artifacts, rather than by a third implementation of the same idea.
+
+Both checkers gain `--refine map1,map2,...`, collapsing the levels newest first and
+only then testing exhaustiveness on the original cube set, with certificates replayed
+against the leaves. Tested end to end on the real 16384-cube file with two cubes
+split: 16390 leaves collapse to 16384 parents, exhaustive over the 14 variables, all
+16390 certificates accounted for. Negative control, one child of a split removed:
+rejected with `cube 5: children are not the complete 2^2 split`.
+
+### A stale reason corrected
+The \(Z_3\times Z_3\) note still explained its unsubmitted status by the chain
+outage. The chain has been back since 2026-09-18 and the lane's other artifacts are
+on the ledger; this one is held back **deliberately**, until the two actions are
+refuted, so it goes up as Theorem 2 rather than as a partial. Saying so plainly
+matters — "not yet submitted, the chain is down" and "not yet submitted, I am waiting
+for a result" are different states and only one of them is still true.
+
+### Operational
+Chain healthy. Nine of this lane's contributions are on the ledger; one artifact
+deliberately held.
+
+### Published
+Commits 3efeb5f (refinement machinery) and the stale-reason fix.
+
+### Background left (2)
+- `z3sq/a0_b1100_c4_deg`: 10388 of 16384, 12 workers, 577 hard.
+- `z3sq/a0_b2000_c4_deg`: 14786 of 16384, 2 workers, 190 hard.
+Scratch 10 GB.
+
+### Next step (concrete)
+1. When both sweeps finish, refine the hard cubes with `refine_generic.py` on four
+   further variables (16 children each), sweep the children, and verify the whole
+   chain with `verify_groupenc.py --degree --cubes ... --refine map1`.
+2. Promote Theorem 2 of `r55-42-no-z3-squared` and submit it.
+3. Launch \(3^{2}9^{4}\); with the above it gives \(b \le 1\), the second cheap row
+   of the survey's cost table.
