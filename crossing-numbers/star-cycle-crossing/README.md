@@ -134,6 +134,31 @@ under every permutation of its vertices. \(\blacksquare\)
 heuristic's \(X(10)+1\) and \(X(12)+1\) were the search, not the graph, and that
 is now a proof rather than a reading of the trend.
 
+## The conjecture confirmed at its first discriminating value
+
+At \(m = 3\) and \(4\) the conjecture is confirmed but says nothing new, because
+there \(X(m)\) and the skewness bound \(m-2\) coincide. **\(m = 5\) is the first
+value where they separate**: \(m-2 = 3\) against \(X(5) = 4\). So \(m = 5\) is
+where the conjecture is first at risk.
+
+> \(\operatorname{cr}(K_{1,5} \square C_3) = 4 = X(5)\), **exactly.**
+
+*Upper bound:* the splitting theorem above, with
+\(\operatorname{cr}(K_{1,1,1,5}) = 4\).
+*Lower bound:* \(\operatorname{cr} > 3\), by the transversal test — exhaustive
+over all 3,510 configurations of three crossings compatible with
+\(\mathrm{sk} = 3\), none of them realisable as a drawing. The test is complete
+here precisely because \(k = 3 = \mathrm{sk}(G)\); see
+`notes/tooling/transversal-test.md`.
+
+The Kuratowski-branching decider **could not settle this** — unfinished after 580
+seconds at \(|E| = 33\). The transversal test took \(3.5\) seconds.
+
+**The value \(\operatorname{cr}(K_{1,1,1,5}) = 4\) was gated before being relied
+on**, since the upper bound chains through it: confirmed exactly at
+\(m = 2,3,4,5\) by the branching decider, and independently at \(m = 5\) by the
+transversal test, the two implementations agreeing.
+
 ## What the conjecture has been reduced to
 
 With the upper bound proved, the conjecture
@@ -166,12 +191,23 @@ has to be structural.
 
 ## Status
 
-- \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\) for \(m = 3, 4\): **proved**
-  here (lower bound from the skewness theorem, upper from a drawing), and
-  agreeing with Clancy.
-- \(\operatorname{cr}(K_{1,m} \square C_3) \le X(m)\) for \(m \le 11\): explicit
-  drawings, with three values one above.
-- \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\) in general: **conjectured**,
-  with a structural reason and no proof of the lower bound.
+- \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\) for \(m = 3, 4\): **proved**,
+  agreeing with Clancy. Not discriminating — \(X(m) = m-2\) there.
+- \(\operatorname{cr}(K_{1,5} \square C_3) = 4 = X(5)\): **proved**, and this one
+  *is* discriminating — it is the first \(m\) at which \(X(m)\) exceeds the
+  skewness bound, so it is the first real test the conjecture has passed.
+- \(\operatorname{cr}(K_{1,m} \square C_3) \le X(m)\) for **all** \(m\):
+  **proved**, by triangle splitting from \(K_{1,1,1,m}\). This replaces the
+  sampled upper bound entirely.
+- \(\operatorname{cr}(K_{1,m} \square C_3) \ge X(m)\): **open**, and now the only
+  open half. Equivalent to
+  \(\operatorname{cr}(K_{1,1,1,m}) \le \operatorname{cr}(K_{1,m} \square C_3)\),
+  with the empty-disc reduction above as the concrete route.
+
+**What would settle \(m = 6\).** \(\mathrm{sk}(G_6) = 4\) and \(X(6) = 6\), so the
+transversal test — complete only at \(k = \mathrm{sk}\) — can prove
+\(\operatorname{cr} \ge 5\) but **not** \(\ge 6\). The instrument reaches the
+first discriminating value and stops one short of the second; that is a real
+limit and not a matter of more compute.
 
 Source: `chiasim.py`, `ubound.py`.
