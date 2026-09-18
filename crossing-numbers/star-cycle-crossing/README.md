@@ -100,6 +100,70 @@ is *not* minor-monotone, so \(\operatorname{cr}(K_{1,1,1,m}) \le
 \operatorname{cr}(K_{1,m} \square C_3)\) does **not** follow from the contraction.
 The lower bound is open; what is proved is only \(\operatorname{cr} \ge m-2\).
 
+## The upper bound is now proved, not sampled
+
+The other direction *does* go through, and it needs no heuristic. The point is
+that the contraction has an inverse which is **local**.
+
+> **Theorem.**
+> \(\operatorname{cr}(K_{1,m} \square C_3) \le \operatorname{cr}(K_{1,1,1,m})\)
+> for every \(m \ge 1\). With
+> \(\operatorname{cr}(K_{1,1,1,m}) = X(m)\) this gives
+> \(\operatorname{cr}(K_{1,m} \square C_3) \le X(m)\) for **all** \(m\).
+
+**Proof.** In \(K_{1,1,1,m}\) every vertex \(v_j\) of the large part is adjacent
+to exactly the three vertices of the small parts, so
+\(\deg v_j = 3\) **exactly**. Take an optimal drawing. Around each \(v_j\) choose
+a disc meeting only the three edge-ends at \(v_j\), and let
+\(e_1, e_2, e_3\) be those ends in the cyclic order in which they leave \(v_j\).
+Delete \(v_j\), place \(t_1, t_2, t_3\) inside the disc in that same cyclic
+order, join \(e_i\) to \(t_i\), and draw the triangle \(t_1t_2t_3\) inside the
+disc. Everything added lies inside a disc that no other edge enters, and the
+three ends are attached in their original cyclic order, so **no crossing is
+created and none is destroyed**. Doing this at every \(v_j\) yields a drawing of
+the split graph with the same number of crossings.
+
+That the split graph *is* \(K_{1,m} \square C_3\) is immediate — the small parts
+become the centre triangle \(T_0\), each \(t\)-triangle becomes a leaf triangle
+\(T_j\), and the three former edges at \(v_j\) become its rungs — and it is
+verified by isomorphism test for every \(m\) from 2 to 12. The attachment order
+matters for the *drawing* but not for the *graph*, since a triangle is symmetric
+under every permutation of its vertices. \(\blacksquare\)
+
+**This supersedes the sampled upper bound**, and it settles the two misses: the
+heuristic's \(X(10)+1\) and \(X(12)+1\) were the search, not the graph, and that
+is now a proof rather than a reading of the trend.
+
+## What the conjecture has been reduced to
+
+With the upper bound proved, the conjecture
+\(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\) is **exactly equivalent** to the
+reverse inequality
+
+$$\operatorname{cr}(K_{1,1,1,m}) \;\le\; \operatorname{cr}(K_{1,m} \square C_3),$$
+
+that is: *contracting the leaf triangles does not decrease the crossing number.*
+One clean question, in place of a formula to be guessed.
+
+**A concrete route to it.** In an optimal drawing the edges of a leaf triangle
+\(T_j\) are pairwise adjacent, so \(T_j\) is drawn as a simple closed curve
+\(\gamma_j\). If some edge crossed \(\gamma_j\) twice it could be rerouted
+alongside to save two crossings, so in an optimal drawing **no edge crosses
+\(\gamma_j\) twice**; hence any edge meeting \(\gamma_j\) has an endpoint in the
+disc it bounds. So it would be enough to show that some optimal drawing has
+**every leaf triangle bounding an empty disc** — then each \(\gamma_j\) can be
+shrunk to a point, contracting \(T_j\) at no cost and giving a drawing of
+\(K_{1,1,1,m}\) with the same number of crossings.
+
+That reduction is not proved here, and it is where the remaining difficulty sits.
+
+**Why the usual quantitative tools cannot help.** \(X(m)\) is quadratic in
+\(m\), but \(K_{1,m} \square C_3\) has \(|V| = 3m+3\) and \(|E| = 6m+3\), so
+\(|E| < 4|V|\) for every \(m\) and the **crossing lemma gives nothing at all**.
+The graph is sparse; the quadratic growth comes from the structure — \(m\) prisms
+sharing one triangle — and not from edge density. Any proof of the lower bound
+has to be structural.
+
 ## Status
 
 - \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\) for \(m = 3, 4\): **proved**
