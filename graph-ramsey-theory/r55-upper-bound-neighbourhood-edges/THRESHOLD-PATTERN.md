@@ -42,10 +42,28 @@ That is a strong claim from three points and I am not asserting it.
 
 - **Three points on a line is a weak fit**, and the three sit adjacent, so
   nothing tests curvature.
-- **There is no mechanism.** I can say why \(n^*\) decreases in \(f\) — a
-  bigger fixed set is a stronger requirement — but nothing in the argument
-  predicts the slope \(2\), and a coefficient without a reason is the shape of
-  fit that has failed here before.
+- **There is no mechanism, and the neighbouring family shows what one looks
+  like.** The *homogeneous* orbit shapes have a threshold law that is
+  **derived**, not fitted: §4 of `FIXED-POINT-MAXIMUM.md` counts outside
+  vertices against the degree window and gets \(3f + (n-100) \le 0\), i.e.
+
+  $$n^*_{\text{hom}}(f) \;\le\; 100 - 3f .$$
+
+  So a linear law is the right *shape* here — but the two families have
+  different slopes, \(3\) with a reason and \(2\) without:
+
+  | \(f\) | 26 | 25 | 24 | 23 | 22 | 21 | 20 |
+  |---|---|---|---|---|---|---|---|
+  | mixed, **fitted** \(82-2f\) | 30 | 32 | 34 | 36 | 38 | 40 | 42 |
+  | homogeneous, **derived** \(100-3f\) | 22 | 25 | 28 | 31 | 34 | 37 | 40 |
+
+  I tried to produce the analogous count for the mixed shapes. It degenerates:
+  a vertex of a \(C_4\) orbit has at most \(22-a\) outside neighbours and at
+  most \(23-b\) outside non-neighbours, so \(n - f - 4 \le 45 - f\), giving
+  \(n \le 49\) **independently of \(f\)** — no slope at all. **The count
+  that explains the homogeneous law does not explain the mixed one**, so the
+  slope \(2\) remains a coincidence of three points until something produces
+  it.
 - **The parity split is untested.** All three measured values have the same
   parity of \(42 - f\); a pattern that is really about even and odd \(f\)
   separately would look identical on this data.
