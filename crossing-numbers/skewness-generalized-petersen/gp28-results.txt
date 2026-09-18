@@ -1,0 +1,11 @@
+GP(28,7): |V|=56 |E|=84
+DS21 conjectures k+2 = 9; the structured pattern gives 11
+
+  5 spokes (6 edges): none of 98,280 sets   (73s)
+  6 spokes (7 edges): none of 376,740 sets   (372s)
+  7 spokes (8 edges): none of 1,184,040 sets   (1229s)
+  8 spokes (9 edges): none of 3,108,105 sets   (3757s)
+  9 spokes (10 edges): none of 6,906,900 sets   (17218s)
+  10 spokes (11 edges): FOUND (3, 4, 5, 6, 7, 10, 11, 12, 13, 14)   (27709s)
+
+sk(GP(28,7)) <= 11

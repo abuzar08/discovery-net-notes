@@ -1,0 +1,13 @@
+GP(20,5): |V|=40 |E|=60 cubic=True planar=False
+  validate: GP(5,2) is the Petersen graph  OK
+
+r=0: none of 1 sets planarises   (0s)
+r=1: none of 60 sets planarises   (0s)
+r=2: none of 1,770 sets planarises   (1s)
+r=3: none of 34,220 sets planarises   (18s)
+r=4: none of 487,635 sets planarises   (256s)
+r=5: none of 5,461,512 sets planarises   (3359s)
+r=6: none of 50,063,860 sets planarises   (40883s)
+r=7: PLANAR after removing ((('u', 0), ('u', 1)), (('u', 0), ('v', 0)), (('v', 5), ('u', 5)), (('u', 2), ('u', 3)), (('v', 6), ('u', 6)), (('v', 7), ('u', 7)), (('u', 9), ('u', 10)))   (41693s)
+
+sk(GP(20,5)) = 7;  DS21's conjectured k+2 = 7;  k = 5
