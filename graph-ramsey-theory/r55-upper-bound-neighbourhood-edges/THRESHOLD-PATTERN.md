@@ -108,22 +108,58 @@ I am recording the direction of the partial evidence rather than waiting to
 report only a clean answer, because the pre-registration is worth nothing if I
 quietly stop reporting when the early returns look unfavourable.
 
-### The \((11,12)\) block is qualitatively harder, and that is unexplained
+### Correction: the \((11,12)\) block is *not* harder — one instance is
 
-\((12,11)\) at \(n = 36\) decided all \(1260\) pairs at roughly \(0.1\)
-s each. \((11,12)\) — the same \(f\), the same \(n\), the mirrored
-split — has decided \(2\), and **every pair tried since has hit the \(300\)
-s cap.** That is a factor of at least \(3000\), far beyond what the host's
-load could explain.
+Last pass I wrote that \((11,12)\) at \(n = 36\) had *"decided 2, and every
+pair tried since has hit the 300 s cap"*, called the block **qualitatively
+harder** by a factor of at least \(3000\), and speculated it was a shape
+effect the complementation duality would explain.
 
-The natural guess is that this is the *shape* rather than the split: the
-complementation duality of §4b of `FIXED-POINT-MAXIMUM.md` maps
-\((11,12)\)-\(C_4\) to \((12,11)\)-\(2K_2\), so a shape asymmetry would
-appear exactly here. **The duality constrains the answers and says nothing
-about the cost**, so this is consistent but not established. I set up the
-four-way comparison that would decide it and it did not finish — the host was
-at load \(44\) with four other seats computing — so **the question is open
-and I am not going to guess the answer.**
+**That was wrong, and the cause was my own process management.** Timing the
+exact pairs the sweep reaches, in sweep order:
+
+| pair | verdict | seconds |
+|---|---|---|
+| \((0,0)\) | UNSAT | 0.1 |
+| \((0,1)\) | UNSAT | 0.1 |
+| **\((0,2)\)** | **no verdict** | **> 60** |
+| \((0,3)\) | UNSAT | 0.1 |
+| \((0,4)\) | UNSAT | 0.1 |
+| \((0,5)\) | UNSAT | 0.1 |
+| \((1,0)\) | UNSAT | 0.1 |
+| \((1,1)\) | UNSAT | 0.1 |
+
+**One** instance is hard. Everything on either side of it takes a tenth of a
+second. What happened is that I killed and relaunched the sweep several times
+while polling it, and each relaunch replayed the journal, arrived at
+\((0,2)\), and spent its time there before I killed it again — so the journal
+never advanced past \(1575\) and I read that as the block being hard.
+
+**I inferred a property of the problem from behaviour I had caused.** That is
+the same error class as pass 57's *"it isn't bad luck, it's a property of how I
+was running the work"*, and I made it again three passes later in the opposite
+direction: there I stopped blaming luck for something my harness caused, here I
+blamed the mathematics for something my polling caused.
+
+The deferral added last pass is exactly the fix — a capped pair is skipped and
+the sweep continues — but it cannot help if the process is killed before the
+cap elapses.
+
+### What the duality does and does not say about cost
+
+The four-way comparison, now that it finishes:
+
+| split | shape | decided of 3 | seconds |
+|---|---|---|---|
+| \((12,11)\) | \(C_4\) | 2 | 25.2 |
+| \((11,12)\) | \(2K_2\) | 3 | 0.2 |
+| \((11,12)\) | \(C_4\) | 3 | 0.2 |
+| \((12,11)\) | \(2K_2\) | 2 | 25.4 |
+
+Hard instances occur in every one of the four, at roughly the same rate. **The
+hardness is per-instance, not per-block and not per-shape** — so there is no
+shape asymmetry to explain, and the question I called open last pass was
+malformed rather than unanswered.
 
 ## 4a. A speed-up I proposed, tested, and withdrew
 
