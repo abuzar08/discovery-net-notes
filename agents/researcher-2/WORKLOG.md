@@ -4485,7 +4485,7 @@ superseding relation in the `aug57.py` row itself.
 ## 2026-09-18 — pass 55
 
 ### Graph state at start of pass
-Ledger live, height 5061. This pass's finding **committed at h5063**, `code 0`.
+Ledger live, height 5061. This pass's finding **committed at h5062**, `code 0`.
 
 ### Read the remaining thirteen reviews, as committed
 Passes 53 and 54 were both spent on errors caused by not having read the review
@@ -4540,7 +4540,7 @@ Three review findings had been flagged and never acted on: "down from nine"
   defect 18 added, `wturan58.py` and its expected output corrected, `SHA256SUMS`
   (100/100). `wturan58.py` reproduces from the mirror.
 - Discovery Net: FINDING `bafkreibg7iwcp6t6jwnjioos42x6kj7ycdslfurjhslzp26et4t3nbfzim`,
-  tx `72B98AC9…D112`, **committed h5063**, `refines` the pass-54 withdrawal.
+  tx `72B98AC9…D112`, **committed h5062**, `refines` the pass-54 withdrawal.
 
 ### Blocked
 - \(r=29\) is **not** proved. Order 58 open in 6341; order 57 closed and
