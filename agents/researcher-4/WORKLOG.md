@@ -4586,3 +4586,69 @@ corrections — now four, with the skewness range — and reviewer-1's erratum t
 Angeltveit and McKay, plus **a library check of Chia and Lee's actual statement**,
 which would settle whether the skewness defect is an erratum in DS21 or a
 refutation of a published conjecture.
+
+## 2026-09-18, pass 70
+
+**1. My contributions survived the chain recovery; I checked rather than
+assumed.** The principal reports the recovery dropped most of researcher-1's and
+researcher-3's pending work — one and two survived. I queried all eighteen of
+mine individually by title: **18 of 18 present, 0 missing.**
+
+**2. Which reading the evidence supports, stated plainly** in the skewness
+artifact as directed. The printed sentence is **internally inconsistent with the
+mathematics**, not merely wrong at a value: it calls \(k = 3\) settled while
+giving a formula that is false there. With \(k = 5\) now exact at \(k+2\), the
+supported reading is that **the range is wrong and the formula is right**. What
+it cannot settle is whether the defect is Chia and Lee's or DS21's — [207] is
+paywalled, [208] returns 403, and the abstract's word "determine" points at the
+rendering without proving it.
+
+**3. Selection pass, literature first — and the target answered an open question
+in the same pass.**
+
+DS21's skewness entry, verbatim at page fidelity: *"Chia and Sim [209] ask
+whether \(\mathrm{sk}(K_{1,m} \square C_n) = (m-2)(\lfloor \frac{n-1}{2} \rfloor + 1)\)?"*
+Reference [209] is a 2024 Discrete Appl. Math. paper; DS21 records the question
+as open with no restriction on \(m\) or \(n\). I chose it because the exact
+skewness instrument — naive enumeration of \(\binom{m}{r}\) planarity tests — is
+the instrument that had just settled an open case, and because the question is
+decidable outright at small parameters rather than merely probeable.
+
+**Gated before costing.** At \(m = 2\) the proposed value is 0, so
+\(K_{1,2} \square C_n\) must be planar; \(K_{1,2}\) is the path on three
+vertices, and the product came out planar at \(n = 3,4,5,6\). Construction and my
+reading of the formula both confirmed before anything depended on them.
+
+> **Answer: no.** \(\mathrm{sk}(K_{1,m} \square C_3) = m - 2\), against the
+> proposed \(2(m-2)\) — **too large by a factor of two** — verified exactly for
+> \(m = 3, 4, 5, 6, 7\), each as a witness plus exhaustion over all smaller sets.
+
+Both small certificates were checked by Euler on the actual embedding:
+\(K_{1,3} \square C_3\) minus one edge gives \(V = 12, E = 20, F = 10\); and
+\(K_{1,4} \square C_3\) minus two gives \(V = 15, E = 25, F = 12\).
+
+**The defect is localised, and it is a range again.** Writing the proposal as
+\((m-2)f(n)\), the proposed \(f\) is 2, 2, 3, 3 at \(n = 3,4,5,6\) and the
+measured factor is **1**, 2, 3, 3. They differ **only at \(n = 3\)**; every
+tested case at \(n \ge 4\) agrees.
+
+**Third instance of one pattern.** This is now the third DS21 statement I have
+found to hold everywhere tested except **at its smallest admissible parameter** —
+Mohar's Conjecture 5 at \(n = 5\), Chia–Lee at \(k = 3\), and Chia–Sim at
+\(n = 3\). The smallest parameter is where a restatement's dropped side
+conditions surface, and it is now the first place I will look in any future
+audit.
+
+**Published and committed: h5040.**
+
+**Operational.** Chain alive at **5040**; my three new contributions sit at
+h5016, h5020, h5040. One background computation: exact values at \((m,n) = (4,5)\)
+and \((5,4)\), confirming the \(n \ge 4\) side.
+
+**Next step (concrete).** Read that confirmation. Then decide whether the
+\(n = 3\) result generalises — whether \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\)
+admits a proof rather than five verified instances, which would turn a
+counterexample into a theorem. Not autonomous, five items, and the library check
+now settles **two** findings at once: the \(C_3 \square C_3\) note to Marcus
+Schaefer, four DS21 corrections, reviewer-1's erratum to Angeltveit and McKay,
+and one visit to read Chia–Lee [207] and Chia–Sim [209].
