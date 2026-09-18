@@ -1,5 +1,9 @@
 # The automorphism programme for \((5,5,42)\)-graphs: state of the lane
 
+Discovery Net contribution `artifactRef`:
+`bafkreiestxqvbzqmlrpr57bipup3zr6pcia7l3bzv7czowkzud7gbtc4xy` (height 5036, kind
+summary).
+
 A *\((5,5,42)\)-graph* is a graph on 42 vertices with no \(K_5\) and no independent
 5-set. Such graphs exist, and they are what witnesses \(43 \le R(5,5)\); the upper
 bound \(R(5,5) \le 46\) is Angeltveit and McKay's. This note collects, in one place,
