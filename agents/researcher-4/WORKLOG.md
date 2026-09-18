@@ -4652,3 +4652,76 @@ counterexample into a theorem. Not autonomous, five items, and the library check
 now settles **two** findings at once: the \(C_3 \square C_3\) note to Marcus
 Schaefer, four DS21 corrections, reviewer-1's erratum to Angeltveit and McKay,
 and one visit to read Chia–Lee [207] and Chia–Sim [209].
+
+## 2026-09-18, pass 71
+
+**1. The \(n \ge 4\) side confirmed.** \((m,n) = (4,5)\) and \((5,4)\) both give
+exactly 6, matching the proposed value. The tally is now **8 agreements at
+\(n \ge 4\) against 5 failures at \(n = 3\)** — the defect is localised, not
+scattered.
+
+**2. The proof question, taken as directed, and it went most of the way.**
+
+The witnesses show the construction: in every case the deleted edges are
+\(m-2\) **rungs in a single layer**. The structure behind it is that
+\(K_{1,m} \square C_3\) is a centre triangle \(T_0\) with \(m\) leaf triangles,
+each joined to \(T_0\) by three rungs — **\(m\) triangular prisms glued along a
+common triangle**.
+
+**Upper bound, now uniform rather than case-by-case.** Deleting the layer-0 rung
+to leaf \(j\) for \(j = 1, \ldots, m-2\) planarises the graph, **verified for
+every \(m\) from 2 to 20**. So \(\mathrm{sk} \le m-2\) across the whole tested
+range from one construction.
+
+**Lower bound, proved in the main case.** If a planarising set avoids \(E(T_0)\),
+then \(T_0\) survives as a triangle bounding two faces; a fully-attached leaf
+forms a prism with it and divides its disc into three regions, **each meeting
+only two of \(T_0\)'s vertices**, so a second fully-attached leaf cannot share a
+side. At most two leaves keep all three rungs, so at least \(m-2\) lose one. The
+premise is checked directly: \(T_0\) with three fully-attached leaves — which is
+\(K_{1,3} \square C_3\) — is non-planar.
+
+**What I did not close, and say so.** The case where the planarising set uses
+\(T_0\)'s own edges. Deleting \(T_0\) entirely costs 3 and **does not planarise**
+for any \(m\) from 3 to 7, so it is never cheaper there — but that is a
+measurement, not an argument for general \(m\).
+
+**Honest two-part statement:** \(\mathrm{sk} \le m-2\) for all \(m \le 20\) by a
+uniform construction, and \(\mathrm{sk} = m-2\) **exactly** for
+\(3 \le m \le 7\) by exhaustion. **The refutation rests only on the second part,
+which is exhaustive**, so it is unaffected by the open case.
+
+**3. The three-instance pattern published as a claim about the literature**
+(`notes/tooling/smallest-parameter-failure.md`), with the three things the
+principal asked for.
+
+*The claim:* when a survey restates a parametric result, the defect appears at
+the **smallest admissible value of the parameter**. Three independent
+statements, different authors, unrelated entries; each fails there by a definite
+amount and **each has a correct formula attached to a range one value too
+large**.
+
+*The mechanism:* a parametric result is proved by a construction that degenerates
+at the smallest parameter — the point set collapses, the two runs of spokes
+overlap, the cycle is too short to have an inside and an outside. The survey
+restates it in uniform notation, and **uniform notation is exactly what cannot
+carry a non-uniform hypothesis**: Mohar's \(k\), defined only for \(n = 2k\),
+becomes \(\lfloor n/2 \rfloor\), which is defined everywhere.
+
+*What it predicts, so it can be wrong:* defects at the smallest parameter at a
+rate far above elsewhere. The base rate is already measured in this seat —
+**zero defects in about 150 checks at non-smallest parameters** (25 exact
+decisions, 123 upper-bound reproductions, 28 overlap checks, 53 attributions)
+against **three in a handful at smallest parameters**. It is falsified if twenty
+further statements checked at their smallest parameter yield nothing, and
+falsified in a weaker way if the defects found are wrong *formulas* rather than
+wrong *ranges*.
+
+**Operational.** Chain healthy at **5043**; my contributions at h5016, h5020,
+h5040. No background computations running.
+
+**Next step (concrete).** Run the prediction as an experiment: sweep DS21's
+parametric statements at their smallest admissible parameter, one evaluation
+each, and report the hit rate against the measured base rate of zero in 150. That
+tests my own claim at its weakest point and is the cheapest check available. Not
+autonomous, five items; the library visit still settles two findings at once.
