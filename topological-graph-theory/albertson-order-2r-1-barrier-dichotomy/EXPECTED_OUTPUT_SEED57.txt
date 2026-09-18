@@ -1,0 +1,38 @@
+aug57's route to two order-57 cases depends on the cr(K_13) rung;
+cover57 supersedes it and does not
+Z(29) = 8281;  a case is ELIMINATED only when its score >= Z
+
+   aug57.py publishes block sum 7856 and score 8343 for blocks (27, 22, 2, 2),
+   so its augmentation is 487 at the CCCG 2021 rung, and the margin
+   over Z(29) is 62.
+
+   Every crK value is monotone in the seed base and crminus.g is
+   built from crK by maxima of sums, so the augmentation at a lower
+   rung cannot exceed 487.  That gives an upper bound per rung.
+
+   cr(K_13) rung                                   blocksum    <= score verdict
+   counting only, cr(K_13) >= 217                      7589        8076 CANNOT reach Z -> fails
+   McQuillan-Pan-Richter JCTB 2015, cr(K_13) >= 219      7648        8135 CANNOT reach Z -> fails
+   Abrego et al. EuroCG 2015, cr(K_13) >= 223          7808        8295 can reach Z
+   Aichholzer CCCG 2021, cr(K_13) = 225                7856        8343 can reach Z
+
+   control: block sum at the CCCG 2021 rung reproduces the published
+   7856: PASS
+
+CONCLUSION
+   The two eliminations survive only at the rungs: Abrego et al. EuroCG 2015, Aichholzer CCCG 2021.
+   Under the refereed McQuillan-Pan-Richter value cr(K_13) >= 219 the
+   score cannot reach Z(29), so THIS ROUTE eliminates neither row
+   (57,826) nor the |R| = 7 case of row (57,827).  aug57.py's own
+   output does not say so, which is a presentational defect in it:
+   the route needs cr(K_13) >= 223, stronger than the best journal
+   value in the ladder (219).
+
+   BUT THE CLOSURE DOES NOT DEPEND ON THE RUNG.  cover57 kills the
+   same two cases structurally:
+      counting only            cover57(826, |R|=7) -> [None, None]  (no admissible multiset)
+      Aichholzer CCCG 2021     cover57(826, |R|=7) -> [None, None]  (no admissible multiset)
+   so the conditionality I published in pass 53 is WITHDRAWN, and
+   order 57's closure is seed-independent.  Defect 17.
+
+   r = 29 is NOT proved.

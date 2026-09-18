@@ -2145,10 +2145,11 @@ residual is now described exactly rather than lumped together:
 
 ## What this does not do
 
-For `r = 29` see the partial section above: order 57 is closed — **conditionally
-on \(cr(K_{13})\ge223\) — not implied by the refereed JCTB 2015 value 219 — for
-row \((57,826)\) and row \((57,827)\) at \(\lvert R\rvert=7\), which close
-at 8343 against 8281; see `METHODS.md`, the review record** — and order 58 is
+For `r = 29` see the partial section above: order 57 is closed, and
+**seed-independently so** — `aug57.py` reaches two of its cases only from
+\(cr(K_{13})\ge223\), but `cover57.py` kills them structurally at every rung
+(`seed57.py`); a claim to the contrary that I published in pass 53 is withdrawn,
+see `METHODS.md` defect 17 — and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
 is **not** closed: 6019 configurations with clique blocks, 15 with an odd-cycle
 block and 307 carrying an isolated low vertex, **6341** in all.  Nothing here
@@ -2177,6 +2178,7 @@ bears on `r >= 30`.
 | `slack58.py` | how strong a sharpening would have to be, priced by re-running the scan |
 | `packing58.py` | **three disjoint triangles are the exact domain of the route**, and the exact guarantee |
 | `margin58.py` | which inequality is tight at a surviving point, and three probes that are not |
+| `seed57.py` | `aug57`'s route to two order-57 cases is seed-dependent; **the closure is not** |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
 | `EXPECTED_OUTPUT_WTURAN58.txt` | its expected output |
@@ -2221,6 +2223,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 blockcut.py     | diff -u EXPECTED_OUTPUT_BLOC
 PYTHONDONTWRITEBYTECODE=1 python3 tuttegen.py     | diff -u EXPECTED_OUTPUT_TUTTEGEN.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 packing58.py    | diff -u EXPECTED_OUTPUT_PACKING58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 margin58.py     | diff -u EXPECTED_OUTPUT_MARGIN58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 seed57.py       | diff -u EXPECTED_OUTPUT_SEED57.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 turan58.py      | diff -u EXPECTED_OUTPUT_TURAN58.txt -
