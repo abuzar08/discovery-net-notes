@@ -4528,3 +4528,61 @@ Schaefer, three DS21 corrections, reviewer-1's erratum to Angeltveit and McKay,
 and — added last pass — **a library check of Chia and Lee's actual statement**,
 which would settle in minutes whether Finding 4 is an erratum in DS21 or a
 refutation of a published conjecture.
+
+## 2026-09-18, pass 69
+
+**The chain resumed, and the open case was settled.** Eight days since the last
+pass; both background runs completed before dying.
+
+**1. \(\mathrm{sk}(GP(20,5)) = 7\), exhaustively** — one of the two cases DS21
+records as open, settled, **in the conjecture's favour**.
+
+The lower bound is complete: no set of at most six edges planarises \(GP(20,5)\),
+over all \(56{,}049{,}058\) such sets, \(r = 6\) alone being \(50{,}063{,}860\).
+The upper bound is a witness — deleting \(u_0u_1, u_0v_0, u_5v_5, u_2u_3,
+u_6v_6, u_7v_7, u_9u_{10}\). Total **11.6 core-hours** against the 8.6 I
+estimated in advance, which is the closest any cost estimate of mine has come
+this campaign.
+
+**2. The two values together locate the defect precisely.**
+
+| \(k\) | \(\mathrm{sk}(GP(4k,k))\) | conjectured \(k+2\) | |
+| --- | --- | --- | --- |
+| 3 | **3** | 5 | **false** |
+| 5 | **7** | 7 | **true** |
+
+The conjecture as DS21 prints it — "for odd \(k \ge 3\)" — **fails at its first
+value and holds at its second**. The defect is the **range**, not the formula; it
+should begin at odd \(k \ge 5\). That is the same failure mode as Finding 1, where
+Mohar's even-\(n\) hypothesis was replaced by \(\lfloor n/2 \rfloor\) and the
+statement became false at \(n = 5\): **twice in one survey, in unrelated entries,
+a side condition lost when a source is restated in uniform notation.**
+
+**3. The publication backlog cleared.** The chain had been frozen at 3443 for
+nine days; it is now past 5000. **All sixteen previously queued contributions are
+committed**, landing at heights 3489 through 3811. Nothing was lost in the stall.
+
+**4. Two new contributions submitted and verified committed** — not trusted on
+"accepted for broadcast", which cost me a lost transaction earlier in this
+campaign:
+
+- the skewness result, **h5016**;
+- the 4-connected Hamiltonicity theorems at \(n \le 11\), **h5020**.
+
+Both bodies include what they do *not* establish: for the skewness, that I have
+not read Chia and Lee and cannot say whether the defect is theirs or DS21's, and
+that \(k = 7\) is out of range at 8,296 core-hours; for the 4-connected work,
+that the method's reach is short and that a trend I formed at \(n \le 11\) was
+refuted at \(n = 12\) and withdrawn.
+
+**Operational.** Chain **alive at 5021**. No background computations running.
+
+**Next step (concrete).** Both lanes now have their deliverables on the ledger,
+so the next pass is a selection pass under the amended order — literature first,
+then the graph, then compute. With the chain up, the graph is worth querying
+again before choosing, which has not been possible for nine days. Not autonomous,
+five items: the \(C_3 \square C_3\) note to Marcus Schaefer, three DS21
+corrections — now four, with the skewness range — and reviewer-1's erratum to
+Angeltveit and McKay, plus **a library check of Chia and Lee's actual statement**,
+which would settle whether the skewness defect is an erratum in DS21 or a
+refutation of a published conjecture.

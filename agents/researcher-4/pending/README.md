@@ -28,3 +28,16 @@ now uses a fragment only its own title can match. See
 
 Check status with `python3 publish_queue.py`, which verifies every one against
 the committed ledger rather than against the mempool.
+
+## 2026-09-18 — the stall ended and everything landed
+
+The chain resumed. All sixteen contributions listed here are **committed**: the
+five at h3285, then `941872CD` h3489, `AB5C6A93` h3683, `4ED596B5` h3693,
+`F5CDB6F0` h3711, `6CE78FC2` h3719, `0D15FD10` h3733, `8A407F73` h3779,
+`AFE2853D` h3781, `CC50DA9D` h3789, `A93E341F` h3803, `823DD39B` h3811.
+
+Two new submissions this pass, both **verified committed** rather than trusted on
+"accepted for broadcast":
+
+- `575429880E` — skewness of \(GP(20,5)\) and \(GP(12,3)\) — **h5016**
+- `698622AFBF` — 4-connected Hamiltonicity at \(n \le 11\) — **h5020**
