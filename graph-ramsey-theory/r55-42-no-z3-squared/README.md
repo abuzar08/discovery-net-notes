@@ -20,8 +20,8 @@ outright is:
 > size 3 -- either with distinct stabilisers,
 > \((b_1,b_2,b_3,b_4) = (1,1,0,0)\), or with a common stabiliser, \((2,0,0,0)\).
 
-The two outstanding actions are being refuted by a case split that is running; see
-*Results*. Should they fall, the conclusion becomes
+The two outstanding actions are under computation; see *Method* for the procedure and
+*Results* for the state. Should they fall, the conclusion becomes
 
 > **Theorem 2 (not yet established).** No \((5,5,42)\)-graph has
 > \(Z_3 \times Z_3\) in its automorphism group.
@@ -107,10 +107,34 @@ Thirty-seven of the 39 actions are refuted on the plain orbit encoding of the
 *group*, with no redundant cardinality constraints and no symmetry-breaking clauses,
 each by a single solver call.
 
-The remaining two need more, and get two things. First, a plain case distinction on
-14 Booleans -- all \(2^{14}\) sign patterns of the 14 orbit variables occurring in
-the most clauses -- which needs no group argument and whose exhaustiveness the checker
-verifies directly. Second, the redundant **degree window**: every vertex of a
+The remaining two need more. They get a three-stage loop, and the stages are worth
+distinguishing because only the first is a symmetry argument and none of them is a
+group argument:
+
+1. **Split.** A plain case distinction on 14 Booleans -- all \(2^{14}\) sign patterns
+   of the 14 orbit variables occurring in the most clauses -- whose exhaustiveness the
+   checker verifies directly.
+2. **Sweep** every cube at a 120 s limit.
+3. **Escalate** every cube that did not finish to 600 s, and split again only what
+   still survives.
+
+Stage 3 was added on measurement, not by habit. Everywhere else in this lane a cube
+that resisted was better split than given more time, but every one of those
+measurements predates the degree window. Re-measured: six cubes drawn at random from
+the 120 s survivors were all refuted at 600 s, at 163 core-seconds each, where
+splitting one into its 16 children would need every child under 10 seconds to compete.
+At the time of writing the escalation of the \((0;2,0,0,0;4)\) action has re-run 36
+of its 206 survivors and settled **35**, with mean 142 s and maximum 198 s, so the
+loop is expected to leave only a handful for stage 3's split.
+
+A caveat that belongs with any "hard cube" count in this lane: `timeout` is wall
+clock, and a sweep running twelve to fourteen solvers on fifteen cores can push a cube
+needing 80 s of CPU past a 120 s deadline. One of the six re-run cubes was refuted in
+82 s. So these counts are upper bounds on genuine difficulty, and partly measure
+machine load. Nothing about the *results* depends on this -- a cube is either refuted
+with a replayed certificate or it is not -- but cost estimates do.
+
+The formulas also carry the redundant **degree window**: every vertex of a
 \((5,5,42)\)-graph has \(17 \le d(v) \le 24\), because \(N(v)\) induces a
 \((4,5)\)-graph and its complement a \((5,4)\)-graph, and \(R(4,5) = 25\). This
 excludes no solution -- every \((5,5,42)\)-graph satisfies it -- so the augmented
