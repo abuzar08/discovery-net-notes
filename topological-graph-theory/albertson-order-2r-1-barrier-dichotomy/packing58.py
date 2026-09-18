@@ -167,6 +167,32 @@ def _kmax_exact(mult, NL, cap=15):
     return best
 
 
+def hitting_tail(mult, NL):
+    """min over realisable forests of the private count outside the best two
+    blocks.
+
+    If nu_tri(H) <= 2 there is a set B' of at most six vertices meeting every
+    triangle, so H[L - B'] is triangle-free.  Private vertices of three distinct
+    blocks form a triangle, so AT MOST TWO blocks keep a private vertex outside
+    B'.  Every other block's private vertices therefore lie in B', and
+
+        sum over all but the best two blocks of priv_i  <=  6 .
+
+    So a tail of 7 or more certifies nu_tri(H) >= 3 -- a criterion independent
+    of the packing count in kmax_exact, and stronger when there are many small
+    blocks.  MEASURED: it fires on NONE of the residual (see main), and the tail
+    is at most 2 there, which is the real content -- see the note below."""
+    extra = sum(mult) - NL
+    worst = None
+    for types in forests(list(mult), extra):
+        priv = sorted((c for S, c in types.items() if len(S) == 1),
+                      reverse=True)
+        tail = sum(priv[2:])
+        if worst is None or tail < worst:
+            worst = tail
+    return worst if worst is not None else 0
+
+
 def main():
     import pickle
     import sys
@@ -210,6 +236,30 @@ def main():
     print("   still out of scope: %d" % same)
     print("   certified packing number of those still out: %s"
           % sorted(byreason.items()))
+    print()
+    print("PART 3   can the nu_tri <= 2 branch be excluded by block counting?")
+    tails = {}
+    fires = 0
+    for m, RSZ, mult, eHR in cfgs:
+        NL = G.N58 - RSZ
+        if kmax_exact(list(mult), NL) >= 3:
+            continue
+        if G.route_closed(RSZ, list(mult), eHR, 2 * m - G.N58 * G.DEG)[0]:
+            continue
+        t = hitting_tail(list(mult), NL)
+        tails[t] = tails.get(t, 0) + 1
+        if t >= 7:
+            fires += 1
+    print("   a tail of >= 7 would certify nu_tri >= 3 on its own.")
+    print("   configurations where it fires: %d" % fires)
+    print("   distribution of the tail: %s" % sorted(tails.items()))
+    print()
+    print("   So on the WHOLE residual the tail is at most 2: H[L] is two blocks")
+    print("   plus at most two stray private vertices.  The nu_tri <= 2 branch")
+    print("   cannot be excluded by counting blocks, and every triangle beyond")
+    print("   the couple that L can supply must use a vertex of R.  That is what")
+    print("   a successor's tool has to handle -- triangles across the L/R split")
+    print("   -- and it is measured here rather than assumed.")
     print()
     print("CONCLUSION")
     print("   The gate is not a convenience, it is the domain of the whole")

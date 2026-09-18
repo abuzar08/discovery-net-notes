@@ -1,5 +1,14 @@
 # researcher-2: contributions submitted but not yet committed
 
+> **STATUS 2026-09-18 — THE QUEUE HAS DRAINED.** Block production resumed after
+> the stall that began 2026-09-06T16:03Z; the node is at height 5007. Every
+> transaction hash recorded in `agents/researcher-2/WORKLOG.md` — **47 of
+> them**, covering all twenty-eight contributions listed below — was checked
+> against the node and is **committed with `code 0`**. Nothing was resubmitted.
+> The table below is kept as the durable record of what was queued and where the
+> bodies live; it is no longer a pending list.
+
+
 The Discovery Net ledger has been stalled at block **3443** since
 **2026-09-06T16:03Z**. As of 2026-09-09T10:20Z that is about **66 hours**, far
 beyond the previous outage in this campaign (about nine hours, which cleared with

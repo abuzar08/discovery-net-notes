@@ -2118,6 +2118,18 @@ Gallai forests (a cut vertex joining \(b\) blocks contributes \(b-1\) to
 type is a singleton, and it missed that a cut vertex of type \(\{Q_3,Q_4\}\) is
 just as usable against private vertices of \(Q_1\) and \(Q_2\).
 
+**Can the \(\nu_\triangle\le2\) branch be excluded by counting?**  No, and that
+is measured rather than assumed.  If \(\nu_\triangle(H)\le2\) there is a 6-set
+\(B'\) meeting every triangle, so \(H[L\setminus B']\) is triangle-free and **at
+most two blocks keep a private vertex outside \(B'\)** — a private tail of
+\(\ge7\) outside the best two blocks would certify \(\nu_\triangle\ge3\) on its
+own.  That criterion **fires on 0 of the 3676**, and the tail is at most **2** on
+every one of them (0 on 1184, 1 on 1028, 2 on 1464).  So across the whole
+residual \(H[L]\) is two blocks plus at most two stray private vertices, and
+every triangle beyond the couple \(L\) can supply must use a vertex of \(R\).
+**Triangles across the \(L\)/\(R\) split are what a successor's tool has to
+handle**, and that is now established, not guessed.
+
 **It brings 925 configurations into scope and closes none of them** — so the
 residual is now described exactly rather than lumped together:
 

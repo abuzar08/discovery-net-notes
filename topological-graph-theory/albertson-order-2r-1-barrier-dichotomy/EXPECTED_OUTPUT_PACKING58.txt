@@ -12,6 +12,18 @@ PART 2   the exact guarantee against the knapsack it replaces
    still out of scope: 3676
    certified packing number of those still out: [(0, 753), (1, 1459), (2, 1464)]
 
+PART 3   can the nu_tri <= 2 branch be excluded by block counting?
+   a tail of >= 7 would certify nu_tri >= 3 on its own.
+   configurations where it fires: 0
+   distribution of the tail: [(0, 1184), (1, 1028), (2, 1464)]
+
+   So on the WHOLE residual the tail is at most 2: H[L] is two blocks
+   plus at most two stray private vertices.  The nu_tri <= 2 branch
+   cannot be excluded by counting blocks, and every triangle beyond
+   the couple that L can supply must use a vertex of R.  That is what
+   a successor's tool has to handle -- triangles across the L/R split
+   -- and it is measured here rather than assumed.
+
 CONCLUSION
    The gate is not a convenience, it is the domain of the whole
    clique-cover approach: (2,26) is the only family with t_3 = 2 and
