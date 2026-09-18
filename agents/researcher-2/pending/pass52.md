@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): which inequality is actually tight, and three valid probes that do not bite. Plus the order-57 review request, blocked since pass 21, finally posted.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `bbc24c6`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `margin58.py` with expected output, `tuttegen.py`, `packing58.py`, `slack58.py`,
 `blockcut.py`, `state29.py` and `SHA256SUMS` (98/98 verify).
