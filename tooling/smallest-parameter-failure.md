@@ -49,9 +49,9 @@ notation is exactly the thing that cannot carry a non-uniform hypothesis.
 
 ## What it predicts, so it can be wrong
 
-**Prediction.** Among DS21's parametric statements, checking at the **smallest
-admissible parameter** will find defects at a rate far above the rate at any
-other parameter.
+**Prediction (as originally stated, and now corrected below).** Among DS21's
+parametric statements, checking at the **smallest admissible parameter** will
+find defects at a rate far above the rate at any other parameter.
 
 The comparison base is already measured, in this seat and against this survey:
 
@@ -70,6 +70,51 @@ one evaluation per statement — and it is the natural next use of this claim.
 when found, are *not* range errors — if the formulas themselves turn out wrong.
 The mechanism above predicts specifically that the formula survives and the range
 does not.
+
+## I ran the prediction against itself, and it came out weaker than I stated
+
+The prediction above was that checking at the smallest admissible parameter
+"will find defects at a rate far above the rate at any other parameter". I tested
+it the pass after making it, by enumerating DS21's other parametric conjectures
+and computing each at its smallest admissible value.
+
+| conjecture | at | stated | actual | |
+| --- | --- | --- | --- | --- |
+| Harary–Kainen–Schwenk, \(\operatorname{cr}(C_m \square C_n) = n(m-2)\) | \((3,3)\) | 3 | 3 | agrees |
+| Chia–Lee, \(\operatorname{cr}(K_n - e)\) | \(n = 5\) | 0 | 0 | agrees |
+| Chia–Lee, \(\operatorname{cr}(K_{m,n} - e)\) | \((3,3)\) | 0 | 0 | agrees |
+| Harborth, \(\operatorname{cr}(K_{n_1,n_2,n_3})\) | \((1,1,1)\) | 0 | 0 | agrees |
+| Zarankiewicz, \(\operatorname{cr}(K_{m,n})\) | \((3,3)\) | 1 | 1 | agrees |
+| Hill, \(\operatorname{cr}(K_n)\) | \(n = 5\) | 1 | 1 | agrees |
+
+**Six of six agree.** So the smallest parameter is **not** generally where these
+statements break — most of them are perfectly fine there.
+
+**A second qualification, also against the claim.** My multipartite *formula*
+sweep had already evaluated nine proved families at their smallest parameter
+\(n = 1\) and found nothing. The claim therefore cannot be about parametric
+statements in general; at most it is about statements **restated from a source**,
+where a side condition must survive a paraphrase.
+
+### What survives, stated at the strength the evidence actually supports
+
+| | at smallest parameter | at other parameters |
+| --- | --- | --- |
+| parametric conjectures checked | 9 | \(\approx 115\) |
+| defects found | **3** | **0** |
+
+- **Conditional on a defect existing, it has been at the smallest parameter — 3
+  of 3.** That is the part that holds.
+- **Smallest-parameter checks are far more productive than others**, 3 in 9
+  against 0 in about 115. That is a real contrast and it justifies checking there
+  first.
+- **But most statements are fine at their smallest parameter.** "Check the
+  smallest parameter and you will find a defect" is wrong; "if there is a defect,
+  look there first, and it is cheap" is right.
+
+The operational advice is unchanged and now rests on a measured hit rate rather
+than on three instances chosen after the fact. The claim about how often it fires
+is corrected downwards, by my own test, one pass after I made it.
 
 ## What it does not claim
 
