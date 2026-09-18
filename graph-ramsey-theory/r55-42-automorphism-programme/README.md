@@ -244,6 +244,32 @@ eight and nine of ten reproducing the recorded SHA-256 exactly (the differences 
 proofs originally produced through drat-trim, which trims them). Details in the two
 artifact READMEs.
 
+## Reproducibility audit (2026-09-18)
+
+Every published formula in this lane was regenerated from its artifact's own
+reproduction commands and compared against the hash the artifact records. Done after
+a byte-level mismatch was found in `../r55-42-no-z3-squared`, on the principle that
+one such defect is a reason to check the rest rather than to assume them.
+
+| Artifact | Formula | Recorded SHA-256 | Regenerated |
+|---|---|---|---|
+| `../r55-42-order3-cube-and-conquer` | \(1^{15}3^{9}\), `c15_3_9_L4.cnf` | `22b31916...58fc01` | **matches** |
+| `../r55-42-order3-cube-and-conquer` | \(1^{12}3^{10}\), `c12_3_10_L4.cnf` | `cbce1811...d607b57` | **matches** |
+| `../r55-42-no-order-5-automorphism` | \(1^{2}5^{8}\), `c2_5_8_L3.cnf` | `0b47e92e...492b7845` | **matches** |
+| `../r55-42-order-9-automorphisms` | \(1^{6}9^{4}\), `ct6_9_4.cnf` | `74d98b96...706b48fc` | **matches** |
+| `../r55-42-no-z3-squared` | \((9;1,1,0,0;3)\) | `8d74dc78...55d60a3d` | **differs** (see that note) |
+
+All the intermediate counts reproduce too -- 357 orbit variables and
+570144 + 56034 clauses for \(1^{15}3^{9}\), 331 and 566798 + 50356 for
+\(1^{12}3^{10}\), 173 and 339368 + 20928 for \(1^{2}5^{8}\) -- as do the cube
+counts and the residual-clause counts, and the committed `c15_3_9_L4.icnf` is
+byte-identical to the regenerated one.
+
+The single exception is explained in `../r55-42-no-z3-squared`: generalising that
+artifact's generator to arbitrary \((s,t)\) changed the order clauses are written
+in, though not the set. It is the only generator in the lane that was changed after
+its logs were written.
+
 ## References
 
 - McKay, Radziszowski, *Subgraph counting identities and Ramsey numbers*, JCTB 69 (1997).
