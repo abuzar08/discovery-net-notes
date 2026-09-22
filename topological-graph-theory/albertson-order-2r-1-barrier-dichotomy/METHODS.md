@@ -213,8 +213,53 @@ measured on both sides:
 
 **So the residual is not two halves needing two tools.** It is one inequality and
 one scalar: how many units of absorption can be proved unconditionally. Ten
-closes half the class, twenty-one closes all of it but one. That is a harder
-target than the one it replaces and a better-founded one.
+closes half the class, twenty-one closes all of it but one.
+
+## Where those units would have to come from — and that they cannot (`capacity58.py`)
+
+\(\mu_1\) is a lower bound for a matching between the \(Z_a\) vertices of \(Z\)
+with \(a_z\ge1\) and the \(q_1\) vertices of \(Q_1\), so **no matching can
+exceed \(\min(Z_a,q_1)\)** whatever is ever proved about it; likewise
+\(\mu_2\le\min(Z_b,\lvert\text{side}_2\rvert)\). Measured at the binding
+point — the \((k_1,k_2)\) and \(w\)-split at which the required bonus is
+attained, recorded by `residue58.LAST_BINDING` on the same code path that prices
+it:
+
+| | at the binding point |
+|---|---|
+| \(\min(Z_a,q_1)-\mu_1\) | **0 on 6048 of 6053** (99.9%); the other five are 2, 3, 8, 8, 8 |
+| \(\min(Z_b,\lvert\text{side}_2\rvert)-\mu_2\) | **0 on 5068 of 6053** (83.7%) |
+| both simultaneously | **5068 (83.7%)** |
+
+Control: **no computed \(\mu\) exceeds its ceiling anywhere**, 0 of 6053 — an
+excess would have been an unsoundness, not a strength.
+
+**What this rules out.** A handicap of \(d\) on the left is the same statement as
+a reduction of \(d\) on the right, so the scan priced both directions at once;
+the ceilings rule out the *left*. **No theorem about \(\mu_1\) or \(\mu_2\) —
+no sharper matching bound, no wider second side, no better defect-Hall floor —
+can produce even one of the required units**, because both quantities already sit
+at values no matching can exceed. That is stronger than "the bounds are tight":
+the quantities are *maximal*. Every sharpening attempted on that side — the
+widened second side, the matroid intersection, the singleton refinement of
+\(c_A\), the exact-total `side_caps` — was working in a direction with **zero**
+room, which is what their yields (0, 1 of 1843, 12, 0) had been saying all along.
+
+**What the deficit is instead.** Arithmetic: more high vertices to absorb than
+vertices to absorb them into, tracking \(\lvert R\rvert-q_1\).
+
+| \(\text{need}-(\lvert R\rvert-q_1)\) | \(-2\) | \(-1\) | 0 | 1 | **2** | 3 | 4 | 5 | 6 | \(\ge11\) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| configurations | 43 | 152 | 481 | 1223 | **2317** | 1407 | 347 | 64 | 9 | 10 |
+
+In \(\{0,1,2,3\}\) on **5428 of 6053 (89.7%)**; Pearson correlation
+\(+0.962\), against \(-0.855\) for \(q_1\) alone and \(+0.741\) for
+\(\lvert R\rvert\) alone. The gap runs \(-13\) to \(19\) and the maximum
+required bonus, 21, sits where it is widest.
+
+**So a successor needs a theorem about \(\lvert R\rvert-q_1\)** — a reason the
+largest Gallai block cannot be small relative to the high set — and not a better
+absorption argument.
 
 ## The branch hypothesis is one condition of seventy
 

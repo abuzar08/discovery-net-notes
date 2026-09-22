@@ -1797,6 +1797,22 @@ residual is not two halves needing two tools**: it is one inequality and one
 scalar, how many units of absorption can be proved unconditionally.  Ten closes
 half the class; twenty-one closes all of it but one.
 
+### Those units cannot come from \(\mu_1\) or \(\mu_2\) (`capacity58.py`)
+
+\(\mu_1\) bounds a matching between the \(Z_a\) vertices of \(Z\) with
+\(a_z\ge1\) and the \(q_1\) vertices of \(Q_1\), so it can never exceed
+\(\min(Z_a,q_1)\); \(\mu_2\) likewise cannot exceed
+\(\min(Z_b,\lvert\text{side}_2\rvert)\).  At the binding point **\(\mu_1\) is
+AT that ceiling on 6048 of 6053 configurations and \(\mu_2\) on 5068**, both
+simultaneously on 5068, and no computed \(\mu\) exceeds its ceiling anywhere.
+
+So the required units cannot come from the left-hand side at all: the quantities
+are not merely tightly bounded, they are **maximal**.  The deficit is missing
+**capacity** — more high vertices than places to absorb them — and it tracks
+\(\lvert R\rvert-q_1\), lying within \(\{0,1,2,3\}\) of it on **89.7%** of
+the class (Pearson \(+0.962\)).  **A successor needs a theorem about
+\(\lvert R\rvert-q_1\), not a better absorption argument.**
+
 ### The branch hypothesis imposes one of seventy conditions (`routes58.py`)
 
 Both of the chain's arguments are now measured out at order 58, so what is left
@@ -2232,6 +2248,8 @@ bears on `r >= 30`.
 | `mixed58.py` | **triangles across the L/R split are not available where they were wanted** |
 | `shortfall58.py` | how far order 58 is from closing **on the class open today** |
 | `EXPECTED_OUTPUT_SHORTFALL58.txt` | its expected output |
+| `capacity58.py` | **the absorption gap is missing capacity, not slack**: \(\mu_1\) and \(\mu_2\) are at their absolute ceilings at the binding point |
+| `EXPECTED_OUTPUT_CAPACITY58.txt` | its expected output |
 | `absprice58.py` | **what the absorption inequality would actually buy, priced by a scan**: one unit closes 117, not 3196 — but it reaches 6053 of 6054 |
 | `EXPECTED_OUTPUT_ABSPRICE58.txt` | its expected output |
 | `seed57.py` | `aug57`'s route to two order-57 cases is seed-dependent; **the closure is not** |
@@ -2282,6 +2300,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 margin58.py     | diff -u EXPECTED_OUTPUT_MARG
 PYTHONDONTWRITEBYTECODE=1 python3 mixed58.py      | diff -u EXPECTED_OUTPUT_MIXED58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 shortfall58.py  | diff -u EXPECTED_OUTPUT_SHORTFALL58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 absprice58.py  | diff -u EXPECTED_OUTPUT_ABSPRICE58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 capacity58.py  | diff -u EXPECTED_OUTPUT_CAPACITY58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 seed57.py       | diff -u EXPECTED_OUTPUT_SEED57.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -

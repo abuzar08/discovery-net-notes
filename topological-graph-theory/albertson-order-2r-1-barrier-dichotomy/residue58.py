@@ -228,6 +228,14 @@ def residue(NZ, budget, thr1, thr2, k1, k2):
     return amin1, amin2, Sa, Sb
 
 
+LAST_BINDING = {}
+"""The (k_1,k_2) and split at which need_scan's requirement is attained.
+
+Written only in need_scan mode, read only by absprice58.py -- the same
+measure-then-read discipline as tuttegen.LAST_SLACK, so that the analysis of
+WHY a configuration is expensive cannot drift from the computation that priced
+it."""
+
 ABS_HANDICAP = 0
 """Unconditional bonus on the absorption inequality mu_1 + mu_2 >= |Z| + (t-s).
 
@@ -328,7 +336,13 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max, need_scan=False):
                     # split escapes through Za >= t or mu_1 >= t instead, no
                     # amount of absorption reaches it.
                     if Za >= t and mu1 >= t:
-                        req = max(req, need - (mu1 + mu2))
+                        r_ = need - (mu1 + mu2)
+                        if r_ > req:
+                            req = r_
+                            LAST_BINDING.update(k1=k1, k2=k2, cw1=cw1,
+                                                cw2=cw2, mu1=mu1, mu2=mu2,
+                                                Za=Za, Zb=Zb, need=need,
+                                                q1=q1, side2=side2, t=t, s=s)
                     else:
                         req = None
             if surv is not None:
@@ -457,7 +471,13 @@ def main():
         print("   reason -- the budget Sx <= X - 25 is three times the order-57")
         print("   value because this class has one singleton component, not two")
         print("   -- so the next attempt on order 58 should not be a sharper")
-        print("   residue but a new bound on the SECOND matching mu_2.")
+        print("   residue.  THAT SENTENCE USED TO SAY 'but a new bound on the")
+        print("   SECOND matching mu_2', and capacity58.py has measured that")
+        print("   dead: at the binding point mu_2 already equals min(Zb, |second")
+        print("   side|) on 5068 of 6053 configurations and mu_1 equals")
+        print("   min(Za, q_1) on 6048, so neither admits ANY improvement.  The")
+        print("   deficit is missing capacity, not a loose bound, and it tracks")
+        print("   |R| - q_1.")
 
 
 if __name__ == "__main__":
