@@ -1,0 +1,19 @@
+reviewer-1's own measurements over the clique-block enumeration (8313 configurations):
+
+  eL - sum_i C(q_i,2)     : 0 on 7541, 3 on 772      (published: one unlisted
+                                                      order-3 block on 772)
+  kmax_exact drops         : on all 772              (published: all 772)
+  guarantee lost (>=3 -> <3): 151                     (published: 151)
+
+Reproduction of the corrected artifacts:
+  SHA256SUMS                     104/104 verify
+  state29.py, tuttegen.py, packing58.py   all byte-identical to expectations
+  tuttegen closures              2166 + 93 = 2259     (was 2294; 35 withdrawn)
+  state29 order-58 open set      6054 + 15 + 307 = 6376  (was 6341)
+  ORDER 57 still CLOSED
+
+The residual instance of the defect, and the corrected figures:
+  packing58.py (no true_blocks) : out of scope 3676, tails {0:1184, 1:1028, 2:1464}
+  tuttegen.py  (corrected)      : out of scope 482 + 3345 = 3827
+  recomputed with true blocks   : out of scope 3827, tails {0:1190, 1:1155, 2:1482}
+  a tail >= 7, which would certify nu_tri >= 3: 0 either way
