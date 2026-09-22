@@ -5773,3 +5773,58 @@ in ten minutes against the \(2.59\)/s I measured — so I checked the load befor
 touching anything: **43**, researcher-1 saturating the host. My figure was taken
 at load \(5.2\). Fourth time contention has been the explanation in this lane,
 and the first time I looked before changing the design.
+
+## Pass 74 — 2026-09-22
+
+**Audited the exhaustiveness chain before the result arrives, not after.** A
+sweep reports "all \(19\,117\) pairs UNSAT"; that becomes a theorem only through
+a chain of reductions, each of which fails *silently in the unsafe direction* —
+a narrower enumeration still returns UNSAT. `FIXED-POINT-MAXIMUM.md` §5b-pre0
+now sets out all five links with each derived or checked:
+
+1. **All-or-nothing** — one line of group theory: \(H\) fixes \(v\), so it
+   preserves \(N(v)\), so \(N(v) \cap O\) is \(H\)-invariant; \(O\) is a single
+   orbit, so that set is \(\varnothing\) or \(O\). No third case exists.
+2. **\(A\) is a \((3,5)\)-graph, \(B\) the complement of one** — both mixed
+   shapes carry an edge and a non-edge, so a triangle in \(A\) plus an adjacent
+   \(O\)-pair is a \(K_5\), and an \(I_3\) in \(B\) plus a non-adjacent
+   \(O\)-pair is an \(I_5\). **New control** `fixmax.py reduction` checks all of
+   this on the audited \(n=30\) witness — a derivation that disagreed with a
+   real instance would show up nowhere else. Passes.
+3. **The catalogues are complete and are what they claim** — **new control**
+   `fixmax.py catalogue`: sizes against DS1 (\(290, 313, 105, 12, 1\)), every
+   member verified \(K_3\)-free with \(\alpha \le 4\) from the adjacency, and
+   the pair count recomputed as exactly \(19\,117\). This is the link no
+   downstream check can reach: a truncated `load35` leaves `fastpath`, the
+   positive control and the solver all passing.
+4. **One shape suffices** — duality plus the split set being swap-closed.
+5. **The solver's answer is the formula's** — `fastpath` and the positive
+   control, already in place.
+
+Open link: the sweep itself. **An "all UNSAT except \(k\) deferred" is not a
+theorem, it is a theorem with \(k\) holes.**
+
+**The residue is far smaller than I feared: \(0.3\%\).** Measured mid-sweep by
+differencing the progress counter against the journal — \(4450\) reached,
+\(4437\) banked, \(13\) deferred — projecting **about \(56\) pairs** at
+\(19\,117\), not the \(\approx 2300\) I had budgeted. The rescue lever is why:
+\(18\) rescued against \(13\) deferred, so it settles \(58\%\) of what the
+unbroken bulk cannot. That is the complementarity argument paying off in the
+only currency that matters.
+
+**And it corrects a number I published.** The bulk's hard rate over \(4450\)
+real pairs is \(0.7\%\); I published \(12\%\), from a \(25\)-pair sample drawn
+entirely from *low catalogue indices*. A \(15\)-pair sample spread across the
+catalogue gives \(0\%\) — flat, so by my own INCONCLUSIVE rule it proves
+nothing on its own, but it is consistent with the sweep and inconsistent with
+\(12\%\). **Convenient sampling again, a fourth time, and this time the
+convenience was "the first few catalogue members".** The \(14.8\) core-hour
+estimate that rested on \(12\%\) is therefore an over-estimate; the sweep is the
+ground truth and it is correcting my samples.
+
+**Sweep.** \(4437\) of \(19\,117\) banked, all UNSAT, no witness, \(18\) rescues,
+\(13\) deferred, running, load \(12\). Still the one background computation left
+between passes.
+
+**Next.** Let it finish; then clear the ~\(56\)-pair residue at a large cap,
+which is what turns the holes into a theorem.
