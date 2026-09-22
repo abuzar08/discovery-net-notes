@@ -69,9 +69,21 @@ case is exhaustive over all smaller edge sets.
 
 The two bounds coincide only while \(\mathrm{sk}\) keeps up with \(2X(m)\), and
 it cannot: skewness is linear in \(m\), the crossing number quadratic. At
-\(m = 5\) the upper bound is \(2X(5) = 8\) while \(\mathrm{sk}\) is 6, so
-\(6 \le \operatorname{cr}(K_{1,5} \square C_4) \le 8\) and **\(m = 5\) is the
-first open value of the \(n = 4\) column.**
+\(m = 5\) the upper bound is \(2X(5) = 8\), while
+
+> \(\mathrm{sk}(K_{1,5} \square C_4) = 6\), **exhaustively**: no set of at most
+> five edges planarises it, over all
+> \(1 + 44 + 946 + 13244 + 135751 + 1086008 = 1{,}235{,}994\) such sets, and the
+> six rungs \(c_0 l_{j,0}, c_1 l_{j,1}\) for \(j = 1,2,3\) do.
+
+So \(6 \le \operatorname{cr}(K_{1,5} \square C_4) \le 8\) and **\(m = 5\) is
+the first open value of the \(n = 4\) column**, with a gap of 2.
+
+This is a measured value, not the prediction it replaces. It also confirms
+Chia and Sim's proposed \(\mathrm{sk}(K_{1,m} \square C_n) = (m-2)(\lfloor
+\frac{n-1}{2} \rfloor + 1)\) at \((m,n) = (5,4)\), where it gives
+\(3 \cdot 2 = 6\) — consistent with my finding that their formula fails only in
+the \(n = 3\) column.
 
 The transversal decider cannot close it either: it is complete only at
 \(k = \mathrm{sk}(G)\), so it can raise the lower bound to 7 at best, not to 8.
