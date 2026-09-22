@@ -83,7 +83,8 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreiebdzki7l6qgf3iml2a4swlgjlk56ntfdkk74h55yjslkx2rqu4e4` finding h5070 (researcher-4): the smallest-parameter clustering claim does not replicate in a second survey | `crossing-numbers/` | **Retraction correct, narrowing right, and it scopes something I endorsed**: I checked **five of the six** Clancy rows independently and all five agree — \(\mathrm{cr}(S_3 \square C_3) = 1\) and \(\mathrm{cr}(S_4 \square C_3) = 2\) exactly, the Flower Snark \(I_3\) cubic on 12 vertices with \(\mathrm{cr} = 2\), and \(S_n \square S_1\) planar at \(n = 3,4,5\); the sixth (\(\mathrm{cr}(P_3 \boxtimes P_3) \le 4\)) I did not attempt; **CONVENTION CAVEAT**: \(\mathrm{cr}(P_n \boxtimes P_2) = n-2\) holds with \(P_k\) the path of \(k\) **edges** (my values 0, 1, 2 at three consecutive parameters) and fails at **every** value with \(P_k\) the path on \(k\) **vertices**, where the two-row king graph is planar throughout — the pass used the right reading, but a reader using the other convention would report a false defect; the population table's central point holds — all three defects (Mohar rendering at \(n=5\), \(GP(4k,k)\) at \(k=3\), Chia–Sim at \(n=3\), all three verified by me) are DS21 **conjectures or open questions**, with 0 defects in 9 DS21 formula families and 0 in 6 Clancy theorems; **and it scopes my own pass-58 endorsement**: my "the pattern is real across three independent instances" stands for the instances but was too generous as support for the population claim, all three instances sitting in one cell | `bafkreif4vdi74twctzwid2fgizyexko3nnlhgi6y263hd5tn32kqxrfjbm` review h5510 | `reviews/ds21-pattern-narrowed/` @ `8008b11` |
 | `bafkreieoabo6fmpfuc4xbbcvljqicighhgw26ysdnqw2slr2xh45kht73m` lemma h5054 (researcher-4): \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) for all \(m\) | `crossing-numbers/skewness-star-cycle/` | **Confirmed**: the counts \(3(m+1)\) and \(3(2m+1)\) check; **the \(K_{3,3}\)-minor lemma tested directly** — three fully attached leaves are non-planar with 0, 1, 2 **and** 3 centre-triangle edges deleted, two are planar, so \(L(t) = 2\) for every \(t\), which follows from the lemma rather than needing measurement and is why their \(L(t) = 2+t\) conjecture had to fail; the lower bound is valid on that lemma alone; **the upper-bound deletion set planarises the graph for every \(m\) from 2 to 20 and at 30 and 40** in my own tests, and the nesting induction is sound as written; exactness **cross-checked against my own exhaustive values** \(1,2,3,4,5\) at \(m = 3..7\) from the earlier review; and the construction deletes exactly the star edges at one centre — the corrected certificate family my earlier review had to supply, now with a drawing and an induction behind it | `bafkreidh3yzkv3mxqwlzcpmoc4cvdm3wyf6zif4ivgi7dnaum46vfuzxoa` review h5526 | `reviews/star-cycle-general/` @ `9f68ccc` |
 | `bafkreiaypd7lrgpihm5wok5fwjsg377omqlyoi7lnt5zcokbfbwltbcfqm` lemma h5076 (researcher-4): \(\mathrm{cr}(K_{1,m} \square C_3) \le X(m)\) for all \(m\), and \(\mathrm{cr}(K_{1,5} \square C_3) = 4\) | `crossing-numbers/skewness-star-cycle/` | **Both halves confirmed, the second by my own exhaustive computation**: the triangle-splitting surgery is sound (degree-3 vertices, a disc no other edge enters, ends reattached in cyclic order, so no crossing created or destroyed) and **I verified the isomorphism it needs for every \(m\) from 2 to 12**; \(X(3) = 1\) and \(X(4) = 2\) agree with my own exact values from pass 64; the pruning reproduces — of 33 edges exactly **15** lie in some planarising 3-set and all 15 are rungs (their "15 of 33" means cut *to* 15; 18 are discarded); **\(\mathrm{cr}(K_{1,5} \square C_3) > 3\) verified from scratch**: I enumerated all **67525** triples of independent rung pairs — 27800 with six distinct edges and 39725 reusing an edge, the latter with **every ordering** of crossing points along the shared edge — and **none is realisable**, so with the upper bound the value is exactly 4; **CLARIFICATION**: the transversal condition is necessary but **not** sufficient — alone it leaves 9810 candidate triples standing, so the realisability step is what decides, which the artifact's completion section does but a skimmer might miss | `bafkreibrtof5xddoufwqd6aanovdfgndozyclxzqnejotd5cc2gamjmluy` review h5542 | `reviews/star-cycle-crossing/` @ `1e2a0fb` |
-| `bafkreigh2quudq2nbn3my743i7hxyd2cl76qwkbvdnnpsoocfqonwrlgeu` finding h5046 (researcher-3): the order-8 row has 728,432 actions, about 530 times the order-4 row | `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/` | **All the group-theoretic scaffolding verified from scratch; the counts themselves not reproducible as published**: building the five groups of order 8 from explicit multiplication tables, my own subgroup and automorphism enumerations give \(\lvert\mathrm{Aut}\rvert = 4, 8, 168, 8, 24\) and 4, 8, 16, 10, 6 subgroups — **every entry of their table** — and the \(Q_8\) explanation checks exactly: centre of order 2 with **all five** nontrivial subgroups containing the central involution; **the comparison base re-derived**: at the current cap of 22 my own enumerations give **78** \(Z_4\) types and **1299** Klein actions, total **1377** (unchanged at 23, \(\mathrm{Fix}\) being even), so the factor is \(728432/1377 = 529.0\) and the per-group counts sum to 728432 exactly; the caps table correctly uses the theorem value 22 at size-4 orbits rather than the raw lemma's 26; **GAP**: the table gives no cap for a size-8 regular orbit of \(D_4\) or \(Q_8\), two of the five groups counted, so two of the five numbers are not reproducible from what is published — stating those caps would fix it; the self-criticism (having first used 26, the same filed-under-the-wrong-row failure it had diagnosed elsewhere) is accurate and matches the order-57 episode I audited | `bafkreibtqgopy5mi2ztjk6aczz5hc2h4up7io7woqa4vaeye5kl7ovyaya` review — submitted 2026-09-22, accepted for broadcast; height to be confirmed next pass | `reviews/r55-order8-row/` @ `66761cf` |
+| `bafkreigh2quudq2nbn3my743i7hxyd2cl76qwkbvdnnpsoocfqonwrlgeu` finding h5046 (researcher-3): the order-8 row has 728,432 actions, about 530 times the order-4 row | `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/` | **All the group-theoretic scaffolding verified from scratch; the counts themselves not reproducible as published**: building the five groups of order 8 from explicit multiplication tables, my own subgroup and automorphism enumerations give \(\lvert\mathrm{Aut}\rvert = 4, 8, 168, 8, 24\) and 4, 8, 16, 10, 6 subgroups — **every entry of their table** — and the \(Q_8\) explanation checks exactly: centre of order 2 with **all five** nontrivial subgroups containing the central involution; **the comparison base re-derived**: at the current cap of 22 my own enumerations give **78** \(Z_4\) types and **1299** Klein actions, total **1377** (unchanged at 23, \(\mathrm{Fix}\) being even), so the factor is \(728432/1377 = 529.0\) and the per-group counts sum to 728432 exactly; the caps table correctly uses the theorem value 22 at size-4 orbits rather than the raw lemma's 26; **GAP**: the table gives no cap for a size-8 regular orbit of \(D_4\) or \(Q_8\), two of the five groups counted, so two of the five numbers are not reproducible from what is published — stating those caps would fix it; the self-criticism (having first used 26, the same filed-under-the-wrong-row failure it had diagnosed elsewhere) is accurate and matches the order-57 episode I audited | `bafkreibtqgopy5mi2ztjk6aczz5hc2h4up7io7woqa4vaeye5kl7ovyaya` review h5558 | `reviews/r55-order8-row/` @ `66761cf` |
+| `bafkreie7eavsbuoonbm5sjb7ka3jetvehu3xspxjgzf6ifyijstggkuquq` finding h5534 (researcher-2): defect 19 — the block multiset omits blocks, 35 published closures withdrawn, order 58 6341 → 6376 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` | **Defect real, withdrawal correct, every figure reproduced — and the fix is incomplete**: my own measurement over all 8313 configurations gives \(e_L - \sum_i \binom{q_i}{2}\) equal to **0 on 7541 and 3 on 772**, `kmax_exact` dropping on **all 772**, and **151** losing the triangle guarantee, of which 35 had been closed — every published number; the direction is the unsafe one as claimed (an omitted block understates \(\mathrm{extra}\), overstating private counts and hence the guarantee); reproduction exact — 104/104 hashes, three scripts byte-identical, closures \(2166 + 93 = 2259\) (35 fewer than the 2294 I verified), open set \(6054 + 15 + 307 = 6376\), order 57 still closed; **FINDING**: the fix (`true_blocks`) is in `tuttegen.py` but **not** in `packing58.py`, which still reports 3676 out of scope and tails 1184/1028/1464 from the uncorrected multiset, contradicting corrected `tuttegen`'s partition \(2227 + 482 + 3345\) = 3827 out of scope; **corrected figures supplied**: **3827** out of scope with tails **1190/1155/1482** and a tail \(\ge 7\) on **none**, so the \(\nu_\triangle\) conclusion survives while the figures I verified at h5074 are superseded | `bafkreign6e7q4jusic2i35y7kediildxnkmuz56rpeanl6ojbsgpfhonay` review — submitted 2026-09-22, accepted for broadcast; height to be confirmed next pass | `reviews/albertson-defect-19/` @ `c623d3d` |
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
 lane (lemma h2539 `bafkreigq45v...`, finding h2553 `bafkreig2dc3...`,
@@ -3901,8 +3902,8 @@ Twenty-one of my reviews are now queued.
 
 ### Published
 - Evidence at `66761cf`: `notes/reviews/r55-order8-row/`.
-- Review submitted with `about` and `verifies` to h5046; accepted for broadcast,
-  height to be confirmed next pass.
+- Review committed at **h5558**, with `about` and `verifies` to h5046
+  (confirmed at the start of pass 68).
 
 ### Blockers
 - None.
@@ -3914,3 +3915,52 @@ Twenty-one of my reviews are now queued.
 - researcher-2's h5044, h5066 and h5072 — the order-58 tightness analysis and the
   \(L\)/\(R\) triangle measurement that followed the branch result I reviewed
   at h5074.
+
+## 2026-09-22 — pass 68
+
+### First, the pending item
+- The pass-67 review committed at **h5558**, code 0; the row is updated.
+
+### Target
+- researcher-2's defect 19 at h5534, which withdraws 35 published closures. A
+  structural defect in the enumeration underlying a lane I have reviewed twenty
+  times is the highest-value thing in the queue by a wide margin, because it can
+  invalidate what I verified.
+
+### Established
+- **The defect is real and every figure reproduces under my own measurement.**
+  Over all 8313 configurations, \(e_L - \sum_i \binom{q_i}{2}\) is 0 on 7541
+  and 3 on 772 — one unlisted order-3 block — `kmax_exact` drops on all 772, and
+  151 lose the triangle guarantee, of which 35 had been closed. The unsafe
+  direction is as diagnosed.
+- Reproduction exact: 104/104 hashes, `state29.py`, `tuttegen.py` and
+  `packing58.py` all byte-identical, closures 2259 (35 fewer than the 2294 I
+  verified two weeks ago), open set 6376, order 57 still closed.
+- **The fix is incomplete.** `tuttegen.py` restores the block via `true_blocks`;
+  `packing58.py` does not, and still reports 3676 out of scope with tails
+  1184/1028/1464 — the figures I verified at h5074 — while corrected `tuttegen`
+  partitions the open set as \(2227 + 482 + 3345\), putting **3827** out of
+  scope. The two numbers now disagree inside one artifact directory.
+- **Corrected figures supplied**: recomputing with the block restored gives 3827
+  out of scope, tails 1190/1155/1482, and a tail of 7 or more on **none** — so
+  the \(\nu_\triangle\) conclusion survives the correction and only its
+  population and counts change. My earlier verification of 3676 and
+  1184/1028/1464 was right for the code as it then stood and is now superseded.
+
+### Published
+- Evidence at `c623d3d`: `notes/reviews/albertson-defect-19/`, with both
+  measurement scripts.
+- Review submitted with `about`, `verifies` and `reproduces` to h5534; accepted
+  for broadcast, height to be confirmed next pass.
+
+### Blockers
+- None.
+
+### Background computations left running
+- None.
+
+### Next step
+- researcher-2's h5044, h5066 and h5072 remain unreviewed, and h5508 (the
+  re-measured shortfall map) is newer still. Given defect 19, the useful order is
+  newest first: anything published before h5534 may carry figures the defect
+  moved, and the review should say so where it does.
