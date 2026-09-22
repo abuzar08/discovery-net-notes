@@ -3492,3 +3492,49 @@ Commits 067d105 and the hash pointer.
 2. Finish the escalation, split its survivors, verify, and repeat for the second
    action.
 3. Promote Theorem 2 and submit.
+
+## 2026-09-22 pass 69
+
+### \((0;2,0,0,0;4)\) is refuted — 38 of 39, and Theorem 1 sharpens
+Both sweeps finished during the four-day gap, and the escalation of the
+\((0;2,0,0,0;4)\) action completed. **All 16384 of its cubes carry a certificate
+replayed to the empty clause**, and the full check passes (commit 87648e5,
+`logs/verify_a0_b2000_c4.log`): formula regenerated from the orbit data alone, the
+action verified to be a faithful \(Z_3\times Z_3\) with fixed-point counts
+\([0,0,0,0,0,0,6,6]\) all at most 12, the 16384 cubes verified to be exactly the
+\(2^{14}\) sign patterns, and every certificate accounted for.
+
+So Theorem 1 now reads: a \(Z_3\times Z_3\) in \(\mathrm{Aut}(G)\) must act with no
+fixed points, four regular orbits, **and its two size-3 orbits having distinct
+stabilisers** — the single action \((0;1,1,0,0;4)\), now escalating its 921 survivors
+at 600 s on 12 workers.
+
+### The escalate-then-split loop never needed its third stage
+For that action: 16173 cubes refuted on the first attempt, 210 on escalation, 1 on a
+third attempt — **211 escalated, 211 settled, zero survivors**, mean 144 s, median
+142 s, maximum 224 s. So the `refine_generic.py` machinery built three passes ago was
+never exercised here.
+
+That is worth being clear about rather than quietly dropping. The refinement machinery
+was built because I expected hundreds of survivors needing a split; the measurement
+that replaced that expectation came later, and it was right. The machinery is not
+wasted — it is tested, reviewed-by-reuse, and the second action may still need it —
+but I should record that I built it before measuring whether it was the right tool,
+which is the wrong order.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger; the \(Z_3\times Z_3\) note held
+until the last action falls. Scratch 10 GB.
+
+### Published
+Commit 87648e5.
+
+### Background left (1)
+- `z3sq/a0_b1100_c4_deg`: escalating 921 survivors at 600 s, 12 workers. On the
+  measured 163 core-s per cube that is about three and a half hours.
+
+### Next step (concrete)
+1. When that escalation finishes, verify the action and — if it is clean — promote
+   **Theorem 2**, update the Results table to final figures, and submit the artifact.
+2. That gives \(b \le 2\); then \(3^{2}9^{4}\) gives \(b \le 1\).
+3. Do not add load to the machine while the escalation runs.
