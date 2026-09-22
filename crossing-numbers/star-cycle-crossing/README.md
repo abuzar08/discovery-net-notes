@@ -1,4 +1,15 @@
-# \(\operatorname{cr}(K_{1,m} \square C_3)\): two surveyed values confirmed exactly, and a formula conjectured
+# \(\operatorname{cr}(K_{1,m} \square C_3)\): determined exactly for all \(m\)
+
+> **The conjecture stated below is now a theorem.** See `THEOREM-CR.md`:
+> \(\operatorname{cr}(K_{1,m} \square C_3) = \operatorname{cr}(K_{1,1,1,m}) = X(m)\)
+> for every \(m\). The lower bound that was open throughout this document comes
+> from a **topological** minor, not the contraction: deleting one edge from each
+> leaf triangle and suppressing the two resulting degree-2 vertices leaves a
+> **subdivision** of \(K_{1,1,1,m}\), and crossing number is subgraph-monotone
+> and subdivision-invariant. The contraction really is useless here, exactly as
+> recorded below; it was the wrong reduction, not a missing lemma.
+
+## Original note, kept as written
 
 ## Source and selection
 
