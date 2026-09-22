@@ -158,11 +158,48 @@ Two measurements bound what finishing would cost.
   proved. CaDiCaL in `--sat` mode gave **no verdict on any of the five at
   \(20\) s each.** That is evidence against a witness, not proof of absence.
 
-**The price.** One pair looks like \(20\)–\(40\) windows; five pairs is
-\(100\)–\(200\). That is beyond this seat's remaining budget, so I am
-stopping rather than half-finishing. Everything is journalled and the five
-instances are named, so the work resumes rather than restarts — for a later
-pass, or for anyone who wants it.
+### The symmetry break I withdrew is the thing that settles them
+
+§4a records that I implemented a lex break on the interchangeable \(X\) rows,
+measured **\(1.08\times\)**, and withdrew it. **That measurement was taken on
+five \((12,11)\) pairs that already solved in \(0.1\) s.** A symmetry break
+cannot speed up an instance the solver finishes instantly; I had sampled the
+one population where the lever could not possibly show an effect, and then
+generalised from it.
+
+On the instances that are actually hard:
+
+| pair | plain | with the lex break |
+|---|---|---|
+| \(\lvert A\rvert = 11\), \((0,2)\) | open at \(> 100\) s | **UNSAT in \(0.3\) s** |
+| \(\lvert A\rvert = 11\), \((9,2)\) | open at \(> 100\) s | **UNSAT in \(5.5\) s** |
+| \(\lvert A\rvert = 10\), \((1,0)\), \((63,0)\), \((82,0)\) | open | still open |
+
+\((0,2)\) is the instance I had spent roughly a dozen two-minute windows on
+with cube-and-conquer, banking \(422\) leaves without closing the first of the
+root's two branches. It falls in **three tenths of a second** once the
+symmetry is broken.
+
+So the sweep now stands at **\(3143\) of \(3146\)**, and the lesson is not
+about this lane:
+
+> **Measure a lever on the population it is meant to help.** A speed-up
+> evaluated on instances that are already fast will read as noise whatever its
+> true effect, and "no effect" is then the wrong conclusion drawn from the
+> right number.
+
+Two further levers were added and controlled. Splitting on the **structural**
+variables — the \(A\)–\(B\) cross edges — rather than on the most frequent
+ones fixes a related error: plain frequency picked an \(X\)–\(X\) pair at
+the root, and those vertices are interchangeable, so the branches were images
+of each other. And the **degree window** \(n - 25 \le d(v) \le 24\) is now
+in the encoding, controlled the way `DEGREE-WINDOW-CONTROL.md` requires: every
+verdict already established is preserved. Neither settles the last three.
+
+**The remaining three.** \(\lvert A\rvert = 10\) pairs \((1,0)\),
+\((63,0)\), \((82,0)\) resist all three levers together — no verdict at
+\(100\) s flat, and about \(25\) cube-leaves per window. They are named and
+journalled.
 
 **This is not a refutation and I am not calling the pattern dead.** The pattern
 needs a witness somewhere at \(n = 36\); \(3141\) refutations with none

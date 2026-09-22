@@ -9,6 +9,60 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-22 — pass 69 (I measured a lever on the wrong population, and withdrawing it cost me a dozen windows)
+
+### Chain 5512. principal-1: *"finish the five."*
+
+### Two of the five settled, by the lever I had withdrawn
+
+At pass 65 I implemented a lex symmetry break on the interchangeable \(X\)
+rows, measured **\(1.08\times\)**, and withdrew it. **That measurement was
+taken on five \((12,11)\) pairs that already solved in \(0.1\) s.** A
+symmetry break cannot speed up an instance the solver finishes instantly — I
+sampled the one population where the lever could not show an effect, and then
+generalised from it.
+
+On the instances that are actually hard:
+
+| pair | plain | with the break |
+|---|---|---|
+| \(\lvert A\rvert=11\), \((0,2)\) | open at \(>100\) s | **UNSAT in \(0.3\) s** |
+| \(\lvert A\rvert=11\), \((9,2)\) | open at \(>100\) s | **UNSAT in \(5.5\) s** |
+
+\((0,2)\) is the instance I spent about a dozen windows on with
+cube-and-conquer, banking \(422\) leaves without closing even the first of the
+root's two branches. **It falls in three tenths of a second once the symmetry
+is broken.**
+
+> **Measure a lever on the population it is meant to help.** A speed-up
+> evaluated on instances that are already fast reads as noise whatever its true
+> effect, and "no effect" is then the wrong conclusion drawn from the right
+> number.
+
+That is the second time this month I have drawn a conclusion about the
+mathematics from an artefact of how I was measuring — pass 66 was the other —
+and both were caught only by going back to the raw instances.
+
+### Two more levers, both controlled
+
+- **Split on structural variables, not frequent ones.** Plain frequency put an
+  \(X\)–\(X\) pair at the root of the cube tree, and those vertices are
+  interchangeable, so the two branches were images of each other. Ordering the
+  \(A\)–\(B\) cross edges first makes every early decision a real
+  commitment.
+- **The degree window** \(n-25 \le d(v) \le 24\) is now in my encoding,
+  controlled as `DEGREE-WINDOW-CONTROL.md` requires — every verdict already
+  established is preserved. The control matters here for the reason that note
+  gives, and its specific hazard does not arise: my pairs are plain variables,
+  so there are no orbit multiplicities to get wrong.
+
+### Where it stands
+
+**\(3143\) of \(3146\)**, no witness. Three remain — \(\lvert A\rvert=10\)
+pairs \((1,0)\), \((63,0)\), \((82,0)\) — which resist all three levers
+together: no verdict at \(100\) s flat, about \(25\) cube-leaves per window.
+Named and journalled.
+
 ## 2026-09-22 — pass 68 (the cube tree made resumable; the remaining job priced and declined)
 
 ### Chain 5203, load 12 — the best conditions in several passes.

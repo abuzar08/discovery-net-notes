@@ -265,7 +265,93 @@ def lex_break(nv, fixed, n, var_of):
     return nv, cls
 
 
-def specialise(pre, Abits, Bbits, lex=False, fixed=None, n=None):
+def degree_window(nv, n, a, b, Abits, Bbits, Oe, vmap):
+    """The redundant degree window, as one totalizer per vertex.
+
+    Every vertex of a (5,5,n)-graph has n - 25 <= d(v) <= 24, since N(v) induces
+    a (4,5)-graph and M(v) a (5,4)-graph and R(4,5) = 25.  The constraint
+    excludes no solution, so the augmented formula has exactly the same models;
+    researcher-1 measured 2.8x from it on its own encodings and I have never
+    applied it to mine.
+
+    DEGWINDOW-CONTROL.md is the control for this family, and its warning applies
+    here: the danger is not the mathematics but the arithmetic that turns it
+    into clauses.  Here every pair is a plain variable or a constant -- there
+    are no orbit multiplicities to get wrong -- so the block-weight failure
+    mode it identifies cannot arise.
+    """
+    lo, hi = max(0, n - 25), 24
+    cls = []
+
+    def tot(lits):
+        """Textbook totalizer; returns output literals, extending nv."""
+        nonlocal nv
+        if len(lits) == 1:
+            return list(lits)
+        h = len(lits) // 2
+        L, Rr = tot(lits[:h]), tot(lits[h:])
+        out = []
+        for _ in range(len(L) + len(Rr)):
+            nv += 1
+            out.append(nv)
+        A_, B_, O_ = [None] + L, [None] + Rr, [None] + out
+        for i in range(len(L) + 1):
+            for j in range(len(Rr) + 1):
+                if i + j >= 1:
+                    c = []
+                    if i:
+                        c.append(-A_[i])
+                    if j:
+                        c.append(-B_[j])
+                    c.append(O_[i + j])
+                    cls.append(tuple(c))
+        return out
+
+    for v in range(n):
+        free, const = [], 0
+        for u in range(n):
+            if u == v:
+                continue
+            p = (min(u, v), max(u, v))
+            if p in vmap:
+                free.append(vmap[p])
+            else:
+                const += 1 if _fixed_true(p, a, b, Abits, Bbits, Oe) else 0
+        if not free:
+            continue
+        outs = tot(free)
+        need_lo = lo - const
+        need_hi = hi - const
+        if need_lo >= 1:
+            if need_lo > len(outs):
+                return None, None          # unsatisfiable by arithmetic
+            cls.append((outs[need_lo - 1],))
+        if need_hi < len(outs):
+            if need_hi < 0:
+                return None, None
+            cls.append((-outs[need_hi],))
+    return nv, cls
+
+
+def _fixed_true(p, a, b, Abits, Bbits, Oe):
+    import itertools as _it
+    u, v = p
+    o0 = a + b
+    if v < a:
+        k = list(_it.combinations(range(a), 2)).index((u, v))
+        return bool((Abits >> k) & 1)
+    if a <= u and v < o0:
+        k = list(_it.combinations(range(b), 2)).index((u - a, v - a))
+        return bool((Bbits >> k) & 1)
+    if o0 <= u and v < o0 + 4:
+        return (u - o0, v - o0) in Oe
+    if u < a and o0 <= v < o0 + 4:
+        return True
+    return False
+
+
+def specialise(pre, Abits, Bbits, lex=False, fixed=None, n=None, degwin=False,
+               a=None, b=None, shape="C4"):
     """Clause list for one catalogue pair, from the precomputed structure."""
     nv, k5, i5, vmap = pre
     cls = set()
@@ -281,6 +367,12 @@ def specialise(pre, Abits, Bbits, lex=False, fixed=None, n=None):
         if not fr:
             return None
         cls.add(fr)
+    if degwin and a is not None and n is not None:
+        r = degree_window(nv, n, a, b, Abits, Bbits, shape_adj(shape), vmap)
+        if r[0] is None:
+            return None
+        nv, extra = r
+        cls.update(extra)
     if lex and fixed is not None and n is not None:
         def var_of(c, x):
             return vmap.get((c, x)) or vmap.get((x, c))

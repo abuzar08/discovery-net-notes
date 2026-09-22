@@ -25,7 +25,8 @@ HARD = [(11, 0, 2), (11, 9, 2), (10, 1, 0), (10, 63, 0), (10, 82, 0)]
 W = os.path.join(FM.SCRATCH, "fixmax", "cube_hard")
 
 
-def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
+def adaptive(a, ia, ib, cap, maxdepth, verbose=True, lex=False,
+             degwin=False):
     """Split only the cubes that resist.
 
     A uniform split is the wrong shape here: at depth 10 some cubes refute in a
@@ -41,15 +42,32 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
     pre = FM.precompute(N, "C4", a, b)
     A = X.load35(a)[ia]
     B = X.complement(b, X.load35(b)[ib])
-    r = FM.specialise(pre, FM.bits_of(A, a), FM.bits_of(B, b))
+    r = FM.specialise(pre, FM.bits_of(A, a), FM.bits_of(B, b),
+                      lex=lex, fixed=a + b + 4, n=N,
+                      degwin=degwin, a=a, b=b, shape="C4")
     if r is None:
         return "trivial", 0, 0, 0.0
     nv, cls = r
+    # SPLIT ON THE STRUCTURAL VARIABLES, NOT THE SYMMETRIC ONES.
+    #
+    # Frequency alone picks the wrong variables here.  The A-B cross edges are
+    # numbered first; everything after them touches X, the vertices outside the
+    # configuration -- and those are completely interchangeable, so branching on
+    # one of their adjacencies splits the search into subproblems that are
+    # images of each other under a relabelling.  The first version used plain
+    # frequency, chose variable 411 (an X-X pair) at the root, and after 422
+    # leaves was still inside a single second-level branch.
+    #
+    # Ordering the A-B cross edges first makes every early decision a real
+    # structural commitment.
+    ncross = a * b
     freq = {}
     for c in cls:
         for lit in c:
             freq[abs(lit)] = freq.get(abs(lit), 0) + 1
-    order = [v for v, _ in sorted(freq.items(), key=lambda t: -t[1])]
+    cross = sorted((v for v in freq if v <= ncross), key=lambda v: -freq[v])
+    rest = sorted((v for v in freq if v > ncross), key=lambda v: -freq[v])
+    order = cross + rest
     os.makedirs(W, exist_ok=True)
     base = os.path.join(W, "adapt.cnf")
     # CaDiCaL requires the header clause count to be exact, so the body is
@@ -65,7 +83,8 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
     #   L <lits>   this cube was refuted, so its whole subtree is done
     #   C <lits>   this cube hit the cap, so skip the solve and split it
     # Replay is then almost free and each window extends the tree.
-    jpath = os.path.join(W, f"tree_{a}_{ia}_{ib}.txt")
+    tag = ('D' if degwin else '') + ('L' if lex else '') or '2'
+    jpath = os.path.join(W, f"tree{tag}_{a}_{ia}_{ib}.txt")
     refuted, capped = set(), set()
     if os.path.exists(jpath):
         with open(jpath) as fh:
@@ -186,7 +205,9 @@ def main():
         for i, (a, ia, ib) in enumerate(HARD):
             if only >= 0 and i != only:
                 continue
-            v, lv, dp, el = adaptive(a, ia, ib, cap, md)
+            v, lv, dp, el = adaptive(a, ia, ib, cap, md,
+                                     lex=("--lex" in args),
+                                     degwin=("--degwin" in args))
             print(f"   |A|={a} ({ia},{ib})   {v:13s} {lv:6d}  {dp:7d}  "
                   f"{el:7.1f}s", flush=True)
         return 0
