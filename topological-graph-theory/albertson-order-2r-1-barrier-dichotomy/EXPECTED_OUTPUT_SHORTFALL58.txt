@@ -1,0 +1,29 @@
+How far is order 58 from closing NOW?
+Z(29) = 8281;  a configuration dies as soon as EITHER shortfall hits 0
+
+   open clique-block configurations today: 6019
+   (profile58.py measured this at 9104, before the w-cap, the exact
+    triangle guarantee and 2294 Tutte closures)
+
+   ABSORPTION shortfall (exact, capped at 12):
+      [(1, 2909), (2, 946), (3, 749), (4, 476), (5, 321), (6, 205), (7, 142), (8, 112), (9, 78), (10, 49), (11, 22), (12, 10)]
+      smallest: 1;  within one unit: 2909
+
+   CROSSING shortfall (in units of 500, capped):
+      [(0, 100), (1, 163), (2, 135), (3, 222), (4, 288), (5, 371), (6, 515), (7, 807), (8, 861), (9, 1137), (10, 1037), (11, 374), (12, 9)]
+
+   min of the two, per configuration (capped at 12):
+      [(1, 2909), (2, 946), (3, 749), (4, 476), (5, 323), (6, 205), (7, 142), (8, 112), (9, 78), (10, 49), (11, 22), (12, 8)]
+
+CONCLUSION
+   No configuration has either shortfall at zero, so neither tool
+   closes anything on its own, as expected.
+   The absorption shortfall is the near one: smallest 1, and 2909
+   configurations sit within a single unit of it -- against the 3326
+   that profile58.py measured on the old and larger set.
+
+   The crossing shortfall stays in the thousands, so the crossing
+   ladder is not the near tool here and re-pointing it at this class
+   is not worth a pass.
+
+   r = 29 is NOT proved.

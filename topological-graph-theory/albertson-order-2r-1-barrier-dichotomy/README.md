@@ -2179,6 +2179,7 @@ bears on `r >= 30`.
 | `packing58.py` | **three disjoint triangles are the exact domain of the route**, and the exact guarantee |
 | `margin58.py` | which inequality is tight at a surviving point, and three probes that are not |
 | `mixed58.py` | **triangles across the L/R split are not available where they were wanted** |
+| `shortfall58.py` | how far order 58 is from closing **on the class open today** |
 | `seed57.py` | `aug57`'s route to two order-57 cases is seed-dependent; **the closure is not** |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
@@ -2225,6 +2226,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 tuttegen.py     | diff -u EXPECTED_OUTPUT_TUTT
 PYTHONDONTWRITEBYTECODE=1 python3 packing58.py    | diff -u EXPECTED_OUTPUT_PACKING58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 margin58.py     | diff -u EXPECTED_OUTPUT_MARGIN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 mixed58.py      | diff -u EXPECTED_OUTPUT_MIXED58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 shortfall58.py  | diff -u EXPECTED_OUTPUT_SHORTFALL58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 seed57.py       | diff -u EXPECTED_OUTPUT_SEED57.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -

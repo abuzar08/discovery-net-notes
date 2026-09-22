@@ -75,6 +75,8 @@ THE TIGHTEST TEN BY CROSSING ALONE
 CONCLUSION
    BOTH obstructions are close somewhere, which is the useful fact.
 
+   (These are the 9104-survivor numbers; see shortfall58.py for the
+    class that is open today.)
    Absorption: the shortfall reaches 1, and 4548 of the 8623
    configurations sit within 2 of closing on it.  It is the broad
    front -- the median shortfall is about 6 -- so a uniform gain of a

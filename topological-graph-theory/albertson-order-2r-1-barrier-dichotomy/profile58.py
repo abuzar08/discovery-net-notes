@@ -2,6 +2,14 @@
 """
 How far is order 58 from closing?  A shortfall map of the 9104 survivors.
 
+SUPERSEDED FOR THE CURRENT CLASS.  The numbers below are true of the set this
+file measured -- 9104 clique-block survivors -- and that set no longer exists:
+the w-sharpened Turan cap, the exact triangle guarantee and 2294 Tutte closures
+have taken it to 6019.  shortfall58.py re-measures the same two shortfalls on
+the set that is open today, and the headline moves: 2909 of 6019 sit within one
+unit of the absorption inequality, against the 3326 of 9104 here -- a RISE in
+proportion, from 36.5% to 48.3%.  Quote shortfall58.py, not this file.
+
 WHY.  Order 58 at r = 29 is open in 9104 configurations and every tool in this
 directory has been tried on them.  Before inventing another tool it is worth
 knowing WHICH of the two obstructions is binding and BY HOW MUCH, because those
@@ -145,6 +153,8 @@ def main():
     n200 = sum(1 for t in tight if t[1] <= 200)
     print("   BOTH obstructions are close somewhere, which is the useful fact.")
     print()
+    print("   (These are the 9104-survivor numbers; see shortfall58.py for the")
+    print("    class that is open today.)")
     print("   Absorption: the shortfall reaches %d, and %d of the %d"
           % (amin, sum(v for k, v in ahist.items() if k <= 2), total))
     print("   configurations sit within 2 of closing on it.  It is the broad")

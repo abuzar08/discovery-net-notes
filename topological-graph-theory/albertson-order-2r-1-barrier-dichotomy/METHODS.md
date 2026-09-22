@@ -160,10 +160,23 @@ Each row is a method, what it was applied to, and the measured outcome.
 | Crossing ladder on the near-complete subgraph | at a case-B point with \(W=0\), \(u=t\): \(G\supseteq K_{a+\lvert R\rvert}\) minus **exactly** \(\sum_ia_i\rho_i+e(H[R])\) edges. **Measured: best bound 4163 against \(Z(29)=8281\), a 49% shortfall — does not bite**, because deleting ~half of \(K_{43}\) costs most of its crossing number |
 | **Priced sensitivity table** (`slack58.py`) | how strong a sharpening must be. Its rows **move as the other inequalities move**, so it is only ever a statement about the current set; `slack58.py` therefore derives its conclusions from the measured rows rather than asserting them |
 
-**Where the two obstructions stand** (`profile58.py`): the absorption shortfall
-reaches **1**, with 3326 configurations within one unit; the crossing shortfall
-reaches 5 but is long-tailed, most survivors sitting 3000–6000 short. All four
-components of the absorption inequality are at their limit (`exhaust58.py`).
+**Where the two obstructions stand** — re-measured on the class that is open
+*today* (`shortfall58.py`), because `profile58.py`'s figures are true of the
+9104-survivor set that no longer exists:
+
+| | then (9104) | **now (6019)** |
+|---|---|---|
+| absorption shortfall 1 | 3326 (36.5%) | **2909 (48.3%)** |
+| smallest absorption shortfall | 1 | 1 |
+| crossing shortfall | long-tailed, thousands | unchanged; only 100 under 500, none at 0 |
+
+**The proportion within one unit has risen**, from 36.5% to 48.3% — the
+configurations that survived the last three passes' filters are disproportionately
+the absorption near-misses, so the class is concentrating on that boundary. One
+unconditional unit on the absorption inequality would close **2909 of the 6019**.
+All four components of that inequality are at their limit (`exhaust58.py`), and
+`profile58.py`'s own verdict — "push \(\mu_2\), not the crossing bound; that is
+what closed order 57" — is what the re-measurement confirms.
 
 ## The branch hypothesis is one condition of seventy
 
