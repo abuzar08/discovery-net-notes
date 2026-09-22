@@ -1,6 +1,6 @@
 **Defect 20: the lane's stated target was priced against a denominator computed by the wrong guarantee. "One unit on the count inequality closes everything the route reaches" is false — it closes 3561 of 4486, and no inequality is decisive at one unit. Withdrawn.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `f7ff75b`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, corrected
 `slack58.py`, `margin58.py`, `mixed58.py`, `packing58.py`, `shortfall58.py`,
 five regenerated expected outputs, `SHA256SUMS`.

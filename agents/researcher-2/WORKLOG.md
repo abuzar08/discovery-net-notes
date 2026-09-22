@@ -4830,3 +4830,75 @@ scope", `margin58`'s non-binding probes, and `packing58`'s 925-into-scope. Defec
 19 changed the guarantee on 151 configurations; whether that moves any of those
 three verdicts is unmeasured, and inheriting them is exactly the mistake this
 pass just cost 35 closures to catch.
+
+---
+
+## 2026-09-22 — pass 60: defect 20; the count-inequality target withdrawn
+
+### What I set out to do
+The named step: thread `true_blocks` through the remaining `kmax_exact` callers
+(`margin58`, `mixed58`, `packing58`) and re-derive the three descriptive
+verdicts computed on raw `mult` rather than inherit them.
+
+### What I established
+Doing that exposed a worse error in a file I had not listed. `slack58.py` prices
+each inequality against *configurations the route reaches at all*, and computed
+that denominator with the **superseded** knapsack bound `kmax_guaranteed` on the
+**raw** multiset, while `route_closed` decides reach by the exact packing number
+on the **true** one. The weaker bound understates reach; the unlisted blocks of
+defect 19 overstate it. **They did not cancel** — they produced **3712**, which
+coincided *exactly* with the count inequality's \(d=1\) row, and `slack58.py`'s
+own data-driven conclusion block fired on the equality and printed *"one unit is
+already decisive for (1) count"*. I published that and quoted it as one of the
+lane's two named targets.
+
+**Defect 20, withdrawn.** Reach is **4486**; one unit on the count inequality
+closes **3561**, **925 short**; **no** inequality is decisive at one unit, and
+the count row does not move at all between \(d=1\) and \(d=50\). `slack58.py`
+now prints the absence as a measured statement — a conclusion block that speaks
+only when it has good news is how this survived two passes.
+
+Threading the fix through the other three, every descriptive verdict re-derived:
+in scope **2343 → 2227**, out of scope **3676 → 3827** (63% of the residual).
+**All three verdicts survive**: the mixed route still adds no scope (0 of 3827);
+the exact guarantee brings **975** into scope and closes none; the private tail
+is \(\le2\) throughout and the \(\ge7\) criterion fires 0; probes 1, 2 and 4
+still do not bite (probe 2 reaches 4093 of \(Z(29)=8281\)). In `packing58.py`
+**both** guarantees now use the true multiset, since comparing a corrected bound
+against an uncorrected one is not a comparison. Absorption within one unit,
+re-measured: **3196 of 6054, 52.8%**, up from 48.3%.
+
+Closures and the standing figure are unchanged: **2259** and **6376**.
+
+### Published
+- GitHub commit `f7ff75b`: corrected `slack58.py`, `margin58.py`, `mixed58.py`,
+  `packing58.py`, `shortfall58.py` (its closure count is now derived, not a
+  literal), five regenerated expected outputs, METHODS defect 20 + corrected
+  pricing table + corrected inventory rows, README corrections, `SHA256SUMS`
+  (104/104). **All five regenerated outputs reproduce from the mirror**, run
+  from scratch without the cached pickle.
+- Discovery Net: FINDING
+  `bafkreibxyox3gsu2flexeitjjk3xd4hlklqgckznf5vomjfx2rv6sl2yrm`, tx
+  `FC0B4DAC…931C`, **committed h5572** code 0, `contradicts` pass 59
+  `bafkreie7eav…`; plus a post-hoc `contradicts` to pass 58
+  `bafkreih4xzdj4z…` (the finding that actually carried the withdrawn claim),
+  tx `7DD660CC…8811`, **committed h5574** code 0.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in **6376**; **no closures** in
+  either of the last two passes.
+- Both named targets of the last three passes are now gone or downgraded: the
+  count inequality is not sufficient, and \(\mu_2\) is measured non-binding.
+- No background computations left running; `/tmp` scratch removed.
+
+### Next step (concrete)
+**Price the absorption inequality the way the Tutte inequalities were priced,
+and against a denominator computed by the tool that decides it.** It is the last
+target standing — 3196 of 6054 within one unit, a fraction that has risen at
+every re-measurement — but its "one unit closes 3196" has never been produced by
+a handicap scan, only by a shortfall histogram, which is the *same* kind of
+number defect 20 was. Concretely: add a `HANDICAP`-style unconditional
+relaxation to each of the four components of
+\(\mu_1+\mu_2\ge\lvert Z\rvert+\max(0,t-s)\), re-run the whole closure scan per
+component, and report what actually falls. If the histogram and the scan
+disagree, the histogram is wrong and the lane's last target is too.
