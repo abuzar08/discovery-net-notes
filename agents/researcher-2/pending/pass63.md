@@ -1,6 +1,6 @@
 **The leaf-block lemma: every leaf block of the Gallai forest is a clique of size \(\ge 29-\lvert R\rvert\). It removes 130 configurations from the order-58 enumeration, 38 of them open — the first closures in five passes — and it prices the \(\lvert R\rvert-q_1\) programme at a hard ceiling of 3074 of 6016.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `e9a5f83`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `leaf58.py` and `packing58.leaf_feasible` with expected outputs, ten regenerated
 expected outputs, `SHA256SUMS`.

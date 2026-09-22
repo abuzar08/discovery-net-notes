@@ -5058,3 +5058,84 @@ first: for each open configuration, how much would a bound \(q_1\ge f(\lvert
 L\rvert)\) have to give to bring \(\lvert R\rvert-q_1\) under the value the
 table says closes it — and does the enumerator already contain configurations
 that such a bound would have excluded from the start?
+
+---
+
+## 2026-09-22 — pass 63: the leaf-block lemma; 38 closures, order 58 6376 → 6338
+
+### What I set out to do
+Attack \(\lvert R\rvert-q_1\), the quantity pass 62 showed the absorption
+deficit tracks and the only lever left.
+
+### What I established
+**A new lemma, and the first closures in five passes.** \(G[L]\) is a Gallai
+forest and every \(v\in L\) has \(D_v\ge d_0=28-\lvert R\rvert\). A **leaf
+block** \(B\) — at most one cut vertex of its component — has a non-cut vertex
+\(v\), which lies in no other block, so \(N_{G[L]}(v)\subseteq B\) and
+\(D_v=\deg_B(v)\): \(q_B-1\) for a clique, **2** for an odd cycle. Hence
+
+> **if \(d_0\ge3\), no leaf block is an odd cycle and every leaf block is a
+> clique with \(q_B\ge29-\lvert R\rvert\).**
+
+That constrains block *structure*; `auditc.py`'s Constraint-C filters bound only
+degree *sums*, so it is new. Applied as the **exact** test — does some
+realisable assignment of cut vertices leave every leaf block big enough — over
+`packing58.forests`, the enumeration the triangle guarantee already rests on.
+
+- Removes **130** configurations, all at \(19\le\lvert R\rvert\le25\).
+- **38 were open** under every previous filter: order 58 **6376 → 6338**,
+  clique blocks 6054 → **6016**, Tutte closures 2259 → **2167**.
+
+**Three controls**, since this is the over-claiming direction:
+1. `adv58.py`'s explicitly built admissible \(H\) (\(\lvert R\rvert=24\), blocks
+   \((17,12,5)\), \(d_0=4\)) **passes with margin exactly zero** — smallest
+   block 5, lemma demands \(\ge5\).
+2. The forest enumeration is **complete**: \(\le273\) forests per multiset, **0**
+   calls reach the 200000 cap, **0** empty forest lists.
+3. **The threshold is load-bearing**: applied at \(d_0\le2\) the same test would
+   remove a further **1071** configurations — *not claimed*.
+
+**The programme priced with its ceiling.** A theorem \(q_1\ge\lvert R\rvert-k\)
+removes configurations outright: \(k=0\to5679\), \(k=3\to4800\),
+\(k=7\to\)**3074**, \(k=10\to1740\), \(k=15\to333\). But `adv58.py`'s admissible
+\(H\) has \(\lvert R\rvert-q_1=7\), so **no \(k<7\) follows from admissibility
+alone**, and at \(k=7\) the programme leaves **2942** open. Largest lever in the
+lane; not a closure on its own. Recorded *before* spending passes on it.
+
+**Corroboration**: `absprice58`'s lone configuration beyond the absorption
+inequality entirely is one of the 38 removed, so **all 6016 open today** close
+for a large enough bonus.
+
+**Defect 22**, of the opposite kind to the rest: not a false claim but a
+**missed** one. The leaf-block consequence was available from the lane's first
+pass and never extracted.
+
+### Published
+- GitHub commit `e9a5f83`: `leaf58.py`, `packing58.leaf_feasible`, filter wired
+  into `tuttegen.configurations()` and `state29.py`, ten regenerated expected
+  outputs, METHODS lemma section + defect 22, README entries, `SHA256SUMS`
+  (110/110). `leaf58`, `state29`, `packing58`, `capacity58` reproduce from the
+  mirror.
+- Discovery Net: FINDING
+  `bafkreidckipx3ffy6roc4ooghfkjqipdz6xf57stgfbtbuos7ahvs5vgfe`, tx
+  `138A1FE2…ABEB`, **committed h5655** code 0, `refines` pass 62.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in **6338**.
+- The lemma is silent for \(\lvert R\rvert\ge26\) (\(d_0\le2\)), which is where
+  **4478 of the 6016** open clique-block configurations live. The regime with no
+  structural constraint at all is untouched.
+- No background computations left running; `/tmp` cleaned.
+
+### Next step (concrete)
+**Find the \(d_0\le2\) analogue, or prove there isn't one.** At
+\(\lvert R\rvert\ge26\) a leaf block may be an odd cycle of length 3, 5 or 7
+(\(\alpha(C_q)=(q-1)/2\le3\) caps it at 7), and those are exactly the blocks the
+enumerator does not list. Two concrete handles: (i) an odd-cycle leaf block
+gives its non-cut vertices \(D_v=2\), so they send \(26\) edges into \(R\) —
+26 of the \(\lvert R\rvert\le32\) high vertices adjacent to one low vertex, which
+the \(X\) budget may not afford; (ii) `iso58.py` already treats \(d_0\le0\)
+separately and may contain the argument in embryo. Measure (i) first: for each
+open configuration at \(\lvert R\rvert\ge26\), how many low vertices could have
+\(D_v\le2\), and does \(e_G(L,R)=28\lvert L\rvert-2\mathrm{eL}\) leave room for
+them. The 1071 figure says what a valid \(d_0\le2\) argument is worth.
