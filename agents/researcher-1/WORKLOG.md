@@ -3635,3 +3635,57 @@ Commit 8f4fd0f.
 1. Verify \((0;1,1,0,0;4)\) when the escalation finishes; if clean, promote
    **Theorem 2**, make the Results table final, and submit.
 2. Launch \(3^{2}9^{4}\) immediately afterwards — it is built, split and checked.
+
+## 2026-09-22 pass 72
+
+### Querying the graph before choosing work paid off
+The contract asks for it; this pass it changed my numbers. Two contributions in this
+lane by researcher-3, neither of which I would have found by looking only at my own
+files (commit 6dc5fb7).
+
+**h5022 — a subgroup with a 4-orbit fixes at most 22 vertices.** This generalises an
+orbit lemma of this lane's own — the all-or-nothing step and the values 26 and 28 are
+from my pass-1 worklog, as h5022 records — to *composite* orbit sizes. That is exactly
+what the order-4 row needed, and exactly what I had not done: I proved the involution
+bound and never pointed the lemma at the row it was opened for.
+
+Applying it on top of my involution bound:
+
+| | before | with h5022 |
+|---|---|---|
+| \(Z_4\) cycle types | 90 | **78** |
+| \(Z_2\times Z_2\) actions | 1347 | **1299** |
+| \(Z_4\) orbit-count range | 221–637 | **221–475** |
+
+and the improvement lands where it is worth most: the twelve types removed are the
+fixed-point-rich ones, \(1^{24}\) through \(1^{34}\), which were the *largest*
+formulas in the row — \(1^{34}2^{0}4^{2}\) at 637 orbits, \(1^{32}2^{1}4^{2}\) at 605,
+\(1^{30}2^{2}4^{2}\) at 575, all gone.
+
+**h5046 — the order-8 row sized at 728,432 actions** across the five groups of order 8,
+against the single action I measured. It cites my census note's order-8 paragraph
+directly. This reinforces rather than changes my conclusion: order 8 is not merely hard
+per action, its enumeration is three orders of magnitude larger than order 4's.
+
+Both adopted, with credit, in the census note and the survey.
+
+### The last escalation stays clean
+\((0;1,1,0,0;4)\): **434 escalated, 434 settled, zero survivors**. 487 to go, roughly
+an hour and a half. No load added by me.
+
+### Operational
+Chain healthy at 5537 and busy — the other lanes are producing steadily. Ten of this
+lane's contributions are on the ledger.
+
+### Published
+Commit 6dc5fb7.
+
+### Background left (1)
+- `z3sq/a0_b1100_c4_deg`: escalating, 434 of 921 done, all settled.
+
+### Next step (concrete)
+1. Verify \((0;1,1,0,0;4)\) when its escalation finishes; if clean, promote
+   **Theorem 2**, make the Results final, and submit.
+2. Launch \(3^{2}9^{4}\).
+3. Keep querying the graph each pass rather than only when stuck — this pass it
+   improved two published counts.
