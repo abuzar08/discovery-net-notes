@@ -1018,6 +1018,77 @@ def extension_control(cap=300):
     return ok
 
 
+def pair_order(f):
+    """The sweep's pair enumeration, rebuilt exactly as `sweep_fast` builds it.
+
+    Shared so that `cmd_residue` cannot drift from the sweep it measures.
+    """
+    splits = []
+    for a in range(min(13, f), max(0, f - 13) - 1, -1):
+        b = f - a
+        if 0 <= b <= 13:
+            splits.append((a, b))
+    order = []
+    for a, b in splits:
+        for ia in range(len(X.load35(a))):
+            for ib in range(len(X.load35(b))):
+                order.append((a, ia, ib))
+    return order
+
+
+def cmd_residue(args):
+    """Exactly which pairs a running or finished sweep has NOT settled.
+
+    Deferred pairs are deliberately not journalled, so they cannot be counted
+    by reading the journal alone.  The obvious estimate -- the sweep's progress
+    counter minus the journal length -- is WRONG: the counter is printed every
+    50 pairs while the journal grows continuously, so the difference lags and
+    understates.  I published 0.3% from that estimate and the true figure was
+    0.89%, three times larger.
+
+    It was caught by an invariant: the estimate reported 18 deferrals and later
+    11.  DEFERRALS ONLY ACCUMULATE, so a decrease is impossible and proved the
+    estimator wrong rather than the sweep.  A quantity that must be monotone is
+    a free check on the instrument measuring it.
+
+    The exact answer needs no counter: rebuild the deterministic pair order,
+    find the furthest pair the journal reaches, and diff.
+
+        python3 fixmax.py residue [--f 22]
+    """
+    f = 22
+    if "--f" in args:
+        f = int(args[args.index("--f") + 1])
+    order = pair_order(f)
+    jpath = os.path.join(SCRATCH, "fixmax", f"fast_f{f}_n42", "journal.txt")
+    done = set()
+    if os.path.exists(jpath):
+        for line in open(jpath):
+            t = line.split()
+            if len(t) == 4:
+                done.add((int(t[0]), int(t[1]), int(t[2])))
+    pos = [i for i, p in enumerate(order) if p in done]
+    if not pos:
+        print("no journal yet")
+        return 1
+    walked = max(pos) + 1
+    missing = [order[i] for i in range(walked) if order[i] not in done]
+    print(f"RESIDUE for f = {f}: pairs walked but not settled\n")
+    print(f"   enumeration       {len(order)}")
+    print(f"   walked to         {walked}")
+    print(f"   banked            {len(done)}")
+    print(f"   DEFERRED          {len(missing)}   ({len(missing)/walked:.2%} "
+          f"of walked)")
+    by = {}
+    for a, ia, ib in missing:
+        by[a] = by.get(a, 0) + 1
+    if by:
+        print("   by split |A|:     "
+              + ", ".join(f"{a}: {c}" for a, c in sorted(by.items())))
+    print(f"\n   {'COMPLETE, no residue' if not missing else 'these are the holes; re-run with a larger --cap to close them'}")
+    return 0
+
+
 def cmd_reduction(args):
     """Check step (2) of the exhaustiveness audit against a real object.
 
@@ -1175,6 +1246,8 @@ def cmd_fastpath(args):
 
 def main():
     args = sys.argv[1:]
+    if "residue" in args:
+        return cmd_residue(args)
     if "reduction" in args:
         return cmd_reduction(args)
     if "catalogue" in args:
