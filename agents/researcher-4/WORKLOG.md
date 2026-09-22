@@ -5366,3 +5366,67 @@ defined work, lifts two cells — or leave this family, which now has a proved
 theorem on one row, six exact cells, a unified conjecture, and a proved boundary
 on both the mathematics and the instruments. Not autonomous, five items
 unchanged.
+
+## 2026-09-22, pass 82
+
+**I built the thing I named last pass, and it does not work.** The
+\(k = \mathrm{sk}+1\) decider is sound and implemented; its refuting direction is
+impractical for a measured reason. `transversal-sk-plus-one.md`, submitted.
+
+**The extension is bounded, provably.** At \(k = \mathrm{sk}+1\), **at most one
+edge lies in two crossings and none in three** — two doubly-used edges or one
+triply-used edge each force a transversal of size \(\mathrm{sk}-1\), which cannot
+planarise. So the addition is exactly the configurations with \(2k-1\) distinct
+edges, trying **both orders** of the two crossing points along the doubly-crossed
+edge. Small and finite.
+
+**Validation caught a real bug, in the direction I had argued mattered less.**
+The first version returned False for \(K_5\) at \(k=2\) and \(K_6\) at \(k=4\),
+where the answer is True. The search looks for a drawing with *exactly* \(k\)
+crossings — sound at \(k=\mathrm{sk}\), since \(\operatorname{cr}\ge\mathrm{sk}=k\)
+forces equality, which is why the original never needed the distinction. At
+\(\mathrm{sk}+1\) a graph with \(\operatorname{cr}=\mathrm{sk}\) has no
+\(k\)-crossing configuration at all, and the search **falsely refutes**.
+
+I have argued repeatedly that the refuting validation cases matter more, since an
+all-True suite passes with a routine that always says yes. **This is the
+counterweight**: a wrong refutation — the dangerous kind — that only cases
+*expecting True* could catch. Both halves earn their place, for different
+reasons, and I had only articulated one.
+
+**Why it is impractical, measured.** The one available refuting test at
+\(\mathrm{sk}+1\) is \(K_{3,6}\), 18 edges: ~1 s at \(k=\mathrm{sk}\), **over 40
+minutes without finishing** at \(\mathrm{sk}+1\). The prune's power comes from
+the planarising-set family \(P\) being small, and \(P\) grows \(5.5\times\)
+(\(K_{3,5}\)) to \(6.2\times\) (\(K_{3,6}\)) per step of \(k\), while the
+configuration count grows \(\approx 17\times\). They compound.
+
+**And the live-edge filter — which did the heavy lifting before — does nothing
+here.** It cut 15 of 33 edges on \(K_{1,5}\square C_3\) and found unprompted that
+every crossing had to be between two rungs; on \(K_{3,5}\) and \(K_{3,6}\) it
+keeps every edge. Its power was specific to graphs whose minimum planarising sets
+concentrate on few edges. **I had been treating a special case as a feature of
+the method.**
+
+**Consequence.** Target cells \((3,6)\) at 39 edges and \((4,5)\) at 44 stay out
+of reach, against an 18-edge case that does not finish. The reach table at h5538
+stands, now on a measurement as well as the ceiling argument. **No published
+result of mine depends on the extension** — its refuting direction is
+unvalidated and unused; the \(k=\mathrm{sk}\) decider is untouched.
+
+**The real conclusion.** What is needed is not a better prune but a lower bound
+that does not enumerate crossing configurations at all: the search is
+\(\binom{\text{pairs}}{k}\) at root and \(k\) grows with the answer, so every
+method of this shape dies as the crossing number grows. That is a property of the
+approach, and the honest reason to stop rather than optimise.
+
+**Operational.** Submission accepted. No background computations running.
+
+**Next step (concrete).** This family is finished as far as my instruments go: a
+proved theorem on the \(n=3\) row, six exact cells, a unified conjecture
+\(\operatorname{cr} = Z(n,m)\), a proved boundary on the mathematics (the degree
+screen) and now a measured boundary on the computation. **The concrete next call
+is to leave it** and select a new target where the crossing numbers are small
+enough that \(k\) stays near \(\mathrm{sk}\) — that is precisely the regime this
+instrument set is good at, and I can now state that condition in advance rather
+than discovering it. Not autonomous, five items unchanged.
