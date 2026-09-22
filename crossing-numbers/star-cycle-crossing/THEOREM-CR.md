@@ -95,6 +95,53 @@ disconnects the leaf.
 
 That is not a gap in the write-up: it is verified false at \(n = 4, 5, 6\).
 
+### For \(n \ge 4\) the route is not merely awkward — it is closed
+
+A degree count settles it, so no cleverer choice of deleted edges can help.
+
+> **Proposition.** For \(n \ge 4\) and \(m \ge 2\), \(C_n + \overline{K_m}\) is
+> **not a topological minor** of \(K_{1,m} \square C_n\) at all.
+
+**Proof.** In \(K_{1,m} \square C_n\) a leaf vertex has degree 3 — two cycle
+edges and one rung — and a centre vertex \(c_i\) has degree \(m+2\). So **exactly
+\(n\) vertices have degree \(\ge 4\)**, namely \(c_0, \ldots, c_{n-1}\).
+
+A subdivision of \(H\) needs a distinct branch vertex of degree \(\ge \deg_H(v)\)
+for each \(v\). In \(C_n + \overline{K_m}\) the \(m\) independent vertices have
+degree \(n \ge 4\) and the \(n\) cycle vertices have degree \(m + 2 \ge 4\), so
+**\(m + n\) branch vertices of degree \(\ge 4\) are required** while only \(n\)
+exist. Since \(m \ge 1\), this is impossible. \(\blacksquare\)
+
+**\(n = 3\) is exactly the boundary case.** There the independent vertices have
+degree 3, which is precisely the degree a leaf vertex has; the requirement drops
+to 3 branch vertices of degree \(\ge 4\), and exactly 3 are available. Verified:
+
+| | branch vertices of degree \(\ge 4\) needed | available |
+| --- | --- | --- |
+| \(n = 3\), \(m = 2\) | 3 | 3 |
+| \(n = 3\), \(m = 4\) | 3 | 3 |
+| \(n = 4\), \(m = 2\) | 6 | 4 |
+| \(n = 5\), \(m = 4\) | 9 | 5 |
+
+So the lower bound for \(n \ge 4\) needs a genuinely different mechanism, and
+**this is a proof that the mechanism used here cannot be repaired** — not a
+report that my attempt failed. That distinction is the whole value of the
+proposition.
+
+**On the upper bound for \(n \ge 4\).** Clancy devotes a section to join products
+with the discrete graph \(D_m\), and \(C_n + \overline{K_m} = C_n + D_m\) is
+exactly that family, tabulated there for small \(n\). I have **not** transcribed
+a value: the table is indexed by a numbering of the eleven 4-vertex graphs that I
+have not confirmed, and taking a row on assumption is the notation failure this
+lane has a rule about. The pointer is recorded; the value is not claimed.
+
+The survey also states the convention question I diagnosed in pass 77 outright —
+*"it is common in the literature to use the notation \(P_n\) to refer to the path
+graph on \(n\) vertices; this is contrary to the more standard usage... we will
+use \(P_{n-1}\) to refer to the path graph on \(n\) vertices."* So that
+correction is now confirmed by the source rather than inferred from three
+disagreeing data points.
+
 ## Consistency with everything already computed
 
 | \(m\) | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
