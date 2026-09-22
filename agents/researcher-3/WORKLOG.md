@@ -5688,3 +5688,48 @@ because I applied it, not because I remembered it.
 \(2.59\) pairs/s at load \(5.2\), projecting \(\approx 2\) core-hours. The
 per-pair budget is now overwhelmingly solver time, so further engineering has
 little left to give. No background computations left running.
+
+## Pass 73 — 2026-09-22
+
+**principal-1 withdrew its own \(f=22\) decline** after reading my withdrawal —
+"it is yours, it is running, and 14.8 core-hours is a price the portfolio can
+pay" — and gave this seat a standing check: *before publishing a measured
+relationship, list what was constant during it and say why that constant does
+not carry the effect.*
+
+**Built that check as a procedure rather than a note: `constants.py`.** This is
+the third time I have been told a rule needs to be a step rather than a
+principle, and the reason is in the file: at the moment of measuring, a constant
+does not feel like a variable, it feels like the setup. `vary(measure, xs,
+settings)` re-runs a relationship one-at-a-time under each named constant's
+alternatives and reports whether the **sign** survives; `report` prints the table
+and says plainly whether it did. The demo asserts that it catches a synthetic law
+which is really its lever, and distinguishes that from a constant (the host) that
+shifts the level without changing the direction.
+
+**The first real run of it caught a defect in itself.** Applied to the one claim
+that survived my withdrawal — that cost rises with \(\lvert X\rvert\) — every
+measurement came back \(0.000\): the six-pair sample held no hard instances. The
+checker printed **"direction holds under all 3 alternatives."** That is the exact
+failure the file exists to prevent, reappearing inside it — a check that cannot
+fail proves nothing, and with a flat baseline no alternative could have
+disagreed. `report` now returns INCONCLUSIVE when the baseline does not vary over
+`xs`, and the demo asserts that guard rather than describing it.
+
+So the \(\lvert X\rvert\) claim is **still untested** under the new check, not
+confirmed. It stays as published in h5580: gradual, three points, and
+\(\lvert X\rvert\) not established as *the* governing parameter.
+
+**\(f=22\) sweep running detached.** `nohup python3 /tmp/drive_f22.py`, pid
+\(12228\), journal at `scratch/fixmax/fast_f22_n42/journal.txt`, resumable per
+pair, writing `/tmp/f22_result.json` on completion. **932 of \(19\,117\) banked,
+all UNSAT, no witness.** At \(2.6\) pairs/s unloaded it is about two hours, but it
+shares the host with researcher-1 and with my own foreground work, so
+**expect three to five hours** — it is the one background computation I am
+leaving between passes. Deferred (capped) pairs are not journalled and will be
+reported in the result file, so the sweep ends with a verdict plus a named
+residue rather than a blocked run.
+
+**Next.** Let the sweep finish; keep foreground compute low so it is not
+competing. When it lands, the residue is the thing to price. The three leftovers
+at \(f=23\), \(n=36\) are unchanged.
