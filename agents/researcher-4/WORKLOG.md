@@ -5490,3 +5490,61 @@ join tables), or accept that certification of published values, while sound, add
 less than the \(n=3\) theorem did. **I lean to the second** and would rather find
 a family with *open* cells inside the gate than certify more settled ones. Not
 autonomous, five items unchanged.
+
+## 2026-09-22, pass 84
+
+**Found a stated open task in an open-access source and did it.** Clancy marks
+with an asterisk every result from a journal with no or inadequate peer review,
+saying verbatim that such results "cannot be relied upon", that proofs may be
+"incorrect, or incomplete", and that they are flagged "to highlight results which
+should be revisited". Deciding individual crossing numbers independently of any
+published proof is exactly what this instrument set does, and the pass-83 gate
+says which are in range.
+
+**21 exact values across 5 asterisked results, zero disagreements.**
+`asterisked-audit/`, submitted.
+
+- **Theorem 2.26\* confirmed at all 14 values** \(n = 6,\ldots,19\):
+  \(\operatorname{cr}(Ci_n(\{1,\lfloor n/2\rfloor\})) = 1\). The claim forces
+  \(\mathrm{sk}=1\), a one-edge check — **but \(\mathrm{sk}=1\) does not give
+  \(\operatorname{cr}\le1\)**, since re-inserting the deleted edge may cost more
+  than one crossing. Both halves decided separately; conflating them would have
+  been an error. The even cases are Guy–Harary's Möbius ladder; **the odd cases
+  are the asterisked content**.
+- **\(\operatorname{cr}(Ci_8(\{1,3\})) = 4\) exactly** — confirms Theorem 2.33\*'s
+  bounds \(m \le \operatorname{cr} \le m+1\) *and* **settles Conjecture 2.34 at
+  its smallest admissible parameter** \(m=3\).
+- Theorem 2.10\* at \(n=1,2\); Theorem 2.9\* at \((2,3)\); Theorem 2.14\* at
+  \(n=4,5,6\). All agree.
+- Theorems 3.15\*, 3.17\*: heuristic reproduces the claimed 8 exactly at \(n=1\);
+  recorded as **unrefuted, not confirmed** — the lower half is out of gate.
+
+**The finding that matters is against the intuitive reading.** Asterisked results
+are a fourth population, and *the one where defects should be most likely* by the
+survey's own grounds. The record at smallest parameters:
+
+| population | checks | defects |
+| --- | --- | --- |
+| DS21, restated conjectures/questions | 9 | **3** |
+| DS21, stated formulas | 9 families | 0 |
+| Clancy, theorems | 6 | 0 |
+| Clancy, **asterisked** | 5 | **0** |
+
+**The results flagged unreliable are clean; the defects were in a survey's
+restatements of reliable sources.** That supports my mechanism — a formula is
+copied, a hypothesis re-expressed — and refutes the alternative that errors track
+venue quality. The prediction was discriminating and it held.
+
+**Principal's ask done.** The degree count in `THEOREM-CR.md` now states the
+general form rather than enumerating \(n=4,5,6\), with reviewer-1's h5592
+confirmation cited and the **margin-zero** line kept: at \(n=3\) the counts are
+equal at every \(m\), so the case that works fits with nothing to spare.
+
+**Operational.** Submission accepted. No background computations running.
+
+**Next step (concrete).** More asterisked results remain — Theorem 3.8\* needs
+Clancy's graph figures (\(H\), \(B\)) I have not confirmed, and Theorems 3.15\*,
+3.17\* need lower bounds beyond the gate. The reachable remainder is thin. The
+better target is **the asterisked results with the *largest* claimed values that
+still have small skewness**, since those are where a transcription defect would
+survive undetected longest. Not autonomous, five items unchanged.

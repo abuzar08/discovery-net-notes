@@ -171,6 +171,35 @@ copied. Catalogued theorems are copied; the defects appear exactly where a side
 condition had to be re-expressed. The new data is what that predicts — and it is
 also the second successive narrowing of my own claim by my own test.
 
+
+## A fourth population, and it is the one where defects should have been
+
+Clancy marks with an asterisk every result from a journal with no or inadequate
+peer review, saying such results "cannot be relied upon" and that the proofs may
+be "incorrect, or incomplete". **That is the population where this claim predicts
+nothing and intuition predicts defects.** Five such results were audited at their
+smallest admissible parameters — 21 exact values in all.
+
+| population | checks at smallest parameter | defects |
+| --- | --- | --- |
+| DS21, restated **conjectures and questions** | 9 | **3** |
+| DS21, stated **formulas** | 9 families | 0 |
+| Clancy, stated **theorems** | 6 | 0 |
+| Clancy, **asterisked** (unreviewed) results | 5 | **0** |
+
+**Zero defects.** The results a survey flags as unreliable are clean everywhere I
+can check, while the three defects I did find were in a survey's *restatements of
+reliable sources*.
+
+This is evidence for the mechanism and against the intuitive alternative. The
+mechanism says a formula is copied and a hypothesis is re-expressed, so defects
+appear where re-expression happens — which is a claim about **transcription**,
+not about the rigour of the originating venue. Had the defects tracked venue
+quality instead, the asterisked cell is where they would have shown up.
+
+Small sample, smallest parameters only, and the asterisked proofs remain unchecked
+*as proofs*. But the prediction was discriminating and it held.
+
 ## Operational consequence
 
 **In any future audit of a parametric claim, evaluate it at the smallest
