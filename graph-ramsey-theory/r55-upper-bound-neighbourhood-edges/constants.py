@@ -32,6 +32,17 @@ USAGE
 
 A relationship whose sign flips under any single alternative is not a property
 of x.  That is the whole content; the value is that it runs.
+
+WHAT THIS TOOL HAS AND HAS NOT ESTABLISHED, because a reader who finds it will
+assume otherwise.  It was built to re-test the one claim that survived the
+withdrawal of h5560 -- that the cost of these instances rises with the
+free-vertex count |X| = n - f - 4.  IT HAS NOT DONE SO.  The first run returned
+0.000 at every point, because the six-pair sample held no hard instances, and
+the checker wrongly certified that as "direction holds"; fixing that is where
+the INCONCLUSIVE guard came from.  The |X| claim therefore stands exactly as
+published in the withdrawal at h5580: a gradual rise measured at three points,
+with |X| NOT established as the governing parameter.  This file has so far
+caught one defect, and the defect was its own.
 """
 import itertools
 

@@ -757,17 +757,24 @@ def sweep_fast(f, n, cap, warm=None, log=None, ladder=False):
             jfh.close()
             return ("SAT", (a, ia, ib), k + 1, len(order))
         if rc != 20:
-            # RESCUE BEFORE DEFERRING.  The lex break on S_X reverses sign in
-            # |X|: at |X| = 9 it closes in 0.3 s and 5.5 s instances that are
-            # open past 100 s without it, and at |X| = 16 it turns six
-            # sub-second refutations into timeouts.  So neither setting is
-            # right for a sweep, and picking one is what made me publish a
-            # cost curve that was this lever degrading (h5560, withdrawn at
-            # h5580).  The procedure that does not need to know the crossover:
-            # run the bulk unbroken -- faster where |X| is large, and UNSAT
-            # without a break is strictly the stronger verdict -- then spend
-            # the break only on what the bulk could not settle.  Two of the
-            # five original leftovers would have closed here automatically.
+            # RESCUE BEFORE DEFERRING.  Run the bulk unbroken -- UNSAT without
+            # a symmetry break is strictly the stronger verdict -- and spend
+            # the break only on what the bulk could not settle.
+            #
+            # THE REASON IS NOT THE CROSSOVER.  I built this because the break
+            # reverses sign in |X| (it saves instances at |X| = 9 that are open
+            # past 100 s, and strangles them at |X| = 16), so no single setting
+            # is right and a procedure that need not know where the crossover
+            # sits is worth more than finding it.  But the sweep showed
+            # something stronger: AT |X| = 16, WHERE THE BREAK IS ON BALANCE
+            # HARMFUL, IT STILL RESCUES PAIRS THE UNBROKEN BULK CANNOT SETTLE.
+            # The two arms cap on DIFFERENT instances, so they are
+            # complementary rather than ordered, and "spend the second only on
+            # the first's residue" is right even at sizes where the second
+            # would lose a head-to-head comparison outright.  A crossover
+            # argument would have told me to switch the break off here and
+            # lose those pairs.  (h5560 was the cost curve that was really
+            # this lever degrading; withdrawn at h5580.)
             if (n, a, b) in pres:
                 r2 = specialise(pres[(n, a, b)], bits_of(X.load35(a)[ia], a),
                                 bits_of(X.complement(b, X.load35(b)[ib]), b),
@@ -1011,6 +1018,57 @@ def extension_control(cap=300):
     return ok
 
 
+def cmd_catalogue(args):
+    """Control on the sweep's INPUT, which no downstream check can reach.
+
+    Every refutation in the f = 22 sweep is a statement about the catalogue
+    pairs it enumerated.  If `load35` returned a proper subset of the
+    (3,5,m)-graphs, or returned something that is not a (3,5)-graph at all, the
+    sweep would still report "all 19,117 pairs UNSAT" and the exhaustiveness
+    claim built on it would be empty.  That is the unsafe direction and it is
+    invisible to `fastpath`, to the positive control, and to the solver.
+
+    Two independent things are checked, against published values and against
+    the definition:
+
+      COUNTS   the (3,5,m) catalogue sizes for m = 9..13 are 290, 313, 105,
+               12, 1 -- Radziszowski's survey DS1, and the uniqueness at 13 is
+               the classical fact this whole configuration rests on.
+      DEFINING PROPERTY   every member is triangle-free with independence
+               number at most 4.  Checked from the adjacency, not assumed.
+
+    The A-side of the configuration is such a graph and the B-side is the
+    complement of one, so both sides are covered by checking the catalogue.
+    """
+    want = {9: 290, 10: 313, 11: 105, 12: 12, 13: 1}
+    print("CATALOGUE CONTROL: the sweep's input, checked against DS1 and")
+    print("against the definition of a (3,5)-graph\n")
+    print("     m   members   expected   K_3-free   alpha <= 4")
+    ok = True
+    for m in sorted(want):
+        gs = X.load35(m)
+        nk3 = na = 0
+        for g in gs:
+            if not any(((g[u] >> v) & 1) and ((g[u] >> w) & 1)
+                       and ((g[v] >> w) & 1)
+                       for u, v, w in itertools.combinations(range(m), 3)):
+                nk3 += 1
+            if not any(all(not ((g[u] >> v) & 1)
+                           for u, v in itertools.combinations(S, 2))
+                       for S in itertools.combinations(range(m), 5)):
+                na += 1
+        good = (len(gs) == want[m] and nk3 == len(gs) and na == len(gs))
+        ok &= good
+        print(f"   {m:3d}   {len(gs):7d}   {want[m]:8d}   {nk3:8d}   "
+              f"{na:10d}   {'ok' if good else '*** FAIL ***'}")
+    tot = sum(len(X.load35(a)) * len(X.load35(22 - a))
+              for a in (13, 12, 11, 10, 9) if 9 <= 22 - a <= 13)
+    print(f"\n   f = 22 pair count from these catalogues: {tot}")
+    ok &= (tot == 19117)
+    print("   " + ("INPUT VERIFIED" if ok else "*** INPUT NOT VERIFIED ***"))
+    return 0 if ok else 1
+
+
 def cmd_fastpath(args):
     """Control for the `body_of` fast path: it must agree with `specialise`.
 
@@ -1055,6 +1113,8 @@ def cmd_fastpath(args):
 
 def main():
     args = sys.argv[1:]
+    if "catalogue" in args:
+        return cmd_catalogue(args)
     if "fastpath" in args:
         return cmd_fastpath(args)
     if "cascade" in args:
