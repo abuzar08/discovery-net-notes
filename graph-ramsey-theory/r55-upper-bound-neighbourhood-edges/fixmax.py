@@ -45,6 +45,11 @@ SCRATCH = ("/Users/abuzark/.discovery-research-team/workspaces/researcher-3/"
 CAD = f"{SCRATCH}/tools/cadical/build/cadical"
 DTM = f"{SCRATCH}/tools/drat-trim/drat-trim"
 
+# Seconds allowed to a ladder PROBE rung (see `ladder_rungs`).  A probe is a
+# cheap bet on a refutation at small n settling the target; if it does not pay
+# off fast it is pure overhead, so it never gets the full per-pair budget.
+PROBE_CAP = 1
+
 
 def duality_note():
     """The two mixed shapes are not independent problems.
@@ -609,7 +614,47 @@ def sweep_f(f, n, shape, cap, verbose=False):
     return ("UNSAT", None, done, total)
 
 
-def sweep_fast(f, n, cap, warm=None, log=None):
+def ladder_rungs(f, n, rungs=(34, 38)):
+    """The n-values to try for a pair, ascending, ending at the target n.
+
+    Feasibility is monotone DECREASING in n: deleting any vertex outside the
+    configuration leaves it intact, so a graph realising it at n realises it at
+    every smaller order.  Contrapositive, which is the useful direction:
+
+        INFEASIBLE AT n' IMPLIES INFEASIBLE AT EVERY n >= n'.
+
+    So a refutation at a small n settles the target, and small n is much
+    cheaper -- at f = 22 a typical pair refutes in 0.05 s at n = 34 against
+    0.26 s at n = 42, and one measured pair took 0.24 s at n = 36 against
+    9.05 s at n = 42.  SAT at a small n says NOTHING about the target and must
+    escalate; only SAT at the target itself is a witness.
+
+    MEASURED NEGATIVE, AND IT IS OFF BY DEFAULT.  The reasoning above is
+    correct and the implementation agrees with direct solving on every pair
+    tested (25/25 and 20/20), but at f = 22 it does not pay:
+
+        split    probes that settled     speed-up vs direct at n = 42
+        (12,10)        16 of 20                    1.15x
+        (11,11)        18 of 25                    1.03x
+
+    and (11,11) is 11,025 of the 19,117 pairs.  The probes usually fire, and
+    it still does not matter: once clause construction was made 12.3x cheaper
+    the easy pairs cost about 0.2 s anyway, so the total is set by the hard
+    pairs -- and those are hard at every rung, while paying a probe cap at each
+    one.  With the full cap at every rung it measured 0.7x, i.e. slower.
+
+    SCOPE OF THE NEGATIVE.  It is measured at f = 22, where the target is
+    mostly easy.  For a harder target -- smaller f, hence larger |X| -- the
+    direct solve gets dearer while a probe at n = 34 does not, so the sign
+    could reverse.  This lane has already published one lever whose sign
+    reverses with |X|, so the honest statement is "does not pay at f = 22",
+    not "does not pay".
+    """
+    out = [r for r in rungs if f + 4 <= r < n]
+    return out + [n]
+
+
+def sweep_fast(f, n, cap, warm=None, log=None, ladder=False):
     """One f, one n, shape C_4 only (2K_2 follows by the duality).
 
     Uses precompute/specialise, and tries the previous n's witness first --
@@ -631,6 +676,8 @@ def sweep_fast(f, n, cap, warm=None, log=None):
                     order.append((a, ia, ib))
 
     pres, fmts = {}, {}
+    rungs = (ladder_rungs(f, n, ladder) if isinstance(ladder, tuple)
+             else ladder_rungs(f, n) if ladder else [n])
     work = os.path.join(SCRATCH, "fixmax", f"fast_f{f}_n{n}")
     os.makedirs(work, exist_ok=True)
     cnf = os.path.join(work, "x.cnf")
@@ -658,33 +705,51 @@ def sweep_fast(f, n, cap, warm=None, log=None):
         b = f - a
         rc = done.get((a, ia, ib))
         if rc is None:
-            if (a, b) not in pres:
-                # One split's structures are about half a gigabyte, and the
-                # order list walks splits contiguously, so holding all five at
-                # once wastes 2 GB for no reuse.  Keep the current split only.
-                if len(pres) >= 2:
-                    for key in list(pres):
-                        if key != (a, b):
-                            del pres[key]
-                            fmts.pop(key, None)
-                pres[(a, b)] = precompute(n, "C4", a, b)
-                fmts[(a, b)] = preformat(pres[(a, b)])
             A = X.load35(a)[ia]
             B = X.complement(b, X.load35(b)[ib])
-            # Fast path: select preformatted clause lines rather than building
-            # and formatting tuples.  Checked against `specialise` clause for
-            # clause by `python3 fixmax.py fastpath`.
-            r = body_of(pres[(a, b)], fmts[(a, b)], bits_of(A, a),
-                        bits_of(B, b))
-            if r is None:
-                rc = 20                    # already contains a K_5 or I_5
-            else:
+            Ab, Bb = bits_of(A, a), bits_of(B, b)
+            # Climb the n-ladder.  A refutation at any rung settles the target
+            # by monotonicity, and small rungs are far cheaper; SAT below the
+            # target proves nothing and must escalate.
+            rc = None
+            for m in rungs:
+                key = (m, a, b)
+                if key not in pres:
+                    # One split's structures are about half a gigabyte, and the
+                    # order list walks splits contiguously, so holding every
+                    # split at once wastes gigabytes for no reuse.  Keep only
+                    # the rungs of the split in hand.
+                    for old in [k for k in pres if (k[1], k[2]) != (a, b)]:
+                        del pres[old]
+                        fmts.pop(old, None)
+                    pres[key] = precompute(m, "C4", a, b)
+                    fmts[key] = preformat(pres[key])
+                # Fast path: select preformatted clause lines rather than
+                # building and formatting tuples.  Checked against
+                # `specialise` clause for clause by `fixmax.py fastpath`.
+                r = body_of(pres[key], fmts[key], Ab, Bb)
+                if r is None:
+                    rc = 20                # already contains a K_5 or I_5
+                    break
                 nv, ncls, body = r
                 with open(cnf, "w") as fh:
                     fh.write(f"p cnf {nv} {ncls}\n")
                     fh.write(body)
-                rc = subprocess.run(["timeout", str(cap), CAD, "-q", cnf],
+                # A probe rung is a CHEAP BET, not a second attempt: give it a
+                # fraction of the budget and abandon it otherwise.  Measured
+                # with the full cap at every rung the ladder came out at 0.7x,
+                # i.e. slower, because a hard pair paid the cap three times
+                # over before reaching the target at all.
+                mcap = cap if m == n else min(cap, PROBE_CAP)
+                rc = subprocess.run(["timeout", str(mcap), CAD, "-q", cnf],
                                     capture_output=True, text=True).returncode
+                if rc == 20:               # settles every larger n, so the
+                    break                  # target too
+                if rc == 10 and m == n:    # only a witness AT the target
+                    break
+                rc = None if rc == 10 else rc   # SAT below target: escalate
+            if rc is None:
+                rc = 124                   # nothing settled it; defer below
             if rc in (10, 20):             # only record settled verdicts
                 jfh.write(f"{a} {ia} {ib} {rc}\n")
                 jfh.flush()
@@ -703,8 +768,8 @@ def sweep_fast(f, n, cap, warm=None, log=None):
             # without a break is strictly the stronger verdict -- then spend
             # the break only on what the bulk could not settle.  Two of the
             # five original leftovers would have closed here automatically.
-            if (a, b) in pres:
-                r2 = specialise(pres[(a, b)], bits_of(X.load35(a)[ia], a),
+            if (n, a, b) in pres:
+                r2 = specialise(pres[(n, a, b)], bits_of(X.load35(a)[ia], a),
                                 bits_of(X.complement(b, X.load35(b)[ib]), b),
                                 lex=True, fixed=a + b + 4, n=n,
                                 degwin=True, a=a, b=b, shape="C4",

@@ -5658,6 +5658,33 @@ UNSAT**, no witness. Resumable per pair.
 
 **Blocked.** The three leftovers at \(f=23\), \(n=36\) unchanged.
 
-**Next.** Keep driving the sweep — at \(0.82\) pairs/s it is about \(6.5\)
-core-hours, and the remaining per-pair budget is now \(89\%\) solver, so further
-engineering has little left to give. No background computations left running.
+**Then tried a mathematical reduction, and it does not pay.** Feasibility is
+monotone decreasing in \(n\), so **infeasible at \(n'\) implies infeasible at
+every \(n \ge n'\)** — a refutation at small \(n\) settles \(n=42\), and small
+\(n\) is far cheaper (\(0.05\) s at \(34\) against \(0.26\) s at \(42\); one pair
+\(0.24\) s at \(36\) against \(9.05\) s at \(42\)). Implemented as an ascending
+\(n\)-ladder with probe rungs, where SAT below the target proves nothing and must
+escalate. Controls pass: verdicts identical to direct solving on every pair
+tested, and the positive control still returns SAT with the ladder escalating.
+
+But it **does not pay at \(f=22\)**: \(1.15\times\) on \((12,10)\) and
+\(\mathbf{1.03\times}\) on \((11,11)\), which is \(11\,025\) of the \(19\,117\)
+pairs. The probes fire — \(18\) of \(25\) — and it still does not matter, because
+once construction was \(12.3\times\) cheaper the easy pairs cost \(0.2\) s anyway
+and the total is set by the hard pairs, which are hard at every rung while paying
+a probe cap at each. With the full cap per rung it measured \(0.7\times\), i.e.
+slower. **Off by default**, code and controls kept, and the scope of the negative
+stated: it is measured where the target is easy, and for smaller \(f\) (larger
+\(\lvert X\rvert\)) the sign could reverse — this lane has already published one
+lever that reverses sign, so "does not pay at \(f=22\)" is the honest claim.
+
+**And I nearly published the contention artifact a second time, one hour after
+writing the rule against it.** A sweep window with the ladder showed \(4.19\)
+pairs/s against \(0.82\) — an apparent \(3\times\). Load had fallen from \(37\) to
+\(8.7\). The interleaved in-process A/B showed \(0.7\times\). The rule caught it
+because I applied it, not because I remembered it.
+
+**Next.** Keep driving the sweep: \(826\) of \(19\,117\) banked, all UNSAT,
+\(2.59\) pairs/s at load \(5.2\), projecting \(\approx 2\) core-hours. The
+per-pair budget is now overwhelmingly solver time, so further engineering has
+little left to give. No background computations left running.
