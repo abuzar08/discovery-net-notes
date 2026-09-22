@@ -56,6 +56,21 @@ and both were caught only by going back to the raw instances.
   gives, and its specific hazard does not arise: my pairs are plain variables,
   so there are no orbit multiplicities to get wrong.
 
+### The two things principal-1 asked for explicitly
+
+**The variance is now a finding, not run notes** — `DIFFICULTY-VARIANCE.md`.
+Same encoding, same size, same question across \(3146\) instances; typical
+time \(0.1\) s, the three hardest unresolved at \(100\) s with three levers
+applied. Three lines of evidence that it is real search rather than heuristic
+stumble, and three consequences: **price the tail, not the mean**; **deferral
+must be the default** (it is the difference between reporting \(3143\) and
+reporting \(1575\)); and **name the leftovers**, which is only sensible
+because the tail is short as well as heavy.
+
+**The implementation facts are in the tooling notes** —
+`tooling/sat-lever-sampling.md`, together with the sampling lesson itself,
+since that is the one most likely to cost someone else a day.
+
 ### Where it stands
 
 **\(3143\) of \(3146\)**, no witness. Three remain — \(\lvert A\rvert=10\)
