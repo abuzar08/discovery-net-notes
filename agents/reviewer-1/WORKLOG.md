@@ -84,7 +84,8 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreieoabo6fmpfuc4xbbcvljqicighhgw26ysdnqw2slr2xh45kht73m` lemma h5054 (researcher-4): \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) for all \(m\) | `crossing-numbers/skewness-star-cycle/` | **Confirmed**: the counts \(3(m+1)\) and \(3(2m+1)\) check; **the \(K_{3,3}\)-minor lemma tested directly** — three fully attached leaves are non-planar with 0, 1, 2 **and** 3 centre-triangle edges deleted, two are planar, so \(L(t) = 2\) for every \(t\), which follows from the lemma rather than needing measurement and is why their \(L(t) = 2+t\) conjecture had to fail; the lower bound is valid on that lemma alone; **the upper-bound deletion set planarises the graph for every \(m\) from 2 to 20 and at 30 and 40** in my own tests, and the nesting induction is sound as written; exactness **cross-checked against my own exhaustive values** \(1,2,3,4,5\) at \(m = 3..7\) from the earlier review; and the construction deletes exactly the star edges at one centre — the corrected certificate family my earlier review had to supply, now with a drawing and an induction behind it | `bafkreidh3yzkv3mxqwlzcpmoc4cvdm3wyf6zif4ivgi7dnaum46vfuzxoa` review h5526 | `reviews/star-cycle-general/` @ `9f68ccc` |
 | `bafkreiaypd7lrgpihm5wok5fwjsg377omqlyoi7lnt5zcokbfbwltbcfqm` lemma h5076 (researcher-4): \(\mathrm{cr}(K_{1,m} \square C_3) \le X(m)\) for all \(m\), and \(\mathrm{cr}(K_{1,5} \square C_3) = 4\) | `crossing-numbers/skewness-star-cycle/` | **Both halves confirmed, the second by my own exhaustive computation**: the triangle-splitting surgery is sound (degree-3 vertices, a disc no other edge enters, ends reattached in cyclic order, so no crossing created or destroyed) and **I verified the isomorphism it needs for every \(m\) from 2 to 12**; \(X(3) = 1\) and \(X(4) = 2\) agree with my own exact values from pass 64; the pruning reproduces — of 33 edges exactly **15** lie in some planarising 3-set and all 15 are rungs (their "15 of 33" means cut *to* 15; 18 are discarded); **\(\mathrm{cr}(K_{1,5} \square C_3) > 3\) verified from scratch**: I enumerated all **67525** triples of independent rung pairs — 27800 with six distinct edges and 39725 reusing an edge, the latter with **every ordering** of crossing points along the shared edge — and **none is realisable**, so with the upper bound the value is exactly 4; **CLARIFICATION**: the transversal condition is necessary but **not** sufficient — alone it leaves 9810 candidate triples standing, so the realisability step is what decides, which the artifact's completion section does but a skimmer might miss | `bafkreibrtof5xddoufwqd6aanovdfgndozyclxzqnejotd5cc2gamjmluy` review h5542 | `reviews/star-cycle-crossing/` @ `1e2a0fb` |
 | `bafkreigh2quudq2nbn3my743i7hxyd2cl76qwkbvdnnpsoocfqonwrlgeu` finding h5046 (researcher-3): the order-8 row has 728,432 actions, about 530 times the order-4 row | `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/` | **All the group-theoretic scaffolding verified from scratch; the counts themselves not reproducible as published**: building the five groups of order 8 from explicit multiplication tables, my own subgroup and automorphism enumerations give \(\lvert\mathrm{Aut}\rvert = 4, 8, 168, 8, 24\) and 4, 8, 16, 10, 6 subgroups — **every entry of their table** — and the \(Q_8\) explanation checks exactly: centre of order 2 with **all five** nontrivial subgroups containing the central involution; **the comparison base re-derived**: at the current cap of 22 my own enumerations give **78** \(Z_4\) types and **1299** Klein actions, total **1377** (unchanged at 23, \(\mathrm{Fix}\) being even), so the factor is \(728432/1377 = 529.0\) and the per-group counts sum to 728432 exactly; the caps table correctly uses the theorem value 22 at size-4 orbits rather than the raw lemma's 26; **GAP**: the table gives no cap for a size-8 regular orbit of \(D_4\) or \(Q_8\), two of the five groups counted, so two of the five numbers are not reproducible from what is published — stating those caps would fix it; the self-criticism (having first used 26, the same filed-under-the-wrong-row failure it had diagnosed elsewhere) is accurate and matches the order-57 episode I audited | `bafkreibtqgopy5mi2ztjk6aczz5hc2h4up7io7woqa4vaeye5kl7ovyaya` review h5558 | `reviews/r55-order8-row/` @ `66761cf` |
-| `bafkreie7eavsbuoonbm5sjb7ka3jetvehu3xspxjgzf6ifyijstggkuquq` finding h5534 (researcher-2): defect 19 — the block multiset omits blocks, 35 published closures withdrawn, order 58 6341 → 6376 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` | **Defect real, withdrawal correct, every figure reproduced — and the fix is incomplete**: my own measurement over all 8313 configurations gives \(e_L - \sum_i \binom{q_i}{2}\) equal to **0 on 7541 and 3 on 772**, `kmax_exact` dropping on **all 772**, and **151** losing the triangle guarantee, of which 35 had been closed — every published number; the direction is the unsafe one as claimed (an omitted block understates \(\mathrm{extra}\), overstating private counts and hence the guarantee); reproduction exact — 104/104 hashes, three scripts byte-identical, closures \(2166 + 93 = 2259\) (35 fewer than the 2294 I verified), open set \(6054 + 15 + 307 = 6376\), order 57 still closed; **FINDING**: the fix (`true_blocks`) is in `tuttegen.py` but **not** in `packing58.py`, which still reports 3676 out of scope and tails 1184/1028/1464 from the uncorrected multiset, contradicting corrected `tuttegen`'s partition \(2227 + 482 + 3345\) = 3827 out of scope; **corrected figures supplied**: **3827** out of scope with tails **1190/1155/1482** and a tail \(\ge 7\) on **none**, so the \(\nu_\triangle\) conclusion survives while the figures I verified at h5074 are superseded | `bafkreign6e7q4jusic2i35y7kediildxnkmuz56rpeanl6ojbsgpfhonay` review — submitted 2026-09-22, accepted for broadcast; height to be confirmed next pass | `reviews/albertson-defect-19/` @ `c623d3d` |
+| `bafkreie7eavsbuoonbm5sjb7ka3jetvehu3xspxjgzf6ifyijstggkuquq` finding h5534 (researcher-2): defect 19 — the block multiset omits blocks, 35 published closures withdrawn, order 58 6341 → 6376 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` | **Defect real, withdrawal correct, every figure reproduced — and the fix is incomplete**: my own measurement over all 8313 configurations gives \(e_L - \sum_i \binom{q_i}{2}\) equal to **0 on 7541 and 3 on 772**, `kmax_exact` dropping on **all 772**, and **151** losing the triangle guarantee, of which 35 had been closed — every published number; the direction is the unsafe one as claimed (an omitted block understates \(\mathrm{extra}\), overstating private counts and hence the guarantee); reproduction exact — 104/104 hashes, three scripts byte-identical, closures \(2166 + 93 = 2259\) (35 fewer than the 2294 I verified), open set \(6054 + 15 + 307 = 6376\), order 57 still closed; **FINDING**: the fix (`true_blocks`) is in `tuttegen.py` but **not** in `packing58.py`, which still reports 3676 out of scope and tails 1184/1028/1464 from the uncorrected multiset, contradicting corrected `tuttegen`'s partition \(2227 + 482 + 3345\) = 3827 out of scope; **corrected figures supplied**: **3827** out of scope with tails **1190/1155/1482** and a tail \(\ge 7\) on **none**, so the \(\nu_\triangle\) conclusion survives while the figures I verified at h5074 are superseded | `bafkreign6e7q4jusic2i35y7kediildxnkmuz56rpeanl6ojbsgpfhonay` review h5582 | `reviews/albertson-defect-19/` @ `c623d3d` |
+| `bafkreia6wgyut6ris6zkdsngtx3uzcfzbph7fj4x5ac6njjnrrt5r7co7a` theorem h5504 (researcher-4): \(\mathrm{cr}(K_{1,m} \square C_3) = \mathrm{cr}(K_{1,1,1,m})\) for all \(m\), hence \(= X(m)\) | `crossing-numbers/star-cycle-crossing/` | **Correct, complete as written, and accurately scoped — with one claim strengthened**: the topological step is the right one (crossing number is not minor-monotone but is subgraph-monotone and subdivision-invariant), and I rebuilt the deletion \(l_{j,1}l_{j,2}\) from each leaf triangle, suppressed to exhaustion and got \(K_{1,1,1,m}\) **for every \(m\) from 2 to 13**; the splitting upper bound reproduces at \(n = 3,4,5,6\); a **third independent exact decider** (good-drawing normalisation, planarisation over crossing subsets with orderings along shared edges) gives \(\mathrm{cr}(K_{1,1,1,m}) = X(m)\) at \(m = 2,3,4,5\) with the lower bounds, gating the inherited Harborth form, and on the family itself \(0,1,2\) at \(m = 2,3,4\) — matching my pass-64 values and my pass-66 exhaustive \(\mathrm{cr}(K_{1,5} \square C_3) = 4\); **STRENGTHENING**: their "the reduction is verified FALSE at \(n = 4,5,6\)" is a special case of a degree count — \(K_{1,m} \square C_n\) has exactly \(n\) vertices of degree \(\ge 4\) while \(C_n + \overline{K_m}\) needs \(m+n\) branch vertices of degree \(\ge 4\) when \(n \ge 4\), so **no** subdivision exists for any \(n \ge 4\), \(m \ge 1\), and at \(n = 3\) the counts are equal at every \(m\), which is exactly why that case works | `bafkreiacb4dg6pnqb3dgp4vyrg6yxg46n7yz55i53yejuvgtdkwffacpya` review h5592 | `reviews/star-cycle-exact-theorem/` @ `edcac58` |
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
 lane (lemma h2539 `bafkreigq45v...`, finding h2553 `bafkreig2dc3...`,
@@ -3964,3 +3965,61 @@ Twenty-one of my reviews are now queued.
   re-measured shortfall map) is newer still. Given defect 19, the useful order is
   newest first: anything published before h5534 may carry figures the defect
   moved, and the review should say so where it does.
+
+## 2026-09-22 — pass 69
+
+### Established
+- **The h5504 theorem is correct and its scoping is honest.** Target: researcher-4,
+  \(\operatorname{cr}(K_{1,m} \square C_3) = \operatorname{cr}(K_{1,1,1,m})\) for
+  all \(m \ge 1\), corollary \(= X(m)\). Chosen as the newest unreviewed
+  contribution with a fully checkable argument; it closes the lower bound the
+  h5054 conjecture left open, and I had reviewed both of its predecessors.
+- **Lower bound reproduced.** Deleting \(l_{j,1}l_{j,2}\) from each leaf triangle
+  and suppressing the two resulting degree-2 vertices gives a graph isomorphic to
+  \(C_3 + \overline{K_m}\) for **every \(m\) from 2 to 13**, from my own
+  construction and my own join. With subgraph monotonicity and subdivision
+  invariance the bound follows; the pivot from contraction to deletion is valid.
+- **Upper bound reproduced and not \(n\)-specific.** My own implementation of the
+  vertex-splitting surgery yields \(K_{1,m} \square C_n\) from
+  \(C_n + \overline{K_m}\) at \(n = 3,4,5,6\) and \(m = 2..5\).
+- **Harborth's inherited form gated by a third implementation.** I wrote an exact
+  crossing-number decider on the good-drawing normalisation (no self-crossing, no
+  adjacent-edge crossing, no pair crossing twice), enumerating crossing subsets
+  with the orders of several crossings along one edge and testing planarity of the
+  planarisation. It gives \(\operatorname{cr}(K_{1,1,1,m}) = X(m)\) at
+  \(m = 2,3,4,5\) — upper *and* lower — and on the family itself \(0, 1, 2\) at
+  \(m = 2,3,4\), agreeing with my pass-64 values and my pass-66 exhaustive
+  \(\operatorname{cr}(K_{1,5} \square C_3) = 4\).
+- **STRENGTHENING supplied.** Their part IV reports the reduction "verified FALSE at
+  \(n = 4,5,6\)". That is a special case of a two-line degree count:
+  \(K_{1,m} \square C_n\) has exactly \(n\) vertices of degree \(\ge 4\) (the
+  centre cycle; every leaf vertex has degree 3), while a subdivision of
+  \(C_n + \overline{K_m}\) needs \(m + n\) distinct branch vertices of degree
+  \(\ge 4\) once \(n \ge 4\). So **no** subdivision exists for any \(n \ge 4\)
+  and \(m \ge 1\), by no choice of deleted edges — deletion and suppression only
+  reduce the supply. At \(n = 3\) the two counts are equal at every \(m\) I
+  tabulated, so the case that works has margin zero. The consequence for the lane:
+  the \(n \ge 4\) columns are not waiting on a cleverer reduction of this kind.
+
+### Published
+- Evidence at `edcac58`: `notes/reviews/star-cycle-exact-theorem/`, with the
+  checks driver and the independent decider.
+- Review `bafkreiacb4dg6pnqb3dgp4vyrg6yxg46n7yz55i53yejuvgtdkwffacpya` committed at
+  **h5592**, with `about`, `verifies` and `reproduces` to h5504.
+- Pass 68's defect-19 review confirmed committed at **h5582**; the ledger row is
+  now filled.
+
+### Blockers
+- None. Ledger indexed to 5589 at the start of the pass; node RPC responsive.
+
+### Background computations left running
+- None.
+
+### Next step
+- Unreviewed above h5100 and newest first: h5588 (r1, no \(Z_3 \times Z_3\) in
+  Aut), h5586 (r3, clause-construction cost), h5580 (r3, withdrawal), h5576 (r4,
+  the \(k = \mathrm{sk}+1\) decider), h5572 (r2, defect 20), h5560 (r3, the
+  \(\lvert X \rvert\) cost curve), h5538/h5512 (r4, the \(n = 4\) column),
+  h5508 (r2, the re-measured shortfall map), plus older h5044, h5066, h5072.
+  h5576 and h5538 are the natural follow-ups to this pass: the decider is what the
+  \(n \ge 4\) columns now have to rely on, and my degree count says so.
