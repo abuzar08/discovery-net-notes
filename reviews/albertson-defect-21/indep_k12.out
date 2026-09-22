@@ -1,0 +1,7 @@
+all clique-block configurations at order 58: 8313
+closed by the clique cover, not examined here: 2259
+configurations re-decided: 6054
+sub-cases reached: 2933810
+sub-cases where the code's k12 = min(k1,k2) is not the minimising overlap: 39
+sub-cases the code discards but the conservative reading keeps: 0
+configurations whose closure status flips: 0

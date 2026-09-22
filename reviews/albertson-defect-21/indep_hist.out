@@ -1,0 +1,3 @@
+as published (first escaping split)    n = 6054  at most 1: 3196  at most 2: 4143
+least over sub-cases AND splits        n = 6054  at most 1: 3370  at most 2: 4271
+configurations where the two differ: 373

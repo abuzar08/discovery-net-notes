@@ -1,0 +1,11 @@
+open configurations: 6054
+
+out of the route's scope: fewer than three blocks n = 482  median 6  mean 6.58  max 20  closed at d=1: 62  unreachable 0
+out of the route's scope: three disjoint triangles not guaranteed n = 3345  median 9  mean 9.25  max 21  closed at d=1: 55  unreachable 1
+   unreachable configuration: m=838 |R|=24 mult=[28, 4, 4] eHR=0
+reached by the route, point survives           n = 2227  median 11  mean 10.94  max 20  closed at d=1: 0  unreachable 0
+
+per-half distribution of the least closing bonus
+   out of the route's scope: fewer than three blocks [(1, 62), (2, 47), (3, 37), (4, 35), (5, 29), (6, 44), (7, 39), (8, 29), (9, 40), (10, 26), (11, 22), (12, 20), (13, 21), (14, 11), (15, 7), (16, 8), (17, 2), (18, 2), (20, 1)]
+   out of the route's scope: three disjoint triangles not guaranteed [(1, 55), (2, 193), (3, 212), (4, 199), (5, 150), (6, 162), (7, 205), (8, 251), (9, 262), (10, 277), (11, 277), (12, 241), (13, 227), (14, 189), (15, 165), (16, 112), (17, 78), (18, 51), (19, 28), (20, 9), (21, 1)]
+   reached by the route, point survives           [(2, 30), (3, 64), (4, 109), (5, 87), (6, 94), (7, 92), (8, 150), (9, 183), (10, 183), (11, 201), (12, 196), (13, 173), (14, 169), (15, 152), (16, 146), (17, 80), (18, 58), (19, 48), (20, 12)]

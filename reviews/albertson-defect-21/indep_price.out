@@ -1,0 +1,27 @@
+open clique-block configurations: 6054
+admissible under the residue:     6054
+
+monotonicity of closure in d, direct check on a sample
+   configurations sampled: 300;  non-monotone: 0
+
+never closed at any bonus (d = 1000 probe): 1
+   the unreachable configuration: m=838 |R|=24 mult=[28, 4, 4] eHR=0
+
+   d      closed by bisection on the real decision
+   1      117
+   2      387
+   3      700
+   5      1309
+   8      2375
+   10     3346
+   11     3846
+   12     4303
+   13     4724
+   15     5417
+   20     6052
+   21     6053
+   25     6053
+   100    6053
+
+   least: 1  median: 10  largest: 21
+   full distribution: [(1, 117), (2, 270), (3, 313), (4, 343), (5, 266), (6, 300), (7, 336), (8, 430), (9, 485), (10, 486), (11, 500), (12, 457), (13, 421), (14, 369), (15, 324), (16, 266), (17, 160), (18, 111), (19, 76), (20, 22), (21, 1)]
