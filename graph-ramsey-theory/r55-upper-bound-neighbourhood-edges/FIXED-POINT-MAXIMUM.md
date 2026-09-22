@@ -244,6 +244,70 @@ So a mixed \(4\)-orbit gives \(f \le 23\) at \(n = 42\), and:
 so \(f \le 22\); otherwise route 1 of §4a gives \(f \le 22\) directly. Either
 way \(f \le 22\). \(\square\)
 
+## 5b-pre0. What the \(f = 22\) refutation will rest on, audited
+
+A sweep reports "all \(19\,117\) pairs UNSAT". That is a statement about the
+pairs it enumerated, and it becomes a theorem only through a chain of
+reductions, each of which can fail silently in the unsafe direction — a
+*narrower* enumeration still returns UNSAT. So the chain is set out here with
+each link either derived or checked, before the result arrives rather than
+after.
+
+**(1) The fixed points split all-or-nothing.** Let \(O\) be an \(H\)-orbit of
+size \(4\) and \(v \in \operatorname{Fix}(H)\). Every element of \(H\) fixes
+\(v\), so \(H\) preserves \(N(v)\), hence \(N(v) \cap O\) is \(H\)-invariant.
+But \(O\) is a single \(H\)-orbit, so its only invariant subsets are
+\(\varnothing\) and \(O\). Therefore each fixed vertex is joined to all of
+\(O\) or to none of it, and \(\operatorname{Fix}(H) = A \sqcup B\) with no
+third case. (This is researcher-1's pass-1 step, §0; the one-line reason is
+recorded because the configuration is empty without it.)
+
+**(2) \(A\) is a \((3,5)\)-graph and \(B\) is the complement of one.** Both
+mixed shapes contain an edge and a non-edge: \(C_4\) has edge \((o_0,o_1)\)
+and non-edge \((o_0,o_2)\); \(2K_2\) has edge \((o_0,o_2)\) and non-edge
+\((o_0,o_1)\). Then
+
+- if \(A\) contained a triangle \(\{a_1,a_2,a_3\}\), those three together with
+  an adjacent pair of \(O\) would be a \(K_5\), since \(A\) is joined to all of
+  \(O\). So \(A\) is triangle-free;
+- an \(I_5\) inside \(A\) is an \(I_5\) outright, so \(\alpha(A) \le 4\);
+- if \(B\) contained an \(I_3\), those three with a *non*-adjacent pair of
+  \(O\) would be an \(I_5\), since \(B\) is joined to none of \(O\). So
+  \(\overline{B}\) is triangle-free, and \(\alpha(\overline{B}) \le 4\) because
+  \(B\) has no \(K_5\).
+
+So \(A\) ranges over the \((3,5,a)\)-catalogue and \(B\) over the complements
+of the \((3,5,b)\)-catalogue — which is exactly what `sweep_fast` enumerates.
+**Both directions were needed**: dropping either would shrink the enumeration
+and leave every refutation intact.
+
+**(3) The catalogues are complete and are what they claim to be.**
+`python3 fixmax.py catalogue` checks the sizes against DS1 —
+\(290, 313, 105, 12, 1\) at \(m = 9,\dots,13\) — and verifies from the
+adjacency that every member is triangle-free with \(\alpha \le 4\). It also
+recomputes the sweep's own pair count from those catalogues and gets
+\(19\,117\). This is the link no downstream check can reach: a truncated
+`load35` would leave `fastpath`, the positive control and the solver all
+passing.
+
+**(4) One shape suffices.** Complementation gives feasible\((a,b,C_4)\) iff
+feasible\((b,a,2K_2)\) (`duality_note`), and the split set
+\(\{(13,9),(12,10),(11,11),(10,12),(9,13)\}\) is closed under swap. So a
+\(C_4\)-only sweep over all five splits settles \(2K_2\) over all five too.
+Homogeneous shapes are not in this chain at all; §4 disposes of them at
+\(f \le 19\).
+
+**(5) The solver's answer is the formula's answer.** `fastpath` checks the
+fast construction against `specialise` clause for clause and checks the
+no-duplicate assumption it rests on; the positive control at \(f = 24\),
+\(n = 34\) confirms a known-feasible case still returns SAT, which is the only
+check that catches a construction that has lost solutions, since a formula
+that has lost its solutions still refutes.
+
+What is *not* yet established is the sweep itself, and the residue of deferred
+pairs is part of it: an "all UNSAT except \(k\) deferred" is not a theorem, it
+is a theorem with \(k\) holes. That is the one link still open.
+
 ## 5b-pre. What excluding \(f = 22\) would actually buy
 
 I have written "\(22 \to 20\)" in several places, including to principal-1.

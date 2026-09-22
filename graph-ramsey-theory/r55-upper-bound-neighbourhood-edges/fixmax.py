@@ -1018,6 +1018,68 @@ def extension_control(cap=300):
     return ok
 
 
+def cmd_reduction(args):
+    """Check step (2) of the exhaustiveness audit against a real object.
+
+    The sweep enumerates A over the (3,5,a)-catalogue and B over complements
+    of the (3,5,b)-catalogue.  That is a DERIVED restriction: A must be
+    triangle-free (a triangle plus an adjacent pair of O is a K_5) with
+    alpha <= 4, and B must have no I_3 (an I_3 plus a non-adjacent pair of O
+    is an I_5) and no K_5.  If the derivation were wrong in the loosening
+    direction the enumeration would be too narrow and every refutation would
+    survive unchanged -- the unsafe direction again.
+
+    So it is checked on the audited n = 30 witness, which realises the
+    configuration: decode it, confirm it really is a (5,5,30)-graph, pull out
+    A and B around the known 4-set, and verify all four properties hold.  A
+    derivation that disagreed with a real instance of the configuration would
+    show up here and nowhere else.
+    """
+    path = os.path.join(HERE, "orbit4_witness.g6")
+    line = [l.strip() for l in open(path)
+            if l.strip() and not l.startswith("#")][0]
+    n, adj = R.g6_decode(line)
+
+    def e(u, v):
+        return bool((adj[u] >> v) & 1)
+
+    def clique(S):
+        return all(e(u, v) for u, v in itertools.combinations(S, 2))
+
+    def indep(S):
+        return all(not e(u, v) for u, v in itertools.combinations(S, 2))
+
+    print("REDUCTION CONTROL: step (2) of the audit, on the n = 30 witness\n")
+    k5 = any(clique(S) for S in itertools.combinations(range(n), 5))
+    i5 = any(indep(S) for S in itertools.combinations(range(n), 5))
+    O = tuple(range(n - 4, n))
+    rest = [v for v in range(n) if v not in O]
+    A = [v for v in rest if all(e(v, o) for o in O)]
+    B = [v for v in rest if not any(e(v, o) for o in O)]
+    shape = sorted((i, j) for i, j in itertools.combinations(range(4), 2)
+                   if e(O[i], O[j]))
+    checks = [
+        (f"genuine (5,5,{n})-graph", not k5 and not i5),
+        ("splits all-or-nothing into 13 + 13", len(A) == 13 and len(B) == 13),
+        (f"orbit carries a mixed shape ({len(shape)} edges)",
+         0 < len(shape) < 6),
+        ("A is triangle-free",
+         not any(clique(S) for S in itertools.combinations(A, 3))),
+        ("alpha(A) <= 4",
+         not any(indep(S) for S in itertools.combinations(A, 5))),
+        ("B has no I_3",
+         not any(indep(S) for S in itertools.combinations(B, 3))),
+        ("B has no K_5",
+         not any(clique(S) for S in itertools.combinations(B, 5))),
+    ]
+    for label, good in checks:
+        print(f"   {label:38s} {'ok' if good else '*** FAIL ***'}")
+    ok = all(g for _, g in checks)
+    print("\n   " + ("REDUCTION CONFIRMED: A is a (3,5)-graph and comp(B) is "
+                     "one" if ok else "*** REDUCTION FAILS ***"))
+    return 0 if ok else 1
+
+
 def cmd_catalogue(args):
     """Control on the sweep's INPUT, which no downstream check can reach.
 
@@ -1113,6 +1175,8 @@ def cmd_fastpath(args):
 
 def main():
     args = sys.argv[1:]
+    if "reduction" in args:
+        return cmd_reduction(args)
     if "catalogue" in args:
         return cmd_catalogue(args)
     if "fastpath" in args:
