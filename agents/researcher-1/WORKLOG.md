@@ -3909,3 +3909,84 @@ Commits 25cd7f5 and 51f35ef.
 2. If it completes: no automorphism of order 9, hence \(b \le 1\); submit and update
    the order-9 artifact's Theorem B, which still leaves the type open.
 3. The lane is then at its measured ceiling.
+
+## 2026-09-22 pass 77
+
+### The order-9 row is contained in the order-3 row (Theorem C, no computation)
+Reading my own reduction again rather than its conclusion: for an automorphism
+\(\sigma\) of order 9 the reduction gives \(c_9 = 4\) and \(c_1 + 3c_3 = 6\), so
+\(\sigma^{3}\) fixes 6 points and each 9-cycle splits into three 3-cycles —
+$$\sigma^{3} \text{ has cycle type } 1^{6} 3^{12}.$$
+That type is **one of the four order-3 types still open**. So excluding
+\(1^{6} 3^{12}\) excludes order 9 outright, and the survey's five "open items" are not
+five independent items: row one is a sub-case of row two. Nothing runs the other way.
+
+This does not change what the machine should do — \(1^{6} 3^{12}\) is the *harder* of
+the two (80 percent hard at level 5 against 20 percent for \(1^{9} 3^{11}\), which
+costs 1900 core-hours) — but it changes the defence of the running job from "this row
+is cheap" to "this row is insurance against never finishing the order-3 row". If that
+row is ever finished, the 1100 core-hours now running were redundant. Recorded in
+`r55-42-order-9-automorphisms` as Theorem C and in the survey's table.
+
+### I published 2180 core-hours an hour ago; the number is about 1100
+Two compounding errors, both of which this lane has made before:
+
+1. **A six-cube probe is not a measurement.** The probe drew six *already-hard*
+   cubes and reported mean 445 s. Across the **83 cubes the sweep has actually
+   completed** the mean is 257 s and the median 224 s.
+2. **Wall seconds are not core-seconds.** This laptop has 15 cores and four agents
+   on it. At load 42 each solver gets **0.778 of a core** — measured twice and in
+   agreement: sampling `%CPU` over the twelve running solvers, and running one cube
+   to a 60 s wall limit and reading **46.7 s** of CPU from `getrusage`. Wall times
+   times workers overstate CPU by 29 percent.
+
+So the honest comparison, both columns from sweep records rather than samples —
+\(Z_3\times Z_3\) from all 16384 of its cubes, \(Z_9\) from the 83 done:
+
+| | \(Z_3\times Z_3\) \((0;2,0,0,0;4)\) | \(Z_9\) \(3^{2}9^{4}\) |
+|---|---|---|
+| over 120 s | 214 of 16384 = **1.31 %** | 66 of 83 = **80 %** |
+| solve median | 3.2 s | 224 s |
+| replay mean | 5.2 s | 52 s |
+| LRAT median | 14 MB | **421 MB** |
+| row | **78 core-hours** | about **1100** |
+
+The gap is 70x on the median, not the 130x I published, and the row is 14x, not 22x.
+**The certificate sizes are the part that cannot be blamed on the machine**: one
+\(Z_9\) cube needs a thirty-fold larger proof object than one \(Z_3\times Z_3\) cube
+on a formula of the same size, and proof length does not depend on who else is using
+the laptop. The qualitative claim survives its own correction.
+
+### Instrumented rather than re-estimated
+`run_lrat_p.py` now records `solve_cpu_s` and `replay_cpu_s` from `getrusage`
+alongside wall times, and prints a core-hour projection every 200 cubes. Smoke-tested
+on a two-cube toy and on a real formula; validated against the 60 s cube above
+(46.7 of 60). The row's final cost will be a sum of measured CPU, not a projection.
+
+### Operational
+- **Scratch: 12.1 GB to 8.4 GB.** Deleted 3.9 GB of uncompressed `.lrat`/`.drat`
+  left by killed runs across nine completed, published, verified directories; every
+  one keeps its `results.jsonl` with the SHA-256 of each certificate, and a leftover
+  from a killed run is a partial proof that verifies nothing anyway. Compressed
+  `.xz` certificates untouched.
+- **Twelve workers to nine.** These proofs are 400 MB each against a few MB for
+  every earlier run in this lane, so twelve in flight is 5-12 GB of scratch on its
+  own, against a 20 GB cap. Nine caps that and returns four cores to three other
+  agents — researcher-3's worklog asks for low compute while its \(f=22\) sweep
+  runs. Costs me about a day: five days becomes six and a half. The principal can
+  overrule this.
+
+### Published
+Commits below; ledger submission this pass.
+
+### Background left (1)
+- `ct0_2_9_4_deg`: \(3^{2}9^{4}\), 16301 cubes to go, **9 workers**, 900 s limit,
+  about **six and a half days**, log `ct0_2_9_4_deg4.log`.
+
+### Next step (concrete)
+1. Read the run's own core-hour projection at the 200-cube marks; replace the
+   estimate in the survey with the measured sum when it finishes.
+2. Watch peak replay memory — a 421 MB LRAT replayed in Python is the one thing that
+   could take the machine down for everyone.
+3. On completion: no automorphism of order 9, hence \(b \le 1\); submit and update
+   Theorem B.

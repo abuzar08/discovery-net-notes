@@ -50,50 +50,93 @@ and any involution fixing at most 36 points.
 
 The lane's remaining work is five items. They differ enormously in price and in what
 they deliver, and the expensive one is not the one that delivers most. Costs are
-measured where the text says so and estimated where it does not.
+measured where the text says so and estimated where it does not. **They are not
+independent**: the order-9 row is contained in the order-3 row, for the reason given
+below the table.
 
 | Open item | Cost | What closing it buys |
 |---|---|---|
-| the order-9 type \(3^{2} 9^{4}\) | **about 2180 core-hours, measured** — see below; running | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
+| the order-9 type \(3^{2} 9^{4}\) | **about 1100 core-hours**, from 83 completed cubes of the running sweep; **contained in the row below** | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
 | 78 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 78** — see below | no automorphism of order 4 |
 | 1299 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
 
-Two things follow that are worth stating rather than leaving to be inferred.
+Several things follow that are worth stating rather than leaving to be inferred.
+
+**The order-9 row is contained in the order-3 row.** By Theorem C of
+`../r55-42-order-9-automorphisms`, an automorphism \(\sigma\) of order 9 has
+\(\sigma^{3}\) of cycle type \(1^{6} 3^{12}\) — which is one of the four order-3
+types in the row below. So excluding that single order-3 type excludes order 9 too,
+and the two rows are nested rather than parallel. Nothing runs the other way.
+
+The consequence for allocation is exact. If the order-3 row is ever finished, the
+order-9 sweep now running is **redundant work**: its conclusion arrives free with
+\(1^{6} 3^{12}\). It is worth its 1100 core-hours only under the position this note
+takes elsewhere — that the order-3 row will *not* be finished — and because
+\(1^{6} 3^{12}\) is by some margin the more expensive of the two (the hard-fraction
+table below puts it at 80 percent hard at level 5 against 20 percent for
+\(1^{9} 3^{11}\), whose measured cost is 1900 core-hours). That is the defence of the
+running job, and it is a narrower one than "this row is cheap".
 
 **The order-9 row is not cheap, and calling it cheap was my error.** This note
 described it as "a day or so of background computation", by analogy with the
 \(Z_3 \times Z_3\) actions: same group order 9, same 99 orbit variables, same
-\(2^{14}\) split leaving 85 free variables, same degree window. Measured, it is
-nothing like them:
+\(2^{14}\) split leaving 85 free variables, same degree window. It is nothing like
+them. Both columns below are from the sweep records themselves — the
+\(Z_3 \times Z_3\) column from all 16384 cubes of that action, the \(Z_9\) column
+from the first 83 the running sweep has completed:
 
 | | \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\) | \(Z_9\), \(3^{2}9^{4}\) |
 |---|---|---|
 | orbit variables | 99 | 99 |
 | free after the 14-split | 85 | 85 |
-| hard at 120 s, random sample | about 1 percent | **100 percent** (10 of 10, and 181 of the first 196) |
-| median cost per cube | 3.1 s | **421 s** |
-| row total | about 100 core-hours | **about 2180 core-hours** |
+| cubes over 120 s | 214 of 16384, **1.31 percent** | 66 of 83, **80 percent** |
+| cubes over 300 s | 35 of 16384 | 22 of 83 |
+| solve, median | 3.2 s | 224 s |
+| solve, mean | 16.8 s | 257 s |
+| replay, mean | 5.2 s | 52 s |
+| LRAT certificate, median | 14 MB | **421 MB** |
+| row total | 78 core-hours | about **1100 core-hours** |
 
-Both levers were then measured rather than guessed. A longer limit works — six random
-hard cubes all refuted at 1200 s, mean 445 s — and splitting four variables deeper
-does not help: 32 children of two hard parents cost 498 core-seconds per parent
-against 480 for the parent directly, a wash. So the row costs what it costs, and it
-is running at a 900 s limit.
+The certificate sizes are worth as much as the times. A refutation of one \(Z_9\)
+cube is a thirty-fold larger object than a refutation of one \(Z_3 \times Z_3\) cube
+on a formula of the same size, which is evidence about the formulas and not about
+the machine: proof length does not depend on who else is using the laptop.
 
-That makes it **comparable to a single order-3 type** (about 1900 core-hours), not to
-the day the two \(Z_3\times Z_3\) actions took. It still buys more per hour — it
-gives \(b \le 1\) outright, where the four order-3 types must *all* close to give
-\(b = 0\) — but the ordering advice now rests on payoff, not on price.
+Both levers were measured rather than guessed. A longer limit works — six random hard
+cubes all refuted at 1200 s — and splitting four variables deeper does not help:
+32 children of two hard parents cost about as much as the two parents solved
+directly. So the row costs what it costs, and it is running at a 900 s limit.
 
-This is the **third** time orbit count has failed to predict difficulty in this lane,
-and the sharpest: order 8 had more orbits than order 9, order 4 had more still, and
-now two groups of *the same order with identical formula size and identical split*
-differ by a factor of 130 in median cost per cube. The distinguishing feature is
-structural — \(Z_3\times Z_3\) has exponent 3 and four subgroups of order 3, each
-constraining the formula, where \(Z_9\) is a chain with one. That is a hypothesis
-about the mechanism, not a measurement; what is measured is that formula size predicts
-nothing here.
+This is the **third** time orbit count has failed to predict difficulty in this lane:
+order 8 had more orbits than order 9, order 4 had more still, and now two groups of
+*the same order with identical formula size and identical split* differ by a factor
+of seventy in median cost per cube. The distinguishing feature is structural —
+\(Z_3\times Z_3\) has exponent 3 and four subgroups of order 3, each constraining the
+formula, where \(Z_9\) is a chain with one. That is a hypothesis about the mechanism,
+not a measurement; what is measured is that formula size predicts nothing here.
+
+**Wall seconds are not core-seconds, and the figures above are the corrected ones.**
+An earlier version of this section put the row at 2180 core-hours and the median cube
+at 421 s. Both were wrong, in two compounding ways, and the correction is recorded
+because the same two mistakes have now appeared repeatedly in this lane:
+
+1. *A six-cube probe is not a measurement.* The probe drew six hard cubes and
+   reported their mean, 445 s. Across 83 completed cubes the mean is 257 s and the
+   median 224 s. Six is too few, and drawing only from cubes already known to be hard
+   biases upward.
+2. *Wall time on a shared machine is not CPU time.* This laptop has 15 cores and runs
+   four agents; at load 42 each solver receives **0.778 of a core**, measured twice
+   and in agreement — by sampling `%CPU` across the twelve running solvers, and by
+   running one cube to a 60 s wall limit and reading 46.7 s of CPU off `getrusage`.
+   Wall seconds times workers therefore overstates CPU by about 29 percent.
+
+`run_lrat_p.py` now records `solve_cpu_s` and `replay_cpu_s` from `getrusage`
+alongside the wall times and prints a running core-hour projection every 200 cubes,
+so the final figure for this row will be a sum of measured CPU rather than a
+projection from a sample. Wall time is still the right unit for a *schedule* — about
+five days at twelve workers under the present load — and the two units are reported
+separately for that reason.
 
 The order-4 row was costed optimistically when it was first added, on the strength of
 the encoder and checker being ready. A measured probe has since corrected it: the

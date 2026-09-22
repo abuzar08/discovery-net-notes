@@ -25,6 +25,26 @@ automorphism of order 9 acts without fixed points. Excluding the one remaining t
 of \(\mathrm{Aut}(G)\) have exponent 3 and \(\mathrm{Aut}(G)\) never contains
 \(Z_{9}\). That last type is a computation in progress; see *State* below.
 
+**Theorem C (no computation).** If \(\sigma\) is an automorphism of order 9 of a
+\((5,5,42)\)-graph, then \(\sigma^{3}\) has cycle type \(1^{6} 3^{12}\). Hence if no
+\((5,5,42)\)-graph has an automorphism of cycle type \(1^{6} 3^{12}\), none has an
+automorphism of order 9.
+
+*Proof.* The reduction below shows \(c_9 = 4\) and \(c_1 + 3 c_3 = 6\) for any such
+\(\sigma\). The points fixed by \(\sigma^{3}\) are exactly those on cycles of
+\(\sigma\) of length dividing 3, of which there are \(c_1 + 3 c_3 = 6\); each of the
+four 9-cycles splits under \(\sigma^{3}\) into three 3-cycles, giving \(12\) of them,
+and \(6 + 3 \cdot 12 = 42\). \(\square\)
+
+Theorem C holds for all three candidate types alike, so it does not depend on the two
+this note refutes — only on the reduction. Its point is that **the one remaining
+order-9 type is not an independent piece of work**: \(1^{6} 3^{12}\) is one of the
+four order-3 cycle types still open, and closing that one type closes order 9 as
+well. Excluding \(3^{2} 9^{4}\) directly is worth doing only because it is the
+cheaper of the two by a wide margin, and because the order-3 row is not expected to
+be finished; `../r55-42-automorphism-programme` prices both. Nothing runs in the
+other direction: refuting \(3^{2} 9^{4}\) says nothing about \(1^{6} 3^{12}\).
+
 This is a statement about the symmetry of extremal graphs, not about \(R(5,5)\)
 itself: \(43 \le R(5,5) \le 46\) is unchanged.
 
