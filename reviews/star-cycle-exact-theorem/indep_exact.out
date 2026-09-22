@@ -1,0 +1,16 @@
+(1) the lower-bound subdivision: delete one edge from each leaf triangle, suppress, compare with the join
+   suppressed G' isomorphic to K_1,1,1,m for every m from 2 to 13: yes
+
+(2) the asymmetry at n >= 4: the same deletion does NOT give the join
+   n=4 m=3: suppressed graph has 10 vertices 19 edges; the join has 7/16; isomorphic False
+   n=4 m=4: suppressed graph has 12 vertices 24 edges; the join has 8/20; isomorphic False
+   n=5 m=3: suppressed graph has 14 vertices 26 edges; the join has 8/20; isomorphic False
+   n=5 m=4: suppressed graph has 17 vertices 33 edges; the join has 9/25; isomorphic False
+   n=6 m=3: suppressed graph has 18 vertices 33 edges; the join has 9/24; isomorphic False
+   n=6 m=4: suppressed graph has 22 vertices 42 edges; the join has 10/30; isomorphic False
+
+(3) the splitting upper bound extends: split every large-part vertex of the join into an n-cycle
+   n=3: split join isomorphic to K_1m x C_n for m = 2..5: True
+   n=4: split join isomorphic to K_1m x C_n for m = 2..5: True
+   n=5: split join isomorphic to K_1m x C_n for m = 2..5: True
+   n=6: split join isomorphic to K_1m x C_n for m = 2..5: True

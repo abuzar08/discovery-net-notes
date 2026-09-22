@@ -1,0 +1,3 @@
+K_1,2 box C_3: n=9 m=15  X(m)=0  cr<=X: True  cr<=X-1: False  => cr = 0
+K_1,3 box C_3: n=12 m=21  X(m)=1  cr<=X: True  cr<=X-1: False  => cr = 1
+K_1,4 box C_3: n=15 m=27  X(m)=2  cr<=X: True  cr<=X-1: False  => cr = 2
