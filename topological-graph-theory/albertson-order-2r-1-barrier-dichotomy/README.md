@@ -1761,6 +1761,42 @@ was.
 > unit short will **not** be closed by sharpening the absorption inequality;
 > order 58 needs a different argument.
 
+### What the absorption inequality would actually buy (`absprice58.py`)
+
+The figure quoted alongside that verdict for several passes — *"one
+unconditional unit closes 3196 of the 6054"* — is a **histogram, not a price**,
+and the reading is withdrawn as defect 21.  The deficit `shortfall58.py` reports
+is a *minimum over the surviving \((k_1,k_2)\) sub-cases*, while a configuration
+closes only when **every** surviving sub-case dies; and the absorption
+inequality is one of three conjuncts, so a sub-case escaping through
+\(Z_a\ge t\) or \(\mu_1\ge t\) is untouchable by a bonus of any size.
+
+Priced properly — `residue58.survivors` gains a `need_scan` mode that walks the
+**same code path** and returns the least unconditional bonus closing each
+configuration, so the price cannot drift from the thing priced:
+
+| bonus \(d\) | **scan closes** | histogram predicts |
+|---|---|---|
+| 1 | **117** | 3196 |
+| 2 | 387 | 4143 |
+| 5 | 1309 | 5436 |
+| 10 | 3346 | 6022 |
+| 15 | 5417 | 6052 |
+| 20 | **6052** | 6054 |
+| 25 | 6053 | 6054 |
+
+Median least closing bonus **10**, largest **21**; four rows re-derived the slow
+way through the real decision, by setting `residue58.ABS_HANDICAP`, all **PASS**.
+
+**And the reach, which is the useful half of the measurement.**  Exactly **one**
+configuration of the 6054 escapes the absorption inequality entirely.  The other
+**6053** close for a large enough bonus, *including configurations outside the
+clique-cover route that nothing else here reaches* — against the count
+inequality, which is stuck at 3561 of 4486 at every handicap tried.  **So the
+residual is not two halves needing two tools**: it is one inequality and one
+scalar, how many units of absorption can be proved unconditionally.  Ten closes
+half the class; twenty-one closes all of it but one.
+
 ### The branch hypothesis imposes one of seventy conditions (`routes58.py`)
 
 Both of the chain's arguments are now measured out at order 58, so what is left
@@ -2195,6 +2231,9 @@ bears on `r >= 30`.
 | `margin58.py` | which inequality is tight at a surviving point, and three probes that are not |
 | `mixed58.py` | **triangles across the L/R split are not available where they were wanted** |
 | `shortfall58.py` | how far order 58 is from closing **on the class open today** |
+| `EXPECTED_OUTPUT_SHORTFALL58.txt` | its expected output |
+| `absprice58.py` | **what the absorption inequality would actually buy, priced by a scan**: one unit closes 117, not 3196 — but it reaches 6053 of 6054 |
+| `EXPECTED_OUTPUT_ABSPRICE58.txt` | its expected output |
 | `seed57.py` | `aug57`'s route to two order-57 cases is seed-dependent; **the closure is not** |
 | `EXPECTED_OUTPUT_ADV58.txt` | its expected output |
 | `wturan58.py` | the singleton w sharpens the Turan cap on H[R] |
@@ -2242,6 +2281,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 packing58.py    | diff -u EXPECTED_OUTPUT_PACK
 PYTHONDONTWRITEBYTECODE=1 python3 margin58.py     | diff -u EXPECTED_OUTPUT_MARGIN58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 mixed58.py      | diff -u EXPECTED_OUTPUT_MIXED58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 shortfall58.py  | diff -u EXPECTED_OUTPUT_SHORTFALL58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 absprice58.py  | diff -u EXPECTED_OUTPUT_ABSPRICE58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 seed57.py       | diff -u EXPECTED_OUTPUT_SEED57.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -

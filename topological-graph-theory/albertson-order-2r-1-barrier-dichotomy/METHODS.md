@@ -172,13 +172,49 @@ Each row is a method, what it was applied to, and the measured outcome.
 | smallest absorption shortfall | 1 | 1 |
 | crossing shortfall | long-tailed, thousands | unchanged; only 100 under 500, none at 0 |
 
-**The proportion within one unit has risen**, from 36.5% to 52.8% — the
-configurations that survived the last three passes' filters are disproportionately
-the absorption near-misses, so the class is concentrating on that boundary. One
-unconditional unit on the absorption inequality would close **3196 of the 6054**.
-All four components of that inequality are at their limit (`exhaust58.py`), and
-`profile58.py`'s own verdict — "push \(\mu_2\), not the crossing bound; that is
-what closed order 57" — is what the re-measurement confirms.
+**The proportion within one unit has risen**, from 36.5% to 52.8%. **That does
+not mean what this document said it meant, and the reading is withdrawn as
+defect 21.** The histogram is a *minimum over surviving sub-cases*, and a
+configuration closes only when every surviving sub-case dies; the inequality is
+also one of three conjuncts, so a sub-case escaping through \(Z_a\ge t\) or
+\(\mu_1\ge t\) is untouchable by an absorption bonus of any size.
+
+## What the absorption inequality actually buys (`absprice58.py`)
+
+Priced the way `slack58.py` prices the Tutte inequalities — give it \(d\) more
+units unconditionally and re-run the decision. `residue58.survivors` gains a
+`need_scan` mode that walks the **same code path** and returns the least bonus
+that closes each configuration, so the price cannot drift from the thing priced.
+
+| bonus \(d\) | **scan closes** | histogram predicts | overstatement |
+|---|---|---|---|
+| 1 | **117** | 3196 | **3079** |
+| 2 | 387 | 4143 | 3756 |
+| 5 | 1309 | 5436 | 4127 |
+| 10 | 3346 | 6022 | 2676 |
+| 15 | 5417 | 6052 | 635 |
+| 20 | **6052** | 6054 | 2 |
+| 25 | 6053 | 6054 | 1 |
+
+Median least closing bonus **10**, largest **21**. Four rows are re-derived the
+slow way through the real decision, by setting `residue58.ABS_HANDICAP`: all
+**PASS**.
+
+**And the reach, which is the useful half.** Exactly **one** configuration of the
+6054 escapes the absorption inequality entirely; the other **6053** close for a
+large enough bonus, *including configurations outside the clique-cover route that
+nothing else in this lane reaches*. The contrast with the count inequality is now
+measured on both sides:
+
+| | reach | strength needed |
+|---|---|---|
+| count (`slack58.py`) | **3561 of 4486**, unchanged from \(d=1\) to \(d=50\) | 1 unit, and it never gets further |
+| absorption (`absprice58.py`) | **6053 of 6054** | median **10**, max **21** |
+
+**So the residual is not two halves needing two tools.** It is one inequality and
+one scalar: how many units of absorption can be proved unconditionally. Ten
+closes half the class, twenty-one closes all of it but one. That is a harder
+target than the one it replaces and a better-founded one.
 
 ## The branch hypothesis is one condition of seventy
 
@@ -361,9 +397,9 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Twenty items were found, fourteen of one family, all of the same shape — *a step verified on
+Twenty-one items were found, fifteen of one family, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*.
-**Defects 19 and 20 are one pair**: the same unlisted blocks, first corrupting a
+**Defects 19, 20 and 21 are one failure in three places** — *a number that resembles a price, adopted as one*: the block multiset that was not the block multiset, the reach denominator computed by a superseded bound, and the shortfall histogram read as a closure count. The first pair in detail: the same unlisted blocks, first corrupting a
 guarantee and then, through a second and independent error in the same
 direction-blind measurement, corrupting the denominator a published target was
 priced against. Two wrong numbers that agreed are the hardest kind to see, and
@@ -392,6 +428,7 @@ believe:
 | 18 | "\(w\) is a feature of the order-58 class only" (`wturan58.py`) | **false, and printed in its expected output** | order 57 has **two** such singletons and the cap is *stronger* there. Flagged in `reviews/albertson-singleton-turan/` nine passes ago; fixed |
 | 19 | the block multiset **does not list every block** | **35 published closures were invalid** | `mu58.multisets` adds odd-cycle blocks' edges to `eL` without appending them to the list, so `extra` was understated on **772** configurations, overstating the triangle guarantee. **151 lose the guarantee; 35 had been closed on it.** Withdrawn: 2294 → 2259, order 58 6341 → **6376** |
 | 20 | "one unit on the count inequality closes every configuration the route reaches" | **false, published on the ledger** | `slack58.py` measured the *denominator* with the superseded `kmax_guaranteed` on the *raw* multiset while `route_closed` used the exact guarantee on the true one. Two errors in opposite directions, not cancelling, produced a reach of 3712 that coincided **exactly** with the count row. Corrected: **3561 of 4486, 925 short**, and **no** inequality is decisive at one unit |
+| 21 | "one unit on the absorption inequality closes 3196 of the 6054" | **false, published on the ledger** | a *histogram* read as a *price*. The deficit is a minimum over surviving sub-cases, and a configuration closes only when every one dies; the inequality is also one of three conjuncts. Priced by a scan (`absprice58.py`): one unit closes **117**, median **10**, and the same scan shows it **reaches 6053 of 6054** |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.

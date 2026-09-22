@@ -228,11 +228,25 @@ def residue(NZ, budget, thr1, thr2, k1, k2):
     return amin1, amin2, Sa, Sb
 
 
-def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
+ABS_HANDICAP = 0
+"""Unconditional bonus on the absorption inequality mu_1 + mu_2 >= |Z| + (t-s).
+
+Set by absprice58.py to PRICE that inequality the way slack58.py prices the
+Tutte inequalities.  It is 0 in every published closure; nothing in this
+directory closes anything with it non-zero."""
+
+
+def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max, need_scan=False):
     """dichot.survivors, with the general residue folded in.
 
     Returns None if the configuration is inadmissible, else the list of
-    surviving (k_1, k_2)."""
+    surviving (k_1, k_2).
+
+    With need_scan=True the SAME code path instead returns the least
+    unconditional bonus on the absorption inequality that would close this
+    configuration -- 0 if it is already closed, None if no bonus ever closes
+    it because some sub-case escapes through Za >= t or mu_1 >= t.  One code
+    path, so the price cannot drift from the thing being priced."""
     NL = nn - RSZ
     NZ = RSZ - nw
     X = 2 * m - nn * DEG
@@ -247,7 +261,7 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
     nu = min(eHR, RSZ // 2)
     t = q1 + RSZ - 28 - nu
     if t <= 0:
-        return []                          # killed by the clique cover
+        return 0 if need_scan else []      # killed by the clique cover
     d0 = DEG - RSZ
     s = D.singletons(NL, mult, d0)
     e1 = q1 * (q1 + RSZ - 29)
@@ -259,7 +273,9 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
     e2 = max(e2, c2)
     thr1, thr2 = thresholds(nn, NL, mult)
     budget = sx_max + 2 * eHR
+    need = NZ + max(0, t - s)
     bad = []
+    worst = 0
     for k1 in range(0, NZ + 1):
         for k2 in range(0, NZ + 1):
             res = residue(NZ, budget, thr1, thr2, k1, k2)
@@ -287,6 +303,7 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
             # cw_1 + cw_2 <= cw, not cw on each side.  The configuration
             # survives if SOME split escapes, so every split is scanned.
             surv = None
+            req = 0            # handicap that would kill THIS (k_1,k_2)
             for cw1 in range(0, cw + 1):
                 cw2 = cw - cw1
                 Sa = max(e1 - cw1, Sa_r)
@@ -300,12 +317,28 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
                            D.defect_mu(Sb, side2, Zb, max(amin2, 1)))
                        if Zb > 0 else 0)
                 if not (Za >= t and mu1 >= t
-                        and mu1 + mu2 >= NZ + max(0, t - s)):
-                    surv = (mu1, mu2, cw1, cw2)
-                    break
+                        and mu1 + mu2 + ABS_HANDICAP >= need):
+                    if surv is None:
+                        surv = (mu1, mu2, cw1, cw2)
+                    if not need_scan:
+                        break
+                if need_scan and req is not None:
+                    # What the absorption inequality would have to give
+                    # UNCONDITIONALLY for this split to stop escaping.  If a
+                    # split escapes through Za >= t or mu_1 >= t instead, no
+                    # amount of absorption reaches it.
+                    if Za >= t and mu1 >= t:
+                        req = max(req, need - (mu1 + mu2))
+                    else:
+                        req = None
             if surv is not None:
                 bad.append((k1, k2, cross, surv[0], surv[1], amin1, amin2))
-    return bad
+            if need_scan:
+                if req is None:
+                    worst = None
+                elif worst is not None:
+                    worst = max(worst, req)
+    return worst if need_scan else bad
 
 
 def control_order57():
