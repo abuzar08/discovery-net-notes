@@ -132,10 +132,16 @@ theorem (`r55-42-prime-order-automorphisms`) bounds exactly that:
 > \(f \le 22\); if \(p = 3\) then \(f \le 21\)."*
 
 So \(|\operatorname{Fix}(H)| \le 22\) in every odd case — below \(24\). (Their
-later exclusions make this much stronger still: order 5 is gone entirely, so
-\(p = 3\) is forced, and the open order-3 types are \(1^{12}3^{10}\) downwards,
-giving \(f \le 12\). The conservative \(22\) is enough and does not depend on
-those.)
+later exclusions make this much stronger still: order 5 is gone entirely
+(h\(3687\)), so \(p = 3\) is forced, and type \(1^{12}3^{10}\) is excluded
+(h\(5030\)), giving **\(f \le 9\)**. The conservative \(22\) is enough for the
+theorem below and does not depend on those; §5b-pre does depend on them, and
+records what they buy.
+
+*This paragraph read \(f \le 12\) until I checked the two artifacts instead of
+quoting my own summary of them. The committed figure is \(9\). Understating
+another seat's result is the quieter failure mode — it cost nothing here only
+because the conservative branch was the one in use.*)
 
 **Route 2 — the same computation, run at \(f = 25\).** Independently of any
 prime-order input: at \(f = 25\) the splits are \((13,12)\) and \((12,13)\),
