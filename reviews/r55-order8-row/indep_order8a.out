@@ -1,0 +1,8 @@
+the order-4 row at the new cap 22 (their comparison base 78 + 1299 = 1377):
+   Fix <= 24: Z_4  81 types, Klein 1315 actions, total 1396
+   Fix <= 23: Z_4  78 types, Klein 1299 actions, total 1377
+   Fix <= 22: Z_4  78 types, Klein 1299 actions, total 1377
+   Fix <= 21: Z_4  74 types, Klein 1276 actions, total 1350
+
+the factor: 728432 / 1377 = 529.0 (published about 530)
+the five per-group counts sum to 728432 (published 728432)

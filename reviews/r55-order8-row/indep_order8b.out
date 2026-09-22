@@ -1,0 +1,7 @@
+group      |Aut| subgroups   published   verdict
+Z_8           4         4   (4, 4)   agree
+Z_4xZ_2       8         8   (8, 8)   agree
+Z_2^3       168        16   (168, 16)   agree
+D_4           8        10   (8, 10)   agree
+Q_8          24         6   (24, 6)   agree
+   Q_8 centre has order 2 ; nontrivial subgroups containing the central involution: 5 of 5
