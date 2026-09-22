@@ -56,7 +56,7 @@ below the table.
 
 | Open item | Cost | What closing it buys |
 |---|---|---|
-| the order-9 type \(3^{2} 9^{4}\) | **about 1100 core-hours**, from 83 completed cubes of the running sweep; **contained in the row below** | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
+| the order-9 type \(3^{2} 9^{4}\) | **1100 to 1900 core-hours**; the running sweep is measuring it — see below; **contained in the row below** | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
 | 78 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 78** — see below | no automorphism of order 4 |
 | 1299 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
@@ -71,7 +71,7 @@ and the two rows are nested rather than parallel. Nothing runs the other way.
 
 The consequence for allocation is exact. If the order-3 row is ever finished, the
 order-9 sweep now running is **redundant work**: its conclusion arrives free with
-\(1^{6} 3^{12}\). It is worth its 1100 core-hours only under the position this note
+\(1^{6} 3^{12}\). It is worth its 1100 to 1900 core-hours only under the position this note
 takes elsewhere — that the order-3 row will *not* be finished — and because
 \(1^{6} 3^{12}\) is by some margin the more expensive of the two (the hard-fraction
 table below puts it at 80 percent hard at level 5 against 20 percent for
@@ -82,21 +82,21 @@ running job, and it is a narrower one than "this row is cheap".
 described it as "a day or so of background computation", by analogy with the
 \(Z_3 \times Z_3\) actions: same group order 9, same 99 orbit variables, same
 \(2^{14}\) split leaving 85 free variables, same degree window. It is nothing like
-them. Both columns below are from the sweep records themselves — the
-\(Z_3 \times Z_3\) column from all 16384 cubes of that action, the \(Z_9\) column
-from the first 83 the running sweep has completed:
+them. The \(Z_3 \times Z_3\) column below is from all 16384 cubes of that action;
+the \(Z_9\) column is from the first 83 cubes the running sweep completed, which is
+**a biased sample, and the next subsection is about how badly**:
 
 | | \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\) | \(Z_9\), \(3^{2}9^{4}\) |
 |---|---|---|
 | orbit variables | 99 | 99 |
 | free after the 14-split | 85 | 85 |
-| cubes over 120 s | 214 of 16384, **1.31 percent** | 66 of 83, **80 percent** |
+| cubes over 120 s | 214 of 16384, **1.31 percent** | 66 of 83, **80 percent** (and 10 of 10 on a random sample) |
 | cubes over 300 s | 35 of 16384 | 22 of 83 |
 | solve, median | 3.2 s | 224 s |
 | solve, mean | 16.8 s | 257 s |
 | replay, mean | 5.2 s | 52 s |
 | LRAT certificate, median | 14 MB | **421 MB** |
-| row total | 78 core-hours | about **1100 core-hours** |
+| row total | 78 core-hours | **1100 to 1900 core-hours** |
 
 The certificate sizes are worth as much as the times. A refutation of one \(Z_9\)
 cube is a thirty-fold larger object than a refutation of one \(Z_3 \times Z_3\) cube
@@ -122,9 +122,8 @@ at 421 s. Both were wrong, in two compounding ways, and the correction is record
 because the same two mistakes have now appeared repeatedly in this lane:
 
 1. *A six-cube probe is not a measurement.* The probe drew six hard cubes and
-   reported their mean, 445 s. Across 83 completed cubes the mean is 257 s and the
-   median 224 s. Six is too few, and drawing only from cubes already known to be hard
-   biases upward.
+   reported their mean, 445 s. Six is too few, and drawing only from cubes already
+   known to be hard biases upward.
 2. *Wall time on a shared machine is not CPU time.* This laptop has 15 cores and runs
    four agents; at load 42 each solver receives **0.778 of a core**, measured twice
    and in agreement — by sampling `%CPU` across the twelve running solvers, and by
@@ -135,8 +134,33 @@ because the same two mistakes have now appeared repeatedly in this lane:
 alongside the wall times and prints a running core-hour projection every 200 cubes,
 so the final figure for this row will be a sum of measured CPU rather than a
 projection from a sample. Wall time is still the right unit for a *schedule* — about
-five days at twelve workers under the present load — and the two units are reported
+six days at nine workers under the present load — and the two units are reported
 separately for that reason.
+
+**And the replacement figure was biased too, in the other direction: the front of a
+cube file is not a sample of it.** The 83 completed cubes were the first 83 by index,
+and cube files here list the \(2^{14}\) sign patterns lexicographically. How badly
+that biases a partial run can be measured exactly, because one such run is complete:
+
+| \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\), 16384 cubes | mean solve + replay |
+|---|---|
+| first 83 by index | **0.1 s** |
+| first 1000 | 13.8 s |
+| first 4000 | 18.9 s |
+| a random 83 | 17.5 s |
+| all 16384 | **22.0 s** |
+
+The front 83 of a completed row understate that row by a factor of **200**. So the
+1100 core-hour figure taken from the front 83 of this one is a lower bound of unknown
+tightness, and the only unbiased estimate available is the random six-cube probe,
+which after the wall-to-CPU correction gives about 1900. The row is somewhere in
+\([1100, 1900]\) core-hours and neither end is a measurement.
+
+Rather than sample again, the sweep now **runs its cubes in a seeded random order**,
+so the completed part of a partial run is a uniform sample of the row and its running
+mean is an unbiased estimate that sharpens as the run proceeds. This is the fifth
+time this lane has read a statistic off the front of an ordered cube file; it is the
+first time the ordering has been removed instead of the reading being caveated.
 
 The order-4 row was costed optimistically when it was first added, on the strength of
 the encoder and checker being ready. A measured probe has since corrected it: the

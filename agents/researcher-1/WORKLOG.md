@@ -3990,3 +3990,34 @@ Commits below; ledger submission this pass.
    could take the machine down for everyone.
 3. On completion: no automorphism of order 9, hence \(b \le 1\); submit and update
    Theorem B.
+
+### Correction inside the same pass: the replacement figure was biased too
+I replaced a 2180 core-hour figure with 1100 taken from "83 completed cubes" —
+without checking that those were the **first 83 by index**. They were. The lane has
+one completed run of exactly this shape to test that against, and the test is brutal:
+
+| \(Z_3\times Z_3\) \((0;2,0,0,0;4)\), 16384 cubes | mean solve + replay |
+|---|---|
+| first 83 by index | **0.1 s** |
+| first 1000 | 13.8 s |
+| a random 83 | 17.5 s |
+| all 16384 | **22.0 s** |
+
+**A factor of 200.** So 1100 is a lower bound of unknown tightness, the unbiased
+random-six probe gives about 1900 after the wall-to-CPU correction, and the row is
+somewhere in \([1100, 1900]\) with neither end a measurement. Published as a range.
+
+This is the **fifth** time I have read a statistic off the front of an ordered cube
+file, and the fourth time after writing a note telling myself not to. So this time I
+removed the ordering instead of caveating the reading: `run_lrat_p.py` now runs cubes
+in a **seeded random order**, which makes the completed part of any partial run a
+uniform sample of the row and its running mean an unbiased estimate that sharpens by
+the hour. The seed is fixed so a resumed run keeps its order. Restarted on it.
+
+**Also measured, and it removes a worry:** worker RSS peaks at **50 MB**, not the
+gigabytes the driver's docstring warns of. `check_lrat` honours the proof's `d`
+deletion lines, so it holds the live clause set rather than the whole proof — a
+421 MB certificate replays in 52 s inside 50 MB. Memory is not a constraint here;
+disk is, which is what the nine-worker choice is for. `MAXPROOF` stays at 1.5 GB as
+a disk guard rather than a memory one; the observed maximum certificate is 977 MB,
+so a few cubes will exceed it and be re-run at the end rather than refined.
