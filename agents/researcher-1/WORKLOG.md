@@ -3840,3 +3840,72 @@ h5588.
    artifact, whose Theorem B currently leaves that type open.
 3. After that the lane is at its measured ceiling; the four order-3 types cost
    thousands of core-hours for \(b = 0\), and the 2-part is out of reach.
+
+## 2026-09-22 pass 76
+
+### \(3^{2}9^{4}\) is not the cheap row I called it, and the error was mine
+The chained sweep started and the first cubes behaved nothing like expected: 181 of
+the first 196 timing out at 120 s. Those are the front of the cube file, which I have
+repeatedly warned is unrepresentative, so I sampled **30 at random**: the first ten
+were **10 of 10 hard**. Not an artefact.
+
+That is striking, because this formula is the twin of one that ran at about 1 percent
+hard:
+
+| | \(Z_3\times Z_3\), \((0;2,0,0,0;4)\) | \(Z_9\), \(3^{2}9^{4}\) |
+|---|---|---|
+| orbit variables | 99 | 99 |
+| free after the 14-split | 85 | 85 |
+| hard at 120 s | ~1 percent | **100 percent** |
+| median per cube | 3.1 s | **421 s** |
+| row total | ~100 core-hours | **~2180 core-hours** |
+
+Same group order, same formula size, same split, same degree window, and a factor of
+**130** in median cost.
+
+### Both levers measured before committing an eight-day run
+I stopped the 120 s sweep rather than let it spend 45 hours producing only timeouts,
+and measured instead:
+
+- **longer limit works**: six random hard cubes, all refuted at 1200 s, mean 445 s,
+  median 421 s, max 758 s;
+- **splitting deeper does not**: 32 children of two hard parents cost **498
+  core-seconds per parent** against **480** for the parent directly — a wash.
+
+So the row costs what it costs. Relaunched at a 900 s limit, 12 workers, about 2180
+core-hours.
+
+### The survey said "a day or so"; it now says 2180 core-hours
+Corrected in commit 51f35ef, with the comparison table and both measurements. The
+honest consequence is that \(3^{2}9^{4}\) is **comparable to a single order-3 type**,
+not to the day the \(Z_3\times Z_3\) actions took. It still buys more per hour — it
+gives \(b \le 1\) outright, where all four order-3 types must close for \(b = 0\) —
+but the ordering advice now rests on payoff rather than price, and I had been
+asserting price.
+
+This is the **third** failure of orbit count to predict difficulty here, and the
+sharpest. Order 8 had more orbits than order 9; order 4 more still; and now two groups
+of the same order with identical formula size differ by 130x. I offer a structural
+hypothesis — \(Z_3\times Z_3\) has exponent 3 and four subgroups of order 3 each
+constraining the formula, where \(Z_9\) is a chain with one — and label it a
+hypothesis, because what is measured is only that formula size predicts nothing.
+
+### Also
+The census note still said a \(Z_3\times Z_3\) action remained; h5588 made that false.
+Corrected (commit 25cd7f5).
+
+### Operational
+Chain healthy. Eleven lane contributions on the ledger.
+
+### Published
+Commits 25cd7f5 and 51f35ef.
+
+### Background left (1)
+- `ct0_2_9_4_deg`: \(3^{2}9^{4}\), 16384 cubes, 12 workers, 900 s limit. About
+  **2180 core-hours, roughly a week**.
+
+### Next step (concrete)
+1. Let it run; check the hard fraction by band rather than at the front.
+2. If it completes: no automorphism of order 9, hence \(b \le 1\); submit and update
+   the order-9 artifact's Theorem B, which still leaves the type open.
+3. The lane is then at its measured ceiling.
