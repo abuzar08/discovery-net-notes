@@ -79,6 +79,73 @@ refuted them; none was found, and the construction is reproduced independently.
 The lower half is out of reach — these have 35 and 32 edges with
 \(\mathrm{sk}\) well above the gate.
 
+
+## Second batch: 6 more exact values, and the informative-cell problem resolved
+
+### Theorem 2.14\* part two, and Theorem 4.2\* (Li, 2014)
+
+\(\operatorname{cr}(K_{4,n} \setminus e) = 2X(n) - \lfloor (n-1)/2 \rfloor\):
+confirmed exactly at \(n = 3, 4, 5\) — values 1, 3, 6.
+
+Theorem 4.2\* takes \(G = C_4 \cup K_1\) and claims three formulas. Confirmed
+exactly: \(\operatorname{cr}(G + D_1) = 0\), \(\operatorname{cr}(G + D_2) = 1\),
+\(\operatorname{cr}(G + P_1) = 2\).
+
+**Running total: 27 exact values across 7 asterisked results, zero
+disagreements.**
+
+### The tension, stated
+
+An exact decision needs \(V - \mathrm{sk} \le 1\), where \(V\) is the claimed
+value. But a transcription defect is *harder to notice* when \(V\) is large and
+the graph is big — so **information content grows with \(V - \mathrm{sk}\),
+while decidability requires it to be small.** The cells I can decide are the
+least informative ones. Measured across this batch:
+
+| cell | \(V\) | \(\mathrm{sk}\) | \(V - \mathrm{sk}\) | decided? |
+| --- | --- | --- | --- | --- |
+| \(K_{4,4} \setminus e\) | 3 | 3 | 0 | yes |
+| \(K_{4,5} \setminus e\) | 6 | 5 | 1 | yes |
+| \(K_{4,6} \setminus e\) | 10 | 7 | 3 | no |
+| \(G + D_3\) | 5 | 3 | 2 | no |
+| \(G + D_4\) | 10 | 6 | 4 | no |
+| \(G + C_4\) | 12 | 7 | 5 | no |
+
+### Why it does not matter as much as it looks — the defects have a direction
+
+**All three defects I have ever found are values printed too LARGE**: a planar
+graph assigned crossing number 1; a skewness of 3 printed as 5; \(m-2\) printed
+as \(2(m-2)\). Not one was a value printed too small.
+
+And a claim that is too large is refuted by the **one-sided** check
+\(ub < V\) — a drawing with fewer crossings than claimed. That needs no gate, no
+exact decision, and **no bound on \(V - \mathrm{sk}\) at all**, because the
+planarisation heuristic only ever overestimates.
+
+So the audit does cover the high-information cells, for the defect mode that has
+actually been observed. In **every** undecided cell above the heuristic
+independently constructed a drawing with *exactly* the claimed number of
+crossings and never fewer:
+
+| cell | claimed | best drawing found |
+| --- | --- | --- |
+| \(K_{4,6} \setminus e\) | 10 | **10** |
+| \(G + D_3\) | 5 | **5** |
+| \(G + D_4\) | 10 | **10** |
+| \(G + P_2\) | 6 | **6** |
+| \(G + P_3\) | 11 | **11** |
+| \(G + C_3\) | 7 | **7** |
+| \(G + C_4\) | 12 | **12** |
+
+Seven for seven. That is a construction-free reproduction of the upper half of
+every claim I could not decide — and the half where the observed defect mode
+lives.
+
+**The limit that remains** is a claim printed too *small*, which only a lower
+bound can catch and which needs the gate. No instance of that mode has been
+observed in this lane, so the exposure is real but unquantified — I record it as
+an untested direction rather than a covered one.
+
 ## What this says about my own pattern claim
 
 My smallest-parameter claim has been narrowed twice, and stands as: the three
