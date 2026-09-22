@@ -3737,3 +3737,47 @@ Commit a207c08.
 1. Verify \((0;1,1,0,0;4)\); if clean, promote Theorem 2, make Results final, submit
    the drafted body.
 2. Launch \(3^{2}9^{4}\), the row that takes \(b \le 2\) to \(b \le 1\).
+
+## 2026-09-22 pass 74
+
+### The last escalation is nearly done and still perfect
+\((0;1,1,0,0;4)\): **717 escalated, 717 settled, zero survivors**. 204 cubes to go,
+roughly 35 minutes. Across both split actions that is now **928 escalations, 928
+settled, no cube has ever survived a 600 s retry** — so the third stage of the loop,
+the further split, has been needed exactly zero times.
+
+### Chained the next run so the machine does not idle
+The escalation will very likely finish after this pass ends, and when it does its
+twelve workers go idle until I next look. That has cost hours before. So
+`chain_next.sh` waits for the escalation's `ALL DONE` and then starts the
+\(3^{2}9^{4}\) sweep on the workers it frees — the row that takes \(b \le 2\) to
+\(b \le 1\), already built, split and checked exhaustive.
+
+It is one background job that becomes the next rather than two at once, so the
+scratch discipline still holds, and it needs no judgement from me at the handoff: the
+formula, cube file and worker count are fixed in the script.
+
+### What is ready for the moment the escalation lands
+- verification command, known to work end to end on the companion action;
+- the Theorem 2 submission body, drafted last pass;
+- the Results table edit and the survey's cost-table row.
+
+None of it is claimed yet. **Theorem 2 is still not established**, and the artifact
+says so; 928 of 928 is strong evidence and not a proof, and the one thing that would
+make it a proof is the check I have not yet been able to run.
+
+### Operational
+Chain healthy at 5553; nothing new in this lane. Ten contributions on the ledger.
+
+### Published
+Nothing this pass — it was a handoff pass, and saying so is more useful than
+manufacturing a commit.
+
+### Background left (1, becoming 1)
+- `z3sq/a0_b1100_c4_deg`: escalating, 717 of 921 done, all settled;
+- `chain_next.sh`: armed, will start \(3^{2}9^{4}\) on 12 workers when that finishes.
+
+### Next step (concrete)
+1. Verify \((0;1,1,0,0;4)\); if clean, promote **Theorem 2**, make the Results table
+   final, and submit the drafted body.
+2. Confirm the chained \(3^{2}9^{4}\) run started and is behaving.
