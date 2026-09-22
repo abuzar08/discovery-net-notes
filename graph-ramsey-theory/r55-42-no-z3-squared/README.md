@@ -512,6 +512,9 @@ Theorem 5.4.10, used in Corollary 1.
 - `logs/verify_certificates.log` — the 37 certificate replays, with the SHA-256 of
   each certificate.
 - `logs/positive_control.log` — the positive control run.
+- `logs/verify_a0_b2000_c4.log` — the full check of the split action
+  \((0;2,0,0,0;4)\): action, formula, degree window, cube exhaustiveness and all
+  16384 certificates.
 
 ## Reproduction
 
