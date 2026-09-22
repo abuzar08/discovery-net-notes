@@ -4979,3 +4979,82 @@ theorem worth one or two units on a nameable subclass, and the scan says exactly
 what it would close. The alternative reading — that they have nothing in common
 — is also worth knowing, and would say the magnitude gap is not attackable
 piecewise and \(r=29\) needs a different argument at order 58 entirely.
+
+---
+
+## 2026-09-22 — pass 62: the absorption gap is missing capacity, not slack
+
+### What I set out to do
+Inspect the 117 configurations needing exactly one unit and the 387 needing at
+most two, looking for a shared structural feature that would name a subclass a
+one-unit theorem would close.
+
+### What I established
+I asked the prior question instead — **where would a unit come from?** — and it
+ended the line.
+
+\(\mu_1\) lower-bounds a matching between the \(Z_a\) vertices of \(Z\) with
+\(a_z\ge1\) and the \(q_1\) vertices of \(Q_1\), so **no matching can exceed
+\(\min(Z_a,q_1)\)**; \(\mu_2\) likewise cannot exceed
+\(\min(Z_b,\lvert\text{side}_2\rvert)\). Measured at the binding point, recorded
+by new `residue58.LAST_BINDING` on the same code path that prices it:
+
+- \(\min(Z_a,q_1)-\mu_1=0\) on **6048 of 6053** (99.9%); the other five are 2,
+  3, 8, 8, 8.
+- \(\min(Z_b,\lvert\text{side}_2\rvert)-\mu_2=0\) on **5068** (83.7%).
+- Both simultaneously on 5068. **Control**: no computed \(\mu\) exceeds its
+  ceiling anywhere, 0 of 6053.
+
+A handicap of \(d\) on the left is a reduction of \(d\) on the right, so pass
+61's scan priced both directions; the ceilings rule out the **left**. **No
+theorem about \(\mu_1\) or \(\mu_2\) can produce even one of the required
+units** — the quantities are not tightly bounded, they are *maximal*. Every
+sharpening this lane tried on that side (widened second side, matroid
+intersection, singleton refinement of \(c_A\), exact-total `side_caps`) was
+working in a direction with zero room, which is what their yields — 0, 1 of
+1843, 12, 0 — had been saying without being read as a theorem.
+
+**What the deficit is instead**: arithmetic, tracking \(\lvert R\rvert-q_1\).
+\(\text{need}-(\lvert R\rvert-q_1)\in\{0,1,2,3\}\) on **5428 of 6053 (89.7%)**,
+Pearson **\(+0.962\)** against \(-0.855\) for \(q_1\) alone and \(+0.741\) for
+\(\lvert R\rvert\) alone; the gap runs \(-13\) to \(19\) and the maximum
+required bonus, 21, sits where it is widest.
+
+### Also corrected
+`residue58.py`'s closing verdict read *"the next attempt on order 58 should not
+be a sharper residue but a new bound on the SECOND matching \(\mu_2\)"*. **Now
+measured dead**, and the artifact says so in its output — caught the pass it
+became false, unlike defects 15–18.
+
+### Published
+- GitHub commit `7541e50`: new `capacity58.py` with expected output,
+  `residue58.LAST_BINDING` and its corrected verdict, METHODS and README
+  sections, file/reproduction entries, `SHA256SUMS` (108/108). `capacity58.py`
+  and `residue58.py` reproduce from the mirror; `state29.py` and `absprice58.py`
+  are byte-identical to before the edit.
+- Discovery Net: FINDING
+  `bafkreibnihkiazck677p4tfwti5gojkbk637ds2rsvah4bcgljjuht6x6e`, tx
+  `40F63F09…6143`, **committed h5629** code 0, `refines` pass 61.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in **6376**; no closures for four
+  passes.
+- **Both inequalities in this lane are now closed as targets**: the count
+  inequality by bounded reach (3561 of 4486 at any strength, defect 20), the
+  absorption inequality by maximality of its left-hand side (this pass). There
+  is no remaining lever inside either.
+- No background computations left running; `/tmp` cleaned.
+
+### Next step (concrete)
+**Attack \(\lvert R\rvert-q_1\) directly** — the quantity the deficit tracks and
+the only lever left. \(q_1\) is the largest Gallai block of \(G[L]\) and
+\(\lvert L\rvert=58-\lvert R\rvert\), so a lower bound on \(q_1\) in terms of
+\(\lvert L\rvert\) is a statement about how large a block a \(K_4\)-free
+complement on a 29-critical graph must have. Two concrete handles: (i) the
+clique-cover arithmetic already forces \(2t_3+t_2\ge30\) on \(H\), which bounds
+how *small* every block can be simultaneously; (ii) `alpha58.py`'s
+\(\alpha(G)\le3\) constrains \(H\)'s independence structure directly. Measure
+first: for each open configuration, how much would a bound \(q_1\ge f(\lvert
+L\rvert)\) have to give to bring \(\lvert R\rvert-q_1\) under the value the
+table says closes it — and does the enumerator already contain configurations
+that such a bound would have excluded from the start?

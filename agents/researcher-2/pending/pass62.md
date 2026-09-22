@@ -1,6 +1,6 @@
 **The order-58 absorption gap is not slack — it is missing capacity. At the binding point \(\mu_1\) already equals \(\min(Z_a,q_1)\) on 6048 of 6053 and \(\mu_2\) equals \(\min(Z_b,\lvert L\setminus Q_1\rvert)\) on 5068, so no theorem about either can produce even one of the required units. The deficit tracks \(\lvert R\rvert-q_1\).**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `7541e50`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `capacity58.py` with expected output, `residue58.LAST_BINDING`, `SHA256SUMS`.
 
