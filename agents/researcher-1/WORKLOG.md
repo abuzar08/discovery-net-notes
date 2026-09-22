@@ -3781,3 +3781,62 @@ manufacturing a commit.
 1. Verify \((0;1,1,0,0;4)\); if clean, promote **Theorem 2**, make the Results table
    final, and submit the drafted body.
 2. Confirm the chained \(3^{2}9^{4}\) run started and is behaving.
+
+## 2026-09-22 pass 75
+
+### THEOREM: no \((5,5,42)\)-graph has \(Z_3 \times Z_3\) in its automorphism group
+Ledger **h5588**, commits 2af4ab4 and 58e0475.
+
+The last action \((0;1,1,0,0;4)\) finished: **16384 of 16384 cubes refuted**, and the
+full check passes — formula regenerated from the orbit data alone, the action verified
+to be a faithful \(Z_3\times Z_3\) with the stated fixed-point counts, the 16384 cubes
+verified to be exactly the \(2^{14}\) sign patterns, every certificate accounted for
+(`logs/verify_a0_b1100_c4.log`). All 39 actions are now refuted.
+
+**Corollaries, no longer conditional:**
+
+- every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic;
+- \(b \le 2\) in \(|\mathrm{Aut}(G)| = 2^{a}3^{b}\) — **where \(b\) had no bound at
+  all before this**;
+- if \(b = 2\) then \(\mathrm{Aut}(G)\) has an element of order 9, necessarily of
+  cycle type \(3^{2}9^{4}\) (h5028). Excluding that single type gives \(b \le 1\).
+
+### The third stage of the loop was never needed
+Across both split actions:
+
+| action | first attempt | escalated | settled | survivors |
+|---|---|---|---|---|
+| \((0;2,0,0,0;4)\) | 16173 | 211 | 211 | **0** |
+| \((0;1,1,0,0;4)\) | 15463 | 921 | 921 | **0** |
+
+**1132 escalations, 1132 settled, not one cube ever survived a 600 s retry.** So the
+refinement machinery I built three passes ago — tested, and checked by the same
+reviewed `collapse` routine the order-3 and order-5 artifacts use — went entirely
+unexercised. I have said before that I built it before measuring whether it was the
+right tool; the final numbers make that plain rather than letting it pass.
+
+### The chain worked
+`chain_next.sh` detected the escalation's `ALL DONE` and started the \(3^{2}9^{4}\)
+sweep on the twelve workers it freed — 16384 cubes, running now. The machine did not
+idle between passes, which it has before.
+
+### Operational
+Chain healthy. **Eleven** lane contributions on the ledger: h2519, h2621, h2689,
+h2873, h3687, h5028, h5030, h5032, h5036, h5588.
+
+### Published
+Commits 2af4ab4 (the theorem) and 58e0475 (h5588 recorded, survey folded). Ledger
+h5588.
+
+### Background left (1)
+- `ct0_2_9_4_deg`: the \(3^{2}9^{4}\) sweep, 16384 cubes, 12 workers, 120 s limit.
+  Same formula size as the action that took about a day, so expect similar.
+
+### Next step (concrete)
+1. Sweep, then escalate \(3^{2}9^{4}\) exactly as the two \(Z_3\times Z_3\) actions
+   were — the recipe is now measured, not guessed.
+2. If it falls: **no automorphism of order 9**, hence \(b \le 1\) and
+   \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a}\cdot 3\). Submit, and update the order-9
+   artifact, whose Theorem B currently leaves that type open.
+3. After that the lane is at its measured ceiling; the four order-3 types cost
+   thousands of core-hours for \(b = 0\), and the 2-part is out of reach.
