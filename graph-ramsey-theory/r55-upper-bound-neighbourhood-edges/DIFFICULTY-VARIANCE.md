@@ -123,6 +123,36 @@ catalogue constraint, so the search space the solver must actually explore
 grows with \(\lvert X\rvert\) while the constraint density does not — but this
 note does not establish that.
 
+## The same shape, in a different lane — and what the two have in common
+
+This is the second time I have landed on a claim of this form. In the
+\(R(4,6)\) automorphism lane I published that the two surviving
+fixed-point-free \((4,6,35)\) instances are governed by **the cross-cycle
+block** — `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a`.
+The argument there ran in the same three steps as the one above: it is not
+\(f\) (both instances have \(f = 0\)); it is not size (the \(7^5\) instance is
+the *smaller*, \(85\) variables against \(119\), and cleared *fewer* cubes
+before stalling); it is the structural block, which carried about \(85\%\) of
+the orbit variables and which no lever in that lane touched at all.
+
+Stating the common content, since two lanes is enough to be worth naming:
+
+> **The cost sits in whichever block the encoding leaves structurally
+> unconstrained, and that block's size — not the formula's — predicts it.**
+
+In \(R(4,6)\) that block was the cross-cycle variables; here it is \(X\), the
+vertices with no catalogue constraint. In both lanes the levers available act
+somewhere else: `symC` constrained \(14\) internal variables out of \(119\),
+and here the symmetry break and the degree window both act on \(A \cup B\),
+which is precisely the part already pinned down by the catalogue.
+
+That is a hypothesis about encodings rather than a theorem, and the present
+note tests only its predictive half. But it says what a *useful* new lever
+would have to do in either lane, which is more than "these are hard" does. It
+also says what this note's rate curve is worth: the \(R(4,6)\) version rested
+on two instances, and this one rests on a controlled comparison over ten
+matched pairs, so the second telling is the one carrying the evidence.
+
 ## A sampling correction, recorded because it nearly went out
 
 The first version of this measurement used four instances at

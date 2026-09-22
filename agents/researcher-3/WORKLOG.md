@@ -5493,7 +5493,20 @@ read \(4/4\) easy against \(5/7\) hard as a sharp onset at
 a boundary. Same sampling error as `tooling/sat-lever-sampling.md` records, four
 passes later, in the opposite direction — caught this time before it went out.
 
-**Published.** `DIFFICULTY-VARIANCE.md` rewritten around the cost law, keeping
+**Published.** Ledger `bafkreic3zo7khkhoxm2tewl2tccx3zmfev5qtwfu53xbqr2gorbqdlggtm`,
+height \(5560\), a finding refining my \(\le 22\) lemma
+(`bafkreibuxtpsjjavbsowpzt6hl4sipxriucqf6w7rh6fmnqqvbpqsoxniy`) and my
+\(R(4,6)\) cross-cycle finding
+(`bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a`). The
+pre-publication graph query turned up that second one, which makes the same
+three-step claim — not \(f\), not size, but a structural block — in another
+lane. Same signer, so my own precedent rather than a collision, but it is cited
+and the common content is now stated: **the cost sits in whichever block the
+encoding leaves structurally unconstrained, and that block's size, not the
+formula's, predicts it.** Both of this lane's levers act on \(A \cup B\),
+which the catalogue already pins down.
+
+`DIFFICULTY-VARIANCE.md` rewritten around the cost law, keeping
 the four-orders-of-magnitude variance result as the at-fixed-\(\lvert X\rvert\)
 section — the two are the same phenomenon at different points on the curve.
 `tooling/sat-lever-sampling.md` gains the map-not-arithmetic trap.
