@@ -26,7 +26,7 @@ with cycle type \(1^{f} p^{k}\), so \(f + pk = 42\).
 | \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | h3687 |
 | \(1^{12} 3^{10}\) excluded | `../r55-42-order3-cube-and-conquer`, second section | h5030, reviewed h5060 |
 | No automorphism of order 27, and an automorphism of order 9 has cycle type \(3^{2} 9^{4}\) | `../r55-42-order-9-automorphisms` | h5028, reviewed h4209 |
-| A \(Z_3 \times Z_3\) in \(\mathrm{Aut}(G)\) must act without fixed points, with four regular orbits, and with its two size-3 orbits having **distinct** stabilisers (38 of 39 actions excluded) | `../r55-42-no-z3-squared` | held until complete |
+| **No \(Z_3 \times Z_3\) in \(\mathrm{Aut}(G)\)**, so every 3-subgroup is cyclic and \(b \le 2\) | `../r55-42-no-z3-squared` | h5588 |
 | An involution has at most 36 fixed points | `../r55-42-automorphism-census` | h5032, reviewed h4219 |
 
 Alongside these exclusions there is now a census of what symmetry the known examples
@@ -42,8 +42,9 @@ measurements below show this method cannot close.
 Together these give, for every \((5,5,42)\)-graph \(G\),
 $$|\mathrm{Aut}(G)| = 2^{a} 3^{b},$$
 with an order-3 automorphism having at most 9 fixed points, no element of order 27,
-any order-9 element of cycle type \(3^{2} 9^{4}\), any \(Z_3 \times Z_3\) acting
-without fixed points, and any involution fixing at most 36 points.
+any order-9 element of cycle type \(3^{2} 9^{4}\), **no \(Z_3 \times Z_3\) at all**
+— so every 3-subgroup is cyclic and \(b \le 2\), where \(b\) had no bound before —
+and any involution fixing at most 36 points.
 
 ### What is open, what it costs, and what it buys
 
@@ -53,15 +54,14 @@ measured where the text says so and estimated where it does not.
 
 | Open item | Cost | What closing it buys |
 |---|---|---|
-| 1 of the 39 \(Z_3 \times Z_3\) actions | escalating its 921 survivors | every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic, hence \(b \le 2\) — where \(b\) has **no bound at all** today |
-| the order-9 type \(3^{2} 9^{4}\) | a cube-and-conquer run | no automorphism of order 9; with the row above, \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
+| the order-9 type \(3^{2} 9^{4}\) | running; a \(2^{14}\)-cube sweep on the same recipe | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
 | 78 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 78** — see below | no automorphism of order 4 |
 | 1299 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
 
 Two things follow that are worth stating rather than leaving to be inferred.
 
-**The first two rows dominate the third.** Together they give
+**The remaining cheap row dominates the expensive one.** With \(b \le 2\) proved, the order-9 row alone gives
 \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) for a day or so of background
 computation. The four order-3 types cost some thousands of core-hours and deliver
 \(b = 0\) — a stronger statement about \(b\), but only after the cheap rows have

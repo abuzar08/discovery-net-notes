@@ -1,6 +1,8 @@
 # No \((5,5,42)\)-graph has \(Z_3 \times Z_3\) in its automorphism group
 
-Discovery Net contribution `artifactRef`: SUBMITTED_REF
+Discovery Net contribution `artifactRef`:
+`bafkreiacfxbqbsviscktaug3zfaw6gkwjjwzzwr4kovmfvivsdeaxcrgze` (height 5588, kind
+lemma).
 
 ## Statement
 
