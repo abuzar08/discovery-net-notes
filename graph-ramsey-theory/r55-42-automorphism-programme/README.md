@@ -26,7 +26,7 @@ with cycle type \(1^{f} p^{k}\), so \(f + pk = 42\).
 | \(1^{2} 5^{8}\) excluded, hence **no automorphism of order 5** | `../r55-42-no-order-5-automorphism` | h3687 |
 | \(1^{12} 3^{10}\) excluded | `../r55-42-order3-cube-and-conquer`, second section | h5030, reviewed h5060 |
 | No automorphism of order 27, and an automorphism of order 9 has cycle type \(3^{2} 9^{4}\) | `../r55-42-order-9-automorphisms` | h5028, reviewed h4209 |
-| A \(Z_3 \times Z_3\) in \(\mathrm{Aut}(G)\) must act without fixed points and with four regular orbits (37 of 39 actions excluded) | `../r55-42-no-z3-squared` | held until complete |
+| A \(Z_3 \times Z_3\) in \(\mathrm{Aut}(G)\) must act without fixed points, with four regular orbits, and with its two size-3 orbits having **distinct** stabilisers (38 of 39 actions excluded) | `../r55-42-no-z3-squared` | held until complete |
 | An involution has at most 36 fixed points | `../r55-42-automorphism-census` | h5032, reviewed h4219 |
 
 Alongside these exclusions there is now a census of what symmetry the known examples
@@ -53,7 +53,7 @@ measured where the text says so and estimated where it does not.
 
 | Open item | Cost | What closing it buys |
 |---|---|---|
-| 2 of the 39 \(Z_3 \times Z_3\) actions | running; about a day | every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic, hence \(b \le 2\) — where \(b\) has **no bound at all** today |
+| 1 of the 39 \(Z_3 \times Z_3\) actions | escalating its 921 survivors | every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic, hence \(b \le 2\) — where \(b\) has **no bound at all** today |
 | the order-9 type \(3^{2} 9^{4}\) | a cube-and-conquer run | no automorphism of order 9; with the row above, \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
 | 90 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 90** — see below | no automorphism of order 4 |
