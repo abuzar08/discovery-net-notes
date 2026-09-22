@@ -5430,3 +5430,63 @@ is to leave it** and select a new target where the crossing numbers are small
 enough that \(k\) stays near \(\mathrm{sk}\) — that is precisely the regime this
 instrument set is good at, and I can now state that condition in advance rather
 than discovering it. Not autonomous, five items unchanged.
+
+## 2026-09-22, pass 83
+
+**Left the star-cycle family and made the first selection by gate rather than by
+hindsight.** `generalized-petersen-certification/`, submitted.
+
+**The gate, fixed before looking at any candidate:** decidable iff
+\(\operatorname{cr} - \mathrm{sk} \le 1\) (the transversal test is complete only
+at \(k = \mathrm{sk}\)) and \(\mathrm{sk}\) small (cost is
+\(\binom{|E|}{\le \mathrm{sk}}\)). The heuristic only overestimates, so
+\(ub - \mathrm{sk}\) is an **upper** estimate of the gap and the gate is sound in
+the direction needed.
+
+**Target: generalized Petersen graphs** — cubic, hence exactly the small-\(k\)
+regime the gate asks for. Clancy tabulates \(\operatorname{cr}(GP(n,k))\) for
+\(n \le 17\), and **the family has a documented published error**: Fiorini's 1986
+proof for \(GP(10,3)\) was refuted by McQuillan and Richter, who also corrected
+further errors of his.
+
+**Indexing confirmed before use.** The table is a ragged PDF grid. The \(k=3\)
+row reproduces all twelve values of Theorem 2.37; \(k=2\) reproduces Theorem
+2.36; \(k=4\) is consistent with two theorems and three \(GP\) isomorphisms.
+
+**Result: 13 cells, 11 distinct graphs, zero disagreements.** Petersen,
+Möbius–Kantor \(GP(8,3)=4\), Sarazin's \(GP(10,4)=4\), and eight more. Every
+lower bound is exhaustive (skewness or a transversal refutation); every upper
+bound an explicit drawing. **No machinery shared with the original proofs.**
+
+**The gate needed a cost term, and the run found where.** Condition (1) predicts
+decidability and says nothing about cost: \(\mathrm{sk} \le 3\) returns in
+seconds, \(\mathrm{sk}=4\) takes ~10 min, \(\mathrm{sk}=5\) was not reached. Gate
+is now *gap \(\le 1\) **and** \(\mathrm{sk} \le 4\)*. Same growth effect measured
+at h5576, now as a prospective filter rather than a post-mortem.
+
+**\(GP(10,3)\) — the historically erroneous cell — is not reachable**, gap 2. The
+one value here with a refuted proof is exactly the one I cannot check, and saying
+so plainly matters more than the thirteen I could.
+
+**A process error.** \(GP(11,4)\) ran **35 minutes** before I noticed it is
+isomorphic to \(GP(11,3)\), already certified (\(4\cdot3 \equiv 1 \bmod 11\)).
+The isomorphism check *was* in my script — at the end, as a report on results,
+rather than at the front as a filter on work. Three of seven remaining cells were
+duplicates. **Rule recorded: deduplicate the candidate set before computing, not
+after; a cheap invariant belongs in the gate, not the write-up.**
+
+**Principal's instruction done.** The validation principle is corrected to its
+two-sided form in both the tooling note and the tool's own docstring: cases
+expecting `False` catch a routine that never refutes; cases expecting `True`
+catch one that refutes too much — and **only the latter could have caught the
+pass-82 bug**, since every refuting case passed while it was live.
+
+**Operational.** Submission accepted. No background computations running.
+
+**Next step (concrete).** The gate admits few further \(GP\) cells — \(n \le 17\)
+is largely covered and \(\mathrm{sk}\) climbs past 4 beyond it. Two options:
+apply the same gate to another tabulated family in Clancy (the 5- and 6-vertex
+join tables), or accept that certification of published values, while sound, adds
+less than the \(n=3\) theorem did. **I lean to the second** and would rather find
+a family with *open* cells inside the gate than certify more settled ones. Not
+autonomous, five items unchanged.
