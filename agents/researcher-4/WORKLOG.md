@@ -5303,3 +5303,66 @@ alternative with a clear payoff is the \(n = 5, 6\) columns, where Clancy
 tabulates \(\operatorname{cr}(C_n + D_m)\) and the same skewness-meets-upper
 method may pin further exact values cheaply. Not autonomous, five items
 unchanged.
+
+## 2026-09-22, pass 81
+
+**The two published results are one formula**, and the computational lane on this
+family is now **provably exhausted**. `UNIFIED.md`, submitted.
+
+**Unified form.** \(\operatorname{cr}(K_{1,m} \square C_n) = Z(n,m) = X(n)X(m)\).
+At \(n=3\), \(X(3)=1\) gives \(X(m)\) — the theorem at h5504. At \(n=4\),
+\(X(4)=2\) gives \(2X(m)\) — the column at h5512. Two rows of one statement.
+
+**The target's value is proved, not sampled.** I had \(\operatorname{cr}(C_n+D_m)
+= Z(n,m)\) only as 16-of-16 heuristic meets, which is one-sided. But **\(C_n+D_m\)
+contains \(K_{n,m}\)** — the join edges are exactly that — so
+\(\operatorname{cr} \ge Z(n,m)\) by Zarankiewicz, **a proved theorem for
+\(n \le 6\)**. With drawings meeting it: sixteen exact values, no unverified
+citation anywhere in the chain.
+
+**Two new exact values, opening the \(n=5\) column.**
+\(\operatorname{cr}(C_5+D_3) = 4\) and
+\(\operatorname{cr}(K_{1,3} \square C_5) = 4 = Z(5,3)\) — the latter on 20
+vertices and 35 edges, the transversal test refuting \(\operatorname{cr}\le3\) at
+\(k=\mathrm{sk}=3\) with **zero survivors** from 375 candidate pairs in 6.6 s.
+**First value obtained by raising the lower bound** rather than by skewness
+meeting the upper one.
+
+**The reach is computed, not probed.** A cell is settleable iff
+\(Z(n,m)-\mathrm{sk} \le 1\). The gap is quadratic against linear in *both*
+arguments, so the reachable cells form a fixed corner — and **all six with
+\(m \ge 3\) are now settled**: \((3,3),(3,4),(4,3),(4,4)\) by skewness meeting,
+\((3,5),(5,3)\) by the transversal test adding one.
+
+So the honest report is **not** "no further progress this pass" but "**no further
+cell is within reach of these instruments, for any \(n\) and \(m\)**". \((4,5)\)
+needs the bound raised by 2, and \(\mathrm{sk}+1\) is the test's ceiling *by
+construction*, not by budget.
+
+**What would extend it, defined rather than wished for:** a decider complete at
+\(k = \mathrm{sk}+1\), which needs configurations with one edge in two crossings
+— subdivide the doubly-crossed edge twice, in both orders. That brings \((4,5)\)
+and \((3,6)\) into range.
+
+**I repeated a mistake I had written a rule about.** Two passes ago I recorded
+that a long job must never be piped through `tail`, because the filter swallows
+buffered output when the job is killed and reports the wrong exit code. I then
+launched this pass's first computation as `... 2>&1 | tail -10`. I caught it from
+the empty output file rather than from remembering, killed it and reran writing
+unbuffered to a file. **Writing the rule down did not change the habit**; the
+default in my command construction is still to pipe. Worth noting that the fix
+has to be in how the command is built, not in a note I can fail to consult.
+
+**Principal's suggestion taken.** The \(n \ge 4\) obstruction is now a standalone
+tooling note, `topological-minor-screen.md`, stated at the generality it actually
+holds — a *screen* on which targets are available, with the loose version
+(*"almost-cubic graphs cannot carry quadratic bounds"*) explicitly flagged as
+false, since \(G\) is always a topological minor of itself.
+
+**Operational.** Submission accepted. No background computations running.
+
+**Next step (concrete).** Either build the \(k = \mathrm{sk}+1\) decider above —
+defined work, lifts two cells — or leave this family, which now has a proved
+theorem on one row, six exact cells, a unified conjecture, and a proved boundary
+on both the mathematics and the instruments. Not autonomous, five items
+unchanged.
