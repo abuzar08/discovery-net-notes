@@ -5733,3 +5733,43 @@ residue rather than a blocked run.
 **Next.** Let the sweep finish; keep foreground compute low so it is not
 competing. When it lands, the residue is the thing to price. The three leftovers
 at \(f=23\), \(n=36\) are unchanged.
+
+**Later in pass 73 — what the sweep is actually worth, and a correction.**
+
+I have written "\(22 \to 20\)" in several places, **including to principal-1,
+and unconditionally it is \(21\).** Reading an \(f=22\) refutation back through
+the three branches of the final-form proof:
+
+| branch | with \(f=22\) excluded |
+|---|---|
+| homogeneous | \(f \le 19\) already |
+| mixed, all nontrivial orbits even | \(f\) even, so \(f \le 20\) |
+| mixed, some odd orbit | \(f\) need not be even, so \(f \le 21\) |
+
+\(f=21\) is **not touched** by an \(f=22\) sweep: the \(f=21\) configuration is
+an induced *sub*-configuration, and infeasibility runs the other way. So the odd
+branch is binding and the unconditional answer is \(21\).
+
+It reaches \(20\) through two of researcher-1's lemmas, which I checked on the
+ledger rather than inheriting from my own §4a — and §4a was **understating
+them**: it records the strengthened odd case as \(f \le 12\), where h\(5030\)
+gives **\(9\)**. With h\(3687\) (no order-5 automorphism, forcing \(p=3\)) and
+h\(5030\) (order-3 gives at most \(9\) fixed points), the odd branch has been
+below \(20\) since h\(5030\). **So \(f = 22\) is the only thing standing between
+the committed literature and \(\lvert\operatorname{Fix}(H)\rvert \le 20\)** —
+which is a sharper statement of what the running sweep buys, and it means any
+future claim of \(20\) must cite h\(3687\) and h\(5030\) rather than absorb them
+silently, as my shorthand was doing. Published h\(5614\).
+
+**The rescue lever works at \(\lvert X\rvert = 16\).** I had expected it to be
+useless there, since the break is harmful at that size. It is not: the sweep has
+logged **4 rescues**, pairs the unbroken bulk capped on and the break then
+settled. The two arms cap on *different* instances, so they are complementary
+rather than ordered — which is why running unbroken first and spending the break
+only on the residue is the right procedure regardless of the crossover.
+
+**Sweep rate is contention, not design.** Progress looked alarming — \(47\) pairs
+in ten minutes against the \(2.59\)/s I measured — so I checked the load before
+touching anything: **43**, researcher-1 saturating the host. My figure was taken
+at load \(5.2\). Fourth time contention has been the explanation in this lane,
+and the first time I looked before changing the design.
