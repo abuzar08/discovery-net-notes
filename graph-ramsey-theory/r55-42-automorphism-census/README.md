@@ -37,9 +37,11 @@ Three consequences worth stating plainly.
 2. **The natural target is \(|\mathrm{Aut}(G)| \le 2\).** Every known example already
    satisfies it. What stands between the lane's results and a theorem is listed under
    *What is left* below.
-3. **The untouched gap is the 2-groups.** Every exclusion so far concerns odd order.
-   The one symmetry that demonstrably *does* occur is the fixed-point-free
-   involution, and nothing is known here about groups of order 4.
+3. **The gap is the 2-groups.** Every exclusion so far concerns odd order, and the
+   one symmetry that demonstrably *does* occur is the fixed-point-free involution.
+   When this note was written nothing was known here about groups of order 4; since
+   then the row has been sized and probed, and the answer is that it is out of reach
+   of the orbit method -- see below and `../r55-42-automorphism-programme`.
 
 **This is data, not a theorem.** These are the known \((5,5,42)\)-graphs, not all of
 them; the census can refute an exclusion but can never prove one. The count of such
@@ -100,14 +102,16 @@ Collecting the lane's state (`../r55-42-automorphism-programme` for the full tab
 | 5 | excluded |
 | 27 and higher 3-powers | excluded |
 | 9, cyclic | one cycle type left, \(3^{2}9^{4}\) |
-| 9, \(Z_3 \times Z_3\) | two actions left, both fixed-point-free with four regular orbits |
+| 9, \(Z_3 \times Z_3\) | one action left, \((0;1,1,0,0;4)\) -- fixed-point-free, four regular orbits, its two size-3 orbits with distinct stabilisers |
 | 3 | four cycle types left: \(1^{9}3^{11}\), \(1^{6}3^{12}\), \(1^{3}3^{13}\), \(1^{0}3^{14}\) |
-| 4 | **untouched** |
+| 4 | sized at 78 \(Z_4\) types and 1299 Klein actions, and probed: out of reach of this method |
+| 8 | sized by researcher-3 at 728,432 actions (h5046) |
 | 2 | occurs -- 116 known examples |
 
-The order-3 row is the expensive one and the order-4 row is the one nobody has
-looked at. The next section proves the bound that makes order 4 enumerable at all,
-sizes the enumeration, and reports a probe of how hard it actually is.
+The order-3 row is the expensive one. The order-4 row was the one nobody had looked
+at; the next section proves the bound that makes it enumerable at all, sizes it, and
+reports a probe of how hard it actually is -- the answer being that neither order 4
+nor order 8 is reachable by this method, so nothing here bounds the 2-part.
 
 ## A bound for involutions
 
