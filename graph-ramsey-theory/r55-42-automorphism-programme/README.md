@@ -54,20 +54,46 @@ measured where the text says so and estimated where it does not.
 
 | Open item | Cost | What closing it buys |
 |---|---|---|
-| the order-9 type \(3^{2} 9^{4}\) | running; a \(2^{14}\)-cube sweep on the same recipe | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
+| the order-9 type \(3^{2} 9^{4}\) | **about 2180 core-hours, measured** — see below; running | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
 | 78 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 78** — see below | no automorphism of order 4 |
 | 1299 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
 
 Two things follow that are worth stating rather than leaving to be inferred.
 
-**The remaining cheap row dominates the expensive one.** With \(b \le 2\) proved, the order-9 row alone gives
-\(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) for a day or so of background
-computation. The four order-3 types cost some thousands of core-hours and deliver
-\(b = 0\) — a stronger statement about \(b\), but only after the cheap rows have
-already reduced \(b\) to at most 1. Anyone allocating effort should finish the cheap
-rows first and then decide whether \(b \le 1 \to b = 0\) is worth thousands of
-core-hours.
+**The order-9 row is not cheap, and calling it cheap was my error.** This note
+described it as "a day or so of background computation", by analogy with the
+\(Z_3 \times Z_3\) actions: same group order 9, same 99 orbit variables, same
+\(2^{14}\) split leaving 85 free variables, same degree window. Measured, it is
+nothing like them:
+
+| | \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\) | \(Z_9\), \(3^{2}9^{4}\) |
+|---|---|---|
+| orbit variables | 99 | 99 |
+| free after the 14-split | 85 | 85 |
+| hard at 120 s, random sample | about 1 percent | **100 percent** (10 of 10, and 181 of the first 196) |
+| median cost per cube | 3.1 s | **421 s** |
+| row total | about 100 core-hours | **about 2180 core-hours** |
+
+Both levers were then measured rather than guessed. A longer limit works — six random
+hard cubes all refuted at 1200 s, mean 445 s — and splitting four variables deeper
+does not help: 32 children of two hard parents cost 498 core-seconds per parent
+against 480 for the parent directly, a wash. So the row costs what it costs, and it
+is running at a 900 s limit.
+
+That makes it **comparable to a single order-3 type** (about 1900 core-hours), not to
+the day the two \(Z_3\times Z_3\) actions took. It still buys more per hour — it
+gives \(b \le 1\) outright, where the four order-3 types must *all* close to give
+\(b = 0\) — but the ordering advice now rests on payoff, not on price.
+
+This is the **third** time orbit count has failed to predict difficulty in this lane,
+and the sharpest: order 8 had more orbits than order 9, order 4 had more still, and
+now two groups of *the same order with identical formula size and identical split*
+differ by a factor of 130 in median cost per cube. The distinguishing feature is
+structural — \(Z_3\times Z_3\) has exponent 3 and four subgroups of order 3, each
+constraining the formula, where \(Z_9\) is a chain with one. That is a hypothesis
+about the mechanism, not a measurement; what is measured is that formula size predicts
+nothing here.
 
 The order-4 row was costed optimistically when it was first added, on the strength of
 the encoder and checker being ready. A measured probe has since corrected it: the
