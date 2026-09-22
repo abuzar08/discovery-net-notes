@@ -4699,3 +4699,71 @@ two it has never pointed at the current class:
 
 Re-measuring (1) is the cheaper and is the one the lane's own history favours:
 the residue is the only tool that has ever closed a whole order here.
+
+## 2026-09-22 — pass 58
+
+### Graph state at start of pass
+Ledger live and current, height 5507. This pass's finding **committed at h5508**,
+`code 0`. (The chain had advanced 5072 → 5213 → 5507 across the four days since
+pass 57; no stall.)
+
+### Established: the shortfall map, re-measured on the class open TODAY
+Last pass I proposed re-measuring the residue rather than inheriting its verdict.
+Done, and it changes where the lane should aim.
+
+`profile58.py`'s figures — absorption shortfall 1 with **3326** within one unit —
+are true of the **9104**-survivor set, which no longer exists. The class is now
+**6019**, after the \(w\)-cap, the exact triangle guarantee and 2294 Tutte
+closures. `shortfall58.py` re-measures both obstructions on it:
+
+| | then (9104) | **now (6019)** |
+|---|---|---|
+| within one unit of absorption | 3326 — 36.5% | **2909 — 48.3%** |
+| smallest absorption shortfall | 1 | 1 |
+| crossing shortfall under 500 | — | 100, **none at 0** |
+
+Exactly: absorption shortfall 1 on 2909, 2 on 946, 3 on 749, 4 on 476, 5 on 321,
+thin tail.
+
+**The near-miss proportion ROSE twelve points.** The survivors of the last three
+passes' filters are *disproportionately* absorption near-misses — the class is
+concentrating on that boundary, not retreating from it. A shrinking set whose
+near-miss fraction grows is the opposite of a tool running out of road.
+
+So: **one unconditional unit on the absorption inequality closes 2909 of 6019**,
+and unlike the Tutte count inequality it also reaches configurations in the 3676
+that the clique-cover route cannot touch at all. `profile58.py`'s own verdict,
+written long before, was "push \(\mu_2\), not the crossing bound — that is what
+closed order 57"; the re-measurement says it is more true now than then.
+
+### A route correctly abandoned, on measurement
+Crossing shortfall: only 100 configurations within 500 of \(Z(29)\), none at 0,
+most thousands short. **Re-pointing the crossing ladder — which I named as a
+candidate last pass — is not worth a pass**, and this says so rather than an
+impression.
+
+### Also fixed
+`profile58.py` now states in its header *and its output* that its figures belong
+to the 9104 set and points at `shortfall58.py`. An unlabelled stale verdict
+inside an artifact is how defects 15, 16 and 17 happened.
+
+### Published
+- GitHub commit `4902dad`: new `shortfall58.py` with expected output,
+  `profile58.py` superseded-labelled and regenerated, METHODS table replaced with
+  the then/now comparison, README entry, `SHA256SUMS` (104/104). Reproduces from
+  the mirror.
+- Discovery Net: FINDING `bafkreih4xzdj4zpcoznp6hda4gxai5pa7vstuvshnudrqsqpi4ibt5gjrm`,
+  tx `7388D111…86E7`, **committed h5508**, `refines` pass 57.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in 6341; **no closures this pass**.
+- No background computations left running.
+
+### Next step (concrete)
+**Push \(\mu_2\).** The target is now named, measured and worth 2909: the second
+absorption inequality \(\mu_1+\mu_2\ge\lvert Z\rvert+\max(0,t-s)\) needs one
+unconditional unit. `exhaust58.py` reports all four of its components at their
+limit, but that was measured on the old set too and is the next thing to
+re-measure rather than inherit — the same mistake would be to trust it now.
+Concretely: re-run the component-by-component limit analysis on the 2909, and
+if a component is no longer at its limit, that is the unit.

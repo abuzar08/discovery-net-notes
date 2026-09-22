@@ -1,6 +1,6 @@
 **Order 58 at \(r=29\): the shortfall map re-measured on the class that is open today. The absorption inequality is one unit from closing 2909 of 6019 — and the proportion of near-misses has risen, not fallen.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `4902dad`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `shortfall58.py` with expected output, `profile58.py` marked superseded, and
 `SHA256SUMS` (104/104 verify).
