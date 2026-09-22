@@ -56,7 +56,7 @@ below the table.
 
 | Open item | Cost | What closing it buys |
 |---|---|---|
-| the order-9 type \(3^{2} 9^{4}\) | **1100 to 1900 core-hours**; the running sweep is measuring it — see below; **contained in the row below** | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
+| the order-9 type \(3^{2} 9^{4}\) | **at least 2330 core-hours**, from 30 random cubes with CPU measured; a 13 percent tail is extra; **contained in the row below** | no automorphism of order 9; with \(b \le 2\) already proved, this gives \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
 | 78 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 78** — see below | no automorphism of order 4 |
 | 1299 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
@@ -71,7 +71,7 @@ and the two rows are nested rather than parallel. Nothing runs the other way.
 
 The consequence for allocation is exact. If the order-3 row is ever finished, the
 order-9 sweep now running is **redundant work**: its conclusion arrives free with
-\(1^{6} 3^{12}\). It is worth its 1100 to 1900 core-hours only under the position this note
+\(1^{6} 3^{12}\). It is worth its 2330-plus core-hours only under the position this note
 takes elsewhere — that the order-3 row will *not* be finished — and because
 \(1^{6} 3^{12}\) is by some margin the more expensive of the two (the hard-fraction
 table below puts it at 80 percent hard at level 5 against 20 percent for
@@ -83,35 +83,42 @@ described it as "a day or so of background computation", by analogy with the
 \(Z_3 \times Z_3\) actions: same group order 9, same 99 orbit variables, same
 \(2^{14}\) split leaving 85 free variables, same degree window. It is nothing like
 them. The \(Z_3 \times Z_3\) column below is from all 16384 cubes of that action;
-the \(Z_9\) column is from the first 83 cubes the running sweep completed, which is
-**a biased sample, and the next subsection is about how badly**:
+the \(Z_9\) column is from 30 cubes of the randomised sweep, with CPU measured:
 
 | | \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\) | \(Z_9\), \(3^{2}9^{4}\) |
 |---|---|---|
 | orbit variables | 99 | 99 |
 | free after the 14-split | 85 | 85 |
-| cubes over 120 s | 214 of 16384, **1.31 percent** | 66 of 83, **80 percent** (and 10 of 10 on a random sample) |
-| cubes over 300 s | 35 of 16384 | 22 of 83 |
-| solve, median | 3.2 s | 224 s |
-| solve, mean | 16.8 s | 257 s |
-| replay, mean | 5.2 s | 52 s |
-| LRAT certificate, median | 14 MB | **421 MB** |
-| row total | 78 core-hours | **1100 to 1900 core-hours** |
+| cubes over 120 s | 214 of 16384, **1.31 percent** | **100 percent** on a random sample of 10 |
+| cubes unrefuted at 900 s | none; the whole row finished | **4 of 30, 13 percent** |
+| solve, median | 3.2 s | **415 s** |
+| replay, mean | 5.2 s | 64 s |
+| LRAT certificate, median | 14 MB | **679 MB** |
+| row total | 78 core-hours | **at least 2330 core-hours** |
 
 The certificate sizes are worth as much as the times. A refutation of one \(Z_9\)
 cube is a thirty-fold larger object than a refutation of one \(Z_3 \times Z_3\) cube
 on a formula of the same size, which is evidence about the formulas and not about
 the machine: proof length does not depend on who else is using the laptop.
 
-Both levers were measured rather than guessed. A longer limit works — six random hard
-cubes all refuted at 1200 s — and splitting four variables deeper does not help:
-32 children of two hard parents cost about as much as the two parents solved
-directly. So the row costs what it costs, and it is running at a 900 s limit.
+Both levers were measured on the cubes that survive **120 s**, and on that population
+a longer limit worked — six random ones all refuted at 1200 s — while splitting four
+variables deeper was a wash, 32 children costing about what their two parents cost
+directly. Neither conclusion transfers to the cubes that survive **900 s**, which the
+randomised sweep shows to be 13 percent of the row and which no earlier sample
+contained at all. That is a different and harder population, and which lever settles
+it is being measured now rather than assumed: the two arms are 16 children per
+survivor on the next four orbit variables by occurrence, against the same survivors at
+a six-fold limit. **Stated before the result: I expect deepening to win here**, where
+it did not at 120 s, because a cube that survives 900 s has residual search that a
+\(2^{4}\) split removes, whereas a cube that merely survives 120 s was close to
+refutable anyway. If that is wrong it is worth more than if it is right, since it
+would say the tail is irreducible and the row needs a different encoding.
 
 This is the **third** time orbit count has failed to predict difficulty in this lane:
 order 8 had more orbits than order 9, order 4 had more still, and now two groups of
 *the same order with identical formula size and identical split* differ by a factor
-of seventy in median cost per cube. The distinguishing feature is structural —
+of a hundred and thirty in median cost per cube. The distinguishing feature is structural —
 \(Z_3\times Z_3\) has exponent 3 and four subgroups of order 3, each constraining the
 formula, where \(Z_9\) is a chain with one. That is a hypothesis about the mechanism,
 not a measurement; what is measured is that formula size predicts nothing here.
@@ -161,6 +168,39 @@ so the completed part of a partial run is a uniform sample of the row and its ru
 mean is an unbiased estimate that sharpens as the run proceeds. This is the fifth
 time this lane has read a statistic off the front of an ordered cube file; it is the
 first time the ordering has been removed instead of the reading being caveated.
+
+**What the unbiased instrument says, and it is worse than any figure above.** The
+first 30 cubes of the randomised sweep, with CPU read from `getrusage` rather than
+inferred, and on a host that has meanwhile emptied out — load 42 down to 11, so each
+solver now gets 0.995 of a core and the wall-to-CPU correction no longer applies:
+
+| \(Z_9\), \(3^{2} 9^{4}\), 30 random cubes | |
+|---|---|
+| survive the 900 s limit | **4 of 30, 13 percent** |
+| solve CPU of a refuted cube, median | **415 s** |
+| replay CPU, mean | 64 s |
+| certificate, median | **679 MB** |
+| CPU per cube attempted | **511 core-seconds** |
+| projected main sweep | **about 2330 core-hours** |
+
+and that projection excludes whatever the 13 percent cost to settle, so the row is
+**at least 2330 core-hours** and probably nearer 3000. Nothing on the biased samples
+predicted the tail at all: the front 83 produced **no** 900 s survivor.
+
+So the published figure has gone 2180, then 1100, then \([1100, 1900]\), and now to
+at least 2330 — and the *first* number was the closest. That is worth stating rather
+than burying, because the reason is not luck:
+
+> The original estimate had **two errors of opposite sign** — a sample drawn only
+> from hard cubes, which biased it up, and wall seconds read as core-seconds, which
+> biased it up again — offset by a third, the absence of any tail. Correcting one of
+> them while replacing the sample with a worse one made the number move away from the
+> truth while the method improved. **A figure being closer to right is not evidence
+> that it was arrived at better**, and a correction that fixes one bias in a compound
+> estimate can easily be a step backwards.
+
+The estimate is now a sum of measured CPU over a uniform sample, which is the first
+version of this number that will converge rather than jump.
 
 The order-4 row was costed optimistically when it was first added, on the strength of
 the encoder and checker being ready. A measured probe has since corrected it: the

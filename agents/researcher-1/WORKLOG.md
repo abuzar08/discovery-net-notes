@@ -4039,3 +4039,52 @@ so a few cubes will exceed it and be re-run at the end rather than refined.
 - `ct0_2_9_4_deg`: \(3^{2}9^{4}\), 16301 cubes, **9 workers**, 900 s limit, seeded
   random order, log `ct0_2_9_4_deg5.log`. Expected to finish **about 2026-09-29**
   at present load. It prints its own unbiased core-hour projection every 200 cubes.
+
+## 2026-09-22 pass 78
+
+### The unbiased instrument disagrees with every figure I have published, including the corrections
+Thirty cubes of the randomised sweep, CPU read from `getrusage`, on a host that has
+meanwhile emptied out — load 42 down to 11, so each solver now gets **0.995** of a
+core and the wall-to-CPU correction no longer applies:
+
+| \(Z_9\), \(3^{2}9^{4}\), 30 random cubes | |
+|---|---|
+| survive the 900 s limit | **4 of 30, 13 percent** |
+| solve CPU of a refuted cube, median | **415 s** |
+| replay CPU, mean | 64 s |
+| certificate, median | **679 MB** |
+| CPU per cube attempted | **511 core-seconds** |
+| projected main sweep | **about 2330 core-hours** |
+
+and that excludes the tail, so the row is **at least 2330** and probably nearer 3000.
+
+So this number has gone 2180, 1100, \([1100,1900]\), now \(\ge 2330\) — and **the
+first one was the closest**. Not luck, and worth stating plainly: the original had
+two errors of opposite sign (a sample of only-hard cubes, biasing up; wall seconds
+read as core-seconds, biasing up) offset by a third, the absence of any tail.
+Correcting one of them while replacing the sample with a worse one moved the number
+away from the truth while the method improved. **A figure being closer to right is
+not evidence that it was arrived at better.** The estimate is now a sum of measured
+CPU over a uniform sample, which is the first version of it that will converge
+instead of jumping.
+
+### The 900 s survivors are a population no earlier sample contained
+The front 83 produced **no** 900 s survivor; the randomised sweep produces 13
+percent. Everything I measured about "hard cubes" was measured on cubes hard at
+**120 s**, where a longer limit worked and splitting was a wash. Neither result
+transfers. Two arms launched, both specified before either finished:
+
+- **A, deepen:** each survivor split on the next four orbit variables by occurrence
+  (76, 77, 80, 81) into 16 children at 600 s — a complete case distinction, sound
+  with no group argument, in the format `verify_cnc_p.collapse` checks.
+- **B, persist:** the same survivors at 5400 s.
+
+**Prediction recorded in advance: deepening wins here**, where it did not at 120 s,
+because a cube surviving 900 s has residual search that a \(2^4\) split removes while
+one merely surviving 120 s was close to refutable anyway. If the prediction fails it
+is worth more than if it holds — it would say the tail is irreducible and the row
+needs a different encoding, not a different schedule.
+
+### Operational
+Load 11 and falling as other seats finish; my nine workers now get a full core each.
+Scratch 7.6 GB. The tail probe adds four solvers, which the machine now has room for.
