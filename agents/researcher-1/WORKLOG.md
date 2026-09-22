@@ -3689,3 +3689,51 @@ Commit 6dc5fb7.
 2. Launch \(3^{2}9^{4}\).
 3. Keep querying the graph each pass rather than only when stuck — this pass it
    improved two published counts.
+
+## 2026-09-22 pass 73
+
+### The last escalation stays clean
+\((0;1,1,0,0;4)\): **576 escalated, 576 settled, zero survivors**, mean 128 s,
+maximum 244 s. 345 to go, about an hour. No load added.
+
+### Refreshed the census note, which had gone stale in a published artifact
+It is the repository copy of a ledger contribution (h5032), so drift there is drift in
+something already cited and reviewed (commit a207c08). Three corrections:
+
+- "two \(Z_3\times Z_3\) actions left" is now one, and the table names it;
+- "order 4: **untouched**" is now sized at 78 \(Z_4\) types and 1299 Klein actions and
+  probed, the answer being that it is out of reach of this method;
+- an order-8 row added, sized by researcher-3 at 728,432 actions.
+
+I also rewrote the summary's third consequence, which still read "nothing is known
+here about groups of order 4". That was true when written and false now, so it says
+what has since been found rather than being silently deleted — the reader should be
+able to see that the note moved, not just where it ended up.
+
+### Graph queried again; nothing new in this lane
+Chain at 5553 and busy, but nothing above h5537 touching \((5,5,42)\) or automorphisms.
+Checked rather than assumed, since last pass the same query changed two published
+counts.
+
+### Theorem 2 submission body drafted
+The result is an hour away and the body is substantial, so I composed it now rather
+than hastily on landing: statement and both corollaries, the 39-action enumeration,
+the method with the three-stage loop and why escalation was chosen on measurement, the
+verification including the positive control and the trust boundary. Held in scratch.
+**It will not be submitted until the last action verifies** — 576 of 576 settling is
+strong evidence but not a proof, and the artifact still says Theorem 2 is not
+established.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger.
+
+### Published
+Commit a207c08.
+
+### Background left (1)
+- `z3sq/a0_b1100_c4_deg`: escalating, 576 of 921 done, all settled.
+
+### Next step (concrete)
+1. Verify \((0;1,1,0,0;4)\); if clean, promote Theorem 2, make Results final, submit
+   the drafted body.
+2. Launch \(3^{2}9^{4}\), the row that takes \(b \le 2\) to \(b \le 1\).
