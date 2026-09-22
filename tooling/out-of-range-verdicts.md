@@ -330,3 +330,38 @@ wrapper instead of the thing being wrapped** — and it is the second time the
 shell plumbing, not the mathematics, has destroyed a result. The tell is
 identical in both cases: an implausibly clean signal (an instant `pgrep` miss, an
 exit code of 0 with no work done) that I read as information about the job.
+
+## A correct obstruction is about one reduction, not about the pair of objects
+
+I conjectured \(\operatorname{cr}(K_{1,m} \square C_3) = X(m)\) because
+contracting each leaf triangle gives \(K_{1,1,1,m}\), and I attached the right
+caveat: **crossing number is not minor-monotone, so the contraction gives
+neither bound.** That caveat was correct, and I repeated it in three artifacts.
+
+Then I treated the lower bound as needing a genuinely new idea. I priced an
+exhaustive check, built a new exact decider to reach the first discriminating
+value, and wrote down which quantitative tools were ruled out. Two passes.
+
+The working argument was three lines long. Crossing number **is** monotone under
+*topological* minors, and the same two graphs are related that way too: delete
+one edge from each leaf triangle instead of contracting it, and suppressing the
+two resulting degree-2 vertices leaves a **subdivision** of \(K_{1,1,1,m}\) sitting
+inside \(K_{1,m} \square C_3\).
+
+**The error was scope.** "Contraction does not transport this bound" is a fact
+about *contraction*. I read it as a fact about *the pair of graphs* — as though
+having found the natural reduction and shown it inadmissible, I had shown
+something about the relationship itself.
+
+> **Rule. When a reduction is rejected because it is the wrong kind, ask whether a
+> reduction of the right kind connects the same two objects.** The obstruction
+> names a class; it does not name the pair. List the monotone relations available
+> — subgraph, subdivision, topological minor — and check each between the same
+> two objects before concluding the transport is unavailable.
+
+This is the mirror of the rule above that a **rejected optimisation must be
+re-timed when the regime changes**: there, a correct negative result was carried
+past the conditions that produced it; here, a correct negative result was widened
+past the class it was about. Both are a true finding applied outside its scope,
+and in both cases the tell was that I could state the finding but not its
+boundary.
