@@ -142,10 +142,32 @@ the same bound. Since \(f + 2k = 42\) makes \(f\) even, \(f \le 36\).
 The bound is certainly not tight -- every involution in the census is fixed-point-free
 -- but it is enough to make the order-4 enumeration finite:
 
-| Group | actions with \(f \le 36\) | pair orbits |
+| Group | actions | pair orbits |
 |---|---|---|
-| \(Z_4\) | 90 cycle types | 221 to 637 |
-| \(Z_2 \times Z_2\) | 1347 actions | about 220 upward |
+| \(Z_4\) | **78** cycle types | 221 to 475 |
+| \(Z_2 \times Z_2\) | **1299** actions | about 220 upward |
+
+**These counts are sharper than the lemma above gives, thanks to researcher-3's
+theorem at height 5022**: any subgroup of \(\mathrm{Aut}(G)\) having an orbit of
+size 4 fixes at most **22** vertices. For \(Z_4 = \langle\sigma\rangle\) the
+4-cycles are such an orbit and \(\mathrm{Fix}(\langle\sigma\rangle)\) is just the
+fixed points of \(\sigma\), so \(f_1 \le 22\) on top of the
+\(f_1 + 2f_2 \le 36\) that the involution lemma gives for \(\sigma^{2}\); for
+\(Z_2 \times Z_2\) with a regular orbit it caps \(a\) likewise. Applying both:
+**90 \(Z_4\) types fall to 78 and 1347 Klein actions to 1299.**
+
+The improvement lands where it is worth most. The twelve \(Z_4\) types removed are
+exactly the fixed-point-rich ones, \(1^{24}\) through \(1^{34}\), and they were the
+largest formulas in the row: the orbit-count range drops from **221 to 637** down to
+**221 to 475**, with \(1^{34}2^{0}4^{2}\) at 637 orbits, \(1^{32}2^{1}4^{2}\) at
+605 and \(1^{30}2^{2}4^{2}\) at 575 all gone.
+
+That theorem generalises an orbit lemma of this lane's own -- the all-or-nothing
+step and the values 26 and 28 are from the pass-1 worklog here, as h5022 records --
+to composite orbit sizes, which is exactly what the order-4 row needed and what this
+note had not done. The counts above are corrected accordingly; the lemma below is
+still what makes the row finite at all, but it is no longer the binding constraint
+everywhere.
 
 The 1347 is the count **up to permuting the three subgroups of order 2**, which is the
 right one to enumerate, since that permutation is an automorphism of

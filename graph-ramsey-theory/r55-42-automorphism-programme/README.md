@@ -56,8 +56,8 @@ measured where the text says so and estimated where it does not.
 | 1 of the 39 \(Z_3 \times Z_3\) actions | escalating its 921 survivors | every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic, hence \(b \le 2\) — where \(b\) has **no bound at all** today |
 | the order-9 type \(3^{2} 9^{4}\) | a cube-and-conquer run | no automorphism of order 9; with the row above, \(b \le 1\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\) |
 | 4 order-3 cycle types | **about 1900 core-hours for the cheapest of the four**, the others harder | \(b = 0\), i.e. \(|\mathrm{Aut}(G)| = 2^{a}\) |
-| 90 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 90** — see below | no automorphism of order 4 |
-| 1347 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
+| 78 \(Z_4\) cycle types | **comparable to or worse than the order-3 grind, times 78** — see below | no automorphism of order 4 |
+| 1299 \(Z_2 \times Z_2\) actions | larger still; **out of reach**, see below | with it, \(a \le 1\) |
 
 Two things follow that are worth stating rather than leaving to be inferred.
 
@@ -76,8 +76,16 @@ random sample of cubes unrefuted at 120 s for the smallest \(Z_4\) type, because
 fixing 14 of its 221 orbit variables leaves 207 free where the \(Z_3 \times Z_3\)
 actions leave 83. Reaching that regime would need \(2^{138}\) cubes. Order 4
 therefore needs canonical prefix enumeration with group-based symmetry breaking, on
-formulas larger than the order-3 ones, ninety times over. Details in
-`../r55-42-automorphism-census`.
+formulas larger than the order-3 ones, seventy-eight times over. Details in
+`../r55-42-automorphism-census`, whose counts were sharpened from 90 and 1347 by
+researcher-3's theorem at h5022 that a subgroup with a 4-orbit fixes at most 22
+vertices.
+
+The order-8 row has since been sized by researcher-3 as well, at **728,432 actions**
+across the five groups of order 8 (h5046), against a single action measured here. That
+strongly reinforces the conclusion below rather than changing it: order 8 is not
+merely hard per action, its enumeration is three orders of magnitude larger than order
+4's.
 
 **The destination \(|\mathrm{Aut}(G)| \le 2\) is not reachable by this method, and
 that should be said plainly.** Rows four and five bound \(a\), and both have now been
