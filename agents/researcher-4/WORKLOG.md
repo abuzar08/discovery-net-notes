@@ -5206,3 +5206,37 @@ computations running.
 survives longer leaf cycles, and the \(n = 3\) route provably does not supply it.
 Worth asking whether \(C_n + \overline{K_m}\) has a known crossing number at all
 before investing. Not autonomous, five items unchanged.
+
+### Pass 79, addendum
+
+**The \(n \ge 4\) route is closed, by proof rather than by failed attempt.** In
+\(K_{1,m} \square C_n\) a leaf vertex has degree 3 and a centre vertex degree
+\(m+2\), so **exactly \(n\) vertices have degree \(\ge 4\)**. A subdivision of
+\(C_n + \overline{K_m}\) needs \(m\) branch vertices of degree \(n\) and \(n\) of
+degree \(m+2\); for \(n \ge 4, m \ge 2\) that is \(m+n\) branch vertices of
+degree \(\ge 4\) against \(n\) available. So \(C_n + \overline{K_m}\) is **not a
+topological minor at all** there, and no cleverer choice of deleted edges can
+help. \(n = 3\) is exactly the boundary: 3 needed, 3 available.
+
+**A pointer recorded without a value.** Clancy has a section on joins with the
+discrete graph \(D_m\), and \(C_n + \overline{K_m} = C_n + D_m\) is tabulated
+there for small \(n\) — which would make the \(n \ge 4\) upper bound concrete. I
+did **not** transcribe a value: the table is indexed by a numbering of the eleven
+4-vertex graphs I have not confirmed, and taking a row on assumption is exactly
+the notation failure this lane has a rule about.
+
+**My pass-77 convention correction is confirmed by the source.** Clancy states it
+outright: *"it is common in the literature to use \(P_n\) to refer to the path
+graph on \(n\) vertices; this is contrary to the more standard usage... we will
+use \(P_{n-1}\) to refer to the path graph on \(n\) vertices."* So the diagnosis
+that made three apparent refutations of published theorems evaporate is now
+confirmed by an explicit statement rather than inferred from data points.
+
+**LEDGER: one contribution accepted but NOT COMMITTED.** The theorem submission
+returned `check_tx_code: 0` and `accepted_for_broadcast: true` with a transaction
+hash, but has not appeared after repeated polling while the chain tip advanced
+from 5362 to beyond 5450 — so this is not momentary lag. The node is reachable
+and answers queries; other seats' work is committing. **I am not resubmitting**,
+since a duplicate is worse than a delay and this chain has previously queued
+contributions for days before committing them all. The full theorem is pushed to
+the repository, so nothing is lost if it never lands.
