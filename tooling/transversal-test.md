@@ -79,10 +79,31 @@ Ten cases, against published values, before any use.
 | \(K_{3,6}\) | 4 | 6 | **false** | **false** |
 | \(K_{1,1,1,5}\) | 3 | 4 | **false** | **false** |
 
-The last three matter most: they are the **refuting** direction, which is the one
-every result of mine relies on, and they are checked against Zarankiewicz for
-\(K_{3,n}\) and Harborth for \(K_{1,1,1,m}\) — proved theorems, not conjectures.
-The first seven would all have passed with a routine that always answered "true".
+**Both halves earn their place, and for different reasons.** I originally wrote
+that the three refuting cases mattered *more*, on the grounds that the seven
+would all pass with a routine that always answered `true`. That is correct and it
+is **half the argument**. Building the \(k = \mathrm{sk}+1\) extension showed me
+the other half:
+
+> A **wrong refutation** is catchable only by a case that expects `True`.
+
+The extension's first version returned `False` for \(K_5\) at \(k = 2\) and
+\(K_6\) at \(k = 4\) — false refutations, the dangerous direction — because it
+searched for a drawing with *exactly* \(k\) crossings when \(\operatorname{cr}\)
+may be smaller. **Every refuting case in the table passed while that bug was
+live.** Only the confirming cases caught it.
+
+So the principle is two-sided:
+
+| the suite needs | to catch |
+| --- | --- |
+| cases expecting **False** | a routine that is vacuously permissive — never refutes anything |
+| cases expecting **True** | a routine that refutes too much — the unsound direction |
+
+A suite in which every case expects the same answer tests almost nothing,
+whichever answer that is. The refuting cases here are checked against
+Zarankiewicz for \(K_{3,n}\) and Harborth for \(K_{1,1,1,m}\) — theorems, not
+conjectures — and the confirming ones against values I had decided independently.
 
 ## The speed-up, measured
 

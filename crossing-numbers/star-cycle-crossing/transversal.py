@@ -40,10 +40,18 @@ Three expect `False`: K_{3,5} (sk 3, cr 4), K_{3,6} (sk 4, cr 6), K_{1,1,1,5}
 (sk 3, cr 4) -- checked against Zarankiewicz for K_{3,n} and Harborth for
 K_{1,1,1,m}, which are theorems rather than conjectures.
 
-The three matter more than the seven, because THE OTHER SEVEN WOULD ALL PASS
-WITH A ROUTINE THAT ALWAYS ANSWERED "True".  A validation suite in which every
-case expects the same answer tests almost nothing; the refuting cases are the
-only ones exercising the direction every result of mine relies on.
+Both halves earn their place, for different reasons.  Cases expecting `False`
+catch a routine that never refutes anything.  Cases expecting `True` catch the
+opposite and more dangerous failure -- a routine that refutes too much.
+
+    A WRONG REFUTATION IS CATCHABLE ONLY BY A CASE THAT EXPECTS True.
+
+This is not hypothetical: the k = sk+1 extension of this method (transversal2.py)
+shipped a first version returning False for K_5 at k=2 and K_6 at k=4, because it
+searched for a drawing with EXACTLY k crossings when cr may be smaller.  Every
+refuting case above passed while that bug was live; only the confirming cases
+caught it.  A suite in which every case expects the same answer tests almost
+nothing, whichever answer it is.
 """
 import itertools, sys
 import networkx as nx
