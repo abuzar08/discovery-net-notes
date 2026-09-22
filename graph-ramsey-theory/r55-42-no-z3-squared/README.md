@@ -448,16 +448,40 @@ still survives.
 
 ## Trust boundary
 
-Machine-checked: for each of the 39 actions, that the object encoded is a faithful
-\(Z_3 \times Z_3\) on 42 points with the stated fixed-point counts, that the DIMACS
-file is exactly the formula that action defines, and that its LRAT certificate replays
-to the empty clause.
+**Machine-checked, for all 39 actions:** that the object encoded is a faithful
+\(Z_3 \times Z_3\) on 42 points whose eight non-identity elements fix exactly
+\(a + 3b_i\) points, all at most 12 -- which is what licenses considering only these
+39; and that the DIMACS file is exactly the formula that action defines, regenerated
+from the orbit data by a separately written route.
 
-Hand-proved here, not machine-checked: that the 39 actions are all of them (the
-stabiliser argument above); the orbit-encoding lemma; and the two corollaries.
+**Machine-checked, for the 37 refuted by a single call:** that the LRAT certificate
+replays to the empty clause.
 
-Not established: Theorem 2, and with it both corollaries. Two of the 39 actions are
-still under computation, and this note claims only Theorem 1 until they land.
+**Machine-checked, for the two split actions:** additionally that the 16384 cubes are
+exactly the \(2^{14}\) sign patterns of 14 variables, so the case distinction is
+complete; that the degree-window clauses are exactly those the constraint defines,
+regenerated with a totalizer implementation separate from the generator's; and that
+every one of the 16384 cubes is accounted for by a certificate.
+
+**How those certificates are accounted for**, which is the one place the checking is
+indirect and so worth stating plainly. 646 GB of proof cannot be kept. The driver
+replays each proof with the independent checker at the moment CaDiCaL produces it,
+records its size and SHA-256, and deletes it; the final check then accepts a cube
+either by replaying a certificate still on disk or by matching a recorded replay to
+the cube's literals, and reports the two counts separately. For
+\((0;2,0,0,0;4)\) all 16384 come from recorded replays. The replay code is the same
+in both cases, and `results.jsonl` holds one record per cube with its literals, times,
+proof size and proof hash. Anyone reproducing the work regenerates the proofs and
+replays them directly.
+
+**Hand-proved here, not machine-checked:** that the 39 actions are all of them (the
+stabiliser argument above); the orbit-encoding lemma; the soundness of the degree
+window (it is implied by \(R(4,5) = 25\), so it excludes no solution); and the two
+corollaries.
+
+**Not established:** Theorem 2, and with it both corollaries. One of the 39 actions,
+\((0;1,1,0,0;4)\), is still under computation, and this note claims only Theorem 1
+until it lands.
 
 Cited, not re-proved: that an order-3 automorphism of a \((5,5,42)\)-graph has at most
 12 fixed points (h2519, h2689, h2873); the exclusion of order \(3^{j}\), \(j \ge 3\)
