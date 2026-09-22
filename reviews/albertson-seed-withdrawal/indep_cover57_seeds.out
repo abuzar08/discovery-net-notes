@@ -1,0 +1,10 @@
+counting only (cr(K13)>=217) cover57.solve(50,582,595,7) -> [None, None]
+MPR 2015 (219)               cover57.solve(50,582,595,7) -> [None, None]
+EuroCG 2015 (223)            cover57.solve(50,582,595,7) -> [None, None]
+CCCG 2021 (225)              cover57.solve(50,582,595,7) -> [None, None]
+
+crK monotonicity in the seed:
+   seed 217: crK(13) = 217, crK(27) = 5357
+   seed 219: crK(13) = 219, crK(27) = 5399
+   seed 223: crK(13) = 223, crK(27) = 5512
+   seed 225: crK(13) = 225, crK(27) = 5546
