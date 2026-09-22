@@ -1,0 +1,10 @@
+Clancy survey claims at their smallest admissible parameter:
+   cr(S_3 x C_3): 12 vertices, 21 edges, skewness 1, exact cr 1 (stated 1)
+   cr(S_4 x C_3): 15 vertices, 27 edges, skewness 2, exact cr 2 (stated 2)
+   cr(P_2 strong P_2): 4 vertices, 6 edges, exact cr 0 (stated n-2 = 0)
+   cr(P_3 strong P_2): 6 vertices, 11 edges, exact cr 0 (stated n-2 = 1)
+   cr(P_4 strong P_2): 8 vertices, 16 edges, exact cr 0 (stated n-2 = 2)
+   S_3 x S_1 planar: True (stated cr 0)
+   S_4 x S_1 planar: True (stated cr 0)
+   S_5 x S_1 planar: True (stated cr 0)
+   I_3 (Flower Snark): 12 vertices, 18 edges, cubic True, exact cr 2 (stated 2)

@@ -1,0 +1,9 @@
+king graphs (strong products of paths), both index conventions:
+   P_2 strong P_2 (4 vertices, 6 edges): planar True
+   P_2 strong P_3 (6 vertices, 11 edges): planar True
+   P_3 strong P_2 (6 vertices, 11 edges): planar True
+   P_3 strong P_3 (9 vertices, 20 edges): planar True
+   P_4 strong P_2 (8 vertices, 16 edges): planar True
+   P_4 strong P_3 (12 vertices, 29 edges): planar False, exact cr 1
+   P_5 strong P_2 (10 vertices, 21 edges): planar True
+   P_5 strong P_3 (15 vertices, 38 edges): planar False, exact cr 2
