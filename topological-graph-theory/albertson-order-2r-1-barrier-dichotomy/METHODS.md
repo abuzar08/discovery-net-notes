@@ -108,10 +108,10 @@ Orders \(\le56\) impossible. **Order 57 closed** — all five rows
 
 | | count |
 |---|---|
-| clique blocks | 6019 |
+| clique blocks | 6054 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **6341** |
+| **total** | **6376** |
 
 ## The method inventory
 
@@ -138,7 +138,7 @@ Each row is a method, what it was applied to, and the measured outcome.
 | **\(w\)-sharpened Turán cap** \(e(H[R])\le\lfloor(\lvert R\rvert-1)^2/3\rfloor+4\) (`wturan58.py`) | removes **310**; found by failing to build an adversary |
 | Triangle-free-neighbourhood cap on \(e(H[R])\) | valid — \(N_H(v)\cap R\) must be triangle-free or \(v\) closes a \(K_4\) — but **non-binding**: removes 0. Reviewer-1 (`reviews/albertson-triangle-free-neighbourhood/`) confirms the derivation and the zero-removal on the whole survivor set, and records that this cap and the \(w\)-sharpened cap are **incomparable**: apply \(\min\) of the two, never one in place of the other |
 | Block-forest lemma for \(c_A\) (`blockcut.py`) | three low vertices that pairwise share a block share a **common** block, since the block-cut tree is acyclic and two blocks meet in at most one vertex. Hence \(A\) not inside one block \(\Rightarrow\) \(H[A]\) has at most two components. Checked on 6768 Gallai forests and 719597 subsets |
-| **General Tutte obstruction count** (`tuttegen.py`) | **removes 2294** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
+| **General Tutte obstruction count** (`tuttegen.py`) | **removes 2259** — and unlike every row above it quantifies over **all admissible \(H\)**, not over parameters |
 | \(U\)-degree inequality (6) (`tuttegen.py`) | \(\sum_{z\in R}x_z=X\le56\) makes every \(U\)-vertex nearly of degree 29, while a \(U\)-vertex has no \(A\)-neighbour at all: **a large \(U\) cannot exist**. Worth **+117**, more than the two component-count refinements together. Found by pricing, not by guessing |
 | Singleton refinement of \(c_A\) | if \(A\) is not inside one block and \(H[A]\) has two components, one is a **singleton**; \(c_A=2\) then needs an isolated \(A\)-vertex or \(p\ge2\). Worth **+12** |
 | Odd-component parity in (1) | \(o\) counts odd components, and the two families have forced parities. **No change at all**: the adversary absorbs it by shifting \(u\) or \(t\) by one |
@@ -154,6 +154,8 @@ Each row is a method, what it was applied to, and the measured outcome.
 | Witness mode in the scan | the surviving points are now collected by `obstructed` itself. A previous pass kept a second copy of the enumeration for this, it drifted out of step with `_ok`, and two runs were wasted on the stale copy |
 | Disjoint-neighbourhood inequality (7) | \((c_A-\mathrm{iso})\max(0,\rho_A-s_R)\le\lvert W\rvert\). **0 closures alone**, but it changes the surviving shape, and the shape it exposes is what the exact \(\rho\)-sum bound then kills |
 | Component-spread inequality (8) (`tuttegen.py`) | a \(W\)-vertex's \(A\)-neighbours all lie in its own component, so \(\mathrm{rsum}-a\,s_R\le e(A,W)\le(a-c_A+1)\lvert W\rvert\). Where (4) is tight this **forces \(c_A=1\)** — apparently the lever, since (4) is tightest at most surviving points. **Fires on 0 points**, and the reason is measured: the two conditions it needs are **disjoint** on the surviving set — 1416 points have (4) tight, 1108 have \(\lvert W\rvert\ge1\), **none have both**, and those two classes cover 2524 of the 2526 points. Where (4) is tight the adversary always takes \(W=0\), and there its consequence is already inequality (5) |
+| **`mult` omits blocks — a trap for anything derived from it** | `mu58.multisets`'s odd-cycle branch adds edges to `eL` without listing the block, so \(\sum_iq_i(q_i-1)\ne\sum_vD_v\) on 772 configurations; the correct degree sum is \(2\,e(G[L])=2\,\mathrm{eL}\), and \(\mathrm{extra}=\sum_iq_i-\lvert L\rvert\) is understated there. `tuttegen.true_blocks` restores the omitted block. **Any bound derived from `mult` alone must use this** |
+| Exact-total side bounds in the residue (`residue58.side_caps`) | \(e_H(Q_1,R)+e_H(L\setminus Q_1,R)=e_H(L,R)=29\lvert R\rvert-X-2e(H[R])\) exactly, so each side is bounded below by the total minus an upper bound on the other. Valid, and **closes 0** — a first version used the block degree sum, was unsound on the 772, and its 3 apparent closures were the artifact that exposed defect 19 |
 | **Mixed triangles across the \(L\)/\(R\) split** (`mixed58.py`) | named as the next step in four separate passes and **gated instead of built**. All four ways a triangle can meet the split are tested for being *forced*: 3L (`packing58.py`), 2L+1R (\(\rho_i+\rho_j>\lvert R\rvert\)), 1L+2R (\(e(H[R])>\binom{\lvert R\rvert}{2}-\binom{\rho_i}{2}\)), 3R (Mantel). One is forced on **1375** of 6019 — almost all by Mantel inside \(H[R]\); 1L+2R fires **never**. But the route needs **three disjoint**, and combining both sides against one shared budget of six forces that on only **183**, **all of which the block route already reaches, and 0 of the 3676**. **The mixed route adds no scope at all** |
 | **Margin at a surviving point** (`margin58.py`) | which inequality is *closest to failing* where the scan survives: **(4) spread on 1416 points, (6) \(U\)-degree on 1043, (3) Turán on 67**, and **1536 of 2526 points clear something by exactly zero**. Complementary to the handicap table, not a substitute — confusing the two is defect 13 |
 | \(a+t\le\omega(G)\le28\) from criticality | \(A\) is a clique of \(G\) and one vertex per \(U\)-component extends it; and a \(K_{29}\) in a 29-critical graph on 58 vertices would be a **proper** subgraph of chromatic number 29. Sharpens the table's \(\omega\le29\). **Measured: \(a+t\) never exceeds 26 — does not bite** |
@@ -344,7 +346,7 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Eighteen items were found, twelve of one family, all of the same shape — *a step verified on
+Nineteen items were found, thirteen of one family, all of the same shape — *a step verified on
 the case that happens to be favourable, then generalised without re-deriving*:
 
 | # | item | direction | effect |
@@ -366,7 +368,8 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 15 | "order 57 has never been independently reviewed" | **false, published on the ledger** | **twenty** reviews exist, **seven** on order 57; checkable with `ls reviews/`. Cause: this document cited one of them |
 | 16 | `aug57.py` never prints its \(cr(K_{13})\ge223\) dependence | a presentational defect in one artifact | flagged in its review, not carried into the artifact; `seed57.py` now records it |
 | 17 | "order 57's closure is conditional on \(cr(K_{13})\ge223\)" | **false, published on the ledger** | withdrawn. `cover57.py` kills those cases structurally at every rung. Made by reading one review of seven — the same failure the same pass was correcting |
-| 18 | "\(w\) is a feature of the order-58 class only" (`wturan58.py`) | **false, and printed in its expected output** | order 57 has **two** such singletons and the cap is *stronger* there. Flagged in `reviews/albertson-singleton-turan/` nine passes ago; fixed this pass |
+| 18 | "\(w\) is a feature of the order-58 class only" (`wturan58.py`) | **false, and printed in its expected output** | order 57 has **two** such singletons and the cap is *stronger* there. Flagged in `reviews/albertson-singleton-turan/` nine passes ago; fixed |
+| 19 | the block multiset **does not list every block** | **35 published closures were invalid** | `mu58.multisets` adds odd-cycle blocks' edges to `eL` without appending them to the list, so `extra` was understated on **772** configurations, overstating the triangle guarantee. **151 lose the guarantee; 35 had been closed on it.** Withdrawn: 2294 → 2259, order 58 6341 → **6376** |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.

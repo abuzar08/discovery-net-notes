@@ -1546,10 +1546,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 6019 |
+| clique blocks | 6054 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **6341** |
+| **total** | **6376** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -2063,8 +2063,10 @@ on 6768 Gallai forests and 719597 subsets.  The first version of `tuttegen.py`
 used \(c_A=1\) everywhere, which is false on the 6536 configurations with
 overlapping blocks; that would have over-claimed, and is recorded as defect 11.
 
-**Result.**  **2294** configurations are closed **for every admissible \(H\)** —
-2201 at \(k=3\) and 93 at \(k=4\) — so order 58 falls from 8635 to **6341**.  The configuration of `adv58.py` is among
+**Result.**  **2259** configurations are closed **for every admissible \(H\)**,
+so order 58 falls from 8635 to **6376**.  (Was 2294 and 6341; **35 closures were
+withdrawn** when the block multiset was found to omit blocks — see `METHODS.md`,
+defect 19.)  The configuration of `adv58.py` is among
 them, which is consistent with the \(\nu=24\) measured there directly.
 
 **The sixth inequality, and how it was found.**  Rather than guess which

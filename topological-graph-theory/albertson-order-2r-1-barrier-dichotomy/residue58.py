@@ -140,6 +140,44 @@ def second_edges(NL, mult, RSZ):
     return max(0, side * (q2 + RSZ - 29))
 
 
+def side_caps(nn, NL, RSZ, mult, m, eHR, eL):
+    """Lower bounds for e_H(Q_1,R) and e_H(L-Q_1,R) from the EXACT total.
+
+    sum_{z in R} d_H(z) = 29|R| - X and that sum is e_H(L,R) + 2 e(H[R]), so
+
+        E := e_H(L,R) = 29|R| - X - 2 e(H[R])      EXACTLY,
+
+    and E = e_H(Q_1,R) + e_H(L - Q_1,R) since Q_1 and L - Q_1 partition L.  Each
+    side is therefore bounded BELOW by E minus an upper bound on the other --
+    information the per-side formulas throw away.
+
+    THE UPPER BOUNDS USE 2 e(G[L]), NOT THE BLOCK SUM.  D_v is the G-degree of v
+    inside L, so sum_{v in L} D_v = 2 e(G[L]) = 2 eL exactly.  That equals
+    sum_i q_i(q_i - 1) only when the multiset lists every block: 772 of the
+    configurations open today carry eL = block sum + 3, three edges in blocks the
+    multiset does not list, and for those the block form UNDERSTATES the degree
+    sum.  A first version of this function used the block form and was therefore
+    not a valid upper bound on exactly those 772 -- caught before publication by
+    testing the two expressions for e_H(L,R) against each other.
+
+    Sound for every configuration:
+      * every vertex of Q_1 has D_v >= q_1 - 1, so
+            sum_{v in L - Q_1} D_v  <=  2 eL - q_1(q_1 - 1) ;
+      * two blocks meet in at most one vertex, so Q_i (i >= 2) keeps at least
+        q_i - 1 vertices outside Q_1, each with D_v >= q_i - 1, giving
+            sum_{v in Q_1} D_v  <=  2 eL - sum_{i>=2} (q_i - 1)^2 .
+
+    Neither this nor the per-side formula dominates, so the caller takes the
+    larger of the two lower bounds on each side."""
+    X = 2 * m - nn * DEG
+    E = 29 * RSZ - X - 2 * eHR
+    q1 = mult[0]
+    upRest = (NL - q1) * (RSZ - DEG) + max(0, 2 * eL - q1 * (q1 - 1))
+    upQ1 = q1 * (RSZ - DEG) + max(0, 2 * eL
+                                  - sum((q - 1) * (q - 1) for q in mult[1:]))
+    return max(0, E - upRest), max(0, E - upQ1)
+
+
 def thresholds(nn, NL, mult):
     """thr_1, thr_2 of the general residue, on a graph of order nn.
 
@@ -214,6 +252,11 @@ def survivors(nn, m, RSZ, mult, eL, nw, cw, sx_max):
     s = D.singletons(NL, mult, d0)
     e1 = q1 * (q1 + RSZ - 29)
     e2 = second_edges(NL, mult, RSZ)
+    # both sides also follow from the exact total e_H(L,R); neither form
+    # dominates, so take the larger of the two lower bounds on each side
+    c1, c2 = side_caps(nn, NL, RSZ, mult, m, eHR, eL)
+    e1 = max(e1, c1)
+    e2 = max(e2, c2)
     thr1, thr2 = thresholds(nn, NL, mult)
     budget = sx_max + 2 * eHR
     bad = []

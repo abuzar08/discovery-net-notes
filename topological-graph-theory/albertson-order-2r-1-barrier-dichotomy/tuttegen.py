@@ -369,6 +369,31 @@ def _ok(RSZ, eHR, rsum, a, iso, sL, sR, u, t, p, cA, D, X=52, k=3,
     return False
 
 
+def true_blocks(mult, RSZ, eHR, X):
+    """The block multiset with blocks the ENUMERATOR DOES NOT LIST restored.
+
+    mu58.multisets has a branch for odd-cycle blocks that adds their edges to
+    eL WITHOUT appending them to the block list, so `mult` is not always the
+    full block multiset.  Measured over the whole enumeration, eL exceeds
+    sum_i C(q_i,2) by exactly 3 on 772 configurations and by 0 on the rest: one
+    unlisted block of order 3.
+
+    This matters because extra = sum_i q_i - |L| is computed from `mult`.  An
+    omitted block UNDERSTATES extra, which overstates the private-vertex counts,
+    which OVERSTATES the triangle guarantee -- the unsafe direction.  Restoring
+    the block drops kmax_exact on all 772 and costs 151 of them the guarantee
+    entirely.  Recorded as defect 19."""
+    m = (X + N58 * DEG) // 2
+    base = m - DEG * RSZ - X
+    eL = base + RSZ * (RSZ - 1) // 2 - eHR
+    surplus = eL - sum(q * (q - 1) // 2 for q in mult)
+    out = list(mult)
+    while surplus > 0:                      # each unlisted block costs >= 3
+        out.append(3)
+        surplus -= 3
+    return sorted(out, reverse=True)
+
+
 def route_closed(RSZ, mult, eHR, X=56):
     """(closed, k or reason).
 
@@ -392,7 +417,7 @@ def route_closed(RSZ, mult, eHR, X=56):
     # gate -- (2,26) is the only clique-cover family with t_3 = 2 and the branch
     # hypothesis excludes it, so three disjoint triangles are exactly the
     # domain of everything below.
-    kmax = PK.kmax_exact(list(mult), NL)
+    kmax = PK.kmax_exact(true_blocks(mult, RSZ, eHR, X), NL)
     ks = list(range(3, kmax + 1))
     if not ks:
         return False, "three disjoint triangles not guaranteed"
