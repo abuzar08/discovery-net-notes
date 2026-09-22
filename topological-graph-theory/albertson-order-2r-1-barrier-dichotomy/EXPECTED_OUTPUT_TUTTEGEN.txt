@@ -17,22 +17,22 @@ PART 0b  negative control: D = 1 must always be reachable
    wrongly reported infeasible: 0 -> PASS
 
 PART 1   the scan over all surviving configurations
-   configurations scanned: 8313
+   configurations scanned: 8183
    NO Tutte set can obstruct -- the route succeeds on EVERY
-   admissible H, so the configuration is IMPOSSIBLE: 2259
-   the counts still permit an obstruction: 6054
+   admissible H, so the configuration is IMPOSSIBLE: 2167
+   the counts still permit an obstruction: 6016
 
-   closed by |R|: [(19, 11), (20, 35), (21, 94), (22, 198), (23, 261), (24, 326), (25, 366), (26, 314), (27, 294), (28, 183), (29, 97), (30, 53), (31, 21), (32, 6)]
-   still open by |R|: [(11, 5), (14, 2), (15, 1), (21, 24), (22, 117), (23, 244), (24, 494), (25, 689), (26, 814), (27, 939), (28, 912), (29, 643), (30, 593), (31, 304), (32, 273)]
+   closed by |R|: [(19, 8), (20, 29), (21, 82), (22, 178), (23, 234), (24, 302), (25, 366), (26, 314), (27, 294), (28, 183), (29, 97), (30, 53), (31, 21), (32, 6)]
+   still open by |R|: [(11, 5), (14, 2), (15, 1), (21, 24), (22, 116), (23, 244), (24, 487), (25, 659), (26, 814), (27, 939), (28, 912), (29, 643), (30, 593), (31, 304), (32, 273)]
 
-   why the open ones are open: [('a parameter point survives', 2227), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 3345)]
-   the k that closed them: [(3, 2166), (4, 93)]
+   why the open ones are open: [('a parameter point survives', 2220), ('fewer than three blocks', 482), ('three disjoint triangles not guaranteed', 3314)]
+   the k that closed them: [(3, 2074), (4, 93)]
 
 CONCLUSION
    The seven inequalities are necessary conditions on an ARBITRARY
    Tutte set, so an infeasible scan closes the configuration for
-   every admissible H, not for a sample.  2259 of 8313 configurations
-   fall; 6054 do not, and for those the counts do not decide --
+   every admissible H, not for a sample.  2167 of 8183 configurations
+   fall; 6016 do not, and for those the counts do not decide --
    which is not the same as an obstruction existing.
 
    Soundness controls: real Tutte set PASS; D = 1 negative control PASS

@@ -68,6 +68,7 @@ import crminus as C
 import auditc as AC
 import alpha58 as A
 import turan58 as T
+import packing58 as PK
 import residue58 as R58
 import blockr58 as BR
 import tuttegen as TG
@@ -157,6 +158,9 @@ def part3_order58():
                     continue
                 if BR.blockR(mult, NL, RSZ, eHR) >= Z:
                     continue
+                if d0 >= 3 and not PK.leaf_feasible(
+                        TG.true_blocks(mult, RSZ, eHR, X), NL, d0):
+                    continue        # leaf-block lemma; valid only at d_0 >= 3
                 if TG.route_closed(RSZ, list(mult), eHR, X)[0]:
                     continue        # no Tutte set obstructs: theta(H) <= 28
                 c1 += 1

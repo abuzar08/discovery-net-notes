@@ -7,7 +7,7 @@ WHERE THIS STARTS.  absprice58.py priced the absorption inequality
         mu_1 + mu_2  >=  |Z| + max(0, t - s)
 
 by a scan and found the median configuration needs TEN unconditional units,
-while reaching 6053 of the 6054 open configurations.  That left the residual as
+while reaching essentially every open configuration.  That left the residual as
 a single scalar and the obvious next move as "find a subclass where one or two
 units are provable".  This file asks the prior question -- WHERE the units would
 have to come from -- and the answer closes the line.

@@ -559,8 +559,11 @@ def obstructed(RSZ, mult, eHR, k=3, NL=None, Dover=None, X=56,
     return bool(witness) if witness is not None else False
 
 
-def configurations():
-    """The surviving order-58 clique-block configurations, as in state29.py."""
+def configurations(leaf=True):
+    """The surviving order-58 clique-block configurations, as in state29.py.
+
+    leaf=False omits the leaf-block filter, so that leaf58.py can price it
+    against the set that existed before it, without duplicating this loop."""
     out = []
     for m in (838, 839, 840):
         X = 2 * m - N58 * DEG
@@ -586,6 +589,9 @@ def configurations():
                     continue
                 if BR.blockR(mult, NL, RSZ, eHR) >= Z:
                     continue
+                if leaf and d0 >= 3 and not PK.leaf_feasible(
+                        true_blocks(mult, RSZ, eHR, X), NL, d0):
+                    continue        # no Gallai forest has admissible leaves
                 out.append((m, RSZ, tuple(mult), eHR))
     return out
 

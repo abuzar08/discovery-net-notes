@@ -114,6 +114,42 @@ def forests(mult, extra, limit=200000):
     return out
 
 
+def leaf_feasible(tb, NL, d0):
+    """Is some realisable Gallai forest on this block multiset admissible?
+
+    THE LEAF-BLOCK LEMMA.  G[L] is a Gallai forest, so every block is a clique
+    or an odd cycle, and every v in L has D_v >= d_0 = 28 - |R| because its 28
+    G-neighbours cannot all lie in R.  A LEAF block B -- one containing at most
+    one cut vertex of its component -- has at least one non-cut vertex v, and
+    that v lies in no other block, so N(v) is inside B and
+
+            D_v = deg_B(v) = q_B - 1  (B a clique)   or   2  (B an odd cycle).
+
+    Hence when d_0 >= 3 an odd cycle cannot be a leaf block, and every leaf
+    block is a clique with q_B >= d_0 + 1.
+
+    VALID ONLY FOR d_0 >= 3, and the caller must enforce that: at d_0 <= 2 a
+    degree-2 odd-cycle leaf block satisfies the degree floor and the lemma says
+    nothing.  Applied where it does not hold it would over-claim, which is the
+    failure mode auditc.py exists to prevent for the Constraint-C filters.
+
+    Returns True if SOME realisable assignment of cut vertices leaves every
+    leaf block of size at least d_0 + 1; False means no Gallai forest on this
+    multiset can occur, so the configuration is impossible."""
+    extra = sum(tb) - NL
+    if extra < 0:
+        return True
+    for types in forests(list(tb), extra):
+        inc = [0] * len(tb)
+        for S, c in types.items():
+            if len(S) >= 2:
+                for i in S:
+                    inc[i] += c
+        if all(tb[i] - 1 >= d0 for i in range(len(tb)) if inc[i] <= 1):
+            return True
+    return False
+
+
 def packs(types, k):
     """True if k disjoint triangles are certain for these type counts."""
     items = [(S, c) for S, c in types.items() if c > 0]

@@ -473,11 +473,12 @@ def main():
         print("   -- so the next attempt on order 58 should not be a sharper")
         print("   residue.  THAT SENTENCE USED TO SAY 'but a new bound on the")
         print("   SECOND matching mu_2', and capacity58.py has measured that")
-        print("   dead: at the binding point mu_2 already equals min(Zb, |second")
-        print("   side|) on 5068 of 6053 configurations and mu_1 equals")
-        print("   min(Za, q_1) on 6048, so neither admits ANY improvement.  The")
-        print("   deficit is missing capacity, not a loose bound, and it tracks")
-        print("   |R| - q_1.")
+        print("   dead: at the binding point mu_1 and mu_2 already sit at the")
+        print("   ceilings min(Za, q_1) and min(Zb, |second side|) that no")
+        print("   matching can pass -- on 99.9% and 83.6% of the open class --")
+        print("   so neither admits ANY improvement.  The deficit is missing")
+        print("   capacity, not a loose bound, and it tracks |R| - q_1.  See")
+        print("   EXPECTED_OUTPUT_CAPACITY58.txt for the counts.")
 
 
 if __name__ == "__main__":

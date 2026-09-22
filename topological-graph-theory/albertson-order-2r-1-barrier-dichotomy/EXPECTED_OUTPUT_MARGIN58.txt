@@ -1,16 +1,16 @@
 Which inequality is tight at a surviving point
 
-   in scope and undecided: 2227
-   surviving points: 2360
+   in scope and undecided: 2220
+   surviving points: 2352
 
    tightest inequality at a surviving point (inequality (1) excluded,
    since the scan pins it to equality by construction):
-      4 spread         1250
+      4 spread         1242
       6 U-deg          1043
       3 turan            67
 
-   distribution of that minimum slack (capped at 10): [(0, 1370), (1, 152), (2, 137), (3, 176), (4, 129), (5, 142), (6, 98), (7, 88), (8, 41), (9, 21), (10, 6)]
-   points clearing every inequality by EXACTLY ZERO somewhere: 1370 of 2360
+   distribution of that minimum slack (capped at 10): [(0, 1362), (1, 152), (2, 137), (3, 176), (4, 129), (5, 142), (6, 98), (7, 88), (8, 41), (9, 21), (10, 6)]
+   points clearing every inequality by EXACTLY ZERO somewhere: 1362 of 2352
 
 PROBE 1   a + t <= omega(G) <= 28 in case B
    largest a + t over case-B points: 26
@@ -23,7 +23,7 @@ PROBE 2   G contains K_{a+|R|} minus rsum + e(H[R]) edges
 
 PROBE 4   component spread: why inequality (8) cannot fire
    (8) forces c_A = 1 where (4) is tight, but it needs W >= 1 too.
-   points with (4) slack 0          : 1250
+   points with (4) slack 0          : 1242
    points with W >= 1               : 1108
    points with BOTH                 : 0
    points (8) rejects               : 0
@@ -34,7 +34,7 @@ PROBE 4   component spread: why inequality (8) cannot fire
 CONCLUSION
    The surviving points are tight in the SMALL counts and slack in
    everything that scales with |R|.  Ranked by how often each is the
-   tightest: 4 spread 1250, 6 U-deg 1043, 3 turan 67.
+   tightest: 4 spread 1242, 6 U-deg 1043, 3 turan 67.
    Probe 2 reaches 4093 of the 8281 it needs, a shortfall of 4188 (50%);
    probe 1 reaches 26 of its cap of 28.
    Everything in this file is derived from the measurement rather

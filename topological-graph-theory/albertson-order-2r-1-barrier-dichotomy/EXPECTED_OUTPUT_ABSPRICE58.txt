@@ -1,43 +1,43 @@
 What would the absorption inequality buy?  Priced by a scan.
 
-   open clique-block configurations: 6054
+   open clique-block configurations: 6016
 
-   configurations NO absorption bonus ever closes: 1 of 6054
+   configurations NO absorption bonus ever closes: 0 of 6016
 
    d        scan         histogram    histogram
             closes       predicts     overstates by
-   1        117          3196         3079
-   2        387          4143         3756
-   3        700          4744         4044
-   5        1309         5436         4127
-   8        2375         5895         3520
-   10       3346         6022         2676
-   11       3846         6044         2198
-   12       4303         6052         1749
-   13       4724         6052         1328
-   15       5417         6052         635
-   20       6052         6054         2
-   25       6053         6054         1
-   100      6053         6054         1
+   1        117          3158         3041
+   2        379          4105         3726
+   3        688          4706         4018
+   5        1290         5398         4108
+   8        2341         5857         3516
+   10       3309         5984         2675
+   11       3809         6006         2197
+   12       4266         6014         1748
+   13       4687         6014         1327
+   15       5380         6014         634
+   20       6015         6016         1
+   25       6016         6016         0
+   100      6016         6016         0
 
    least bonus that closes anything: 1
-   distribution of the least closing bonus (capped at 20): [(1, 117), (2, 270), (3, 313), (4, 343), (5, 266), (6, 300), (7, 336), (8, 430), (9, 485), (10, 486), (11, 500), (12, 457), (13, 421), (14, 369), (15, 324), (16, 266), (17, 160), (18, 111), (19, 76), (20, 23)]
+   distribution of the least closing bonus (capped at 20): [(1, 117), (2, 262), (3, 309), (4, 339), (5, 263), (6, 297), (7, 333), (8, 421), (9, 485), (10, 483), (11, 500), (12, 457), (13, 421), (14, 369), (15, 324), (16, 266), (17, 160), (18, 111), (19, 76), (20, 23)]
    median least closing bonus: 10;  largest: 21
 
 CONTROL   the same four rows, re-derived through the real decision
    d = 1    scan says 117    re-run says 117     PASS
-   d = 2    scan says 387    re-run says 387     PASS
-   d = 5    scan says 1309   re-run says 1309    PASS
-   d = 25   scan says 6053   re-run says 6053    PASS
+   d = 2    scan says 379    re-run says 379     PASS
+   d = 5    scan says 1290   re-run says 1290    PASS
+   d = 25   scan says 6016   re-run says 6016    PASS
 
 CONCLUSION
-   One unconditional unit closes 117, against the 3196 the histogram
-   predicts -- an overstatement of 3079.
+   One unconditional unit closes 117, against the 3158 the histogram
+   predicts -- an overstatement of 3041.
    But the REACH is the other half of the story, and it is the
-   opposite of the count inequality's.  Exactly 1 configuration of the 6054
-   escapes through Za >= t or mu_1 >= t, which no absorption bonus
+   opposite of the count inequality's.  Exactly 0 configurations of the 6016
+   escape through Za >= t or mu_1 >= t, which no absorption bonus
    of any size touches; a large enough bonus closes ALL THE REST --
-   6053 of 6054, including configurations outside the clique-cover
+   6016 of 6016, including configurations outside the clique-cover
    route entirely.  The count inequality, by contrast, is stuck at
    3561 of 4486 at every handicap tried (slack58.py).
    So the absorption inequality does not lack REACH, it lacks

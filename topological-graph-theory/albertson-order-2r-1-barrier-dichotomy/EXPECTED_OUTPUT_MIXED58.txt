@@ -1,24 +1,24 @@
 Triangles across the L/R split: are any GUARANTEED?
 
-   open clique-block configurations: 6054
-      three disjoint triangles in H[L] not guaranteed: 3827
-      in scope for the block route but undecided:       2227
+   open clique-block configurations: 6016
+      three disjoint triangles in H[L] not guaranteed: 3796
+      in scope for the block route but undecided:       2220
 
    configurations where a triangle of each mixed type is FORCED:
 
    set                         size    2L+1R    1L+2R     3R   any one
-   all open                    6054      233        0   1158      1391
-   H[L] route unavailable      3827      233        0    264       497
-   in scope but undecided      2227        0        0    894       894
+   all open                    6016      233        0   1156      1389
+   H[L] route unavailable      3796      233        0    262       495
+   in scope but undecided      2220        0        0    894       894
 
    nu_tri(H) >= 3 FORCED by the two sides sharing one budget of six:
-      all open                     183 of 6054
-      H[L] route unavailable         0 of 3827
-      in scope but undecided       183 of 2227
+      all open                     183 of 6016
+      H[L] route unavailable         0 of 3796
+      in scope but undecided       183 of 2220
 
 CONCLUSION
-   One mixed triangle is forced on 1391 of the 6054 open configurations,
-   almost all of them by Mantel inside H[R] (1158) rather than by any
+   One mixed triangle is forced on 1389 of the 6016 open configurations,
+   almost all of them by Mantel inside H[R] (1156) rather than by any
    crossing type: the 1L+2R test fires 0 times, never.
 
    But the route needs THREE disjoint triangles, and that is forced on
@@ -27,7 +27,7 @@ CONCLUSION
 
    SO THE MIXED ROUTE ADDS NO SCOPE AT ALL.  Every configuration
    where mixed triangles force a packing of three is already in
-   scope through H[L]; not one of the 3827 out-of-scope
+   scope through H[L]; not one of the 3796 out-of-scope
    configurations is rescued by them.  'Triangles across the L/R
    split', named as the next step four times, is NOT AVAILABLE
    where it was wanted.

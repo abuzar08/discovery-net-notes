@@ -1,0 +1,54 @@
+The leaf-block lemma at order 58
+
+PART 1   what it removes from the enumeration
+   configurations before the filter: 8313
+   configurations after:             8183
+   removed: 130
+   by |R|: [(19, 3), (20, 6), (21, 12), (22, 21), (23, 27), (24, 31), (25, 30)]
+   of those, OPEN under every previous filter -- NEW CLOSURES: 38
+
+PART 2   positive control: the one explicitly constructed H
+   adv58.py builds an admissible H with |R| = 24, blocks (17, 12, 5)
+   d_0 = 4, so every leaf block needs q >= 5; smallest block is 5
+   lemma accepts it: True   PASS
+   -- and with margin ZERO, which is the useful part: the filter is
+      tight against the only admissible H anyone here has built.
+
+PART 3   completeness of the enumeration the filter rests on
+   most realisable forests on any one multiset: 273
+   calls that hit the 200000 cap: 0
+   multisets with no realisable forest at all: 0
+   PASS -- a rejection is 'no forest is admissible', never
+   'the enumeration gave up'.
+
+PART 4   the validity threshold is load-bearing, not decorative
+   applied at d_0 <= 2, where an odd-cycle leaf block is permitted,
+   the same test would remove a further 1071 configurations.
+   THEY ARE NOT CLAIMED.  This is the number the lane would have
+   over-claimed by if the threshold had been asserted instead of
+   derived -- the failure auditc.py exists to prevent for (C1)-(C3).
+
+PART 5   pricing the general programme: a theorem q_1 >= |R| - k
+   open configurations: 6016;  |R| - q_1 runs -13 .. 19
+   k      eliminated   left open
+   -2     5949         67
+   0      5679         337
+   2      5140         876
+   3      4800         1216
+   5      3982         2034
+   7      3074         2942
+   8      2622         3394
+   10     1740         4276
+   12     1024         4992
+   15     333          5683
+
+   THE CEILING ON THIS PROGRAMME.  adv58.py's admissible H has
+   |R| - q_1 = 7, so no theorem q_1 >= |R| - k with k < 7 follows
+   from admissibility alone -- there is an admissible object that
+   violates it.  At the best value that survives that object,
+   k = 7, the programme eliminates 3074 of the 6016 open configurations
+   and leaves 2942.  That is the honest ceiling: the largest single
+   lever identified in this lane, and it is not a closure of order
+   58 on its own.
+
+   r = 29 is NOT proved.

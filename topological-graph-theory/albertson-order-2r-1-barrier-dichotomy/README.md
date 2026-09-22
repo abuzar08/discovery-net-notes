@@ -1546,10 +1546,10 @@ reviewed on the ledger.
 
 | | count |
 |---|---|
-| clique blocks | 6054 |
+| clique blocks | 6016 |
 | one odd-cycle block | 15 |
 | an isolated low vertex | 307 |
-| **total** | **6376** |
+| **total** | **6338** |
 
 **The hypothesis inventory** — the table whose absence produced four defects in
 five passes, now checked programmatically:
@@ -1782,17 +1782,19 @@ configuration, so the price cannot drift from the thing priced:
 | 5 | 1309 | 5436 |
 | 10 | 3346 | 6022 |
 | 15 | 5417 | 6052 |
-| 20 | **6052** | 6054 |
-| 25 | 6053 | 6054 |
+| 20 | **6016** | 6016 |
+| 25 | 6016 | 6016 |
 
 Median least closing bonus **10**, largest **21**; four rows re-derived the slow
 way through the real decision, by setting `residue58.ABS_HANDICAP`, all **PASS**.
 
 **And the reach, which is the useful half of the measurement.**  Exactly **one**
-configuration of the 6054 escapes the absorption inequality entirely.  The other
+configuration of the 6054 escaped the absorption inequality entirely, and the
+leaf-block lemma has since removed that very configuration from the
+enumeration, so all **6016** open today close for a large enough bonus.  The
 **6053** close for a large enough bonus, *including configurations outside the
 clique-cover route that nothing else here reaches* — against the count
-inequality, which is stuck at 3561 of 4486 at every handicap tried.  **So the
+inequality, which is stuck at 3462 of 4387 at every handicap tried.  **So the
 residual is not two halves needing two tools**: it is one inequality and one
 scalar, how many units of absorption can be proved unconditionally.  Ten closes
 half the class; twenty-one closes all of it but one.
@@ -2115,10 +2117,11 @@ on 6768 Gallai forests and 719597 subsets.  The first version of `tuttegen.py`
 used \(c_A=1\) everywhere, which is false on the 6536 configurations with
 overlapping blocks; that would have over-claimed, and is recorded as defect 11.
 
-**Result.**  **2259** configurations are closed **for every admissible \(H\)**,
-so order 58 falls from 8635 to **6376**.  (Was 2294 and 6341; **35 closures were
-withdrawn** when the block multiset was found to omit blocks — see `METHODS.md`,
-defect 19.)  The configuration of `adv58.py` is among
+**Result.**  **2167** configurations are closed **for every admissible \(H\)**,
+so order 58 falls to **6338**.  (Was 2259 and 6376 before the leaf-block lemma
+removed 130 configurations from the enumeration, 38 of them open; and 2294 and
+6341 before the block multiset was found to omit blocks — see `METHODS.md`,
+defects 19 and 22.)  The configuration of `adv58.py` is among
 them, which is consistent with the \(\nu=24\) measured there directly.
 
 **The sixth inequality, and how it was found.**  Rather than guess which
@@ -2136,7 +2139,7 @@ while the scan itself uses the exact guarantee on the true one.  The two errors
 did not cancel; they produced a reach of 3712 that coincided **exactly** with
 the count inequality's one-unit row, and that coincidence was published as *"one
 unconditional unit on the count inequality closes every configuration the route
-reaches"*.  It closes **3561 of 4486** — 925 short — and **no** inequality in
+reaches"*.  It closes **3462 of 4387** — 925 short — and **no** inequality in
 the table is decisive at one unit.  See `METHODS.md`, defect 20.  Since \(x_z\ge1\) for
 every \(z\in R\) and \(\sum_{z\in R}x_z=X\le56\), the vertices of \(U\) each
 carry nearly the full degree 29; but a vertex of \(U\) has **no neighbour in
@@ -2148,8 +2151,8 @@ component-count refinements tried first.
 
 **Scope, and the direction of the risk.**  The five inequalities are *necessary*
 conditions, so an infeasible scan is a proof and a feasible scan proves nothing;
-of the 6054 remaining, **2227** admit a parameter point the counts cannot rule
-out, which is **not** the same as an obstruction existing, and **3827** are ones
+of the 6016 remaining, **2220** admit a parameter point the counts cannot rule
+out, which is **not** the same as an obstruction existing, and **3796** are ones
 for which three disjoint triangles are **not guaranteed**.  (Those two figures
 were 1418 and 4601 until pass 60, when the split was made consistent with the
 guarantee `route_closed` actually uses; see `METHODS.md`, defects 19 and 20.)
@@ -2194,7 +2197,7 @@ is measured rather than assumed.  If \(\nu_\triangle(H)\le2\) there is a 6-set
 \(B'\) meeting every triangle, so \(H[L\setminus B']\) is triangle-free and **at
 most two blocks keep a private vertex outside \(B'\)** — a private tail of
 \(\ge7\) outside the best two blocks would certify \(\nu_\triangle\ge3\) on its
-own.  That criterion **fires on 0 of the 3827**, and the tail is at most **2** on
+own.  That criterion **fires on 0 of the 3796**, and the tail is at most **2** on
 every one of them (0 on 1190, 1 on 1155, 2 on 1482).  So across the whole
 residual \(H[L]\) is two blocks plus at most two stray private vertices, and
 every triangle beyond the couple \(L\) can supply must use a vertex of \(R\).
@@ -2206,9 +2209,9 @@ residual is now described exactly rather than lumped together:
 
 | | count |
 |---|---|
-| a parameter point survives the seven inequalities | 2227 |
-| three disjoint triangles not guaranteed — **beyond the approach** | **3827** |
-| **clique-block total** | **6054** |
+| a parameter point survives the seven inequalities | 2220 |
+| three disjoint triangles not guaranteed — **beyond the approach** | **3796** |
+| **clique-block total** | **6016** |
 
 ## What this does not do
 
@@ -2218,8 +2221,8 @@ For `r = 29` see the partial section above: order 57 is closed, and
 (`seed57.py`); a claim to the contrary that I published in pass 53 is withdrawn,
 see `METHODS.md` defect 17 — and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 6054 configurations with clique blocks, 15 with an odd-cycle
-block and 307 carrying an isolated low vertex, **6376** in all.  Nothing here
+is **not** closed: 6016 configurations with clique blocks, 15 with an odd-cycle
+block and 307 carrying an isolated low vertex, **6338** in all.  Nothing here
 bears on `r >= 30`.
 
 ## Files and reproduction
@@ -2248,6 +2251,8 @@ bears on `r >= 30`.
 | `mixed58.py` | **triangles across the L/R split are not available where they were wanted** |
 | `shortfall58.py` | how far order 58 is from closing **on the class open today** |
 | `EXPECTED_OUTPUT_SHORTFALL58.txt` | its expected output |
+| `leaf58.py` | **the leaf-block lemma**: every leaf block of the Gallai forest is a clique of size \(\ge29-\lvert R\rvert\) when \(d_0\ge3\) — removes 130 configurations, **38 of them open** |
+| `EXPECTED_OUTPUT_LEAF58.txt` | its expected output |
 | `capacity58.py` | **the absorption gap is missing capacity, not slack**: \(\mu_1\) and \(\mu_2\) are at their absolute ceilings at the binding point |
 | `EXPECTED_OUTPUT_CAPACITY58.txt` | its expected output |
 | `absprice58.py` | **what the absorption inequality would actually buy, priced by a scan**: one unit closes 117, not 3196 — but it reaches 6053 of 6054 |
@@ -2301,6 +2306,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 mixed58.py      | diff -u EXPECTED_OUTPUT_MIXE
 PYTHONDONTWRITEBYTECODE=1 python3 shortfall58.py  | diff -u EXPECTED_OUTPUT_SHORTFALL58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 absprice58.py  | diff -u EXPECTED_OUTPUT_ABSPRICE58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 capacity58.py  | diff -u EXPECTED_OUTPUT_CAPACITY58.txt -
+PYTHONDONTWRITEBYTECODE=1 python3 leaf58.py      | diff -u EXPECTED_OUTPUT_LEAF58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 seed57.py       | diff -u EXPECTED_OUTPUT_SEED57.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 slack58.py      | diff -u EXPECTED_OUTPUT_SLACK58.txt -
 PYTHONDONTWRITEBYTECODE=1 python3 state29.py      | diff -u EXPECTED_OUTPUT_STATE29.txt -
