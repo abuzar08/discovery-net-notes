@@ -105,6 +105,38 @@ whichever answer that is. The refuting cases here are checked against
 Zarankiewicz for \(K_{3,n}\) and Harborth for \(K_{1,1,1,m}\) — theorems, not
 conjectures — and the confirming ones against values I had decided independently.
 
+
+## A step a successor will skip: \(\mathrm{sk} = k\) does not give \(\operatorname{cr} \le k\)
+
+The two bounds look symmetric and are not.
+
+> \(\mathrm{sk}(G) = k\) says \(k\) edge *deletions* planarise \(G\). It gives
+> \(\operatorname{cr}(G) \ge k\) and **nothing in the other direction.**
+
+Deleting an edge is not the same as letting it cross once. Re-inserting the
+deleted edge into a planar embedding of \(G - e\) may cost several crossings, or
+may be impossible under every embedding, so \(\mathrm{sk} = 1\) is fully
+consistent with \(\operatorname{cr} = 5\).
+
+This matters because it is exactly the shortcut that looks safe. Auditing
+\(\operatorname{cr}(Ci_n(\{1,\lfloor n/2\rfloor\})) = 1\), the claim forces
+\(\mathrm{sk} = 1\), and computing \(\mathrm{sk} = 1\) at fourteen values
+feels like a confirmation. **It is only half of one.** The other half is the
+transversal test at \(k = \mathrm{sk} = 1\), where the method is complete,
+returning \(\operatorname{cr} \le 1\). Only the two together give
+\(\operatorname{cr} = 1\).
+
+So in every use of this instrument, the two directions come from two different
+computations:
+
+| bound | source |
+| --- | --- |
+| \(\operatorname{cr} \ge \mathrm{sk}\) | exhaustive skewness |
+| \(\operatorname{cr} \le k\) | a drawing, or the transversal test returning `True` |
+
+Reporting one as if it were both is the failure mode; the tool cannot catch it,
+because each computation is individually correct.
+
 ## The speed-up, measured
 
 My own rule is that a speed-up is not a speed-up until timed, on the same
