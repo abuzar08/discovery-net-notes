@@ -2,23 +2,23 @@ How strong would a sharpening have to be?  Priced by re-running the
 closure scan with each inequality handicapped.
 
    configurations scanned: 8313
-   closed with no handicap: 2294
+   closed with no handicap: 2259
 
    Configurations closed when inequality j holds with d to spare:
 
    inequality       d=1      d=5      d=25     d=50   
-   (1) count        3712     3712     3712     3712   
-   (2) degree       2294     2294     2323     2720   
-   (3) Turan        2299     2324     2538     2689   
-   (4) spread       2937     2937     2937     2937   
-   (5) S_R-degree   2299     2324     2588     3259   
+   (1) count        3561     3561     3561     3561   
+   (2) degree       2259     2259     2284     2627   
+   (3) Turan        2264     2289     2503     2654   
+   (4) spread       2786     2786     2786     2786   
+   (5) S_R-degree   2264     2289     2549     3166   
 
-   configurations the route reaches at all: 3712
+   configurations the route reaches at all: 4486
 
-   One unit is already decisive for: (1) count -- a single
-   unconditional unit there closes every configuration the
-   route reaches.
-   Ranked by yield at d = 1: (1) count 3712, (4) spread 2937, (3) Turan 2299, (5) S_R-degree 2299, (2) degree 2294
+   NO inequality is decisive at one unit.  The best is (1) count,
+   closing 3561 of the 4486 the route reaches -- 925 short.
+   Even at d = 50 the best is (1) count, 3561 of 4486.
+   Ranked by yield at d = 1: (1) count 3561, (4) spread 2786, (3) Turan 2264, (5) S_R-degree 2264, (2) degree 2259
 
    Read the small numbers as a NEGATIVE result: an inequality whose
    d = 50 column is near the baseline will not be worth sharpening,

@@ -7,15 +7,15 @@ PART 1   why three is the exact requirement
    guaranteed; the seven inequalities cannot reach anything else.
 
 PART 2   the exact guarantee against the knapsack it replaces
-   route-unavailable configurations tested: 4601
-   brought INTO scope by the exact guarantee: 925
-   still out of scope: 3676
-   certified packing number of those still out: [(0, 753), (1, 1459), (2, 1464)]
+   route-unavailable configurations tested: 4802
+   brought INTO scope by the exact guarantee: 975
+   still out of scope: 3827
+   certified packing number of those still out: [(0, 753), (1, 1592), (2, 1482)]
 
 PART 3   can the nu_tri <= 2 branch be excluded by block counting?
    a tail of >= 7 would certify nu_tri >= 3 on its own.
    configurations where it fires: 0
-   distribution of the tail: [(0, 1184), (1, 1028), (2, 1464)]
+   distribution of the tail: [(0, 1190), (1, 1155), (2, 1482)]
 
    So on the WHOLE residual the tail is at most 2: H[L] is two blocks
    plus at most two stray private vertices.  The nu_tri <= 2 branch

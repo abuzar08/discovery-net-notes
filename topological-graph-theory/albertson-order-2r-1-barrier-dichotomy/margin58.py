@@ -84,10 +84,12 @@ NAMES = ("2 degree", "3 turan", "4 spread", "5 S_R-deg", "6 U-deg",
 def undecided(cfgs):
     out = []
     for m, RSZ, mult, eHR in cfgs:
-        NL = G.N58 - RSZ
-        if P.kmax_exact(list(mult), NL) < 3:
+        NL, X = G.N58 - RSZ, 2 * m - G.N58 * G.DEG
+        # true_blocks, not mult: the enumerator does not list every block, and
+        # the guarantee computed from the raw multiset is too LARGE (defect 19).
+        if P.kmax_exact(G.true_blocks(mult, RSZ, eHR, X), NL) < 3:
             continue
-        if G.route_closed(RSZ, list(mult), eHR, 2 * m - G.N58 * G.DEG)[0]:
+        if G.route_closed(RSZ, list(mult), eHR, X)[0]:
             continue
         out.append((m, RSZ, mult, eHR))
     return out
@@ -95,7 +97,7 @@ def undecided(cfgs):
 
 def points(m, RSZ, mult, eHR):
     NL, X = G.N58 - RSZ, 2 * m - G.N58 * G.DEG
-    for k in range(3, P.kmax_exact(list(mult), NL) + 1):
+    for k in range(3, P.kmax_exact(G.true_blocks(mult, RSZ, eHR, X), NL) + 1):
         w = []
         G.obstructed(RSZ, list(mult), eHR, k, NL, None, X, w)
         if not w:

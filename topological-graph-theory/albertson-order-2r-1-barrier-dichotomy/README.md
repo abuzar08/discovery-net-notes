@@ -2075,7 +2075,17 @@ right-hand side and re-run the whole scan.  That said the edge counts were then 
 — and sent attention to what constrains \(U\).  (Those verdicts have since
 moved as the inequality set grew; the table is only ever a statement about the
 current set, which is why `slack58.py` derives its conclusions from the measured
-rows.)  Since \(x_z\ge1\) for
+rows.)
+
+**And a target this pricing was read as supplying is withdrawn.**  Until pass 60
+the denominator it was priced against — *configurations the route reaches at
+all* — was computed here by the superseded knapsack bound on the raw multiset,
+while the scan itself uses the exact guarantee on the true one.  The two errors
+did not cancel; they produced a reach of 3712 that coincided **exactly** with
+the count inequality's one-unit row, and that coincidence was published as *"one
+unconditional unit on the count inequality closes every configuration the route
+reaches"*.  It closes **3561 of 4486** — 925 short — and **no** inequality in
+the table is decisive at one unit.  See `METHODS.md`, defect 20.  Since \(x_z\ge1\) for
 every \(z\in R\) and \(\sum_{z\in R}x_z=X\le56\), the vertices of \(U\) each
 carry nearly the full degree 29; but a vertex of \(U\) has **no neighbour in
 \(A\)**, so
@@ -2086,10 +2096,13 @@ component-count refinements tried first.
 
 **Scope, and the direction of the risk.**  The five inequalities are *necessary*
 conditions, so an infeasible scan is a proof and a feasible scan proves nothing;
-of the 6019 remaining, 1418 admit a parameter point the counts cannot rule out,
-which is **not** the same as an obstruction existing, and 4601 are ones for which
-three disjoint triangles are **not guaranteed**.  The previous revision said
-those 4601 "have no three disjoint triangles at all"; that overstates a
+of the 6054 remaining, **2227** admit a parameter point the counts cannot rule
+out, which is **not** the same as an obstruction existing, and **3827** are ones
+for which three disjoint triangles are **not guaranteed**.  (Those two figures
+were 1418 and 4601 until pass 60, when the split was made consistent with the
+guarantee `route_closed` actually uses; see `METHODS.md`, defects 19 and 20.)
+An earlier revision said the out-of-scope set "has no three disjoint triangles at
+all"; that overstates a
 *sufficient* test and is corrected — see `METHODS.md`, defect 12.  The closure
 count is unaffected, since the test only ever decides whether a route applies.  Because the whole risk lies in that direction, it is
 measured: the explicit \(H\) of `adv58.py` has its Gallai–Edmonds set read off
@@ -2129,21 +2142,21 @@ is measured rather than assumed.  If \(\nu_\triangle(H)\le2\) there is a 6-set
 \(B'\) meeting every triangle, so \(H[L\setminus B']\) is triangle-free and **at
 most two blocks keep a private vertex outside \(B'\)** — a private tail of
 \(\ge7\) outside the best two blocks would certify \(\nu_\triangle\ge3\) on its
-own.  That criterion **fires on 0 of the 3676**, and the tail is at most **2** on
-every one of them (0 on 1184, 1 on 1028, 2 on 1464).  So across the whole
+own.  That criterion **fires on 0 of the 3827**, and the tail is at most **2** on
+every one of them (0 on 1190, 1 on 1155, 2 on 1482).  So across the whole
 residual \(H[L]\) is two blocks plus at most two stray private vertices, and
 every triangle beyond the couple \(L\) can supply must use a vertex of \(R\).
 **Triangles across the \(L\)/\(R\) split are what a successor's tool has to
 handle**, and that is now established, not guessed.
 
-**It brings 925 configurations into scope and closes none of them** — so the
+**It brings 975 configurations into scope and closes none of them** — so the
 residual is now described exactly rather than lumped together:
 
 | | count |
 |---|---|
-| a parameter point survives the seven inequalities | 2343 |
-| three disjoint triangles not guaranteed — **beyond the approach** | 3676 |
-| **clique-block total** | **6019** |
+| a parameter point survives the seven inequalities | 2227 |
+| three disjoint triangles not guaranteed — **beyond the approach** | **3827** |
+| **clique-block total** | **6054** |
 
 ## What this does not do
 
@@ -2153,8 +2166,8 @@ For `r = 29` see the partial section above: order 57 is closed, and
 (`seed57.py`); a claim to the contrary that I published in pass 53 is withdrawn,
 see `METHODS.md` defect 17 — and order 58 is
 reduced to one class, \(b=6\), \(c=(51,1)\) with \(\lvert R\rvert\ge11\), which
-is **not** closed: 6019 configurations with clique blocks, 15 with an odd-cycle
-block and 307 carrying an isolated low vertex, **6341** in all.  Nothing here
+is **not** closed: 6054 configurations with clique blocks, 15 with an odd-cycle
+block and 307 carrying an isolated low vertex, **6376** in all.  Nothing here
 bears on `r >= 30`.
 
 ## Files and reproduction

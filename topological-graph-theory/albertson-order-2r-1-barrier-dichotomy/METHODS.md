@@ -125,7 +125,7 @@ Each row is a method, what it was applied to, and the measured outcome.
 | Block-plus-\(R\) near-complete bound (`blockr58.py`) | \(v\in Q\) has only \(q+\lvert R\rvert-29\) non-neighbours in \(R\); kills 172 |
 | \(\alpha(G)\le3\) applied to the blocks (`alpha58.py`) | private vertices of distinct blocks are independent; **103292 → 9533**, the single largest reduction |
 | Turán cap \(e(H[R])\le\lfloor\lvert R\rvert^2/3\rfloor\) (`turan58.py`) | removes 444 |
-| Corrected singleton count (`dichot.singletons`) | closes 159; brings 3326 configurations to *one unit* short |
+| Corrected singleton count (`dichot.singletons`) | closes 159; brings configurations to *one unit* short of the absorption inequality — 3326 of the 9104-survivor set it was measured on, **3196 of the 6054 open today** (`shortfall58.py`) |
 | Widened second side to \(L\setminus Q_1\) (`residue58.second_edges`) | \(\mu_2\) improves for 641 of 1843; closes **none** |
 | Matroid intersection on the absorption step (`exhaust58.py`) | closes **1 of 1843**; inclusion–exclusion was never the bottleneck |
 | Hall sharpening of \(s\) | **no change at all**, 8623 → 8623 |
@@ -149,14 +149,14 @@ Each row is a method, what it was applied to, and the measured outcome.
 | Singleton reach, **with the fit condition** | \(A\) must also *fit* inside \(v\)'s blocks: a block \(Q_j\) not containing \(v\) keeps \(\ge q_j-\mathrm{extra}\) private vertices of which only \(\mathrm{rem}_j\) are deleted with the triangles, so \(s_L\ge\sum_{j\notin B}\max(0,q_j-\mathrm{extra}-\mathrm{rem}_j)\). Without it the knapsack lets \(v\) reach blocks it cannot cover |
 | \(\min(\rho_v,u)\) cap on the \(L\)-budget | an \(L\setminus A\) vertex sends at most \(\min(\rho_v,u)\) edges into \(U\), not \(\rho_v\). In case B the \(q_A-a\) leftover block-mates each lose \(\max(0,\rho_A-u)\); when the blocks partition \(L\) the whole sum is exact block by block. Together with the fit condition: **1343 → 2294** |
 | **Three disjoint triangles are the exact domain** (`packing58.py`) | \(\theta(H)\le28\) forces \(t_3\ge2\) for every one of the seventy families, and \((2,26)\) is the **unique** family with \(t_3=2\) — excluded by the branch hypothesis (TT). So the route applies **iff** three disjoint triangles are guaranteed. This is not a gate in front of the machinery, it is the machinery's domain: **no sharpening of the seven inequalities can ever reach a configuration without them** |
-| Hitting-set criterion for \(\nu_\triangle\ge3\) (`packing58.py`) | \(\nu_\triangle(H)\le2\) gives a 6-set \(B'\) meeting every triangle, so \(H[L\setminus B']\) is triangle-free and **at most two blocks keep a private vertex outside \(B'\)**; a private tail of \(\ge7\) outside the best two blocks therefore certifies \(\nu_\triangle\ge3\). Valid and independent of the packing count, but **fires on 0 of the 3676** — and the tail is \(\le2\) on every one of them, which is the real content |
-| Exact triangle guarantee (`packing58.py`) | replaces the knapsack by enumerating the realisable Gallai forests and using types (a cut vertex of type \(\{Q_3,Q_4\}\) is usable against private vertices of \(Q_1,Q_2\)). Brings **925** configurations into scope; **closes none of them** |
+| Hitting-set criterion for \(\nu_\triangle\ge3\) (`packing58.py`) | \(\nu_\triangle(H)\le2\) gives a 6-set \(B'\) meeting every triangle, so \(H[L\setminus B']\) is triangle-free and **at most two blocks keep a private vertex outside \(B'\)**; a private tail of \(\ge7\) outside the best two blocks therefore certifies \(\nu_\triangle\ge3\). Valid and independent of the packing count, but **fires on 0 of the 3827** — and the tail is \(\le2\) on every one of them, which is the real content |
+| Exact triangle guarantee (`packing58.py`) | replaces the knapsack by enumerating the realisable Gallai forests and using types (a cut vertex of type \(\{Q_3,Q_4\}\) is usable against private vertices of \(Q_1,Q_2\)). Brings **975** configurations into scope; **closes none of them** |
 | Witness mode in the scan | the surviving points are now collected by `obstructed` itself. A previous pass kept a second copy of the enumeration for this, it drifted out of step with `_ok`, and two runs were wasted on the stale copy |
 | Disjoint-neighbourhood inequality (7) | \((c_A-\mathrm{iso})\max(0,\rho_A-s_R)\le\lvert W\rvert\). **0 closures alone**, but it changes the surviving shape, and the shape it exposes is what the exact \(\rho\)-sum bound then kills |
 | Component-spread inequality (8) (`tuttegen.py`) | a \(W\)-vertex's \(A\)-neighbours all lie in its own component, so \(\mathrm{rsum}-a\,s_R\le e(A,W)\le(a-c_A+1)\lvert W\rvert\). Where (4) is tight this **forces \(c_A=1\)** — apparently the lever, since (4) is tightest at most surviving points. **Fires on 0 points**, and the reason is measured: the two conditions it needs are **disjoint** on the surviving set — 1416 points have (4) tight, 1108 have \(\lvert W\rvert\ge1\), **none have both**, and those two classes cover 2524 of the 2526 points. Where (4) is tight the adversary always takes \(W=0\), and there its consequence is already inequality (5) |
 | **`mult` omits blocks — a trap for anything derived from it** | `mu58.multisets`'s odd-cycle branch adds edges to `eL` without listing the block, so \(\sum_iq_i(q_i-1)\ne\sum_vD_v\) on 772 configurations; the correct degree sum is \(2\,e(G[L])=2\,\mathrm{eL}\), and \(\mathrm{extra}=\sum_iq_i-\lvert L\rvert\) is understated there. `tuttegen.true_blocks` restores the omitted block. **Any bound derived from `mult` alone must use this** |
 | Exact-total side bounds in the residue (`residue58.side_caps`) | \(e_H(Q_1,R)+e_H(L\setminus Q_1,R)=e_H(L,R)=29\lvert R\rvert-X-2e(H[R])\) exactly, so each side is bounded below by the total minus an upper bound on the other. Valid, and **closes 0** — a first version used the block degree sum, was unsound on the 772, and its 3 apparent closures were the artifact that exposed defect 19 |
-| **Mixed triangles across the \(L\)/\(R\) split** (`mixed58.py`) | named as the next step in four separate passes and **gated instead of built**. All four ways a triangle can meet the split are tested for being *forced*: 3L (`packing58.py`), 2L+1R (\(\rho_i+\rho_j>\lvert R\rvert\)), 1L+2R (\(e(H[R])>\binom{\lvert R\rvert}{2}-\binom{\rho_i}{2}\)), 3R (Mantel). One is forced on **1375** of 6019 — almost all by Mantel inside \(H[R]\); 1L+2R fires **never**. But the route needs **three disjoint**, and combining both sides against one shared budget of six forces that on only **183**, **all of which the block route already reaches, and 0 of the 3676**. **The mixed route adds no scope at all** |
+| **Mixed triangles across the \(L\)/\(R\) split** (`mixed58.py`) | named as the next step in four separate passes and **gated instead of built**. All four ways a triangle can meet the split are tested for being *forced*: 3L (`packing58.py`), 2L+1R (\(\rho_i+\rho_j>\lvert R\rvert\)), 1L+2R (\(e(H[R])>\binom{\lvert R\rvert}{2}-\binom{\rho_i}{2}\)), 3R (Mantel). One is forced on **1391** of 6054 — almost all by Mantel inside \(H[R]\); 1L+2R fires **never**. But the route needs **three disjoint**, and combining both sides against one shared budget of six forces that on only **183**, **all of which the block route already reaches, and 0 of the 3827**. **The mixed route adds no scope at all** |
 | **Margin at a surviving point** (`margin58.py`) | which inequality is *closest to failing* where the scan survives: **(4) spread on 1416 points, (6) \(U\)-degree on 1043, (3) Turán on 67**, and **1536 of 2526 points clear something by exactly zero**. Complementary to the handicap table, not a substitute — confusing the two is defect 13 |
 | \(a+t\le\omega(G)\le28\) from criticality | \(A\) is a clique of \(G\) and one vertex per \(U\)-component extends it; and a \(K_{29}\) in a 29-critical graph on 58 vertices would be a **proper** subgraph of chromatic number 29. Sharpens the table's \(\omega\le29\). **Measured: \(a+t\) never exceeds 26 — does not bite** |
 | Crossing ladder on the near-complete subgraph | at a case-B point with \(W=0\), \(u=t\): \(G\supseteq K_{a+\lvert R\rvert}\) minus **exactly** \(\sum_ia_i\rho_i+e(H[R])\) edges. **Measured: best bound 4163 against \(Z(29)=8281\), a 49% shortfall — does not bite**, because deleting ~half of \(K_{43}\) costs most of its crossing number |
@@ -166,16 +166,16 @@ Each row is a method, what it was applied to, and the measured outcome.
 *today* (`shortfall58.py`), because `profile58.py`'s figures are true of the
 9104-survivor set that no longer exists:
 
-| | then (9104) | **now (6019)** |
+| | then (9104) | **now (6054)** |
 |---|---|---|
-| absorption shortfall 1 | 3326 (36.5%) | **2909 (48.3%)** |
+| absorption shortfall 1 | 3326 (36.5%) | **3196 (52.8%)** |
 | smallest absorption shortfall | 1 | 1 |
 | crossing shortfall | long-tailed, thousands | unchanged; only 100 under 500, none at 0 |
 
-**The proportion within one unit has risen**, from 36.5% to 48.3% — the
+**The proportion within one unit has risen**, from 36.5% to 52.8% — the
 configurations that survived the last three passes' filters are disproportionately
 the absorption near-misses, so the class is concentrating on that boundary. One
-unconditional unit on the absorption inequality would close **2909 of the 6019**.
+unconditional unit on the absorption inequality would close **3196 of the 6054**.
 All four components of that inequality are at their limit (`exhaust58.py`), and
 `profile58.py`'s own verdict — "push \(\mu_2\), not the crossing bound; that is
 what closed order 57" — is what the re-measurement confirms.
@@ -270,20 +270,35 @@ and count what falls.
 
 | handicap | \(d=1\) | \(d=5\) | \(d=25\) | \(d=50\) |
 |---|---|---|---|---|
-| (1) count | **3712** | 3712 | 3712 | 3712 |
-| (2) degree | 2294 | 2294 | 2323 | 2720 |
-| (3) Turán | 2299 | 2324 | 2538 | 2689 |
-| (4) spread | **2937** | 2937 | 2937 | 2937 |
-| (5) \(S_R\)-degree | 2299 | 2324 | 2588 | 3259 |
+| (1) count | **3561** | 3561 | 3561 | 3561 |
+| (2) degree | 2259 | 2259 | 2284 | 2627 |
+| (3) Turán | 2264 | 2289 | 2503 | 2654 |
+| (4) spread | **2786** | 2786 | 2786 | 2786 |
+| (5) \(S_R\)-degree | 2264 | 2289 | 2549 | **3166** |
 
-Baseline 2294; the route reaches 3712 configurations in all. **One unit off the
-count inequality still closes every one of them**, and the precise target remains
-a theorem \(o(H'-S)\le c_A+t-1\) holding unconditionally.
+Baseline 2259; the route reaches **4486** configurations in all.
+
+**A claim this table was read as supporting is withdrawn — defect 20.** Until
+pass 60 the reach was computed here by the *superseded* knapsack bound
+`kmax_guaranteed` applied to the *raw* multiset, while `route_closed` decides
+reach by the exact packing number on the *true* block multiset. The weaker bound
+understates reach; the unlisted blocks of defect 19 overstate it. The two errors
+did not cancel — they produced **3712**, which coincided **exactly** with the
+count row, and the coincidence was published as *"one unconditional unit on the
+count inequality closes every configuration the route reaches"*.
+
+It does not. One unit off the count inequality closes **3561 of the 4486** the
+route reaches — **925 short** — and **no inequality here is decisive at one
+unit**. At \(d=50\) the count row is still the best and still 3561 of 4486 —
+it does not move at all — and the best of the others, \(S_R\)-degree, reaches
+3166. The
+target \(o(H'-S)\le c_A+t-1\) is still the most valuable single theorem in the
+table, but it is no longer a *sufficient* one.
 
 **The table moves when the inequalities move, and this is worth stating.** On the six-inequality scan two passes ago the spread inequality was *inert at
-every handicap*; it is now worth **+643** at one unit, having been **+1528** one
-pass ago — the same row, three different verdicts, purely because the rest of
-the set moved. A pricing table is only
+every handicap*; it is now worth **+527** at one unit, having been **+643** and
+before that **+1528** — the same row, four different verdicts, purely because
+the rest of the set moved. A pricing table is only
 ever a statement about the current set, so `slack58.py` now derives its
 conclusions from the measured rows instead of asserting them in prose — the
 prose form went stale the moment the inequalities changed underneath it, which is
@@ -346,8 +361,14 @@ building an explicit \(H\) showed what an admissible one has to satisfy.
 
 ## The defect record
 
-Nineteen items were found, thirteen of one family, all of the same shape — *a step verified on
-the case that happens to be favourable, then generalised without re-deriving*:
+Twenty items were found, fourteen of one family, all of the same shape — *a step verified on
+the case that happens to be favourable, then generalised without re-deriving*.
+**Defects 19 and 20 are one pair**: the same unlisted blocks, first corrupting a
+guarantee and then, through a second and independent error in the same
+direction-blind measurement, corrupting the denominator a published target was
+priced against. Two wrong numbers that agreed are the hardest kind to see, and
+the only thing that exposed either was refusing to bank a gain I did not
+believe:
 
 | # | item | direction | effect |
 |---|---|---|---|
@@ -370,6 +391,7 @@ the case that happens to be favourable, then generalised without re-deriving*:
 | 17 | "order 57's closure is conditional on \(cr(K_{13})\ge223\)" | **false, published on the ledger** | withdrawn. `cover57.py` kills those cases structurally at every rung. Made by reading one review of seven — the same failure the same pass was correcting |
 | 18 | "\(w\) is a feature of the order-58 class only" (`wturan58.py`) | **false, and printed in its expected output** | order 57 has **two** such singletons and the cap is *stronger* there. Flagged in `reviews/albertson-singleton-turan/` nine passes ago; fixed |
 | 19 | the block multiset **does not list every block** | **35 published closures were invalid** | `mu58.multisets` adds odd-cycle blocks' edges to `eL` without appending them to the list, so `extra` was understated on **772** configurations, overstating the triangle guarantee. **151 lose the guarantee; 35 had been closed on it.** Withdrawn: 2294 → 2259, order 58 6341 → **6376** |
+| 20 | "one unit on the count inequality closes every configuration the route reaches" | **false, published on the ledger** | `slack58.py` measured the *denominator* with the superseded `kmax_guaranteed` on the *raw* multiset while `route_closed` used the exact guarantee on the true one. Two errors in opposite directions, not cancelling, produced a reach of 3712 that coincided **exactly** with the count row. Corrected: **3561 of 4486, 925 short**, and **no** inequality is decisive at one unit |
 
 Order 57 is unaffected by all ten: \(\delta_0\ge17\) there, and its enumeration
 is identical under the audited filters.
@@ -400,7 +422,9 @@ lemma, and OK for every hash. The full per-file reproduction list is in
 > adds no configurations the block route does not already reach. The sensitivity
 > table below says where: **not** in the edge
 > counts, which are inert or need improvements of 50, but in the component
-> bound, where a single unconditional unit closes every configuration the route
-> reaches. Separately, 4601 survivors have no *guaranteed* three disjoint
+> bound, which is worth more at one unit than anything else priced — though
+> **not** enough to close everything the route reaches, a claim this note
+> carried until pass 60 and which is withdrawn as defect 20. Separately, the
+> out-of-scope survivors have no *guaranteed* three disjoint
 > triangles and need either a sharper triangle-packing guarantee or a different
 > family of the seventy.

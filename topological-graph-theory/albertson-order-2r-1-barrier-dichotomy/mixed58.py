@@ -109,8 +109,16 @@ def main():
              if not G.route_closed(RSZ, list(mult), eHR,
                                    2 * m - G.N58 * G.DEG)[0]]
     print("   open clique-block configurations: %d" % len(openc))
-    noL = [x for x in openc if P.kmax_exact(list(x[2]), G.N58 - x[1]) < 3]
-    inL = [x for x in openc if P.kmax_exact(list(x[2]), G.N58 - x[1]) >= 3]
+    # true_blocks, not mult: the enumerator omits blocks and the raw multiset
+    # OVERSTATES the guarantee (defect 19), which would put 151 configurations
+    # in scope that are not.
+    def inscope(x):
+        m, RSZ, mult, eHR = x
+        return P.kmax_exact(G.true_blocks(mult, RSZ, eHR,
+                                          2 * m - G.N58 * G.DEG),
+                            G.N58 - RSZ) >= 3
+    noL = [x for x in openc if not inscope(x)]
+    inL = [x for x in openc if inscope(x)]
     print("      three disjoint triangles in H[L] not guaranteed: %d" % len(noL))
     print("      in scope for the block route but undecided:       %d" % len(inL))
     print()

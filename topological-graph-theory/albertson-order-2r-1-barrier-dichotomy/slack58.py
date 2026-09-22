@@ -37,11 +37,30 @@ That prices a real theorem -- "inequality j holds with d to spare" -- rather tha
 a property of the enumeration.  It is slower, because the scan is re-run once
 per (j, d), and it is the number worth quoting.
 
+==============================================================================
+AND A SECOND WRONG CONCLUSION, FROM THE SAME FILE (defect 20).
+
+A price is only meaningful against the size of what it would buy, and that
+denominator -- "configurations the route reaches at all" -- was computed here by
+the SUPERSEDED knapsack bound kmax_guaranteed, applied to the RAW multiset,
+while route_closed decides reach by the exact packing number on the TRUE block
+multiset.  Weaker bound, understating reach; unlisted blocks (defect 19),
+overstating it.  The two errors did not cancel: they produced 3712, which
+coincided EXACTLY with the count inequality's d = 1 row, and the coincidence was
+published as "one unconditional unit on the count inequality closes every
+configuration the route reaches".
+
+It does not.  With reach computed by the same guarantee route_closed uses, the
+route reaches 4486 and one unit on the count inequality closes 3561 of them --
+925 short.  NO inequality here is decisive at one unit.  The claim is withdrawn.
+
 Exact integer arithmetic; no floating-point value enters any comparison.
 """
+
 import pickle
 import sys
 
+import packing58 as PK
 import tuttegen as G
 
 NAMES = ("(1) count", "(2) degree", "(3) Turan", "(4) spread",
@@ -81,10 +100,18 @@ def main():
         rows.append(row)
         print("   %-16s %s" % (name, "  ".join("%-7d" % v for v in row)))
     print()
+    # The reach of the route is decided by the SAME guarantee route_closed
+    # uses -- the exact packing number on the TRUE block multiset.  This line
+    # previously called the superseded knapsack bound kmax_guaranteed on the
+    # raw multiset: weaker in one direction, and inflated by the unlisted
+    # blocks of defect 19 in the other.  Two errors, not cancelling.
     total = base + sum(1 for m, RSZ, mult, eHR in cfgs
                        if not G.route_closed(RSZ, list(mult), eHR,
                                              2 * m - G.N58 * G.DEG)[0]
-                       and G.kmax_guaranteed(list(mult), G.N58 - RSZ) >= 3)
+                       and PK.kmax_exact(
+                           G.true_blocks(mult, RSZ, eHR,
+                                         2 * m - G.N58 * G.DEG),
+                           G.N58 - RSZ) >= 3)
     print("   configurations the route reaches at all: %d" % total)
     print()
     # Everything below is DERIVED from the table.  An earlier revision stated
@@ -98,6 +125,21 @@ def main():
               % ", ".join(full))
         print("   unconditional unit there closes every configuration the")
         print("   route reaches.")
+    else:
+        # Print the ABSENCE as a measured statement, not as silence.  This
+        # block used to fire, on a reach figure computed by the superseded
+        # kmax_guaranteed on the raw multiset; it coincided exactly with the
+        # count row, and the coincidence was published as a theorem
+        # (defect 20).  With the reach computed by the same guarantee
+        # route_closed uses, no inequality is decisive at one unit.
+        best = max(range(5), key=lambda j: rows[j][0])
+        print("   NO inequality is decisive at one unit.  The best is %s,"
+              % NAMES[best])
+        print("   closing %d of the %d the route reaches -- %d short."
+              % (rows[best][0], total, total - rows[best][0]))
+        print("   Even at d = 50 the best is %s, %d of %d."
+              % (NAMES[max(range(5), key=lambda j: rows[j][-1])],
+                 max(rows[j][-1] for j in range(5)), total))
     if inert:
         print("   Inert at every handicap tried: %s." % ", ".join(inert))
     print("   Ranked by yield at d = 1: %s"

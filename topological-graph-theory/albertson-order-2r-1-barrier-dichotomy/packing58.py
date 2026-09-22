@@ -218,14 +218,19 @@ def main():
     gained, same, tested = 0, 0, 0
     byreason = {}
     for m, RSZ, mult, eHR in cfgs:
-        NL = G.N58 - RSZ
-        old = G.kmax_guaranteed(list(mult), NL)
+        NL, X = G.N58 - RSZ, 2 * m - G.N58 * G.DEG
+        # BOTH guarantees are computed on the TRUE block multiset: each derives
+        # extra = sum q_i - |L| from the multiset, and the enumerator does not
+        # list every block (defect 19), so on the raw multiset both are too
+        # large and the comparison between them is not like for like.
+        tb = G.true_blocks(mult, RSZ, eHR, X)
+        old = G.kmax_guaranteed(list(tb), NL)
         if old >= 3:
             continue                       # already in scope
-        if G.route_closed(RSZ, list(mult), eHR, 2 * m - G.N58 * G.DEG)[0]:
+        if G.route_closed(RSZ, list(mult), eHR, X)[0]:
             continue                       # already closed
         tested += 1
-        new = kmax_exact(list(mult), NL)
+        new = kmax_exact(list(tb), NL)
         if new >= 3:
             gained += 1
         else:
@@ -241,12 +246,13 @@ def main():
     tails = {}
     fires = 0
     for m, RSZ, mult, eHR in cfgs:
-        NL = G.N58 - RSZ
-        if kmax_exact(list(mult), NL) >= 3:
+        NL, X = G.N58 - RSZ, 2 * m - G.N58 * G.DEG
+        tb = G.true_blocks(mult, RSZ, eHR, X)
+        if kmax_exact(list(tb), NL) >= 3:
             continue
-        if G.route_closed(RSZ, list(mult), eHR, 2 * m - G.N58 * G.DEG)[0]:
+        if G.route_closed(RSZ, list(mult), eHR, X)[0]:
             continue
-        t = hitting_tail(list(mult), NL)
+        t = hitting_tail(list(tb), NL)
         tails[t] = tails.get(t, 0) + 1
         if t >= 7:
             fires += 1

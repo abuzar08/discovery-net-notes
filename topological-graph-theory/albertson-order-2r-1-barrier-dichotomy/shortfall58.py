@@ -71,7 +71,8 @@ def main():
                                    2 * m - G.N58 * G.DEG)[0]]
     print("   open clique-block configurations today: %d" % len(openc))
     print("   (profile58.py measured this at 9104, before the w-cap, the exact")
-    print("    triangle guarantee and 2294 Tutte closures)")
+    print("    triangle guarantee and %d Tutte closures)"
+          % (len(cfgs) - len(openc)))
     print()
 
     cro, abso, both, none_ = {}, {}, 0, 0

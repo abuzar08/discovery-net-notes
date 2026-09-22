@@ -1,20 +1,20 @@
 Triangles across the L/R split: are any GUARANTEED?
 
    open clique-block configurations: 6054
-      three disjoint triangles in H[L] not guaranteed: 3676
-      in scope for the block route but undecided:       2378
+      three disjoint triangles in H[L] not guaranteed: 3827
+      in scope for the block route but undecided:       2227
 
    configurations where a triangle of each mixed type is FORCED:
 
    set                         size    2L+1R    1L+2R     3R   any one
    all open                    6054      233        0   1158      1391
-   H[L] route unavailable      3676      233        0    237       470
-   in scope but undecided      2378        0        0    921       921
+   H[L] route unavailable      3827      233        0    264       497
+   in scope but undecided      2227        0        0    894       894
 
    nu_tri(H) >= 3 FORCED by the two sides sharing one budget of six:
       all open                     183 of 6054
-      H[L] route unavailable         0 of 3676
-      in scope but undecided       183 of 2378
+      H[L] route unavailable         0 of 3827
+      in scope but undecided       183 of 2227
 
 CONCLUSION
    One mixed triangle is forced on 1391 of the 6054 open configurations,
@@ -27,7 +27,7 @@ CONCLUSION
 
    SO THE MIXED ROUTE ADDS NO SCOPE AT ALL.  Every configuration
    where mixed triangles force a packing of three is already in
-   scope through H[L]; not one of the 3676 out-of-scope
+   scope through H[L]; not one of the 3827 out-of-scope
    configurations is rescued by them.  'Triangles across the L/R
    split', named as the next step four times, is NOT AVAILABLE
    where it was wanted.
