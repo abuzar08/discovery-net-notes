@@ -5527,3 +5527,75 @@ either of our formulations. Worth a single probe at two adjacent \(n\).
 **Next.** No background computations left running. Nothing I can settle with the
 levers this lane has; the honest next step is the write-up above rather than more
 windows on the three.
+
+## Pass 71 — 2026-09-22
+
+**I withdrew most of what I published last pass.** The \(\lvert X\rvert\) cost
+curve at h5560 was my own lex symmetry break degrading, not the mathematics.
+Every measurement in it ran with `lex=True`, because the pass before had just
+restored that break, and I never varied it.
+
+**The lever reverses sign in \(\lvert X\rvert\).** Like-for-like, \(f=22\), same
+three splits, same ten catalogue pairs, same \(5\) s cap:
+
+| \(\lvert X\rvert\) | ON | OFF |
+|---|---|---|
+| \(9\) | closes at \(0.3\) s, \(5.5\) s | open past \(100\) s |
+| \(15\) | \(2/10\) capped | \(2/10\) capped |
+| \(16\) | \(8/10\) capped | \(3/10\) capped |
+
+At \(\lvert X\rvert=16\) six instances decide in under \(0.7\) s unbroken and time
+out at \(5\) s broken. The break adds an "equal so far" chain of about
+\(\lvert X\rvert \cdot f\) variables; past some size the overhead outgrows the
+pruning. **The crossover sits inside the range this lane runs**, so any single
+measurement of this lever reports whichever sign holds at the size sampled.
+
+**Withdrawn at h5580** (objection, `contradicts` h5560): the \(30\%\to80\%\) rate
+curve (it is \(20\%\to30\%\) with the lever set well); the size counterexample
+(the "hard" \(599\)k-clause instance decides in \(0.26\) s unbroken); the \(f=22\)
+decline; and the claim that this lane's levers act on \(A\cup B\). That last one
+needed no measurement — `lex_break` breaks \(S_X\) and says so in its docstring,
+`degree_window` is one totalizer per vertex. I described a tool of mine from
+memory of its purpose rather than from its source, having cited that same file
+three paragraphs earlier. The cross-lane generalisation built on it loses its
+second witness and reverts to the \(R(4,6)\) observation alone.
+
+What survives: \(<1\%\) hard at \(\lvert X\rvert=9\) against \(12\)–\(30\%\) at
+\(15\)–\(16\) (all break-off, since `sweep_fast` never enabled either lever), so
+cost does rise with \(\lvert X\rvert\) — gradually, at three points, and with
+\(\lvert X\rvert\) no longer established as *the* governing parameter. Also
+unaffected: the four-orders-of-magnitude spread at fixed \(\lvert X\rvert\).
+
+**\(f = 22\), the standing question, answered with a number.** Not out of reach.
+The sweep is \(19\,117\) pairs and is now **running and journalled**, \(54\) banked,
+all UNSAT. Measured end to end: \(0.28\) pairs/s, unchanged between a \(1\) s and a
+\(4\) s cap. Per pair — `specialise` \(1.12\) s, write \(0.48\) s, solve \(1.19\) s
+— **\(14.8\) core-hours** for a capped pass, **\(57\%\) of it not solving**.
+Published at h5582. It also corrects my own "3 core-hours for the bulk" from
+h5580, which used solver time only: the same cost-misattribution this lane made
+when \(17\) s per pair turned out to be host contention around a \(0.15\) s solve.
+
+**Made the lesson a procedure, not a note.** `sweep_fast` now runs the bulk
+unbroken — faster at large \(\lvert X\rvert\), and UNSAT unbroken is the strictly
+stronger verdict — and spends the break only on pairs the bulk could not settle,
+before deferring. It needs no knowledge of the crossover. Tested end to end on a
+seeded journal: the rescue fired and settled \((11,0,2)\), which caps unbroken at
+\(20\) s and closes in \(4.4\) s with the break. Two of the five original
+leftovers would have closed here automatically.
+
+**Blocked.** The three leftovers at \(f=23\), \(n=36\) — \(\lvert A\rvert=10\)
+pairs \((1,0)\), \((63,0)\), \((82,0)\) — resist at \(32\) s each even with the
+rescue setting (break plus degree window), which is a combination I had not tried.
+Sweep stands at \(3143\) of \(3146\), no witness.
+
+**For researcher-1.** Withdraw the cross-lane suggestion I sent last pass — the
+claim it rested on is retracted. The transferable fact is narrower and sharper:
+**a lex-leq break on an interchangeable block can reverse sign as that block
+grows**, so if you have measured such a break once, the sign you found holds only
+at the size you measured. Cheap to check: one instance either side.
+
+**Next.** Keep driving the \(f=22\) sweep; it is resumable per pair. Before more
+windows, cut the \(57\%\): `specialise` walks all \(850\,668\) five-subsets per
+pair and the CNF is rewritten to disk each time — piping to the solver and
+hoisting the subset walk should roughly halve the sweep. No background
+computations left running.

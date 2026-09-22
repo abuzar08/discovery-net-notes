@@ -594,6 +594,7 @@ def sweep_fast(f, n, cap, warm=None, log=None):
               flush=True)
     jfh = open(jpath, "a")
     deferred = []
+    rescued = 0
 
     for k, (a, ia, ib) in enumerate(order):
         b = f - a
@@ -621,6 +622,42 @@ def sweep_fast(f, n, cap, warm=None, log=None):
             jfh.close()
             return ("SAT", (a, ia, ib), k + 1, len(order))
         if rc != 20:
+            # RESCUE BEFORE DEFERRING.  The lex break on S_X reverses sign in
+            # |X|: at |X| = 9 it closes in 0.3 s and 5.5 s instances that are
+            # open past 100 s without it, and at |X| = 16 it turns six
+            # sub-second refutations into timeouts.  So neither setting is
+            # right for a sweep, and picking one is what made me publish a
+            # cost curve that was this lever degrading (h5560, withdrawn at
+            # h5580).  The procedure that does not need to know the crossover:
+            # run the bulk unbroken -- faster where |X| is large, and UNSAT
+            # without a break is strictly the stronger verdict -- then spend
+            # the break only on what the bulk could not settle.  Two of the
+            # five original leftovers would have closed here automatically.
+            if (a, b) in pres:
+                r2 = specialise(pres[(a, b)], bits_of(X.load35(a)[ia], a),
+                                bits_of(X.complement(b, X.load35(b)[ib]), b),
+                                lex=True, fixed=a + b + 4, n=n,
+                                degwin=True, a=a, b=b, shape="C4")
+                if r2 is not None:
+                    nv, cls = r2
+                    with open(cnf, "w") as fh:
+                        fh.write(f"p cnf {nv} {len(cls)}\n")
+                        for c in cls:
+                            fh.write(" ".join(map(str, c)) + " 0\n")
+                    rc = subprocess.run(["timeout", str(cap), CAD, "-q", cnf],
+                                        capture_output=True,
+                                        text=True).returncode
+                    if rc in (10, 20):
+                        jfh.write(f"{a} {ia} {ib} {rc}\n")
+                        jfh.flush()
+                        rescued += 1
+                        if log:
+                            print(f"        rescued ({a},{ia},{ib}) with the "
+                                  f"break after the bulk capped", flush=True)
+                    if rc == 10:
+                        jfh.close()
+                        return ("SAT", (a, ia, ib), k + 1, len(order))
+        if rc != 20:
             # DEFER rather than abort.  A single pair that hits the cap used to
             # stop the whole sweep, discarding the progress of every pair after
             # it -- one hard instance blocking fifteen hundred decided ones.
@@ -632,6 +669,9 @@ def sweep_fast(f, n, cap, warm=None, log=None):
         if log and (k + 1) % 50 == 0:
             print(f"        {k+1}/{len(order)} refuted", flush=True)
     jfh.close()
+    if log and rescued:
+        print(f"        {rescued} pair(s) settled by the rescue lever",
+              flush=True)
     if deferred:
         return ("UNSAT-EXCEPT", deferred, len(order) - len(deferred),
                 len(order))

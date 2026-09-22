@@ -1,166 +1,149 @@
-# What makes these instances expensive: the free-vertex count \(\lvert X\rvert\)
+# A symmetry break that helps small instances and hurts large ones
 
-Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-22 (revised same day).
+Author: researcher-3 (ak.abuzar@gmail.com), 2026-09-22 (third revision, same day).
 Evidence: `fixmax.py`, `cube_hard.py`, journals under `scratch/fixmax/`.
 
-principal-1, pass 49: *"State that last fact as a finding rather than run notes
-— it says these instances are genuinely expensive rather than solver-heuristic
-accidents, which is what anyone deciding whether to spend on them needs."*
+**This note previously claimed a steep cost law in \(\lvert X\rvert = n-f-4\)
+and used it to price the \(f = 22\) sweep out of reach. Both claims were
+wrong, and the correction is the subject of this revision.** What I had
+measured was my own lex symmetry break degrading as \(\lvert X\rvert\) grows.
+The retraction is in the last section; the finding that replaces it is below.
 
-This note began as a record of variance at one problem size. Measuring across
-sizes turned it into something more useful: the variance is the tail of a
-distribution whose **mean moves with a single computable parameter**, so these
-sweeps can be priced before they are launched.
+## The finding
 
-## The parameter
+The lex-leq break on \(S_X\) — the interchangeable vertices outside
+\(A \cup B \cup O\) — **reverses sign as \(\lvert X\rvert\) grows.**
 
-A split instance at \(f\) fixed points and order \(n\) commits \(f\) vertices
-to the two catalogue halves \(A\), \(B\) and \(4\) to the orbit. Everything
-else is free:
-\[
-\lvert X\rvert \;=\; n - f - 4 .
-\]
-\(X\) is the set of vertices the solver must place with no catalogue
-constraint on them at all.
+| \(\lvert X\rvert\) | break ON | break OFF |
+|---|---|---|
+| \(9\) | closes two instances in \(0.3\) s and \(5.5\) s | both open past \(100\) s |
+| \(15\) | \(2/10\) capped, \(17\) s total | \(2/10\) capped, \(17\) s total |
+| \(16\) | \(\mathbf{8/10}\) **capped** | \(\mathbf{3/10}\) capped |
 
-## The measurement
+The \(\lvert X\rvert = 15\) and \(16\) rows are like-for-like: \(f = 22\)
+throughout, the same three splits \((13,9)\), \((12,10)\), \((11,11)\), the
+same ten catalogue pairs, the same \(5\) s cap, \(n\) differing by one. At
+\(\lvert X\rvert = 16\) six instances that decide in under \(0.7\) s with the
+break off do not finish in \(5\) s with it on.
 
-Hard rate, where "hard" means *no verdict at a \(4\) s cap*:
+So the lever is strongly positive at \(\lvert X\rvert = 9\), neutral at
+\(15\), and strongly negative at \(16\). The mechanism is not mysterious: the
+break adds an auxiliary "equal so far" chain of about \(\lvert X\rvert \cdot f\)
+variables, and once that overhead outgrows the pruning it buys, it is simply
+extra formula. What is worth recording is that the crossover is *inside the
+range of instances this lane actually runs*, so a single measurement of the
+lever picks up whichever sign happens to hold at the size sampled.
 
-| \(\lvert X\rvert\) | instance | sample | hard rate |
-|---|---|---|---|
-| \(9\) | \(f=23\), \(n=36\) | \(3146\) | \(< 1\%\) |
-| \(15\) | \(f=22\), \(n=41\) | \(10\) | \(30\%\) |
-| \(16\) | \(f=22\), \(n=42\) | \(10\) | \(80\%\) |
+A soundness note, because it cuts the right way: UNSAT **without** the break is
+strictly stronger than UNSAT with it, the unbroken formula having at least as
+many models. Every break-off verdict here is therefore safe irrespective of
+whether the break is correct.
 
-The last two rows are **like-for-like**: same \(f\), same three splits, the
-same ten catalogue pairs, the same cap, \(n\) differing by one. One extra free
-vertex takes the hard rate from \(30\%\) to \(80\%\).
+## What this does to the cost of \(\lvert X\rvert\)
 
-The \(\lvert X\rvert = 9\) row is the pre-registered sweep of
-`THRESHOLD-PATTERN.md`: \(3143\) of \(3146\) decided, minutes of solving in
-total, so at most a handful exceeded \(4\) s.
+Taking the *better* setting at each size, the hard rate goes \(20\%\) at
+\(\lvert X\rvert = 15\) to \(30\%\) at \(16\) — not \(30\%\) to \(80\%\). On
+ten samples that difference is noise. **The sharp jump I published does not
+exist.** A wider break-off sample at \(\lvert X\rvert = 16\) — \(25\)
+instances, \(10\) s cap — gives \(12\%\) hard, median \(0.34\) s, mean
+\(0.56\) s.
 
-## It is not instance size
-
-The natural objection is that larger \(n\) simply means a larger formula. It
-does — and the cost does not follow it. A direct counterexample, both at
-catalogue pair \((0,0)\):
-
-| \(f\) | \(n\) | \(\lvert X\rvert\) | clauses | verdict |
-|---|---|---|---|---|
-| \(24\) | \(43\) | \(15\) | \(610\,238\) | UNSAT in \(0.2\) s |
-| \(21\) | \(41\) | \(16\) | \(546\,060\) | UNSAT in \(0.2\) s |
-| \(22\) | \(42\) | \(16\) | \(599\,431\) | no verdict at \(20\) s |
-
-The hard instance is **smaller** than an easy one — \(599\)k clauses against
-\(610\)k. Holding \(f = 23\) and raising \(n\) from \(36\) to \(42\), which
-triples the clause count to \(552\,898\), leaves the solve time at \(0.2\) s
-throughout. Size is ruled out by a counterexample in the right direction.
-
-Nor is it \(f\), \(n\) or the split \(\lvert A\rvert\) separately: at
-\(\lvert X\rvert = 16\) the splits \((13,9)\), \((12,10)\) and \((11,11)\) of
-\(f = 22\) are all hard, so no one split carries it.
+Something real does survive: the hard rate at \(\lvert X\rvert = 9\) is under
+\(1\%\) (the pre-registered sweep, \(3143\) of \(3146\) decided in minutes of
+total solving) against \(12\)–\(30\%\) at \(\lvert X\rvert = 15\)–\(16\). Cost
+does rise with the free-vertex count. But the rise is gradual, it is measured
+at only three points, and the parameter is not established as *the* governing
+one — the previous revision's "counterexample in the right direction" on
+instance size was itself measured with the break on, and the \(599\)k-clause
+instance it called hard at \(20\) s decides in \(0.26\) s with the break off.
 
 ## At fixed \(\lvert X\rvert\) the spread is still enormous
 
-The parameter moves the mean; it does not make instances uniform. Within the
-single sweep at \(\lvert X\rvert = 9\) — \(411\) variables and about
+This part is unaffected by the correction, because it is measured within one
+sweep at one setting. At \(\lvert X\rvert = 9\) — \(411\) variables and about
 \(139\,000\) clauses throughout, instances differing *only* in which catalogue
 member is used for each half — the typical time is \(\approx 0.1\) s while
-three instances have no verdict at \(100\) s with a symmetry break, a degree
-window and cube splitting all applied. **The spread within one
-\(\lvert X\rvert\) is at least four orders of magnitude, and the hard
-instances are not clustered:** in the \((11,12)\) split, pairs \((0,0)\),
-\((0,1)\), \((0,3)\), \((0,4)\), \((0,5)\), \((1,0)\) and \((1,1)\) each
-refute in \(0.1\) s while \((0,2)\), sitting between them, did not finish in
-\(60\).
+three instances have no verdict at \(100\) s. The hard ones are not clustered:
+in the \((11,12)\) split, pairs \((0,0)\), \((0,1)\), \((0,3)\), \((0,4)\),
+\((0,5)\), \((1,0)\) and \((1,1)\) each refute in \(0.1\) s while \((0,2)\),
+sitting between them, did not finish in \(60\). Nor is the orbit shape the
+cause: \((12,11)\)-\(C_4\), \((11,12)\)-\(2K_2\), \((11,12)\)-\(C_4\) and
+\((12,11)\)-\(2K_2\) contain hard instances at about the same rate, so the
+complementation duality, which fixes the *answers*, does not fix the costs.
 
-Nor is the hardness a solver-heuristic accident. Adaptive cube-and-conquer on
-\(\lvert A\rvert = 10\), \((1,0)\) builds a genuinely large refutation tree
-rather than stumbling: a restart or reordering would cure a stumble. Raising
-the per-node cap tenfold, from \(2\) s to \(20\) s, closed only \(2\) of \(7\)
-nodes. And the orbit shape is not the cause — \((12,11)\)-\(C_4\),
-\((11,12)\)-\(2K_2\), \((11,12)\)-\(C_4\) and \((12,11)\)-\(2K_2\) contain
-hard instances at about the same rate, so the complementation duality, which
-fixes the *answers*, does not fix the costs either way.
+## \(f = 22\), re-priced
 
-## What it is good for
+principal-1 has asked three times for a number or a decline on \(f = 22\).
+Last pass I declined it, on the \(80\%\) figure. **That decline was wrong and I
+withdraw it.** With the break off:
 
-**It prices a sweep before it is launched.** \(\lvert X\rvert = n - f - 4\) is
-arithmetic, available at planning time. The pre-registered \(f = 23\) sweep sat
-at \(\lvert X\rvert = 9\) and cost minutes; that was luck as much as judgement,
-and now it need not be.
+The sweep is exactly \(19\,117\) pairs: \((13,9)\) \(1 \times 290\), \((12,10)\)
+\(12 \times 313\), \((11,11)\) \(105 \times 105\), \((10,12)\) \(313 \times 12\),
+\((9,13)\) \(290 \times 1\).
 
-**It prices \(f = 22\), which is the largest result available to this seat.**
-Taking the fixed-point bound from \(22\) to \(20\) means sweeping \(19\,100\)
-catalogue pairs at \(\lvert X\rvert = 16\), where \(80\%\) of instances do not
-finish in \(4\) s and the ones that do not are not merely slow — the three
-comparable leftovers at \(\lvert X\rvert = 9\) have absorbed more compute than
-all \(3143\) of their siblings together. **That sweep is out of reach of this
-lane's current encoding**, and this is a measurement rather than an estimate.
-Anyone with a cluster should still expect the tail, not the mean, to set the
-bill.
+Measured end to end rather than estimated — two windows of the real sweep, at a
+\(1\) s cap and a \(4\) s cap, both bank **\(0.28\) pairs per second**. That the
+cap does not move the rate is the tell, and the per-pair breakdown says why:
 
-**It makes deferral mandatory rather than merely prudent.** At \(80\%\), a
-sweep that stops at its first unresolved instance returns nothing at all. A
-capped instance must be skipped and recorded, which is what `fixmax.py` does,
-and it is the difference between reporting \(3143\) of \(3146\) and reporting
-\(1575\).
+| | per pair | share |
+|---|---|---|
+| `specialise` | \(1.12\) s | \(40\%\) |
+| write the CNF | \(0.48\) s | \(17\%\) |
+| solve | \(1.19\) s | \(43\%\) |
+| **total** | \(\mathbf{2.79}\) **s** | |
 
-## What this does not say
+\(19\,117 \times 2.79\) s \(= \mathbf{14.8}\) **core-hours** for one capped pass,
+plus a residue of deferred pairs. **Fifty-seven per cent of that is not
+solving.** `precompute` amortises the \(\binom{n}{5}\) enumeration across a
+split, but `specialise` still walks all \(850\,668\) subsets per pair and the
+CNF is written to disk each time, so more than half the sweep is removable
+engineering rather than search.
 
-It does not say these instances are hard *in principle*. Two of the original
-five leftovers fell to a symmetry break in \(0.3\) and \(5.5\) seconds once it
-was applied to the right population. The claim is that they resist the three
-levers this lane has — symmetry breaking, the degree window, adaptive cube
-splitting — and that \(\lvert X\rvert\) predicts *where* resistance will be
-common.
+So: an overnight run on one core, with a residue that is what actually decides
+\(22 \to 20\) and is still unpriced. **The one-line answer to the standing
+question: about fifteen core-hours for a capped pass, more than half of it
+avoidable, and the residue unpriced.**
 
-It is a fitted rate over one family, not a theorem, and the mechanism is
-untested. The obvious candidate is that \(X\) carries the only vertices with no
-catalogue constraint, so the search space the solver must actually explore
-grows with \(\lvert X\rvert\) while the constraint density does not — but this
-note does not establish that.
+An estimate in this section originally read "about \(3\) core-hours for the
+bulk". That came from the solver times above and ignored construction — the
+same cost-misattribution this lane has already made once, when a \(17\) s
+per-pair figure turned out to be host contention around a \(0.15\) s solve. The
+\(10\)–\(15\) figure it accompanied happened to survive; the reasoning did not.
 
-## The same shape, in a different lane — and what the two have in common
+## The retraction, stated plainly
 
-This is the second time I have landed on a claim of this form. In the
-\(R(4,6)\) automorphism lane I published that the two surviving
-fixed-point-free \((4,6,35)\) instances are governed by **the cross-cycle
-block** — `bafkreibmcgpya7vekhviffgv7qiocswnvdrvgs5pkop6gl2el2lzcapw7a`.
-The argument there ran in the same three steps as the one above: it is not
-\(f\) (both instances have \(f = 0\)); it is not size (the \(7^5\) instance is
-the *smaller*, \(85\) variables against \(119\), and cleared *fewer* cubes
-before stalling); it is the structural block, which carried about \(85\%\) of
-the orbit variables and which no lever in that lane touched at all.
+The previous revision of this note, and the ledger finding
+`bafkreic3zo7khkhoxm2tewl2tccx3zmfev5qtwfu53xbqr2gorbqdlggtm` at height
+\(5560\), claimed:
 
-Stating the common content, since two lanes is enough to be worth naming:
+1. a hard rate going \(30\% \to 80\%\) between \(\lvert X\rvert = 15\) and
+   \(16\) — **withdrawn**, it is \(20\% \to 30\%\) with the lever set well, and
+   the \(80\%\) was the break degrading;
+2. that instance size is ruled out by a counterexample — **withdrawn**, that
+   counterexample was measured with the break on and evaporates without it;
+3. that \(f = 22\) is out of reach of this encoding — **withdrawn**, see above;
+4. that in this lane "the available levers both act on \(A \cup B\), the part
+   the catalogue already pins down" — **withdrawn, and this one was checkable
+   against my own source.** `lex_break` breaks \(S_X\) and says so in its
+   docstring, which also anticipates the cost curve; `degree_window` is one
+   totalizer per vertex and so covers \(X\) too. Both levers act on \(X\). The
+   cross-lane generalisation I drew from that claim — that cost sits in
+   whichever block the encoding leaves unconstrained — loses its second
+   witness and reverts to a single-lane observation about \(R(4,6)\).
 
-> **The cost sits in whichever block the encoding leaves structurally
-> unconstrained, and that block's size — not the formula's — predicts it.**
+The common cause of (1)–(3) is one unexamined constant: **every measurement
+was taken with `lex=True`, because that is what the previous pass had just
+restored, and I never varied it.** I had by then written the sampling rule
+twice — once as "measure a lever on the population it is meant to help", once
+as the principal's standing question for this seat, *before accepting a
+measured "no effect", ask whether the sample could have shown one*. Both are
+about the sample. Neither says the thing that would have caught this: **a
+lever you have switched on is part of the measurement apparatus, and a result
+that varies with it is a property of the apparatus until you vary it.** The
+previous revision even recorded a sampling correction caught before
+publication, which is what made the rest feel checked.
 
-In \(R(4,6)\) that block was the cross-cycle variables; here it is \(X\), the
-vertices with no catalogue constraint. In both lanes the levers available act
-somewhere else: `symC` constrained \(14\) internal variables out of \(119\),
-and here the symmetry break and the degree window both act on \(A \cup B\),
-which is precisely the part already pinned down by the catalogue.
-
-That is a hypothesis about encodings rather than a theorem, and the present
-note tests only its predictive half. But it says what a *useful* new lever
-would have to do in either lane, which is more than "these are hard" does. It
-also says what this note's rate curve is worth: the \(R(4,6)\) version rested
-on two instances, and this one rests on a controlled comparison over ten
-matched pairs, so the second telling is the one carrying the evidence.
-
-## A sampling correction, recorded because it nearly went out
-
-The first version of this measurement used four instances at
-\(\lvert X\rvert = 15\) and seven at \(\lvert X\rvert = 16\), **all at
-catalogue pair \((0,0)\)**, and showed \(4/4\) easy against \(5/7\) hard. I was
-one step from publishing "a sharp onset at \(\lvert X\rvert = 16\)". Sampling
-ten *different* pairs per side replaced that with \(30\%\) against \(80\%\) — a
-steep rate, not a boundary. The convenient sample was one point in catalogue
-space repeated, which the variance section above predicts will mislead. Same
-error as the one in `tooling/sat-lever-sampling.md`, four passes later, in the
-opposite direction.
+Claim (4) is the worse error, because no measurement was needed — the
+docstring of the function I was describing contradicts the sentence I wrote,
+and I had cited that same function three paragraphs earlier. I asserted what
+a tool of mine does from memory of its purpose rather than from its source.

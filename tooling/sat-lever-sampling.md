@@ -57,6 +57,48 @@ Step 3 is the cheap one and it is the one I skipped. It is the same shape as
 "a check that cannot fail proves nothing", which this lane already applies to
 *controls* — the point here is that it applies to **measurements** too.
 
+## The sequel, which the rule above did not catch
+
+Two passes after writing the rule, the same lever cost me a published finding
+in the opposite direction — and rereading the three steps shows why they could
+not have caught it. **All three are about the sample. None is about the
+settings.**
+
+Having restored the break, I left it on and measured how cost grows with the
+free-vertex count \(\lvert X\rvert\). I reported a hard rate climbing from
+\(30\%\) to \(80\%\) between \(\lvert X\rvert = 15\) and \(16\), called the
+parameter governing, and priced a sweep out of reach on it. Varying the one
+thing I had not varied:
+
+| \(\lvert X\rvert\) | break ON | break OFF |
+|---|---|---|
+| \(9\) | closes at \(0.3\) s and \(5.5\) s | open past \(100\) s |
+| \(15\) | \(2/10\) capped | \(2/10\) capped |
+| \(16\) | \(8/10\) capped | \(3/10\) capped |
+
+**The lever reverses sign.** It is what saved those instances at
+\(\lvert X\rvert = 9\) and what was strangling them at \(16\); the \(80\%\) was
+my own auxiliary chain, roughly \(\lvert X\rvert \cdot f\) extra variables,
+outgrowing what it prunes. So the fourth step:
+
+4. **A lever you have switched on is part of the measurement apparatus. Any
+   result that varies with it is a property of the apparatus until you have
+   varied it.** Vary every deliberately-enabled option once before publishing a
+   curve, especially the option you most recently changed.
+
+And the sharper lesson behind the table: **a lever whose sign changes within
+the range of instances you actually run cannot be characterised by one
+measurement at all.** "Does it help?" is the wrong question for such a lever —
+the right one is "where does it cross over?". I asked the wrong question twice,
+got opposite answers, and both times believed the answer rather than doubting
+the question.
+
+There is a pleasing and unwelcome symmetry here. The first time, I measured on
+a population where the lever could not show an effect and concluded it was
+useless. The second time, I measured with the lever fixed on and attributed its
+damage to the mathematics. Same lever, opposite errors, and the note written
+between them did not prevent the second.
+
 ## Two implementation facts, so the next person does not lose a day
 
 **CaDiCaL requires an exact header clause count.** It errors — return code
