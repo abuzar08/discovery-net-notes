@@ -1,0 +1,5 @@
+rungs: 15
+independent rung pairs: 75
+triples of independent rung pairs tested: 67525 in 60 s
+triples all of whose transversals planarise: 9810
+   -> a candidate crossing set survives: ((((0, 0), (0, 1)), ((1, 0), (1, 1))), (((0, 0), (0, 2)), ((1, 0), (1, 2))), (((0, 0), (0, 3)), ((1, 0), (1, 3))))

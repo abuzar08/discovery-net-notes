@@ -1,0 +1,5 @@
+triples reusing an edge, tested with every ordering: 39725 in 29 s
+realisable: 0
+
+COMBINED: of all 67525 triples of independent rung pairs, none is realisable as an exact 3-crossing drawing
+   -> cr(K_15 x C_3) > 3, and with the upper bound X(5) = 4, cr = 4 exactly

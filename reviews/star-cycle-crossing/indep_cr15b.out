@@ -1,0 +1,5 @@
+triples with six distinct edges tested: 27800 in 8 s
+realisable as an exact 3-crossing drawing: 0
+triples reusing an edge (not tested individually): 39725
+
+verdict: no realisable 3-crossing configuration among the distinct-edge triples

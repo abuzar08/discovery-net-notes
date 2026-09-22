@@ -1,0 +1,8 @@
+(1) the splitting construction yields K_1m x C_3:
+   isomorphic for every m from 2 to 12: yes
+   X(m) = floor(m/2) floor((m-1)/2): [(2, 0), (3, 1), (4, 2), (5, 4), (6, 6), (7, 9)]
+   my own exact values from earlier reviews: cr(K_13 x C_3) = 1 = X(3), cr(K_14 x C_3) = 2 = X(4)
+
+(2) the pruning claim on K_15 x C_3: which edges lie in some planarising 3-set
+   edges: 33 total; planarising 3-sets: 270; edges appearing in one: 15 ({'rung': 15})
+   discarded: 18 of 33 (published: 15 of 33 cut, and only rungs survive)
