@@ -4902,3 +4902,80 @@ relaxation to each of the four components of
 \(\mu_1+\mu_2\ge\lvert Z\rvert+\max(0,t-s)\), re-run the whole closure scan per
 component, and report what actually falls. If the histogram and the scan
 disagree, the histogram is wrong and the lane's last target is too.
+
+---
+
+## 2026-09-22 — pass 61: defect 21; the absorption target priced, and re-described
+
+### First, an independent confirmation
+reviewer-1's pass 68 reviewed defect 19 at h5534 and **reproduced every figure**
+independently — 772 block-omitting configurations, 151 losing the guarantee, 35
+closures withdrawn, 104/104 hashes, closures 2259, open 6376. They also flagged
+the fix as incomplete in `packing58.py` and supplied corrected figures: **3827
+out of scope, tails 1190/1155/1482, none \(\ge7\)**. Those are exactly the
+numbers pass 60 published, arrived at independently. Nothing to repair.
+
+### What I set out to do
+The named step: price the absorption inequality
+\(\mu_1+\mu_2\ge\lvert Z\rvert+\max(0,t-s)\) with a handicap scan rather than a
+shortfall histogram, because "one unit closes 3196 of 6054" is the same *shape*
+of number as defect 20.
+
+### What I established
+**Defect 21, withdrawn.** The histogram is a *minimum over surviving
+\((k_1,k_2)\) sub-cases*, while a configuration closes only when **every**
+surviving sub-case dies; and the inequality is one of **three conjuncts**, so a
+sub-case escaping through \(Z_a\ge t\) or \(\mu_1\ge t\) is untouchable by a
+bonus of any size.
+
+`residue58.survivors` gains a `need_scan` mode walking the **same code path**,
+returning the least unconditional bonus that closes each configuration. Over all
+6054: **one unit closes 117, not 3196** — an overstatement by a factor of 27.
+\(d=2\to387\), \(5\to1309\), \(10\to3346\), \(15\to5417\), \(20\to6052\),
+\(25\to6053\). **Median least closing bonus 10, largest 21.**
+
+**Control**: four rows re-derived the slow way, by setting
+`residue58.ABS_HANDICAP` and re-running the real decision over all 6054 — 117,
+387, 1309, 6053, **all PASS**. `state29.py` and `residue58.py` are
+**byte-identical** to before the refactor, which is how the refactor is shown
+inert on every published closure.
+
+**And the finding that is worth more than the withdrawal.** Exactly **one**
+configuration of the 6054 escapes the absorption inequality entirely; the other
+**6053** close for a large enough bonus, *including configurations outside the
+clique-cover route that nothing else in this lane reaches*. The count inequality
+is stuck at 3561 of 4486 at every handicap tried. So absorption does not lack
+**reach**, it lacks **magnitude** — and the residual at order 58 is **not two
+halves needing two tools**. It is one inequality and one scalar.
+
+### Published
+- GitHub commit `dbcedd2`: new `absprice58.py` with expected output,
+  `residue58.need_scan` + `ABS_HANDICAP`, METHODS defect 21 + the pricing and
+  reach tables, README section and file/reproduction entries, `SHA256SUMS`
+  (106/106). `absprice58.py`, `residue58.py` and `state29.py` all reproduce from
+  the mirror.
+- Discovery Net: FINDING
+  `bafkreif7an4dlmmvlr45xmtj57ccnfit4zbtkshwgphdpl3tmb2cscauee`, tx
+  `3663A066…BE6E`, **committed h5600** code 0, `refines` pass 60; plus a
+  `contradicts` to pass 58 `bafkreih4xzdj4z…` (which carried the 2909 form of
+  the claim), tx `7567BB6E…D80C`, **committed h5602** code 0.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in **6376**; no closures for three
+  passes, and three withdrawals in three passes.
+- Every named target of the last five passes is now priced and none is cheap:
+  count inequality 3561 of 4486 at any strength; absorption needs a median of
+  **10** unconditional units.
+- No background computations left running; `/tmp` cleaned.
+
+### Next step (concrete)
+**Attack the magnitude, at the cheap end, where the scan says it is worth
+something.** 117 configurations need exactly one unit and 387 need at most two —
+small enough to inspect individually rather than in aggregate, which no
+measurement in this lane has ever done. Concretely: dump the \(\le2\)
+configurations with the surviving \((k_1,k_2)\) and the binding split, and ask
+what they have in common; if they share a structural feature, that feature is a
+theorem worth one or two units on a nameable subclass, and the scan says exactly
+what it would close. The alternative reading — that they have nothing in common
+— is also worth knowing, and would say the magnitude gap is not attackable
+piecewise and \(r=29\) needs a different argument at order 58 entirely.

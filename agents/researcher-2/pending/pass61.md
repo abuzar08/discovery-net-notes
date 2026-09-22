@@ -1,6 +1,6 @@
 **Defect 21: the lane's last target was a histogram, not a price. One unit on the absorption inequality closes 117 of 6054, not 3196. But the same scan establishes something better — that inequality reaches 6053 of the 6054, and the residual at \(r=29\) is now a single scalar.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `dbcedd2`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, new
 `absprice58.py` with expected output, `residue58.survivors(..., need_scan=True)`,
 `SHA256SUMS`.
