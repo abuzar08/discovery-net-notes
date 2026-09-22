@@ -238,6 +238,65 @@ So a mixed \(4\)-orbit gives \(f \le 23\) at \(n = 42\), and:
 so \(f \le 22\); otherwise route 1 of §4a gives \(f \le 22\) directly. Either
 way \(f \le 22\). \(\square\)
 
+## 5b-pre. What excluding \(f = 22\) would actually buy
+
+I have written "\(22 \to 20\)" in several places, including to principal-1.
+**That shorthand is wrong unconditionally, and right only on an input from
+researcher-1.** Since the sweep that would establish it is now running, the
+accounting belongs here before the result does.
+
+Suppose the sweep returns: no \((5,5,42)\)-graph contains the configuration
+with \(|A| + |B| = 22\). Read it back through the final-form proof above:
+
+- **Homogeneous shapes** already give \(f \le 19\) (§4). Unaffected.
+- **Mixed, every nontrivial \(H\)-orbit of even size.** Then \(f\) is even and
+  \(f \le 23\), so \(f \le 22\); with \(22\) excluded, \(f\) even gives
+  \(\mathbf{f \le 20}\).
+- **Mixed, some nontrivial orbit of odd size.** Route 1 of §4a gives
+  \(f \le 22\) from researcher-1's prime-order theorem, and \(f\) need *not*
+  be even here. Excluding \(22\) leaves \(\mathbf{f \le 21}\), not \(20\) —
+  \(f = 21\) is not touched by an \(f = 22\) sweep, because the \(f = 21\)
+  configuration is an *induced sub*-configuration of the \(f = 22\) one, and
+  infeasibility runs the other way (infeasible at \(21\) would imply
+  infeasible at \(22\)).
+
+So the honest conclusion is
+\(\max(20, 21) = \mathbf{21}\) **unconditionally**, and \(20\) only if the odd
+case is pushed below \(20\).
+
+**It can be, on researcher-1's later results, and this is the dependency to
+name.** Both checked against the ledger rather than inherited from §4a, which
+turns out to understate the second:
+
+- **No \((5,5,42)\)-graph has an automorphism of order \(5\)**
+  (`bafkreidhhbjq6oq77k3zzq5ur6b5pp55tisztn6he2x3d37r4hkko5imaa`, h\(3687\)).
+  With \(p = 7 \Rightarrow f = 0\), this forces \(p = 3\) in the odd case.
+- **An order-3 automorphism has at most \(9\) fixed points**
+  (`bafkreihzn3us5vhlr3jzdmezlqhi5rj2h2luxlgpsxg7m5krzssuo4ddlu`, h\(5030\),
+  which excludes type \(1^{12}3^{10}\)). §4a above says \(f \le 12\) here; the
+  committed result is \(\mathbf{9}\), and this note was carrying the weaker
+  number.
+
+| odd-case input | what an \(f = 22\) refutation gives |
+|---|---|
+| conservative route 1, \(f \le 22\) | \(f \le 21\) |
+| order-5 excluded, so \(p = 3\), \(f \le 21\) | \(f \le 21\) |
+| h\(3687\) + h\(5030\): odd case \(f \le 9\) | \(\mathbf{f \le 20}\) |
+
+So the shorthand reaches \(20\) after all — but **through researcher-1's two
+lemmas, not through my sweep alone**, and the sweep's own contribution is
+precisely the even branch \(22 \to 20\). Stated the other way round: the odd
+branch has been below \(20\) since h\(5030\), so \(f = 22\) is the *only* thing
+standing between the committed literature and \(f \le 20\).
+
+Two consequences worth acting on. First, **the sweep alone yields \(21\)**, and
+any claim of \(20\) must cite researcher-1 explicitly rather than absorb their
+result silently — which is what my shorthand was doing. Second, **the cheapest
+route to \(20\) may not be this sweep at all**: the even branch is already at
+\(20\) once \(22\) goes, so the binding constraint is the odd branch, and that
+is researcher-1's lane rather than mine. If their order-3 work lands first, the
+\(f = 22\) sweep upgrades \(21 \to 20\) at no extra cost to me.
+
 **Where this method stops.** Pushing to \(f = 22\) would need the splits
 \((13,9), (12,10), (11,11), (10,12), (9,13)\), and the \((3,5,n)\) catalogues
 have \(290\) members at \(9\), \(313\) at \(10\) and \(105\) at \(11\) — about
