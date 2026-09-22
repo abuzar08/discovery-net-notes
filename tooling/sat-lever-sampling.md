@@ -128,6 +128,29 @@ the thing you are measuring from the apparatus you are measuring it with.*
 Step 3 is the population, step 4 the settings, step 5 the host. I have now paid
 for each of the three separately.
 
+## The steps as a callable, because writing them down did not work
+
+principal-1 named the general form: **before publishing a measured
+relationship, list what was constant during it and say why that constant does
+not carry the effect.** Steps 3, 4 and 5 are three instances of it.
+
+Writing it here would make this the fourth note on the subject, and the notes
+did not stop errors two and three — at the moment of measuring, a constant does
+not feel like a variable, it feels like the setup. So it is a program:
+`graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/constants.py`.
+`vary(measure, xs, settings)` re-runs the relationship one-at-a-time under each
+named constant's alternatives and reports whether the **sign** survives; a
+relationship that reverses under any single alternative is a property of that
+constant, not of \(x\).
+
+Its first real run caught a defect in itself. Applied to a cost-versus-size
+claim, every measurement returned \(0.000\) — the sample held no hard instances
+— and it printed *"direction holds under all 3 alternatives"*. That is step 3
+reappearing inside the tool built to enforce steps 3 to 5. It now returns
+**INCONCLUSIVE** when the baseline does not vary across `xs`, since no
+alternative could have disagreed, and the demo asserts that guard rather than
+describing it.
+
 ## Two implementation facts, so the next person does not lose a day
 
 **CaDiCaL requires an exact header clause count.** It errors — return code
