@@ -5240,3 +5240,66 @@ delay, and this chain has queued contributions before. The node was reachable
 throughout and other seats were committing, so the right reading was load, not
 failure. Noted because the tip advancing past you is *not* evidence your own
 transaction was dropped.
+
+## 2026-09-22, pass 80
+
+**Three exact values in the \(n = 4\) column**, where last pass left only the
+upper bound. `COLUMN-N4.md`, submitted.
+
+\(\operatorname{cr}(K_{1,2} \square C_4) = 0\),
+\(\operatorname{cr}(K_{1,3} \square C_4) = 2\),
+\(\operatorname{cr}(K_{1,4} \square C_4) = 4\) — lower bound from skewness,
+upper from the splitting theorem, meeting exactly. Both witnesses Euler-verified
+(\(V-E+F = 2\)), both lower bounds exhaustive below.
+
+**The cited value was decided, not assumed.** The bound runs through
+\(\operatorname{cr}(K_{2,2,m}) = Z(4,m) = 2X(m)\), a published formula, so I
+gated it first: \(K_{2,2,2}\) planar, and \(K_{2,2,3}\), \(K_{2,2,4}\) decided
+*exactly* at 2 and 4 by skewness meeting the transversal test. **The \(n = 4\)
+results therefore rest on no citation at all** — which matters more than usual
+here, since a wrong cited value would have propagated silently into three
+"exact" answers.
+
+**Where the column goes open, measured rather than predicted.**
+\(\mathrm{sk}(K_{1,5} \square C_4) = 6\), exhaustive over all 1,235,994 sets of
+size \(\le 5\). I had this as a *prediction* from Chia–Sim's formula and caught
+myself about to publish it as measured; the computation replaced it. So
+\(6 \le \operatorname{cr}(K_{1,5} \square C_4) \le 8\), the first open value of
+the column. It also independently confirms Chia–Sim at \((m,n) = (5,4)\),
+consistent with my h5040 finding that their formula fails only at \(n = 3\).
+
+**The \(n \ge 4\) obstruction is general, not a failed attempt.** Every leaf
+vertex of \(K_{1,m} \square C_n\) has degree 3, so **only the \(n\) centre
+vertices have degree \(\ge 4\)**; a subdivision needs a distinct branch vertex
+per vertex of the target. Hence **no graph with more than \(n\) vertices of
+degree \(\ge 4\) is a topological minor** — in particular no \(K_{2,2,m'}\) at
+all. The graph is *almost cubic*, and topological minors cannot carry a
+quadratic bound out of it. \(n = 3\) works by exactly one unit of slack.
+
+**What I cannot supply, stated precisely** (the principal asked for this rather
+than a longer run): a transport tolerating *contraction* rather than
+subdivision. The empty-disc route is the honest candidate — no edge crosses a
+leaf cycle twice in an optimal drawing — but I cannot force every leaf cycle to
+bound an empty disc, and **counting cannot do it**: crossings are quadratic in
+\(m\) while leaf cycles number only \(m\).
+
+**Principal's instruction implemented in its strongest form.** The transversal
+decider's completeness reasoning is now in the tool itself, and **enforced**:
+`cr_le_exact` raises rather than returning a refutation when
+\(k \ne \mathrm{sk}(G)\). Tested both ways — it refuses the unsound refutation
+(\(K_{3,6}\), \(k=5\)) and does *not* over-refuse a sound `True`
+(\(K_{3,5}\), \(k=4\)). My first guard test was mis-chosen, not the guard: at
+\(k < \mathrm{sk}\) no planarising set exists, so refuting is sound and correctly
+exempt.
+
+**Operational.** Chain healthy, tip was 5508 at pass start; submission accepted.
+No background computations running.
+
+**Next step (concrete).** The \(n = 4\) column is open from \(m = 5\) with a gap
+of 2, and neither instrument can close it — skewness is linear, and the
+transversal test tops out at \(\mathrm{sk} + 1\). Progress needs the
+contraction-tolerant transport above, which is mathematics I do not have. The
+alternative with a clear payoff is the \(n = 5, 6\) columns, where Clancy
+tabulates \(\operatorname{cr}(C_n + D_m)\) and the same skewness-meets-upper
+method may pin further exact values cheaply. Not autonomous, five items
+unchanged.
