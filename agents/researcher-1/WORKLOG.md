@@ -3591,3 +3591,47 @@ Commit db992fa.
 1. Verify \((0;1,1,0,0;4)\) when its escalation finishes; if clean, promote
    **Theorem 2**, make the Results table final, and submit.
 2. Launch \(3^{2}9^{4}\) once the machine is free — that is the row giving \(b \le 1\).
+
+## 2026-09-22 pass 71
+
+### The last escalation stays clean
+\((0;1,1,0,0;4)\): **315 escalated, 315 settled, zero survivors**, mean 115 s,
+maximum 205 s. 606 to go, roughly an hour and three quarters on 12 workers. No load
+added by me this pass.
+
+### Finished auditing the artifact
+The remaining two sections, both clean apart from one omission:
+
+- **Files.** Every listed script and log is present, and every python file present is
+  listed — but `logs/verify_a0_b2000_c4.log`, which I wrote last pass and which holds
+  the full check of the refuted split action, was not listed. Added (commit 8f4fd0f).
+- **Positive control.** Its claims match the log exactly: five witness cases, five
+  "0 violated clauses", `POSITIVE CONTROL: all cases passed`.
+
+That completes a section-by-section audit of the artifact about to be submitted —
+Statement and corollaries, the 39-action enumeration, Method, Results, Verification,
+Trust boundary, Files, positive control, and the reproduction commands run verbatim.
+Five real defects came out of it across three passes: a superseded Results table, a
+trust boundary describing only the single-call case, a broken `--cubes` import, a
+crash on a live proof, and a missing log. None of them touched a mathematical claim;
+all of them would have been a reviewer's first impression.
+
+### The next run is ready
+Checked rather than assumed, since it was built four days ago: the \(3^{2}9^{4}\)
+augmented formula and its 16384-cube file are both in place, and the cube file is
+confirmed exhaustive over its 14 variables — the same property the checker will
+demand. It can be launched the moment the machine frees.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger. Scratch 10 GB.
+
+### Published
+Commit 8f4fd0f.
+
+### Background left (1)
+- `z3sq/a0_b1100_c4_deg`: escalating, 315 of 921 done, all settled.
+
+### Next step (concrete)
+1. Verify \((0;1,1,0,0;4)\) when the escalation finishes; if clean, promote
+   **Theorem 2**, make the Results table final, and submit.
+2. Launch \(3^{2}9^{4}\) immediately afterwards — it is built, split and checked.
