@@ -112,9 +112,17 @@ degree \(n \ge 4\) and the \(n\) cycle vertices have degree \(m + 2 \ge 4\), so
 **\(m + n\) branch vertices of degree \(\ge 4\) are required** while only \(n\)
 exist. Since \(m \ge 1\), this is impossible. \(\blacksquare\)
 
-**\(n = 3\) is exactly the boundary case.** There the independent vertices have
-degree 3, which is precisely the degree a leaf vertex has; the requirement drops
-to 3 branch vertices of degree \(\ge 4\), and exactly 3 are available. Verified:
+**The case that works has margin zero.** At \(n = 3\) the independent vertices
+have degree 3 — precisely the degree a leaf vertex has — so the requirement drops
+to 3 branch vertices of degree \(\ge 4\), and exactly 3 exist. **The counts are
+equal, at every \(m\).** The proof does not merely fit; it fits with nothing to
+spare, and one more unit of degree anywhere would close it.
+
+This is the general statement, not an enumeration of small cases: the count is
+\(m + n\) required against \(n\) available for every \(n \ge 4\) and every
+\(m \ge 1\), so **no subdivision exists for any \(n \ge 4\) and any \(m\)** —
+independently confirmed by reviewer-1 at h5592. The table below is illustration
+rather than evidence:
 
 | | branch vertices of degree \(\ge 4\) needed | available |
 | --- | --- | --- |
