@@ -60,13 +60,19 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True, lex=False,
     #
     # Ordering the A-B cross edges first makes every early decision a real
     # structural commitment.
-    ncross = a * b
+    # Classify by the PAIR each variable stands for, not by its number.  The
+    # numbering interleaves cross pairs with X-touching pairs -- at
+    # |A| = 10, |B| = 13 only 78 of the first 130 variables are cross edges --
+    # so "v <= a*b" picked a 40% wrong set the first time I wrote this.
+    vmap = pre[3]
+    crossset = {v for (u, w), v in vmap.items() if u < a and a <= w < a + b}
     freq = {}
     for c in cls:
         for lit in c:
             freq[abs(lit)] = freq.get(abs(lit), 0) + 1
-    cross = sorted((v for v in freq if v <= ncross), key=lambda v: -freq[v])
-    rest = sorted((v for v in freq if v > ncross), key=lambda v: -freq[v])
+    cross = sorted((v for v in freq if v in crossset), key=lambda v: -freq[v])
+    rest = sorted((v for v in freq if v not in crossset),
+                  key=lambda v: -freq[v])
     order = cross + rest
     os.makedirs(W, exist_ok=True)
     base = os.path.join(W, "adapt.cnf")
@@ -83,7 +89,7 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True, lex=False,
     #   L <lits>   this cube was refuted, so its whole subtree is done
     #   C <lits>   this cube hit the cap, so skip the solve and split it
     # Replay is then almost free and each window extends the tree.
-    tag = ('D' if degwin else '') + ('L' if lex else '') or '2'
+    tag = (('D' if degwin else '') + ('L' if lex else '') or '2') + 'x'
     jpath = os.path.join(W, f"tree{tag}_{a}_{ia}_{ib}.txt")
     refuted, capped = set(), set()
     if os.path.exists(jpath):

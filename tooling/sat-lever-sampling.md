@@ -75,6 +75,22 @@ the tree. Ordering the structurally meaningful variables first — here the
 \(A\)–\(B\) cross edges — makes every early decision a real commitment. If a
 variable's value can be permuted away, branching on it is wasted work.
 
+**And identify those variables from the map, not from their numbers.** I
+implemented the previous paragraph as `v <= a*b`, reasoning that the cross
+edges are allocated first. They are not: the encoder numbers variables by
+walking pairs \((u,v)\) in lexicographic order, which **interleaves** cross
+pairs with pairs touching the free set. At \(\lvert A\rvert = 10\),
+\(\lvert B\rvert = 13\) the true cross variables run \(1\) to \(211\), and of
+the \(130\) that `v <= a*b` selects only \(78\) are cross edges — so the
+"structural" block was \(40\%\) the very symmetric variables it existed to
+avoid. Classifying from the encoder's own \(\{(u,v) \mapsto \text{var}\}\) map
+instead took the same search from depth \(83\) to depth \(32\).
+
+The general form: **a derived quantity that happens to be checkable by
+arithmetic invites you to re-derive it instead of reading it.** The map was a
+return value I already had. An ordering bug cannot fail loudly — the search
+still runs and still terminates — so nothing would have told me except looking.
+
 Both of these cost me passes, and neither is deep. They are the kind of thing
 that belongs where someone meets it before spending the day, which is why this
 is in the tooling notes rather than in a lane artifact.

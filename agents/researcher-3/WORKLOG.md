@@ -5452,3 +5452,65 @@ being standard-library-only makes it a cheap review target.
    then attack the open `n(7,4)` and `n(8,5)`.
 3. Offer the scheme to the team's reviewer as an independent-verification
    target; the checker is standard library only and needs no solver.
+
+## Pass 70 — 2026-09-22
+
+**Established.** The cost of these split instances is governed by the free-vertex
+count \(\lvert X\rvert = n - f - 4\), the vertices carrying no catalogue
+constraint. Like-for-like over ten identical catalogue pairs at \(f = 22\),
+same splits and cap, \(n\) differing by one: hard rate \(30\%\) at
+\(\lvert X\rvert = 15\) against \(80\%\) at \(16\). With the
+pre-registered sweep at \(\lvert X\rvert = 9\) under \(1\%\), that is a
+steep rate curve in a parameter available at planning time.
+
+Instance size is ruled out by counterexample: a \(599\)k-clause instance at
+\(\lvert X\rvert = 16\) has no verdict at \(20\) s while a
+\(610\)k-clause instance at \(\lvert X\rvert = 15\) refutes in \(0.2\) s,
+and holding \(f = 23\) while tripling the clause count to \(553\)k leaves the
+time at \(0.2\) s. Splits \((13,9)\), \((12,10)\), \((11,11)\) are all
+hard at \(\lvert X\rvert = 16\), so no single split carries it.
+
+**This prices \(f = 22\), and the answer is negative.** principal-1 has twice
+called it "the largest result available to your seat". It needs \(19\,100\)
+pairs at \(\lvert X\rvert = 16\), where \(80\%\) do not finish in
+\(4\) s and the comparable leftovers at \(\lvert X\rvert = 9\) have each
+absorbed more compute than \(3143\) siblings combined. **Out of reach of this
+encoding** — measured, not estimated. I am recording that as the finding rather
+than continuing to spend on it.
+
+**Corrected.** My pass-69 "split on structural variables" fix was itself \(40\%\)
+wrong. `cube_hard.py` selected cross edges by `v <= a*b`, but the encoder
+interleaves cross pairs with free-set pairs, so of the \(130\) variables picked
+only \(78\) were cross edges — the block was largely the symmetric variables the
+fix existed to avoid. Classifying from `precompute`'s own pair map took the
+search on \(\lvert A\rvert = 10\), \((1,0)\) from depth \(83\) to depth
+\(32\). An ordering bug is silent: the search still runs and still terminates.
+
+**Also corrected, before publishing.** My first \(\lvert X\rvert\) measurement
+sampled four instances against seven, **all at catalogue pair \((0,0)\)**, and
+read \(4/4\) easy against \(5/7\) hard as a sharp onset at
+\(\lvert X\rvert = 16\). Sampling ten distinct pairs per side gave a rate, not
+a boundary. Same sampling error as `tooling/sat-lever-sampling.md` records, four
+passes later, in the opposite direction — caught this time before it went out.
+
+**Published.** `DIFFICULTY-VARIANCE.md` rewritten around the cost law, keeping
+the four-orders-of-magnitude variance result as the at-fixed-\(\lvert X\rvert\)
+section — the two are the same phenomenon at different points on the curve.
+`tooling/sat-lever-sampling.md` gains the map-not-arithmetic trap.
+`cube_hard.py` fixed.
+
+**Blocked.** The three leftovers at \(f = 23\), \(n = 36\) —
+\(\lvert A\rvert = 10\) pairs \((1,0)\), \((63,0)\), \((82,0)\) — remain
+open. The corrected split order shallows the tree substantially but after four
+windows all \(64\) refuted leaves still sit in one second-level branch. The
+sweep stands at \(3143\) of \(3146\), no witness. Named exactly so anyone with
+cores can finish them without repeating the \(3143\).
+
+**For researcher-1.** The \(\lvert X\rvert\) law is encoding-independent in
+form — it counts vertices, not variables — so if your prime-order encodings show
+the same onset, that is evidence the mechanism is the search space rather than
+either of our formulations. Worth a single probe at two adjacent \(n\).
+
+**Next.** No background computations left running. Nothing I can settle with the
+levers this lane has; the honest next step is the write-up above rather than more
+windows on the three.
