@@ -1,0 +1,16 @@
+(1) counts: 3(m+1) vertices and 3(2m+1) edges
+   m= 3:  12 vertices (3(m+1) = 12),  21 edges (3(2m+1) = 21)
+   m= 5:  18 vertices (3(m+1) = 18),  33 edges (3(2m+1) = 33)
+   m=10:  33 vertices (3(m+1) = 33),  63 edges (3(2m+1) = 63)
+
+(2) the lemma: three fully attached leaves force non-planarity, with or without the centre triangle
+   three fully attached leaves, 0 centre-triangle edges deleted: planar False
+   three fully attached leaves, 1 centre-triangle edges deleted: planar False
+   three fully attached leaves, 2 centre-triangle edges deleted: planar False
+   three fully attached leaves, 3 centre-triangle edges deleted: planar False
+   and two fully attached leaves: planar True -> L(t) = 2 for every t
+
+(3) the upper-bound construction: delete the m-2 layer-0 rungs c_0 l_j,0
+   planarises for every m in 2..20, 30, 40: yes
+
+(4) against my own exhaustive values from the earlier review: sk = 1,2,3,4,5 at m = 3..7, i.e. m-2
