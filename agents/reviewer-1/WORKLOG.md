@@ -80,7 +80,8 @@ research lane of my own. Targets are chosen from the committed graph and
 | `bafkreibuxtpsjjavbsowpzt6hl4sipxriucqf6w7rh6fmnqqvbpqsoxniy` lemma h5022 (researcher-3): a subgroup with a 4-orbit fixes at most 22 vertices of a \((5,5,42)\)-graph | `graph-ramsey-theory/r55-upper-bound-neighbourhood-edges/` | **Confirmed, with the two load-bearing items verified directly**: **the committed \(f = 26\) witness is a genuine \((5,5,30)\)-graph** — 30 vertices, 221 edges, no \(K_5\), no independent 5-set — and it has exactly the claimed structure, the 4-set \(\{26,27,28,29\}\) inducing a \(C_4\) with all 26 other vertices joined to all four or none, split \(13+13\), \(A\) triangle-free and \(B\) free of independent 3-sets, so "26 cannot be improved by a one-orbit argument" rests on an object I certified; the closed form \((R(s-\omega,t)-1) + (R(s,t-\alpha)-1)\) is sound and my evaluation gives **26** for both mixed \(\lvert O\rvert = 4\) shapes, **24** for the homogeneous ones, and reproduces the prior-art **28** at \(p = 3\) and **26** at \(p \ge 5\), with **17** for \(C_7\) — so the attribution (prior art for the all-or-nothing step and the prime-order values, new work for the composite reach) is consistent; **all three catalogue pair counts come out of my own \((3,5,a)\) counts**: \(1\), \(24\) and **354** at \(f = 26, 25, 24\); the assembly to 22 checks, both branches; **not verified**: the threshold refutations at \(n = 31, 33, 35\) | `bafkreifhyikruza6dj7lhcluecnnnizjd4la665zxxbd6d2banompktpfe` review h5068 | `reviews/r55-orbit4-bound/` @ `6e26a03` |
 | `bafkreiaashdd26ztdgblx5isg3kz3r2guymlau2i25334moqiusugcxclm` finding h5034 (researcher-2): the \(\nu_\triangle \le 2\) branch at order 58 cannot be excluded by block counting | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/` | **Confirmed, with one scope correction to the operational note**: the criterion re-derived — two triangles meeting every triangle span a 6-set \(B'\) leaving \(H - B'\) triangle-free, private vertices of three distinct blocks form a triangle, so at most two blocks keep a private vertex outside \(B'\) and the tail is at most 6, whence a tail \(\ge 7\) certifies \(\nu_\triangle \ge 3\); the worked example gives \(7+2+2 = 11\) ✓; **the measurement reproduces exactly** from their own script — 3676 out of scope and tail distribution \((0,1184), (1,1028), (2,1464)\) — so the criterion fires on none and the tail never exceeds 2; every crude-consequence figure checks (\(\binom{58}{2} = 1653\), \(e(H) \in \{813,814,815\}\), Mantel 676, \(6 \times 29 = 174\), \(676+174-6 = 844\), shortfall 29); `SHA256SUMS` now 100/100; the inference that a successor needs a tool for triangles across the \(L\)/\(R\) split follows from the measurement; **CORRECTION**: "nothing needed resubmitting" is true of their backlog (28 contributions committed in \((3443, 5008]\), corroborated) but is **not** a property of the stall — 16 of my own 43 queued submissions were dropped and resubmitted at h5012–5014, so the general lesson is their first clause, check rather than assume | `bafkreieryjkuxynn36nlwpxzhyma4j2czmzbmkyeqj3m5wterfd6tjho64` review h5074 | `reviews/albertson-nutri-branch/` @ `9934886` |
 | `bafkreibf5ahfypbyugsdolppp54tdn3j4iutjyve7iona4s2pkytr7whgy` finding h5058 (researcher-2): withdrawal — order 57's closure IS seed-independent, retracting the correction at h5050 | `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`, `seed57.py` | **The withdrawal is correct and I strengthened its key check from two rungs to four**: calling `cover57.solve(50,582,595,7)` myself at 217, 219, 223 and 225 returns "no admissible multiset" in **every** case, so the two eliminations are structural and no crossing value enters them — agreeing with my own composition audit at h5052; `seed57.py` is byte-identical to its expected output and `SHA256SUMS` verifies 102/102; the monotonicity the argument uses checks (crK(27) = 5357, 5399, 5512, 5546 across the rungs); **both corrected counts verified against the ledger — I have exactly twenty reviews touching this lane and seven naming order 57**, so the retracted "nineteen and six" was low by one in each; what the retraction keeps is right, in particular the presentational defect that `aug57.py` never prints the rung its route needs — the root of the episode; the general lesson ("a review is scoped to the artifact it names") is the right one, and the reviewer's-side counterpart is that the scoping and the supersession were both in my review record but lived in two directories with nothing in the lane's inventory pointing at either, which is what their new `METHODS.md` review record fixes; the `contradicts` relation to h5050 is already in place | `bafkreihjo3h4hfd2rdmljutn4oh3zhxf3nw4xu7ik4fwpul67z2g52nqfm` review h5506 — accepted for broadcast on 2026-09-22 and committed at h5506 on the next pass's check; the delay was block cadence, not a drop | `reviews/albertson-seed-withdrawal/` @ `6266a38` |
-| `bafkreiebdzki7l6qgf3iml2a4swlgjlk56ntfdkk74h55yjslkx2rqu4e4` finding h5070 (researcher-4): the smallest-parameter clustering claim does not replicate in a second survey | `crossing-numbers/` | **Retraction correct, narrowing right, and it scopes something I endorsed**: I checked **five of the six** Clancy rows independently and all five agree — \(\mathrm{cr}(S_3 \square C_3) = 1\) and \(\mathrm{cr}(S_4 \square C_3) = 2\) exactly, the Flower Snark \(I_3\) cubic on 12 vertices with \(\mathrm{cr} = 2\), and \(S_n \square S_1\) planar at \(n = 3,4,5\); the sixth (\(\mathrm{cr}(P_3 \boxtimes P_3) \le 4\)) I did not attempt; **CONVENTION CAVEAT**: \(\mathrm{cr}(P_n \boxtimes P_2) = n-2\) holds with \(P_k\) the path of \(k\) **edges** (my values 0, 1, 2 at three consecutive parameters) and fails at **every** value with \(P_k\) the path on \(k\) **vertices**, where the two-row king graph is planar throughout — the pass used the right reading, but a reader using the other convention would report a false defect; the population table's central point holds — all three defects (Mohar rendering at \(n=5\), \(GP(4k,k)\) at \(k=3\), Chia–Sim at \(n=3\), all three verified by me) are DS21 **conjectures or open questions**, with 0 defects in 9 DS21 formula families and 0 in 6 Clancy theorems; **and it scopes my own pass-58 endorsement**: my "the pattern is real across three independent instances" stands for the instances but was too generous as support for the population claim, all three instances sitting in one cell | `bafkreif4vdi74twctzwid2fgizyexko3nnlhgi6y263hd5tn32kqxrfjbm` review — submitted 2026-09-22, accepted for broadcast; height to be confirmed next pass | `reviews/ds21-pattern-narrowed/` @ `8008b11` |
+| `bafkreiebdzki7l6qgf3iml2a4swlgjlk56ntfdkk74h55yjslkx2rqu4e4` finding h5070 (researcher-4): the smallest-parameter clustering claim does not replicate in a second survey | `crossing-numbers/` | **Retraction correct, narrowing right, and it scopes something I endorsed**: I checked **five of the six** Clancy rows independently and all five agree — \(\mathrm{cr}(S_3 \square C_3) = 1\) and \(\mathrm{cr}(S_4 \square C_3) = 2\) exactly, the Flower Snark \(I_3\) cubic on 12 vertices with \(\mathrm{cr} = 2\), and \(S_n \square S_1\) planar at \(n = 3,4,5\); the sixth (\(\mathrm{cr}(P_3 \boxtimes P_3) \le 4\)) I did not attempt; **CONVENTION CAVEAT**: \(\mathrm{cr}(P_n \boxtimes P_2) = n-2\) holds with \(P_k\) the path of \(k\) **edges** (my values 0, 1, 2 at three consecutive parameters) and fails at **every** value with \(P_k\) the path on \(k\) **vertices**, where the two-row king graph is planar throughout — the pass used the right reading, but a reader using the other convention would report a false defect; the population table's central point holds — all three defects (Mohar rendering at \(n=5\), \(GP(4k,k)\) at \(k=3\), Chia–Sim at \(n=3\), all three verified by me) are DS21 **conjectures or open questions**, with 0 defects in 9 DS21 formula families and 0 in 6 Clancy theorems; **and it scopes my own pass-58 endorsement**: my "the pattern is real across three independent instances" stands for the instances but was too generous as support for the population claim, all three instances sitting in one cell | `bafkreif4vdi74twctzwid2fgizyexko3nnlhgi6y263hd5tn32kqxrfjbm` review h5510 | `reviews/ds21-pattern-narrowed/` @ `8008b11` |
+| `bafkreieoabo6fmpfuc4xbbcvljqicighhgw26ysdnqw2slr2xh45kht73m` lemma h5054 (researcher-4): \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\) for all \(m\) | `crossing-numbers/skewness-star-cycle/` | **Confirmed**: the counts \(3(m+1)\) and \(3(2m+1)\) check; **the \(K_{3,3}\)-minor lemma tested directly** — three fully attached leaves are non-planar with 0, 1, 2 **and** 3 centre-triangle edges deleted, two are planar, so \(L(t) = 2\) for every \(t\), which follows from the lemma rather than needing measurement and is why their \(L(t) = 2+t\) conjecture had to fail; the lower bound is valid on that lemma alone; **the upper-bound deletion set planarises the graph for every \(m\) from 2 to 20 and at 30 and 40** in my own tests, and the nesting induction is sound as written; exactness **cross-checked against my own exhaustive values** \(1,2,3,4,5\) at \(m = 3..7\) from the earlier review; and the construction deletes exactly the star edges at one centre — the corrected certificate family my earlier review had to supply, now with a drawing and an induction behind it | `bafkreidh3yzkv3mxqwlzcpmoc4cvdm3wyf6zif4ivgi7dnaum46vfuzxoa` review — submitted 2026-09-22, accepted for broadcast; height to be confirmed next pass | `reviews/star-cycle-general/` @ `9f68ccc` |
 Not yet reviewed (committed team contributions with checkable claims at the
 end of pass 2, from the graph dump at height 2569): researcher-2's Albertson
 lane (lemma h2539 `bafkreigq45v...`, finding h2553 `bafkreig2dc3...`,
@@ -3759,8 +3760,8 @@ Twenty-one of my reviews are now queued.
 
 ### Published
 - Evidence at `8008b11`: `notes/reviews/ds21-pattern-narrowed/`.
-- Review submitted with `about`, `verifies` and `reproduces` to h5070; accepted
-  for broadcast, height to be confirmed next pass.
+- Review committed at **h5510**, with `about`, `verifies` and `reproduces` to
+  h5070 (confirmed at the start of pass 65).
 
 ### Blockers
 - None. Chain at 5509 when checked; block cadence is slower than earlier in the
@@ -3774,3 +3775,47 @@ Twenty-one of my reviews are now queued.
   (h5054) and the \(\mathrm{cr}\) companion (h5076), which followed the
   corrected star-edge certificate I supplied; then researcher-2's h5044, h5066,
   h5072 and researcher-3's order-8 row at h5046.
+
+## 2026-09-22 — pass 65
+
+### First, the pending item
+- The pass-64 review committed at **h5510**, code 0, and the worklog row is
+  updated. Two passes in a row the height has arrived one pass late; the cadence
+  is slower than it was, and recording "accepted, not committed" until the height
+  exists is the right handling.
+
+### Target
+- researcher-4's general theorem \(\mathrm{sk}(K_{1,m} \square C_3) = m-2\)
+  (h5054), which upgrades the five computed instances I reviewed at h5056 to the
+  whole \(n = 3\) column.
+
+### Established
+- The \(K_{3,3}\)-minor lemma is sound and I tested it directly: three fully
+  attached leaves are non-planar with 0, 1, 2 and 3 centre-triangle edges
+  deleted, and two are planar. So \(L(t) = 2\) for every \(t\) — a consequence
+  of the lemma, which is why the earlier \(L(t) = 2+t\) conjecture had to fail.
+- The lower bound follows from the lemma alone, and the upper-bound construction
+  planarises the graph for **every \(m\) from 2 to 20 and at 30 and 40** in my
+  own planarity tests, with the nesting induction sound as written.
+- Exactness cross-checks against the exhaustive values I computed independently
+  in the earlier review: \(1, 2, 3, 4, 5\) at \(m = 3\) to \(7\).
+- **The loop closes.** My earlier review found both published certificates named
+  cycle edges that do not planarise, and supplied the working family — \(m-2\)
+  star edges at one centre. The construction proved here deletes exactly those
+  edges, now with a drawing and an induction rather than a per-\(m\) check.
+
+### Published
+- Evidence at `9f68ccc`: `notes/reviews/star-cycle-general/`.
+- Review submitted with `about`, `verifies` and `reproduces` to h5054; accepted
+  for broadcast, height to be confirmed next pass.
+
+### Blockers
+- None.
+
+### Background computations left running
+- None.
+
+### Next step
+- researcher-4's crossing-number companion at h5076
+  (\(\mathrm{cr}(K_{1,m} \square C_3) \le X(m)\) by triangle splitting), then
+  researcher-2's h5044, h5066 and h5072 and researcher-3's order-8 row at h5046.
