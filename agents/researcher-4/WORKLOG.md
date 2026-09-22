@@ -5145,3 +5145,64 @@ pipe.
 \(X(6) = 6\), so it proves \(\ge 5\) and stops, a limit of the method and not of
 compute. So the next move is the empty-disc reduction as mathematics rather than
 computation. Not autonomous, five items unchanged.
+
+## 2026-09-22, pass 79
+
+**The conjecture is a theorem.**
+\(\operatorname{cr}(K_{1,m} \square C_3) = \operatorname{cr}(K_{1,1,1,m}) = X(m)\)
+for every \(m \ge 1\). Published; `THEOREM-CR.md`.
+
+**The lower bound came from changing the kind of reduction, not from a new idea.**
+Contracting each leaf triangle gives \(K_{1,1,1,m}\) as a **minor**, and I had
+correctly ruled that out — crossing number is not minor-monotone, and I published
+the conjecture with that sentence attached. But crossing number **is** monotone
+under *topological* minors. Deleting one edge \(l_{j,1}l_{j,2}\) per leaf triangle
+leaves \(l_{j,1}\) and \(l_{j,2}\) with degree 2 and \(l_{j,0}\) with degree 3;
+suppressing the two degree-2 vertices leaves a **subdivision** of
+\(K_{1,1,1,m}\), a subgraph of the original. Hence \(\operatorname{cr} \ge
+\operatorname{cr}(K_{1,1,1,m})\). Verified by isomorphism for \(m = 2,\ldots,13\).
+
+With the splitting theorem from h5076 giving the reverse, the equality is exact.
+
+**The two directions are not symmetric, and I checked rather than assumed.**
+Splitting needs only degree exactly \(n\), so it gives
+\(\operatorname{cr}(K_{1,m} \square C_n) \le \operatorname{cr}(C_n +
+\overline{K_m})\) for **all** \(n\) — verified \(n = 3,4,5,6\). The deletion route
+is special to \(n = 3\): a triangle minus an edge is a path whose *centre* carries
+the third attachment, so one branch vertex holds all three edges, whereas an
+\(n\)-cycle minus an edge has **two** internal branch vertices and suppression
+leaves them joined rather than merged. **Verified false at \(n = 4,5,6\)** — a
+checked limitation, not an unexamined gap.
+
+**Consistency.** The theorem reproduces every exact value I had obtained
+independently: \(m=3 \to 1\), \(m=4 \to 2\) (skewness meeting a drawing), and
+\(m=5 \to 4\) (transversal test, exhaustive over 3,510 configurations). The
+heuristic's \(X(m)+1\) at \(m = 10, 12\) is now *known* to be search weakness,
+which is how I had recorded it.
+
+**How I missed it for two passes.** I ruled out the contraction, then treated the
+lower bound as needing a genuinely new idea — pricing an exhaustive check and
+building a decider for it. The working argument was three lines away: *the same
+reduction, run by deletion instead of contraction, lands in a class where
+crossing number is monotone.* **"This reduction is the wrong kind" should be
+followed by "is there a reduction of the right kind between the same two
+graphs?"** I did not ask that for two passes. Recorded in
+`out-of-range-verdicts.md`.
+
+**Principal's directions, both addressed.** The notation save is promoted to the
+head of the tooling notes as asked — *three disagreements in a row with three
+published theorems is evidence about the reader* — because the failure it
+prevents is a public refutation of correct mathematics. The request to *price*
+the exhaustive check at the first \(m\) where \(X(m)\) and \(m-2\) diverge was
+overtaken: that value is \(m = 5\), and pass 78 settled it outright in 3.5 s
+rather than pricing it.
+
+**Operational.** Chain healthy; contribution accepted this pass. No background
+computations running.
+
+**Next step (concrete).** \(n \ge 4\) has only the upper bound
+\(\operatorname{cr}(K_{1,m} \square C_n) \le \operatorname{cr}(C_n +
+\overline{K_m})\). The matching lower bound needs a topological minor that
+survives longer leaf cycles, and the \(n = 3\) route provably does not supply it.
+Worth asking whether \(C_n + \overline{K_m}\) has a known crossing number at all
+before investing. Not autonomous, five items unchanged.

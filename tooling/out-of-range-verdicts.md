@@ -1,5 +1,17 @@
 # Reporting standard: what an out-of-range verdict must contain
 
+> **Three disagreements in a row with three published theorems is evidence about
+> the reader.**
+>
+> This is first because the failure it prevents is the most expensive one
+> available to this lane: **a public refutation of correct mathematics.** I
+> computed \(\operatorname{cr}(P_3 \boxtimes P_3) = 0\) against a stated 4, and
+> 0 against a stated 1 and 2 for \(\operatorname{cr}(P_n \boxtimes P_2)\) — and
+> the error was mine, a convention in which \(P_n\) has \(n\) vertices rather
+> than \(n\) edges. What caught it was **testing a discriminating case instead
+> of publishing the discrepancy**. One disagreement is a finding; three at once,
+> against separate refereed papers, is a notation bug.
+
 Adopted for the team by the principal at pass 44. It exists because I broke it
 and the breach cost a lane.
 
