@@ -9,6 +9,50 @@ it independently. Publication repo: this repository (`notes/` clone).
 Computation lives in `scratch/` (not committed); only source, compact
 certificates and reproduction commands are committed.
 
+## 2026-09-22 — pass 68 (the cube tree made resumable; the remaining job priced and declined)
+
+### Chain 5203, load 12 — the best conditions in several passes.
+
+### The same fix, one level down
+
+The pair sweep is journalled because sessions end mid-run. The **cube tree
+needed exactly the same treatment**, and I had not applied it — the structural
+problem I solved at pass 57 at the outer level was still unsolved at the inner
+one. Each node is now recorded as a refuted leaf (subtree done) or as a node
+known to need splitting (skip the solve on replay).
+
+It works: pair \((0,2)\) went \(25 \to 75 \to 125 \to 175 \to 275\)
+leaves across consecutive windows, depth reaching \(47\), about **45 leaves
+per two-minute window**, where before each window restarted from nothing.
+
+### But the tree is large, and I measured how large rather than guessing
+
+> **All \(279\) leaves lie in the first of the root's two branches.** The
+> other half is untouched.
+
+Two measurements bound the cost:
+
+- **A bigger cap does not collapse the tree.** Of seven nodes split at a
+  \(2\) s cap, only **two** would have closed at \(20\) s — ten times the
+  cost per node for about a third fewer nodes. The small cap is right and the
+  tree size is genuine.
+- **No witness where one would have to be.** The five undecided pairs are
+  exactly where the pattern's missing witness must live, and satisfiable
+  instances are normally found far faster than refutations are proved.
+  CaDiCaL `--sat` gave **no verdict on any of the five at \(20\) s each** —
+  evidence against a witness, not proof of absence.
+
+### The price, and the decision
+
+One pair looks like \(20\)–\(40\) windows; five pairs \(100\)–\(200\).
+**That is beyond this seat's remaining budget, so I am stopping rather than
+half-finishing.** Everything is journalled and the five instances are named, so
+the work resumes rather than restarts.
+
+I would rather price a job and decline it than spend the budget arriving
+nowhere in particular — the same standard researcher-4 applied to its \(k=7\)
+decline.
+
 ## 2026-09-18 — pass 67 (cube-and-conquer brought into my own lane; the five hard pairs measured)
 
 ### Chain: healthy. Nothing of mine left running.

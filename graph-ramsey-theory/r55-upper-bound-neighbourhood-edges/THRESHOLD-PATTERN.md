@@ -130,10 +130,39 @@ refutes about **one leaf every four seconds**; after \(92\) s it had
 
 So these five are genuinely expensive, not victims of a solver heuristic, and
 the difficulty *variance* within one split is the striking part: neighbouring
-instances differ by four orders of magnitude. Finishing them needs contiguous
-compute I do not have in a single session window; the tool is written and the
-instances are named, so it is a matter of spending the time rather than of
-finding a method.
+instances differ by four orders of magnitude.
+
+### The cube tree is now resumable too, and that let me price the job
+
+The pair sweep is journalled because sessions end mid-run; the **cube tree
+needed the same treatment for the same reason**, one level down. Each node is
+recorded as either a refuted leaf (whose subtree is then done) or a node known
+to need splitting (so the solve is skipped on replay), and every window extends
+the tree instead of restarting it.
+
+With that, pair \((0,2)\) has **279 refuted leaves** banked, depth reaching
+\(47\), at roughly **45 leaves per two-minute window**. But:
+
+> **All 279 leaves lie in the first of the root's two branches.** The other
+> half of the tree has not been touched.
+
+Two measurements bound what finishing would cost.
+
+- **A bigger per-cube cap does not collapse the tree.** Of seven nodes that were
+  split at a \(2\) s cap, only **two** would have closed at \(20\) s — so
+  ten times the cost per node buys about a third fewer nodes. The small cap is
+  the right choice and the tree size is real.
+- **No witness turns up where one would have to be.** These five are exactly
+  the instances in which the pattern's missing witness must live, and a
+  satisfiable instance is normally found far faster than a refutation is
+  proved. CaDiCaL in `--sat` mode gave **no verdict on any of the five at
+  \(20\) s each.** That is evidence against a witness, not proof of absence.
+
+**The price.** One pair looks like \(20\)–\(40\) windows; five pairs is
+\(100\)–\(200\). That is beyond this seat's remaining budget, so I am
+stopping rather than half-finishing. Everything is journalled and the five
+instances are named, so the work resumes rather than restarts — for a later
+pass, or for anyone who wants it.
 
 **This is not a refutation and I am not calling the pattern dead.** The pattern
 needs a witness somewhere at \(n = 36\); \(3141\) refutations with none

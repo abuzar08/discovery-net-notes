@@ -58,9 +58,30 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
     # was re-formatting 139000 clauses in Python.
     body = "".join(" ".join(map(str, c)) + " 0\n" for c in cls)
 
+    # RESUME, one level down.  The pair sweep is journalled because a session
+    # ends mid-run; the cube tree needs the same treatment for the same reason,
+    # and at ~4 s per leaf a tree that needs hundreds of leaves cannot finish
+    # in one window.  Two kinds of entry:
+    #   L <lits>   this cube was refuted, so its whole subtree is done
+    #   C <lits>   this cube hit the cap, so skip the solve and split it
+    # Replay is then almost free and each window extends the tree.
+    jpath = os.path.join(W, f"tree_{a}_{ia}_{ib}.txt")
+    refuted, capped = set(), set()
+    if os.path.exists(jpath):
+        with open(jpath) as fh:
+            for line in fh:
+                t = line.split()
+                if len(t) >= 1 and t[0] in ("L", "C"):
+                    key = tuple(int(x) for x in t[1:])
+                    (refuted if t[0] == "L" else capped).add(key)
+    jfh = open(jpath, "a")
+    if verbose and (refuted or capped):
+        print(f"        resuming: {len(refuted)} refuted leaves, "
+              f"{len(capped)} nodes known to need splitting", flush=True)
+
     t0 = time.time()
-    leaves = [0]
-    deepest = [0]
+    leaves = [len(refuted)]
+    deepest = [max((len(k) for k in refuted), default=0)]
 
     def run(units):
         with open(base, "w") as fh:
@@ -71,10 +92,21 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
                               capture_output=True, text=True).returncode
 
     def rec(units, depth):
-        rc = run(units)
+        key = tuple(units)
+        # a refuted ancestor settles this whole subtree
+        for i in range(len(key) + 1):
+            if key[:i] in refuted:
+                return "UNSAT"
+        if key in capped:
+            rc = 0                       # known to need splitting; do not solve
+        else:
+            rc = run(units)
         if rc == 10:
             return "SAT"
         if rc == 20:
+            refuted.add(key)
+            jfh.write("L " + " ".join(map(str, key)) + "\n")
+            jfh.flush()
             leaves[0] += 1
             deepest[0] = max(deepest[0], depth)
             if verbose and leaves[0] % 25 == 0:
@@ -83,6 +115,10 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
             return "UNSAT"
         if depth >= maxdepth:
             return "UNRESOLVED"
+        if key not in capped:
+            capped.add(key)
+            jfh.write("C " + " ".join(map(str, key)) + "\n")
+            jfh.flush()
         v = order[depth]
         for lit in (-v, v):
             out = rec(units + [lit], depth + 1)
@@ -91,6 +127,7 @@ def adaptive(a, ia, ib, cap, maxdepth, verbose=True):
         return "UNSAT"
 
     verdict = rec([], 0)
+    jfh.close()
     return verdict, leaves[0], deepest[0], time.time() - t0
 
 
