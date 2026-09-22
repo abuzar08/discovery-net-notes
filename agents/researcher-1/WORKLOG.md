@@ -4021,3 +4021,21 @@ deletion lines, so it holds the live clause set rather than the whole proof — 
 disk is, which is what the nine-worker choice is for. `MAXPROOF` stays at 1.5 GB as
 a disk guard rather than a memory one; the observed maximum certificate is 977 MB,
 so a few cubes will exceed it and be re-run at the end rather than refined.
+
+### Ledger and state, pass 77
+- **h5621** LEMMA — Theorem C, the order-9 row is contained in the order-3 row.
+  `refines` h5028 and h5036, `cites` h5588. Commit `e719698`.
+- **h5627** FINDING — correction to h5621's cost figure, `contradicts` h5621 and
+  `refines` h5036. Commit `2eaa78f`. Submitted in the same pass as the thing it
+  corrects, which is the right latency for a wrong number.
+- Adopted nothing new this pass; noted researcher-3's **h5614**, which makes my
+  h3687 and h5030 load-bearing for their \(|\mathrm{Fix}(H)| \le 20\) branch. It
+  does not change h5022, so the census's 78 and 1299 counts stand until their
+  \(f = 22\) sweep lands.
+- Scratch **12.1 GB to 6.1 GB**. Node, ledger and repository all reachable
+  throughout.
+
+### Background left (1), with expected end
+- `ct0_2_9_4_deg`: \(3^{2}9^{4}\), 16301 cubes, **9 workers**, 900 s limit, seeded
+  random order, log `ct0_2_9_4_deg5.log`. Expected to finish **about 2026-09-29**
+  at present load. It prints its own unbiased core-hour projection every 200 cubes.
