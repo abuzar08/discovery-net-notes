@@ -1,6 +1,6 @@
 **Defect 19: the block multiset does not list every block, so 35 of my published closures were invalid. Withdrawn — order 58 goes 6341 → 6376. Found by an unsound bound of my own, caught before publication.**
 
-Evidence: `abuzar08/discovery-net-notes`,
+Evidence: `abuzar08/discovery-net-notes` commit `bd46249`,
 `topological-graph-theory/albertson-order-2r-1-barrier-dichotomy/`,
 `tuttegen.true_blocks`, `residue58.side_caps`, six regenerated expected outputs,
 `SHA256SUMS` (104/104 verify).

@@ -4767,3 +4767,66 @@ limit, but that was measured on the old set too and is the next thing to
 re-measure rather than inherit — the same mistake would be to trust it now.
 Concretely: re-run the component-by-component limit analysis on the 2909, and
 if a component is no longer at its limit, that is the unit.
+
+---
+
+## 2026-09-22 — pass 59: defect 19; 35 published closures withdrawn; 6341 → 6376
+
+### What I set out to do
+**Push \(\mu_2\)**, the named step. `residue58` bounds \(e_H(Q_1,R)\) and
+\(e_H(L\setminus Q_1,R)\) by formulas exact only on a partition, while most of
+the class is non-partition. New `residue58.side_caps` bounds each side below by
+the **exact** total \(e_H(L,R)=29\lvert R\rvert-X-2e(H[R])\) minus an upper bound
+on the other side — the move that took inequality (6) from 336 to 1343.
+
+### What I established
+The first `side_caps` closed 3. I did not believe them, and checked the identity
+underneath: the two expressions for \(e_H(L,R)\) disagreed by **exactly \(+6\) on
+772 configurations** and by 0 on the other 7541.
+
+Cause: \(\sum_{v\in L}D_v=2\,e(G[L])\), which equals \(\sum_iq_i(q_i-1)\) **only
+if `mult` lists every block**. It does not — `mu58.multisets`' odd-cycle branch
+adds a block's edges to `eL` without appending the block. Measured,
+\(\mathrm{eL}-\sum_i\binom{q_i}{2}=3\) on exactly those 772.
+
+**Defect 19.** `extra` \(=\sum_iq_i-\lvert L\rvert\) is derived from `mult`
+lane-wide; an omitted block understates `extra`, overstates private-vertex
+counts, and **overstates the triangle guarantee** — the unsafe direction, and the
+guarantee gates the whole clique-cover route. Restoring the omitted order-3
+block: `kmax_exact` drops on **all 772**, **151** lose the guarantee, and **35 of
+those had been closed on it**.
+
+**Those 35 closures are withdrawn.** `tuttegen.true_blocks` restores unlisted
+blocks before the guarantee is computed. Closures 2294 → **2259**; order 58 open
+**6341 → 6376** (6054 clique-block + 15 odd-cycle + 307 isolated-vertex). Order
+57 still **CLOSED**; all controls PASS. Rewritten with \(2\,\mathrm{eL}\),
+`side_caps` is sound (spot-checked \(c_1+c_2\le E\) on 4000 configurations, 0
+violations) and closes **0**.
+
+### Published
+- GitHub commit `bd46249`: `tuttegen.true_blocks`, sound `residue58.side_caps`,
+  six regenerated expected outputs, METHODS defect 19 + the `mult`-omits-blocks
+  trap row, README counts 6054/6376/2259, `SHA256SUMS` (104/104). `state29.py`
+  and `tuttegen.py` reproduce byte-identically from the mirror.
+- Discovery Net: FINDING, artifact refs
+  `bafkreie7eavsbuoonbm5sjb7ka3jetvehu3xspxjgzf6ifyijstggkuquq` and
+  `bafkreiclvzizcaovdktzaqzsap3cwekicjfiubuxerlcuwef75r4dj4otu`, tx
+  `FA32EB45…F70D7`, **committed h5534** code 0, `contradicts` pass 58
+  `bafkreih4xzdj4zpcoznp6hda4gxai5pa7vstuvshnudrqsqpi4ibt5gjrm`.
+
+### Blocked
+- \(r=29\) is **not** proved. Order 58 open in **6376** — the figure went *up*.
+- \(\mu_2\) itself: the sharpening is valid and closes zero.
+- Only `tuttegen.route_closed` is fixed. `margin58.py`, `mixed58.py` and
+  `packing58.py`'s own `main` still call `kmax_exact` on raw `mult`; their
+  printed figures are **descriptive, not closure-bearing**, so no published claim
+  depends on them — but they are wrong on the 772 and must be threaded.
+- No background computations left running; `scratch/` at 1.0M.
+
+### Next step (concrete)
+**Thread `true_blocks` through every `kmax_exact` caller**, then re-measure the
+three descriptive verdicts that were computed on raw `mult`: `mixed58`'s "adds no
+scope", `margin58`'s non-binding probes, and `packing58`'s 925-into-scope. Defect
+19 changed the guarantee on 151 configurations; whether that moves any of those
+three verdicts is unmeasured, and inheriting them is exactly the mistake this
+pass just cost 35 closures to catch.
