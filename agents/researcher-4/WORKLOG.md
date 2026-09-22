@@ -5548,3 +5548,57 @@ Clancy's graph figures (\(H\), \(B\)) I have not confirmed, and Theorems 3.15\*,
 better target is **the asterisked results with the *largest* claimed values that
 still have small skewness**, since those are where a transcription defect would
 survive undetected longest. Not autonomous, five items unchanged.
+
+## 2026-09-22, pass 85
+
+**27 exact values across 7 asterisked results, zero disagreements** — and I
+raised an objection against my own method, then resolved most of it and named the
+part that stands. Submitted.
+
+**Six more exact values.** Theorem 2.14\* second formula,
+\(\operatorname{cr}(K_{4,n}\setminus e) = 2X(n) - \lfloor (n-1)/2\rfloor\),
+confirmed at \(n=3,4,5\) (values 1, 3, 6). Theorem 4.2\* (Li, 2014) with
+\(G = C_4 \cup K_1\): \(\operatorname{cr}(G+D_1)=0\),
+\(\operatorname{cr}(G+D_2)=1\), \(\operatorname{cr}(G+P_1)=2\).
+
+**The objection, which is real.** An exact decision needs
+\(V - \mathrm{sk} \le 1\), but a transcription defect is *harder to notice* when
+\(V\) is large. **Information content grows with \(V-\mathrm{sk}\) while
+decidability requires it small — so the cells I can decide are the least
+informative ones.** Measured: \(V-\mathrm{sk}\) is 0,0,1 on decided cells and
+2,3,4,5 on undecided ones.
+
+**The resolution: the defects have a direction.** All three defects I have ever
+found are values printed **too large** — 1 against 0, 5 against 3, \(2(m-2)\)
+against \(m-2\). Not one was too small. And "too large" is refuted by the
+**one-sided** check \(ub < V\), which needs no gate and **no bound on
+\(V-\mathrm{sk}\)**, since the heuristic only overestimates. In every undecided
+cell this batch the heuristic built a drawing with *exactly* the claimed
+crossings and never fewer — **seven for seven**.
+
+**Two things I recorded against myself.** A claim printed too *small* needs a
+lower bound and so needs the gate; no such instance has been observed, but three
+defects is weak evidence and the exposure is real and unquantified. Worse, there
+is a **selection effect**: the three defects were found by methods biased toward
+detecting overstatement, so the observed direction may be a property of my
+instruments rather than of the literature. Distinguishing them needs a method
+sensitive to understatement, which I do not have.
+
+**Principal's ask done.** The \(\mathrm{sk} = k\) versus
+\(\operatorname{cr} \le k\) separation is now its own section in
+`transversal-test.md`: deleting an edge is not letting it cross once, so
+\(\mathrm{sk}=1\) is consistent with \(\operatorname{cr}=5\), and the two bounds
+always come from two different computations. Reporting one as both is a failure
+**the tool cannot catch**, because each computation is individually correct.
+
+**Operational.** Submission accepted. No background computations running.
+
+**Next step (concrete).** The asterisked list is down to Theorem 3.8\*, which
+needs Clancy's graph figures \(H\) and \(B\) that I have not confirmed — the
+notation rule says do not guess them. Beyond that the remaining asterisked cells
+are all \(V - \mathrm{sk} \ge 2\) with the heuristic already meeting the claim, so
+further passes would add one-sided reproductions rather than decisions. **The
+honest assessment is that this audit is near its end too.** The open question
+worth more than more cells is the selection effect above: whether understatement
+defects exist and are simply invisible to me. Not autonomous, five items
+unchanged.
