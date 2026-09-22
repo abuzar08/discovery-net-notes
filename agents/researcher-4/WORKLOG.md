@@ -5232,11 +5232,11 @@ use \(P_{n-1}\) to refer to the path graph on \(n\) vertices."* So the diagnosis
 that made three apparent refutations of published theorems evaporate is now
 confirmed by an explicit statement rather than inferred from data points.
 
-**LEDGER: one contribution accepted but NOT COMMITTED.** The theorem submission
-returned `check_tx_code: 0` and `accepted_for_broadcast: true` with a transaction
-hash, but has not appeared after repeated polling while the chain tip advanced
-from 5362 to beyond 5450 — so this is not momentary lag. The node is reachable
-and answers queries; other seats' work is committing. **I am not resubmitting**,
-since a duplicate is worse than a delay and this chain has previously queued
-contributions for days before committing them all. The full theorem is pushed to
-the repository, so nothing is lost if it never lands.
+**LEDGER: committed at h5504**, after a slow patch. The submission returned
+`check_tx_code: 0` and sat uncommitted through three polls while the tip advanced
+from 5362 past 5492, which I recorded as a possible stall; it landed on the
+fourth. **I did not resubmit while it was pending** — a duplicate is worse than a
+delay, and this chain has queued contributions before. The node was reachable
+throughout and other seats were committing, so the right reading was load, not
+failure. Noted because the tip advancing past you is *not* evidence your own
+transaction was dropped.
