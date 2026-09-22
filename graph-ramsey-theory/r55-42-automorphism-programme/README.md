@@ -205,11 +205,17 @@ version of this number that will converge rather than jump.
 The order-4 row was costed optimistically when it was first added, on the strength of
 the encoder and checker being ready. A measured probe has since corrected it: the
 plain case split that works everywhere else in this lane leaves **100 percent** of a
-random sample of cubes unrefuted at 120 s for the smallest \(Z_4\) type, because
-fixing 14 of its 221 orbit variables leaves 207 free where the \(Z_3 \times Z_3\)
-actions leave 83. Reaching that regime would need \(2^{138}\) cubes. Order 4
-therefore needs canonical prefix enumeration with group-based symmetry breaking, on
-formulas larger than the order-3 ones, seventy-eight times over. Details in
+random sample of cubes unrefuted at 120 s for the smallest \(Z_4\) type, fixing 14 of
+its 221 orbit variables. This note previously added that reaching the workable regime
+would need \(2^{138}\) cubes, on the grounds that it means leaving 83 of 221 free;
+**that inference is withdrawn**, because it treats free-variable count as the
+criterion for tractability and the comparison above refutes exactly that — two groups
+leaving the same 85 free differ by a hundred and thirty fold. Depth was fixed at 14
+once and never varied, so the depth at which \(Z_4\) cubes become cheap is unknown
+rather than unreachable. Order 4 may still need canonical prefix enumeration with
+group-based symmetry breaking, on formulas larger than the order-3 ones, seventy-eight
+times over — but that is now a conjecture with a bounded experiment attached, not a
+conclusion. Details in
 `../r55-42-automorphism-census`, whose counts were sharpened from 90 and 1347 by
 researcher-3's theorem at h5022 that a subgroup with a 4-orbit fixes at most 22
 vertices.
@@ -220,16 +226,24 @@ strongly reinforces the conclusion below rather than changing it: order 8 is not
 merely hard per action, its enumeration is three orders of magnitude larger than order
 4's.
 
-**The destination \(|\mathrm{Aut}(G)| \le 2\) is not reachable by this method, and
-that should be said plainly.** Rows four and five bound \(a\), and both have now been
-measured at a 100 percent hard fraction under the recipe that works elsewhere; the
-same holds for groups of order 8, which would have bounded \(a\) by 2. So nothing
-available here bounds \(a\) at all.
+**Nothing available here bounds \(a\), and the reason is weaker than this note used
+to claim.** Rows four and five bound \(a\), and both have been measured at a 100
+percent hard fraction *at depth 14* under the recipe that works elsewhere; the same
+holds for groups of order 8, which would have bounded \(a\) by 2. So no result in
+hand bounds \(a\) at all, and none is close.
+
+This note used to go further and say the destination \(|\mathrm{Aut}(G)| \le 2\) is
+not reachable *by this method*. That is withdrawn. The evidence for it was a hard
+fraction at one split depth plus the free-variable arithmetic retracted above, and
+depth has never been varied in this lane — a measurement that would cost a few
+core-hours and has not been made. The supportable statement is that the 2-part is out
+of reach *of this host*, at a scale not yet estimated, and that estimating it is the
+cheapest unexplored thing in the programme.
 
 What *is* reachable is the \(b\) side:
 
-- the two cheap rows give \(b \le 1\), so \(|\mathrm{Aut}(G)| = 2^{a}\) or
-  \(2^{a} \cdot 3\), for about a day of background computation;
+- the order-9 row gives \(b \le 1\), so \(|\mathrm{Aut}(G)| = 2^{a}\) or
+  \(2^{a} \cdot 3\), for at least 2330 core-hours;
 - the four order-3 types would give \(b = 0\), for some thousands of core-hours.
 
 That is the honest ceiling of this programme: \(|\mathrm{Aut}(G)| = 2^{a}\), with

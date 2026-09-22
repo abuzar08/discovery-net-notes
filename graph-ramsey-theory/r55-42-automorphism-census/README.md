@@ -210,8 +210,8 @@ that recipe here, with the degree window and a split on 14 variables, and sampli
 **100 cubes at random from the \(2^{14}\)** rather than taking the front of the file:
 of the first 15 drawn, **15 timed out at 120 s -- a 100 percent hard fraction**.
 
-The reason is arithmetic, and it is worth stating because it bounds the whole
-approach:
+A first attempt to explain that was arithmetic, and it does **not** bound the
+approach, though this note said it did:
 
 | | orbit variables | fixed by a 14-split | left free |
 |---|---|---|---|
@@ -219,9 +219,32 @@ approach:
 | \(Z_3 \times Z_3\), \((0;2,0,0,0;4)\) | 99 | 14 | 85 |
 | \(Z_4\), \(1^{0} 2^{1} 4^{10}\) | 221 | 14 | **207** |
 
-Reaching the regime where plain splitting works would mean leaving about 83 free of
-221, that is fixing 138 variables, that is \(2^{138}\) cubes. Plain splitting cannot
-get there at any depth.
+The argument was: reaching the regime where plain splitting works means leaving about
+83 free of 221, that is fixing 138 variables, that is \(2^{138}\) cubes, so plain
+splitting cannot get there at any depth.
+
+**That inference is wrong, and this lane refuted its premise elsewhere.** It assumes
+tractability is a function of how many variables are left free. The programme note's
+own headline comparison says otherwise: \(Z_3 \times Z_3\) at \((0;2,0,0,0;4)\)
+and \(Z_9\) at \(3^{2} 9^{4}\) leave **the same 85 free variables** after the same
+14-split and differ by a factor of a hundred and thirty in median cost per cube. Free
+variables left is not the criterion, so 138 is not a derived number, and "cannot get
+there at any depth" does not follow from anything measured.
+
+What *is* measured stands: at depth 14, with the degree window, 15 of 15 random
+\(Z_4\) cubes survive 120 s. What was never measured is the depth at which they stop
+surviving — **depth was fixed at 14 once, for the order-3 types, and never varied
+anywhere in this lane**. On \(Z_9\), deepening by four variables turns a cube that
+survives 900 s into sixteen children that refute in tens of seconds, so depth buys far
+more than the free-variable count suggests.
+
+The honest statement is therefore about cost, not possibility: the order-4 row costs
+\(2^{d} \times 78\) cubes for whatever depth \(d\) makes a \(Z_4\) cube cheap,
+times the cost of one, and **\(d\) has never been measured**. It is a bounded
+experiment to measure it — a uniform random sign pattern on the \(d\) commonest
+orbit variables is a uniform random cube of the \(2^{d}\) split, so the curve is
+samplable at depths whose cube files could never be built. Until that is done, "out of
+reach of this host" is supportable and "out of reach of this method" is not.
 
 **And order 8 is no better, which kills the obvious escape.** Excluding every group
 of order 8 would bound the Sylow 2-subgroup by 4 and so bound \(a\) -- which nothing
