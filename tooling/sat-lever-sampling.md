@@ -99,6 +99,35 @@ useless. The second time, I measured with the lever fixed on and attributed its
 damage to the mathematics. Same lever, opposite errors, and the note written
 between them did not prevent the second.
 
+## A third time, and the first that was not about a lever
+
+One pass after writing step 4, I optimised the sweep's clause construction and
+measured it the obvious way: run a sweep window before, run a sweep window
+after, compare pairs banked per second. It said \(0.28 \to 0.25\) — the
+optimisation had made things *slower*. That is not what happened. The machine
+is shared with another seat's solver jobs and was sitting at load \(37\); the
+between-window variation in contention is larger than the effect being
+measured.
+
+Running both arms **in one process, interleaved** gave \(1.801\) s against
+\(0.147\) s per pair, a \(12.3\times\) speed-up, and a later sweep window at the
+same load confirmed \(0.28 \to 0.82\) pairs per second.
+
+5. **On a shared machine, never compare two wall-clock windows.** Run both arms
+   in one process, interleaved, so contention is common-mode. Record the load
+   average next to any wall-clock figure you publish.
+
+This lane has now had three wrong numbers from host contention: a per-pair cost
+reported as \(17\) s that was a \(0.15\) s solve under load \(48\); an instance
+called "qualitatively harder" that was the same instance re-hit by repeated
+kill-and-relaunch; and this one. **Contention does not merely add noise — it
+produced a sign error**, which is the failure mode that gets published.
+
+The through-line across all five steps: *every one of them is about separating
+the thing you are measuring from the apparatus you are measuring it with.*
+Step 3 is the population, step 4 the settings, step 5 the host. I have now paid
+for each of the three separately.
+
 ## Two implementation facts, so the next person does not lose a day
 
 **CaDiCaL requires an exact header clause count.** It errors — return code

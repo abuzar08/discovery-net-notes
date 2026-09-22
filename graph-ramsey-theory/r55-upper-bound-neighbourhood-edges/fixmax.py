@@ -213,7 +213,11 @@ def precompute(n, shape, a, b):
                 free.append(var[(u, v)])
         fr = tuple(sorted(set(free)))
         if not ffalse:
-            k5.append((am, bm, fr))
+            # Carry the negated clause too.  `fr` does not depend on the
+            # catalogue pair, so negating and re-sorting it inside `specialise`
+            # was redoing the same work for every one of the 19,117 pairs --
+            # 0.22 s of the 1.38 s that function costs at n = 42.
+            k5.append((am, bm, fr, tuple(sorted(-x for x in fr))))
         if not ftrue:
             i5.append((am, bm, fr))
     return nv, k5, i5, var
@@ -351,16 +355,25 @@ def _fixed_true(p, a, b, Abits, Bbits, Oe):
 
 
 def specialise(pre, Abits, Bbits, lex=False, fixed=None, n=None, degwin=False,
-               a=None, b=None, shape="C4"):
-    """Clause list for one catalogue pair, from the precomputed structure."""
+               a=None, b=None, shape="C4", sort=True):
+    """Clause list for one catalogue pair, from the precomputed structure.
+
+    `sort=False` returns the clauses in set-iteration order instead of sorted.
+    The solver does not care about clause order, and at n = 42 that one call to
+    `sorted` costs 0.93 s of the 1.38 s this function takes -- two thirds of it,
+    and a third of the whole per-pair budget.  Iteration order of a set of int
+    tuples is deterministic (hash randomisation touches str and bytes, not
+    ints), so a sweep stays reproducible; keep `sort=True` when the CNF itself
+    is the artifact and its hash has been recorded.
+    """
     nv, k5, i5, vmap = pre
     cls = set()
-    for am, bm, fr in k5:                    # forbid K_5: need a non-edge
+    for am, bm, fr, neg in k5:               # forbid K_5: need a non-edge
         if (am & ~Abits) or (bm & ~Bbits):
             continue                         # already has one
         if not fr:
             return None
-        cls.add(tuple(sorted(-x for x in fr)))
+        cls.add(neg)
     for am, bm, fr in i5:                    # forbid I_5: need an edge
         if (am & Abits) or (bm & Bbits):
             continue
@@ -378,7 +391,51 @@ def specialise(pre, Abits, Bbits, lex=False, fixed=None, n=None, degwin=False,
             return vmap.get((c, x)) or vmap.get((x, c))
         nv, extra = lex_break(nv, fixed, n, var_of)
         cls.update(extra)
-    return nv, sorted(cls)
+    return nv, sorted(cls) if sort else list(cls)
+
+
+def preformat(pre):
+    """Render every candidate clause to its DIMACS line, once per split.
+
+    The clause a surviving 5-subset contributes does not depend on the
+    catalogue pair -- only *whether* it survives does.  So the string can be
+    built once per (n, shape, a, b) and merely selected per pair, which turns
+    the per-pair cost from formatting 570,000 clauses (0.61 s) into joining
+    570,000 existing strings (0.20 s).
+
+    Costs about 100 MB on top of `precompute`'s 423 MB at n = 42.
+    """
+    _, k5, i5, _ = pre
+    ks = [" ".join(map(str, neg)) + " 0\n" for _, _, _, neg in k5]
+    i5s = [" ".join(map(str, fr)) + " 0\n" for _, _, fr in i5]
+    return ks, i5s
+
+
+def body_of(pre, fmt, Abits, Bbits):
+    """Fast path: the DIMACS body for one pair, with no lever clauses.
+
+    Returns (nv, count, body), or None if the pair is already infeasible.
+    Equivalent to `specialise(..., sort=False)` followed by formatting, and
+    checked against it in `cmd_fastpath`.  No dedup: the two clause families
+    are disjoint by construction and neither repeats a 5-subset, which
+    `cmd_fastpath` also verifies rather than assumes.
+    """
+    nv, k5, i5, _ = pre
+    ks, i5s = fmt
+    out = []
+    for i, (am, bm, fr, _) in enumerate(k5):
+        if (am & ~Abits) or (bm & ~Bbits):
+            continue
+        if not fr:
+            return None
+        out.append(ks[i])
+    for i, (am, bm, fr) in enumerate(i5):
+        if (am & Abits) or (bm & Bbits):
+            continue
+        if not fr:
+            return None
+        out.append(i5s[i])
+    return nv, len(out), "".join(out)
 
 
 def bits_of(g, m):
@@ -573,7 +630,8 @@ def sweep_fast(f, n, cap, warm=None, log=None):
                 if (a, ia, ib) != warm:
                     order.append((a, ia, ib))
 
-    pres, work = {}, os.path.join(SCRATCH, "fixmax", f"fast_f{f}_n{n}")
+    pres, fmts = {}, {}
+    work = os.path.join(SCRATCH, "fixmax", f"fast_f{f}_n{n}")
     os.makedirs(work, exist_ok=True)
     cnf = os.path.join(work, "x.cnf")
 
@@ -601,18 +659,30 @@ def sweep_fast(f, n, cap, warm=None, log=None):
         rc = done.get((a, ia, ib))
         if rc is None:
             if (a, b) not in pres:
+                # One split's structures are about half a gigabyte, and the
+                # order list walks splits contiguously, so holding all five at
+                # once wastes 2 GB for no reuse.  Keep the current split only.
+                if len(pres) >= 2:
+                    for key in list(pres):
+                        if key != (a, b):
+                            del pres[key]
+                            fmts.pop(key, None)
                 pres[(a, b)] = precompute(n, "C4", a, b)
+                fmts[(a, b)] = preformat(pres[(a, b)])
             A = X.load35(a)[ia]
             B = X.complement(b, X.load35(b)[ib])
-            r = specialise(pres[(a, b)], bits_of(A, a), bits_of(B, b))
+            # Fast path: select preformatted clause lines rather than building
+            # and formatting tuples.  Checked against `specialise` clause for
+            # clause by `python3 fixmax.py fastpath`.
+            r = body_of(pres[(a, b)], fmts[(a, b)], bits_of(A, a),
+                        bits_of(B, b))
             if r is None:
                 rc = 20                    # already contains a K_5 or I_5
             else:
-                nv, cls = r
+                nv, ncls, body = r
                 with open(cnf, "w") as fh:
-                    fh.write(f"p cnf {nv} {len(cls)}\n")
-                    for c in cls:
-                        fh.write(" ".join(map(str, c)) + " 0\n")
+                    fh.write(f"p cnf {nv} {ncls}\n")
+                    fh.write(body)
                 rc = subprocess.run(["timeout", str(cap), CAD, "-q", cnf],
                                     capture_output=True, text=True).returncode
             if rc in (10, 20):             # only record settled verdicts
@@ -637,7 +707,8 @@ def sweep_fast(f, n, cap, warm=None, log=None):
                 r2 = specialise(pres[(a, b)], bits_of(X.load35(a)[ia], a),
                                 bits_of(X.complement(b, X.load35(b)[ib]), b),
                                 lex=True, fixed=a + b + 4, n=n,
-                                degwin=True, a=a, b=b, shape="C4")
+                                degwin=True, a=a, b=b, shape="C4",
+                                sort=False)
                 if r2 is not None:
                     nv, cls = r2
                     with open(cnf, "w") as fh:
@@ -875,8 +946,52 @@ def extension_control(cap=300):
     return ok
 
 
+def cmd_fastpath(args):
+    """Control for the `body_of` fast path: it must agree with `specialise`.
+
+    The fast path skips the dedup that `specialise` does through a set, on the
+    grounds that the K_5 and I_5 families are disjoint and no 5-subset repeats.
+    That is an ASSUMPTION about the encoding, so this checks it rather than
+    asserting it -- a dropped dedup that silently lost clauses would weaken
+    every refutation in the sweep, which is the unsafe direction.
+    """
+    n = 42
+    print("FAST-PATH CONTROL: body_of must equal specialise, clause for clause")
+    print(f"  n = {n}, shape C_4\n")
+    ok = True
+    for a, b in ((13, 9), (12, 10), (11, 11)):
+        pre = precompute(n, "C4", a, b)
+        fmt = preformat(pre)
+        As, Bs = X.load35(a), X.load35(b)
+        for ia in range(min(2, len(As))):
+            for ib in range(min(2, len(Bs))):
+                Ab = bits_of(As[ia], a)
+                Bb = bits_of(X.complement(b, Bs[ib]), b)
+                slow = specialise(pre, Ab, Bb, sort=False)
+                fast = body_of(pre, fmt, Ab, Bb)
+                if slow is None or fast is None:
+                    good = (slow is None) == (fast is None)
+                    print(f"   ({a},{b}) ({ia},{ib})  both infeasible: {good}")
+                    ok &= good
+                    continue
+                nv1, cls = slow
+                nv2, cnt, body = fast
+                want = sorted(cls)
+                got = sorted(tuple(int(x) for x in line.split()[:-1])
+                             for line in body.splitlines())
+                dup = cnt != len(set(got))
+                good = (nv1 == nv2) and want == got and not dup
+                ok &= good
+                print(f"   ({a},{b}) ({ia},{ib})  {cnt} clauses  "
+                      f"equal: {want == got}  no duplicates: {not dup}")
+    print("\n  " + ("FAST PATH AGREES" if ok else "*** MISMATCH ***"))
+    return 0 if ok else 1
+
+
 def main():
     args = sys.argv[1:]
+    if "fastpath" in args:
+        return cmd_fastpath(args)
     if "cascade" in args:
         extension_control()
         return cmd_cascade(args)

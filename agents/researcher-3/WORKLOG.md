@@ -5599,3 +5599,65 @@ windows, cut the \(57\%\): `specialise` walks all \(850\,668\) five-subsets per
 pair and the CNF is rewritten to disk each time — piping to the solver and
 hoisting the subset walk should roughly halve the sweep. No background
 computations left running.
+
+## Pass 72 — 2026-09-22
+
+**The principal is steering on claims I retracted.** Its 13:02 message adopts
+the \(\lvert X\rvert\) law as "the finding, not the decline", records \(f=22\)
+as declined and promises not to raise it again, and tells me a useful new lever
+"has to act on \(X\)" because this lane's levers act on \(A \cup B\). All three
+are from h5560, which I withdrew at h5580 — and the third is backwards: both
+levers already act on \(X\). My 13:16 report led with the withdrawal, so the
+channel has it; I verified the retraction is also reachable from the graph, one
+incoming `contradicts` on h5560, which is how researcher-1 would meet it.
+
+**Cut the construction cost by \(12.3\times\).** Profiling first, which was worth
+doing because I would have guessed wrong: of `specialise`'s \(1.38\) s at
+\(n=42\), **\(0.93\) s was the final `sorted(cls)`** — two thirds, for an order
+the solver ignores. Three changes:
+
+- pre-negate the \(K_5\) clause tuples in `precompute` (they are pair-independent);
+- `sort=False` for sweeps, since set iteration order over int tuples is
+  deterministic — \(5.25\times\) on `specialise` alone;
+- `preformat`/`body_of`: render every candidate clause to its DIMACS line once
+  per split and merely *select* per pair, turning per-pair formatting of
+  \(570\,000\) clauses into a join. Costs \(100\) MB on top of `precompute`'s
+  \(423\) MB.
+
+Whole construction path, controlled: \(1.801 \to 0.147\) s per pair. Real sweep,
+same load: \(0.28 \to 0.82\) pairs/s. Projection for \(f=22\) drops from
+\(14.8\) to **\(\approx 6.5\) core-hours**, construction now \(11\%\) of the
+budget rather than \(57\%\). Also added split-cache eviction — all five splits
+were held at once, \(2.6\) GB for no reuse.
+
+**Controls, because a fast path that drops clauses weakens every refutation.**
+`python3 fixmax.py fastpath` checks `body_of` against `specialise` clause for
+clause on ten pairs across three splits, and checks the no-duplicate assumption
+the dedup removal rests on rather than asserting it. Positive control: \(f=24\)
+at \(n=34\) is known feasible and still comes back **SAT** — the only check that
+catches a fast path which silently lost solutions, since a formula that has
+lost its solutions still refutes.
+
+**Measured negative, recorded so nobody rebuilds it.** The disk write is
+\(0.01\) s per pair, not the \(0.48\) s I attributed to it — that figure was
+clause *formatting*. Piping the CNF to `cadical /dev/stdin`, which I had named
+as the next optimisation and verified works, **buys nothing**.
+
+**A sign error from host contention, the third in this lane.** Two sweep windows
+said the optimisation made things *slower* (\(0.28 \to 0.25\) pairs/s). The box
+is shared with researcher-1's solvers at load \(37\), and between-window
+contention swamps the effect. One interleaved in-process A/B showed
+\(12.3\times\). Added as step 5 of the tooling rule: **never compare two
+wall-clock windows on a shared machine; run both arms in one process and record
+the load average beside any wall-clock figure.** Steps 3, 4, 5 are now the
+population, the settings and the host — the three ways the apparatus gets into
+the measurement, each paid for separately.
+
+**\(f=22\) sweep state.** Running and journalled, **161 of 19117 banked, all
+UNSAT**, no witness. Resumable per pair.
+
+**Blocked.** The three leftovers at \(f=23\), \(n=36\) unchanged.
+
+**Next.** Keep driving the sweep — at \(0.82\) pairs/s it is about \(6.5\)
+core-hours, and the remaining per-pair budget is now \(89\%\) solver, so further
+engineering has little left to give. No background computations left running.
