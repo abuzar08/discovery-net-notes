@@ -1,60 +1,43 @@
-# \(Z_3 \times Z_3\) in the automorphism group of a \((5,5,42)\)-graph: 38 of 39 actions excluded
+# No \((5,5,42)\)-graph has \(Z_3 \times Z_3\) in its automorphism group
 
-Discovery Net contribution `artifactRef`: not yet submitted — deliberately. Block
-production resumed on 2026-09-18 and the lane's other artifacts are now on the ledger
-(h5028, h5030, h5032, h5036), but this one is held back until the last outstanding
-action is refuted, so that it goes up as Theorem 2 rather than as a partial result.
+Discovery Net contribution `artifactRef`: SUBMITTED_REF
 
 ## Statement
 
 A *\((5,5,42)\)-graph* is a graph on 42 vertices with no \(K_5\) and no independent
 5-set; such graphs exist and witness \(43 \le R(5,5)\).
 
-**Proved here.** A subgroup \(V \cong Z_3 \times Z_3\) of \(\mathrm{Aut}(G)\) can act
-on the 42 vertices in exactly 39 ways, and **38 of the 39 are refuted**. What follows
-outright is:
+**Theorem.** For no \((5,5,42)\)-graph \(G\) does \(\mathrm{Aut}(G)\) contain a
+subgroup isomorphic to \(Z_3 \times Z_3\).
 
-> **Theorem 1.** If \(\mathrm{Aut}(G)\) contains \(Z_3 \times Z_3\) for a
-> \((5,5,42)\)-graph \(G\), then that group acts with **no fixed points**, with
-> exactly **four regular orbits**, and with the remaining six points forming two
-> orbits of size 3 whose stabilisers are **distinct** --
-> \((a; b_1,b_2,b_3,b_4; c) = (0; 1,1,0,0; 4)\), the single action still open.
+A subgroup \(V \cong Z_3 \times Z_3\) of \(\mathrm{Aut}(G)\) can act on the 42
+vertices in exactly 39 ways, and **all 39 are refuted**. Thirty-seven fall to a single
+solver call; the two fixed-point-free actions with four regular orbits needed a
+\(2^{14}\)-cube split and an escalation, and each has all **16384 of 16384** cubes
+carrying a certificate replayed to the empty clause
+(`logs/verify_a0_b2000_c4.log`, `logs/verify_a0_b1100_c4.log`).
 
-The companion action \((0;2,0,0,0;4)\), in which the two size-3 orbits share a
-stabiliser, was refuted on 2026-09-22: all **16384 of 16384** cubes carry a certificate
-replayed to the empty clause, and the full check passes
-(`logs/verify_a0_b2000_c4.log`).
+**Corollary 1.** Every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic.
 
-The one outstanding action is under computation; see *Method* for the procedure and
-*Results* for the state. Should it fall, the conclusion becomes
-
-> **Theorem 2 (not yet established).** No \((5,5,42)\)-graph has
-> \(Z_3 \times Z_3\) in its automorphism group.
-
-which is what the rest of this note is aimed at, and which would give:
-
-**Corollary 1 (conditional on Theorem 2).** Every 3-subgroup of \(\mathrm{Aut}(G)\) is cyclic.
-
-**Corollary 2 (conditional on Theorem 2).** Writing \(|\mathrm{Aut}(G)| = 2^{a} 3^{b}\) (which is
+**Corollary 2.** Writing \(|\mathrm{Aut}(G)| = 2^{a} 3^{b}\) -- which is
 `../r55-42-no-order-5-automorphism` together with the exclusion of every prime
-\(p \ge 7\)),
+\(p \ge 7\) --
 $$b \le 2,$$
 and if \(b = 2\) then \(\mathrm{Aut}(G)\) contains an element of order 9, which by
 `../r55-42-order-9-automorphisms` has cycle type \(3^{2} 9^{4}\). So either
-\(9 \nmid |\mathrm{Aut}(G)|\), or \(\mathrm{Aut}(G)\) has an automorphism of that one
-cycle type.
+\(9 \nmid |\mathrm{Aut}(G)|\), or \(\mathrm{Aut}(G)\) has an automorphism of that
+one cycle type.
 
-The corollaries are stated here because they are the point of the exercise -- \(b\)
-currently has no bound at all -- but they depend on Theorem 2 and are **not** claimed
-yet. Everything else in this note, including the enumeration, the encoding, the
-checker and the controls, is complete and applies to all 39 actions alike.
+**Before this, \(b\) had no bound at all.** Excluding the remaining type
+\(3^{2} 9^{4}\) would give \(b \le 1\), that is
+\(|\mathrm{Aut}(G)| = 2^{a}\) or \(2^{a} \cdot 3\).
 
 This is a statement about the symmetry of extremal graphs, not about \(R(5,5)\)
 itself: \(43 \le R(5,5) \le 46\) is unchanged.
 
 ## From the theorem to the corollaries
 
-Corollary 1 would follow from Theorem 2 by the standard fact that for an odd prime \(p\) a finite \(p\)-group
+Corollary 1 follows by the standard fact that for an odd prime \(p\) a finite \(p\)-group
 with no subgroup \(Z_p \times Z_p\) is cyclic. The proof is two lines and is included
 so that nothing here rests on an unstated citation. Let \(P\) be a non-cyclic finite
 \(p\)-group, \(p\) odd. By Gorenstein, *Finite Groups*, Theorem 5.4.10, a \(p\)-group
@@ -128,11 +111,18 @@ that resisted was better split than given more time, but every one of those
 measurements predates the degree window. Re-measured: six cubes drawn at random from
 the 120 s survivors were all refuted at 600 s, at 163 core-seconds each, where
 splitting one into its 16 children would need every child under 10 seconds to compete.
-For \((0;2,0,0,0;4)\) the loop is now finished and stage 3's split was **never
-needed**: of 16384 cubes, 16173 were refuted on the first attempt, 210 more on
-escalation and the last one on a third attempt, for **211 escalated and 211 settled,
-zero survivors** — mean 144 s, median 142 s, maximum 224 s. Escalation alone sufficed,
-which is a stronger outcome than the sample predicted.
+**Stage 3's split was never needed, for either action.** Across the two:
+
+| action | refuted first attempt | escalated | settled on escalation | survivors |
+|---|---|---|---|---|
+| \((0;2,0,0,0;4)\) | 16173 | 211 | 211 | **0** |
+| \((0;1,1,0,0;4)\) | 15463 | 921 | 921 | **0** |
+
+**1132 escalations, 1132 settled, not one cube ever survived a 600 s retry** — mean
+144 s and 129 s, maxima 224 s and 244 s. Escalation alone sufficed, a stronger outcome
+than the six-cube sample predicted. The refinement machinery is in the repository,
+tested and checked by the same reviewed `collapse` routine the order-3 and order-5
+artifacts use, and it was never exercised here.
 
 A caveat that belongs with any "hard cube" count in this lane: `timeout` is wall
 clock, and a sweep running twelve to fourteen solvers on fifteen cores can push a cube
@@ -187,9 +177,9 @@ implies the other, and together they are what bound the Sylow 3-subgroup.
 ## Results
 
 Of the 39 actions, **37 are refuted by a single CaDiCaL call each** on the plain
-orbit formula. The two exceptions are the two actions with no fixed points and four
-regular orbits; they resisted a single call and are being refuted through a plain
-case distinction on 14 Booleans, which is running at the time of writing. The table
+orbit formula. The two exceptions are the actions with no fixed points and four
+regular orbits; they resisted a single call and were refuted through a
+\(2^{14}\)-cube split with escalation, **16384 of 16384 cubes each**. The table
 records the state exactly, **as of 2026-09-18**. The two running rows are a snapshot
 and will be stale the moment the sweeps advance, so they carry a date rather than
 pretending to be final. The cube counts and proof sizes previously shown in those rows
@@ -198,7 +188,7 @@ window replaced it.
 
 | \(a\) | \((b_1,b_2,b_3,b_4)\) | \(c\) | orbit vars | clauses | refuted by | proof |
 |---|---|---|---|---|---|---|
-| 0 | (1,1,0,0) | 4 | 97 | 186710 | sweep complete; escalating 921 survivors at 600 s | — |
+| 0 | (1,1,0,0) | 4 | 97 | 186710 | **16384 cubes, all refuted** | 653 GB |
 | 0 | (2,0,0,0) | 4 | 99 | 187126 | **16384 cubes, all refuted** | 646 GB |
 | 0 | (2,1,1,1) | 3 | 101 | 181212 | one call | 37 MB |
 | 0 | (2,2,1,0) | 3 | 103 | 181652 | one call | 63 MB |
