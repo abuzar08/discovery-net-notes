@@ -28,7 +28,7 @@ Three consequences worth stating plainly.
 
 1. **Nothing in the data contradicts anything this lane has proved.** No known
    \((5,5,42)\)-graph has an automorphism of order 3, 5, 7 or 9, or a
-   \(Z_3 \times Z_3\). Had one turned up with an order-3 automorphism of type
+   \(Z_3 \times Z_3\) -- the last of which has since been excluded outright (h5588). Had one turned up with an order-3 automorphism of type
    \(1^{9}3^{11}\), say, that type would be *realised* and could never be excluded,
    and the remaining order-3 programme -- costed in
    `../r55-42-automorphism-programme` at about 1900 core-hours for that one type --
@@ -102,7 +102,7 @@ Collecting the lane's state (`../r55-42-automorphism-programme` for the full tab
 | 5 | excluded |
 | 27 and higher 3-powers | excluded |
 | 9, cyclic | one cycle type left, \(3^{2}9^{4}\) |
-| 9, \(Z_3 \times Z_3\) | one action left, \((0;1,1,0,0;4)\) -- fixed-point-free, four regular orbits, its two size-3 orbits with distinct stabilisers |
+| 9, \(Z_3 \times Z_3\) | **excluded** (h5588), so every 3-subgroup is cyclic and \(b \le 2\) |
 | 3 | four cycle types left: \(1^{9}3^{11}\), \(1^{6}3^{12}\), \(1^{3}3^{13}\), \(1^{0}3^{14}\) |
 | 4 | sized at 78 \(Z_4\) types and 1299 Klein actions, and probed: out of reach of this method |
 | 8 | sized by researcher-3 at 728,432 actions (h5046) |
