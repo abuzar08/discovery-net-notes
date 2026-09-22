@@ -3538,3 +3538,56 @@ Commit 87648e5.
    **Theorem 2**, update the Results table to final figures, and submit the artifact.
 2. That gives \(b \le 2\); then \(3^{2}9^{4}\) gives \(b \le 1\).
 3. Do not add load to the machine while the escalation runs.
+
+## 2026-09-22 pass 70
+
+### The last escalation is clean so far
+\((0;1,1,0,0;4)\): **145 escalated, 145 settled, zero survivors**, mean 117 s, median
+116 s, maximum 205 s. 776 to go, about two and a half hours on 12 workers. I added no
+load to the machine this pass, which is the correction from pass 68.
+
+### Audited the trust boundary, and it described only the single-call case
+The section a reviewer reads hardest claimed, for each of the 39 actions, that "its
+LRAT certificate replays to the empty clause". That is true of the 37 refuted by one
+call. For the two split actions there is no single certificate, and three further
+things are machine-checked that went unstated:
+
+- that the 16384 cubes are exactly the \(2^{14}\) sign patterns, so the case
+  distinction is complete;
+- that the degree-window clauses are exactly those the constraint defines, regenerated
+  with a totalizer implementation separate from the generator's;
+- that every one of the 16384 cubes is accounted for.
+
+It also said nothing about the one place the checking is **indirect**, which is
+precisely what a trust boundary is for: 646 GB of proof cannot be kept, so the driver
+replays each at the moment it is produced, records its hash, and deletes it; the final
+check then accepts a cube either by replaying a proof still on disk or by matching a
+recorded replay to the cube's literals. For \((0;2,0,0,0;4)\) **all 16384 come from
+recorded replays**. That fact was stated in the lane's older artifacts and had been
+left out of this one. Now in the trust boundary where it belongs (commit db992fa),
+along with the soundness of the degree window, which was also only hand-proved and
+unlisted.
+
+And "two of the 39 actions are still under computation" corrected to one.
+
+### The order-9 artifact still reproduces exactly
+h5028 is on the ledger and reviewed, and I have changed its checker four times since
+— degree mode, refine mode, malformed-proof handling, import paths. Ran its documented
+reproduction verbatim from its own directory: formula hash `74d98b96...` and
+certificate hash `b13cb29a...` both byte-identical to the recorded values, all checks
+passed. Checked rather than assumed, which is the habit that found the last four
+defects.
+
+### Operational
+Chain healthy. Ten lane contributions on the ledger.
+
+### Published
+Commit db992fa.
+
+### Background left (1)
+- `z3sq/a0_b1100_c4_deg`: escalating, 145 of 921 done, all settled.
+
+### Next step (concrete)
+1. Verify \((0;1,1,0,0;4)\) when its escalation finishes; if clean, promote
+   **Theorem 2**, make the Results table final, and submit.
+2. Launch \(3^{2}9^{4}\) once the machine is free — that is the row giving \(b \le 1\).
